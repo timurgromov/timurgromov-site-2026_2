@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="404 | timurgromov.ru">
+  <main class="shell">
+    <section class="panel">
+      <p class="eyebrow">404</p>
+      <h1>Страница не найдена</h1>
+      <p>Эта страница пока не восстановлена в новом статическом проекте.</p>
+      <p><a href={`${import.meta.env.BASE_URL}`}>Вернуться на главную</a></p>
+    </section>
+  </main>
+</BaseLayout>
