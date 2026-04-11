@@ -1,0 +1,21 @@
+ErrorDocument 403 /page62806123.html
+ErrorDocument 404 /page62806123.html
+
+DirectoryIndex page62008353.html
+
+RewriteEngine On
+
+RewriteCond %{HTTP:X-Forwarded-Proto} =http
+RewriteRule ^(.*)$ https://timurgromov\.ru/$1 [R=301,L]
+
+RewriteCond %{HTTP:X-Forwarded-Proto} =https
+RewriteCond %{HTTP_HOST} ^www\.timurgromov.ru [NC]
+RewriteRule ^(.*)$ https://timurgromov\.ru/$1 [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} /robots.txt
+RewriteCond "%{DOCUMENT_ROOT}/robots_%{HTTP_HOST}.txt" -f
+RewriteRule ^(.*)$ robots_%{HTTP_HOST}.txt [NC,L]
+RewriteRule ^notfound$ page62806123.html [NC]
+RewriteRule ^notfound/$ page62806123.html [NC]
+
+

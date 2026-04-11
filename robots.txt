@@ -1,0 +1,19 @@
+User-Agent: *
+Disallow: /page62788931.html
+Disallow: /page62798097.html
+Disallow: /page62806123.html
+Disallow: /notfound
+Disallow: /tilda/form*
+Disallow: /tilda/rec*
+Disallow: /tilda/click*
+Disallow: /tilda/scroll*
+Disallow: /tilda/popup*
+Disallow: /tilda/cart*
+Disallow: /tilda/product*
+Disallow: /tilda/event*
+Disallow: /*_escaped_fragment_*
+Disallow:
+
+
+Sitemap: https://timurgromov.ru/sitemap.xml
+Host: https://timurgromov.ru
