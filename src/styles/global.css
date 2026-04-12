@@ -259,6 +259,101 @@ select {
   }
 }
 
+/* PATCH BEGIN: about-section */
+.about {
+  --about-fg: #1c1b1a;
+  --about-surface: #fffefa;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--about-surface);
+  color: var(--about-fg);
+}
+
+.about::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--about-bg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+.about__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding: 72px var(--side-pad) 88px;
+  gap: 48px 64px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  align-items: start;
+}
+
+.about__visual {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.about__line {
+  width: min(100%, 560px);
+  height: auto;
+}
+
+.about__photos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  max-width: 420px;
+}
+
+.about__photo {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.about__title {
+  margin: 0 0 36px;
+  max-width: 560px;
+  color: var(--about-fg);
+  font-size: clamp(22px, 2.4vw, 32px);
+  font-weight: 500;
+  line-height: 1.12;
+}
+
+.about__title-line {
+  display: block;
+}
+
+.about__list {
+  display: grid;
+  gap: 28px;
+  margin: 0;
+}
+
+.about__term {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: clamp(18px, 1.6vw, 24px);
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.about__desc {
+  margin: 0;
+  max-width: 560px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+/* PATCH END: about-section */
+
 @media (max-width: 1199px) {
   :root {
     --side-pad: 20px;
@@ -279,6 +374,19 @@ select {
   .hero__inner {
     padding-bottom: 16px;
   }
+
+  /* PATCH BEGIN: about-section */
+  .about__inner {
+    grid-template-columns: 1fr;
+    padding-top: 56px;
+    padding-bottom: 72px;
+    gap: 40px;
+  }
+
+  .about__photos {
+    max-width: 360px;
+  }
+  /* PATCH END: about-section */
 
   .hero__copy {
     margin-bottom: 54px;
@@ -317,6 +425,27 @@ select {
     padding-top: 70px;
     padding-bottom: 15px;
   }
+
+  /* PATCH BEGIN: about-section */
+  .about__inner {
+    padding-top: 40px;
+    padding-bottom: 56px;
+    gap: 28px;
+  }
+
+  .about__title {
+    margin-bottom: 24px;
+  }
+
+  .about__photos {
+    max-width: 100%;
+    gap: 12px;
+  }
+
+  .about__list {
+    gap: 22px;
+  }
+  /* PATCH END: about-section */
 
   .hero__copy {
     margin-bottom: 38px;

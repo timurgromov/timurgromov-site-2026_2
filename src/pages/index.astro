@@ -1,8 +1,36 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const base = import.meta.env.BASE_URL;
+// PATCH BEGIN: asset-base-url
+const basePath = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const asset = (path: string) => `${basePath}${path.replace(/^\//, "")}`;
+// PATCH END: asset-base-url
+
 const heroValues = ["Импровизация", "Душевно", "Интеллигентно"];
+
+// Тексты и порядок — из export page62008353.html, блок rec861444942
+const aboutPrinciples: { title: string; body: string }[] = [
+  {
+    title: "Персональный подход",
+    body: "Разработаю сценарий с учетом ваших пожеланий, особенностей вашей пары и индивидуальности гостей. Создам сценарий, отражающий вашу историю.",
+  },
+  {
+    title: "Помощь в организации",
+    body: "Я всегда на связи во время подготовки. Тайминг вечера, контроль подачи блюд, выход артистов, техническое оснащение и даже расстановка мебелина площадке — все под контролем.",
+  },
+  {
+    title: "Творческая поддержка",
+    body: "Напишу уникальные тексты для объявлений гостей, клятв или приветственных речей. Помогу близким придумать оригинальные тосты и поддержу любые творческие сюрпризы от друзей.",
+  },
+  {
+    title: "Для разной аудитории",
+    body: "Помогаю людям разного возраста, национальности и статуса найти общее, будь то свадебный ужинна 20 человек или масштабная интернациональная свадьба.",
+  },
+  {
+    title: "Современный стиль",
+    body: "Легкость, искренность и добрый юмор. Атмосфера где каждый чувствует себя важным, комфортно и в безопасности. Гости свободно выражают себя без давления и пошлости.",
+  },
+];
 ---
 
 <BaseLayout
@@ -14,9 +42,9 @@ const heroValues = ["Импровизация", "Душевно", "Интелл�
 
     <header class="site-header">
       <div class="site-header__inner">
-        <a class="site-header__brand" href={base} aria-label="Тимур Громов">
+        <a class="site-header__brand" href={basePath} aria-label="Тимур Громов">
           <img
-            src={`${base}images/tild3334-6465-4239-a161-373935653132__vector.svg`}
+            src={asset("images/tild3334-6465-4239-a161-373935653132__vector.svg")}
             alt="Тимур Громов"
             width="148"
             height="34"
@@ -29,7 +57,7 @@ const heroValues = ["Импровизация", "Душевно", "Интелл�
           aria-label="Открыть меню"
         >
           <img
-            src={`${base}images/tild3962-3061-4364-a664-336331353964__group_42.svg`}
+            src={asset("images/tild3962-3061-4364-a664-336331353964__group_42.svg")}
             alt=""
             width="59"
             height="13"
@@ -62,14 +90,14 @@ const heroValues = ["Импровизация", "Душевно", "Интелл�
               <span class="hero__showreel-badge" aria-hidden="true">
                 <img
                   class="hero__showreel-ring"
-                  src={`${base}images/tild3831-3966-4631-a465-646563303635__linked_path_group.svg`}
+                  src={asset("images/tild3831-3966-4631-a465-646563303635__linked_path_group.svg")}
                   alt=""
                   width="102"
                   height="102"
                 />
                 <img
                   class="hero__showreel-play"
-                  src={`${base}images/tild3764-3938-4565-b266-393132653130__solar_play-bold.svg`}
+                  src={asset("images/tild3764-3938-4565-b266-393132653130__solar_play-bold.svg")}
                   alt=""
                   width="28"
                   height="28"
@@ -98,7 +126,7 @@ const heroValues = ["Импровизация", "Душевно", "Интелл�
                   <span class="hero__cta-text">обсудить мою свадьбу</span>
                   <span class="hero__cta-icon" aria-hidden="true">
                     <img
-                      src={`${base}images/tild3536-3939-4363-b163-323761323432__vector_8.svg`}
+                      src={asset("images/tild3536-3939-4363-b163-323761323432__vector_8.svg")}
                       alt=""
                       width="16"
                       height="16"
@@ -107,6 +135,67 @@ const heroValues = ["Импровизация", "Душевно", "Интелл�
                 </a>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="about"
+        id="about"
+        aria-labelledby="about-title"
+        style={`--about-bg: url('${asset("images/tild3561-3933-4633-a466-646363323162___b97nbmwc2mw_1.jpg")}')`}
+      >
+        <div class="about__inner">
+          <div class="about__visual" aria-hidden="true">
+            <img
+              class="about__line"
+              src={asset("images/tild3166-6366-4135-a431-326463303262__line-1.svg")}
+              alt=""
+              width="560"
+              height="20"
+            />
+            <div class="about__photos">
+              <img
+                class="about__photo"
+                src={asset(
+                  "images/tild3039-3231-4662-b631-316438323761______267_3.png",
+                )}
+                alt=""
+                width="795"
+                height="795"
+                loading="lazy"
+                decoding="async"
+              />
+              <img
+                class="about__photo"
+                src={asset(
+                  "images/tild6438-3336-4438-a630-333062323534______all-654_1.png",
+                )}
+                alt=""
+                width="795"
+                height="795"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+
+          <div class="about__content">
+            <h2 class="about__title" id="about-title">
+              <span class="about__title-line">Ключевые принципы моей работы</span>
+              <span class="about__title-line">
+                для вашего комфорта и душевной атмосферы
+              </span>
+            </h2>
+
+            <dl class="about__list">
+              {aboutPrinciples.map((item) => (
+                <>
+                  <dt class="about__term">{item.title}</dt>
+                  <dd class="about__desc">{item.body}</dd>
+                </>
+              ))}
+            </dl>
           </div>
         </div>
       </section>
