@@ -1,6 +1,8 @@
 # Стартовый промпт для нового чата
 
-Вставь в начало диалога как есть (затем по очереди дай агенту содержимое `project-spec.md`, `rebuild-workflow.md`, `source-of-truth.md`).
+Вставь в начало диалога как есть (затем по очереди дай агенту содержимое `project-spec.md`, `rebuild-workflow.md`, `source-of-truth.md`; для push и GitHub Pages — ещё `github-pages-deploy.md`).
+
+**Если репозиторий уже существует** (есть `astro.config.mjs`, `src/`, `docs/project-spec.md`): шаги «создать Astro / git / deploy» **пропустить**, сразу читать `docs/project-spec.md` §7 *Current Phase* и продолжать перенос секций.
 
 ---
 

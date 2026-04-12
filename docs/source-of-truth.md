@@ -23,6 +23,7 @@
 6. документация проекта:
    - `docs/project-spec.md`
    - `docs/rebuild-workflow.md`
+   - `docs/github-pages-deploy.md`
    - `docs/section-map.md`
 
 ## 3. Interpretation Rule
@@ -79,8 +80,9 @@
 1. `docs/project-spec.md`
 2. `docs/rebuild-workflow.md`
 3. `docs/source-of-truth.md`
-4. `docs/section-map.md`
-5. export-файлы
+4. `docs/github-pages-deploy.md` (если задача про push, Pages или «сайт не обновился»)
+5. `docs/section-map.md`
+6. export-файлы
 
 Только после этого можно вносить изменения.
 

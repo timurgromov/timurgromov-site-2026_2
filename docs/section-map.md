@@ -1,6 +1,6 @@
 # Section map
 
-Карта порядка секций (синхронизировать с `docs/project-spec.md`). Поле Tilda `rec…` дополнять по мере разбора export.
+Карта порядка секций (синхронизировать с `docs/project-spec.md`). Поле Tilda `rec…` дополнять по мере разбора export. Обновление репозитория и GitHub Pages: `docs/github-pages-deploy.md`.
 
 | # | Секция | Astro / файлы | Export (подсказка) |
 |---|--------|---------------|-------------------|

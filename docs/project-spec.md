@@ -60,5 +60,5 @@
 2. сверять с живым сайтом;
 3. запускать `build`;
 4. commit;
-5. push;
-6. проверять GitHub Pages.
+5. push исходников в `main`;
+6. выложить билд в ветку `gh-pages` и проверить GitHub Pages (подробно: `docs/github-pages-deploy.md`).
