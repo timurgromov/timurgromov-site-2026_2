@@ -32,9 +32,60 @@
 4. На GitHub открыть вкладку **Actions** — дождаться зелёного прогона **Deploy to gh-pages**.
 5. Через 1–3 минуты проверить live URL (при необходимости жёсткое обновление / инкогнито).
 
-## 3. Первое появление workflow в репозитории
+## 3. Один раз: положить workflow в репозиторий
 
-Файл **`.github/workflows/deploy-gh-pages.yml`** GitHub иногда принимает только при пуше с токеном, у которого есть scope **`workflow`** (или файл можно один раз **создать/вставить через веб-интерфейс** репозитория). После того как workflow уже в `main`, обычного **`repo`** для дальнейших пушей кода достаточно.
+Автодеплой работает только если в **`main`** есть **`.github/workflows/deploy-gh-pages.yml`**.
+
+GitHub **отклоняет** push этого файла с PAT **без** scope **`workflow`** (ошибка: *refusing … workflow … without `workflow` scope*).
+
+**Вариант A — PAT:** выпусти токен с **`workflow`** + **`repo`**, обнови креды, затем закоммить файл и `git push origin main`.
+
+**Вариант B — веб (без смены PAT):** репозиторий → **Add file** → **Create new file** → путь `.github/workflows/deploy-gh-pages.yml` → вставь YAML ниже → **Commit to main**.
+
+После появления файла в `main` обычных пушей кода достаточно с PAT только **`repo`**. Во вкладке **Actions** появится **Deploy to gh-pages**.
+
+### Содержимое `deploy-gh-pages.yml`
+
+```yaml
+# Сборка Astro и выкладка в ветку gh-pages при каждом push в main.
+
+name: Deploy to gh-pages
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-gh-pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: ASTRO_TELEMETRY_DISABLED=1 npm run build
+
+      - name: Push dist to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+```
 
 ## 4. Аутентификация git (только `main`)
 
