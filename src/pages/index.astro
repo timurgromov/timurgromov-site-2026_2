@@ -1,23 +1,115 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+const heroValues = ["Импровизация", "Душевно", "Интеллигентно"];
 ---
 
 <BaseLayout
-  title="timurgromov.ru"
-  description="Astro-каркас для точного переноса лендинга timurgromov.ru с Tilda."
+  title="Тимур Громов — свадебный ведущий"
+  description="Свадебный ведущий в Москве и области — проведу вашу свадьбу так, чтобы о ней вспоминали с теплом."
 >
-  <main class="shell">
-    <section class="panel">
-      <p class="eyebrow">Astro scaffold</p>
-      <h1>Каркас проекта готов</h1>
-      <p>
-        Репозиторий переведен на Astro и подготовлен к поэтапному восстановлению
-        лендинга <code>timurgromov.ru</code> строго по Tilda-export и живому сайту.
-      </p>
-      <p>
-        Следующий этап: начать перенос секций сверху вниз, начиная с глобальных
-        стилей, header и hero.
-      </p>
-    </section>
-  </main>
+  <div class="page-shell">
+    <div id="zeropopup-menu" hidden aria-hidden="true"></div>
+
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="site-header__brand" href={base} aria-label="Тимур Громов">
+          <img
+            src={`${base}images/tild3334-6465-4239-a161-373935653132__vector.svg`}
+            alt="Тимур Громов"
+            width="148"
+            height="34"
+          />
+        </a>
+
+        <a
+          class="site-header__menu"
+          href="#zeropopup-menu"
+          aria-label="Открыть меню"
+        >
+          <img
+            src={`${base}images/tild3962-3061-4364-a664-336331353964__group_42.svg`}
+            alt=""
+            width="59"
+            height="13"
+          />
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__inner">
+          <p class="sr-only" id="hero-title">
+            Свадебный ведущий в Москве и области - проведу вашу свадьбу так,
+            чтобы о ней вспоминали с теплом
+          </p>
+
+          <div class="hero__copy">
+            <p class="hero__line">Проведу вашу свадьбу</p>
+            <p class="hero__line">в Москве и области так, чтобы о ней</p>
+            <p class="hero__line">вспоминали с теплом</p>
+          </div>
+
+          <div class="hero__controls">
+            <button
+              class="hero__showreel"
+              type="button"
+              aria-disabled="true"
+              data-popup-target="showreel"
+            >
+              <span class="hero__showreel-badge" aria-hidden="true">
+                <img
+                  class="hero__showreel-ring"
+                  src={`${base}images/tild3831-3966-4631-a465-646563303635__linked_path_group.svg`}
+                  alt=""
+                  width="102"
+                  height="102"
+                />
+                <img
+                  class="hero__showreel-play"
+                  src={`${base}images/tild3764-3938-4565-b266-393132653130__solar_play-bold.svg`}
+                  alt=""
+                  width="28"
+                  height="28"
+                />
+              </span>
+              <span class="hero__showreel-label">полезности</span>
+            </button>
+
+            <div class="hero__bottom">
+              <ul class="hero__values" aria-label="Подход к ведению">
+                {heroValues.map((item) => <li>{item}</li>)}
+              </ul>
+
+              <div class="hero__summary">
+                <p class="hero__description">
+                  Создам неповторимый сценарий, предложу оригинальные идеи и
+                  сделаю так, чтобы каждый момент был особенным.
+                </p>
+
+                <a
+                  class="hero__cta"
+                  href="http://t.me/timurgromovv"
+                  rel="nofollow"
+                  target="_blank"
+                >
+                  <span class="hero__cta-text">обсудить мою свадьбу</span>
+                  <span class="hero__cta-icon" aria-hidden="true">
+                    <img
+                      src={`${base}images/tild3536-3939-4363-b163-323761323432__vector_8.svg`}
+                      alt=""
+                      width="16"
+                      height="16"
+                    />
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
 </BaseLayout>
