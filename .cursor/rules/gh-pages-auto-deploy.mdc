@@ -1,0 +1,11 @@
+---
+description: Деплой GitHub Pages после изменений фронта
+globs: src/**,public/**,astro.config.mjs,package.json,.github/workflows/**
+alwaysApply: true
+---
+
+После **push в `origin/main`** сайт на GitHub Pages обновляется **сам**: workflow `.github/workflows/deploy-gh-pages.yml` делает `npm ci`, `npm run build` и пушит `dist/` в ветку **`gh-pages`**.
+
+Агенту **не нужно** напоминать владельцу ручной `npx gh-pages`, если workflow уже есть в репозитории и Actions в настройках репо включены (по умолчанию включены для публичных репо).
+
+Ручной запасной вариант только если CI упал или отключён: `npm run deploy:pages` (локально) — см. `docs/github-pages-deploy.md`.

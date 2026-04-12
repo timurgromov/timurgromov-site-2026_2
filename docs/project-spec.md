@@ -61,4 +61,4 @@
 3. запускать `build`;
 4. commit;
 5. push исходников в `main`;
-6. выложить билд в ветку `gh-pages` и проверить GitHub Pages (подробно: `docs/github-pages-deploy.md`).
+6. после push в `main` дождаться Actions (деплой в `gh-pages` автоматически), затем проверить GitHub Pages (`docs/github-pages-deploy.md`).

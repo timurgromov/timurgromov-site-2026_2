@@ -78,9 +78,11 @@
 3. выполнить `build`;
 4. при наличии линтера выполнить `lint`;
 5. commit;
-6. push;
-7. deploy на GitHub Pages;
+6. push в **`main`**;
+7. дождаться GitHub Actions (**Deploy to gh-pages**) — ветка `gh-pages` обновится сама;
 8. проверить live URL.
+
+Ручной деплой на Pages только если CI недоступен: `npm run deploy:pages` (см. `docs/github-pages-deploy.md`).
 
 ## 8. Deploy Rule
 Deploy должен быть простым и повторяемым: локальная проверка → commit → push → GitHub Pages → проверка опубликованной версии.
