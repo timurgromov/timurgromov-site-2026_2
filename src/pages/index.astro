@@ -14,10 +14,19 @@ const bodySource = readFileSync(
 );
 
 const headMatch = pageHtml.match(/<head>([\s\S]*?)<\/head>/i);
+const bodyTagMatch = pageHtml.match(/<body([^>]*)>/i);
 
 if (!headMatch) {
   throw new Error("Не удалось извлечь <head> из page62008353.html");
 }
+
+if (!bodyTagMatch) {
+  throw new Error("Не удалось извлечь <body> из page62008353.html");
+}
+
+const bodyAttrs = bodyTagMatch[1];
+const bodyClass = bodyAttrs.match(/\bclass=(['"])(.*?)\1/i)?.[2];
+const bodyStyle = bodyAttrs.match(/\bstyle=(['"])(.*?)\1/i)?.[2];
 
 const headHtml = headMatch[1]
   .replace(
@@ -42,5 +51,5 @@ const bodyHtml = bodySource
   <head>
     <Fragment set:html={headHtml} />
   </head>
-  <body set:html={bodyHtml}></body>
+  <body class={bodyClass} style={bodyStyle} set:html={bodyHtml}></body>
 </html>
