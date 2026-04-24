@@ -16,7 +16,7 @@ const aboutPrinciples: { title: string; body: string }[] = [
   },
   {
     title: "Помощь в организации",
-    body: "Я всегда на связи во время подготовки. Тайминг вечера, контроль подачи блюд, выход артистов, техническое оснащение и даже расстановка мебелина площадке — все под контролем.",
+    body: "Я всегда на связи во время подготовки. Тайминг вечера, контроль подачи блюд, выход артистов, техническое оснащение и даже расстановка мебели на площадке — все под контролем.",
   },
   {
     title: "Творческая поддержка",
@@ -24,12 +24,20 @@ const aboutPrinciples: { title: string; body: string }[] = [
   },
   {
     title: "Для разной аудитории",
-    body: "Помогаю людям разного возраста, национальности и статуса найти общее, будь то свадебный ужинна 20 человек или масштабная интернациональная свадьба.",
+    body: "Помогаю людям разного возраста, национальности и статуса найти общее, будь то свадебный ужин на 20 человек или масштабная интернациональная свадьба.",
   },
   {
     title: "Современный стиль",
     body: "Легкость, искренность и добрый юмор. Атмосфера где каждый чувствует себя важным, комфортно и в безопасности. Гости свободно выражают себя без давления и пошлости.",
   },
+];
+
+const aboutStoryStats = [
+  { value: "3000", label: "Часов в прямом эфире Love Radio" },
+  { value: "15", label: "Лет веду свадьбы" },
+  { value: "10", label: "Лет автор и актер МС КВН" },
+  { value: ">800", label: "Свадеб в 7 странах" },
+  { value: ">60", label: "Проведенных свадеб в год" },
 ];
 ---
 
@@ -196,6 +204,120 @@ const aboutPrinciples: { title: string; body: string }[] = [
                 </>
               ))}
             </dl>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-story" aria-labelledby="about-story-title">
+        <div class="about-story__inner">
+          <div class="about-story__header">
+            <div class="about-story__title-group">
+              <p class="about-story__name">Тимур Громов</p>
+              <h2 class="about-story__title" id="about-story-title">
+                <span class="about-story__title-main">Ведущий, который</span>
+                <span class="about-story__title-script">слышит и понимает</span>
+                <span class="about-story__title-main">ваши мечты</span>
+              </h2>
+            </div>
+
+            <a class="about-story__photo-link" href="#popup:about-timur">
+              <img
+                class="about-story__photo"
+                src={asset("images/tild6461-3464-4935-b237-653233383933__image_1_1.jpg")}
+                alt=""
+                width="481"
+                height="481"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="about-story__photo-badge" aria-hidden="true">
+                <span class="about-story__photo-badge-core">
+                  <img
+                    src={asset("images/tild3831-3966-4631-a465-646563303635__linked_path_group.svg")}
+                    alt=""
+                    width="100"
+                    height="100"
+                  />
+                  <img
+                    src={asset("images/tild3764-3938-4565-b266-393132653130__solar_play-bold.svg")}
+                    alt=""
+                    width="26"
+                    height="26"
+                  />
+                </span>
+              </span>
+            </a>
+          </div>
+
+          <div class="about-story__content">
+            <div class="about-story__intro">
+              <p>
+                Привет! Я обожаю создавать яркие и запоминающиеся свадьбы! Для
+                меня важно, чтобы ваш праздник был не просто красивым, но и
+                наполненным искренними эмоциями и счастливыми воспоминаниями.
+              </p>
+              <p>
+                Легко нахожу общий язык с людьми, умею импровизировать и чувствую
+                настроение публики. В своей работе учитываю все Ваши пожелания и
+                предлагаю свежие идеи, которые сделают вашу свадьбу
+                по-настоящему уникальной.
+              </p>
+              <p>
+                Про увлечения и личное{" "}
+                <a class="about-story__popup-link" href="#popup:about-timur">
+                  тут
+                </a>
+              </p>
+            </div>
+
+            <div class="about-story__stats-block">
+              <div class="about-story__portrait-wrap">
+                <img
+                  class="about-story__portrait-decor"
+                  src={asset("images/tild3431-6330-4861-a236-616133636164__highlight_05.svg")}
+                  alt=""
+                  width="70"
+                  height="59"
+                />
+                <img
+                  class="about-story__portrait"
+                  src={asset("images/tild6661-3062-4765-a630-343661636332______fc56ecil8bi_1_1.jpg")}
+                  alt=""
+                  width="400"
+                  height="400"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+
+              <dl class="about-story__stats">
+                {aboutStoryStats.map((item) => (
+                  <div class="about-story__stat">
+                    <dt>{item.value}</dt>
+                    <dd>{item.label}</dd>
+                  </div>
+                ))}
+              </dl>
+
+              <div class="about-story__closing" aria-hidden="true">
+                <img
+                  class="about-story__closing-image"
+                  src={asset("images/tild6235-3633-4566-b838-633866633631__image_2_1.png")}
+                  alt=""
+                  width="420"
+                  height="286"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <img
+                  class="about-story__closing-mark"
+                  src={asset("images/tild6130-6630-4032-b264-363638353665__misc_03.svg")}
+                  alt=""
+                  width="67"
+                  height="67"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
