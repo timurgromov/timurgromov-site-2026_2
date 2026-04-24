@@ -25,9 +25,9 @@ const headHtml = headMatch[1]
     `<meta property="og:url" content="${previewUrl}" />`,
   )
   .replace(/<link rel="canonical" href="[^"]*"\s*\/?>/i, "")
-  // В экспорт не попала вспомогательная Tilda-функция, которая иногда вызывается inline-скриптами.
+  // В export helper-функции могут дергаться раньше, чем загрузятся сами Tilda-скрипты.
   .concat(
-    `<script>window.t396_elem_fixLineHeight=window.t396_elem_fixLineHeight||function(){return;};</script>`,
+    `<script>window.tn=window.tn||{};window.t396_elem_fixLineHeight=window.t396_elem_fixLineHeight||function(){return;};window.t396_allgroups__renderView=window.t396_allgroups__renderView||function(){return;};</script>`,
   );
 
 const bodyHtml = bodySource
@@ -42,5 +42,5 @@ const bodyHtml = bodySource
   <head>
     <Fragment set:html={headHtml} />
   </head>
-  <body set:html={bodyHtml}></body>
+  <body class="t-body" style="margin:0;" set:html={bodyHtml}></body>
 </html>
