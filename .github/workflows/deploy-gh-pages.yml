@@ -1,0 +1,39 @@
+# Сборка Astro и выкладка в ветку gh-pages при каждом push в main.
+# Если push этого файла отклоняют (PAT без scope workflow) — создай тот же файл на GitHub через веб, см. docs/github-pages-deploy.md §3.
+
+name: Deploy to gh-pages
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-gh-pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: ASTRO_TELEMETRY_DISABLED=1 npm run build
+
+      - name: Push dist to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
