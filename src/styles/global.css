@@ -554,6 +554,151 @@ select {
 }
 /* PATCH END: about-story-section */
 
+/* PATCH BEGIN: how-i-lead-section */
+.how-i-lead {
+  position: relative;
+  overflow: hidden;
+  background: #fffefa;
+  color: #1c1b1a;
+}
+
+.how-i-lead::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--how-i-lead-bg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.how-i-lead__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding: 64px var(--side-pad) 88px;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.how-i-lead__cards-title,
+.how-i-lead__title,
+.how-i-lead__card-number {
+  font-family: "Coolvetica", Arial, Helvetica, sans-serif;
+}
+
+.how-i-lead__cards-title {
+  margin: 0 0 26px;
+  font-size: 43px;
+  line-height: 1;
+}
+
+.how-i-lead__cards {
+  display: grid;
+  gap: 18px;
+}
+
+.how-i-lead__card {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  padding: 10px;
+  border-radius: 14px;
+  background: rgba(255, 254, 250, 0.82);
+  border: 1px solid rgba(28, 27, 26, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.how-i-lead__card-image {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+}
+
+.how-i-lead__card-copy {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+}
+
+.how-i-lead__card-number {
+  font-size: 67px;
+  line-height: 0.9;
+}
+
+.how-i-lead__card-text {
+  font-size: 22px;
+  line-height: 1.15;
+}
+
+.how-i-lead__card-mark {
+  width: 54px;
+  height: auto;
+}
+
+.how-i-lead__hint {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+  margin-left: 28px;
+}
+
+.how-i-lead__hint-arrow {
+  width: 88px;
+  height: auto;
+}
+
+.how-i-lead__hint-text {
+  margin: 0;
+  max-width: 216px;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.how-i-lead__hint-smile {
+  width: 30px;
+  height: auto;
+}
+
+.how-i-lead__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+  padding-top: 8px;
+}
+
+.how-i-lead__eyebrow {
+  margin: 0;
+  color: #1c1b1a;
+  font-size: 43px;
+  line-height: 1;
+}
+
+.how-i-lead__eyebrow span,
+.how-i-lead__title span {
+  display: block;
+}
+
+.how-i-lead__title {
+  margin: 0;
+  font-size: clamp(46px, 5.6vw, 107px);
+  line-height: 0.94;
+}
+
+.how-i-lead__cta {
+  min-width: 320px;
+}
+/* PATCH END: how-i-lead-section */
+
 @media (max-width: 1199px) {
   :root {
     --side-pad: 20px;
@@ -681,6 +826,62 @@ select {
     width: 46px;
   }
   /* PATCH END: about-story-section */
+
+  /* PATCH BEGIN: how-i-lead-section */
+  .how-i-lead__inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding-top: 56px;
+    padding-bottom: 72px;
+  }
+
+  .how-i-lead__cards-title,
+  .how-i-lead__eyebrow {
+    font-size: 27px;
+  }
+
+  .how-i-lead__card {
+    grid-template-columns: 145px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .how-i-lead__card-number {
+    font-size: 42px;
+  }
+
+  .how-i-lead__card-text {
+    font-size: 14px;
+  }
+
+  .how-i-lead__card-mark {
+    width: 40px;
+  }
+
+  .how-i-lead__hint {
+    margin-left: 12px;
+  }
+
+  .how-i-lead__hint-arrow {
+    width: 73px;
+  }
+
+  .how-i-lead__hint-text {
+    font-size: 10px;
+  }
+
+  .how-i-lead__hint-smile {
+    width: 24px;
+  }
+
+  .how-i-lead__content {
+    gap: 22px;
+    padding-top: 0;
+  }
+
+  .how-i-lead__cta {
+    min-width: 200px;
+  }
+  /* PATCH END: how-i-lead-section */
 
   .hero__copy {
     margin-bottom: 54px;
@@ -849,6 +1050,82 @@ select {
     right: -2px;
   }
   /* PATCH END: about-story-section */
+
+  /* PATCH BEGIN: how-i-lead-section */
+  .how-i-lead__inner {
+    gap: 28px;
+    padding-top: 40px;
+    padding-bottom: 56px;
+  }
+
+  .how-i-lead__cards-title,
+  .how-i-lead__eyebrow {
+    font-size: 20px;
+  }
+
+  .how-i-lead__cards {
+    gap: 12px;
+  }
+
+  .how-i-lead__card {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .how-i-lead__card-copy {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 10px 12px;
+    align-items: start;
+  }
+
+  .how-i-lead__card-number {
+    font-size: 29px;
+  }
+
+  .how-i-lead__card-text {
+    font-size: 10px;
+    line-height: 1.2;
+  }
+
+  .how-i-lead__card-mark {
+    grid-column: 2;
+    width: 24px;
+  }
+
+  .how-i-lead__hint {
+    margin-top: 12px;
+    margin-left: 0;
+    gap: 8px;
+  }
+
+  .how-i-lead__hint-arrow {
+    width: 62px;
+  }
+
+  .how-i-lead__hint-text {
+    max-width: 140px;
+    font-size: 8px;
+  }
+
+  .how-i-lead__hint-smile {
+    width: 18px;
+  }
+
+  .how-i-lead__content {
+    gap: 18px;
+  }
+
+  .how-i-lead__title {
+    font-size: 34px;
+  }
+
+  .how-i-lead__cta {
+    width: 100%;
+    min-width: 0;
+    max-width: 300px;
+  }
+  /* PATCH END: how-i-lead-section */
 
   .hero__copy {
     margin-bottom: 38px;

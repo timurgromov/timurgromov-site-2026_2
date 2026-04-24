@@ -39,6 +39,30 @@ const aboutStoryStats = [
   { value: ">800", label: "Свадеб в 7 странах" },
   { value: ">60", label: "Проведенных свадеб в год" },
 ];
+
+const howILeadCards = [
+  {
+    number: "1.",
+    title: "Почему на моих свадьбах гости смеются, а не краснеют?",
+    image: "images/tild3932-3931-4735-a161-326538646532__frame_23_4.jpg",
+    hook: "#popup:video-sovet-1",
+    mark: "images/tild6439-6231-4437-a432-643133316264__subtract.svg",
+  },
+  {
+    number: "2.",
+    title: "Страшный момент на свадьбе? Как избежать неловких тостов",
+    image: "images/tild3830-3066-4262-b839-303266343163__frame_24_3.jpg",
+    hook: "#popup:video-sovet-2",
+    mark: "images/tild6364-3962-4762-a633-366339376362__subtract.svg",
+  },
+  {
+    number: "3.",
+    title: "Как ведущий спасает свадьбу от хаоса: неочевидные моменты",
+    image: "images/tild3031-3935-4233-a233-343364666435__frame_25_3.jpg",
+    hook: "#popup:video-sovet-3",
+    mark: "images/tild3933-3732-4664-a136-393438396137__subtract.svg",
+  },
+];
 ---
 
 <BaseLayout
@@ -318,6 +342,95 @@ const aboutStoryStats = [
                 />
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="how-i-lead"
+        id="kak-ia-vedu"
+        aria-labelledby="how-i-lead-title"
+        style={`--how-i-lead-bg: url('${asset("images/tild6633-3234-4632-a466-323836613233__y6mmbvcd9l8_1.jpg")}')`}
+      >
+        <div class="how-i-lead__inner">
+          <div class="how-i-lead__cards-panel">
+            <p class="how-i-lead__cards-title">Вот как я веду свадьбы:</p>
+
+            <div class="how-i-lead__cards">
+              {howILeadCards.map((item) => (
+                <a class="how-i-lead__card" href={item.hook}>
+                  <img
+                    class="how-i-lead__card-image"
+                    src={asset(item.image)}
+                    alt=""
+                    width="390"
+                    height="390"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div class="how-i-lead__card-copy">
+                    <span class="how-i-lead__card-number">{item.number}</span>
+                    <span class="how-i-lead__card-text">{item.title}</span>
+                    <img
+                      class="how-i-lead__card-mark"
+                      src={asset(item.mark)}
+                      alt=""
+                      width="54"
+                      height="54"
+                    />
+                  </div>
+                </a>
+              ))}
+            </div>
+
+            <div class="how-i-lead__hint" aria-hidden="true">
+              <img
+                class="how-i-lead__hint-arrow"
+                src={asset("images/tild3933-3964-4432-b439-313663323464__arrow_06.svg")}
+                alt=""
+                width="128"
+                height="128"
+              />
+              <p class="how-i-lead__hint-text">
+                Кликай на карточку, чтобы посмотреть видео
+              </p>
+              <img
+                class="how-i-lead__hint-smile"
+                src={asset("images/tild6637-3932-4761-a533-373464623830__smile.svg")}
+                alt=""
+                width="46"
+                height="46"
+              />
+            </div>
+          </div>
+
+          <div class="how-i-lead__content">
+            <p class="how-i-lead__eyebrow">
+              <span>О чем должна знать</span>
+              <span>каждая пара?</span>
+            </p>
+
+            <h2 class="how-i-lead__title" id="how-i-lead-title">
+              <span>Почему ваша свадьба</span>
+              <span>пройдет безупречно</span>
+            </h2>
+
+            <a
+              class="hero__cta how-i-lead__cta"
+              href="http://t.me/timurgromovv"
+              rel="nofollow"
+              target="_blank"
+            >
+              <span class="hero__cta-text">обсудить мою свадьбу</span>
+              <span class="hero__cta-icon" aria-hidden="true">
+                <img
+                  src={asset("images/tild3536-3939-4363-b163-323761323432__vector_8.svg")}
+                  alt=""
+                  width="16"
+                  height="16"
+                />
+              </span>
+            </a>
           </div>
         </div>
       </section>

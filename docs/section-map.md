@@ -8,7 +8,7 @@
 | 2 | header | `src/pages/index.astro` | header в export |
 | 3 | hero | `index.astro` | `rec861352716` |
 | 4 | about | `index.astro` | `rec861444942` + `rec861496085` (+ popup `rec862626481/rec862626544` позже) |
-| 5 | как я веду | — | якорь `rec864988776`, секция `rec861547217` |
+| 5 | как я веду | `index.astro` | якорь `rec864988776`, секция `rec861547217` |
 | 6 | полезности | — | |
 | 7 | price | — | |
 | 8 | cases | — | |
