@@ -27,6 +27,28 @@ if (!bodyTagMatch) {
 const bodyAttrs = bodyTagMatch[1];
 const bodyClass = bodyAttrs.match(/\bclass=(['"])(.*?)\1/i)?.[2];
 const bodyStyle = bodyAttrs.match(/\bstyle=(['"])(.*?)\1/i)?.[2];
+const heroPosterDesktopDataUrl = `data:image/jpeg;base64,${readFileSync(
+  new URL("../../images/hero-poster-desktop.jpg", import.meta.url),
+  "base64",
+)}`;
+const heroPosterMobileDataUrl = `data:image/jpeg;base64,${readFileSync(
+  new URL("../../images/hero-poster-mobile.jpg", import.meta.url),
+  "base64",
+)}`;
+const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
+  <source
+    media="(max-width: 639px)"
+    srcset="${heroPosterMobileDataUrl}"
+  />
+  <img
+    class="hero-poster-img"
+    src="${heroPosterDesktopDataUrl}"
+    alt=""
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+  />
+</picture>`;
 
 const headHtml = headMatch[1]
   .replace(
@@ -39,33 +61,53 @@ const headHtml = headMatch[1]
     `<script>window.t396_elem_fixLineHeight=window.t396_elem_fixLineHeight||function(){return;};</script>`,
   )
   .concat(
-    `<link rel="preload" as="image" href="${basePath}images/hero-poster-desktop.jpg" />
-    <link rel="preload" as="image" href="${basePath}images/hero-poster-mobile.jpg" media="(max-width: 639px)" />`,
-  )
-  .concat(
     `<style>
       #rec861352716 .tn-elem__8613527161738731141089 .tn-atom{
-        background-image:url('${basePath}images/hero-poster-desktop.jpg');
+        position:relative;
+        background-image:url('${heroPosterDesktopDataUrl}');
         background-size:cover;
         background-position:center center;
         background-repeat:no-repeat;
         overflow:hidden;
       }
+      #rec861352716 .tn-elem__8613527161738731141089 .hero-poster-layer{
+        position:absolute;
+        inset:0;
+        z-index:0;
+        display:block;
+        pointer-events:none;
+        transition:opacity .45s ease;
+      }
+      #rec861352716 .tn-elem__8613527161738731141089 .hero-poster-img{
+        width:100%;
+        height:100%;
+        display:block;
+        object-fit:cover;
+        object-position:center center;
+      }
       #rec861352716 .tn-elem__8613527161738731141089 video{
+        position:relative;
+        z-index:1;
         opacity:0;
         transition:opacity .45s ease;
         object-fit:cover;
         object-position:center center;
+      }
+      #rec861352716.hero-video-visible .tn-elem__8613527161738731141089 .hero-poster-layer{
+        opacity:0;
       }
       #rec861352716.hero-video-visible .tn-elem__8613527161738731141089 video{
         opacity:1;
       }
       @media screen and (max-width:639px){
         #rec861352716 .tn-elem__8613527161738731141089 .tn-atom{
-          background-image:url('${basePath}images/hero-poster-mobile.jpg');
+          background-image:url('${heroPosterMobileDataUrl}');
           background-position:center center;
         }
         #rec861352716 .tn-elem__8613527161738731141089 video{
+          object-position:center center;
+        }
+        #rec861352716 .tn-elem__8613527161738731141089 .hero-poster-img{
           object-position:center center;
         }
       }
@@ -188,7 +230,11 @@ const bodyHtml = bodySource
   // На GitHub Pages якоря и возврат в начало страницы должны вести в BASE_URL.
   .replace(/href=(['"])\/(?!\/)/g, `href=$1${basePath}`)
   .replace(/src=(['"])\/(?!\/)/g, `src=$1${basePath}`)
-  .replace(/action=(['"])\/(?!\/)/g, `action=$1${basePath}`);
+  .replace(/action=(['"])\/(?!\/)/g, `action=$1${basePath}`)
+  .replace(
+    /(<div class='t396__elem tn-elem tn-elem__8613527161738731141089'[\s\S]*?<div class='tn-atom'>)(\s*<\/div>)/,
+    `$1${heroPosterLayer}$2`,
+  );
 ---
 
 <!doctype html>
