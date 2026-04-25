@@ -39,6 +39,10 @@ const headHtml = headMatch[1]
     `<script>window.t396_elem_fixLineHeight=window.t396_elem_fixLineHeight||function(){return;};</script>`,
   )
   .concat(
+    `<link rel="preload" as="image" href="${basePath}images/hero-poster-desktop.jpg" />
+    <link rel="preload" as="image" href="${basePath}images/hero-poster-mobile.jpg" media="(max-width: 639px)" />`,
+  )
+  .concat(
     `<style>
       #rec861352716 .tn-elem__8613527161738731141089 .tn-atom{
         background-image:url('${basePath}images/hero-poster-desktop.jpg');
@@ -96,18 +100,27 @@ const headHtml = headMatch[1]
             video.playsInline = true;
             video.setAttribute('muted', '');
             video.setAttribute('playsinline', '');
-            video.removeAttribute('autoplay');
+            video.preload = 'auto';
 
-            try {
-              video.pause();
-              video.currentTime = 0;
-            } catch (error) {}
+            var minDelayPassed = false;
+            var videoReady = video.readyState >= 2;
 
-            function revealVideo() {
+            function revealVideoIfReady() {
+              if (!minDelayPassed || !videoReady) return;
               record.classList.add('hero-video-visible');
             }
 
-            function playDelayedVideo() {
+            function markVideoReady() {
+              videoReady = true;
+              revealVideoIfReady();
+            }
+
+            function markMinDelayPassed() {
+              minDelayPassed = true;
+              revealVideoIfReady();
+            }
+
+            function warmVideoPlayback() {
               var playPromise;
 
               try {
@@ -123,10 +136,12 @@ const headHtml = headMatch[1]
               }
             }
 
-            video.addEventListener('playing', revealVideo, { once: true });
+            video.addEventListener('loadeddata', markVideoReady, { once: true });
+            video.addEventListener('canplay', markVideoReady, { once: true });
+            video.addEventListener('playing', markVideoReady, { once: true });
 
             function scheduleStart() {
-              window.setTimeout(playDelayedVideo, startDelayMs);
+              window.setTimeout(markMinDelayPassed, startDelayMs);
             }
 
             if (pageLoaded) {
@@ -134,6 +149,9 @@ const headHtml = headMatch[1]
             } else {
               window.addEventListener('load', scheduleStart, { once: true });
             }
+
+            warmVideoPlayback();
+            window.setTimeout(warmVideoPlayback, 250);
 
             return true;
           }
