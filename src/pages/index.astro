@@ -37,6 +37,133 @@ const headHtml = headMatch[1]
   // В экспорт не попала вспомогательная Tilda-функция, которая иногда вызывается inline-скриптами.
   .concat(
     `<script>window.t396_elem_fixLineHeight=window.t396_elem_fixLineHeight||function(){return;};</script>`,
+  )
+  .concat(
+    `<style>
+      #rec861352716 .tn-elem__8613527161738731141089 .tn-atom{
+        background-image:url('${basePath}images/hero-poster-desktop.jpg');
+        background-size:cover;
+        background-position:center center;
+        background-repeat:no-repeat;
+        overflow:hidden;
+      }
+      #rec861352716 .tn-elem__8613527161738731141089 video{
+        opacity:0;
+        transition:opacity .45s ease;
+        object-fit:cover;
+        object-position:center center;
+      }
+      #rec861352716.hero-video-visible .tn-elem__8613527161738731141089 video{
+        opacity:1;
+      }
+      @media screen and (max-width:639px){
+        #rec861352716 .tn-elem__8613527161738731141089 .tn-atom{
+          background-image:url('${basePath}images/hero-poster-mobile.jpg');
+          background-position:center center;
+        }
+        #rec861352716 .tn-elem__8613527161738731141089 video{
+          object-position:center center;
+        }
+      }
+    </style>`,
+  )
+  .concat(
+    `<script>
+      (function() {
+        var heroRecordId = 'rec861352716';
+        var heroShapeSelector = '.tn-elem__8613527161738731141089';
+        var startDelayMs = 1500;
+        var pageLoaded = document.readyState === 'complete';
+
+        if (!pageLoaded) {
+          window.addEventListener('load', function() {
+            pageLoaded = true;
+          }, { once: true });
+        }
+
+        function initHeroVideoPoster() {
+          var record = document.getElementById(heroRecordId);
+          if (!record) return false;
+
+          var shape = record.querySelector(heroShapeSelector);
+          if (!shape) return false;
+
+          function attachVideo(video) {
+            if (!video || video.dataset.heroDelayedInit === '1') return false;
+
+            video.dataset.heroDelayedInit = '1';
+            video.muted = true;
+            video.playsInline = true;
+            video.setAttribute('muted', '');
+            video.setAttribute('playsinline', '');
+            video.removeAttribute('autoplay');
+
+            try {
+              video.pause();
+              video.currentTime = 0;
+            } catch (error) {}
+
+            function revealVideo() {
+              record.classList.add('hero-video-visible');
+            }
+
+            function playDelayedVideo() {
+              var playPromise;
+
+              try {
+                playPromise = video.play();
+              } catch (error) {
+                return;
+              }
+
+              if (playPromise && typeof playPromise.catch === 'function') {
+                playPromise.catch(function() {
+                  return;
+                });
+              }
+            }
+
+            video.addEventListener('playing', revealVideo, { once: true });
+
+            function scheduleStart() {
+              window.setTimeout(playDelayedVideo, startDelayMs);
+            }
+
+            if (pageLoaded) {
+              scheduleStart();
+            } else {
+              window.addEventListener('load', scheduleStart, { once: true });
+            }
+
+            return true;
+          }
+
+          var existingVideo = shape.querySelector('video');
+          if (attachVideo(existingVideo)) return true;
+
+          var observer = new MutationObserver(function() {
+            var injectedVideo = shape.querySelector('video');
+            if (!attachVideo(injectedVideo)) return;
+            observer.disconnect();
+          });
+
+          observer.observe(shape, { childList: true, subtree: true });
+          window.setTimeout(function() {
+            observer.disconnect();
+          }, 10000);
+
+          return true;
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initHeroVideoPoster, { once: true });
+        } else {
+          initHeroVideoPoster();
+        }
+
+        window.addEventListener('pageshow', initHeroVideoPoster);
+      })();
+    </script>`,
   );
 
 const bodyHtml = bodySource
