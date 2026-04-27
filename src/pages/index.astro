@@ -35,6 +35,10 @@ const heroPosterMobileDataUrl = `data:image/jpeg;base64,${readFileSync(
   new URL("../../images/hero-poster-mobile.jpg", import.meta.url),
   "base64",
 )}`;
+const heroDesktopVideoUrl =
+  "https://global.s3.cloud.ru/tg26video-public/hero-desktop.mp4";
+const heroMobileVideoUrl =
+  "https://global.s3.cloud.ru/tg26video-public/hero-mobile.mp4";
 const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
   <source
     media="(max-width: 639px)"
@@ -119,6 +123,8 @@ const headHtml = headMatch[1]
         var heroRecordId = 'rec861352716';
         var heroShapeSelector = '.tn-elem__8613527161738731141089';
         var startDelayMs = 1500;
+        var heroDesktopVideoUrl = '${heroDesktopVideoUrl}';
+        var heroMobileVideoUrl = '${heroMobileVideoUrl}';
         var pageLoaded = document.readyState === 'complete';
 
         if (!pageLoaded) {
@@ -134,8 +140,27 @@ const headHtml = headMatch[1]
           var shape = record.querySelector(heroShapeSelector);
           if (!shape) return false;
 
+          function getHeroVideoUrl() {
+            return window.matchMedia('(max-width: 639px)').matches
+              ? heroMobileVideoUrl
+              : heroDesktopVideoUrl;
+          }
+
           function attachVideo(video) {
             if (!video || video.dataset.heroDelayedInit === '1') return false;
+
+            var resolvedVideoUrl = getHeroVideoUrl();
+            var sourceNode = video.querySelector('source');
+
+            if (video.getAttribute('src') !== resolvedVideoUrl) {
+              video.setAttribute('src', resolvedVideoUrl);
+            }
+
+            if (sourceNode && sourceNode.getAttribute('src') !== resolvedVideoUrl) {
+              sourceNode.setAttribute('src', resolvedVideoUrl);
+            }
+
+            video.load();
 
             video.dataset.heroDelayedInit = '1';
             video.muted = true;
@@ -231,6 +256,10 @@ const bodyHtml = bodySource
   .replace(/href=(['"])\/(?!\/)/g, `href=$1${basePath}`)
   .replace(/src=(['"])\/(?!\/)/g, `src=$1${basePath}`)
   .replace(/action=(['"])\/(?!\/)/g, `action=$1${basePath}`)
+  .replace(
+    /https:\/\/cdnv\.boomstream\.com\/balancer\/p1VrFFDa-SxJPiQup\.mp4/g,
+    heroDesktopVideoUrl,
+  )
   .replace(
     /(<div class='t396__elem tn-elem tn-elem__8613527161738731141089'[\s\S]*?<div class='tn-atom'>)(\s*<\/div>)/,
     `$1${heroPosterLayer}$2`,
