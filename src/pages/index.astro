@@ -31,14 +31,7 @@ const heroPosterDesktopDataUrl = `data:image/jpeg;base64,${readFileSync(
   new URL("../../images/hero-poster-desktop.jpg", import.meta.url),
   "base64",
 )}`;
-const heroPosterMobileDataUrl = `data:image/jpeg;base64,${readFileSync(
-  new URL("../../images/hero-poster-mobile.jpg", import.meta.url),
-  "base64",
-)}`;
-const heroDesktopVideoUrl =
-  "https://global.s3.cloud.ru/tg26video-public/hero-desktop.mp4";
-const heroMobileVideoUrl =
-  "https://global.s3.cloud.ru/tg26video-public/hero-mobile.mp4";
+const heroVideoUrl = "https://global.s3.cloud.ru/tg26video-public/hero-desktop.mp4";
 const heroVideoLayer = `<video
   class="hero-video-layer"
   muted
@@ -50,10 +43,6 @@ const heroVideoLayer = `<video
   aria-hidden="true"
 ></video>`;
 const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
-  <source
-    media="(max-width: 639px)"
-    srcset="${heroPosterMobileDataUrl}"
-  />
   <img
     class="hero-poster-img"
     src="${heroPosterDesktopDataUrl}"
@@ -124,18 +113,6 @@ const headHtml = headMatch[1]
       #rec861352716.hero-video-visible .tn-elem__8613527161738731141089 .hero-video-layer{
         opacity:1;
       }
-      @media screen and (max-width:639px){
-        #rec861352716 .tn-elem__8613527161738731141089 .tn-atom{
-          background-image:url('${heroPosterMobileDataUrl}');
-          background-position:center center;
-        }
-        #rec861352716 .tn-elem__8613527161738731141089 .hero-video-layer{
-          object-position:center center;
-        }
-        #rec861352716 .tn-elem__8613527161738731141089 .hero-poster-img{
-          object-position:center center;
-        }
-      }
     </style>`,
   )
   .concat(
@@ -143,8 +120,7 @@ const headHtml = headMatch[1]
       (function() {
         var heroRecordId = 'rec861352716';
         var heroShapeSelector = '.tn-elem__8613527161738731141089';
-        var heroDesktopVideoUrl = '${heroDesktopVideoUrl}';
-        var heroMobileVideoUrl = '${heroMobileVideoUrl}';
+        var heroVideoUrl = '${heroVideoUrl}';
 
         function initHeroVideoPoster() {
           var record = document.getElementById(heroRecordId);
@@ -152,12 +128,6 @@ const headHtml = headMatch[1]
 
           var shape = record.querySelector(heroShapeSelector);
           if (!shape) return false;
-
-          function getHeroVideoUrl() {
-            return window.matchMedia('(max-width: 639px)').matches
-              ? heroMobileVideoUrl
-              : heroDesktopVideoUrl;
-          }
 
           function createHeroVideo() {
             var atom = shape.querySelector('.tn-atom');
@@ -187,11 +157,10 @@ const headHtml = headMatch[1]
           function attachVideo(video) {
             if (!video) return false;
 
-            var resolvedVideoUrl = getHeroVideoUrl();
-            if (video.dataset.heroSource !== resolvedVideoUrl) {
+            if (video.dataset.heroSource !== heroVideoUrl) {
               record.classList.remove('hero-video-visible');
-              video.dataset.heroSource = resolvedVideoUrl;
-              video.src = resolvedVideoUrl;
+              video.dataset.heroSource = heroVideoUrl;
+              video.src = heroVideoUrl;
             }
 
             if (video.dataset.heroDelayedInit === '1') return true;
