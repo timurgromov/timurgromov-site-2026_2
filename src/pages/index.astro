@@ -106,9 +106,17 @@ const headHtml = headMatch[1]
         height:100%;
         z-index:1;
         opacity:0;
+        pointer-events:none;
         transition:opacity .45s ease;
         object-fit:cover;
         object-position:center center;
+      }
+      #rec861352716 .tn-elem__8613527161738731141089 .hero-video-layer::-webkit-media-controls{
+        display:none !important;
+      }
+      #rec861352716 .tn-elem__8613527161738731141089 .hero-video-layer::-webkit-media-controls-start-playback-button{
+        display:none !important;
+        -webkit-appearance:none;
       }
       #rec861352716.hero-video-visible .tn-elem__8613527161738731141089 .hero-poster-layer{
         opacity:0;
@@ -161,10 +169,15 @@ const headHtml = headMatch[1]
               video.className = 'hero-video-layer';
               video.setAttribute('muted', '');
               video.setAttribute('playsinline', '');
+              video.setAttribute('webkit-playsinline', '');
               video.setAttribute('autoplay', '');
               video.setAttribute('loop', '');
               video.setAttribute('preload', 'auto');
+              video.setAttribute('controlslist', 'nodownload noplaybackrate noremoteplayback nofullscreen');
+              video.setAttribute('disablepictureinpicture', '');
               video.setAttribute('aria-hidden', 'true');
+              video.controls = false;
+              video.disablePictureInPicture = true;
               atom.appendChild(video);
             }
 
@@ -185,18 +198,24 @@ const headHtml = headMatch[1]
 
             video.dataset.heroDelayedInit = '1';
             video.muted = true;
+            video.defaultMuted = true;
             video.playsInline = true;
+            video.autoplay = true;
+            video.loop = true;
+            video.controls = false;
+            video.disablePictureInPicture = true;
             video.setAttribute('webkit-playsinline', '');
             video.preload = 'metadata';
-            var videoReady = video.readyState >= 2;
+            var playbackStarted = video.readyState >= 2 && !video.paused && !video.ended;
+            var warmPlayRetries = 0;
 
             function revealVideoIfReady() {
-              if (!videoReady) return;
+              if (!playbackStarted) return;
               record.classList.add('hero-video-visible');
             }
 
-            function markVideoReady() {
-              videoReady = true;
+            function markPlaybackStarted() {
+              playbackStarted = true;
               revealVideoIfReady();
             }
 
@@ -216,12 +235,21 @@ const headHtml = headMatch[1]
               }
             }
 
-            video.addEventListener('loadeddata', markVideoReady, { once: true });
-            video.addEventListener('canplay', markVideoReady, { once: true });
-            video.addEventListener('playing', markVideoReady, { once: true });
+            function retryWarmPlayback() {
+              if (playbackStarted || warmPlayRetries >= 8) return;
+              warmPlayRetries += 1;
+              warmVideoPlayback();
+              window.setTimeout(retryWarmPlayback, 400);
+            }
+
+            video.addEventListener('loadeddata', warmVideoPlayback, { once: true });
+            video.addEventListener('canplay', warmVideoPlayback, { once: true });
+            video.addEventListener('playing', markPlaybackStarted, { once: true });
+            video.addEventListener('timeupdate', markPlaybackStarted, { once: true });
 
             warmVideoPlayback();
-            window.setTimeout(warmVideoPlayback, 250);
+            window.setTimeout(retryWarmPlayback, 250);
+            revealVideoIfReady();
 
             return true;
           }
