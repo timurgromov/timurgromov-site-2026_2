@@ -43,9 +43,10 @@ const heroVideoLayer = `<video
   class="hero-video-layer"
   muted
   playsinline
+  webkit-playsinline
   autoplay
   loop
-  preload="auto"
+  preload="metadata"
   aria-hidden="true"
 ></video>`;
 const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
@@ -100,6 +101,9 @@ const headHtml = headMatch[1]
       }
       #rec861352716 .tn-elem__8613527161738731141089 .hero-video-layer{
         position:relative;
+        display:block;
+        width:100%;
+        height:100%;
         z-index:1;
         opacity:0;
         transition:opacity .45s ease;
@@ -131,7 +135,6 @@ const headHtml = headMatch[1]
       (function() {
         var heroRecordId = 'rec861352716';
         var heroShapeSelector = '.tn-elem__8613527161738731141089';
-        var startDelayMs = 900;
         var heroDesktopVideoUrl = '${heroDesktopVideoUrl}';
         var heroMobileVideoUrl = '${heroMobileVideoUrl}';
 
@@ -176,7 +179,6 @@ const headHtml = headMatch[1]
               record.classList.remove('hero-video-visible');
               video.dataset.heroSource = resolvedVideoUrl;
               video.src = resolvedVideoUrl;
-              video.load();
             }
 
             if (video.dataset.heroDelayedInit === '1') return true;
@@ -184,23 +186,17 @@ const headHtml = headMatch[1]
             video.dataset.heroDelayedInit = '1';
             video.muted = true;
             video.playsInline = true;
-            video.preload = 'auto';
-
-            var minDelayPassed = false;
+            video.setAttribute('webkit-playsinline', '');
+            video.preload = 'metadata';
             var videoReady = video.readyState >= 2;
 
             function revealVideoIfReady() {
-              if (!minDelayPassed || !videoReady) return;
+              if (!videoReady) return;
               record.classList.add('hero-video-visible');
             }
 
             function markVideoReady() {
               videoReady = true;
-              revealVideoIfReady();
-            }
-
-            function markMinDelayPassed() {
-              minDelayPassed = true;
               revealVideoIfReady();
             }
 
@@ -223,7 +219,6 @@ const headHtml = headMatch[1]
             video.addEventListener('loadeddata', markVideoReady, { once: true });
             video.addEventListener('canplay', markVideoReady, { once: true });
             video.addEventListener('playing', markVideoReady, { once: true });
-            window.setTimeout(markMinDelayPassed, startDelayMs);
 
             warmVideoPlayback();
             window.setTimeout(warmVideoPlayback, 250);
