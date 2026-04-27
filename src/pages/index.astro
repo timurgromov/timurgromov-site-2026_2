@@ -52,10 +52,7 @@ const heroVideoLayer = `<video
   controlslist="nodownload noplaybackrate noremoteplayback nofullscreen"
   disablepictureinpicture
   aria-hidden="true"
->
-  <source media="(max-width: 639px)" src="${heroMobileVideoUrl}" type="video/mp4" />
-  <source src="${heroDesktopVideoUrl}" type="video/mp4" />
-</video>`;
+></video>`;
 const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
   <source
     media="(max-width: 639px)"
@@ -191,7 +188,6 @@ const headHtml = headMatch[1]
               video.setAttribute('disablepictureinpicture', '');
               video.setAttribute('aria-hidden', 'true');
               video.controls = false;
-              video.disablePictureInPicture = true;
               atom.appendChild(video);
             }
 
@@ -203,17 +199,29 @@ const headHtml = headMatch[1]
 
             video.muted = true;
             video.defaultMuted = true;
+            video.volume = 0;
             video.playsInline = true;
             video.autoplay = true;
             video.loop = true;
             video.controls = false;
-            video.disablePictureInPicture = true;
-            video.setAttribute('webkit-playsinline', '');
+            video.removeAttribute('controls');
+            video.setAttribute('muted', 'muted');
+            video.setAttribute('playsinline', 'playsinline');
+            video.setAttribute('webkit-playsinline', 'webkit-playsinline');
+            video.setAttribute('autoplay', 'autoplay');
+            video.setAttribute('loop', 'loop');
             video.preload = 'auto';
             video.setAttribute('controlslist', 'nodownload noplaybackrate noremoteplayback nofullscreen');
+            video.setAttribute('disablepictureinpicture', '');
+            try {
+              video.disablePictureInPicture = true;
+              video.disableRemotePlayback = true;
+            } catch (error) {
+              // Some mobile browsers expose these flags differently; autoplay must continue.
+            }
 
             var mobileQuery = window.matchMedia('(max-width: 639px)');
-            var playbackStarted = false;
+            var playbackStarted = video.readyState >= 2 && !video.paused && !video.ended;
             var warmPlayRetries = 0;
 
             function getHeroVideoSrc() {
@@ -229,6 +237,8 @@ const headHtml = headMatch[1]
               playbackStarted = false;
               warmPlayRetries = 0;
               record.classList.remove('hero-video-visible');
+              video.pause();
+              video.removeAttribute('src');
               video.src = nextSrc;
               video.load();
             }
@@ -236,6 +246,8 @@ const headHtml = headMatch[1]
             syncHeroVideoSource();
 
             if (video.dataset.heroDelayedInit === '1') {
+              playbackStarted = video.readyState >= 2 && !video.paused && !video.ended;
+              revealVideoIfReady();
               warmVideoPlayback();
               return true;
             }
@@ -248,6 +260,7 @@ const headHtml = headMatch[1]
             }
 
             function markPlaybackStarted() {
+              if (video.paused || video.ended || video.readyState < 2) return;
               playbackStarted = true;
               revealVideoIfReady();
             }
@@ -261,6 +274,14 @@ const headHtml = headMatch[1]
                 return;
               }
 
+              if (video.readyState >= 2 && !video.paused && !video.ended) {
+                markPlaybackStarted();
+              }
+
+              if (playPromise && typeof playPromise.then === 'function') {
+                playPromise.then(markPlaybackStarted);
+              }
+
               if (playPromise && typeof playPromise.catch === 'function') {
                 playPromise.catch(function() {
                   return;
@@ -269,24 +290,32 @@ const headHtml = headMatch[1]
             }
 
             function retryWarmPlayback() {
-              if (playbackStarted || warmPlayRetries >= 8) return;
+              if (playbackStarted || warmPlayRetries >= 20) return;
               warmPlayRetries += 1;
               warmVideoPlayback();
-              window.setTimeout(retryWarmPlayback, 400);
+              window.setTimeout(retryWarmPlayback, 300);
             }
 
+            video.addEventListener('loadedmetadata', warmVideoPlayback);
             video.addEventListener('loadeddata', warmVideoPlayback, { once: true });
             video.addEventListener('canplay', warmVideoPlayback, { once: true });
-            video.addEventListener('playing', markPlaybackStarted, { once: true });
-            video.addEventListener('timeupdate', markPlaybackStarted, { once: true });
+            video.addEventListener('canplaythrough', warmVideoPlayback, { once: true });
+            video.addEventListener('playing', markPlaybackStarted);
+            video.addEventListener('timeupdate', markPlaybackStarted);
             mobileQuery.addEventListener('change', function() {
               syncHeroVideoSource();
               warmVideoPlayback();
               window.setTimeout(retryWarmPlayback, 250);
             });
+            document.addEventListener('visibilitychange', function() {
+              if (!document.hidden) warmVideoPlayback();
+            });
+            window.addEventListener('pageshow', warmVideoPlayback);
+            window.addEventListener('touchstart', warmVideoPlayback, { passive: true });
+            window.addEventListener('pointerdown', warmVideoPlayback, { passive: true });
 
             warmVideoPlayback();
-            window.setTimeout(retryWarmPlayback, 250);
+            window.setTimeout(retryWarmPlayback, 100);
             revealVideoIfReady();
 
             return true;
