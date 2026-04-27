@@ -39,6 +39,15 @@ const heroDesktopVideoUrl =
   "https://global.s3.cloud.ru/tg26video-public/hero-desktop.mp4";
 const heroMobileVideoUrl =
   "https://global.s3.cloud.ru/tg26video-public/hero-mobile.mp4";
+const heroVideoLayer = `<video
+  class="hero-video-layer"
+  muted
+  playsinline
+  autoplay
+  loop
+  preload="auto"
+  aria-hidden="true"
+></video>`;
 const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
   <source
     media="(max-width: 639px)"
@@ -89,7 +98,7 @@ const headHtml = headMatch[1]
         object-fit:cover;
         object-position:center center;
       }
-      #rec861352716 .tn-elem__8613527161738731141089 video{
+      #rec861352716 .tn-elem__8613527161738731141089 .hero-video-layer{
         position:relative;
         z-index:1;
         opacity:0;
@@ -100,7 +109,7 @@ const headHtml = headMatch[1]
       #rec861352716.hero-video-visible .tn-elem__8613527161738731141089 .hero-poster-layer{
         opacity:0;
       }
-      #rec861352716.hero-video-visible .tn-elem__8613527161738731141089 video{
+      #rec861352716.hero-video-visible .tn-elem__8613527161738731141089 .hero-video-layer{
         opacity:1;
       }
       @media screen and (max-width:639px){
@@ -108,7 +117,7 @@ const headHtml = headMatch[1]
           background-image:url('${heroPosterMobileDataUrl}');
           background-position:center center;
         }
-        #rec861352716 .tn-elem__8613527161738731141089 video{
+        #rec861352716 .tn-elem__8613527161738731141089 .hero-video-layer{
           object-position:center center;
         }
         #rec861352716 .tn-elem__8613527161738731141089 .hero-poster-img{
@@ -122,16 +131,9 @@ const headHtml = headMatch[1]
       (function() {
         var heroRecordId = 'rec861352716';
         var heroShapeSelector = '.tn-elem__8613527161738731141089';
-        var startDelayMs = 1500;
+        var startDelayMs = 900;
         var heroDesktopVideoUrl = '${heroDesktopVideoUrl}';
         var heroMobileVideoUrl = '${heroMobileVideoUrl}';
-        var pageLoaded = document.readyState === 'complete';
-
-        if (!pageLoaded) {
-          window.addEventListener('load', function() {
-            pageLoaded = true;
-          }, { once: true });
-        }
 
         function initHeroVideoPoster() {
           var record = document.getElementById(heroRecordId);
@@ -146,27 +148,42 @@ const headHtml = headMatch[1]
               : heroDesktopVideoUrl;
           }
 
+          function createHeroVideo() {
+            var atom = shape.querySelector('.tn-atom');
+            if (!atom) return null;
+
+            var video = atom.querySelector('.hero-video-layer');
+            if (!video) {
+              video = document.createElement('video');
+              video.className = 'hero-video-layer';
+              video.setAttribute('muted', '');
+              video.setAttribute('playsinline', '');
+              video.setAttribute('autoplay', '');
+              video.setAttribute('loop', '');
+              video.setAttribute('preload', 'auto');
+              video.setAttribute('aria-hidden', 'true');
+              atom.appendChild(video);
+            }
+
+            return video;
+          }
+
           function attachVideo(video) {
-            if (!video || video.dataset.heroDelayedInit === '1') return false;
+            if (!video) return false;
 
             var resolvedVideoUrl = getHeroVideoUrl();
-            var sourceNode = video.querySelector('source');
-
-            if (video.getAttribute('src') !== resolvedVideoUrl) {
-              video.setAttribute('src', resolvedVideoUrl);
+            if (video.dataset.heroSource !== resolvedVideoUrl) {
+              record.classList.remove('hero-video-visible');
+              video.dataset.heroSource = resolvedVideoUrl;
+              video.src = resolvedVideoUrl;
+              video.load();
             }
 
-            if (sourceNode && sourceNode.getAttribute('src') !== resolvedVideoUrl) {
-              sourceNode.setAttribute('src', resolvedVideoUrl);
-            }
-
-            video.load();
+            if (video.dataset.heroDelayedInit === '1') return true;
 
             video.dataset.heroDelayedInit = '1';
             video.muted = true;
             video.playsInline = true;
-            video.setAttribute('muted', '');
-            video.setAttribute('playsinline', '');
             video.preload = 'auto';
 
             var minDelayPassed = false;
@@ -206,16 +223,7 @@ const headHtml = headMatch[1]
             video.addEventListener('loadeddata', markVideoReady, { once: true });
             video.addEventListener('canplay', markVideoReady, { once: true });
             video.addEventListener('playing', markVideoReady, { once: true });
-
-            function scheduleStart() {
-              window.setTimeout(markMinDelayPassed, startDelayMs);
-            }
-
-            if (pageLoaded) {
-              scheduleStart();
-            } else {
-              window.addEventListener('load', scheduleStart, { once: true });
-            }
+            window.setTimeout(markMinDelayPassed, startDelayMs);
 
             warmVideoPlayback();
             window.setTimeout(warmVideoPlayback, 250);
@@ -223,21 +231,7 @@ const headHtml = headMatch[1]
             return true;
           }
 
-          var existingVideo = shape.querySelector('video');
-          if (attachVideo(existingVideo)) return true;
-
-          var observer = new MutationObserver(function() {
-            var injectedVideo = shape.querySelector('video');
-            if (!attachVideo(injectedVideo)) return;
-            observer.disconnect();
-          });
-
-          observer.observe(shape, { childList: true, subtree: true });
-          window.setTimeout(function() {
-            observer.disconnect();
-          }, 10000);
-
-          return true;
+          return attachVideo(createHeroVideo());
         }
 
         if (document.readyState === 'loading') {
@@ -258,11 +252,11 @@ const bodyHtml = bodySource
   .replace(/action=(['"])\/(?!\/)/g, `action=$1${basePath}`)
   .replace(
     /https:\/\/cdnv\.boomstream\.com\/balancer\/p1VrFFDa-SxJPiQup\.mp4/g,
-    heroDesktopVideoUrl,
+    "",
   )
   .replace(
     /(<div class='t396__elem tn-elem tn-elem__8613527161738731141089'[\s\S]*?<div class='tn-atom'>)(\s*<\/div>)/,
-    `$1${heroPosterLayer}$2`,
+    `$1${heroPosterLayer}${heroVideoLayer}$2`,
   );
 ---
 
