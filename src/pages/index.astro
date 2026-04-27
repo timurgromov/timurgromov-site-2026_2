@@ -46,7 +46,7 @@ const heroVideoLayer = `<video
   webkit-playsinline
   autoplay
   loop
-  preload="metadata"
+  preload="auto"
   aria-hidden="true"
 ></video>`;
 const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
@@ -205,7 +205,7 @@ const headHtml = headMatch[1]
             video.controls = false;
             video.disablePictureInPicture = true;
             video.setAttribute('webkit-playsinline', '');
-            video.preload = 'metadata';
+            video.preload = 'auto';
             var playbackStarted = video.readyState >= 2 && !video.paused && !video.ended;
             var warmPlayRetries = 0;
 
@@ -268,7 +268,17 @@ const headHtml = headMatch[1]
     </script>`,
   );
 
-const bodyHtml = bodySource
+const legacyHeroVideoBlockStart = bodySource.indexOf('<div id="rec861372811"');
+const legacyHeroVideoBlockEnd = bodySource.indexOf(
+  '<div id="rec862385545"',
+  legacyHeroVideoBlockStart,
+);
+const bodySourceWithoutLegacyHeroVideo =
+  legacyHeroVideoBlockStart !== -1 && legacyHeroVideoBlockEnd !== -1
+    ? `${bodySource.slice(0, legacyHeroVideoBlockStart)}${bodySource.slice(legacyHeroVideoBlockEnd)}`
+    : bodySource;
+
+const bodyHtml = bodySourceWithoutLegacyHeroVideo
   // На GitHub Pages якоря и возврат в начало страницы должны вести в BASE_URL.
   .replace(/href=(['"])\/(?!\/)/g, `href=$1${basePath}`)
   .replace(/src=(['"])\/(?!\/)/g, `src=$1${basePath}`)
