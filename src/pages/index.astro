@@ -31,7 +31,14 @@ const heroPosterDesktopDataUrl = `data:image/jpeg;base64,${readFileSync(
   new URL("../../images/hero-poster-desktop.jpg", import.meta.url),
   "base64",
 )}`;
-const heroVideoUrl = "https://global.s3.cloud.ru/tg26video-public/hero-desktop.mp4";
+const heroPosterMobileDataUrl = `data:image/jpeg;base64,${readFileSync(
+  new URL("../../images/hero-poster-mobile.jpg", import.meta.url),
+  "base64",
+)}`;
+const heroDesktopVideoUrl =
+  "https://global.s3.cloud.ru/tg26video-public/hero-desktop.mp4";
+const heroMobileVideoUrl =
+  "https://global.s3.cloud.ru/tg26video-public/hero-mobile.mp4";
 const heroVideoLayer = `<video
   class="hero-video-layer"
   muted
@@ -41,8 +48,15 @@ const heroVideoLayer = `<video
   loop
   preload="auto"
   aria-hidden="true"
-></video>`;
+>
+  <source media="(max-width: 639px)" src="${heroMobileVideoUrl}" type="video/mp4" />
+  <source src="${heroDesktopVideoUrl}" type="video/mp4" />
+</video>`;
 const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
+  <source
+    media="(max-width: 639px)"
+    srcset="${heroPosterMobileDataUrl}"
+  />
   <img
     class="hero-poster-img"
     src="${heroPosterDesktopDataUrl}"
@@ -113,6 +127,18 @@ const headHtml = headMatch[1]
       #rec861352716.hero-video-visible .tn-elem__8613527161738731141089 .hero-video-layer{
         opacity:1;
       }
+      @media screen and (max-width:639px){
+        #rec861352716 .tn-elem__8613527161738731141089 .tn-atom{
+          background-image:url('${heroPosterMobileDataUrl}');
+          background-position:center center;
+        }
+        #rec861352716 .tn-elem__8613527161738731141089 .hero-video-layer{
+          object-position:center center;
+        }
+        #rec861352716 .tn-elem__8613527161738731141089 .hero-poster-img{
+          object-position:center center;
+        }
+      }
     </style>`,
   )
   .concat(
@@ -120,7 +146,6 @@ const headHtml = headMatch[1]
       (function() {
         var heroRecordId = 'rec861352716';
         var heroShapeSelector = '.tn-elem__8613527161738731141089';
-        var heroVideoUrl = '${heroVideoUrl}';
 
         function initHeroVideoPoster() {
           var record = document.getElementById(heroRecordId);
@@ -156,12 +181,6 @@ const headHtml = headMatch[1]
 
           function attachVideo(video) {
             if (!video) return false;
-
-            if (video.dataset.heroSource !== heroVideoUrl) {
-              record.classList.remove('hero-video-visible');
-              video.dataset.heroSource = heroVideoUrl;
-              video.src = heroVideoUrl;
-            }
 
             if (video.dataset.heroDelayedInit === '1') return true;
 
