@@ -26,6 +26,9 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
       }
       #rec861352716 .tn-elem__8613527161738731141089 .hero-video-layer{
         position:relative;
+        display:block;
+        width:100%;
+        height:100%;
         z-index:1;
         opacity:0;
         transition:opacity .45s ease;
@@ -54,7 +57,6 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
       (function() {
         var heroRecordId = 'rec861352716';
         var heroShapeSelector = '.tn-elem__8613527161738731141089';
-        var startDelayMs = 900;
         var heroDesktopVideoUrl = 'https://global.s3.cloud.ru/tg26video-public/hero-desktop.mp4';
         var heroMobileVideoUrl = 'https://global.s3.cloud.ru/tg26video-public/hero-mobile.mp4';
 
@@ -99,7 +101,6 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
               record.classList.remove('hero-video-visible');
               video.dataset.heroSource = resolvedVideoUrl;
               video.src = resolvedVideoUrl;
-              video.load();
             }
 
             if (video.dataset.heroDelayedInit === '1') return true;
@@ -107,23 +108,17 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
             video.dataset.heroDelayedInit = '1';
             video.muted = true;
             video.playsInline = true;
-            video.preload = 'auto';
-
-            var minDelayPassed = false;
+            video.setAttribute('webkit-playsinline', '');
+            video.preload = 'metadata';
             var videoReady = video.readyState >= 2;
 
             function revealVideoIfReady() {
-              if (!minDelayPassed || !videoReady) return;
+              if (!videoReady) return;
               record.classList.add('hero-video-visible');
             }
 
             function markVideoReady() {
               videoReady = true;
-              revealVideoIfReady();
-            }
-
-            function markMinDelayPassed() {
-              minDelayPassed = true;
               revealVideoIfReady();
             }
 
@@ -146,7 +141,6 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
             video.addEventListener('loadeddata', markVideoReady, { once: true });
             video.addEventListener('canplay', markVideoReady, { once: true });
             video.addEventListener('playing', markVideoReady, { once: true });
-            window.setTimeout(markMinDelayPassed, startDelayMs);
 
             warmVideoPlayback();
             window.setTimeout(warmVideoPlayback, 250);
@@ -213,9 +207,10 @@ alt='' imgfield='tn_img_1738924888810'
   class="hero-video-layer"
   muted
   playsinline
+  webkit-playsinline
   autoplay
   loop
-  preload="auto"
+  preload="metadata"
   aria-hidden="true"
 ></video> </div> </div> <div class='t396__elem tn-elem tn-elem__8613527161738731786845' data-elem-id='1738731786845' data-elem-type='text' data-field-top-value="-237" data-field-left-value="65" data-field-height-value="107" data-field-width-value="754" data-field-axisy-value="bottom" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-textfit-value="autowidth" data-field-fontsize-value="107" data-field-top-res-320-value="-245" data-field-left-res-320-value="10" data-field-height-res-320-value="38" data-field-width-res-320-value="273" data-field-container-res-320-value="grid" data-field-fontsize-res-320-value="38" data-field-top-res-640-value="-215" data-field-left-res-640-value="20" data-field-height-res-640-value="67" data-field-width-res-640-value="473" data-field-top-res-1200-value="-148" data-field-left-res-1200-value="40" data-field-width-res-1200-value="473" data-field-fontsize-res-1200-value="67"> <div class='tn-atom'field='tn_text_1738731786845'>Проведу вашу свадьбу</div> </div> <div class='t396__elem tn-elem tn-elem__8613527161739347764973 ' data-elem-id='1739347764973' data-elem-type='text' data-field-top-value="-117" data-field-left-value="753" data-field-height-value="20" data-field-width-value="135" data-field-axisy-value="center" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-animate-sbs-event="hover" data-animate-sbs-opts="[{'mx':0,'my':0,'sx':1,'sy':1,'op':1,'ro':0,'ti':0,'ea':'0','dt':0},{'mx':0,'my':0,'sx':1,'sy':1,'op':0,'ro':0,'ti':200,'ea':'0','dt':0}]" data-field-textfit-value="autowidth" data-field-fontsize-value="20" data-field-left-res-640-value="-480px" data-field-top-res-1200-value="-87" data-field-left-res-1200-value="469" data-field-height-res-1200-value="14" data-field-width-res-1200-value="78" data-field-axisx-res-1200-value="left" data-field-container-res-1200-value="grid" data-field-topunits-res-1200-value="px" data-field-leftunits-res-1200-value="px" data-field-fontsize-res-1200-value="14"> <div class='tn-atom'><a href="#poleznosti"style="color: inherit">полезности</a></div> </div> <div class='t396__elem tn-elem tn-elem__8613527161738733020218' data-elem-id='1738733020218' data-elem-type='shape' data-field-top-value="-42" data-field-left-value="1288" data-field-height-value="48" data-field-width-value="273" data-field-axisy-value="bottom" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-widthmode-value="fixed" data-field-heightmode-value="fixed" data-field-top-res-320-value="-15" data-field-left-res-320-value="10" data-field-height-res-320-value="35" data-field-width-res-320-value="266" data-field-axisy-res-320-value="bottom" data-field-widthmode-res-320-value="fixed" data-field-heightmode-res-320-value="fixed" data-field-top-res-640-value="-74.5" data-field-left-res-640-value="332" data-field-height-res-640-value="35" data-field-width-res-640-value="254" data-field-axisy-res-640-value="center" data-field-container-res-640-value="grid" data-field-widthmode-res-640-value="fixed" data-field-heightmode-res-640-value="fixed" data-field-top-res-1200-value="-27" data-field-left-res-1200-value="814" data-field-height-res-1200-value="30" data-field-width-res-1200-value="171" data-field-container-res-1200-value="grid" data-field-widthmode-res-1200-value="fixed" data-field-heightmode-res-1200-value="fixed"> <div class='tn-atom'> </div> </div> <div class='t396__elem tn-elem tn-elem__8613527161738733061526' data-elem-id='1738733061526' data-elem-type='shape' data-field-top-value="-42" data-field-left-value="1560" data-field-height-value="48" data-field-width-value="48" data-field-axisy-value="bottom" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-widthmode-value="fixed" data-field-heightmode-value="fixed" data-field-top-res-320-value="-15" data-field-left-res-320-value="275" data-field-height-res-320-value="35" data-field-width-res-320-value="35" data-field-axisy-res-320-value="bottom" data-field-widthmode-res-320-value="fixed" data-field-heightmode-res-320-value="fixed" data-field-top-res-640-value="-74.5" data-field-left-res-640-value="585" data-field-height-res-640-value="35" data-field-width-res-640-value="35" data-field-axisy-res-640-value="center" data-field-container-res-640-value="grid" data-field-widthmode-res-640-value="fixed" data-field-heightmode-res-640-value="fixed" data-field-top-res-1200-value="-27" data-field-left-res-1200-value="984" data-field-height-res-1200-value="30" data-field-width-res-1200-value="30" data-field-container-res-1200-value="grid" data-field-widthmode-res-1200-value="fixed" data-field-heightmode-res-1200-value="fixed"> <div class='tn-atom'> </div> </div> <div class='t396__elem tn-elem tn-elem__8613527161738733079599' data-elem-id='1738733079599' data-elem-type='text' data-field-top-value="-57" data-field-left-value="1322" data-field-height-value="19" data-field-width-value="205" data-field-axisy-value="bottom" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-textfit-value="autowidth" data-field-fontsize-value="19" data-field-top-res-320-value="-26" data-field-left-res-320-value="73" data-field-width-res-320-value="141" data-field-axisy-res-320-value="bottom" data-field-fontsize-res-320-value="13" data-field-top-res-640-value="-74" data-field-left-res-640-value="394" data-field-height-res-640-value="12" data-field-width-res-640-value="130" data-field-axisy-res-640-value="center" data-field-container-res-640-value="grid" data-field-top-res-1200-value="-36" data-field-left-res-1200-value="834" data-field-height-res-1200-value="12" data-field-width-res-1200-value="130" data-field-container-res-1200-value="grid" data-field-fontsize-res-1200-value="12"> <div class='tn-atom'field='tn_text_1738733079599'>обсудить мою свадьбу</div> </div> <div class='t396__elem tn-elem tn-elem__8613527161738735136250' data-elem-id='1738735136250' data-elem-type='shape' data-field-top-value="-41" data-field-left-value="1288" data-field-height-value="49" data-field-width-value="320" data-field-axisy-value="bottom" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-top-res-320-value="-15" data-field-left-res-320-value="10" data-field-width-res-320-value="300" data-field-widthmode-res-320-value="fixed" data-field-top-res-640-value="-446" data-field-left-res-640-value="332" data-field-height-res-640-value="35" data-field-width-res-640-value="288" data-field-heightmode-res-640-value="fixed" data-field-top-res-1200-value="-27" data-field-left-res-1200-value="814" data-field-height-res-1200-value="30" data-field-width-res-1200-value="200" data-field-container-res-1200-value="grid" data-field-heightmode-res-1200-value="fixed"> <a class='tn-atom' href="http://t.me/timurgromovv" rel="nofollow" target="_blank"> </a> </div> <div class='t396__elem tn-elem tn-elem__8613527161738733186214 ' data-elem-id='1738733186214' data-elem-type='image' data-field-top-value="-58" data-field-left-value="1576" data-field-height-value="16" data-field-width-value="16" data-field-axisy-value="bottom" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-animate-mobile="y" data-animate-sbs-event="hover" data-animate-sbs-trgels="1738735136250" data-animate-sbs-opts="[{'mx':0,'my':0,'sx':1,'sy':1,'op':1,'ro':0,'ti':0,'ea':'0','dt':0},{'mx':0,'my':0,'sx':1,'sy':1,'op':1,'ro':45,'ti':200,'ea':'0','dt':0}]" data-field-filewidth-value="16" data-field-fileheight-value="16" data-field-widthmode-value="fixed" data-field-heightmode-value="hug" data-field-top-res-320-value="-26" data-field-left-res-320-value="286" data-field-width-res-320-value="13" data-field-axisy-res-320-value="bottom" data-field-widthmode-res-320-value="fixed" data-field-top-res-640-value="-74.5" data-field-left-res-640-value="596" data-field-height-res-640-value="13" data-field-width-res-640-value="13" data-field-axisy-res-640-value="center" data-field-container-res-640-value="grid" data-field-widthmode-res-640-value="fixed" data-field-top-res-1200-value="-37" data-field-left-res-1200-value="994" data-field-height-res-1200-value="10" data-field-width-res-1200-value="10" data-field-container-res-1200-value="grid"> <div class='tn-atom'> <img class='tn-atom__img t-img' data-original='images/tild3536-3939-4363-b163-323761323432__vector_8.svg'
 src='images/tild3536-3939-4363-b163-323761323432__vector_8.svg'
