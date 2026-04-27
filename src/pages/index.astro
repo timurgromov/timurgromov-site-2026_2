@@ -306,17 +306,7 @@ const headHtml = headMatch[1]
     </script>`,
   );
 
-const legacyHeroVideoBlockStart = bodySource.indexOf('<div id="rec861372811"');
-const legacyHeroVideoBlockEnd = bodySource.indexOf(
-  '<div id="rec862385545"',
-  legacyHeroVideoBlockStart,
-);
-const bodySourceWithoutLegacyHeroVideo =
-  legacyHeroVideoBlockStart !== -1 && legacyHeroVideoBlockEnd !== -1
-    ? `${bodySource.slice(0, legacyHeroVideoBlockStart)}${bodySource.slice(legacyHeroVideoBlockEnd)}`
-    : bodySource;
-
-const bodyHtml = bodySourceWithoutLegacyHeroVideo
+const bodyHtml = bodySource
   // На GitHub Pages якоря и возврат в начало страницы должны вести в BASE_URL.
   .replace(/href=(['"])\/(?!\/)/g, `href=$1${basePath}`)
   .replace(/src=(['"])\/(?!\/)/g, `src=$1${basePath}`)
