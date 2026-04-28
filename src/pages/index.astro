@@ -36,6 +36,20 @@ const heroCloudMobileVideoUrl =
 const heroCloudVideoExpression = `(window.matchMedia("(max-width: 639px)").matches ? "${heroCloudMobileVideoUrl}" : "${heroCloudDesktopVideoUrl}")`;
 const heroPosterDesktopUrl = `${basePath}images/hero-poster-desktop.jpg`;
 const heroPosterMobileUrl = `${basePath}images/hero-poster-mobile.jpg`;
+const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
+  <source
+    media="(max-width: 639px)"
+    srcset="${heroPosterMobileUrl}"
+  />
+  <img
+    class="hero-poster-img"
+    src="${heroPosterDesktopUrl}"
+    alt=""
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+  />
+</picture>`;
 const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru" crossorigin>
 <link
   rel="preload"
@@ -63,11 +77,29 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
     transition:none !important;
   }
   #rec861352716 .tn-elem__8613527161738731141089 .tn-atom{
+    position:relative;
     background-image:url("${heroPosterDesktopUrl}");
     background-size:cover;
     background-position:center center;
     background-repeat:no-repeat;
     background-color:#1c1b1a;
+    overflow:hidden;
+  }
+  #rec861352716 .tn-elem__8613527161738731141089 > .hero-poster-layer{
+    position:absolute;
+    inset:0;
+    z-index:20;
+    display:block;
+    pointer-events:none;
+    opacity:1;
+    transition:opacity .2s ease;
+  }
+  #rec861352716 .tn-elem__8613527161738731141089 > .hero-poster-layer .hero-poster-img{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+    object-position:center center;
   }
   #rec861352716 .tn-elem__8613527161738731141089 video{
     opacity:0 !important;
@@ -75,6 +107,9 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
   }
   #rec861352716.hero-video-started .tn-elem__8613527161738731141089 video{
     opacity:1 !important;
+  }
+  #rec861352716.hero-video-started .tn-elem__8613527161738731141089 > .hero-poster-layer{
+    opacity:0;
   }
   @media screen and (max-width:639px){
     #rec861352716 .tn-elem__8613527161738731141089 .tn-atom{
@@ -303,6 +338,10 @@ const bodyHtml = bodySource
   .replace(
     `link = '${heroBoomstreamVideoUrl}' ? (function() { let link = '${heroBoomstreamVideoUrl}'.trim();`,
     `link = ${heroCloudVideoExpression} ? (function() { let link = ${heroCloudVideoExpression}.trim();`,
+  )
+  .replace(
+    /(<div class='t396__elem tn-elem tn-elem__8613527161738731141089'[\s\S]*?<div class='tn-atom'>\s*<\/div>)/,
+    `$1${heroPosterLayer}`,
   );
 ---
 
