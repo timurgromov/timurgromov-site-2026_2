@@ -34,6 +34,47 @@ const heroCloudDesktopVideoUrl =
 const heroCloudMobileVideoUrl =
   "https://global.s3.cloud.ru/tg26video-public/hero-mobile.mp4";
 const heroCloudVideoExpression = `(window.matchMedia("(max-width: 639px)").matches ? "${heroCloudMobileVideoUrl}" : "${heroCloudDesktopVideoUrl}")`;
+const heroPosterDesktopUrl = `${basePath}images/hero-poster-desktop.jpg`;
+const heroPosterMobileUrl = `${basePath}images/hero-poster-mobile.jpg`;
+const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru" crossorigin>
+<link
+  rel="preload"
+  as="image"
+  href="${heroPosterDesktopUrl}"
+  media="(min-width: 640px)"
+  fetchpriority="high"
+>
+<link
+  rel="preload"
+  as="image"
+  href="${heroPosterMobileUrl}"
+  media="(max-width: 639px)"
+  fetchpriority="high"
+>
+<style>
+  html,
+  body.t-body{
+    background:#1c1b1a !important;
+  }
+  body.t-body .t-records,
+  body.t-body .t-records_animated{
+    opacity:1 !important;
+    visibility:visible !important;
+    transition:none !important;
+  }
+  #rec861352716 .tn-elem__8613527161738731141089 .tn-atom{
+    background-image:url("${heroPosterDesktopUrl}");
+    background-size:cover;
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-color:#1c1b1a;
+  }
+  @media screen and (max-width:639px){
+    #rec861352716 .tn-elem__8613527161738731141089 .tn-atom{
+      background-image:url("${heroPosterMobileUrl}");
+    }
+  }
+</style>`;
 const heroAutoplayBooster = `<style>
   #rec861352716 .tn-elem__8613527161738731141089 video::-webkit-media-controls{
     display:none !important;
@@ -51,6 +92,14 @@ const heroAutoplayBooster = `<style>
     var retryCount = 0;
     var maxRetries = 24;
     var activeVideo = null;
+    var mobilePosterUrl = '${heroPosterMobileUrl}';
+    var desktopPosterUrl = '${heroPosterDesktopUrl}';
+
+    function getHeroPosterUrl() {
+      return window.matchMedia('(max-width: 639px)').matches
+        ? mobilePosterUrl
+        : desktopPosterUrl;
+    }
 
     function getHeroVideo() {
       var record = document.getElementById(heroRecordId);
@@ -70,12 +119,14 @@ const heroAutoplayBooster = `<style>
       video.playsInline = true;
       video.controls = false;
       video.preload = 'auto';
+      video.poster = getHeroPosterUrl();
       video.setAttribute('muted', '');
       video.setAttribute('autoplay', '');
       video.setAttribute('loop', '');
       video.setAttribute('playsinline', '');
       video.setAttribute('webkit-playsinline', '');
       video.setAttribute('preload', 'auto');
+      video.setAttribute('poster', getHeroPosterUrl());
       video.removeAttribute('controls');
 
       try {
@@ -187,6 +238,9 @@ const heroAutoplayBooster = `<style>
 
     window.addEventListener('load', scheduleAutoplayRetries);
     window.addEventListener('pageshow', scheduleAutoplayRetries);
+    window.addEventListener('resize', function() {
+      primeVideo(activeVideo || getHeroVideo());
+    });
     document.addEventListener('visibilitychange', function() {
       if (!document.hidden) scheduleAutoplayRetries();
     });
@@ -202,6 +256,9 @@ const headHtml = headMatch[1]
   // В экспорт не попала вспомогательная Tilda-функция, которая иногда вызывается inline-скриптами.
   .concat(
     `<script>window.t396_elem_fixLineHeight=window.t396_elem_fixLineHeight||function(){return;};</script>`,
+  )
+  .concat(
+    fastFirstPaint,
   )
   .concat(
     heroAutoplayBooster,
