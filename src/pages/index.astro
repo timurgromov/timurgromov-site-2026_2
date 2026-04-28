@@ -76,13 +76,24 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
     visibility:visible !important;
     transition:none !important;
   }
+  #rec861352716 .t396__artboard,
+  #rec861352716 .t396__carrier,
+  #rec861352716 .t396__filter{
+    background-color:#1c1b1a !important;
+  }
+  #rec861352716 .tn-elem__8613527161738731141089{
+    top:0 !important;
+    left:0 !important;
+    width:100% !important;
+    min-width:100% !important;
+  }
   #rec861352716 .tn-elem__8613527161738731141089 .tn-atom{
     position:relative;
     background-image:url("${heroPosterDesktopUrl}");
     background-size:cover;
     background-position:center center;
     background-repeat:no-repeat;
-    background-color:#1c1b1a;
+    background-color:#1c1b1a !important;
     overflow:hidden;
   }
   #rec861352716 .tn-elem__8613527161738731141089 > .hero-poster-layer{
@@ -91,6 +102,11 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
     z-index:20;
     display:block;
     pointer-events:none;
+    background-image:url("${heroPosterDesktopUrl}");
+    background-size:cover;
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-color:#1c1b1a;
     opacity:1;
     transition:opacity .2s ease;
   }
@@ -113,6 +129,9 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
   }
   @media screen and (max-width:639px){
     #rec861352716 .tn-elem__8613527161738731141089 .tn-atom{
+      background-image:url("${heroPosterMobileUrl}");
+    }
+    #rec861352716 .tn-elem__8613527161738731141089 > .hero-poster-layer{
       background-image:url("${heroPosterMobileUrl}");
     }
   }
