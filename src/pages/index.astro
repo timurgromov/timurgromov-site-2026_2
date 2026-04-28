@@ -77,6 +77,14 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
     visibility:visible !important;
     transition:none !important;
   }
+  html:not(.hero-header-solid) #rec862699342,
+  html:not(.hero-header-solid) #rec862699342 .t396__artboard,
+  html:not(.hero-header-solid) #rec862699342 .t396__carrier,
+  html:not(.hero-header-solid) #rec862699342 .t396__filter,
+  html:not(.hero-header-solid) #rec862699342 .tn-elem__8626993421738923690320 .tn-atom{
+    background:transparent !important;
+    background-color:transparent !important;
+  }
   #rec861352716 .t396__artboard,
   #rec861352716 .t396__carrier,
   #rec861352716 .t396__filter{
@@ -154,7 +162,19 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
       pointer-events:none !important;
     }
   }
-</style>`;
+</style>
+<script>
+  (function() {
+    function syncHeroHeaderState() {
+      document.documentElement.classList.toggle('hero-header-solid', window.scrollY > 520);
+    }
+
+    syncHeroHeaderState();
+    window.addEventListener('scroll', syncHeroHeaderState, { passive: true });
+    window.addEventListener('resize', syncHeroHeaderState);
+    window.addEventListener('pageshow', syncHeroHeaderState);
+  })();
+</script>`;
 const heroAutoplayBooster = `<style>
   #rec861352716 .tn-elem__8613527161738731141089 video::-webkit-media-controls{
     display:none !important;
