@@ -34,6 +34,164 @@ const heroCloudDesktopVideoUrl =
 const heroCloudMobileVideoUrl =
   "https://global.s3.cloud.ru/tg26video-public/hero-mobile.mp4";
 const heroCloudVideoExpression = `(window.matchMedia("(max-width: 639px)").matches ? "${heroCloudMobileVideoUrl}" : "${heroCloudDesktopVideoUrl}")`;
+const heroAutoplayBooster = `<style>
+  #rec861352716 .tn-elem__8613527161738731141089 video::-webkit-media-controls{
+    display:none !important;
+  }
+  #rec861352716 .tn-elem__8613527161738731141089 video::-webkit-media-controls-start-playback-button{
+    display:none !important;
+    -webkit-appearance:none;
+  }
+</style>
+<script>
+  (function() {
+    var heroRecordId = 'rec861352716';
+    var heroShapeSelector = '.tn-elem__8613527161738731141089';
+    var retryTimer = 0;
+    var retryCount = 0;
+    var maxRetries = 24;
+    var activeVideo = null;
+
+    function getHeroVideo() {
+      var record = document.getElementById(heroRecordId);
+      var shape = record && record.querySelector(heroShapeSelector);
+      return shape && shape.querySelector('video');
+    }
+
+    function primeVideo(video) {
+      if (!video) return null;
+
+      activeVideo = video;
+      video.muted = true;
+      video.defaultMuted = true;
+      video.volume = 0;
+      video.autoplay = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.controls = false;
+      video.preload = 'auto';
+      video.setAttribute('muted', '');
+      video.setAttribute('autoplay', '');
+      video.setAttribute('loop', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      video.setAttribute('preload', 'auto');
+      video.removeAttribute('controls');
+
+      try {
+        video.disablePictureInPicture = true;
+        video.disableRemotePlayback = true;
+      } catch (error) {
+        return video;
+      }
+
+      return video;
+    }
+
+    function isPlaying(video) {
+      return video && !video.paused && !video.ended && video.readyState >= 2;
+    }
+
+    function playHeroVideo() {
+      var video = primeVideo(activeVideo || getHeroVideo());
+      var playPromise;
+
+      if (!video || isPlaying(video)) return;
+
+      try {
+        playPromise = video.play();
+      } catch (error) {
+        return;
+      }
+
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(function() {
+          return;
+        });
+      }
+    }
+
+    function scheduleAutoplayRetries() {
+      window.clearTimeout(retryTimer);
+
+      function tick() {
+        var video = primeVideo(getHeroVideo());
+
+        if (!video) {
+          retryTimer = window.setTimeout(tick, 200);
+          return;
+        }
+
+        playHeroVideo();
+
+        if (isPlaying(video) || retryCount >= maxRetries) return;
+        retryCount += 1;
+        retryTimer = window.setTimeout(tick, 300);
+      }
+
+      retryCount = 0;
+      tick();
+    }
+
+    function bindGestureFallback() {
+      function handleGesture() {
+        playHeroVideo();
+
+        window.setTimeout(function() {
+          if (!isPlaying(activeVideo)) return;
+          window.removeEventListener('touchstart', handleGesture, true);
+          window.removeEventListener('pointerdown', handleGesture, true);
+          window.removeEventListener('mousedown', handleGesture, true);
+          window.removeEventListener('click', handleGesture, true);
+        }, 120);
+      }
+
+      window.addEventListener('touchstart', handleGesture, { passive: true, capture: true });
+      window.addEventListener('pointerdown', handleGesture, { passive: true, capture: true });
+      window.addEventListener('mousedown', handleGesture, true);
+      window.addEventListener('click', handleGesture, true);
+    }
+
+    function observeHeroVideo() {
+      var target = document.getElementById(heroRecordId) || document.body;
+      if (!target) return;
+
+      var observer = new MutationObserver(function() {
+        var video = primeVideo(getHeroVideo());
+        if (!video) return;
+
+        video.addEventListener('loadedmetadata', playHeroVideo);
+        video.addEventListener('loadeddata', playHeroVideo);
+        video.addEventListener('canplay', playHeroVideo);
+        video.addEventListener('playing', primeVideo.bind(null, video));
+        playHeroVideo();
+      });
+
+      observer.observe(target, { childList: true, subtree: true });
+      window.setTimeout(function() {
+        observer.disconnect();
+      }, 12000);
+    }
+
+    function initHeroAutoplayBooster() {
+      bindGestureFallback();
+      observeHeroVideo();
+      scheduleAutoplayRetries();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initHeroAutoplayBooster, { once: true });
+    } else {
+      initHeroAutoplayBooster();
+    }
+
+    window.addEventListener('load', scheduleAutoplayRetries);
+    window.addEventListener('pageshow', scheduleAutoplayRetries);
+    document.addEventListener('visibilitychange', function() {
+      if (!document.hidden) scheduleAutoplayRetries();
+    });
+  })();
+</script>`;
 
 const headHtml = headMatch[1]
   .replace(
@@ -44,6 +202,9 @@ const headHtml = headMatch[1]
   // В экспорт не попала вспомогательная Tilda-функция, которая иногда вызывается inline-скриптами.
   .concat(
     `<script>window.t396_elem_fixLineHeight=window.t396_elem_fixLineHeight||function(){return;};</script>`,
+  )
+  .concat(
+    heroAutoplayBooster,
   );
 
 const bodyHtml = bodySource
