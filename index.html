@@ -33,6 +33,13 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
     background-repeat:no-repeat;
     background-color:#1c1b1a;
   }
+  #rec861352716 .tn-elem__8613527161738731141089 video{
+    opacity:0 !important;
+    transition:opacity .2s ease;
+  }
+  #rec861352716.hero-video-started .tn-elem__8613527161738731141089 video{
+    opacity:1 !important;
+  }
   @media screen and (max-width:639px){
     #rec861352716 .tn-elem__8613527161738731141089 .tn-atom{
       background-image:url("/timurgromov-site-2026_2/images/hero-poster-mobile.jpg");
@@ -70,6 +77,12 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
       return shape && shape.querySelector('video');
     }
 
+    function markHeroVideoStarted(video) {
+      var record = document.getElementById(heroRecordId);
+      if (!record || !isPlaying(video)) return;
+      record.classList.add('hero-video-started');
+    }
+
     function primeVideo(video) {
       if (!video) return null;
 
@@ -91,6 +104,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
       video.setAttribute('preload', 'auto');
       video.setAttribute('poster', getHeroPosterUrl());
       video.removeAttribute('controls');
+      markHeroVideoStarted(video);
 
       try {
         video.disablePictureInPicture = true;
@@ -118,6 +132,12 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
         return;
       }
 
+      if (playPromise && typeof playPromise.then === 'function') {
+        playPromise.then(function() {
+          markHeroVideoStarted(video);
+        });
+      }
+
       if (playPromise && typeof playPromise.catch === 'function') {
         playPromise.catch(function() {
           return;
@@ -138,7 +158,12 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
 
         playHeroVideo();
 
-        if (isPlaying(video) || retryCount >= maxRetries) return;
+        if (isPlaying(video)) {
+          markHeroVideoStarted(video);
+          return;
+        }
+
+        if (retryCount >= maxRetries) return;
         retryCount += 1;
         retryTimer = window.setTimeout(tick, 300);
       }
@@ -153,6 +178,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
 
         window.setTimeout(function() {
           if (!isPlaying(activeVideo)) return;
+          markHeroVideoStarted(activeVideo);
           window.removeEventListener('touchstart', handleGesture, true);
           window.removeEventListener('pointerdown', handleGesture, true);
           window.removeEventListener('mousedown', handleGesture, true);
@@ -177,7 +203,8 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
         video.addEventListener('loadedmetadata', playHeroVideo);
         video.addEventListener('loadeddata', playHeroVideo);
         video.addEventListener('canplay', playHeroVideo);
-        video.addEventListener('playing', primeVideo.bind(null, video));
+        video.addEventListener('playing', markHeroVideoStarted.bind(null, video));
+        video.addEventListener('timeupdate', markHeroVideoStarted.bind(null, video));
         playHeroVideo();
       });
 
