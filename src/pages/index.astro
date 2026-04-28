@@ -34,8 +34,9 @@ const heroCloudDesktopVideoUrl =
 const heroCloudMobileVideoUrl =
   "https://global.s3.cloud.ru/tg26video-public/hero-mobile.mp4";
 const heroCloudVideoExpression = `(window.matchMedia("(max-width: 639px)").matches ? "${heroCloudMobileVideoUrl}" : "${heroCloudDesktopVideoUrl}")`;
-const heroPosterDesktopUrl = `${basePath}images/hero-poster-desktop.jpg`;
-const heroPosterMobileUrl = `${basePath}images/hero-poster-mobile.jpg`;
+const heroPosterVersion = "2306bab";
+const heroPosterDesktopUrl = `${basePath}images/hero-poster-desktop.jpg?v=${heroPosterVersion}`;
+const heroPosterMobileUrl = `${basePath}images/hero-poster-mobile.jpg?v=${heroPosterVersion}`;
 const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
   <source
     media="(max-width: 639px)"
