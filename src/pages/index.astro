@@ -29,8 +29,11 @@ const bodyClass = bodyAttrs.match(/\bclass=(['"])(.*?)\1/i)?.[2];
 const bodyStyle = bodyAttrs.match(/\bstyle=(['"])(.*?)\1/i)?.[2];
 const heroBoomstreamVideoUrl =
   "https://cdnv.boomstream.com/balancer/p1VrFFDa-SxJPiQup.mp4";
-const heroCloudVideoUrl =
+const heroCloudDesktopVideoUrl =
   "https://global.s3.cloud.ru/tg26video-public/hero-desktop.mp4";
+const heroCloudMobileVideoUrl =
+  "https://global.s3.cloud.ru/tg26video-public/hero-mobile.mp4";
+const heroCloudVideoExpression = `(window.matchMedia("(max-width: 639px)").matches ? "${heroCloudMobileVideoUrl}" : "${heroCloudDesktopVideoUrl}")`;
 
 const headHtml = headMatch[1]
   .replace(
@@ -48,7 +51,14 @@ const bodyHtml = bodySource
   .replace(/href=(['"])\/(?!\/)/g, `href=$1${basePath}`)
   .replace(/src=(['"])\/(?!\/)/g, `src=$1${basePath}`)
   .replace(/action=(['"])\/(?!\/)/g, `action=$1${basePath}`)
-  .replaceAll(heroBoomstreamVideoUrl, heroCloudVideoUrl);
+  .replaceAll(
+    `"data":"${heroBoomstreamVideoUrl}"`,
+    `"data":"${heroCloudDesktopVideoUrl}"`,
+  )
+  .replace(
+    `link = '${heroBoomstreamVideoUrl}' ? (function() { let link = '${heroBoomstreamVideoUrl}'.trim();`,
+    `link = ${heroCloudVideoExpression} ? (function() { let link = ${heroCloudVideoExpression}.trim();`,
+  );
 ---
 
 <!doctype html>
