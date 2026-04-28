@@ -27,6 +27,10 @@ if (!bodyTagMatch) {
 const bodyAttrs = bodyTagMatch[1];
 const bodyClass = bodyAttrs.match(/\bclass=(['"])(.*?)\1/i)?.[2];
 const bodyStyle = bodyAttrs.match(/\bstyle=(['"])(.*?)\1/i)?.[2];
+const heroBoomstreamVideoUrl =
+  "https://cdnv.boomstream.com/balancer/p1VrFFDa-SxJPiQup.mp4";
+const heroCloudVideoUrl =
+  "https://global.s3.cloud.ru/tg26video-public/hero-desktop.mp4";
 
 const headHtml = headMatch[1]
   .replace(
@@ -43,7 +47,8 @@ const bodyHtml = bodySource
   // На GitHub Pages якоря и возврат в начало страницы должны вести в BASE_URL.
   .replace(/href=(['"])\/(?!\/)/g, `href=$1${basePath}`)
   .replace(/src=(['"])\/(?!\/)/g, `src=$1${basePath}`)
-  .replace(/action=(['"])\/(?!\/)/g, `action=$1${basePath}`);
+  .replace(/action=(['"])\/(?!\/)/g, `action=$1${basePath}`)
+  .replaceAll(heroBoomstreamVideoUrl, heroCloudVideoUrl);
 ---
 
 <!doctype html>
