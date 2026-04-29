@@ -112,14 +112,18 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
   }
   #rec861352716 .tn-elem__8613527161738731141089 .tn-atom{
     position:relative;
+    background-image:url("${heroPosterDesktopUrl}");
+    background-size:cover;
+    background-position:center center;
+    background-repeat:no-repeat;
     background-color:#1c1b1a !important;
     overflow:hidden;
   }
-  #rec861352716 .tn-elem__8613527161738731141089 .tn-atom > .hero-poster-layer{
+  #rec861352716 .tn-elem__8613527161738731141089 > .hero-poster-layer{
     position:absolute;
     inset:0;
-    z-index:1;
-    display:block;
+    z-index:20;
+    display:none;
     pointer-events:none;
     background-image:url("${heroPosterDesktopUrl}");
     background-size:cover;
@@ -129,7 +133,7 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
     opacity:1;
     transition:opacity .2s ease;
   }
-  #rec861352716 .tn-elem__8613527161738731141089 .tn-atom > .hero-poster-layer .hero-poster-img{
+  #rec861352716 .tn-elem__8613527161738731141089 > .hero-poster-layer .hero-poster-img{
     width:100%;
     height:100%;
     display:block;
@@ -137,24 +141,21 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
     object-position:center center;
   }
   #rec861352716 .tn-elem__8613527161738731141089 video{
-    position:absolute !important;
-    inset:0;
-    z-index:2;
-    width:100% !important;
-    height:100% !important;
     opacity:0 !important;
     transition:opacity .2s ease;
-    object-fit:cover !important;
-    object-position:center center !important;
   }
   #rec861352716.hero-video-started .tn-elem__8613527161738731141089 video{
     opacity:1 !important;
   }
-  #rec861352716.hero-video-started .tn-elem__8613527161738731141089 .tn-atom > .hero-poster-layer{
+  #rec861352716.hero-video-started .tn-elem__8613527161738731141089 > .hero-poster-layer{
     opacity:0;
   }
   @media screen and (max-width:639px){
-    #rec861352716 .tn-elem__8613527161738731141089 .tn-atom > .hero-poster-layer{
+    #rec861352716 .tn-elem__8613527161738731141089 .tn-atom{
+      background-image:url("${heroPosterMobileUrl}");
+    }
+    #rec861352716 .tn-elem__8613527161738731141089 > .hero-poster-layer{
+      display:block;
       background-image:url("${heroPosterMobileUrl}");
     }
     #rec861352716 .tn-elem[data-elem-id="1738734490081"],
@@ -204,68 +205,9 @@ const heroAutoplayBooster = `<style>
     var retryTimer = 0;
     var retryCount = 0;
     var maxRetries = 24;
-    var minPosterHoldMs = 900;
-    var posterHoldComplete = false;
-    var posterHoldTimer = 0;
-    var heroRenderObserver = null;
     var activeVideo = null;
     var mobilePosterUrl = '${heroPosterMobileUrl}';
     var desktopPosterUrl = '${heroPosterDesktopUrl}';
-
-    function getHeroRecord() {
-      return document.getElementById(heroRecordId);
-    }
-
-    function getHeroArtboard() {
-      var record = getHeroRecord();
-      return record && record.querySelector('.t396__artboard');
-    }
-
-    function isHeroRendered() {
-      var artboard = getHeroArtboard();
-      return !!(artboard && artboard.classList.contains('rendered'));
-    }
-
-    function startPosterHoldTimer() {
-      if (!isHeroRendered()) return;
-      if (posterHoldTimer) return;
-      posterHoldTimer = window.setTimeout(function() {
-        posterHoldComplete = true;
-        playHeroVideo();
-      }, minPosterHoldMs);
-    }
-
-    function watchHeroRendered() {
-      var artboard = getHeroArtboard();
-      if (!artboard) return;
-
-      if (isHeroRendered()) {
-        startPosterHoldTimer();
-        return;
-      }
-
-      if (heroRenderObserver) return;
-
-      heroRenderObserver = new MutationObserver(function() {
-        if (!isHeroRendered()) return;
-        heroRenderObserver.disconnect();
-        heroRenderObserver = null;
-        startPosterHoldTimer();
-        playHeroVideo();
-      });
-
-      heroRenderObserver.observe(artboard, {
-        attributes: true,
-        attributeFilter: ['class'],
-      });
-
-      window.setTimeout(function() {
-        if (!heroRenderObserver) return;
-        heroRenderObserver.disconnect();
-        heroRenderObserver = null;
-        startPosterHoldTimer();
-      }, 5000);
-    }
 
     function getHeroPosterUrl() {
       return window.matchMedia('(max-width: 639px)').matches
@@ -274,76 +216,39 @@ const heroAutoplayBooster = `<style>
     }
 
     function getHeroVideo() {
-      var record = getHeroRecord();
+      var record = document.getElementById(heroRecordId);
       var shape = record && record.querySelector(heroShapeSelector);
       return shape && shape.querySelector('video');
     }
 
     function markHeroVideoStarted(video) {
-      var record = getHeroRecord();
-      if (!record || !posterHoldComplete || !isPlaying(video)) return;
+      var record = document.getElementById(heroRecordId);
+      if (!record || !isPlaying(video)) return;
       record.classList.add('hero-video-started');
-    }
-
-    function bindVideoEvents(video) {
-      if (!video || video.dataset.heroVideoBound === '1') return;
-
-      video.dataset.heroVideoBound = '1';
-
-      video.addEventListener('play', function() {
-        if (posterHoldComplete) return;
-        try {
-          video.pause();
-          video.currentTime = 0;
-        } catch (error) {
-          return;
-        }
-      });
-
-      video.addEventListener('loadedmetadata', playHeroVideo);
-      video.addEventListener('loadeddata', playHeroVideo);
-      video.addEventListener('canplay', playHeroVideo);
-      video.addEventListener('playing', function() {
-        markHeroVideoStarted(video);
-      });
-      video.addEventListener('timeupdate', function() {
-        markHeroVideoStarted(video);
-      });
     }
 
     function primeVideo(video) {
       if (!video) return null;
 
       activeVideo = video;
-      watchHeroRendered();
       video.muted = true;
       video.defaultMuted = true;
       video.volume = 0;
-      video.autoplay = false;
+      video.autoplay = true;
       video.loop = true;
       video.playsInline = true;
       video.controls = false;
       video.preload = 'auto';
       video.poster = getHeroPosterUrl();
       video.setAttribute('muted', '');
+      video.setAttribute('autoplay', '');
       video.setAttribute('loop', '');
       video.setAttribute('playsinline', '');
       video.setAttribute('webkit-playsinline', '');
       video.setAttribute('preload', 'auto');
       video.setAttribute('poster', getHeroPosterUrl());
-      video.removeAttribute('autoplay');
       video.removeAttribute('controls');
-      bindVideoEvents(video);
       markHeroVideoStarted(video);
-      try {
-        if (!posterHoldComplete) {
-          video.pause();
-          if (video.currentTime > 0.05) video.currentTime = 0;
-          if (video.readyState === 0) video.load();
-        }
-      } catch (error) {
-        return video;
-      }
 
       try {
         video.disablePictureInPicture = true;
@@ -363,10 +268,9 @@ const heroAutoplayBooster = `<style>
       var video = primeVideo(activeVideo || getHeroVideo());
       var playPromise;
 
-      if (!video || !posterHoldComplete || isPlaying(video)) return;
+      if (!video || isPlaying(video)) return;
 
       try {
-        video.autoplay = true;
         playPromise = video.play();
       } catch (error) {
         return;
@@ -414,7 +318,6 @@ const heroAutoplayBooster = `<style>
 
     function bindGestureFallback() {
       function handleGesture() {
-        posterHoldComplete = true;
         playHeroVideo();
 
         window.setTimeout(function() {
@@ -440,6 +343,12 @@ const heroAutoplayBooster = `<style>
       var observer = new MutationObserver(function() {
         var video = primeVideo(getHeroVideo());
         if (!video) return;
+        
+        video.addEventListener('loadedmetadata', playHeroVideo);
+        video.addEventListener('loadeddata', playHeroVideo);
+        video.addEventListener('canplay', playHeroVideo);
+        video.addEventListener('playing', markHeroVideoStarted.bind(null, video));
+        video.addEventListener('timeupdate', markHeroVideoStarted.bind(null, video));
         playHeroVideo();
       });
 
@@ -450,7 +359,6 @@ const heroAutoplayBooster = `<style>
     }
 
     function initHeroAutoplayBooster() {
-      watchHeroRendered();
       bindGestureFallback();
       observeHeroVideo();
       scheduleAutoplayRetries();
@@ -504,8 +412,8 @@ const bodyHtml = bodySource
     `link = ${heroCloudVideoExpression} ? (function() { let link = ${heroCloudVideoExpression}.trim();`,
   )
   .replace(
-    /(<div class='t396__elem tn-elem tn-elem__8613527161738731141089'[\s\S]*?<div class='tn-atom'>)(\s*<\/div>)/,
-    `$1${heroPosterLayer}$2`,
+    /(<div class='t396__elem tn-elem tn-elem__8613527161738731141089'[\s\S]*?<div class='tn-atom'>\s*<\/div>)/,
+    `$1${heroPosterLayer}`,
   );
 ---
 
