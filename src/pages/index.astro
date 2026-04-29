@@ -100,20 +100,22 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
   #rec861352716 .t396__filter{
     background-color:#1c1b1a !important;
   }
-  #hero-preload-overlay{
+  #rec861352716{
+    position:relative;
+  }
+  #rec861352716 > #hero-preload-overlay{
     position:absolute;
     top:0;
     left:0;
     width:100%;
-    height:100vh;
-    min-height:900px;
+    height:100%;
     z-index:2;
     pointer-events:none;
     opacity:1;
     transition:opacity .2s ease;
     background:url("${heroPosterDesktopUrl}") center center / cover no-repeat #1c1b1a;
   }
-  body.hero-preload-hidden #hero-preload-overlay{
+  #rec861352716.hero-preload-hidden > #hero-preload-overlay{
     opacity:0;
   }
   #rec861352716 .t396__artboard:not(.rendered) .tn-elem:not(.tn-elem__8613527161738731141089){
@@ -169,8 +171,7 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
     opacity:0;
   }
   @media screen and (max-width:639px){
-    #hero-preload-overlay{
-      min-height:550px;
+    #rec861352716 > #hero-preload-overlay{
       background-image:url("${heroPosterMobileUrl}");
     }
     #rec861352716 .tn-elem__8613527161738731141089 .tn-atom{
@@ -247,7 +248,7 @@ const heroAutoplayBooster = `<style>
       var record = document.getElementById(heroRecordId);
       if (!record || !isPlaying(video)) return;
       record.classList.add('hero-video-started');
-      document.body.classList.add('hero-preload-hidden');
+      record.classList.add('hero-preload-hidden');
     }
 
     function primeVideo(video) {
@@ -423,7 +424,6 @@ const headHtml = headMatch[1]
 
 const bodyHtml = bodySource
   // На GitHub Pages якоря и возврат в начало страницы должны вести в BASE_URL.
-  .replace(/^\s*/, `$&${heroPreloadOverlay}`)
   .replace(/href=(['"])\/(?!\/)/g, `href=$1${basePath}`)
   .replace(/src=(['"])\/(?!\/)/g, `src=$1${basePath}`)
   .replace(/action=(['"])\/(?!\/)/g, `action=$1${basePath}`)
@@ -434,6 +434,10 @@ const bodyHtml = bodySource
   .replace(
     `link = '${heroBoomstreamVideoUrl}' ? (function() { let link = '${heroBoomstreamVideoUrl}'.trim();`,
     `link = ${heroCloudVideoExpression} ? (function() { let link = ${heroCloudVideoExpression}.trim();`,
+  )
+  .replace(
+    /(<div id="rec861352716" class="r t-rec"[^>]*>)/,
+    `$1${heroPreloadOverlay}`,
   )
   .replace(
     /(<div class='t396__elem tn-elem tn-elem__8613527161738731141089'[\s\S]*?<div class='tn-atom'>\s*<\/div>)/,
