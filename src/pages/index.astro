@@ -207,14 +207,18 @@ const heroAutoplayBooster = `<style>
     var maxRetries = 24;
     var minPosterHoldMs = 900;
     var posterHoldComplete = false;
+    var posterHoldTimer = 0;
     var activeVideo = null;
     var mobilePosterUrl = '${heroPosterMobileUrl}';
     var desktopPosterUrl = '${heroPosterDesktopUrl}';
 
-    window.setTimeout(function() {
-      posterHoldComplete = true;
-      markHeroVideoStarted(activeVideo || getHeroVideo());
-    }, minPosterHoldMs);
+    function startPosterHoldTimer() {
+      if (posterHoldTimer) return;
+      posterHoldTimer = window.setTimeout(function() {
+        posterHoldComplete = true;
+        playHeroVideo();
+      }, minPosterHoldMs);
+    }
 
     function getHeroPosterUrl() {
       return window.matchMedia('(max-width: 639px)').matches
@@ -238,24 +242,34 @@ const heroAutoplayBooster = `<style>
       if (!video) return null;
 
       activeVideo = video;
+      startPosterHoldTimer();
       video.muted = true;
       video.defaultMuted = true;
       video.volume = 0;
-      video.autoplay = true;
+      video.autoplay = false;
       video.loop = true;
       video.playsInline = true;
       video.controls = false;
       video.preload = 'auto';
       video.poster = getHeroPosterUrl();
       video.setAttribute('muted', '');
-      video.setAttribute('autoplay', '');
       video.setAttribute('loop', '');
       video.setAttribute('playsinline', '');
       video.setAttribute('webkit-playsinline', '');
       video.setAttribute('preload', 'auto');
       video.setAttribute('poster', getHeroPosterUrl());
+      video.removeAttribute('autoplay');
       video.removeAttribute('controls');
       markHeroVideoStarted(video);
+      try {
+        if (!posterHoldComplete) {
+          video.pause();
+          if (video.currentTime > 0.05) video.currentTime = 0;
+          if (video.readyState === 0) video.load();
+        }
+      } catch (error) {
+        return video;
+      }
 
       try {
         video.disablePictureInPicture = true;
@@ -275,9 +289,10 @@ const heroAutoplayBooster = `<style>
       var video = primeVideo(activeVideo || getHeroVideo());
       var playPromise;
 
-      if (!video || isPlaying(video)) return;
+      if (!video || !posterHoldComplete || isPlaying(video)) return;
 
       try {
+        video.autoplay = true;
         playPromise = video.play();
       } catch (error) {
         return;
