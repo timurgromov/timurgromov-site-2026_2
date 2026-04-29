@@ -51,6 +51,7 @@ const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
     decoding="async"
   />
 </picture>`;
+const heroPreloadOverlay = `<div id="hero-preload-overlay" aria-hidden="true"></div>`;
 const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru" crossorigin>
 <link
   rel="preload"
@@ -99,12 +100,29 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
   #rec861352716 .t396__filter{
     background-color:#1c1b1a !important;
   }
+  #hero-preload-overlay{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100vh;
+    min-height:900px;
+    z-index:2;
+    pointer-events:none;
+    opacity:1;
+    transition:opacity .2s ease;
+    background:url("${heroPosterDesktopUrl}") center center / cover no-repeat #1c1b1a;
+  }
+  body.hero-preload-hidden #hero-preload-overlay{
+    opacity:0;
+  }
   #rec861352716 .t396__artboard:not(.rendered) .tn-elem:not(.tn-elem__8613527161738731141089){
     visibility:hidden !important;
     opacity:0 !important;
     pointer-events:none !important;
   }
   #rec861352716 .tn-elem__8613527161738731141089{
+    z-index:1 !important;
     top:0 !important;
     left:0 !important;
     width:100% !important;
@@ -151,6 +169,10 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
     opacity:0;
   }
   @media screen and (max-width:639px){
+    #hero-preload-overlay{
+      min-height:550px;
+      background-image:url("${heroPosterMobileUrl}");
+    }
     #rec861352716 .tn-elem__8613527161738731141089 .tn-atom{
       background-image:url("${heroPosterMobileUrl}");
     }
@@ -225,6 +247,7 @@ const heroAutoplayBooster = `<style>
       var record = document.getElementById(heroRecordId);
       if (!record || !isPlaying(video)) return;
       record.classList.add('hero-video-started');
+      document.body.classList.add('hero-preload-hidden');
     }
 
     function primeVideo(video) {
@@ -400,6 +423,7 @@ const headHtml = headMatch[1]
 
 const bodyHtml = bodySource
   // На GitHub Pages якоря и возврат в начало страницы должны вести в BASE_URL.
+  .replace(/^\s*/, `$&${heroPreloadOverlay}`)
   .replace(/href=(['"])\/(?!\/)/g, `href=$1${basePath}`)
   .replace(/src=(['"])\/(?!\/)/g, `src=$1${basePath}`)
   .replace(/action=(['"])\/(?!\/)/g, `action=$1${basePath}`)
