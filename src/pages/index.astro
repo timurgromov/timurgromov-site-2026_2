@@ -205,9 +205,16 @@ const heroAutoplayBooster = `<style>
     var retryTimer = 0;
     var retryCount = 0;
     var maxRetries = 24;
+    var minPosterHoldMs = 900;
+    var posterHoldComplete = false;
     var activeVideo = null;
     var mobilePosterUrl = '${heroPosterMobileUrl}';
     var desktopPosterUrl = '${heroPosterDesktopUrl}';
+
+    window.setTimeout(function() {
+      posterHoldComplete = true;
+      markHeroVideoStarted(activeVideo || getHeroVideo());
+    }, minPosterHoldMs);
 
     function getHeroPosterUrl() {
       return window.matchMedia('(max-width: 639px)').matches
@@ -223,7 +230,7 @@ const heroAutoplayBooster = `<style>
 
     function markHeroVideoStarted(video) {
       var record = document.getElementById(heroRecordId);
-      if (!record || !isPlaying(video)) return;
+      if (!record || !posterHoldComplete || !isPlaying(video)) return;
       record.classList.add('hero-video-started');
     }
 
