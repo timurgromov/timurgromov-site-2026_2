@@ -68,6 +68,13 @@ const webinarBadgeElementIds = [
   "1738828912673",
 ];
 
+const webinarVideoFixOffsets = {
+  desktop: "469",
+  res320: "71",
+  res640: "284",
+  res1200: "294",
+};
+
 function extractTildaRecord(html: string, recordId: string) {
   const startMarker = `<div id="${recordId}"`;
   const startIndex = html.indexOf(startMarker);
@@ -93,16 +100,20 @@ function withBasePath(html: string) {
     .replace(/url\(['"]?(?!https?:|data:|\/{2})(\/?)(?!\/)/g, `url('${basePath}`);
 }
 
-function stripTildaFixedAnimation(html: string, elementIds: string[]) {
+function syncWebinarBadgeFixedAnimation(html: string, elementIds: string[]) {
   const idPattern = elementIds.map((id) => id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|");
   const elemTagPattern = new RegExp(`<div\\b(?=[^>]*data-elem-id=(["'])(${idPattern})\\1)[^>]*>`, "g");
 
-  return html.replace(elemTagPattern, (tag) =>
-    tag.replace(/\sdata-animate-(?:fix(?:-(?:dist|trgofst(?:-res-\d+)?))?|mobile)=(["'])[^"']*\1/g, ""),
-  );
+  return html.replace(elemTagPattern, (tag) => {
+    return tag
+      .replace(/\sdata-animate-fix-trgofst=(["'])[^"']*\1/g, ` data-animate-fix-trgofst="${webinarVideoFixOffsets.desktop}"`)
+      .replace(/\sdata-animate-fix-trgofst-res-320=(["'])[^"']*\1/g, ` data-animate-fix-trgofst-res-320="${webinarVideoFixOffsets.res320}"`)
+      .replace(/\sdata-animate-fix-trgofst-res-640=(["'])[^"']*\1/g, ` data-animate-fix-trgofst-res-640="${webinarVideoFixOffsets.res640}"`)
+      .replace(/\sdata-animate-fix-trgofst-res-1200=(["'])[^"']*\1/g, ` data-animate-fix-trgofst-res-1200="${webinarVideoFixOffsets.res1200}"`);
+  });
 }
 
-const materialRecordsHtml = stripTildaFixedAnimation(
+const materialRecordsHtml = syncWebinarBadgeFixedAnimation(
   materialRecordIds.map((recordId) => extractTildaRecord(bodySource, recordId)).join(" "),
   webinarBadgeElementIds,
 );
