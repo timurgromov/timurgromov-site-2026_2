@@ -62,6 +62,12 @@ const materialRecordIds = [
   "rec893281054",
 ];
 
+const webinarBadgeElementIds = [
+  "1738828748021",
+  "1738828827988",
+  "1738828912673",
+];
+
 function extractTildaRecord(html: string, recordId: string) {
   const startMarker = `<div id="${recordId}"`;
   const startIndex = html.indexOf(startMarker);
@@ -87,9 +93,19 @@ function withBasePath(html: string) {
     .replace(/url\(['"]?(?!https?:|data:|\/{2})(\/?)(?!\/)/g, `url('${basePath}`);
 }
 
-const materialRecordsHtml = materialRecordIds
-  .map((recordId) => extractTildaRecord(bodySource, recordId))
-  .join(" ");
+function stripTildaFixedAnimation(html: string, elementIds: string[]) {
+  const idPattern = elementIds.map((id) => id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|");
+  const elemTagPattern = new RegExp(`<div\\b(?=[^>]*data-elem-id=(["'])(${idPattern})\\1)[^>]*>`, "g");
+
+  return html.replace(elemTagPattern, (tag) =>
+    tag.replace(/\sdata-animate-(?:fix(?:-(?:dist|trgofst(?:-res-\d+)?))?|mobile)=(["'])[^"']*\1/g, ""),
+  );
+}
+
+const materialRecordsHtml = stripTildaFixedAnimation(
+  materialRecordIds.map((recordId) => extractTildaRecord(bodySource, recordId)).join(" "),
+  webinarBadgeElementIds,
+);
 
 const headHtml = withBasePath(
   headMatch[1]
