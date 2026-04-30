@@ -218,6 +218,67 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
     window.addEventListener('pageshow', syncHeroHeaderState);
   })();
 </script>`;
+
+const hiddenMarketingVideoAdviceRecordIds = [
+  // Section anchor and title.
+  "rec862713715",
+  "rec862055949",
+  // Video advice carousel and its ScrollBooster controller. Temporarily hidden for Direct traffic.
+  "rec862301619",
+  "rec862070380",
+  // Popup wrappers and popup contents for the advice videos.
+  "rec893268511",
+  "rec893268655",
+  "rec893271079",
+  "rec893271232",
+  "rec893273557",
+  "rec893273581",
+  "rec893275111",
+  "rec893275240",
+  "rec893277967",
+  "rec893278048",
+  "rec893280313",
+  "rec893281054",
+];
+
+const hiddenMarketingVideoAdviceElementIds = [
+  // Menu item pointing to the hidden advice section.
+  "1738924888793",
+];
+
+function removeTildaRecord(html: string, recordId: string) {
+  const startMarker = `<div id="${recordId}"`;
+  const startIndex = html.indexOf(startMarker);
+
+  if (startIndex === -1) {
+    return html;
+  }
+
+  const nextRecordIndex = html.indexOf(' <div id="rec', startIndex + startMarker.length);
+  const endIndex = nextRecordIndex === -1 ? html.length : nextRecordIndex;
+
+  return `${html.slice(0, startIndex)}${html.slice(endIndex)}`;
+}
+
+function removeTildaElement(html: string, elemId: string) {
+  const elemMarker = `data-elem-id='${elemId}'`;
+  const markerIndex = html.indexOf(elemMarker);
+
+  if (markerIndex === -1) {
+    return html;
+  }
+
+  const startIndex = html.lastIndexOf("<div class='t396__elem", markerIndex);
+
+  if (startIndex === -1) {
+    return html;
+  }
+
+  const nextElementIndex = html.indexOf(" <div class='t396__elem", markerIndex);
+  const endIndex = nextElementIndex === -1 ? html.length : nextElementIndex;
+
+  return `${html.slice(0, startIndex)}${html.slice(endIndex)}`;
+}
 const heroAutoplayBooster = `<style>
   #rec861352716 .tn-elem__8613527161738731141089 video::-webkit-media-controls{
     display:none !important;
@@ -428,7 +489,13 @@ const headHtml = headMatch[1]
     heroAutoplayBooster,
   );
 
-const bodyHtml = bodySource
+const filteredBodySource = hiddenMarketingVideoAdviceElementIds
+  .reduce(
+    removeTildaElement,
+    hiddenMarketingVideoAdviceRecordIds.reduce(removeTildaRecord, bodySource),
+  );
+
+const bodyHtml = filteredBodySource
   // На GitHub Pages якоря и возврат в начало страницы должны вести в BASE_URL.
   .replace(/href=(['"])\/(?!\/)/g, `href=$1${basePath}`)
   .replace(/src=(['"])\/(?!\/)/g, `src=$1${basePath}`)
