@@ -1,6 +1,6 @@
 # Стартовый промпт для нового чата
 
-Вставь в начало диалога как есть (затем по очереди дай агенту содержимое `project-spec.md`, `rebuild-workflow.md`, `source-of-truth.md`; для push и GitHub Pages — ещё `github-pages-deploy.md`).
+Вставь в начало диалога как есть (затем по очереди дай агенту содержимое `AGENTS.md`, `project-spec.md`, `rebuild-workflow.md`, `tilda-zero-editing.md`, `source-of-truth.md`; для push и GitHub Pages — ещё `github-pages-deploy.md`).
 
 **Если репозиторий уже существует** (есть `astro.config.mjs`, `src/`, `docs/project-spec.md`): шаги «создать Astro / git / deploy» **пропустить**, сразу читать `docs/project-spec.md` §7 *Current Phase* и продолжать перенос секций.
 
@@ -20,6 +20,7 @@
 - Минимум JavaScript
 - Popup/menu overlay как состояние интерфейса
 - Видео и формы делать только в последней фазе
+- Tilda Zero Block нельзя править "на глаз": координаты должны идти через Tilda-like `data-field-*` и брейкпоинты
 
 Жесткие правила:
 - не делать новый дизайн
@@ -39,6 +40,8 @@
 Правило проверки:
 - после каждой секции сверять с export и `timurgromov.ru`
 - после значимых шагов делать build, commit, push, deploy и проверять GitHub Pages
+- после любых правок контактов/popup/footer выполнять `npm run verify:contacts`
+- после headless/preview проверок обязательно закрывать тестовые Chrome/preview процессы
 
 Сначала:
 - изучи реальные файлы
