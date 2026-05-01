@@ -68,6 +68,11 @@ const mobileWebinarBadgeTriggerOffsets: Record<string, string> = {
   "1738828827988": "211",
   "1738828912673": "217",
 };
+const mobileWebinarCardTriggerOffsets: Record<string, string> = {
+  "173883092613938130": "262",
+  "173883093344499820": "262",
+  "173883205939691230": "262",
+};
 
 function extractTildaRecord(html: string, recordId: string) {
   const startMarker = `<div id="${recordId}"`;
@@ -113,6 +118,23 @@ function patchMobileWebinarBadgeTriggers(
   }, recordHtml);
 }
 
+function patchMobileWebinarCardTriggers(
+  recordHtml: string,
+  triggerOffsets: Record<string, string>,
+) {
+  return Object.entries(triggerOffsets).reduce((html, [groupId, triggerOffset]) => {
+    const groupPattern = new RegExp(
+      `(<div\\b[^>]*data-group-id=(["'])${groupId}\\2[^>]*?)\\sdata-animate-sbs-trgofst-res-320=(["'])[^"']*\\3`,
+      "g",
+    );
+
+    return html.replace(
+      groupPattern,
+      `$1 data-animate-sbs-trgofst-res-320="${triggerOffset}"`,
+    );
+  }, recordHtml);
+}
+
 const materialRecordsHtml = materialRecordIds
   .map((recordId) => {
     const recordHtml = extractTildaRecord(bodySource, recordId);
@@ -121,7 +143,10 @@ const materialRecordsHtml = materialRecordIds
       return recordHtml;
     }
 
-    return patchMobileWebinarBadgeTriggers(recordHtml, mobileWebinarBadgeTriggerOffsets);
+    return patchMobileWebinarCardTriggers(
+      patchMobileWebinarBadgeTriggers(recordHtml, mobileWebinarBadgeTriggerOffsets),
+      mobileWebinarCardTriggerOffsets,
+    );
   })
   .join(" ");
 
