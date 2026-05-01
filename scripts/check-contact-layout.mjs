@@ -284,6 +284,13 @@ function assertLayout(layout) {
   if (iconGap < 6 || iconGap > 24) {
     fail(`${mode}: social icons are not grouped evenly`, { iconGap, ...layout });
   }
+  if (Math.abs(icons.vk.right - max.right) > 10) {
+    fail(`${mode}: social icon group is not aligned with MAX link`, {
+      vkRight: icons.vk.right,
+      maxRight: max.right,
+      ...layout,
+    });
+  }
 
   for (const link of [telegram, max]) {
     const whiteEnough =
