@@ -68,6 +68,9 @@ const webinarBadgeElementIds = [
   "1738828912673",
 ];
 
+const mobileWebinarRecordId = "rec862050095";
+const mobileWebinarBadgeTriggerOffset = "71";
+
 function extractTildaRecord(html: string, recordId: string) {
   const startMarker = `<div id="${recordId}"`;
   const startIndex = html.indexOf(startMarker);
@@ -93,90 +96,35 @@ function withBasePath(html: string) {
     .replace(/url\(['"]?(?!https?:|data:|\/{2})(\/?)(?!\/)/g, `url('${basePath}`);
 }
 
-function stripTildaFixedAnimation(html: string, elementIds: string[]) {
+function patchMobileWebinarBadgeTrigger(recordHtml: string, elementIds: string[], triggerOffset: string) {
   const idPattern = elementIds.map((id) => id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|");
   const elemTagPattern = new RegExp(`<div\\b(?=[^>]*data-elem-id=(["'])(${idPattern})\\1)[^>]*>`, "g");
 
-  return html.replace(elemTagPattern, (tag) =>
-    tag.replace(/\sdata-animate-(?:fix(?:-(?:dist|trgofst(?:-res-\d+)?))?|mobile)=(["'])[^"']*\1/g, ""),
+  return recordHtml.replace(elemTagPattern, (tag) =>
+    tag.includes("data-animate-fix-trgofst-res-320=")
+      ? tag.replace(
+          /\sdata-animate-fix-trgofst-res-320=(["'])[^"']*\1/g,
+          ` data-animate-fix-trgofst-res-320="${triggerOffset}"`,
+        )
+      : tag.replace(/>$/, ` data-animate-fix-trgofst-res-320="${triggerOffset}">`),
   );
 }
 
-const materialRecordsHtml = stripTildaFixedAnimation(
-  materialRecordIds.map((recordId) => extractTildaRecord(bodySource, recordId)).join(" "),
-  webinarBadgeElementIds,
-);
+const materialRecordsHtml = materialRecordIds
+  .map((recordId) => {
+    const recordHtml = extractTildaRecord(bodySource, recordId);
 
-const webinarBadgePinScript = `
-<script>
-(function () {
-  var records = [
-    { id: "861962232", videoId: "1739078296052" },
-    { id: "862050095", videoId: "1739078914882" }
-  ];
-  var badgeParts = [
-    { id: "1738828748021", desktopX: 32 / 880, mobileX: 10 / 300, desktopW: 64 / 880, mobileW: 32 / 300, desktopH: 64 / 480, mobileH: 32 / 181, topOffset: 0 },
-    { id: "1738828827988", desktopX: 104 / 880, mobileX: 48 / 300, desktopW: 375 / 880, mobileW: 186 / 300, desktopH: 64 / 480, mobileH: 32 / 181, topOffset: 0 },
-    { id: "1738828912673", desktopX: 120 / 880, mobileX: 56 / 300, desktopW: 343 / 880, mobileW: 178 / 300, desktopH: 38 / 480, mobileH: 24 / 181, topOffset: 0.2 }
-  ];
+    if (recordId !== mobileWebinarRecordId) {
+      return recordHtml;
+    }
 
-  function setImportant(element, name, value) {
-    element.style.setProperty(name, value, "important");
-  }
-
-  function pinRecordBadge(recordConfig) {
-    var record = document.getElementById("rec" + recordConfig.id);
-    if (!record || getComputedStyle(record).display === "none") return;
-
-    var video = record.querySelector('[data-elem-id="' + recordConfig.videoId + '"]');
-    var badgeBackground = record.querySelector('[data-elem-id="1738828827988"]');
-    if (!video || !badgeBackground) return;
-
-    var videoWidth = video.offsetWidth || video.getBoundingClientRect().width;
-    var videoHeight = video.offsetHeight || video.getBoundingClientRect().height;
-    if (!videoWidth || !videoHeight) return;
-
-    var isMobile = window.matchMedia("(max-width: 639px)").matches;
-    var badgeHeight = videoHeight * (isMobile ? 32 / 181 : 64 / 480);
-    var bottomGap = badgeHeight * (isMobile ? 9 / 32 : 0.5);
-    var badgeTop = videoHeight - bottomGap - badgeHeight;
-
-    badgeParts.forEach(function (part) {
-      var element = record.querySelector('[data-elem-id="' + part.id + '"]');
-      if (!element) return;
-
-      if (element.parentElement !== video) {
-        video.appendChild(element);
-      }
-
-      var top = badgeTop + badgeHeight * part.topOffset;
-      var left = videoWidth * (isMobile ? part.mobileX : part.desktopX);
-      var width = videoWidth * (isMobile ? part.mobileW : part.desktopW);
-      var height = videoHeight * (isMobile ? part.mobileH : part.desktopH);
-
-      setImportant(element, "position", "absolute");
-      setImportant(element, "top", Math.round(top) + "px");
-      setImportant(element, "left", Math.round(left) + "px");
-      setImportant(element, "width", Math.round(width) + "px");
-      setImportant(element, "height", part.id === "1738828912673" ? "auto" : Math.round(height) + "px");
-      setImportant(element, "transform", "none");
-      setImportant(element, "z-index", "20");
-      setImportant(element, "visibility", "visible");
-    });
-  }
-
-  function pinBadges() {
-    records.forEach(pinRecordBadge);
-    window.requestAnimationFrame(pinBadges);
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", pinBadges);
-  } else {
-    pinBadges();
-  }
-}());
-</script>`;
+    return patchMobileWebinarBadgeTrigger(
+      recordHtml,
+      webinarBadgeElementIds,
+      mobileWebinarBadgeTriggerOffset,
+    );
+  })
+  .join(" ");
 
 const headHtml = withBasePath(
   headMatch[1]
@@ -193,7 +141,6 @@ const headHtml = withBasePath(
     .concat(
       `<script>window.t396_elem_fixLineHeight=window.t396_elem_fixLineHeight||function(){return;};</script>`,
     )
-    .concat(webinarBadgePinScript)
     .concat(`<style>body.t-body{background:#fffefa !important;}</style>`),
 );
 
