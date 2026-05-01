@@ -69,7 +69,6 @@ const webinarBadgeElementIds = [
 ];
 
 const mobileWebinarRecordId = "rec862050095";
-const mobileWebinarBadgeTriggerOffset = "71";
 
 function extractTildaRecord(html: string, recordId: string) {
   const startMarker = `<div id="${recordId}"`;
@@ -96,17 +95,12 @@ function withBasePath(html: string) {
     .replace(/url\(['"]?(?!https?:|data:|\/{2})(\/?)(?!\/)/g, `url('${basePath}`);
 }
 
-function patchMobileWebinarBadgeTrigger(recordHtml: string, elementIds: string[], triggerOffset: string) {
+function stripMobileWebinarBadgeFixedAttrs(recordHtml: string, elementIds: string[]) {
   const idPattern = elementIds.map((id) => id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|");
   const elemTagPattern = new RegExp(`<div\\b(?=[^>]*data-elem-id=(["'])(${idPattern})\\1)[^>]*>`, "g");
 
   return recordHtml.replace(elemTagPattern, (tag) =>
-    tag.includes("data-animate-fix-trgofst-res-320=")
-      ? tag.replace(
-          /\sdata-animate-fix-trgofst-res-320=(["'])[^"']*\1/g,
-          ` data-animate-fix-trgofst-res-320="${triggerOffset}"`,
-        )
-      : tag.replace(/>$/, ` data-animate-fix-trgofst-res-320="${triggerOffset}">`),
+    tag.replace(/\sdata-animate-(?:fix(?:-(?:dist|trgofst(?:-res-\d+)?))?|mobile)=(["'])[^"']*\1/g, ""),
   );
 }
 
@@ -118,13 +112,173 @@ const materialRecordsHtml = materialRecordIds
       return recordHtml;
     }
 
-    return patchMobileWebinarBadgeTrigger(
-      recordHtml,
-      webinarBadgeElementIds,
-      mobileWebinarBadgeTriggerOffset,
-    );
+    return stripMobileWebinarBadgeFixedAttrs(recordHtml, webinarBadgeElementIds);
   })
   .join(" ");
+
+const mobileWebinarBadgePinScript = `
+<script>
+(function () {
+  var recordId = "rec862050095";
+  var videoId = "1739078914882";
+  var avatarId = "1738828748021";
+  var bgId = "1738828827988";
+  var textId = "1738828912673";
+
+  function setImportant(element, name, value) {
+    element.style.setProperty(name, value, "important");
+  }
+
+  function restoreElements(elements) {
+    elements.forEach(function (element) {
+      if (!element) return;
+      element.style.removeProperty("opacity");
+      element.style.removeProperty("visibility");
+      element.style.removeProperty("pointer-events");
+    });
+  }
+
+  function hideElements(elements) {
+    elements.forEach(function (element) {
+      if (!element) return;
+      setImportant(element, "opacity", "0");
+      setImportant(element, "visibility", "hidden");
+      setImportant(element, "pointer-events", "none");
+    });
+  }
+
+  function getOverlay() {
+    var overlay = document.querySelector(".materials-mobile-webinar-badge");
+    if (overlay) return overlay;
+
+    overlay = document.createElement("div");
+    overlay.className = "materials-mobile-webinar-badge";
+    overlay.innerHTML =
+      '<div class="materials-mobile-webinar-badge__avatar"></div>' +
+      '<div class="materials-mobile-webinar-badge__text"></div>';
+    document.body.appendChild(overlay);
+    return overlay;
+  }
+
+  function pinMobileBadge() {
+    var isMobile = window.matchMedia("(max-width: 639px)").matches;
+    var record = document.getElementById(recordId);
+    if (!record) {
+      requestAnimationFrame(pinMobileBadge);
+      return;
+    }
+
+    var video = record.querySelector('[data-elem-id="' + videoId + '"]');
+    var avatar = record.querySelector('[data-elem-id="' + avatarId + '"]');
+    var bg = record.querySelector('[data-elem-id="' + bgId + '"]');
+    var text = record.querySelector('[data-elem-id="' + textId + '"]');
+    var elements = [avatar, bg, text];
+
+    if (!video || !avatar || !bg || !text) {
+      requestAnimationFrame(pinMobileBadge);
+      return;
+    }
+
+    var overlay = getOverlay();
+    var overlayAvatar = overlay.querySelector(".materials-mobile-webinar-badge__avatar");
+    var overlayText = overlay.querySelector(".materials-mobile-webinar-badge__text");
+
+    if (!isMobile) {
+      restoreElements(elements);
+      setImportant(overlay, "visibility", "hidden");
+      setImportant(overlay, "pointer-events", "none");
+      requestAnimationFrame(pinMobileBadge);
+      return;
+    }
+
+    var rect = video.getBoundingClientRect();
+    if (!rect.width || !rect.height || rect.bottom <= 0 || rect.top >= window.innerHeight) {
+      hideElements(elements);
+      setImportant(overlay, "visibility", "hidden");
+      setImportant(overlay, "pointer-events", "none");
+      requestAnimationFrame(pinMobileBadge);
+      return;
+    }
+
+    hideElements(elements);
+
+    var avatarSize = Math.round(rect.width * (32 / 300));
+    var badgeHeight = Math.round(rect.height * (32 / 181));
+    var gap = Math.max(6, Math.round(rect.width * (6 / 300)));
+    var left = rect.left + rect.width * (10 / 300);
+    var top = rect.top + rect.height * (140 / 181);
+    var textWidth = Math.round(rect.width * (245 / 300));
+    var radius = Math.max(4, Math.round(rect.width * (4 / 300)));
+    var fontSize = Math.max(8, Math.round(rect.width * (8 / 300)));
+    var paddingX = Math.max(8, Math.round(rect.width * (10 / 300)));
+    var avatarBg = avatar.querySelector(".tn-atom")?.style.backgroundImage || "";
+    var sourceTextNode = text.querySelector(".tn-atom");
+    var sourceLinks = sourceTextNode ? sourceTextNode.querySelectorAll("a") : [];
+    var firstLink = sourceLinks[0];
+    var secondLink = sourceLinks[1];
+    var firstHref = firstLink ? firstLink.getAttribute("href") || "#" : "#";
+    var secondHref = secondLink ? secondLink.getAttribute("href") || "#" : "#";
+    var firstLabel = firstLink ? (firstLink.textContent || "Max").trim() : "Max";
+    var secondLabel = secondLink ? (secondLink.textContent || "Tg").trim() : "Tg";
+    var textHtml =
+      'Если хотите получить еще больше полезных материалов пишите мне в ' +
+      '<a href="' + firstHref + '" target="_blank" rel="nofollow noreferrer noopener">' + firstLabel + '</a>' +
+      ' или ' +
+      '<a href="' + secondHref + '" target="_blank" rel="nofollow noreferrer noopener">' + secondLabel + '</a>';
+
+    overlayText.innerHTML = textHtml;
+
+    setImportant(overlay, "position", "fixed");
+    setImportant(overlay, "top", Math.round(top) + "px");
+    setImportant(overlay, "left", Math.round(left) + "px");
+    setImportant(overlay, "display", "flex");
+    setImportant(overlay, "align-items", "stretch");
+    setImportant(overlay, "gap", gap + "px");
+    setImportant(overlay, "z-index", "70");
+    setImportant(overlay, "visibility", "visible");
+    setImportant(overlay, "pointer-events", "auto");
+
+    setImportant(overlayAvatar, "width", avatarSize + "px");
+    setImportant(overlayAvatar, "height", badgeHeight + "px");
+    setImportant(overlayAvatar, "flex", "0 0 " + avatarSize + "px");
+    setImportant(overlayAvatar, "border-radius", radius + "px");
+    setImportant(overlayAvatar, "background-image", avatarBg);
+    setImportant(overlayAvatar, "background-size", "cover");
+    setImportant(overlayAvatar, "background-position", "center");
+
+    setImportant(overlayText, "box-sizing", "border-box");
+    setImportant(overlayText, "width", textWidth + "px");
+    setImportant(overlayText, "min-height", badgeHeight + "px");
+    setImportant(overlayText, "display", "flex");
+    setImportant(overlayText, "align-items", "center");
+    setImportant(overlayText, "padding", "0 " + paddingX + "px");
+    setImportant(overlayText, "border-radius", radius + "px");
+    setImportant(overlayText, "background", "rgba(0, 0, 0, 0.38)");
+    setImportant(overlayText, "backdrop-filter", "blur(10px)");
+    setImportant(overlayText, "-webkit-backdrop-filter", "blur(10px)");
+    setImportant(overlayText, "color", "#fffefa");
+    setImportant(overlayText, "font-size", fontSize + "px");
+    setImportant(overlayText, "line-height", "1.2");
+    setImportant(overlayText, "font-family", "var(--t-text-font, Arial)");
+    setImportant(overlayText, "white-space", "normal");
+
+    Array.prototype.forEach.call(overlayText.querySelectorAll("a"), function (link) {
+      setImportant(link, "color", "#fffefa");
+      setImportant(link, "text-decoration", "none");
+      setImportant(link, "border-bottom", "1px solid #fffefa");
+      setImportant(link, "box-shadow", "none");
+    });
+
+    requestAnimationFrame(pinMobileBadge);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", pinMobileBadge);
+  } else {
+    pinMobileBadge();
+  }
+}());
+</script>`;
 
 const headHtml = withBasePath(
   headMatch[1]
@@ -141,6 +295,7 @@ const headHtml = withBasePath(
     .concat(
       `<script>window.t396_elem_fixLineHeight=window.t396_elem_fixLineHeight||function(){return;};</script>`,
     )
+    .concat(mobileWebinarBadgePinScript)
     .concat(`<style>body.t-body{background:#fffefa !important;}</style>`),
 );
 
