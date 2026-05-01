@@ -190,6 +190,9 @@ async function getLayout(cdp, mode) {
           height: rect.height,
         };
       });
+      const iconInfo = (record, ids) => Object.fromEntries(
+        Object.entries(ids).map(([name, id]) => [name, rectOf(byId(record, id))])
+      );
 
       if (popupMode) {
         document.querySelector('a[href="#zeropopup-menu"]')?.click();
@@ -204,6 +207,9 @@ async function getLayout(cdp, mode) {
       const shortcutId = popupMode ? '1746200000001' : '1746200000002';
       const socialId = popupMode ? '1738924888797' : '1738908201655';
       const orangeShapeId = popupMode ? '1738923690320' : '1738906924130';
+      const iconIds = popupMode
+        ? { arrow: '1738924888805', instagram: '1738924888807', vk: '1738924888810' }
+        : { arrow: '1738908250516', instagram: '1738908294009', vk: '1738908342859' };
 
       return {
         mode: popupMode ? 'popup' : 'footer',
@@ -212,6 +218,7 @@ async function getLayout(cdp, mode) {
         shortcut: rectOf(byId(record, shortcutId)),
         social: rectOf(byId(record, socialId)),
         orangeShape: rectOf(byId(record, orangeShapeId)),
+        icons: iconInfo(record, iconIds),
         links: linkInfo(record),
       };
     })()`,
@@ -219,7 +226,7 @@ async function getLayout(cdp, mode) {
 }
 
 function assertLayout(layout) {
-  const { mode, phone, shortcut, social, orangeShape, links } = layout;
+  const { mode, phone, shortcut, social, orangeShape, icons, links } = layout;
   const telegram = links.find((link) => link.text === "Telegram");
   const max = links.find((link) => link.text === "MAX");
 
@@ -236,6 +243,15 @@ function assertLayout(layout) {
   if (social && social.top < shortcut.bottom + 14) fail(`${mode}: social row overlaps shortcut`, layout);
   if (max.right > orangeShape.right + 2) fail(`${mode}: MAX link is clipped on the right`, layout);
   if (shortcut.bottom > orangeShape.bottom - 12) fail(`${mode}: shortcut is too close to orange block bottom`, layout);
+  if (!icons?.instagram || !icons?.vk) fail(`${mode}: social icons missing`, layout);
+
+  const iconGap = icons.vk.left - icons.instagram.right;
+  if (Math.abs(icons.instagram.top - icons.vk.top) > 2) {
+    fail(`${mode}: social icons are vertically misaligned`, layout);
+  }
+  if (iconGap < 6 || iconGap > 24) {
+    fail(`${mode}: social icons are not grouped evenly`, { iconGap, ...layout });
+  }
 
   for (const link of [telegram, max]) {
     const whiteEnough =
