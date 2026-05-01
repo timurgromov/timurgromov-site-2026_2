@@ -251,7 +251,7 @@ const contactShortcutEnhancer = `<style>
   .contact-shortcuts__label{
     font-size:16px;
     line-height:1.2;
-    opacity:.92;
+    opacity:1;
     white-space:nowrap;
     pointer-events:none;
   }
@@ -268,15 +268,16 @@ const contactShortcutEnhancer = `<style>
     font-size:18px;
     line-height:1.2;
     font-weight:500;
-    border-bottom:1px solid rgba(255,254,250,.72);
-    transition:opacity .2s ease, border-color .2s ease;
+    border-bottom:1px solid rgba(255,254,250,.9);
+    transition:opacity .2s ease, border-color .2s ease, color .2s ease;
     pointer-events:auto !important;
     position:relative;
     z-index:2;
   }
   .contact-shortcuts__link:hover{
-    opacity:.88;
-    border-color:rgba(255,254,250,.95);
+    opacity:1;
+    border-color:#fffefa;
+    color:#fffefa;
   }
   @media screen and (max-width:1199px){
     .contact-shortcuts__label{
@@ -309,6 +310,12 @@ const contactShortcutEnhancer = `<style>
         recordId: 'rec862707608',
         artboardSelector: '#rec862707608 .t396__artboard',
         phoneSelector: '#rec862707608 .tn-elem[data-elem-id="1738924888767"]',
+        socialSelectors: [
+          '#rec862707608 .tn-elem[data-elem-id="1738924888797"]',
+          '#rec862707608 .tn-elem[data-elem-id="1738924888805"]',
+          '#rec862707608 .tn-elem[data-elem-id="1738924888807"]',
+          '#rec862707608 .tn-elem[data-elem-id="1738924888810"]',
+        ],
         emailSelector: null,
         placeAbovePhoneOnMobile: true,
       },
@@ -316,6 +323,12 @@ const contactShortcutEnhancer = `<style>
         recordId: 'rec862623921',
         artboardSelector: '#rec862623921 .t396__artboard',
         phoneSelector: '#rec862623921 .tn-elem[data-elem-id="1738908167577"]',
+        socialSelectors: [
+          '#rec862623921 .tn-elem[data-elem-id="1738908201655"]',
+          '#rec862623921 .tn-elem[data-elem-id="1738908250516"]',
+          '#rec862623921 .tn-elem[data-elem-id="1738908294009"]',
+          '#rec862623921 .tn-elem[data-elem-id="1738908342859"]',
+        ],
         emailSelector: '#rec862623921 .tn-elem[data-elem-id="1738908505292"]',
         placeAbovePhoneOnMobile: false,
       },
@@ -376,10 +389,43 @@ const contactShortcutEnhancer = `<style>
       block.style.top = top + 'px';
       block.style.visibility = 'visible';
 
+      var socialElems = (config.socialSelectors || [])
+        .map(function(selector) {
+          return document.querySelector(selector);
+        })
+        .filter(Boolean);
+
+      var socialRowBottom = top;
+      if (socialElems.length) {
+        var rowTop = Infinity;
+        var rowBottom = -Infinity;
+
+        socialElems.forEach(function(elem) {
+          var rect = elem.getBoundingClientRect();
+          if (!rect.width && !rect.height) return;
+          rowTop = Math.min(rowTop, rect.top - artboardRect.top);
+          rowBottom = Math.max(rowBottom, rect.bottom - artboardRect.top);
+        });
+
+        if (rowTop !== Infinity && rowBottom !== -Infinity) {
+          var socialGap = isMobile ? 8 : 14;
+          var socialTop = top + block.offsetHeight + socialGap;
+
+          socialElems.forEach(function(elem) {
+            var rect = elem.getBoundingClientRect();
+            if (!rect.width && !rect.height) return;
+            var delta = rect.top - artboardRect.top - rowTop;
+            elem.style.top = Math.round(socialTop + delta) + 'px';
+          });
+
+          socialRowBottom = socialTop + (rowBottom - rowTop);
+        }
+      }
+
       if (config.emailSelector) {
         var emailElem = document.querySelector(config.emailSelector);
         if (emailElem) {
-          var emailTop = top + block.offsetHeight + (isMobile ? 12 : 18);
+          var emailTop = socialRowBottom + (isMobile ? 12 : 18);
           emailElem.style.top = emailTop + 'px';
         }
       }
