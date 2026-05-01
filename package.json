@@ -7,6 +7,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "check:contacts": "node scripts/check-contact-layout.mjs",
     "preview": "astro preview",
     "deploy:pages": "ASTRO_TELEMETRY_DISABLED=1 astro build && npx --yes gh-pages -d dist -b gh-pages"
   },
