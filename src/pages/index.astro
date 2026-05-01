@@ -40,8 +40,6 @@ const heroPosterMobileUrl = `${basePath}images/hero-poster-mobile.jpg?v=${heroPo
 const telegramContactUrl = "https://t.me/timurgromovv";
 const maxContactUrl =
   "https://max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM?clckid=c487e7dc";
-const instagramIconUrl = `${basePath}images/tild6230-3564-4333-a431-666561313236__instagram.svg`;
-const vkIconUrl = `${basePath}images/tild6565-6133-4536-b931-353333313933__vk.svg`;
 const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
   <source
     media="(max-width: 639px)"
@@ -224,16 +222,10 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
   })();
 </script>`;
 const contactShortcutEnhancer = `<style>
-  #rec862707608 .tn-elem[data-elem-id="1738924888797"],
-  #rec862707608 .tn-elem[data-elem-id="1738924888805"],
-  #rec862707608 .tn-elem[data-elem-id="1738924888807"],
   #rec862707608 .tn-elem[data-elem-id="1738924888809"],
-  #rec862707608 .tn-elem[data-elem-id="1738924888810"],
-  #rec862623921 .tn-elem[data-elem-id="1738908201655"],
-  #rec862623921 .tn-elem[data-elem-id="1738908250516"],
-  #rec862623921 .tn-elem[data-elem-id="1738908294009"],
   #rec862623921 .tn-elem[data-elem-id="1738908324214"],
-  #rec862623921 .tn-elem[data-elem-id="1738908342859"]{
+  #rec862707608 .tn-elem[data-elem-id="1738924888809"] .tn-atom,
+  #rec862623921 .tn-elem[data-elem-id="1738908324214"] .tn-atom{
     display:none !important;
     opacity:0 !important;
     visibility:hidden !important;
@@ -241,103 +233,72 @@ const contactShortcutEnhancer = `<style>
   }
   .contact-shortcuts{
     position:absolute;
-    z-index:60;
+    z-index:120;
     display:flex;
     flex-direction:column;
-    gap:12px;
+    gap:0;
     color:#fffefa;
     font-family:var(--t-text-font, Arial), sans-serif;
+    pointer-events:auto !important;
   }
   .contact-shortcuts__row{
     display:flex;
     align-items:center;
     gap:14px;
     flex-wrap:wrap;
+    pointer-events:auto !important;
   }
   .contact-shortcuts__label{
     font-size:16px;
     line-height:1.2;
-    opacity:.72;
+    opacity:.92;
     white-space:nowrap;
+    pointer-events:none;
   }
-  .contact-shortcuts__messengers,
-  .contact-shortcuts__socials{
+  .contact-shortcuts__messengers{
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:18px;
     flex-wrap:wrap;
+    pointer-events:auto !important;
   }
   .contact-shortcuts__link{
     color:#fffefa;
     text-decoration:none;
     font-size:18px;
     line-height:1.2;
-    border-bottom:1px solid rgba(255,254,250,.45);
+    font-weight:500;
+    border-bottom:1px solid rgba(255,254,250,.72);
     transition:opacity .2s ease, border-color .2s ease;
+    pointer-events:auto !important;
+    position:relative;
+    z-index:2;
   }
   .contact-shortcuts__link:hover{
-    opacity:.75;
-    border-color:rgba(255,254,250,.75);
-  }
-  .contact-shortcuts__icon{
-    width:32px;
-    height:32px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:8px;
-    background:#fffefa;
-    transition:opacity .2s ease, transform .2s ease;
-  }
-  .contact-shortcuts__icon:hover{
-    opacity:.82;
-    transform:translateY(-1px);
-  }
-  .contact-shortcuts__icon img{
-    width:20px;
-    height:20px;
-    display:block;
+    opacity:.88;
+    border-color:rgba(255,254,250,.95);
   }
   @media screen and (max-width:1199px){
-    .contact-shortcuts{
-      gap:10px;
-    }
     .contact-shortcuts__label{
       font-size:13px;
     }
     .contact-shortcuts__link{
       font-size:15px;
     }
-    .contact-shortcuts__icon{
-      width:28px;
-      height:28px;
-      border-radius:7px;
-    }
-    .contact-shortcuts__icon img{
-      width:17px;
-      height:17px;
-    }
   }
   @media screen and (max-width:639px){
     .contact-shortcuts{
-      gap:8px;
       max-width:280px;
     }
     .contact-shortcuts__row{
       gap:8px 10px;
     }
     .contact-shortcuts__label{
-      width:100%;
       font-size:12px;
-      opacity:.7;
+      opacity:.86;
     }
     .contact-shortcuts__link{
       font-size:13px;
-    }
-    .contact-shortcuts__icon{
-      width:28px;
-      height:28px;
-      border-radius:7px;
     }
   }
 </style>
@@ -349,8 +310,6 @@ const contactShortcutEnhancer = `<style>
         artboardSelector: '#rec862707608 .t396__artboard',
         phoneSelector: '#rec862707608 .tn-elem[data-elem-id="1738924888767"]',
         emailSelector: null,
-        instagramUrl: 'https://www.instagram.com/timurgromov',
-        vkUrl: 'https://vk.com/club30375712',
         placeAbovePhoneOnMobile: true,
       },
       {
@@ -358,8 +317,6 @@ const contactShortcutEnhancer = `<style>
         artboardSelector: '#rec862623921 .t396__artboard',
         phoneSelector: '#rec862623921 .tn-elem[data-elem-id="1738908167577"]',
         emailSelector: '#rec862623921 .tn-elem[data-elem-id="1738908505292"]',
-        instagramUrl: 'https://www.instagram.com/timurgromov',
-        vkUrl: 'https://vk.com/timurgromovvv',
         placeAbovePhoneOnMobile: false,
       },
     ];
@@ -380,17 +337,6 @@ const contactShortcutEnhancer = `<style>
           '<div class="contact-shortcuts__messengers">' +
             '<a class="contact-shortcuts__link" href="${telegramContactUrl}" target="_blank" rel="nofollow">Telegram</a>' +
             '<a class="contact-shortcuts__link" href="${maxContactUrl}" target="_blank" rel="nofollow">MAX</a>' +
-          '</div>' +
-        '</div>' +
-        '<div class="contact-shortcuts__row">' +
-          '<div class="contact-shortcuts__label">Соцсети</div>' +
-          '<div class="contact-shortcuts__socials">' +
-            '<a class="contact-shortcuts__icon" href="' + config.instagramUrl + '" target="_blank" rel="nofollow" aria-label="Instagram">' +
-              '<img src="${instagramIconUrl}" alt="">' +
-            '</a>' +
-            '<a class="contact-shortcuts__icon" href="' + config.vkUrl + '" target="_blank" rel="nofollow" aria-label="VK">' +
-              '<img src="${vkIconUrl}" alt="">' +
-            '</a>' +
           '</div>' +
         '</div>';
 
