@@ -149,6 +149,21 @@ async function loadPage(cdp, width, height) {
   );
 }
 
+async function assertAnchorHistoryIsDisabled(cdp) {
+  const state = await evaluate(
+    cdp,
+    `(() => ({
+      hash: window.location.hash,
+      scrollY: window.scrollY,
+      historyDisabled: document.querySelector('.t270')?.hasAttribute('data-history-disabled') || false,
+    }))()`,
+  );
+
+  if (state.hash) fail("Root page loaded with an unexpected hash", state);
+  if (state.scrollY > 5) fail("Root page did not load at the top", state);
+  if (!state.historyDisabled) fail("Tilda anchor history is not disabled", state);
+}
+
 async function getLayout(cdp, mode) {
   return evaluate(
     cdp,
@@ -302,6 +317,7 @@ async function main() {
 
   for (const viewport of viewports) {
     await loadPage(cdp, viewport.width, viewport.height);
+    await assertAnchorHistoryIsDisabled(cdp);
 
     const footer = await getLayout(cdp, "footer");
     assertLayout(footer);

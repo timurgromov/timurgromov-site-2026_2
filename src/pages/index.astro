@@ -738,6 +738,12 @@ const filteredBodySource = hiddenMarketingVideoAdviceElementIds
   );
 
 const transformedBodyHtml = filteredBodySource
+  // Tilda t270 by default writes section hashes into history, so the browser can reopen /#about.
+  // Keep anchor scrolling, but do not persist those hashes in the address bar.
+  .replace(
+    /<div class="t270" data-offset-top="-100"><\/div>/,
+    `<div class="t270" data-offset-top="-100" data-history-disabled="yes"></div>`,
+  )
   // На GitHub Pages якоря и возврат в начало страницы должны вести в BASE_URL.
   .replace(/href=(['"])\/(?!\/)/g, `href=$1${basePath}`)
   .replace(/src=(['"])\/(?!\/)/g, `src=$1${basePath}`)
