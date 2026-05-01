@@ -22,10 +22,14 @@ function run(command, args, options = {}) {
   });
 }
 
-async function waitForPreview(timeoutMs = 12000) {
+async function waitForPreviewProcess(child, output, timeoutMs = 12000) {
   const startedAt = Date.now();
 
   while (Date.now() - startedAt < timeoutMs) {
+    if (child.exitCode !== null) {
+      throw new Error(`Astro preview exited before becoming ready:\n${output.join("")}`);
+    }
+
     try {
       const response = await fetch(url);
       if (response.ok) return;
@@ -36,7 +40,7 @@ async function waitForPreview(timeoutMs = 12000) {
     await wait(200);
   }
 
-  throw new Error(`Astro preview did not start at ${url}`);
+  throw new Error(`Astro preview did not start at ${url}\n${output.join("")}`);
 }
 
 async function stopProcessGroup(child) {
@@ -64,6 +68,7 @@ async function stopProcessGroup(child) {
 }
 
 let preview;
+const previewOutput = [];
 
 try {
   preview = spawn(
@@ -71,11 +76,13 @@ try {
     ["run", "preview", "--", "--host", "127.0.0.1", "--port", String(port)],
     {
       detached: true,
-      stdio: "ignore",
+      stdio: ["ignore", "pipe", "pipe"],
     },
   );
+  preview.stdout.on("data", (chunk) => previewOutput.push(chunk.toString()));
+  preview.stderr.on("data", (chunk) => previewOutput.push(chunk.toString()));
 
-  await waitForPreview();
+  await waitForPreviewProcess(preview, previewOutput);
 
   await run(process.execPath, ["scripts/check-contact-layout.mjs"], {
     env: {

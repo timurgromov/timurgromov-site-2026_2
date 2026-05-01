@@ -243,9 +243,26 @@ function assertLayout(layout) {
   if (social && social.top < shortcut.bottom + 14) fail(`${mode}: social row overlaps shortcut`, layout);
   if (max.right > orangeShape.right + 2) fail(`${mode}: MAX link is clipped on the right`, layout);
   if (shortcut.bottom > orangeShape.bottom - 12) fail(`${mode}: shortcut is too close to orange block bottom`, layout);
-  if (!icons?.instagram || !icons?.vk) fail(`${mode}: social icons missing`, layout);
+  if (!icons?.arrow || !icons?.instagram || !icons?.vk) fail(`${mode}: social icons missing`, layout);
 
   const iconGap = icons.vk.left - icons.instagram.right;
+  const arrowGap = icons.instagram.left - icons.arrow.right;
+  const arrowCenter = icons.arrow.top + icons.arrow.height / 2;
+  const iconCenter = icons.instagram.top + icons.instagram.height / 2;
+
+  if (Math.abs(arrowCenter - iconCenter) > 4) {
+    fail(`${mode}: social arrow is not vertically centered`, {
+      arrowCenter,
+      iconCenter,
+      ...layout,
+    });
+  }
+  if (arrowGap < 12 || arrowGap > 56) {
+    fail(`${mode}: social arrow is too far from icon buttons`, {
+      arrowGap,
+      ...layout,
+    });
+  }
   if (Math.abs(icons.instagram.top - icons.vk.top) > 2) {
     fail(`${mode}: social icons are vertically misaligned`, layout);
   }
