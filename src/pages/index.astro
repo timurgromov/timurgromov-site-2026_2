@@ -231,232 +231,122 @@ const contactShortcutEnhancer = `<style>
     visibility:hidden !important;
     pointer-events:none !important;
   }
-  .contact-shortcuts{
-    position:absolute;
-    z-index:120;
-    display:flex;
-    flex-direction:column;
-    gap:0;
-    color:#fffefa;
-    font-family:var(--t-text-font, Arial), sans-serif;
-    pointer-events:auto !important;
-  }
-  .contact-shortcuts__row{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    flex-wrap:wrap;
-    pointer-events:auto !important;
-  }
-  .contact-shortcuts__label{
-    font-size:16px;
-    line-height:1.2;
-    opacity:1;
-    white-space:nowrap;
-    pointer-events:none;
-  }
-  .contact-shortcuts__messengers{
-    display:flex;
+  .contact-shortcut-inline__content{
+    display:inline-flex;
     align-items:center;
     gap:18px;
-    flex-wrap:wrap;
+    flex-wrap:nowrap;
+    white-space:nowrap;
     pointer-events:auto !important;
   }
-  .contact-shortcuts__link{
+  .contact-shortcut-inline__label{
     color:#fffefa;
+    opacity:1;
+    pointer-events:none;
+  }
+  .contact-shortcut-inline__link{
+    color:#fffefa !important;
+    -webkit-text-fill-color:#fffefa;
     text-decoration:none;
-    font-size:18px;
-    line-height:1.2;
-    font-weight:500;
-    border-bottom:1px solid rgba(255,254,250,.9);
+    font-weight:400;
+    opacity:1 !important;
+    border-bottom:1px solid #fffefa;
     transition:opacity .2s ease, border-color .2s ease, color .2s ease;
     pointer-events:auto !important;
-    position:relative;
-    z-index:2;
   }
-  .contact-shortcuts__link:hover{
+  .contact-shortcut-inline__link:visited{
+    color:#fffefa !important;
+    -webkit-text-fill-color:#fffefa;
+    opacity:1 !important;
+  }
+  .contact-shortcut-inline__link:hover{
     opacity:1;
     border-color:#fffefa;
     color:#fffefa;
   }
+  #rec862707608 .tn-elem[data-elem-id="1746200000001"],
+  #rec862623921 .tn-elem[data-elem-id="1746200000002"]{
+    color:#fffefa;
+    z-index:17;
+    height:auto;
+  }
+  #rec862707608 .tn-elem[data-elem-id="1746200000001"] .tn-atom,
+  #rec862623921 .tn-elem[data-elem-id="1746200000002"] .tn-atom{
+    vertical-align:middle;
+    color:#fffefa;
+    font-size:20px;
+    font-family:var(--t-text-font, Arial);
+    line-height:1.2;
+    font-weight:400;
+    background-position:center center;
+    border-width:var(--t396-borderwidth,0);
+    border-style:var(--t396-borderstyle,solid);
+    border-color:var(--t396-bordercolor,transparent);
+    transition:background-color var(--t396-speedhover,0s) ease-in-out,color var(--t396-speedhover,0s) ease-in-out,border-color var(--t396-speedhover,0s) ease-in-out,box-shadow var(--t396-shadowshoverspeed,0.2s) ease-in-out;
+    --t396-shadow-text-opacity:100%;
+    text-shadow:var(--t396-shadow-text-x,0px) var(--t396-shadow-text-y,0px) var(--t396-shadow-text-blur,0px) rgba(var(--t396-shadow-text-color),var(--t396-shadow-text-opacity,100%));
+  }
+  #rec862707608 .tn-elem[data-elem-id="1746200000001"]{
+    top:388px;
+    left:calc(50% - 960px + 1405px);
+    width:310px;
+  }
+  #rec862623921 .tn-elem[data-elem-id="1746200000002"]{
+    top:878px;
+    left:calc(50% - 960px + 1285px);
+    width:320px;
+  }
+  @media screen and (max-width:1919px){
+    #rec862707608 .tn-elem[data-elem-id="1746200000001"]{
+      top:246px;
+      left:calc(50% - 600px + 880px);
+      width:280px;
+    }
+    #rec862623921 .tn-elem[data-elem-id="1746200000002"]{
+      top:558px;
+      left:calc(50% - 600px + 800px);
+      width:260px;
+    }
+  }
   @media screen and (max-width:1199px){
-    .contact-shortcuts__label{
+    #rec862707608 .tn-elem[data-elem-id="1746200000001"]{
+      top:498px;
+      left:calc(50% - 320px + 332px);
+      width:240px;
+    }
+    #rec862623921 .tn-elem[data-elem-id="1746200000002"]{
+      top:540px;
+      left:calc(50% - 320px + 311px);
+      width:230px;
+    }
+    #rec862707608 .tn-elem[data-elem-id="1746200000001"] .tn-atom,
+    #rec862623921 .tn-elem[data-elem-id="1746200000002"] .tn-atom{
       font-size:13px;
     }
-    .contact-shortcuts__link{
-      font-size:15px;
+    .contact-shortcut-inline__content{
+      gap:12px;
     }
   }
   @media screen and (max-width:639px){
-    .contact-shortcuts{
-      max-width:280px;
+    #rec862707608 .tn-elem[data-elem-id="1746200000001"]{
+      display:none !important;
     }
-    .contact-shortcuts__row{
-      gap:8px 10px;
+    #rec862623921 .tn-elem[data-elem-id="1746200000002"]{
+      top:504px;
+      left:calc(50% - 160px + 25px);
+      width:220px;
     }
-    .contact-shortcuts__label{
+    #rec862623921 .tn-elem[data-elem-id="1746200000002"] .tn-atom{
       font-size:12px;
-      opacity:.86;
     }
-    .contact-shortcuts__link{
-      font-size:13px;
+    .contact-shortcut-inline__content{
+      gap:10px;
     }
   }
-</style>
-<script>
-  (function() {
-    var blocks = [
-      {
-        recordId: 'rec862707608',
-        artboardSelector: '#rec862707608 .t396__artboard',
-        phoneSelector: '#rec862707608 .tn-elem[data-elem-id="1738924888767"]',
-        socialSelectors: [
-          '#rec862707608 .tn-elem[data-elem-id="1738924888797"]',
-          '#rec862707608 .tn-elem[data-elem-id="1738924888805"]',
-          '#rec862707608 .tn-elem[data-elem-id="1738924888807"]',
-          '#rec862707608 .tn-elem[data-elem-id="1738924888810"]',
-        ],
-        emailSelector: null,
-        placeAbovePhoneOnMobile: true,
-      },
-      {
-        recordId: 'rec862623921',
-        artboardSelector: '#rec862623921 .t396__artboard',
-        phoneSelector: '#rec862623921 .tn-elem[data-elem-id="1738908167577"]',
-        socialSelectors: [
-          '#rec862623921 .tn-elem[data-elem-id="1738908201655"]',
-          '#rec862623921 .tn-elem[data-elem-id="1738908250516"]',
-          '#rec862623921 .tn-elem[data-elem-id="1738908294009"]',
-          '#rec862623921 .tn-elem[data-elem-id="1738908342859"]',
-        ],
-        emailSelector: '#rec862623921 .tn-elem[data-elem-id="1738908505292"]',
-        placeAbovePhoneOnMobile: false,
-      },
-    ];
+</style>`;
 
-    function createShortcutBlock(config) {
-      var artboard = document.querySelector(config.artboardSelector);
-      if (!artboard) return null;
-
-      var existing = artboard.querySelector('.contact-shortcuts[data-record-id="' + config.recordId + '"]');
-      if (existing) return existing;
-
-      var block = document.createElement('div');
-      block.className = 'contact-shortcuts';
-      block.setAttribute('data-record-id', config.recordId);
-      block.innerHTML =
-        '<div class="contact-shortcuts__row">' +
-          '<div class="contact-shortcuts__label">Написать мне</div>' +
-          '<div class="contact-shortcuts__messengers">' +
-            '<a class="contact-shortcuts__link" href="${telegramContactUrl}" target="_blank" rel="nofollow">Telegram</a>' +
-            '<a class="contact-shortcuts__link" href="${maxContactUrl}" target="_blank" rel="nofollow">MAX</a>' +
-          '</div>' +
-        '</div>';
-
-      artboard.appendChild(block);
-      return block;
-    }
-
-    function updateShortcutBlock(config) {
-      var artboard = document.querySelector(config.artboardSelector);
-      var phoneElem = document.querySelector(config.phoneSelector);
-      if (!artboard || !phoneElem) return;
-
-      var block = createShortcutBlock(config);
-      if (!block) return;
-
-      var artboardRect = artboard.getBoundingClientRect();
-      var phoneRect = phoneElem.getBoundingClientRect();
-      if (!phoneRect.width || !phoneRect.height || !artboardRect.width || !artboardRect.height) return;
-
-      var isMobile = window.matchMedia('(max-width: 639px)').matches;
-      var gap = isMobile ? 10 : 14;
-      var left = Math.max(10, Math.round(phoneRect.left - artboardRect.left));
-
-      block.style.maxWidth = Math.max(180, Math.round(artboardRect.width - left - 10)) + 'px';
-      block.style.visibility = 'hidden';
-      block.style.left = left + 'px';
-      block.style.top = '0px';
-
-      var blockHeight = block.offsetHeight || 0;
-      var top = Math.round(phoneRect.bottom - artboardRect.top + gap);
-
-      if (isMobile && config.placeAbovePhoneOnMobile) {
-        top = Math.round(phoneRect.top - artboardRect.top - blockHeight - gap);
-        top = Math.max(44, top);
-      }
-
-      block.style.top = top + 'px';
-      block.style.visibility = 'visible';
-
-      var socialElems = (config.socialSelectors || [])
-        .map(function(selector) {
-          return document.querySelector(selector);
-        })
-        .filter(Boolean);
-
-      var socialRowBottom = top;
-      if (socialElems.length) {
-        var rowTop = Infinity;
-        var rowBottom = -Infinity;
-
-        socialElems.forEach(function(elem) {
-          var rect = elem.getBoundingClientRect();
-          if (!rect.width && !rect.height) return;
-          rowTop = Math.min(rowTop, rect.top - artboardRect.top);
-          rowBottom = Math.max(rowBottom, rect.bottom - artboardRect.top);
-        });
-
-        if (rowTop !== Infinity && rowBottom !== -Infinity) {
-          var socialGap = isMobile ? 8 : 14;
-          var socialTop = top + block.offsetHeight + socialGap;
-
-          socialElems.forEach(function(elem) {
-            var rect = elem.getBoundingClientRect();
-            if (!rect.width && !rect.height) return;
-            var delta = rect.top - artboardRect.top - rowTop;
-            elem.style.top = Math.round(socialTop + delta) + 'px';
-          });
-
-          socialRowBottom = socialTop + (rowBottom - rowTop);
-        }
-      }
-
-      if (config.emailSelector) {
-        var emailElem = document.querySelector(config.emailSelector);
-        if (emailElem) {
-          var emailTop = socialRowBottom + (isMobile ? 12 : 18);
-          emailElem.style.top = emailTop + 'px';
-        }
-      }
-    }
-
-    function updateAllShortcutBlocks() {
-      blocks.forEach(updateShortcutBlock);
-    }
-
-    function scheduleUpdates() {
-      updateAllShortcutBlocks();
-      window.setTimeout(updateAllShortcutBlocks, 120);
-      window.setTimeout(updateAllShortcutBlocks, 500);
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', scheduleUpdates, { once: true });
-    } else {
-      scheduleUpdates();
-    }
-
-    window.addEventListener('load', scheduleUpdates);
-    window.addEventListener('pageshow', scheduleUpdates);
-    window.addEventListener('resize', scheduleUpdates);
-    window.addEventListener('hashchange', scheduleUpdates);
-    document.addEventListener('click', function() {
-      window.setTimeout(updateAllShortcutBlocks, 60);
-      window.setTimeout(updateAllShortcutBlocks, 220);
-    }, true);
-  })();
-</script>`;
+const popupContactShortcutMarkup = ` <div class='t396__elem tn-elem tn-elem__8627076081746200000001' data-elem-id='1746200000001' data-elem-type='text'> <div class='tn-atom'><span class="contact-shortcut-inline__content"><span class="contact-shortcut-inline__label">Написать мне</span><a class="contact-shortcut-inline__link" href="${telegramContactUrl}" target="_blank" rel="nofollow">Telegram</a><a class="contact-shortcut-inline__link" href="${maxContactUrl}" target="_blank" rel="nofollow">MAX</a></span></div> </div>`;
+const footerContactShortcutMarkup = ` <div class='t396__elem tn-elem tn-elem__8626239211746200000002' data-elem-id='1746200000002' data-elem-type='text'> <div class='tn-atom'><span class="contact-shortcut-inline__content"><span class="contact-shortcut-inline__label">Написать мне</span><a class="contact-shortcut-inline__link" href="${telegramContactUrl}" target="_blank" rel="nofollow">Telegram</a><a class="contact-shortcut-inline__link" href="${maxContactUrl}" target="_blank" rel="nofollow">MAX</a></span></div> </div>`;
 
 const hiddenMarketingVideoAdviceRecordIds = [
   // Webinar block and related popup. Temporarily moved off the sales landing page.
@@ -529,6 +419,22 @@ function removeTildaElement(html: string, elemId: string) {
   const endIndex = nextElementIndex === -1 ? html.length : nextElementIndex;
 
   return `${html.slice(0, startIndex)}${html.slice(endIndex)}`;
+}
+
+function injectBeforeTildaRecordScript(
+  html: string,
+  recordNumericId: string,
+  markup: string,
+) {
+  const marker =
+    `</div> </div> <scr` +
+    `ipt>t_onFuncLoad('t396_initialScale',function() {t396_initialScale('${recordNumericId}');});`;
+
+  if (!html.includes(marker)) {
+    return html;
+  }
+
+  return html.replace(marker, `${markup}${marker}`);
 }
 const heroAutoplayBooster = `<style>
   #rec861352716 .tn-elem__8613527161738731141089 video::-webkit-media-controls{
@@ -749,7 +655,7 @@ const filteredBodySource = hiddenMarketingVideoAdviceElementIds
     hiddenMarketingVideoAdviceRecordIds.reduce(removeTildaRecord, bodySource),
   );
 
-const bodyHtml = filteredBodySource
+const transformedBodyHtml = filteredBodySource
   // На GitHub Pages якоря и возврат в начало страницы должны вести в BASE_URL.
   .replace(/href=(['"])\/(?!\/)/g, `href=$1${basePath}`)
   .replace(/src=(['"])\/(?!\/)/g, `src=$1${basePath}`)
@@ -770,6 +676,16 @@ const bodyHtml = filteredBodySource
     /(<div class='t396__elem tn-elem tn-elem__8613527161738731141089'[\s\S]*?<div class='tn-atom'>\s*<\/div>)/,
     `$1${heroPosterLayer}`,
   );
+
+const bodyHtml = injectBeforeTildaRecordScript(
+  injectBeforeTildaRecordScript(
+    transformedBodyHtml,
+    "862707608",
+    popupContactShortcutMarkup,
+  ),
+  "862623921",
+  footerContactShortcutMarkup,
+);
 ---
 
 <!doctype html>
