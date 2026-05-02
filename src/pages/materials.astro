@@ -61,6 +61,7 @@ const materialRecordIds = [
   "rec893280313",
   "rec893281054",
 ];
+const headerRecordId = "rec862699342";
 const footerRecordId = "rec862623921";
 const materialsFooterMenuIds = [
   "1738908769393",
@@ -159,6 +160,7 @@ const materialRecordsHtml = materialRecordIds
     );
   })
   .join(" ");
+const headerRecordHtml = extractTildaRecord(bodySource, headerRecordId);
 const footerRecordHtml = extractTildaRecord(bodySource, footerRecordId);
 
 const headHtml = withBasePath(
@@ -179,6 +181,97 @@ const headHtml = withBasePath(
     .concat(
       `<style>
         body.t-body{background:#fffefa !important;}
+        #allrecords{
+          padding-top:81px;
+        }
+        #rec862699342{
+          position:fixed !important;
+          top:0;
+          left:0;
+          width:100%;
+          z-index:9997;
+        }
+        #rec862699342 .t396__artboard,
+        #rec862699342 .t396__carrier,
+        #rec862699342 .t396__filter,
+        #rec862699342 .tn-elem[data-elem-id="1738923690320"] .tn-atom{
+          background:#fa4604 !important;
+          background-color:#fa4604 !important;
+        }
+        #rec862699342 .t396__artboard{
+          overflow:hidden;
+          border-radius:0 0 10px 10px;
+        }
+        #rec862699342 .tn-elem{
+          pointer-events:auto;
+        }
+        .materials-header-copy{
+          position:fixed;
+          top:0;
+          left:50%;
+          z-index:9998;
+          width:min(860px, calc(100vw - 420px));
+          height:81px;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          transform:translateX(-50%);
+          pointer-events:none;
+          color:#fffefa;
+          text-align:center;
+          font-family:'Coolvetica',Arial,sans-serif;
+          font-size:34px;
+          line-height:0.74;
+          font-weight:300;
+          white-space:nowrap;
+        }
+        @media screen and (max-width:1919px){
+          #allrecords{
+            padding-top:55px;
+          }
+          .materials-header-copy{
+            width:min(640px, calc(100vw - 290px));
+            height:55px;
+            font-size:26px;
+          }
+        }
+        @media screen and (max-width:1199px){
+          #allrecords{
+            padding-top:53px;
+          }
+          .materials-header-copy{
+            width:min(360px, calc(100vw - 210px));
+            height:53px;
+            font-size:17px;
+          }
+        }
+        @media screen and (max-width:639px){
+          #allrecords{
+            padding-top:72px;
+          }
+          #rec862699342 .t396__artboard,
+          #rec862699342 .t396__carrier,
+          #rec862699342 .t396__filter{
+            height:72px !important;
+          }
+          #rec862699342 .tn-elem[data-elem-id="1738923690320"]{
+            height:72px !important;
+          }
+          #rec862699342 .tn-elem[data-elem-id="1738923690320"] .tn-atom{
+            height:72px !important;
+          }
+          .materials-header-copy{
+            width:120px;
+            top:14px;
+            right:74px;
+            left:auto;
+            height:40px;
+            transform:none;
+            font-size:8px;
+            line-height:0.9;
+            white-space:normal;
+          }
+        }
         ${materialsFooterMenuIds
           .map(
             (elementId) => `
@@ -272,7 +365,7 @@ const headHtml = withBasePath(
 );
 
 const bodyHtml = withBasePath(
-  `<!--allrecords--> <div id="allrecords"${allRecordsAttrs}>${materialRecordsHtml} ${footerRecordHtml}</div> <!--/allrecords-->`,
+  `${headerRecordHtml}<div class="materials-header-copy" aria-hidden="true">Тут вы узнаете много полезностей</div><!--allrecords--> <div id="allrecords"${allRecordsAttrs}>${materialRecordsHtml} ${footerRecordHtml}</div> <!--/allrecords-->`,
 );
 ---
 
