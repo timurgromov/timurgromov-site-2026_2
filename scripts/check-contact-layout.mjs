@@ -337,6 +337,8 @@ function assertLayout(layout) {
     }
   }
   if (mode === "footer" && layout.viewport.width <= 639) {
+    if (!contactLabel) fail(`${mode}: mobile contact label is missing`, layout);
+    if (contactLabel.top > 340) fail(`${mode}: mobile contact block starts too low`, layout);
     if (!layout.email) fail(`${mode}: mobile email is missing`, layout);
     if (layout.email.top < icons.instagram.bottom + 8) fail(`${mode}: mobile email overlaps social icons`, layout);
     if (layout.email.top > icons.instagram.bottom + 90) fail(`${mode}: mobile email is too far below social icons`, layout);
