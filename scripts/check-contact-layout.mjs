@@ -291,6 +291,14 @@ function assertLayout(layout) {
       ...layout,
     });
   }
+  if (mode === "popup" && layout.viewport.width <= 639) {
+    const safeBottom = layout.viewport.height - 120;
+    if (phone.top > 520) fail(`${mode}: mobile phone starts too low in the first screen`, layout);
+    if (shortcut.bottom > safeBottom) fail(`${mode}: mobile Telegram/MAX row is below the first safe screen`, layout);
+    if (icons.instagram.bottom > safeBottom || icons.vk.bottom > safeBottom) {
+      fail(`${mode}: mobile social icons are below the first safe screen`, layout);
+    }
+  }
 
   for (const link of [telegram, max]) {
     const whiteEnough =
