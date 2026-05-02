@@ -179,17 +179,56 @@ const headHtml = withBasePath(
       `<script>window.t396_elem_fixLineHeight=window.t396_elem_fixLineHeight||function(){return;};</script>`,
     )
     .concat(
+      `<script>
+        (function() {
+          function syncMaterialsHeader() {
+            const isMobile = window.matchMedia("(max-width: 639px)").matches;
+            const root = document.documentElement;
+            const currentY = window.scrollY || 0;
+            const previousY = Number(root.dataset.materialsHeaderY || "0");
+
+            if (!isMobile) {
+              root.classList.remove("materials-header-hidden");
+              root.dataset.materialsHeaderY = String(currentY);
+              return;
+            }
+
+            if (currentY <= 12 || currentY < previousY - 6) {
+              root.classList.remove("materials-header-hidden");
+            } else if (currentY > previousY + 6) {
+              root.classList.add("materials-header-hidden");
+            }
+
+            root.dataset.materialsHeaderY = String(currentY);
+          }
+
+          window.addEventListener("scroll", syncMaterialsHeader, { passive: true });
+          window.addEventListener("resize", syncMaterialsHeader);
+          window.addEventListener("pageshow", syncMaterialsHeader);
+          document.addEventListener("DOMContentLoaded", syncMaterialsHeader);
+        })();
+      </script>`,
+    )
+    .concat(
       `<style>
         body.t-body{background:#fffefa !important;}
-        #allrecords{
-          padding-top:81px;
-        }
-        #rec862699342{
-          position:fixed !important;
+        .materials-header-shell{
+          position:fixed;
           top:0;
           left:0;
           width:100%;
           z-index:9997;
+          transition:transform .35s ease;
+        }
+        #allrecords{
+          padding-top:81px;
+        }
+        #rec862699342{
+          position:relative !important;
+          top:auto !important;
+          left:auto !important;
+          width:100%;
+          z-index:auto;
         }
         #rec862699342 .t396__artboard,
         #rec862699342 .t396__carrier,
@@ -217,10 +256,10 @@ const headHtml = withBasePath(
           margin-top:-96px;
         }
         .materials-header-copy{
-          position:fixed;
+          position:absolute;
           top:0;
           left:50%;
-          z-index:9998;
+          z-index:2;
           width:min(860px, calc(100vw - 420px));
           height:81px;
           display:flex;
@@ -262,34 +301,40 @@ const headHtml = withBasePath(
         }
         @media screen and (max-width:639px){
           #allrecords{
-            padding-top:108px;
+            padding-top:76px;
           }
           #rec861962232,
           #rec862050095{
-            margin-top:-92px;
+            margin-top:0;
           }
           #rec862699342 .t396__artboard,
           #rec862699342 .t396__carrier,
           #rec862699342 .t396__filter{
-            height:108px !important;
+            height:76px !important;
+            border-radius:0 !important;
           }
           #rec862699342 .tn-elem[data-elem-id="1738923690320"]{
-            height:108px !important;
+            height:76px !important;
+            width:100% !important;
           }
           #rec862699342 .tn-elem[data-elem-id="1738923690320"] .tn-atom{
-            height:108px !important;
+            height:76px !important;
+            border-radius:0 !important;
+          }
+          html.materials-header-hidden .materials-header-shell{
+            transform:translateY(-100%);
           }
           .materials-header-copy{
-            width:170px;
-            top:50px;
-            left:45px;
+            width:248px;
+            top:41px;
+            left:42px;
             right:auto;
             height:auto;
             transform:none;
             justify-content:flex-start;
-            font-size:15px;
-            line-height:0.9;
-            white-space:normal;
+            font-size:20px;
+            line-height:0.82;
+            white-space:nowrap;
             text-align:left;
           }
         }
@@ -392,7 +437,7 @@ const headHtml = withBasePath(
 );
 
 const bodyHtml = withBasePath(
-  `${headerRecordHtml}<div class="materials-header-copy" aria-hidden="true">Тут вы узнаете много полезностей</div><!--allrecords--> <div id="allrecords"${allRecordsAttrs}>${materialRecordsHtml} ${footerRecordHtml}</div> <!--/allrecords-->`,
+  `<div class="materials-header-shell">${headerRecordHtml}<div class="materials-header-copy" aria-hidden="true">Тут вы узнаете много полезностей</div></div><!--allrecords--> <div id="allrecords"${allRecordsAttrs}>${materialRecordsHtml} ${footerRecordHtml}</div> <!--/allrecords-->`,
 );
 ---
 
