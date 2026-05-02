@@ -174,6 +174,7 @@ async function getLayout(cdp, mode) {
         if (!element) return null;
         const rect = element.getBoundingClientRect();
         const style = getComputedStyle(element);
+        const textStyle = getComputedStyle(element.querySelector('.tn-atom') || element);
         return {
           top: rect.top,
           left: rect.left,
@@ -184,6 +185,8 @@ async function getLayout(cdp, mode) {
           display: style.display,
           visibility: style.visibility,
           opacity: Number(style.opacity),
+          color: textStyle.color,
+          textFillColor: textStyle.webkitTextFillColor,
           text: element.textContent.replace(/\\s+/g, ' ').trim(),
         };
       };
@@ -221,6 +224,7 @@ async function getLayout(cdp, mode) {
       const phoneId = popupMode ? '1738924888767' : '1738908167577';
       const shortcutId = popupMode ? '1746200000001' : '1746200000002';
       const socialId = popupMode ? '1738924888797' : '1738908201655';
+      const contactLabelId = popupMode ? '1738924888778' : '1738908098051';
       const emailId = popupMode ? null : '1738908505292';
       const orangeShapeId = popupMode ? '1738923690320' : '1738906924130';
       const iconIds = popupMode
@@ -229,15 +233,27 @@ async function getLayout(cdp, mode) {
       const hiddenMenuIds = popupMode
         ? { useful: '1738924888781', qa: '1738924888795' }
         : {};
+      const footerMenuIds = popupMode
+        ? {}
+        : {
+            about: '1738908769393',
+            how: '1738908801867',
+            price: '1738908848846',
+            cases: '1738908861448',
+            qa: '1738908872836',
+            reviews: '1738908883710',
+          };
 
       return {
         mode: popupMode ? 'popup' : 'footer',
         viewport: { width: window.innerWidth, height: window.innerHeight },
+        contactLabel: rectOf(byId(record, contactLabelId)),
         phone: rectOf(byId(record, phoneId)),
         shortcut: rectOf(byId(record, shortcutId)),
         social: rectOf(byId(record, socialId)),
         email: emailId ? rectOf(byId(record, emailId)) : null,
         hiddenMenu: iconInfo(record, hiddenMenuIds),
+        footerMenu: iconInfo(record, footerMenuIds),
         orangeShape: rectOf(byId(record, orangeShapeId)),
         icons: iconInfo(record, iconIds),
         links: linkInfo(record),
@@ -247,7 +263,7 @@ async function getLayout(cdp, mode) {
 }
 
 function assertLayout(layout) {
-  const { mode, phone, shortcut, social, orangeShape, icons, links } = layout;
+  const { mode, contactLabel, phone, shortcut, social, orangeShape, icons, links } = layout;
   const telegram = links.find((link) => link.text === "Telegram");
   const max = links.find((link) => link.text === "MAX");
 
@@ -299,6 +315,8 @@ function assertLayout(layout) {
   }
   if (mode === "popup" && layout.viewport.width <= 639) {
     const safeBottom = layout.viewport.height - 120;
+    if (!contactLabel) fail(`${mode}: mobile contact label is missing`, layout);
+    if (phone.top - contactLabel.bottom > 30) fail(`${mode}: mobile contact label is too far from phone`, layout);
     if (phone.top > 520) fail(`${mode}: mobile phone starts too low in the first screen`, layout);
     if (shortcut.bottom > safeBottom) fail(`${mode}: mobile Telegram/MAX row is below the first safe screen`, layout);
     if (icons.instagram.bottom > safeBottom || icons.vk.bottom > safeBottom) {
@@ -312,6 +330,23 @@ function assertLayout(layout) {
     if (!layout.email) fail(`${mode}: mobile email is missing`, layout);
     if (layout.email.top < icons.instagram.bottom + 8) fail(`${mode}: mobile email overlaps social icons`, layout);
     if (layout.email.top > icons.instagram.bottom + 90) fail(`${mode}: mobile email is too far below social icons`, layout);
+    const menuOrder = ["about", "how", "price", "cases", "qa", "reviews"];
+    const menuItems = menuOrder.map((name) => [name, layout.footerMenu[name]]);
+    for (const [name, item] of menuItems) {
+      if (!item || item.display === "none") fail(`${mode}: mobile ${name} menu item is missing`, layout);
+      const whiteEnough =
+        item.color === "rgb(255, 254, 250)" ||
+        item.textFillColor === "rgb(255, 254, 250)" ||
+        item.color === "rgb(255, 255, 255)" ||
+        item.textFillColor === "rgb(255, 255, 255)";
+      if (!whiteEnough) fail(`${mode}: mobile ${name} menu item is not white`, layout);
+    }
+    for (let index = 1; index < menuItems.length; index += 1) {
+      const [, previous] = menuItems[index - 1];
+      const [, current] = menuItems[index];
+      const gap = current.top - previous.bottom;
+      if (gap < 8 || gap > 46) fail(`${mode}: mobile menu item gap is uneven`, { gap, ...layout });
+    }
   }
 
   for (const link of [telegram, max]) {
