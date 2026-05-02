@@ -243,6 +243,15 @@ async function getLayout(cdp, mode) {
             qa: '1738908872836',
             reviews: '1738908883710',
           };
+      const footerLegalIds = popupMode
+        ? {}
+        : {
+            business: '1738909017957',
+            copyright: '1738909152475',
+            meta: '1738909098668',
+            siteLabel: '1738909098665',
+            siteAuthor: '1739077659698',
+          };
 
       return {
         mode: popupMode ? 'popup' : 'footer',
@@ -254,6 +263,7 @@ async function getLayout(cdp, mode) {
         email: emailId ? rectOf(byId(record, emailId)) : null,
         hiddenMenu: iconInfo(record, hiddenMenuIds),
         footerMenu: iconInfo(record, footerMenuIds),
+        footerLegal: iconInfo(record, footerLegalIds),
         orangeShape: rectOf(byId(record, orangeShapeId)),
         icons: iconInfo(record, iconIds),
         links: linkInfo(record),
@@ -345,7 +355,19 @@ function assertLayout(layout) {
       const [, previous] = menuItems[index - 1];
       const [, current] = menuItems[index];
       const gap = current.top - previous.bottom;
-      if (gap < 8 || gap > 46) fail(`${mode}: mobile menu item gap is uneven`, { gap, ...layout });
+      if (gap < 8 || gap > 22) fail(`${mode}: mobile menu item gap is uneven`, { gap, ...layout });
+    }
+    const [, firstMenuItem] = menuItems[0];
+    const [, lastMenuItem] = menuItems[menuItems.length - 1];
+    if (firstMenuItem.top < layout.email.bottom + 18) {
+      fail(`${mode}: mobile menu starts too close to email`, layout);
+    }
+    if (lastMenuItem.bottom - firstMenuItem.top > 220) {
+      fail(`${mode}: mobile menu block is too tall`, layout);
+    }
+    if (!layout.footerLegal.business) fail(`${mode}: mobile business details are missing`, layout);
+    if (lastMenuItem.bottom > layout.footerLegal.business.top - 12) {
+      fail(`${mode}: mobile menu overlaps business details`, layout);
     }
   }
 
