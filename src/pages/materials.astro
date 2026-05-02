@@ -61,6 +61,16 @@ const materialRecordIds = [
   "rec893280313",
   "rec893281054",
 ];
+const footerRecordId = "rec862623921";
+const materialsFooterMenuIds = [
+  "1738908769393",
+  "1738908801867",
+  "1738908837275",
+  "1738908848846",
+  "1738908861448",
+  "1738908872836",
+  "1738908883710",
+];
 
 const mobileWebinarRecordId = "rec862050095";
 const mobileWebinarBadgeTriggerOffsets: Record<string, string> = {
@@ -149,6 +159,7 @@ const materialRecordsHtml = materialRecordIds
     );
   })
   .join(" ");
+const footerRecordHtml = extractTildaRecord(bodySource, footerRecordId);
 
 const headHtml = withBasePath(
   headMatch[1]
@@ -168,6 +179,18 @@ const headHtml = withBasePath(
     .concat(
       `<style>
         body.t-body{background:#fffefa !important;}
+        ${materialsFooterMenuIds
+          .map(
+            (elementId) => `
+        #rec862623921 .tn-elem[data-elem-id="${elementId}"],
+        #rec862623921 .tn-elem[data-elem-id="${elementId}"] .tn-atom{
+          display:none !important;
+          opacity:0 !important;
+          visibility:hidden !important;
+          pointer-events:none !important;
+        }`,
+          )
+          .join("")}
         #rec862070380 .tn-elem a[href^="#popup:video-soveti-"]{
           position:relative;
           display:block;
@@ -216,6 +239,23 @@ const headHtml = withBasePath(
           }
         }
         @media screen and (max-width:639px){
+          #rec862623921 .tn-elem[data-elem-id="1738906924130"],
+          #rec862623921 .tn-elem[data-elem-id="1738906924130"] .tn-atom{
+            height:620px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738909017957"]{
+            top:650px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738909098665"],
+          #rec862623921 .tn-elem[data-elem-id="1739077659698"]{
+            top:736px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738909152475"]{
+            top:788px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738909098668"]{
+            top:811px !important;
+          }
           #rec862070380 .tn-elem a[href^="#popup:video-soveti-"]::before{
             width:30px;
             height:30px;
@@ -232,7 +272,7 @@ const headHtml = withBasePath(
 );
 
 const bodyHtml = withBasePath(
-  `<!--allrecords--> <div id="allrecords"${allRecordsAttrs}>${materialRecordsHtml}</div> <!--/allrecords-->`,
+  `<!--allrecords--> <div id="allrecords"${allRecordsAttrs}>${materialRecordsHtml} ${footerRecordHtml}</div> <!--/allrecords-->`,
 );
 ---
 
