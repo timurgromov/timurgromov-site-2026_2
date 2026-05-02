@@ -12,7 +12,7 @@
 | 6 | полезности | — | |
 | 7 | price | — | |
 | 8 | cases | — | |
-| 9 | contacts | — | |
-| 10 | popup/menu overlay | — | |
+| 9 | contacts / footer | `src/pages/index.astro`, `scripts/check-contact-layout.mjs` | `rec862623921`, см. `docs/quick-edit-playbook.md` |
+| 10 | popup/menu overlay | `src/pages/index.astro`, `scripts/check-contact-layout.mjs` | `rec862707608`, см. `docs/quick-edit-playbook.md` |
 | 11 | video | последняя фаза | |
 | 12 | forms | последняя фаза | |

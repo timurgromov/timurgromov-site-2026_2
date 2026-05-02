@@ -6,10 +6,11 @@
 
 Каждый новый чат/агент сначала читает:
 
-1. `docs/rebuild-workflow.md`
+1. `docs/quick-edit-playbook.md`
 2. `docs/tilda-zero-editing.md`
-3. `docs/source-of-truth.md`
-4. `docs/github-pages-deploy.md` перед deploy/push-проверкой
+3. `docs/rebuild-workflow.md`
+4. `docs/source-of-truth.md`
+5. `docs/github-pages-deploy.md` перед deploy/push-проверкой
 
 ## Tilda Zero Rule
 
@@ -17,7 +18,8 @@
 - Zero Block элементы нельзя двигать runtime-скриптом после загрузки. Это вызывает "плавание".
 - Новые элементы в Tilda-блоках должны получать Tilda-like атрибуты `data-field-*` и CSS по тем же брейкпоинтам, что соседние элементы.
 - Перед сдвигом кнопки, текста или ссылки сначала найди родной `rec...` и соседний `data-elem-id`.
-- Не правь "на глаз" только один viewport. Проверяй минимум desktop 1911x1064 и 1440x900.
+- Не правь "на глаз" только один viewport. Для контактов проверяй минимум desktop 1911x1064, 1440x900 и mobile 390x844.
+- Для мелких правок сначала используй карту ID из `docs/quick-edit-playbook.md`, а не раскапывай export заново.
 
 ## Required Checks
 

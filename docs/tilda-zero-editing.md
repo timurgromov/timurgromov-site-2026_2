@@ -9,6 +9,7 @@
 - `public/css/` и `public/js/` - Tilda runtime и стили.
 - `scripts/check-contact-layout.mjs` - проверка геометрии контактов в браузере.
 - `scripts/verify-contact-layout.mjs` - безопасный запуск preview + проверка + cleanup.
+- `docs/quick-edit-playbook.md` - быстрый маршрут для мелких правок, карта известных `data-elem-id`, текущие проверки.
 
 ## 2. Почему элементы "плавают"
 
@@ -52,7 +53,7 @@ npm run verify:contacts
 1. собирает сайт;
 2. запускает локальный Astro preview на временном порту;
 3. открывает отдельный headless Chrome;
-4. проверяет popup и footer на `1911x1064` и `1440x900`;
+4. проверяет popup и footer на `1911x1064`, `1440x900`, `390x844`;
 5. закрывает Chrome и preview.
 
 Проверка падает, если:
@@ -64,6 +65,9 @@ npm run verify:contacts
 - строка пересекается с соцсетями;
 - `MAX` обрезан справа;
 - строка выходит за оранжевый блок.
+- стрелка и Instagram/VK не выровнены;
+- мобильный popup опускает телефон слишком низко;
+- мобильное footer menu растянуто или залезает на ИП/ОГРНИП/ИНН.
 
 ## 6. Cleanup Rule
 
