@@ -221,10 +221,14 @@ async function getLayout(cdp, mode) {
       const phoneId = popupMode ? '1738924888767' : '1738908167577';
       const shortcutId = popupMode ? '1746200000001' : '1746200000002';
       const socialId = popupMode ? '1738924888797' : '1738908201655';
+      const emailId = popupMode ? null : '1738908505292';
       const orangeShapeId = popupMode ? '1738923690320' : '1738906924130';
       const iconIds = popupMode
         ? { arrow: '1738924888805', instagram: '1738924888807', vk: '1738924888810' }
         : { arrow: '1738908250516', instagram: '1738908294009', vk: '1738908342859' };
+      const hiddenMenuIds = popupMode
+        ? { useful: '1738924888781', qa: '1738924888795' }
+        : {};
 
       return {
         mode: popupMode ? 'popup' : 'footer',
@@ -232,6 +236,8 @@ async function getLayout(cdp, mode) {
         phone: rectOf(byId(record, phoneId)),
         shortcut: rectOf(byId(record, shortcutId)),
         social: rectOf(byId(record, socialId)),
+        email: emailId ? rectOf(byId(record, emailId)) : null,
+        hiddenMenu: iconInfo(record, hiddenMenuIds),
         orangeShape: rectOf(byId(record, orangeShapeId)),
         icons: iconInfo(record, iconIds),
         links: linkInfo(record),
@@ -298,6 +304,14 @@ function assertLayout(layout) {
     if (icons.instagram.bottom > safeBottom || icons.vk.bottom > safeBottom) {
       fail(`${mode}: mobile social icons are below the first safe screen`, layout);
     }
+    if (layout.hiddenMenu.useful?.display !== "none" || layout.hiddenMenu.qa?.display !== "none") {
+      fail(`${mode}: removed mobile menu links are still visible in the contact area`, layout);
+    }
+  }
+  if (mode === "footer" && layout.viewport.width <= 639) {
+    if (!layout.email) fail(`${mode}: mobile email is missing`, layout);
+    if (layout.email.top < icons.instagram.bottom + 8) fail(`${mode}: mobile email overlaps social icons`, layout);
+    if (layout.email.top > icons.instagram.bottom + 90) fail(`${mode}: mobile email is too far below social icons`, layout);
   }
 
   for (const link of [telegram, max]) {
