@@ -3,6 +3,9 @@ import { readFileSync } from "node:fs";
 
 const basePath = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const pageUrl = new URL(`${basePath}materials/`, "https://timurgromov.github.io").toString();
+const telegramContactUrl = "https://t.me/timurgromovv";
+const maxContactUrl =
+  "https://max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM?clckid=c487e7dc";
 
 const pageHtml = readFileSync(
   new URL("../../page62008353.html", import.meta.url),
@@ -99,6 +102,22 @@ function extractTildaRecord(html: string, recordId: string) {
   return html.slice(startIndex, endIndex);
 }
 
+function injectBeforeTildaRecordScript(
+  html: string,
+  recordNumericId: string,
+  markup: string,
+) {
+  const marker =
+    `</div> </div> <scr` +
+    `ipt>t_onFuncLoad('t396_initialScale',function() {t396_initialScale('${recordNumericId}');});`;
+
+  if (!html.includes(marker)) {
+    return html;
+  }
+
+  return html.replace(marker, `${markup}${marker}`);
+}
+
 function withBasePath(html: string) {
   return html
     .replace(/href=(['"])(?!https?:|mailto:|tel:|#|\/{2})(\/?)(?!\/)/g, `href=$1${basePath}`)
@@ -161,7 +180,12 @@ const materialRecordsHtml = materialRecordIds
   })
   .join(" ");
 const headerRecordHtml = extractTildaRecord(bodySource, headerRecordId);
-const footerRecordHtml = extractTildaRecord(bodySource, footerRecordId);
+const footerContactShortcutMarkup = ` <div class='t396__elem tn-elem tn-elem__8626239211746200000002' data-elem-id='1746200000002' data-elem-type='text' data-field-top-value="928" data-field-left-value="1285" data-field-height-value="24" data-field-width-value="320" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-textfit-value="autoheight" data-field-fontsize-value="20" data-field-top-res-320-value="532" data-field-left-res-320-value="25" data-field-width-res-320-value="220" data-field-fontsize-res-320-value="12" data-field-top-res-640-value="566" data-field-left-res-640-value="311" data-field-width-res-640-value="230" data-field-fontsize-res-640-value="13" data-field-top-res-1200-value="584" data-field-left-res-1200-value="800" data-field-width-res-1200-value="260" data-field-fontsize-res-1200-value="13"> <div class='tn-atom'><span class="contact-shortcut-inline__content"><span class="contact-shortcut-inline__label">Написать мне</span><a class="contact-shortcut-inline__link" href="${telegramContactUrl}" target="_blank" rel="nofollow">Telegram</a><a class="contact-shortcut-inline__link" href="${maxContactUrl}" target="_blank" rel="nofollow">MAX</a></span></div> </div>`;
+const footerRecordHtml = injectBeforeTildaRecordScript(
+  extractTildaRecord(bodySource, footerRecordId),
+  "862623921",
+  footerContactShortcutMarkup,
+);
 
 const headHtml = withBasePath(
   headMatch[1]
@@ -212,6 +236,91 @@ const headHtml = withBasePath(
     .concat(
       `<style>
         body.t-body{background:#fffefa !important;}
+        #rec862623921 .tn-elem[data-elem-id="1738908324214"],
+        #rec862623921 .tn-elem[data-elem-id="1738908324214"] .tn-atom{
+          display:none !important;
+          opacity:0 !important;
+          visibility:hidden !important;
+          pointer-events:none !important;
+        }
+        .contact-shortcut-inline__content{
+          display:inline-flex;
+          align-items:center;
+          gap:18px;
+          flex-wrap:nowrap;
+          white-space:nowrap;
+          pointer-events:auto !important;
+        }
+        .contact-shortcut-inline__label{
+          color:#fffefa;
+          opacity:1;
+          pointer-events:none;
+        }
+        .contact-shortcut-inline__link{
+          color:#fffefa !important;
+          -webkit-text-fill-color:#fffefa;
+          text-decoration:none;
+          font-weight:400;
+          opacity:1 !important;
+          border-bottom:1px solid #fffefa;
+          transition:opacity .2s ease, border-color .2s ease, color .2s ease;
+          pointer-events:auto !important;
+        }
+        .contact-shortcut-inline__link:visited{
+          color:#fffefa !important;
+          -webkit-text-fill-color:#fffefa;
+          opacity:1 !important;
+        }
+        .contact-shortcut-inline__link:hover{
+          opacity:.5 !important;
+          border-color:rgba(255,254,250,.5);
+          color:#fffefa !important;
+          -webkit-text-fill-color:#fffefa;
+        }
+        #rec862623921 .tn-elem[data-elem-id="1746200000002"]{
+          color:#fffefa;
+          z-index:17;
+          height:auto;
+          top:928px;
+          left:calc(50% - 960px + 1285px);
+          width:320px;
+        }
+        #rec862623921 .tn-elem[data-elem-id="1746200000002"] .tn-atom{
+          vertical-align:middle;
+          color:#fffefa;
+          font-size:20px;
+          font-family:var(--t-text-font, Arial);
+          line-height:1.2;
+          font-weight:400;
+          background-position:center center;
+          border-width:var(--t396-borderwidth,0);
+          border-style:var(--t396-borderstyle,solid);
+          border-color:var(--t396-bordercolor,transparent);
+          transition:background-color var(--t396-speedhover,0s) ease-in-out,color var(--t396-speedhover,0s) ease-in-out,border-color var(--t396-speedhover,0s) ease-in-out,box-shadow var(--t396-shadowshoverspeed,0.2s) ease-in-out;
+          --t396-shadow-text-opacity:100%;
+          text-shadow:var(--t396-shadow-text-x,0px) var(--t396-shadow-text-y,0px) var(--t396-shadow-text-blur,0px) rgba(var(--t396-shadow-text-color),var(--t396-shadow-text-opacity,100%));
+        }
+        #rec862623921 .tn-elem[data-elem-id="1738908201655"]{
+          top:1000px !important;
+        }
+        #rec862623921 .tn-elem[data-elem-id="1738908250516"],
+        #rec862623921 .tn-elem[data-elem-id="1738908294009"],
+        #rec862623921 .tn-elem[data-elem-id="1738908342859"]{
+          top:999px !important;
+        }
+        #rec862623921 .tn-elem[data-elem-id="1738908250516"]{
+          top:1014px !important;
+          left:calc(50% - 960px + 1443px) !important;
+        }
+        #rec862623921 .tn-elem[data-elem-id="1738908294009"]{
+          left:calc(50% - 960px + 1492px) !important;
+        }
+        #rec862623921 .tn-elem[data-elem-id="1738908342859"]{
+          left:calc(50% - 960px + 1559px) !important;
+        }
+        #rec862623921 .tn-elem[data-elem-id="1738908505292"]{
+          top:1072px !important;
+        }
         .materials-header-shell{
           position:fixed;
           top:0;
@@ -279,6 +388,35 @@ const headHtml = withBasePath(
           #allrecords{
             padding-top:55px;
           }
+          #rec862623921 .tn-elem[data-elem-id="1746200000002"]{
+            top:584px;
+            left:calc(50% - 600px + 800px);
+            width:260px;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1746200000002"] .tn-atom{
+            font-size:13px;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908201655"]{
+            top:626px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908250516"],
+          #rec862623921 .tn-elem[data-elem-id="1738908294009"],
+          #rec862623921 .tn-elem[data-elem-id="1738908342859"]{
+            top:625px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908250516"]{
+            top:635px !important;
+            left:calc(50% - 600px + 902px) !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908294009"]{
+            left:calc(50% - 600px + 930px) !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908342859"]{
+            left:calc(50% - 600px + 972px) !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908505292"]{
+            top:676px !important;
+          }
           .materials-header-copy{
             width:min(640px, calc(100vw - 290px));
             height:55px;
@@ -293,6 +431,20 @@ const headHtml = withBasePath(
           #rec862050095{
             margin-top:-72px;
           }
+          #rec862623921 .tn-elem[data-elem-id="1746200000002"]{
+            top:566px;
+            left:calc(50% - 320px + 311px);
+            width:230px;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1746200000002"] .tn-atom{
+            font-size:13px;
+          }
+          .contact-shortcut-inline__content{
+            gap:12px;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908342859"]{
+            left:calc(50% - 320px + 519px) !important;
+          }
           .materials-header-copy{
             width:min(360px, calc(100vw - 210px));
             height:53px;
@@ -306,6 +458,46 @@ const headHtml = withBasePath(
           #rec861962232,
           #rec862050095{
             margin-top:0;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1746200000002"]{
+            top:487px !important;
+            left:calc(50% - 160px + 25px) !important;
+            width:220px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1746200000002"] .tn-atom{
+            font-size:12px;
+          }
+          .contact-shortcut-inline__content{
+            gap:10px;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908098051"]{
+            top:407px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908167577"]{
+            top:436px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908201655"]{
+            top:517px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908250516"],
+          #rec862623921 .tn-elem[data-elem-id="1738908294009"],
+          #rec862623921 .tn-elem[data-elem-id="1738908342859"]{
+            top:517px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908250516"]{
+            top:527px !important;
+            left:calc(50% - 160px + 110px) !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908294009"]{
+            left:calc(50% - 160px + 133px) !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908342859"]{
+            left:calc(50% - 160px + 175px) !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908505292"]{
+            top:565px !important;
+            left:calc(50% - 160px + 25px) !important;
+            width:285px !important;
           }
           #rec862699342 .t396__artboard,
           #rec862699342 .t396__carrier,
@@ -409,17 +601,17 @@ const headHtml = withBasePath(
             top:388px !important;
           }
           #rec862623921 .tn-elem[data-elem-id="1738909017957"]{
-            top:650px !important;
+            top:766px !important;
           }
           #rec862623921 .tn-elem[data-elem-id="1738909098665"],
           #rec862623921 .tn-elem[data-elem-id="1739077659698"]{
-            top:736px !important;
+            top:840px !important;
           }
           #rec862623921 .tn-elem[data-elem-id="1738909152475"]{
-            top:788px !important;
+            top:882px !important;
           }
           #rec862623921 .tn-elem[data-elem-id="1738909098668"]{
-            top:811px !important;
+            top:901px !important;
           }
           #rec862070380 .tn-elem a[href^="#popup:video-soveti-"]::before{
             width:30px;
