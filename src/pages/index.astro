@@ -224,12 +224,10 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
 const contactShortcutEnhancer = `<style>
   #rec862707608 .tn-elem[data-elem-id="1738924888809"],
   #rec862707608 .tn-elem[data-elem-id="1738924888781"],
-  #rec862707608 .tn-elem[data-elem-id="1738924888773"],
   #rec862707608 .tn-elem[data-elem-id="1738925507926"],
   #rec862707608 .tn-elem[data-elem-id="1738925510973"],
   #rec862623921 .tn-elem[data-elem-id="1738908324214"],
   #rec862707608 .tn-elem[data-elem-id="1738924888781"] .tn-atom,
-  #rec862707608 .tn-elem[data-elem-id="1738924888773"] .tn-atom,
   #rec862707608 .tn-elem[data-elem-id="1738925507926"] .tn-atom,
   #rec862707608 .tn-elem[data-elem-id="1738925510973"] .tn-atom,
   #rec862707608 .tn-elem[data-elem-id="1738924888809"] .tn-atom,
@@ -327,6 +325,16 @@ const contactShortcutEnhancer = `<style>
     top:580px !important;
     left:calc(50% - 960px + 1405px) !important;
     width:430px !important;
+  }
+  #rec862707608 .tn-elem[data-elem-id="1738924888773"]{
+    top:168px !important;
+    left:calc(50% - 960px + 520px) !important;
+    width:900px !important;
+  }
+  #rec862707608 .tn-elem[data-elem-id="1738924888773"] .tn-atom{
+    font-size:52px !important;
+    line-height:.82 !important;
+    text-align:center !important;
   }
   #rec862623921 .tn-elem[data-elem-id="1738908201655"]{
     top:1000px !important;
@@ -443,6 +451,14 @@ const contactShortcutEnhancer = `<style>
       left:calc(50% - 600px + 880px) !important;
       width:280px !important;
     }
+    #rec862707608 .tn-elem[data-elem-id="1738924888773"]{
+      top:104px !important;
+      left:calc(50% - 600px + 300px) !important;
+      width:600px !important;
+    }
+    #rec862707608 .tn-elem[data-elem-id="1738924888773"] .tn-atom{
+      font-size:40px !important;
+    }
     #rec862623921 .tn-elem[data-elem-id="1738908201655"]{
       top:626px !important;
     }
@@ -509,6 +525,14 @@ const contactShortcutEnhancer = `<style>
       left:calc(50% - 320px + 332px) !important;
       width:220px !important;
     }
+    #rec862707608 .tn-elem[data-elem-id="1738924888773"]{
+      top:112px !important;
+      left:calc(50% - 320px + 242px) !important;
+      width:360px !important;
+    }
+    #rec862707608 .tn-elem[data-elem-id="1738924888773"] .tn-atom{
+      font-size:28px !important;
+    }
     #rec862623921 .tn-elem[data-elem-id="1738908342859"]{
       left:calc(50% - 320px + 519px) !important;
     }
@@ -531,6 +555,16 @@ const contactShortcutEnhancer = `<style>
       display:none !important;
       visibility:hidden !important;
       pointer-events:none !important;
+    }
+    #rec862707608 .tn-elem[data-elem-id="1738924888773"]{
+      top:124px !important;
+      left:calc(50% - 160px + 18px) !important;
+      width:284px !important;
+    }
+    #rec862707608 .tn-elem[data-elem-id="1738924888773"] .tn-atom{
+      font-size:23px !important;
+      line-height:.88 !important;
+      text-align:left !important;
     }
     #rec862707608 .tn-elem[data-elem-id="1738924888778"]{
       top:305px !important;
@@ -739,6 +773,14 @@ function removeTildaElement(html: string, elemId: string) {
   const endIndex = nextElementIndex === -1 ? html.length : nextElementIndex;
 
   return `${html.slice(0, startIndex)}${html.slice(endIndex)}`;
+}
+
+function replaceTildaText(html: string, elemId: string, nextText: string) {
+  const pattern = new RegExp(
+    `(<div\\b[^>]*data-elem-id=(['"])${elemId}\\2[^>]*>[\\s\\S]*?<div class='tn-atom'[^>]*>)([\\s\\S]*?)(</div>)`,
+  );
+
+  return html.replace(pattern, `$1${nextText}$4`);
 }
 
 function injectBeforeTildaRecordScript(
@@ -1003,9 +1045,15 @@ const transformedBodyHtml = filteredBodySource
     `$1${heroPosterLayer}`,
   );
 
+const popupPhraseBodyHtml = replaceTildaText(
+  transformedBodyHtml,
+  "1738924888773",
+  "Праздник, который вспоминают с теплом",
+);
+
 const bodyHtml = injectBeforeTildaRecordScript(
   injectBeforeTildaRecordScript(
-    transformedBodyHtml,
+    popupPhraseBodyHtml,
     "862707608",
     popupContactShortcutMarkup,
   ),
