@@ -703,15 +703,6 @@ const popupContactShortcutMarkup = ` <div class='t396__elem tn-elem tn-elem__862
 const footerContactShortcutMarkup = ` <div class='t396__elem tn-elem tn-elem__8626239211746200000002' data-elem-id='1746200000002' data-elem-type='text' data-field-top-value="928" data-field-left-value="1285" data-field-height-value="24" data-field-width-value="320" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-textfit-value="autoheight" data-field-fontsize-value="20" data-field-top-res-320-value="532" data-field-left-res-320-value="25" data-field-width-res-320-value="220" data-field-fontsize-res-320-value="12" data-field-top-res-640-value="566" data-field-left-res-640-value="311" data-field-width-res-640-value="230" data-field-fontsize-res-640-value="13" data-field-top-res-1200-value="584" data-field-left-res-1200-value="800" data-field-width-res-1200-value="260" data-field-fontsize-res-1200-value="13"> <div class='tn-atom'><span class="contact-shortcut-inline__content"><span class="contact-shortcut-inline__label">Написать мне</span><a class="contact-shortcut-inline__link" href="${telegramContactUrl}" target="_blank" rel="nofollow">Telegram</a><a class="contact-shortcut-inline__link" href="${maxContactUrl}" target="_blank" rel="nofollow">MAX</a></span></div> </div>`;
 
 const hiddenMarketingVideoAdviceRecordIds = [
-  // Legacy advice card section.
-  "rec861547217",
-  // Legacy advice popup wrappers and popup contents.
-  "rec892727590",
-  "rec892727326",
-  "rec892742671",
-  "rec893263294",
-  "rec892744252",
-  "rec893264341",
   // Webinar block and related popup. Temporarily moved off the sales landing page.
   "rec862714733",
   "rec905176327",
@@ -807,51 +798,6 @@ function injectBeforeTildaRecordScript(
 
   return html.replace(marker, `${markup}${marker}`);
 }
-
-function escapeHtmlAttribute(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/"/g, "&quot;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
-
-function withSafariTimeHint(src: string) {
-  return src.includes("#") ? src : `${src}#t=0.001`;
-}
-
-function nativeShapeVideo(src: string) {
-  const videoUrl = escapeHtmlAttribute(withSafariTimeHint(src));
-
-  return `<video class="native-shape-video" muted playsinline webkit-playsinline autoplay loop preload="auto" src="${videoUrl}"></video>`;
-}
-
-function nativeHeroVideo() {
-  return `<video class="native-shape-video native-hero-video" muted playsinline webkit-playsinline autoplay loop preload="auto" poster="${escapeHtmlAttribute(heroPosterDesktopUrl)}"><source media="(max-width: 639px)" src="${escapeHtmlAttribute(withSafariTimeHint(heroCloudMobileVideoUrl))}" type="video/mp4"><source src="${escapeHtmlAttribute(withSafariTimeHint(heroCloudDesktopVideoUrl))}" type="video/mp4"></video>`;
-}
-
-function injectNativeShapeVideo(html: string, elemClass: string, videoMarkup: string) {
-  const elemIndex = html.indexOf(elemClass);
-
-  if (elemIndex === -1) {
-    return html;
-  }
-
-  const atomStart = html.indexOf("<div class='tn-atom", elemIndex);
-  const atomOpenEnd = html.indexOf(">", atomStart);
-
-  if (atomStart === -1 || atomOpenEnd === -1) {
-    return html;
-  }
-
-  const atomOpen = html.slice(atomStart, atomOpenEnd + 1);
-  const nextAtomOpen = atomOpen.includes("native-video-host")
-    ? atomOpen
-    : atomOpen.replace("class='tn-atom", "class='tn-atom native-video-host");
-
-  return `${html.slice(0, atomStart)}${nextAtomOpen}${videoMarkup}${html.slice(atomOpenEnd + 1)}`;
-}
-
 const heroAutoplayBooster = `<style>
   #rec861352716 .tn-elem__8613527161738731141089 video::-webkit-media-controls{
     display:none !important;
@@ -1045,73 +991,6 @@ const heroAutoplayBooster = `<style>
   })();
 </script>`;
 
-const nativeVideoMarkup = `<style>
-  .native-video-host{
-    position:relative !important;
-    overflow:hidden !important;
-  }
-  .native-shape-video{
-    position:absolute;
-    inset:0;
-    z-index:80;
-    display:block;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    background:#000;
-    border-radius:inherit;
-    pointer-events:none;
-  }
-  .native-video-host [class*="annexx-wrapper-video-in-shape"],
-  .native-video-host > video:not(.native-shape-video){
-    display:none !important;
-    visibility:hidden !important;
-    opacity:0 !important;
-    pointer-events:none !important;
-  }
-</style>
-<script>
-  (function() {
-    var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
-    if (!isSafari) return;
-
-    document.documentElement.classList.add('safari-native-video-mode');
-
-    function playNativeVideos() {
-      document.querySelectorAll('.native-shape-video').forEach(function(video) {
-        video.muted = true;
-        video.defaultMuted = true;
-        video.volume = 0;
-        video.playsInline = true;
-        video.setAttribute('muted', '');
-        video.setAttribute('playsinline', '');
-        video.setAttribute('webkit-playsinline', '');
-
-        try {
-          var promise = video.play();
-          if (promise && typeof promise.catch === 'function') {
-            promise.catch(function() {});
-          }
-        } catch (error) {}
-      });
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', playNativeVideos, { once: true });
-    } else {
-      playNativeVideos();
-    }
-
-    window.addEventListener('load', playNativeVideos);
-    window.addEventListener('pageshow', playNativeVideos);
-    document.addEventListener('visibilitychange', function() {
-      if (!document.hidden) playNativeVideos();
-    });
-    document.addEventListener('touchstart', playNativeVideos, { passive: true, capture: true });
-  })();
-</script>`;
-
 const headHtml = headMatch[1]
   .replace(
     /<meta property="og:url" content="[^"]*"\s*\/?>/i,
@@ -1127,9 +1006,6 @@ const headHtml = headMatch[1]
   )
   .concat(
     heroAutoplayBooster,
-  )
-  .concat(
-    nativeVideoMarkup,
   )
   .concat(
     contactShortcutEnhancer,
@@ -1175,32 +1051,9 @@ const popupPhraseBodyHtml = replaceTildaText(
   "Праздник, который вспоминают с теплом",
 );
 
-const nativeVideoBodyHtml = [
-  ["tn-elem__8613527161738731141089", nativeHeroVideo()],
-  [
-    "tn-elem__8623471761738859374619",
-    nativeShapeVideo("https://global.s3.cloud.ru/tg26video-public/demo_komoRF28.mp4?v=case-preview-20260505b"),
-  ],
-  [
-    "tn-elem__8623471761738861518577",
-    nativeShapeVideo("https://global.s3.cloud.ru/tg26video-public/demo_morozRF28%20576%20.mp4?v=case-preview-20260505b"),
-  ],
-  [
-    "tn-elem__8623471761738862757939",
-    nativeShapeVideo("https://global.s3.cloud.ru/tg26video-public/demo_toscanaRF28.mp4?v=case-preview-20260505b"),
-  ],
-  [
-    "tn-elem__8623471761738863568198",
-    nativeShapeVideo("https://global.s3.cloud.ru/tg26video-public/demo_nemchRF28%20576.mp4?v=case-preview-20260505b"),
-  ],
-].reduce(
-  (html, [elemClass, videoMarkup]) => injectNativeShapeVideo(html, elemClass, videoMarkup),
-  popupPhraseBodyHtml,
-);
-
 const bodyHtml = injectBeforeTildaRecordScript(
   injectBeforeTildaRecordScript(
-    nativeVideoBodyHtml,
+    popupPhraseBodyHtml,
     "862707608",
     popupContactShortcutMarkup,
   ),
