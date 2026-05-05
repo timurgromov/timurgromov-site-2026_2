@@ -1046,14 +1046,11 @@ const heroAutoplayBooster = `<style>
 </script>`;
 
 const nativeVideoMarkup = `<style>
-  .native-shape-video{
-    display:none;
-  }
-  html.safari-native-video-mode .native-video-host{
+  .native-video-host{
     position:relative !important;
     overflow:hidden !important;
   }
-  html.safari-native-video-mode .native-shape-video{
+  .native-shape-video{
     position:absolute;
     inset:0;
     z-index:80;
@@ -1065,8 +1062,8 @@ const nativeVideoMarkup = `<style>
     border-radius:inherit;
     pointer-events:none;
   }
-  html.safari-native-video-mode .native-video-host [class*="annexx-wrapper-video-in-shape"],
-  html.safari-native-video-mode .native-video-host > video:not(.native-shape-video){
+  .native-video-host [class*="annexx-wrapper-video-in-shape"],
+  .native-video-host > video:not(.native-shape-video){
     display:none !important;
     visibility:hidden !important;
     opacity:0 !important;
