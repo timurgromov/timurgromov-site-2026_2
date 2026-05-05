@@ -30,7 +30,11 @@ const bodyStyle = bodyAttrs.match(/\bstyle=(['"])(.*?)\1/i)?.[2];
 const heroBoomstreamVideoUrl =
   "https://cdnv.boomstream.com/balancer/p1VrFFDa-SxJPiQup.mp4";
 const heroCloudDesktopVideoUrl =
-  "https://cdnv.boomstream.com/balancer/p1VrFFDa-SxJPiQup.mp4";
+  "https://bs.boomstream.dev/balancer/RCIJ56KS-EuQeQgfF.mp4";
+const heroCloudMobileVideoUrl =
+  "https://bs.boomstream.dev/balancer/0VGkkqV8-EuQeQgfF.mp4";
+const heroVideoSourceExpression =
+  `((window.matchMedia && window.matchMedia('(max-width: 639px)').matches) ? '${heroCloudMobileVideoUrl}' : '${heroCloudDesktopVideoUrl}')`;
 const showreelPopupCloudVideoUrl =
   "https://global.s3.cloud.ru/tg26video-public/moroяovkaRF24.mp4";
 const cleanVideoPopupItems = [
@@ -1212,7 +1216,7 @@ const transformedBodyHtml = filteredBodySource
   )
   .replace(
     `link = '${heroBoomstreamVideoUrl}' ? (function() { let link = '${heroBoomstreamVideoUrl}'.trim();`,
-    `link = '${heroCloudDesktopVideoUrl}' ? (function() { let link = '${heroCloudDesktopVideoUrl}'.trim();`,
+    `link = ${heroVideoSourceExpression} ? (function() { let link = ${heroVideoSourceExpression}.trim();`,
   )
   .replace(
     /(<div id="rec861352716" class="r t-rec"[^>]*>)/,
