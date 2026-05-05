@@ -20,7 +20,8 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
   body{
     width:100% !important;
     max-width:100% !important;
-    overflow-x:hidden !important;
+    overflow-x:clip !important;
+    overflow-y:visible !important;
     background:#1c1b1a !important;
   }
   body.t-body{
@@ -30,7 +31,8 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
   #allrecords{
     width:100% !important;
     max-width:100vw !important;
-    overflow-x:hidden !important;
+    overflow-x:clip !important;
+    overflow-y:visible !important;
   }
   body.t-body .t-records,
   body.t-body .t-records_animated{
@@ -790,6 +792,9 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
     display:none;
     align-items:center;
     justify-content:center;
+    box-sizing:border-box;
+    min-height:100svh;
+    height:100dvh;
     padding:24px;
   }
   .clean-showreel-popup.is-open{
@@ -863,12 +868,12 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
   }
   @media screen and (max-width:639px){
     .clean-showreel-popup{
-      padding:74px 12px 24px;
-      align-items:flex-start;
+      align-items:center;
+      padding:max(84px, env(safe-area-inset-top)) 12px max(84px, env(safe-area-inset-bottom));
     }
     .clean-showreel-popup__panel,
     .clean-showreel-popup__video{
-      max-height:calc(100svh - 130px);
+      max-height:calc(100dvh - 168px);
     }
     .clean-showreel-popup__title{
       padding:18px 18px 20px;
