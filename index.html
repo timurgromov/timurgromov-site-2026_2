@@ -810,8 +810,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
   .clean-showreel-popup__panel{
     position:relative;
     z-index:1;
-    width:min(1080px, 100%);
-    max-height:calc(100svh - 120px);
+    width:min(1280px, calc(100vw - 160px), calc((100dvh - 160px) * 16 / 9));
     background:#000;
     border-radius:10px;
     overflow:hidden;
@@ -820,7 +819,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
     display:block;
     width:100%;
     aspect-ratio:16 / 9;
-    max-height:calc(100svh - 120px);
+    height:auto;
     object-fit:contain;
     background:#000;
   }
@@ -871,9 +870,8 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
       align-items:center;
       padding:max(84px, env(safe-area-inset-top)) 12px max(84px, env(safe-area-inset-bottom));
     }
-    .clean-showreel-popup__panel,
-    .clean-showreel-popup__video{
-      max-height:calc(100dvh - 168px);
+    .clean-showreel-popup__panel{
+      width:min(calc(100vw - 24px), calc((100dvh - 168px) * 16 / 9));
     }
     .clean-showreel-popup__title{
       padding:18px 18px 20px;
