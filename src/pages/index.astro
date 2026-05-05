@@ -27,14 +27,10 @@ if (!bodyTagMatch) {
 const bodyAttrs = bodyTagMatch[1];
 const bodyClass = bodyAttrs.match(/\bclass=(['"])(.*?)\1/i)?.[2];
 const bodyStyle = bodyAttrs.match(/\bstyle=(['"])(.*?)\1/i)?.[2];
-const heroBoomstreamVideoUrl =
-  "https://cdnv.boomstream.com/balancer/p1VrFFDa-SxJPiQup.mp4";
 const heroCloudDesktopVideoUrl =
   "https://bs.boomstream.dev/balancer/RCIJ56KS-EuQeQgfF.mp4";
 const heroCloudMobileVideoUrl =
   "https://bs.boomstream.dev/balancer/0VGkkqV8-EuQeQgfF.mp4";
-const heroVideoSourceExpression =
-  `((window.matchMedia && window.matchMedia('(max-width: 639px)').matches) ? '${heroCloudMobileVideoUrl}' : '${heroCloudDesktopVideoUrl}')`;
 const casePreviewVideoReplacements = [
   [
     "https://cdnv.boomstream.com/balancer/RCpP5hSc-oqvc9Qft.mp4",
@@ -103,6 +99,7 @@ const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
     decoding="async"
   />
 </picture>`;
+const heroNativeVideoMarkup = `<video class="hero-native-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="${heroPosterDesktopUrl}" aria-hidden="true"></video>`;
 const heroPreloadOverlay = `<div id="hero-preload-overlay" aria-hidden="true"></div>`;
 const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru" crossorigin>
 <link
@@ -204,6 +201,17 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
     background-color:#1c1b1a !important;
     overflow:hidden;
   }
+  #rec861352716 .tn-elem__8613527161738731141089 > .hero-native-video{
+    position:absolute;
+    inset:0;
+    z-index:10;
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center center;
+    background:#1c1b1a;
+  }
   #rec861352716 .tn-elem__8613527161738731141089 > .hero-poster-layer{
     position:absolute;
     inset:0;
@@ -269,6 +277,12 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
     var heroShapeSelector = '.tn-elem__8613527161738731141089';
     var heroRevealDelaySeconds = 0.25;
 
+    function getHeroVideoSrc() {
+      return window.matchMedia && window.matchMedia('(max-width: 639px)').matches
+        ? '${heroCloudMobileVideoUrl}'
+        : '${heroCloudDesktopVideoUrl}';
+    }
+
     function isHeroVideoReadyToReveal(video) {
       return video && !video.paused && !video.ended && video.readyState >= 2 && video.currentTime >= heroRevealDelaySeconds;
     }
@@ -283,6 +297,30 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
       record.classList.add('hero-preload-hidden');
     }
 
+    function tryPlayHeroVideo(video) {
+      if (!video) return;
+      var playResult = video.play();
+      if (playResult && typeof playResult.catch === 'function') {
+        playResult.catch(function(){});
+      }
+    }
+
+    function prepareHeroVideo(video) {
+      var nextSrc = getHeroVideoSrc();
+      video.muted = true;
+      video.defaultMuted = true;
+      video.loop = true;
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      video.setAttribute('poster', window.matchMedia('(max-width: 639px)').matches ? '${heroPosterMobileUrl}' : '${heroPosterDesktopUrl}');
+      if (video.getAttribute('src') !== nextSrc) {
+        video.setAttribute('src', nextSrc);
+        video.load();
+      }
+      tryPlayHeroVideo(video);
+    }
+
     function bindHeroPosterState() {
       var record = document.getElementById(heroRecordId);
       var shape = record && record.querySelector(heroShapeSelector);
@@ -291,12 +329,15 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
       if (!record) return;
 
       if (video) {
-        video.setAttribute('poster', window.matchMedia('(max-width: 639px)').matches ? '${heroPosterMobileUrl}' : '${heroPosterDesktopUrl}');
-        video.addEventListener('playing', function() { markHeroVideoStarted(video); });
-        video.addEventListener('timeupdate', function() { markHeroVideoStarted(video); });
-        video.addEventListener('canplay', function() {
-          window.setTimeout(function() { markHeroVideoStarted(video); }, heroRevealDelaySeconds * 1000);
-        });
+        prepareHeroVideo(video);
+        if (!video.dataset.heroPosterBound) {
+          video.dataset.heroPosterBound = 'true';
+          video.addEventListener('playing', function() { markHeroVideoStarted(video); });
+          video.addEventListener('timeupdate', function() { markHeroVideoStarted(video); });
+          video.addEventListener('canplay', function() {
+            window.setTimeout(function() { markHeroVideoStarted(video); }, heroRevealDelaySeconds * 1000);
+          });
+        }
         markHeroVideoStarted(video);
         return;
       }
@@ -316,8 +357,21 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
 
     bindHeroPosterState();
     syncHeroHeaderState();
+    document.addEventListener('click', function() {
+      var record = document.getElementById(heroRecordId);
+      var video = record && record.querySelector(heroShapeSelector + ' video');
+      tryPlayHeroVideo(video);
+    }, { passive: true });
+    document.addEventListener('touchstart', function() {
+      var record = document.getElementById(heroRecordId);
+      var video = record && record.querySelector(heroShapeSelector + ' video');
+      tryPlayHeroVideo(video);
+    }, { passive: true });
     window.addEventListener('scroll', syncHeroHeaderState, { passive: true });
-    window.addEventListener('resize', syncHeroHeaderState);
+    window.addEventListener('resize', function() {
+      syncHeroHeaderState();
+      bindHeroPosterState();
+    });
     window.addEventListener('pageshow', syncHeroHeaderState);
     window.addEventListener('load', bindHeroPosterState);
   })();
@@ -1087,6 +1141,8 @@ const standaloneShowreelPopupAssets = `<style>
 </script>`;
 
 const hiddenMarketingVideoAdviceRecordIds = [
+  // Legacy Anex hero autoplay; replaced by a native background video layer.
+  "rec861372811",
   // Webinar block and related popup. Temporarily moved off the sales landing page.
   "rec862714733",
   "rec905176327",
@@ -1233,14 +1289,6 @@ const transformedBodyHtml = filteredBodySource
   .replace(/src=(['"])\/(?!\/)/g, `src=$1${basePath}`)
   .replace(/action=(['"])\/(?!\/)/g, `action=$1${basePath}`)
   .replaceAll(
-    `"data":"${heroBoomstreamVideoUrl}"`,
-    `"data":"${heroCloudDesktopVideoUrl}"`,
-  )
-  .replace(
-    `link = '${heroBoomstreamVideoUrl}' ? (function() { let link = '${heroBoomstreamVideoUrl}'.trim();`,
-    `link = ${heroVideoSourceExpression} ? (function() { let link = ${heroVideoSourceExpression}.trim();`,
-  )
-  .replaceAll(
     casePreviewVideoReplacements[0][0],
     casePreviewVideoReplacements[0][1],
   )
@@ -1262,7 +1310,7 @@ const transformedBodyHtml = filteredBodySource
   )
   .replace(
     /(<div class='t396__elem tn-elem tn-elem__8613527161738731141089'[\s\S]*?<div class='tn-atom'>\s*<\/div>)/,
-    `$1${heroPosterLayer}`,
+    `$1${heroNativeVideoMarkup}${heroPosterLayer}`,
   );
 
 const popupPhraseBodyHtml = replaceTildaText(
