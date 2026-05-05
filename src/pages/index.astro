@@ -33,6 +33,34 @@ const heroCloudDesktopVideoUrl =
   "https://cdnv.boomstream.com/balancer/p1VrFFDa-SxJPiQup.mp4";
 const showreelPopupCloudVideoUrl =
   "https://global.s3.cloud.ru/tg26video-public/moroяovkaRF24.mp4";
+const cleanVideoPopupItems = [
+  {
+    hook: "#popup:showreel",
+    title: "Ведущий Тимур Громов",
+    src: showreelPopupCloudVideoUrl,
+  },
+  {
+    hook: "#popup:ozero-komo",
+    title: "Камерная свадьба на о. Комо",
+    src: "https://global.s3.cloud.ru/tg26video-public/КomoRF26.mp4",
+  },
+  {
+    hook: "#popup:morozovka",
+    title: "Грандиозная свадьба в Морозовке",
+    src: "https://global.s3.cloud.ru/tg26video-public/moroяovkaRF24.mp4",
+  },
+  {
+    hook: "#popup:toskana",
+    title: "Веселая свадьба в Тоскане",
+    src: "https://global.s3.cloud.ru/tg26video-public/ToscanaRF26.mp4",
+  },
+  {
+    hook: "#popup:kolizei",
+    title: "Красивая свадьба в Колизее",
+    src: "https://global.s3.cloud.ru/tg26video-public/NemchinovkaRF28.mp4",
+  },
+] as const;
+const cleanVideoPopupConfig = JSON.stringify(cleanVideoPopupItems);
 const heroPosterVersion = "2306bab";
 const heroPosterDesktopUrl = `${basePath}images/hero-poster-desktop.jpg?v=${heroPosterVersion}`;
 const heroPosterMobileUrl = `${basePath}images/hero-poster-mobile.jpg?v=${heroPosterVersion}`;
@@ -753,7 +781,8 @@ const standaloneShowreelPopupMarkup = `<div id="clean-showreel-popup" class="cle
   <div class="clean-showreel-popup__backdrop" data-clean-showreel-close></div>
   <button class="clean-showreel-popup__close" type="button" aria-label="Закрыть видео" data-clean-showreel-close></button>
   <div class="clean-showreel-popup__panel" role="dialog" aria-modal="true" aria-label="Видео">
-    <video class="clean-showreel-popup__video" controls playsinline webkit-playsinline preload="metadata" src="${showreelPopupCloudVideoUrl}"></video>
+    <video class="clean-showreel-popup__video" controls playsinline webkit-playsinline preload="metadata"></video>
+    <div class="clean-showreel-popup__title" data-clean-showreel-title></div>
   </div>
 </div>`;
 
@@ -891,6 +920,16 @@ const standaloneShowreelPopupAssets = `<style>
     object-fit:contain;
     background:#000;
   }
+  .clean-showreel-popup__title{
+    display:none;
+    padding:24px 28px 28px;
+    color:#1c1b1a;
+    background:#fffefa;
+    font:400 32px/1.05 Coolvetica, Arial, sans-serif;
+  }
+  .clean-showreel-popup__title:not(:empty){
+    display:block;
+  }
   .clean-showreel-popup__close{
     position:fixed;
     z-index:2;
@@ -932,12 +971,21 @@ const standaloneShowreelPopupAssets = `<style>
     .clean-showreel-popup__video{
       max-height:calc(100svh - 130px);
     }
+    .clean-showreel-popup__title{
+      padding:18px 18px 20px;
+      font-size:24px;
+    }
   }
 </style>
 <script>
   (function(){
     var popupId = 'clean-showreel-popup';
-    var videoSrc = '${showreelPopupCloudVideoUrl}';
+    var videoItems = ${cleanVideoPopupConfig};
+    var videoByHook = {};
+
+    videoItems.forEach(function(item){
+      videoByHook[item.hook] = item;
+    });
 
     function getPopup(){
       return document.getElementById(popupId);
@@ -948,7 +996,13 @@ const standaloneShowreelPopupAssets = `<style>
       return popup ? popup.querySelector('video') : null;
     }
 
-    function openPopup(event){
+    function setTitle(item){
+      var popup = getPopup();
+      var title = popup ? popup.querySelector('[data-clean-showreel-title]') : null;
+      if (title) title.textContent = item && item.title ? item.title : '';
+    }
+
+    function openPopup(item, event){
       if (event) {
         event.preventDefault();
         event.stopPropagation();
@@ -956,11 +1010,15 @@ const standaloneShowreelPopupAssets = `<style>
       }
       var popup = getPopup();
       var video = getVideo();
-      if (!popup || !video) return;
+      if (!popup || !video || !item) return;
       popup.classList.add('is-open');
       popup.setAttribute('aria-hidden', 'false');
       document.body.classList.add('clean-showreel-popup-open');
-      if (!video.getAttribute('src')) video.setAttribute('src', videoSrc);
+      setTitle(item);
+      if (video.getAttribute('src') !== item.src) {
+        video.pause();
+        video.setAttribute('src', item.src);
+      }
       video.setAttribute('playsinline', '');
       video.setAttribute('webkit-playsinline', '');
       video.load();
@@ -981,9 +1039,10 @@ const standaloneShowreelPopupAssets = `<style>
     }
 
     document.addEventListener('click', function(event){
-      var opener = event.target && event.target.closest && event.target.closest('a[href="#popup:showreel"]');
-      if (opener) {
-        openPopup(event);
+      var opener = event.target && event.target.closest && event.target.closest('a[href^="#popup:"]');
+      var item = opener ? videoByHook[opener.getAttribute('href')] : null;
+      if (item) {
+        openPopup(item, event);
         return;
       }
       if (event.target && event.target.closest && event.target.closest('[data-clean-showreel-close]')) {
