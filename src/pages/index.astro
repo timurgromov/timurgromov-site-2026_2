@@ -35,6 +35,24 @@ const heroCloudMobileVideoUrl =
   "https://bs.boomstream.dev/balancer/0VGkkqV8-EuQeQgfF.mp4";
 const heroVideoSourceExpression =
   `((window.matchMedia && window.matchMedia('(max-width: 639px)').matches) ? '${heroCloudMobileVideoUrl}' : '${heroCloudDesktopVideoUrl}')`;
+const casePreviewVideoReplacements = [
+  [
+    "https://cdnv.boomstream.com/balancer/RCpP5hSc-oqvc9Qft.mp4",
+    "https://bs.boomstream.dev/balancer/N2LPspm9-jAhiWugB.mp4",
+  ],
+  [
+    "https://cdnv.boomstream.com/balancer/gk8znhXX-oqvc9Qft.mp4",
+    "https://bs.boomstream.dev/balancer/M05OCeUp-jAhiWugB.mp4",
+  ],
+  [
+    "https://cdnv.boomstream.com/balancer/Lww7hY2N-oqvc9Qft.mp4",
+    "https://bs.boomstream.dev/balancer/Oumx0U4Z-jAhiWugB.mp4",
+  ],
+  [
+    "https://cdnv.boomstream.com/balancer/U7iCUgz4-oqvc9Qft.mp4",
+    "https://bs.boomstream.dev/balancer/gzJNWWi6-EuQeQgfF.mp4",
+  ],
+] as const;
 const showreelPopupCloudVideoUrl =
   "https://global.s3.cloud.ru/tg26video-public/moroяovkaRF24.mp4";
 const cleanVideoPopupItems = [
@@ -1217,6 +1235,22 @@ const transformedBodyHtml = filteredBodySource
   .replace(
     `link = '${heroBoomstreamVideoUrl}' ? (function() { let link = '${heroBoomstreamVideoUrl}'.trim();`,
     `link = ${heroVideoSourceExpression} ? (function() { let link = ${heroVideoSourceExpression}.trim();`,
+  )
+  .replaceAll(
+    casePreviewVideoReplacements[0][0],
+    casePreviewVideoReplacements[0][1],
+  )
+  .replaceAll(
+    casePreviewVideoReplacements[1][0],
+    casePreviewVideoReplacements[1][1],
+  )
+  .replaceAll(
+    casePreviewVideoReplacements[2][0],
+    casePreviewVideoReplacements[2][1],
+  )
+  .replaceAll(
+    casePreviewVideoReplacements[3][0],
+    casePreviewVideoReplacements[3][1],
   )
   .replace(
     /(<div id="rec861352716" class="r t-rec"[^>]*>)/,
