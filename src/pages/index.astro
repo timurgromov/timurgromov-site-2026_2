@@ -30,46 +30,11 @@ const bodyStyle = bodyAttrs.match(/\bstyle=(['"])(.*?)\1/i)?.[2];
 const heroBoomstreamVideoUrl =
   "https://cdnv.boomstream.com/balancer/p1VrFFDa-SxJPiQup.mp4";
 const heroCloudDesktopVideoUrl =
-  "https://global.s3.cloud.ru/tg26video-public/hero_desc_RF28.mp4";
-const heroCloudMobileVideoUrl =
-  "https://global.s3.cloud.ru/tg26video-public/hero_mob_RF28.mp4";
-const heroCloudVideoExpression = `(window.matchMedia("(max-width: 639px)").matches ? "${heroCloudMobileVideoUrl}" : "${heroCloudDesktopVideoUrl}")`;
-const heroPosterVersion = "2306bab";
-const heroPosterDesktopUrl = `${basePath}images/hero-poster-desktop.jpg?v=${heroPosterVersion}`;
-const heroPosterMobileUrl = `${basePath}images/hero-poster-mobile.jpg?v=${heroPosterVersion}`;
+  "https://cdnv.boomstream.com/balancer/p1VrFFDa-SxJPiQup.mp4";
 const telegramContactUrl = "https://t.me/timurgromovv";
 const maxContactUrl =
   "https://max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM?clckid=c487e7dc";
-const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
-  <source
-    media="(max-width: 639px)"
-    srcset="${heroPosterMobileUrl}"
-  />
-  <img
-    class="hero-poster-img"
-    src="${heroPosterDesktopUrl}"
-    alt=""
-    loading="eager"
-    fetchpriority="high"
-    decoding="async"
-  />
-</picture>`;
-const heroPreloadOverlay = `<div id="hero-preload-overlay" aria-hidden="true"></div>`;
 const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru" crossorigin>
-<link
-  rel="preload"
-  as="image"
-  href="${heroPosterDesktopUrl}"
-  media="(min-width: 640px)"
-  fetchpriority="high"
->
-<link
-  rel="preload"
-  as="image"
-  href="${heroPosterMobileUrl}"
-  media="(max-width: 639px)"
-  fetchpriority="high"
->
 <style>
   html,
   body.t-body{
@@ -106,33 +71,6 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
   #rec861352716{
     position:relative;
   }
-  #rec861352716 > #hero-preload-overlay{
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:103vh;
-    min-height:927px;
-    z-index:2;
-    pointer-events:none;
-    opacity:1;
-    transition:opacity .2s ease;
-    background:url("${heroPosterDesktopUrl}") center center / cover no-repeat #1c1b1a;
-  }
-  @media screen and (max-width:1919px){
-    #rec861352716 > #hero-preload-overlay{
-      height:100vh;
-      min-height:600px;
-    }
-  }
-  @media screen and (max-width:1199px){
-    #rec861352716 > #hero-preload-overlay{
-      min-height:780px;
-    }
-  }
-  #rec861352716.hero-preload-hidden > #hero-preload-overlay{
-    opacity:0;
-  }
   #rec861352716 .t396__artboard:not(.rendered) .tn-elem:not(.tn-elem__8613527161738731141089){
     visibility:hidden !important;
     opacity:0 !important;
@@ -150,46 +88,7 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
     background-color:#1c1b1a !important;
     overflow:hidden;
   }
-  #rec861352716 .tn-elem__8613527161738731141089 > .hero-poster-layer{
-    position:absolute;
-    inset:0;
-    z-index:20;
-    display:none !important;
-    pointer-events:none;
-    background-image:url("${heroPosterDesktopUrl}");
-    background-size:cover;
-    background-position:center center;
-    background-repeat:no-repeat;
-    background-color:#1c1b1a;
-    opacity:1;
-    transition:opacity .2s ease;
-  }
-  #rec861352716 .tn-elem__8613527161738731141089 > .hero-poster-layer .hero-poster-img{
-    width:100%;
-    height:100%;
-    display:block;
-    object-fit:cover;
-    object-position:center center;
-  }
-  #rec861352716 .tn-elem__8613527161738731141089 video{
-    opacity:0 !important;
-    transition:opacity .2s ease;
-  }
-  #rec861352716.hero-video-started .tn-elem__8613527161738731141089 video{
-    opacity:1 !important;
-  }
-  #rec861352716.hero-video-started .tn-elem__8613527161738731141089 > .hero-poster-layer{
-    opacity:0;
-  }
   @media screen and (max-width:639px){
-    #rec861352716 > #hero-preload-overlay{
-      height:100vh;
-      min-height:550px;
-      background-image:url("${heroPosterMobileUrl}");
-    }
-    #rec861352716 .tn-elem__8613527161738731141089 > .hero-poster-layer{
-      background-image:url("${heroPosterMobileUrl}");
-    }
     #rec861352716 .tn-elem[data-elem-id="1738734490081"],
     #rec861352716 .tn-elem[data-elem-id="1738734580173"],
     #rec861352716 .tn-elem[data-elem-id="1739347764973"],
@@ -798,199 +697,6 @@ function injectBeforeTildaRecordScript(
 
   return html.replace(marker, `${markup}${marker}`);
 }
-const heroAutoplayBooster = `<style>
-  #rec861352716 .tn-elem__8613527161738731141089 video::-webkit-media-controls{
-    display:none !important;
-  }
-  #rec861352716 .tn-elem__8613527161738731141089 video::-webkit-media-controls-start-playback-button{
-    display:none !important;
-    -webkit-appearance:none;
-  }
-</style>
-<script>
-  (function() {
-    var heroRecordId = 'rec861352716';
-    var heroShapeSelector = '.tn-elem__8613527161738731141089';
-    var retryTimer = 0;
-    var retryCount = 0;
-    var maxRetries = 24;
-    var activeVideo = null;
-    var mobilePosterUrl = '${heroPosterMobileUrl}';
-    var desktopPosterUrl = '${heroPosterDesktopUrl}';
-
-    function getHeroPosterUrl() {
-      return window.matchMedia('(max-width: 639px)').matches
-        ? mobilePosterUrl
-        : desktopPosterUrl;
-    }
-
-    function getHeroVideo() {
-      var record = document.getElementById(heroRecordId);
-      var shape = record && record.querySelector(heroShapeSelector);
-      return shape && shape.querySelector('video');
-    }
-
-    function markHeroVideoStarted(video) {
-      var record = document.getElementById(heroRecordId);
-      if (!record || !isPlaying(video)) return;
-      record.classList.add('hero-video-started');
-      record.classList.add('hero-preload-hidden');
-    }
-
-    function primeVideo(video) {
-      if (!video) return null;
-
-      activeVideo = video;
-      video.muted = true;
-      video.defaultMuted = true;
-      video.volume = 0;
-      video.autoplay = true;
-      video.loop = true;
-      video.playsInline = true;
-      video.controls = false;
-      video.preload = 'auto';
-      video.poster = getHeroPosterUrl();
-      video.setAttribute('muted', '');
-      video.setAttribute('autoplay', '');
-      video.setAttribute('loop', '');
-      video.setAttribute('playsinline', '');
-      video.setAttribute('webkit-playsinline', '');
-      video.setAttribute('preload', 'auto');
-      video.setAttribute('poster', getHeroPosterUrl());
-      video.removeAttribute('controls');
-      markHeroVideoStarted(video);
-
-      try {
-        video.disablePictureInPicture = true;
-        video.disableRemotePlayback = true;
-      } catch (error) {
-        return video;
-      }
-
-      return video;
-    }
-
-    function isPlaying(video) {
-      return video && !video.paused && !video.ended && video.readyState >= 2;
-    }
-
-    function playHeroVideo() {
-      var video = primeVideo(activeVideo || getHeroVideo());
-      var playPromise;
-
-      if (!video || isPlaying(video)) return;
-
-      try {
-        playPromise = video.play();
-      } catch (error) {
-        return;
-      }
-
-      if (playPromise && typeof playPromise.then === 'function') {
-        playPromise.then(function() {
-          markHeroVideoStarted(video);
-        });
-      }
-
-      if (playPromise && typeof playPromise.catch === 'function') {
-        playPromise.catch(function() {
-          return;
-        });
-      }
-    }
-
-    function scheduleAutoplayRetries() {
-      window.clearTimeout(retryTimer);
-
-      function tick() {
-        var video = primeVideo(getHeroVideo());
-
-        if (!video) {
-          retryTimer = window.setTimeout(tick, 200);
-          return;
-        }
-
-        playHeroVideo();
-
-        if (isPlaying(video)) {
-          markHeroVideoStarted(video);
-          return;
-        }
-
-        if (retryCount >= maxRetries) return;
-        retryCount += 1;
-        retryTimer = window.setTimeout(tick, 300);
-      }
-
-      retryCount = 0;
-      tick();
-    }
-
-    function bindGestureFallback() {
-      function handleGesture() {
-        playHeroVideo();
-
-        window.setTimeout(function() {
-          if (!isPlaying(activeVideo)) return;
-          markHeroVideoStarted(activeVideo);
-          window.removeEventListener('touchstart', handleGesture, true);
-          window.removeEventListener('pointerdown', handleGesture, true);
-          window.removeEventListener('mousedown', handleGesture, true);
-          window.removeEventListener('click', handleGesture, true);
-        }, 120);
-      }
-
-      window.addEventListener('touchstart', handleGesture, { passive: true, capture: true });
-      window.addEventListener('pointerdown', handleGesture, { passive: true, capture: true });
-      window.addEventListener('mousedown', handleGesture, true);
-      window.addEventListener('click', handleGesture, true);
-    }
-
-    function observeHeroVideo() {
-      var target = document.getElementById(heroRecordId) || document.body;
-      if (!target) return;
-
-      var observer = new MutationObserver(function() {
-        var video = primeVideo(getHeroVideo());
-        if (!video) return;
-        
-        video.addEventListener('loadedmetadata', playHeroVideo);
-        video.addEventListener('loadeddata', playHeroVideo);
-        video.addEventListener('canplay', playHeroVideo);
-        video.addEventListener('playing', markHeroVideoStarted.bind(null, video));
-        video.addEventListener('timeupdate', markHeroVideoStarted.bind(null, video));
-        playHeroVideo();
-      });
-
-      observer.observe(target, { childList: true, subtree: true });
-      window.setTimeout(function() {
-        observer.disconnect();
-      }, 12000);
-    }
-
-    function initHeroAutoplayBooster() {
-      bindGestureFallback();
-      observeHeroVideo();
-      scheduleAutoplayRetries();
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initHeroAutoplayBooster, { once: true });
-    } else {
-      initHeroAutoplayBooster();
-    }
-
-    window.addEventListener('load', scheduleAutoplayRetries);
-    window.addEventListener('pageshow', scheduleAutoplayRetries);
-    window.addEventListener('resize', function() {
-      primeVideo(activeVideo || getHeroVideo());
-    });
-    document.addEventListener('visibilitychange', function() {
-      if (!document.hidden) scheduleAutoplayRetries();
-    });
-  })();
-</script>`;
-
 const headHtml = headMatch[1]
   .replace(
     /<meta property="og:url" content="[^"]*"\s*\/?>/i,
@@ -1003,9 +709,6 @@ const headHtml = headMatch[1]
   )
   .concat(
     fastFirstPaint,
-  )
-  .concat(
-    heroAutoplayBooster,
   )
   .concat(
     contactShortcutEnhancer,
@@ -1034,15 +737,7 @@ const transformedBodyHtml = filteredBodySource
   )
   .replace(
     `link = '${heroBoomstreamVideoUrl}' ? (function() { let link = '${heroBoomstreamVideoUrl}'.trim();`,
-    `link = ${heroCloudVideoExpression} ? (function() { let link = ${heroCloudVideoExpression}.trim();`,
-  )
-  .replace(
-    /(<div id="rec861352716" class="r t-rec"[^>]*>)/,
-    `$1${heroPreloadOverlay}`,
-  )
-  .replace(
-    /(<div class='t396__elem tn-elem tn-elem__8613527161738731141089'[\s\S]*?<div class='tn-atom'>\s*<\/div>)/,
-    `$1${heroPosterLayer}`,
+    `link = '${heroCloudDesktopVideoUrl}' ? (function() { let link = '${heroCloudDesktopVideoUrl}'.trim();`,
   );
 
 const popupPhraseBodyHtml = replaceTildaText(
