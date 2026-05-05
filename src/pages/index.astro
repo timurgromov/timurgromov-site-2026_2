@@ -99,7 +99,7 @@ const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
     decoding="async"
   />
 </picture>`;
-const heroNativeVideoMarkup = `<video class="hero-native-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="${heroPosterDesktopUrl}" aria-hidden="true"></video>`;
+const heroNativeVideoMarkup = `<video class="hero-native-video" autoplay muted playsinline webkit-playsinline preload="auto" poster="${heroPosterDesktopUrl}" aria-hidden="true"></video>`;
 const heroPreloadOverlay = "";
 const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru" crossorigin>
 <link
@@ -259,6 +259,8 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
     var heroRecordId = 'rec861352716';
     var heroShapeSelector = '.tn-elem__8613527161738731141089';
     var heroRevealDelaySeconds = 0.25;
+    var heroLoopStartSeconds = 0.25;
+    var heroLoopEndPaddingSeconds = 0.18;
 
     function getHeroVideoSrc() {
       return window.matchMedia && window.matchMedia('(max-width: 639px)').matches
@@ -282,17 +284,30 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
 
     function tryPlayHeroVideo(video) {
       if (!video) return;
+      if (video.currentTime < heroLoopStartSeconds) {
+        try {
+          video.currentTime = heroLoopStartSeconds;
+        } catch (error) {}
+      }
       var playResult = video.play();
       if (playResult && typeof playResult.catch === 'function') {
         playResult.catch(function(){});
       }
     }
 
+    function keepHeroLoopClean(video) {
+      if (!video || !video.duration || Number.isNaN(video.duration)) return;
+      if (video.duration - video.currentTime > heroLoopEndPaddingSeconds) return;
+      video.currentTime = heroLoopStartSeconds;
+      tryPlayHeroVideo(video);
+    }
+
     function prepareHeroVideo(video) {
       var nextSrc = getHeroVideoSrc();
       video.muted = true;
       video.defaultMuted = true;
-      video.loop = true;
+      video.loop = false;
+      video.removeAttribute('loop');
       video.setAttribute('muted', '');
       video.setAttribute('playsinline', '');
       video.setAttribute('webkit-playsinline', '');
@@ -316,9 +331,16 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
         if (!video.dataset.heroPosterBound) {
           video.dataset.heroPosterBound = 'true';
           video.addEventListener('playing', function() { markHeroVideoStarted(video); });
-          video.addEventListener('timeupdate', function() { markHeroVideoStarted(video); });
+          video.addEventListener('timeupdate', function() {
+            markHeroVideoStarted(video);
+            keepHeroLoopClean(video);
+          });
           video.addEventListener('canplay', function() {
             window.setTimeout(function() { markHeroVideoStarted(video); }, heroRevealDelaySeconds * 1000);
+          });
+          video.addEventListener('ended', function() {
+            video.currentTime = heroLoopStartSeconds;
+            tryPlayHeroVideo(video);
           });
         }
         markHeroVideoStarted(video);
