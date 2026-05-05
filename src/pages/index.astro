@@ -1000,6 +1000,119 @@ const heroAutoplayBooster = `<style>
   })();
 </script>`;
 
+const casePreviewAutoplayBooster = `<script>
+  (function() {
+    var caseRecordId = 'rec862347176';
+    var casePreviewSelectors = [
+      '.tn-elem__8623471761738859374619',
+      '.tn-elem__8623471761738861518577',
+      '.tn-elem__8623471761738862757939',
+      '.tn-elem__8623471761738863568198'
+    ];
+    var retryTimer = 0;
+    var retryCount = 0;
+    var maxRetries = 18;
+
+    function primeVideo(video) {
+      if (!video) return;
+
+      video.muted = true;
+      video.defaultMuted = true;
+      video.autoplay = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.preload = 'auto';
+      video.setAttribute('muted', '');
+      video.setAttribute('autoplay', '');
+      video.setAttribute('loop', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      video.setAttribute('preload', 'auto');
+
+      try {
+        video.disablePictureInPicture = true;
+        video.disableRemotePlayback = true;
+      } catch (error) {
+        return;
+      }
+    }
+
+    function playVideo(video) {
+      var promise;
+      primeVideo(video);
+      if (!video || (!video.paused && !video.ended)) return;
+
+      try {
+        if (video.readyState < 2) video.load();
+        promise = video.play();
+      } catch (error) {
+        return;
+      }
+
+      if (promise && typeof promise.catch === 'function') {
+        promise.catch(function() {});
+      }
+    }
+
+    function getVideos() {
+      var record = document.getElementById(caseRecordId);
+      if (!record) return [];
+
+      return casePreviewSelectors
+        .map(function(selector) {
+          var shape = record.querySelector(selector);
+          return shape && shape.querySelector('video');
+        })
+        .filter(Boolean);
+    }
+
+    function boostCasePreviews() {
+      var videos = getVideos();
+
+      videos.forEach(function(video) {
+        playVideo(video);
+      });
+
+      if (videos.length < casePreviewSelectors.length || videos.some(function(video) {
+        return video.paused || video.readyState < 2;
+      })) {
+        if (retryCount >= maxRetries) return;
+        retryCount += 1;
+        window.clearTimeout(retryTimer);
+        retryTimer = window.setTimeout(boostCasePreviews, 350);
+      }
+    }
+
+    function initCasePreviewBooster() {
+      var target = document.getElementById(caseRecordId) || document.body;
+      var observer;
+
+      boostCasePreviews();
+
+      if (!target || !window.MutationObserver) return;
+
+      observer = new MutationObserver(boostCasePreviews);
+      observer.observe(target, { childList: true, subtree: true });
+
+      window.setTimeout(function() {
+        observer.disconnect();
+      }, 10000);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initCasePreviewBooster, { once: true });
+    } else {
+      initCasePreviewBooster();
+    }
+
+    window.addEventListener('load', boostCasePreviews);
+    window.addEventListener('pageshow', boostCasePreviews);
+    document.addEventListener('visibilitychange', function() {
+      if (!document.hidden) boostCasePreviews();
+    });
+  })();
+</script>`;
+
 const headHtml = headMatch[1]
   .replace(
     /<meta property="og:url" content="[^"]*"\s*\/?>/i,
@@ -1015,6 +1128,9 @@ const headHtml = headMatch[1]
   )
   .concat(
     heroAutoplayBooster,
+  )
+  .concat(
+    casePreviewAutoplayBooster,
   )
   .concat(
     contactShortcutEnhancer,
