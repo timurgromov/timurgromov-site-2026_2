@@ -153,10 +153,6 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
   #rec861352716 .t396__carrier,
   #rec861352716 .t396__filter{
     background-color:#1c1b1a !important;
-    background-image:url("${heroPosterDesktopUrl}") !important;
-    background-size:cover !important;
-    background-position:center center !important;
-    background-repeat:no-repeat !important;
   }
   #rec861352716{
     position:relative;
@@ -175,9 +171,13 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
     left:0 !important;
     width:100% !important;
     min-width:100% !important;
+    height:103% !important;
+    display:block !important;
   }
   #rec861352716 .tn-elem__8613527161738731141089 .tn-atom{
     position:relative;
+    width:100% !important;
+    height:100% !important;
     background-color:#1c1b1a !important;
     overflow:hidden;
   }
@@ -223,14 +223,17 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
   #rec861352716.hero-video-started .tn-elem__8613527161738731141089 > .hero-poster-layer{
     opacity:0;
   }
+  @media screen and (max-width:1919px){
+    #rec861352716 .tn-elem__8613527161738731141089{
+      height:100% !important;
+    }
+  }
   @media screen and (max-width:639px){
     #rec861352716 > #hero-preload-overlay{
       display:none !important;
     }
-    #rec861352716 .t396__artboard,
-    #rec861352716 .t396__carrier,
-    #rec861352716 .t396__filter{
-      background-image:url("${heroPosterMobileUrl}") !important;
+    #rec861352716 .tn-elem__8613527161738731141089{
+      height:100% !important;
     }
     #rec861352716 .tn-elem__8613527161738731141089 > .hero-poster-layer{
       background-image:url("${heroPosterMobileUrl}");
