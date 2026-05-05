@@ -749,6 +749,14 @@ const footerContactShortcutMarkup = ` <div class='t396__elem tn-elem tn-elem__86
 
 const showreelCustomVideoMarkup = `<video class="showreel-popup-video" controls playsinline preload="metadata" src="${showreelPopupCloudVideoUrl}"></video><div class="showreel-popup-video-error" aria-live="polite">Видео не загрузилось. Попробуйте обновить страницу.</div>`;
 
+const standaloneShowreelPopupMarkup = `<div id="clean-showreel-popup" class="clean-showreel-popup" aria-hidden="true">
+  <div class="clean-showreel-popup__backdrop" data-clean-showreel-close></div>
+  <button class="clean-showreel-popup__close" type="button" aria-label="Закрыть видео" data-clean-showreel-close></button>
+  <div class="clean-showreel-popup__panel" role="dialog" aria-modal="true" aria-label="Видео">
+    <video class="clean-showreel-popup__video" controls playsinline webkit-playsinline preload="metadata" src="${showreelPopupCloudVideoUrl}"></video>
+  </div>
+</div>`;
+
 const showreelCustomVideoAssets = `<style>
   #rec862592933 .tn-elem[data-elem-id="1738915167129"] .tn-atom{
     background:#000 !important;
@@ -842,6 +850,150 @@ const showreelCustomVideoAssets = `<style>
       video.addEventListener('stalled', showError);
       video.addEventListener('loadeddata', hideError);
       video.addEventListener('canplay', hideError);
+    });
+  }());
+</script>`;
+
+const standaloneShowreelPopupAssets = `<style>
+  .clean-showreel-popup{
+    position:fixed;
+    inset:0;
+    z-index:2147483000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+  .clean-showreel-popup.is-open{
+    display:flex;
+  }
+  .clean-showreel-popup__backdrop{
+    position:absolute;
+    inset:0;
+    background:rgba(28,27,26,.72);
+    -webkit-backdrop-filter:blur(8px);
+    backdrop-filter:blur(8px);
+  }
+  .clean-showreel-popup__panel{
+    position:relative;
+    z-index:1;
+    width:min(1080px, 100%);
+    max-height:calc(100svh - 120px);
+    background:#000;
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .clean-showreel-popup__video{
+    display:block;
+    width:100%;
+    aspect-ratio:16 / 9;
+    max-height:calc(100svh - 120px);
+    object-fit:contain;
+    background:#000;
+  }
+  .clean-showreel-popup__close{
+    position:fixed;
+    z-index:2;
+    top:max(24px, env(safe-area-inset-top));
+    right:max(24px, env(safe-area-inset-right));
+    width:48px;
+    height:48px;
+    border:0;
+    padding:0;
+    background:transparent;
+    cursor:pointer;
+  }
+  .clean-showreel-popup__close::before,
+  .clean-showreel-popup__close::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:42px;
+    height:2px;
+    background:#fa4604;
+    transform-origin:center;
+  }
+  .clean-showreel-popup__close::before{
+    transform:translate(-50%, -50%) rotate(45deg);
+  }
+  .clean-showreel-popup__close::after{
+    transform:translate(-50%, -50%) rotate(-45deg);
+  }
+  body.clean-showreel-popup-open{
+    overflow:hidden !important;
+  }
+  @media screen and (max-width:639px){
+    .clean-showreel-popup{
+      padding:74px 12px 24px;
+      align-items:flex-start;
+    }
+    .clean-showreel-popup__panel,
+    .clean-showreel-popup__video{
+      max-height:calc(100svh - 130px);
+    }
+  }
+</style>
+<script>
+  (function(){
+    var popupId = 'clean-showreel-popup';
+    var videoSrc = '${showreelPopupCloudVideoUrl}';
+
+    function getPopup(){
+      return document.getElementById(popupId);
+    }
+
+    function getVideo(){
+      var popup = getPopup();
+      return popup ? popup.querySelector('video') : null;
+    }
+
+    function openPopup(event){
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+      }
+      var popup = getPopup();
+      var video = getVideo();
+      if (!popup || !video) return;
+      popup.classList.add('is-open');
+      popup.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('clean-showreel-popup-open');
+      if (!video.getAttribute('src')) video.setAttribute('src', videoSrc);
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      video.load();
+      var playResult = video.play();
+      if (playResult && typeof playResult.catch === 'function') {
+        playResult.catch(function(){});
+      }
+    }
+
+    function closePopup(){
+      var popup = getPopup();
+      var video = getVideo();
+      if (!popup) return;
+      if (video) video.pause();
+      popup.classList.remove('is-open');
+      popup.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('clean-showreel-popup-open');
+    }
+
+    document.addEventListener('click', function(event){
+      var opener = event.target && event.target.closest && event.target.closest('a[href="#popup:showreel"]');
+      if (opener) {
+        openPopup(event);
+        return;
+      }
+      if (event.target && event.target.closest && event.target.closest('[data-clean-showreel-close]')) {
+        event.preventDefault();
+        closePopup();
+      }
+    }, true);
+
+    document.addEventListener('keydown', function(event){
+      if (event.key === 'Escape') closePopup();
     });
   }());
 </script>`;
@@ -970,6 +1122,9 @@ const headHtml = headMatch[1]
   )
   .concat(
     showreelCustomVideoAssets,
+  )
+  .concat(
+    standaloneShowreelPopupAssets,
   );
 
 const filteredBodySource = hiddenMarketingVideoAdviceElementIds
@@ -1020,7 +1175,7 @@ const bodyHtml = injectBeforeTildaRecordScript(
   ),
   "862623921",
   footerContactShortcutMarkup,
-);
+) + standaloneShowreelPopupMarkup;
 ---
 
 <!doctype html>
