@@ -167,7 +167,7 @@ function patchMobileWebinarCardTriggers(
 
 const materialRecordsHtml = materialRecordIds
   .map((recordId) => {
-    const recordHtml = extractTildaRecord(bodySource, recordId);
+    const recordHtml = extractTildaRecord(pageHtml, recordId);
 
     if (recordId !== mobileWebinarRecordId) {
       return recordHtml;
