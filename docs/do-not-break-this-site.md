@@ -126,10 +126,10 @@ Current hero video implementation is native, not Annex:
 - CSS: `position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center center;`
 - Initial opacity: `0`
 - Revealed only after `hero-video-started`.
-- Darkening is native CSS, not Annex:
-  - `#hero-preload-overlay::after` darkens the poster before video starts;
-  - `.tn-elem__8613527161738731141089::after` darkens the native video after it starts;
-  - both use `background:rgba(0,0,0,.2)`.
+- Video darkening is native CSS, not Annex:
+  - the poster file is already prepared dark enough and must not get an extra `#hero-preload-overlay::after` dark layer;
+  - `.tn-elem__8613527161738731141089::after` darkens only the native video after it starts;
+  - video darkening uses `background:rgba(0,0,0,.2)`.
 - The old Tilda dark overlay element `1738734772091` is hidden to avoid double darkening.
 
 Current video source selection:
