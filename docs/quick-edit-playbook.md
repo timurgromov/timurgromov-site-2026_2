@@ -19,7 +19,7 @@
 ## Быстрый алгоритм любой визуальной правки
 
 1. Прочитать `AGENTS.md`, этот файл и `docs/tilda-zero-editing.md`.
-2. Перед правками hero-видео, hero-постера или видео-попапов обязательно прочитать `docs/do-not-break-hero-video.md`.
+2. Перед правками тонких/ломких мест обязательно прочитать `docs/do-not-break-this-site.md`.
 3. Найти текст/элемент через `rg` по `files/page62008353body.html` и `src/pages/index.astro`.
 4. Зафиксировать `rec...` и `data-elem-id` элемента и соседей.
 5. Править минимально в `src/pages/index.astro`, в CSS override или Tilda-like injected markup.

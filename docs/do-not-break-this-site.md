@@ -1,8 +1,10 @@
-# Fragile Hero Video And Popup Settings
+# Do Not Break This Site
 
-This document stores hard-won fixes that must not be casually rewritten.
+This is the shared safety file for hard-won, fragile fixes that must not be casually rewritten.
 
-The homepage is a Tilda export transformed in `src/pages/index.astro`. Video behavior is fragile because Tilda Zero Block, Safari autoplay rules, poster layers, and custom popup code interact with each other. Before changing hero video, hero poster, case/showreel popups, or related CSS, read this file and compare with the current code.
+The homepage is a Tilda export transformed in `src/pages/index.astro`. Some fixes are small but easy to break because Tilda Zero Block, Safari rules, custom video layers, popup hooks, and CSS overrides interact with each other.
+
+Before changing any fragile part of the site, read this file and compare with the current code. Add future hard-won fixes here too, not only video fixes.
 
 ## Current Safe State
 
@@ -282,4 +284,3 @@ Not solved yet. When the Cloud.ru/Safari hero-video solution is finalized, add i
 - encoding requirements;
 - whether Annex is used or not;
 - exact poster and reveal settings.
-
