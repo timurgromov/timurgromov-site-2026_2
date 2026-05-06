@@ -19,13 +19,14 @@
 ## Быстрый алгоритм любой визуальной правки
 
 1. Прочитать `AGENTS.md`, этот файл и `docs/tilda-zero-editing.md`.
-2. Найти текст/элемент через `rg` по `files/page62008353body.html` и `src/pages/index.astro`.
-3. Зафиксировать `rec...` и `data-elem-id` элемента и соседей.
-4. Править минимально в `src/pages/index.astro`, в CSS override или Tilda-like injected markup.
-5. Если это контакты, popup, меню, телефон, Telegram/MAX, Instagram/VK или footer - обязательно запустить `npm run verify:contacts`.
-6. Если это другая визуальная правка - минимум `npm run build`; если есть риск геометрии, добавить маленькую проверку в `scripts/check-contact-layout.mjs`.
-7. После browser/headless/preview проверки закрыть тестовые процессы.
-8. Только после успешной проверки: commit, push в `main`, deploy.
+2. Перед правками hero-видео, hero-постера или видео-попапов обязательно прочитать `docs/fragile-hero-video-popups.md`.
+3. Найти текст/элемент через `rg` по `files/page62008353body.html` и `src/pages/index.astro`.
+4. Зафиксировать `rec...` и `data-elem-id` элемента и соседей.
+5. Править минимально в `src/pages/index.astro`, в CSS override или Tilda-like injected markup.
+6. Если это контакты, popup, меню, телефон, Telegram/MAX, Instagram/VK или footer - обязательно запустить `npm run verify:contacts`.
+7. Если это другая визуальная правка - минимум `npm run build`; если есть риск геометрии, добавить маленькую проверку в `scripts/check-contact-layout.mjs`.
+8. После browser/headless/preview проверки закрыть тестовые процессы.
+9. Только после успешной проверки: commit, push в `main`, deploy.
 
 ## Нельзя
 
