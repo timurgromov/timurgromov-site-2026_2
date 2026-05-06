@@ -12,6 +12,7 @@ Before changing any fragile part of the site, read this file and compare with th
 - The important historical source for the poster fix is `083b592 Use single stable hero poster before video`.
 - The active hero record is `rec861352716`.
 - The active hero media shape is `.tn-elem__8613527161738731141089`.
+- The active header record is `rec862699342`.
 - The legacy Annex hero record `rec861372811` is hidden in `hiddenMarketingVideoAdviceRecordIds`; do not restore it unless explicitly deciding to return to Annex.
 
 ## Hero Poster Shift Fix
@@ -125,6 +126,11 @@ Current hero video implementation is native, not Annex:
 - CSS: `position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center center;`
 - Initial opacity: `0`
 - Revealed only after `hero-video-started`.
+- Darkening is native CSS, not Annex:
+  - `#hero-preload-overlay::after` darkens the poster before video starts;
+  - `.tn-elem__8613527161738731141089::after` darkens the native video after it starts;
+  - both use `background:rgba(0,0,0,.2)`.
+- The old Tilda dark overlay element `1738734772091` is hidden to avoid double darkening.
 
 Current video source selection:
 
@@ -164,6 +170,41 @@ Current revealed-state logic:
   - `hero-video-started`
   - `hero-preload-hidden`
 - `hero-preload-hidden` fades out only `#hero-preload-overlay`.
+
+## Header Logo First Paint Fix
+
+Problem:
+
+- On reload, the `Тимур Громов` logo in the fixed header could move slightly after Tilda/Annex header scripts initialized.
+- The visible logo image is `#rec862699342 .tn-elem[data-elem-id="1738923639672"]`.
+- Related clickable/hover elements are `1738923639678` and `1738923639681`.
+
+Current rule:
+
+- These header logo elements must be visible from first paint.
+- Do not let Tilda SBS hover/init transforms move them on load.
+
+Exact CSS:
+
+```css
+#rec862699342 .tn-elem[data-elem-id="1738923639672"],
+#rec862699342 .tn-elem[data-elem-id="1738923639678"],
+#rec862699342 .tn-elem[data-elem-id="1738923639681"]{
+  transform:none !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  transition:none !important;
+}
+
+#rec862699342 .tn-elem[data-elem-id="1738923639672"] .tn-atom,
+#rec862699342 .tn-elem[data-elem-id="1738923639678"] .tn-atom,
+#rec862699342 .tn-elem[data-elem-id="1738923639681"] .tn-atom{
+  transform:none !important;
+  transition:none !important;
+}
+```
+
+Do not re-enable first-paint transform animation for these header logo elements unless the header is intentionally redesigned.
 
 ## Current Clean Video Popups
 
