@@ -136,7 +136,24 @@ function getHeroVideoSrc() {
 }
 ```
 
-The variable names still contain `Cloud` for historical reasons. They may point to Boomstream or Cloud.ru depending on the current experiment. Do not assume the name reflects the provider; inspect the actual URL values.
+The variable names still contain `Cloud` for historical reasons. Do not assume the name reflects the provider; inspect the actual URL values.
+
+Current Cloud.ru hero test sources:
+
+```ts
+const heroCloudDesktopVideoUrl =
+  "https://global.s3.cloud.ru/tg26video-public/hero_desc_RF28.mp4";
+const heroCloudMobileVideoUrl =
+  "https://global.s3.cloud.ru/tg26video-public/hero_mob_RF28.mp4";
+```
+
+Cloud.ru source checks from 2026-05-06:
+
+- `hero_desc_RF28.mp4`: `200 OK`, `Content-Type: video/mp4`, `Content-Length: 1943138`, `Accept-Ranges: bytes`.
+- `hero_mob_RF28.mp4`: `200 OK`, `Content-Type: video/mp4`, `Content-Length: 1448901`, `Accept-Ranges: bytes`.
+- Both files answered `206 Partial Content` for `Range: bytes=0-1023`.
+- Both first 1024-byte chunks include `moov` before media data, so the files look faststart-ready.
+- This setup is native hero video without Annex and without Tilda mp4 popup mechanics.
 
 Current revealed-state logic:
 
@@ -275,12 +292,12 @@ Important popup CSS:
 
 Do not replace these popups with Tilda `data-mp4video` popups without explicit approval. The custom popup was introduced because Safari handled it more reliably and it starts from the user click gesture.
 
-## Future Cloud.ru Safari Fix
+## Future Cloud.ru Safari Notes
 
-Not solved yet. When the Cloud.ru/Safari hero-video solution is finalized, add it here with:
+If Safari still refuses Cloud.ru hero autoplay after this native setup, do not start random patches. Check in this order:
 
-- exact Cloud.ru URLs;
-- headers check result: `Content-Type`, `Accept-Ranges`, `206 Partial Content`;
-- encoding requirements;
-- whether Annex is used or not;
-- exact poster and reveal settings.
+1. Confirm the deployed page still uses the exact Cloud.ru URLs above.
+2. Confirm the deployed HTML still has exactly one visible pre-video poster: `#hero-preload-overlay`.
+3. Confirm the native `<video>` still has `autoplay muted playsinline webkit-playsinline preload="auto"`.
+4. Confirm `hero-video-started` is added only after `playing`, `canplay` plus delay, or `timeupdate`.
+5. Test the same Cloud.ru source through Annex only after the file/header/poster checks above are still true.
