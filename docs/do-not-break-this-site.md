@@ -171,40 +171,21 @@ Current revealed-state logic:
   - `hero-preload-hidden`
 - `hero-preload-hidden` fades out only `#hero-preload-overlay`.
 
-## Header Logo First Paint Fix
+## Header Logo Hover Rule
 
 Problem:
 
-- On reload, the `Тимур Громов` logo in the fixed header could move slightly after Tilda/Annex header scripts initialized.
+- The `Тимур Громов` logo in the fixed header has a native Tilda SBS hover animation.
 - The visible logo image is `#rec862699342 .tn-elem[data-elem-id="1738923639672"]`.
-- Related clickable/hover elements are `1738923639678` and `1738923639681`.
+- The small photo element is `#rec862699342 .tn-elem[data-elem-id="1738923639678"]`.
+- The hover/click area is `#rec862699342 .tn-elem[data-elem-id="1738923639681"]`.
 
 Current rule:
 
-- These header logo elements must be visible from first paint.
-- Do not let Tilda SBS hover/init transforms move them on load.
-
-Exact CSS:
-
-```css
-#rec862699342 .tn-elem[data-elem-id="1738923639672"],
-#rec862699342 .tn-elem[data-elem-id="1738923639678"],
-#rec862699342 .tn-elem[data-elem-id="1738923639681"]{
-  transform:none !important;
-  opacity:1 !important;
-  visibility:visible !important;
-  transition:none !important;
-}
-
-#rec862699342 .tn-elem[data-elem-id="1738923639672"] .tn-atom,
-#rec862699342 .tn-elem[data-elem-id="1738923639678"] .tn-atom,
-#rec862699342 .tn-elem[data-elem-id="1738923639681"] .tn-atom{
-  transform:none !important;
-  transition:none !important;
-}
-```
-
-Do not re-enable first-paint transform animation for these header logo elements unless the header is intentionally redesigned.
+- On normal page load, the header must show only the plain logo text.
+- The small photo must remain hidden until hover.
+- Do not force `opacity:1`, `visibility:visible`, or `transform:none` on `1738923639678`; that makes the hover photo visible on first paint and clips the logo text.
+- Do not globally freeze `1738923639672`; that breaks the intended hover slide-out animation.
 
 ## Current Clean Video Popups
 
