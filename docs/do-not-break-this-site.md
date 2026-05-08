@@ -193,6 +193,10 @@ Current rule:
 
 The active popups are custom lightweight popups, not Tilda mp4 popups.
 
+Keep the legacy Tilda showreel records `rec862614275`, `rec862592933`, and `rec862584405` hidden in `hiddenMarketingVideoAdviceRecordIds`. Do not reconnect `showreelCustomVideoAssets` or inject a second showreel `<video>` into `rec862592933`; that creates two competing players for `#popup:showreel`, and Safari can freeze the visible popup while a hidden video keeps playing audio.
+
+Keep the legacy Tilda case-video popup records `rec862660772`, `rec862660859`, `rec862666264`, `rec862666433`, `rec862667392`, `rec862667414`, `rec862668031`, and `rec862668074` hidden too. The clean popup owns `#popup:ozero-komo`, `#popup:morozovka`, `#popup:toskana`, and `#popup:kolizei`; leaving the old Tilda popups in the page reintroduces hidden Boomstream players and intermittent Safari behavior.
+
 The popup data is stored in `cleanVideoPopupItems`:
 
 ```ts
@@ -336,7 +340,7 @@ Current rule:
 - Videos must stay muted, inline, looped, `preload="auto"`, and pointer-events-free.
 - Revealing the preview should match the hero logic: seek to `0.25s`, call `play()`, then add `.case-preview-video-ready` only after playback has actually started and `currentTime >= 0.25`. Do not reveal on `loadeddata` or plain `canplay`; Safari can show the black first frame.
 - Keep the real Cloud.ru demo URL in the native preview video `src`, the same way the hero receives a real `src`. Desktop Safari can leave the preview black if the URL is kept only in `data-*` and assigned later through viewport observers.
-- Retry `play()` on initial bind, `loadedmetadata`, `canplay`, `load`, `pageshow`, resize/scroll, and user gestures.
+- Retry `play()` on initial bind, `loadedmetadata`, `loadeddata`, `canplay`, `canplaythrough`, `waiting`, `stalled`, `suspend`, `load`, `pageshow`, resize/scroll, IntersectionObserver entry, and user gestures including click/touch/pointer/wheel/keyboard.
 - CSS should also mirror hero: the video is a direct child of the Tilda shape, positioned `absolute` with `z-index:10`; the underlying `.tn-atom` stays `position:relative`, dark, and clipped.
 
 Current native Cloud.ru preview mapping:

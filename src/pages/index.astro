@@ -466,6 +466,8 @@ const casePreviewVideoAssets = `<style>
     var previewItems = ${casePreviewVideoConfig};
     var previewRevealDelaySeconds = 0.25;
     var previewLoopStartSeconds = 0.25;
+    var previewRetryDelays = [120, 360, 900, 1800, 3200];
+    var previewObserver = null;
 
     function isReadyToReveal(video){
       return video && !video.paused && !video.ended && video.readyState >= 2 && video.currentTime >= previewRevealDelaySeconds;
@@ -490,10 +492,27 @@ const casePreviewVideoAssets = `<style>
       }
     }
 
+    function queuePreviewRetries(video){
+      if (!video || video.dataset.casePreviewRetrying === 'true') return;
+      video.dataset.casePreviewRetrying = 'true';
+      previewRetryDelays.forEach(function(delay, index){
+        window.setTimeout(function(){
+          tryPlay(video);
+          markReady(video);
+          if (index === previewRetryDelays.length - 1) {
+            video.dataset.casePreviewRetrying = '';
+          }
+        }, delay);
+      });
+    }
+
     function prepareVideo(video, src){
+      video.autoplay = true;
       video.muted = true;
       video.defaultMuted = true;
       video.loop = true;
+      video.volume = 0;
+      video.setAttribute('autoplay', '');
       video.setAttribute('muted', '');
       video.setAttribute('loop', '');
       video.setAttribute('playsinline', '');
@@ -504,11 +523,32 @@ const casePreviewVideoAssets = `<style>
         video.load();
       }
       tryPlay(video);
+      queuePreviewRetries(video);
     }
 
     function activatePreview(video){
       tryPlay(video);
       markReady(video);
+      queuePreviewRetries(video);
+    }
+
+    function bindCasePreviewObserver(){
+      if (!('IntersectionObserver' in window)) return;
+      if (!previewObserver) {
+        previewObserver = new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            if (!entry.isIntersecting) return;
+            var video = entry.target && entry.target.querySelector('.case-preview-native-video');
+            if (video) activatePreview(video);
+          });
+        }, { rootMargin: '900px 0px', threshold: 0.01 });
+      }
+      previewItems.forEach(function(item){
+        var shape = document.querySelector(item.shapeSelector);
+        if (!shape || shape.dataset.casePreviewObserved) return;
+        shape.dataset.casePreviewObserved = 'true';
+        previewObserver.observe(shape);
+      });
     }
 
     function bindCasePreviews(){
@@ -519,17 +559,22 @@ const casePreviewVideoAssets = `<style>
         prepareVideo(video, item.src);
         if (!video.dataset.casePreviewBound) {
           video.dataset.casePreviewBound = 'true';
-          video.addEventListener('loadedmetadata', function(){ tryPlay(video); });
-          video.addEventListener('loadeddata', function(){ tryPlay(video); });
+          video.addEventListener('loadedmetadata', function(){ activatePreview(video); });
+          video.addEventListener('loadeddata', function(){ activatePreview(video); });
           video.addEventListener('playing', function(){ markReady(video); });
           video.addEventListener('timeupdate', function(){ markReady(video); });
           video.addEventListener('canplay', function(){
-            tryPlay(video);
+            activatePreview(video);
             window.setTimeout(function(){ markReady(video); }, previewRevealDelaySeconds * 1000);
           });
+          video.addEventListener('canplaythrough', function(){ activatePreview(video); });
+          video.addEventListener('waiting', function(){ activatePreview(video); });
+          video.addEventListener('stalled', function(){ activatePreview(video); });
+          video.addEventListener('suspend', function(){ activatePreview(video); });
         }
         activatePreview(video);
       });
+      bindCasePreviewObserver();
     }
 
     function activateVisiblePreviews(){
@@ -543,7 +588,10 @@ const casePreviewVideoAssets = `<style>
     bindCasePreviews();
     document.addEventListener('click', activateVisiblePreviews, { passive:true });
     document.addEventListener('touchstart', activateVisiblePreviews, { passive:true });
+    document.addEventListener('pointermove', activateVisiblePreviews, { passive:true });
     document.addEventListener('mouseover', activateVisiblePreviews, { passive:true });
+    document.addEventListener('wheel', activateVisiblePreviews, { passive:true });
+    document.addEventListener('keydown', activateVisiblePreviews);
     window.addEventListener('load', bindCasePreviews);
     window.addEventListener('pageshow', bindCasePreviews);
     window.addEventListener('resize', bindCasePreviews);
@@ -1031,8 +1079,6 @@ const contactShortcutEnhancer = `<style>
 const popupContactShortcutMarkup = ` <div class='t396__elem tn-elem tn-elem__8627076081746200000001' data-elem-id='1746200000001' data-elem-type='text' data-field-top-value="436" data-field-left-value="1405" data-field-height-value="24" data-field-width-value="310" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-textfit-value="autoheight" data-field-fontsize-value="20" data-field-top-res-640-value="532" data-field-left-res-640-value="332" data-field-width-res-640-value="240" data-field-fontsize-res-640-value="13" data-field-top-res-1200-value="288" data-field-left-res-1200-value="880" data-field-width-res-1200-value="280" data-field-fontsize-res-1200-value="13"> <div class='tn-atom'><span class="contact-shortcut-inline__content"><span class="contact-shortcut-inline__label">Написать мне</span><a class="contact-shortcut-inline__link" href="${telegramContactUrl}" target="_blank" rel="nofollow">Telegram</a><a class="contact-shortcut-inline__link" href="${maxContactUrl}" target="_blank" rel="nofollow">MAX</a></span></div> </div>`;
 const footerContactShortcutMarkup = ` <div class='t396__elem tn-elem tn-elem__8626239211746200000002' data-elem-id='1746200000002' data-elem-type='text' data-field-top-value="928" data-field-left-value="1285" data-field-height-value="24" data-field-width-value="320" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-textfit-value="autoheight" data-field-fontsize-value="20" data-field-top-res-320-value="532" data-field-left-res-320-value="25" data-field-width-res-320-value="220" data-field-fontsize-res-320-value="12" data-field-top-res-640-value="566" data-field-left-res-640-value="311" data-field-width-res-640-value="230" data-field-fontsize-res-640-value="13" data-field-top-res-1200-value="584" data-field-left-res-1200-value="800" data-field-width-res-1200-value="260" data-field-fontsize-res-1200-value="13"> <div class='tn-atom'><span class="contact-shortcut-inline__content"><span class="contact-shortcut-inline__label">Написать мне</span><a class="contact-shortcut-inline__link" href="${telegramContactUrl}" target="_blank" rel="nofollow">Telegram</a><a class="contact-shortcut-inline__link" href="${maxContactUrl}" target="_blank" rel="nofollow">MAX</a></span></div> </div>`;
 
-const showreelCustomVideoMarkup = `<video class="showreel-popup-video" controls playsinline preload="metadata" src="${showreelPopupCloudVideoUrl}"></video><div class="showreel-popup-video-error" aria-live="polite">Видео не загрузилось. Попробуйте обновить страницу.</div>`;
-
 const standaloneShowreelPopupMarkup = `<div id="clean-showreel-popup" class="clean-showreel-popup" aria-hidden="true">
   <div class="clean-showreel-popup__backdrop" data-clean-showreel-close></div>
   <button class="clean-showreel-popup__close" type="button" aria-label="Закрыть видео" data-clean-showreel-close></button>
@@ -1041,103 +1087,6 @@ const standaloneShowreelPopupMarkup = `<div id="clean-showreel-popup" class="cle
     <div class="clean-showreel-popup__title" data-clean-showreel-title></div>
   </div>
 </div>`;
-
-const showreelCustomVideoAssets = `<style>
-  #rec862592933 .tn-elem[data-elem-id="1738915167129"] .tn-atom{
-    background:#000 !important;
-  }
-  #rec862592933 .showreel-popup-video{
-    display:block;
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    background:#000;
-  }
-  #rec862592933 .showreel-popup-video-error{
-    display:none;
-    position:absolute;
-    inset:0;
-    align-items:center;
-    justify-content:center;
-    padding:24px;
-    text-align:center;
-    color:#fffefa;
-    font:500 16px/1.35 Manrope, Arial, sans-serif;
-    background:rgba(0,0,0,.78);
-  }
-  #rec862592933 .showreel-popup-video-error.is-visible{
-    display:flex;
-  }
-</style>
-<script>
-  (function(){
-    var videoSelector = '#rec862592933 .showreel-popup-video';
-    var errorSelector = '#rec862592933 .showreel-popup-video-error';
-
-    function getVideo(){
-      return document.querySelector(videoSelector);
-    }
-
-    function showError(){
-      var error = document.querySelector(errorSelector);
-      if (error) error.classList.add('is-visible');
-    }
-
-    function hideError(){
-      var error = document.querySelector(errorSelector);
-      if (error) error.classList.remove('is-visible');
-    }
-
-    function prepareVideo(){
-      var video = getVideo();
-      if (!video) return null;
-      hideError();
-      video.setAttribute('playsinline', '');
-      video.setAttribute('preload', 'metadata');
-      if (!video.getAttribute('src')) {
-        video.setAttribute('src', '${showreelPopupCloudVideoUrl}');
-      }
-      video.load();
-      return video;
-    }
-
-    document.addEventListener('click', function(event){
-      var opener = event.target && event.target.closest && event.target.closest('a[href="#popup:showreel"]');
-      if (!opener) return;
-      window.setTimeout(function(){
-        var video = prepareVideo();
-        if (!video) return;
-        var playResult = video.play();
-        if (playResult && typeof playResult.catch === 'function') {
-          playResult.catch(function(){});
-        }
-      }, 180);
-    }, true);
-
-    document.addEventListener('click', function(event){
-      if (!event.target.closest('.t-popup__close, .t-popup__bg')) return;
-      var video = getVideo();
-      if (!video) return;
-      video.pause();
-    }, true);
-
-    document.addEventListener('keydown', function(event){
-      if (event.key !== 'Escape') return;
-      var video = getVideo();
-      if (!video) return;
-      video.pause();
-    });
-
-    document.addEventListener('DOMContentLoaded', function(){
-      var video = getVideo();
-      if (!video) return;
-      video.addEventListener('error', showError);
-      video.addEventListener('stalled', showError);
-      video.addEventListener('loadeddata', hideError);
-      video.addEventListener('canplay', hideError);
-    });
-  }());
-</script>`;
 
 const standaloneShowreelPopupAssets = `<style>
   .clean-showreel-popup{
@@ -1388,8 +1337,20 @@ const hiddenMarketingVideoAdviceRecordIds = [
   "rec893278048",
   "rec893280313",
   "rec893281054",
-  // Legacy duplicate showreel popup; the active popup is rec862614275 + rec862592933.
+  // Legacy Tilda showreel popups; clean-showreel-popup is the single active popup.
+  "rec862614275",
+  "rec862592933",
+  // Legacy duplicate showreel popup.
   "rec862584405",
+  // Legacy Tilda case video popups; clean-showreel-popup owns these hooks now.
+  "rec862660772",
+  "rec862660859",
+  "rec862666264",
+  "rec862666433",
+  "rec862667392",
+  "rec862667414",
+  "rec862668031",
+  "rec862668074",
   // Legacy Annex case preview autoplay; replaced by native muted Cloud.ru demo loops.
   "rec862376352",
   "rec862385545",
@@ -1448,14 +1409,6 @@ function replaceTildaText(html: string, elemId: string, nextText: string) {
   return html.replace(pattern, `$1${nextText}$4`);
 }
 
-function replaceShowreelPopupVideo(html: string) {
-  const pattern = new RegExp(
-    `(<div class='t396__elem tn-elem tn-elem__8625929331738915167129'[\\s\\S]*?<div class='tn-atom'[^>]*>)[\\s\\S]*?(</div>\\s*</div>\\s*<div class='t396__elem tn-elem tn-elem__8625929331738915549505')`,
-  );
-
-  return html.replace(pattern, `$1${showreelCustomVideoMarkup}</div> $2`);
-}
-
 function injectCasePreviewVideos(html: string) {
   return casePreviewVideoItems.reduce((nextHtml, item) => {
     const shapeClass = item.shapeSelector.slice(1);
@@ -1503,9 +1456,6 @@ const headHtml = headMatch[1]
     casePreviewVideoAssets,
   )
   .concat(
-    showreelCustomVideoAssets,
-  )
-  .concat(
     standaloneShowreelPopupAssets,
   );
 
@@ -1536,7 +1486,7 @@ const transformedBodyHtml = filteredBodySource
   );
 
 const popupPhraseBodyHtml = replaceTildaText(
-  replaceShowreelPopupVideo(injectCasePreviewVideos(transformedBodyHtml)),
+  injectCasePreviewVideos(transformedBodyHtml),
   "1738924888773",
   "Праздник, который вспоминают с теплом",
 );

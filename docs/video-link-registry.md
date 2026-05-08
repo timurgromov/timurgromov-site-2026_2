@@ -32,7 +32,7 @@ This file is the canonical list of video URLs that have been used on the site in
 
 Case previews are the small autoplay clips inside `rec862347176`. Do not replace these with full popup videos.
 
-Current implementation is native `<video class="case-preview-native-video">`, not Annex/Tilda. The Annex records `rec862376352`, `rec862385545`, `rec862392569`, and `rec862397203` are legacy records and should stay hidden while native previews are active. The Cloud.ru URL stays in the video `src`, matching the hero-video approach; previews also match the hero reveal rule by seeking to `0.25s` and revealing only after playback is actually running, not on plain `loadeddata`/`canplay`.
+Current implementation is native `<video class="case-preview-native-video">`, not Annex/Tilda. The Annex records `rec862376352`, `rec862385545`, `rec862392569`, and `rec862397203` are legacy records and should stay hidden while native previews are active. The Cloud.ru URL stays in the video `src`, matching the hero-video approach; previews also match the hero reveal rule by seeking to `0.25s` and revealing only after playback is actually running, not on plain `loadeddata`/`canplay`. Desktop Safari gets extra retries on IntersectionObserver entry, media readiness events, scroll, wheel, pointer, keyboard, and tap/click so the small loops are started again when the case cards approach the viewport.
 
 | Case | Original Boomstream URL in export | Boomstream replacement URL | Current Cloud.ru demo URL |
 | --- | --- | --- | --- |
@@ -51,6 +51,10 @@ Legacy Annex case preview records:
 ## Popup / Full Video Versions
 
 Popups use the custom clean popup layer in `src/pages/index.astro`. The full Cloud.ru files below are for click popups only, not for autoplay previews.
+
+Legacy Tilda showreel popup records `rec862614275`, `rec862592933`, and `rec862584405` must stay hidden while the clean popup is active. Do not inject another showreel video into those records, or `#popup:showreel` can open two players at once in Safari.
+
+Legacy Tilda case-video popup records `rec862660772`, `rec862660859`, `rec862666264`, `rec862666433`, `rec862667392`, `rec862667414`, `rec862668031`, and `rec862668074` must also stay hidden. Their old Boomstream `data-mp4video` blocks duplicate the clean Cloud.ru popups for the same hooks.
 
 | Popup | Legacy Boomstream URL found in export/history | Current Cloud.ru URL |
 | --- | --- | --- |
