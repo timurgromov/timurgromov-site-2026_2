@@ -1,44 +1,47 @@
 # Стартовый промпт для нового чата
 
-Вставь в начало диалога как есть (затем по очереди дай агенту содержимое `AGENTS.md`, `project-spec.md`, `rebuild-workflow.md`, `tilda-zero-editing.md`, `source-of-truth.md`; для push и GitHub Pages — ещё `github-pages-deploy.md`).
+Вставь в начало диалога как есть (затем по очереди дай агенту содержимое `AGENTS.md`, `project-spec.md`, `rebuild-workflow.md`, `tilda-zero-editing.md`, `source-of-truth.md`, `do-not-break-this-site.md`; для видео/Safari/VPS — ещё `video-link-registry.md`; для push и GitHub Pages — ещё `github-pages-deploy.md`).
 
 **Если репозиторий уже существует** (есть `astro.config.mjs`, `src/`, `docs/project-spec.md`): шаги «создать Astro / git / deploy» **пропустить**, сразу читать `docs/project-spec.md` §7 *Current Phase* и продолжать перенос секций.
 
 ---
 
-Ты работаешь над новым проектом переноса сайта `timurgromov.ru` с Tilda в простой статический стек.
+Ты работаешь над сайтом `timurgromov-site-2026_2`: Tilda export внутри Astro, опубликованный на GitHub Pages.
 
 Главная цель:
-максимально быстро и точно восстановить оригинальный одностраничный лендинг по Tilda-export и живому сайту, без редизайна, без новых секций и без лишней архитектуры.
+поддерживать текущий одностраничный лендинг по реальным файлам, без редизайна, без новых секций и без лишней архитектуры.
 
 Что важно:
-- Оригинальный домен: `https://timurgromov.ru/`
-- Главный источник правды: `page62008353.html` и `files/page62008353body.html`
+- Рабочий публичный сайт: `https://timurgromov.github.io/timurgromov-site-2026_2/`
+- `https://timurgromov.ru/` привязан к Tilda и является только историческим визуальным ориентиром. Не пытаться деплоить туда из этого репозитория.
+- Главный источник текущего поведения: `src/pages/index.astro`
+- Главные источники исходной структуры: `page62008353.html` и `files/page62008353body.html`
 - Дополнительные источники: экспортированные `images/`, `css/`, `js/`, скриншоты оригинала
 - Новый стек: `Astro`
 - Только статический сайт
 - Минимум JavaScript
 - Popup/menu overlay как состояние интерфейса
-- Видео и формы делать только в последней фазе
+- Видео уже подключены через native video + VPS media; перед любыми видео-правками читать `docs/video-link-registry.md` и `docs/do-not-break-this-site.md`
 - Tilda Zero Block нельзя править "на глаз": координаты должны идти через Tilda-like `data-field-*` и брейкпоинты
 
 Жесткие правила:
 - не делать новый дизайн
 - не менять порядок секций
 - не придумывать тексты, CTA, цены, отзывы, кейсы, FAQ
-- не перескакивать между секциями
-- идти только сверху вниз
+- не трогать `timurgromov.ru` как деплой-цель
+- не откатывать видео на Boomstream, Cloud.ru или Tilda/Annex без прямого решения пользователя
+- не коммитить пароли, токены, приватные ключи и VPS-секреты
 
 Порядок работы:
 1. Проверить реальные файлы и export
-2. Создать новый Astro-проект
-3. Подключить git и GitHub
-4. Настроить простой deploy на GitHub Pages
-5. Создать документы: `docs/project-spec.md`, `docs/rebuild-workflow.md`, `docs/source-of-truth.md`
-6. Начать восстановление строго сверху вниз: global styles → header → hero → about → как я веду → полезности → price → cases → contacts → popup/menu overlay → video → forms
+2. Прочитать рабочие документы из `AGENTS.md`
+3. Найти конкретный `rec...` / `data-elem-id` / URL, который относится к задаче
+4. Сделать минимальную правку
+5. Запустить обязательную проверку
+6. Commit → push в `main` → проверить GitHub Pages
 
 Правило проверки:
-- после каждой секции сверять с export и `timurgromov.ru`
+- после значимых визуальных правок сверять с export и GitHub Pages
 - после значимых шагов делать build, commit, push, deploy и проверять GitHub Pages
 - после любых правок контактов/popup/footer выполнять `npm run verify:contacts`
 - после headless/preview проверок обязательно закрывать тестовые Chrome/preview процессы
@@ -46,6 +49,5 @@
 Сначала:
 - изучи реальные файлы
 - определи структуру проекта
-- создай минимальный рабочий Astro-каркас
-- настрой публикацию
-- только потом начинай восстановление секций
+- проверь текущую реализацию
+- только потом вноси точечные изменения

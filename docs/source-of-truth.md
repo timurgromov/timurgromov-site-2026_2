@@ -1,7 +1,7 @@
 # Source Of Truth
 
 ## 1. Purpose
-Этот файл фиксирует, каким источникам доверять при восстановлении сайта `timurgromov.ru`.
+Этот файл фиксирует, каким источникам доверять при работе с текущим сайтом `timurgromov-site-2026_2`.
 
 Нужен для того, чтобы:
 - не было споров, откуда брать правильную структуру;
@@ -11,24 +11,31 @@
 ## 2. Priority Order
 Всегда использовать источники в таком порядке:
 
-1. `page62008353.html`
-2. `files/page62008353body.html`
-3. живой сайт `https://timurgromov.ru/`
-4. экспортированные ассеты:
+1. текущий код `src/pages/index.astro`
+2. Tilda body export `files/page62008353body.html`
+3. полный Tilda export `page62008353.html`
+4. опубликованный GitHub Pages сайт `https://timurgromov.github.io/timurgromov-site-2026_2/`
+5. экспортированные ассеты:
    - `images/`
    - `css/`
    - `js/`
    - другие файлы export
-5. пользовательские скриншоты оригинала
-6. документация проекта:
+6. пользовательские скриншоты и указания владельца
+7. документация проекта:
    - `docs/project-spec.md`
    - `docs/rebuild-workflow.md`
    - `docs/github-pages-deploy.md`
    - `docs/section-map.md`
+   - `docs/do-not-break-this-site.md`
+   - `docs/video-link-registry.md`
+
+`https://timurgromov.ru/` - это Tilda-домен и исторический визуальный ориентир. У этого репозитория нет права деплоить туда изменения. Использовать его только для сверки, когда это реально нужно.
 
 ## 3. Interpretation Rule
-- Tilda-export — главный источник структуры, контента, popup hooks и порядка блоков.
-- Живой сайт — главный визуальный ориентир.
+- `src/pages/index.astro` — главный источник текущего рабочего поведения.
+- Tilda-export — главный источник исходной структуры, контента, popup hooks и порядка блоков.
+- GitHub Pages — главный опубликованный результат этого репозитория.
+- `timurgromov.ru` — старый Tilda-ориентир, не деплой-цель.
 - Скриншоты нужны для уточнения спорных деталей.
 - Локальная документация не должна противоречить export.
 
@@ -56,9 +63,10 @@
 
 ## 6. Visual Verification Rule
 После каждой значимой секции нужно сверять:
-1. export
-2. live original
-3. опубликованную версию проекта
+1. текущий код
+2. export
+3. опубликованную GitHub Pages версию
+4. live original на Tilda только при спорных визуальных вопросах
 
 Не проверять только локально.
 Не сверять только по памяти.
@@ -80,9 +88,11 @@
 1. `docs/project-spec.md`
 2. `docs/rebuild-workflow.md`
 3. `docs/source-of-truth.md`
-4. `docs/github-pages-deploy.md` (если задача про push, Pages или «сайт не обновился»)
-5. `docs/section-map.md`
-6. export-файлы
+4. `docs/do-not-break-this-site.md`
+5. `docs/video-link-registry.md` для видео/Safari/VPS задач
+6. `docs/github-pages-deploy.md` (если задача про push, Pages или «сайт не обновился»)
+7. `docs/section-map.md`
+8. export-файлы
 
 Только после этого можно вносить изменения.
 

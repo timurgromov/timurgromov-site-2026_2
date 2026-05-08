@@ -6,7 +6,10 @@ The homepage is a Tilda export transformed in `src/pages/index.astro`. Some fixe
 
 Before changing any fragile part of the site, read this file and compare with the current code. Add future hard-won fixes here too, not only video fixes.
 
-Exact video URLs for Cloud.ru and Boomstream versions live in `docs/video-link-registry.md`.
+Exact active VPS video URLs and historical Boomstream/Cloud.ru URLs live in `docs/video-link-registry.md`.
+
+Current public site is GitHub Pages: `https://timurgromov.github.io/timurgromov-site-2026_2/`.
+Do not touch `timurgromov.ru` from this repo; it is the Tilda/original reference, not the deploy target.
 
 ## Current Safe State
 
@@ -158,7 +161,10 @@ const heroCloudMobileVideoUrl =
 
 VPS media source checks from 2026-05-08:
 
-- Caddy serves the media host in a separate container on the VPS.
+- Caddy serves the media host in a separate Docker container on VPS `89.22.227.133`.
+- Media files live under `/srv/tg26-video/public`.
+- Active container name: `tg26-video-caddy`.
+- Do not commit the VPS password/private access details.
 - Files answer `206 Partial Content` for range requests.
 - Headers include `Accept-Ranges: bytes`, `Content-Type: video/mp4`, cache headers, and permissive CORS for media loads.
 - MP4 files were copied with `ffmpeg -c copy -movflags +faststart`.

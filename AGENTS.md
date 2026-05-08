@@ -10,7 +10,13 @@
 2. `docs/tilda-zero-editing.md`
 3. `docs/rebuild-workflow.md`
 4. `docs/source-of-truth.md`
-5. `docs/github-pages-deploy.md` перед deploy/push-проверкой
+5. `docs/do-not-break-this-site.md`
+6. `docs/video-link-registry.md` для любых задач с видео/Safari/VPS
+7. `docs/github-pages-deploy.md` перед deploy/push-проверкой
+
+Важно: рабочий публичный сайт сейчас находится на GitHub Pages:
+`https://timurgromov.github.io/timurgromov-site-2026_2/`.
+Домен `timurgromov.ru` привязан к Tilda и используется только как исторический/визуальный ориентир, если пользователь прямо просит сверку с оригиналом. Не пытаться деплоить или править `timurgromov.ru` из этого репозитория.
 
 ## Tilda Zero Rule
 
@@ -47,4 +53,5 @@ ps aux | egrep "headless|remote-debugging-port|astro preview|npm run preview" | 
 
 - Коммитить только кодовые файлы и документацию.
 - Не коммитить временные PNG-скриншоты.
+- Не коммитить пароли, токены, приватные ключи и VPS-секреты. В документации можно хранить IP, пользователя, контейнеры, пути и команды, но не пароль.
 - После успешной проверки: commit -> push в `main` -> проверить опубликованную GitHub Pages страницу.

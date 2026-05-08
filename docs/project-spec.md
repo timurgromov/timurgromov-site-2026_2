@@ -1,9 +1,11 @@
 # Project Spec
 
 ## 1. Project
-- Domain: `https://timurgromov.ru/`
-- Repository preview URL: `https://timurgromov.github.io/timurgromov-site-2026_2/`
-- Goal: быстро и точно перенести одностраничный лендинг с Tilda на простой статический стек на базе Astro.
+- Current public URL: `https://timurgromov.github.io/timurgromov-site-2026_2/`
+- Original/Tilda reference: `https://timurgromov.ru/`
+- Goal: поддерживать одностраничный лендинг из Tilda export внутри Astro, не ломая Zero Block геометрию, popups и Safari video fixes.
+
+`timurgromov.ru` сейчас не является деплой-целью этого репозитория. Он привязан к Tilda и используется только как исторический визуальный ориентир.
 
 ## 2. Primary Goal
 Восстановить оригинальный лендинг максимально близко к export и живому сайту:
@@ -18,22 +20,25 @@
 - Rendering mode: static
 - Deployment target: `GitHub Pages`
 - Source assets: Tilda export в текущем репозитории
+- Active media host: VPS/Caddy at `https://media.89-22-227-133.sslip.io`
 
 ## 4. Source Of Truth
 Главные источники:
-1. `page62008353.html`
+1. `src/pages/index.astro`
 2. `files/page62008353body.html`
-3. `https://timurgromov.ru/`
-4. экспортированные `images/`, `css/`, `js/`
-5. скриншоты оригинала
+3. `page62008353.html`
+4. опубликованный GitHub Pages сайт `https://timurgromov.github.io/timurgromov-site-2026_2/`
+5. `https://timurgromov.ru/` только как Tilda/original reference
+6. экспортированные `images/`, `css/`, `js/`
+7. скриншоты оригинала
 
 ## 5. Hard Rules
 - Не делать новый дизайн.
 - Не менять порядок секций.
 - Не придумывать тексты, CTA, цены, отзывы, кейсы и FAQ.
-- Не перескакивать между секциями.
-- Идти только сверху вниз.
-- Видео и формы подключать только в последней фазе.
+- Не трогать `timurgromov.ru` как деплой-цель.
+- Не откатывать видео на Boomstream, Cloud.ru или Tilda/Annex без прямого решения пользователя.
+- Не коммитить VPS-пароли, токены и приватные ключи.
 
 ## 6. Section Order
 1. global styles
@@ -52,15 +57,15 @@
 ## 7. Current Phase
 Сделано: Astro-каркас, GitHub Pages, автодеплой через Actions, полный Tilda export в репозитории.
 
-Текущий режим работы: `src/pages/index.astro` временно переведен в **export-first baseline** и рендерит `page62008353.html` / `files/page62008353body.html` почти как есть, чтобы сначала зафиксировать визуально близкую исходную точку.
+Текущий режим работы: главная страница собирается из `files/page62008353body.html` через `src/pages/index.astro`, поверх export добавлены точечные правки для hero, cases, contacts, popup hooks и видео.
 
 Важно:
-- ручная пересборка секций без baseline оказалась слишком рискованной по геометрии и decorative layout;
-- сначала нужен визуальный parity с export/live;
-- только после этого секции снова заменяются по одной сверху вниз;
-- переход к следующей секции допускается только после визуальной сверки текущей.
+- Zero Block элементы не двигать runtime-скриптами после загрузки;
+- video/Safari слой уже стабилизирован через native video + VPS media;
+- legacy Tilda/Annex video records оставлены скрытыми, чтобы не было двух конкурирующих плееров;
+- подробности по видео: `docs/video-link-registry.md` и `docs/do-not-break-this-site.md`.
 
-Ближайший шаг: проверить baseline на GitHub Pages и только потом начинать точечную замену верхних секций.
+Ближайший шаг для любых новых правок: читать реальные файлы, менять минимально, собирать, пушить и проверять GitHub Pages.
 
 ## 8. Verification Rule
 После каждого значимого шага:
