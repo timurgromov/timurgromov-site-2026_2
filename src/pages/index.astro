@@ -31,24 +31,25 @@ const heroCloudDesktopVideoUrl =
   "https://global.s3.cloud.ru/tg26video-public/hero_desc_RF28.mp4";
 const heroCloudMobileVideoUrl =
   "https://global.s3.cloud.ru/tg26video-public/hero_mob_RF28.mp4";
-const casePreviewVideoReplacements = [
-  [
-    "https://cdnv.boomstream.com/balancer/RCpP5hSc-oqvc9Qft.mp4",
-    "https://bs.boomstream.dev/balancer/N2LPspm9-jAhiWugB.mp4",
-  ],
-  [
-    "https://cdnv.boomstream.com/balancer/gk8znhXX-oqvc9Qft.mp4",
-    "https://bs.boomstream.dev/balancer/M05OCeUp-jAhiWugB.mp4",
-  ],
-  [
-    "https://cdnv.boomstream.com/balancer/Lww7hY2N-oqvc9Qft.mp4",
-    "https://bs.boomstream.dev/balancer/Oumx0U4Z-jAhiWugB.mp4",
-  ],
-  [
-    "https://cdnv.boomstream.com/balancer/U7iCUgz4-oqvc9Qft.mp4",
-    "https://bs.boomstream.dev/balancer/gzJNWWi6-EuQeQgfF.mp4",
-  ],
+const casePreviewVideoItems = [
+  {
+    shapeSelector: ".tn-elem__8623471761738859374619",
+    src: "https://global.s3.cloud.ru/tg26video-public/КomoRF26.mp4",
+  },
+  {
+    shapeSelector: ".tn-elem__8623471761738861518577",
+    src: "https://global.s3.cloud.ru/tg26video-public/moroяovkaRF24.mp4",
+  },
+  {
+    shapeSelector: ".tn-elem__8623471761738862757939",
+    src: "https://global.s3.cloud.ru/tg26video-public/ToscanaRF26.mp4",
+  },
+  {
+    shapeSelector: ".tn-elem__8623471761738863568198",
+    src: "https://global.s3.cloud.ru/tg26video-public/NemchinovkaRF28.mp4",
+  },
 ] as const;
+const casePreviewVideoConfig = JSON.stringify(casePreviewVideoItems);
 const showreelPopupCloudVideoUrl =
   "https://global.s3.cloud.ru/tg26video-public/moroяovkaRF24.mp4";
 const cleanVideoPopupItems = [
@@ -420,6 +421,101 @@ const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru"
     window.addEventListener('pageshow', syncHeroHeaderState);
     window.addEventListener('load', bindHeroPosterState);
   })();
+</script>`;
+const casePreviewVideoAssets = `<style>
+  #rec862347176 .tn-elem__8623471761738859374619,
+  #rec862347176 .tn-elem__8623471761738861518577,
+  #rec862347176 .tn-elem__8623471761738862757939,
+  #rec862347176 .tn-elem__8623471761738863568198{
+    overflow:hidden !important;
+  }
+  #rec862347176 .tn-elem__8623471761738859374619 .tn-atom,
+  #rec862347176 .tn-elem__8623471761738861518577 .tn-atom,
+  #rec862347176 .tn-elem__8623471761738862757939 .tn-atom,
+  #rec862347176 .tn-elem__8623471761738863568198 .tn-atom{
+    background-color:#1c1b1a !important;
+  }
+  #rec862347176 .case-preview-native-video{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center center;
+    background:#1c1b1a;
+    opacity:0;
+    transition:opacity .2s ease;
+    pointer-events:none;
+  }
+  #rec862347176 .case-preview-video-ready > .case-preview-native-video{
+    opacity:1;
+  }
+</style>
+<script>
+  (function(){
+    var previewItems = ${casePreviewVideoConfig};
+
+    function isReadyToReveal(video){
+      return video && !video.paused && !video.ended && video.readyState >= 2 && video.currentTime >= 0.05;
+    }
+
+    function markReady(video){
+      if (!isReadyToReveal(video)) return;
+      var shape = video.closest && video.closest('.tn-elem');
+      if (shape) shape.classList.add('case-preview-video-ready');
+    }
+
+    function tryPlay(video){
+      if (!video) return;
+      var playResult = video.play();
+      if (playResult && typeof playResult.catch === 'function') {
+        playResult.catch(function(){});
+      }
+    }
+
+    function prepareVideo(video, src){
+      video.muted = true;
+      video.defaultMuted = true;
+      video.loop = true;
+      video.setAttribute('muted', '');
+      video.setAttribute('loop', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      video.setAttribute('preload', 'auto');
+      if (video.getAttribute('src') !== src) {
+        video.setAttribute('src', src);
+        video.load();
+      }
+      tryPlay(video);
+    }
+
+    function bindCasePreviews(){
+      previewItems.forEach(function(item){
+        var shape = document.querySelector(item.shapeSelector);
+        var video = shape && shape.querySelector('.case-preview-native-video');
+        if (!video) return;
+        prepareVideo(video, item.src);
+        if (!video.dataset.casePreviewBound) {
+          video.dataset.casePreviewBound = 'true';
+          video.addEventListener('playing', function(){ markReady(video); });
+          video.addEventListener('timeupdate', function(){ markReady(video); });
+          video.addEventListener('canplay', function(){
+            window.setTimeout(function(){ markReady(video); }, 250);
+          });
+        }
+        markReady(video);
+      });
+    }
+
+    bindCasePreviews();
+    document.addEventListener('click', bindCasePreviews, { passive:true });
+    document.addEventListener('touchstart', bindCasePreviews, { passive:true });
+    window.addEventListener('load', bindCasePreviews);
+    window.addEventListener('pageshow', bindCasePreviews);
+    window.addEventListener('resize', bindCasePreviews);
+  }());
 </script>`;
 const contactShortcutEnhancer = `<style>
   #rec862707608 .tn-elem[data-elem-id="1738924888809"],
@@ -1217,6 +1313,11 @@ const hiddenMarketingVideoAdviceRecordIds = [
   "rec893281054",
   // Legacy duplicate showreel popup; the active popup is rec862614275 + rec862592933.
   "rec862584405",
+  // Legacy Annex case preview autoplay; replaced by native muted Cloud.ru videos.
+  "rec862376352",
+  "rec862385545",
+  "rec862392569",
+  "rec862397203",
 ];
 
 const hiddenMarketingVideoAdviceElementIds = [
@@ -1278,6 +1379,18 @@ function replaceShowreelPopupVideo(html: string) {
   return html.replace(pattern, `$1${showreelCustomVideoMarkup}</div> $2`);
 }
 
+function injectCasePreviewVideos(html: string) {
+  return casePreviewVideoItems.reduce((nextHtml, item) => {
+    const shapeClass = item.shapeSelector.slice(1);
+    const pattern = new RegExp(
+      `(<div class='t396__elem tn-elem ${shapeClass}[^']*'[\\s\\S]*?<div class='tn-atom'>\\s*</div>)`,
+    );
+    const videoMarkup = `<video class="case-preview-native-video" autoplay muted playsinline webkit-playsinline preload="auto" loop aria-hidden="true" src="${item.src}"></video>`;
+
+    return nextHtml.replace(pattern, `$1${videoMarkup}`);
+  }, html);
+}
+
 function injectBeforeTildaRecordScript(
   html: string,
   recordNumericId: string,
@@ -1310,6 +1423,9 @@ const headHtml = headMatch[1]
     contactShortcutEnhancer,
   )
   .concat(
+    casePreviewVideoAssets,
+  )
+  .concat(
     showreelCustomVideoAssets,
   )
   .concat(
@@ -1333,22 +1449,6 @@ const transformedBodyHtml = filteredBodySource
   .replace(/href=(['"])\/(?!\/)/g, `href=$1${basePath}`)
   .replace(/src=(['"])\/(?!\/)/g, `src=$1${basePath}`)
   .replace(/action=(['"])\/(?!\/)/g, `action=$1${basePath}`)
-  .replaceAll(
-    casePreviewVideoReplacements[0][0],
-    casePreviewVideoReplacements[0][1],
-  )
-  .replaceAll(
-    casePreviewVideoReplacements[1][0],
-    casePreviewVideoReplacements[1][1],
-  )
-  .replaceAll(
-    casePreviewVideoReplacements[2][0],
-    casePreviewVideoReplacements[2][1],
-  )
-  .replaceAll(
-    casePreviewVideoReplacements[3][0],
-    casePreviewVideoReplacements[3][1],
-  )
   .replace(
     /(<div id="rec861352716" class="r t-rec"[^>]*>)/,
     `$1${heroPreloadOverlay}`,
@@ -1359,7 +1459,7 @@ const transformedBodyHtml = filteredBodySource
   );
 
 const popupPhraseBodyHtml = replaceTildaText(
-  replaceShowreelPopupVideo(transformedBodyHtml),
+  replaceShowreelPopupVideo(injectCasePreviewVideos(transformedBodyHtml)),
   "1738924888773",
   "Праздник, который вспоминают с теплом",
 );

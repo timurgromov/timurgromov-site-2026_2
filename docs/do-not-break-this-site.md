@@ -314,6 +314,46 @@ Important popup CSS:
 
 Do not replace these popups with Tilda `data-mp4video` popups without explicit approval. The custom popup was introduced because Safari handled it more reliably and it starts from the user click gesture.
 
+## Current Case Preview Autoplay
+
+The case previews in `rec862347176` are native muted videos, not Annex/Tilda video widgets.
+
+Current rule:
+
+- Do not restore the old Annex preview records:
+  - `rec862376352`
+  - `rec862385545`
+  - `rec862392569`
+  - `rec862397203`
+- Do not switch the case preview sources back to `cdnv.boomstream.com` or `bs.boomstream.dev`.
+- Keep the existing Tilda shape coordinates and popup link overlays intact.
+- The native preview videos are injected in `src/pages/index.astro` as `.case-preview-native-video`.
+- Videos must stay muted, inline, looped, `preload="auto"`, and pointer-events-free.
+- Revealing the preview should wait until playback has actually started, via `.case-preview-video-ready`.
+
+Current Cloud.ru preview mapping:
+
+```ts
+[
+  {
+    shapeSelector: ".tn-elem__8623471761738859374619",
+    src: "https://global.s3.cloud.ru/tg26video-public/КomoRF26.mp4",
+  },
+  {
+    shapeSelector: ".tn-elem__8623471761738861518577",
+    src: "https://global.s3.cloud.ru/tg26video-public/moroяovkaRF24.mp4",
+  },
+  {
+    shapeSelector: ".tn-elem__8623471761738862757939",
+    src: "https://global.s3.cloud.ru/tg26video-public/ToscanaRF26.mp4",
+  },
+  {
+    shapeSelector: ".tn-elem__8623471761738863568198",
+    src: "https://global.s3.cloud.ru/tg26video-public/NemchinovkaRF28.mp4",
+  },
+]
+```
+
 ## Future Cloud.ru Safari Notes
 
 If Safari still refuses Cloud.ru hero autoplay after this native setup, do not start random patches. Check in this order:
