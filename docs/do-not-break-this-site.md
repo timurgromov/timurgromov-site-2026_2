@@ -334,6 +334,7 @@ Current rule:
 - The native preview videos are injected in `src/pages/index.astro` as `.case-preview-native-video`.
 - Videos must stay muted, inline, looped, `preload="auto"`, and pointer-events-free.
 - Revealing the preview should wait until playback has actually started, via `.case-preview-video-ready`.
+- Keep case previews lazy: do not put the real `src` on page load. Store it in `data-case-preview-src` and assign `src/load/play` only when the preview approaches the viewport or after a user gesture. This keeps Safari from starting hero plus four preview videos at the same time.
 
 Current native Cloud.ru preview mapping:
 

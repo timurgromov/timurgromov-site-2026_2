@@ -32,7 +32,7 @@ This file is the canonical list of video URLs that have been used on the site in
 
 Case previews are the small autoplay clips inside `rec862347176`. Do not replace these with full popup videos.
 
-Current implementation is native `<video class="case-preview-native-video">`, not Annex/Tilda. The Annex records `rec862376352`, `rec862385545`, `rec862392569`, and `rec862397203` are legacy records and should stay hidden while native previews are active.
+Current implementation is native `<video class="case-preview-native-video">`, not Annex/Tilda. The Annex records `rec862376352`, `rec862385545`, `rec862392569`, and `rec862397203` are legacy records and should stay hidden while native previews are active. The Cloud.ru URL is stored in `data-case-preview-src` first and moved to `src` only near the viewport/user gesture so Safari does not try to start hero and all preview videos at once.
 
 | Case | Original Boomstream URL in export | Boomstream replacement URL | Current Cloud.ru demo URL |
 | --- | --- | --- | --- |
