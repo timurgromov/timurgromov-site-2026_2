@@ -101,7 +101,7 @@ const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
     decoding="async"
   />
 </picture>`;
-const heroNativeVideoMarkup = `<video class="hero-native-video" autoplay muted playsinline webkit-playsinline preload="auto" poster="${heroPosterDesktopUrl}" src="${heroCloudDesktopVideoUrl}" aria-hidden="true"></video>`;
+const heroNativeVideoMarkup = `<video class="hero-native-video" muted playsinline webkit-playsinline preload="auto" poster="${heroPosterDesktopUrl}" src="${heroCloudDesktopVideoUrl}" aria-hidden="true"></video>`;
 const heroPreloadOverlay = `<div id="hero-preload-overlay" aria-hidden="true"></div>`;
 const fastFirstPaint = `<link rel="preconnect" href="${videoMediaBaseUrl}" crossorigin>
 <link
@@ -353,13 +353,17 @@ const fastFirstPaint = `<link rel="preconnect" href="${videoMediaBaseUrl}" cross
       }, heroRevealDelayMs);
     }
 
-    function tryPlayHeroVideo(video) {
+    function playHeroVideo(video) {
       if (!video) return;
-      if (video.readyState >= 1 && video.currentTime < heroLoopStartSeconds) {
+      var record = document.getElementById(heroRecordId);
+      var alreadyVisible = record && record.classList.contains('hero-video-started');
+      if (!alreadyVisible && video.readyState >= 1 && video.currentTime > 0.05) {
         try {
           video.currentTime = heroLoopStartSeconds;
         } catch (error) {}
       }
+      video.autoplay = true;
+      video.setAttribute('autoplay', '');
       var playResult = video.play();
       if (playResult && typeof playResult.catch === 'function') {
         playResult.catch(function(){});
@@ -370,7 +374,7 @@ const fastFirstPaint = `<link rel="preconnect" href="${videoMediaBaseUrl}" cross
       if (!video || !video.duration || Number.isNaN(video.duration)) return;
       if (video.duration - video.currentTime > heroLoopEndPaddingSeconds) return;
       video.currentTime = heroLoopStartSeconds;
-      tryPlayHeroVideo(video);
+      playHeroVideo(video);
     }
 
     function prepareHeroVideo(video) {
@@ -387,7 +391,7 @@ const fastFirstPaint = `<link rel="preconnect" href="${videoMediaBaseUrl}" cross
         video.setAttribute('src', nextSrc);
         video.load();
       }
-      tryPlayHeroVideo(video);
+      playHeroVideo(video);
     }
 
     function bindHeroPosterState() {
@@ -401,9 +405,9 @@ const fastFirstPaint = `<link rel="preconnect" href="${videoMediaBaseUrl}" cross
         prepareHeroVideo(video);
         if (!video.dataset.heroPosterBound) {
           video.dataset.heroPosterBound = 'true';
-          video.addEventListener('loadedmetadata', function() { tryPlayHeroVideo(video); });
-          video.addEventListener('loadeddata', function() { tryPlayHeroVideo(video); });
-          video.addEventListener('canplay', function() { tryPlayHeroVideo(video); });
+          video.addEventListener('loadedmetadata', function() { playHeroVideo(video); });
+          video.addEventListener('loadeddata', function() { playHeroVideo(video); });
+          video.addEventListener('canplay', function() { playHeroVideo(video); });
           video.addEventListener('playing', function() { revealHeroOnPaintedFrame(video); });
           video.addEventListener('timeupdate', function() {
             markHeroVideoStarted(video);
@@ -414,7 +418,7 @@ const fastFirstPaint = `<link rel="preconnect" href="${videoMediaBaseUrl}" cross
           });
           video.addEventListener('ended', function() {
             video.currentTime = heroLoopStartSeconds;
-            tryPlayHeroVideo(video);
+            playHeroVideo(video);
           });
         }
         markHeroVideoStarted(video);
@@ -439,12 +443,12 @@ const fastFirstPaint = `<link rel="preconnect" href="${videoMediaBaseUrl}" cross
     document.addEventListener('click', function() {
       var record = document.getElementById(heroRecordId);
       var video = record && record.querySelector(heroShapeSelector + ' video');
-      tryPlayHeroVideo(video);
+      playHeroVideo(video);
     }, { passive: true });
     document.addEventListener('touchstart', function() {
       var record = document.getElementById(heroRecordId);
       var video = record && record.querySelector(heroShapeSelector + ' video');
-      tryPlayHeroVideo(video);
+      playHeroVideo(video);
     }, { passive: true });
     window.addEventListener('scroll', syncHeroHeaderState, { passive: true });
     window.addEventListener('resize', function() {

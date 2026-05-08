@@ -41,7 +41,7 @@ Exact current setup:
 const heroPosterVersion = "2306bab";
 const heroPosterDesktopUrl = `${basePath}images/hero-poster-desktop.jpg?v=${heroPosterVersion}`;
 const heroPosterMobileUrl = `${basePath}images/hero-poster-mobile.jpg?v=${heroPosterVersion}`;
-const heroNativeVideoMarkup = `<video class="hero-native-video" autoplay muted playsinline webkit-playsinline preload="auto" poster="${heroPosterDesktopUrl}" src="${heroCloudDesktopVideoUrl}" aria-hidden="true"></video>`;
+const heroNativeVideoMarkup = `<video class="hero-native-video" muted playsinline webkit-playsinline preload="auto" poster="${heroPosterDesktopUrl}" src="${heroCloudDesktopVideoUrl}" aria-hidden="true"></video>`;
 const heroPreloadOverlay = `<div id="hero-preload-overlay" aria-hidden="true"></div>`;
 ```
 
@@ -119,11 +119,11 @@ That combination brings back the multi-source poster problem and can cause the m
 Current hero video implementation is native, not Annex:
 
 - `<video class="hero-native-video">`
-- `autoplay`
 - `muted`
 - `playsinline`
 - `webkit-playsinline`
 - `preload="auto"`
+- Initial desktop `src`
 - `aria-hidden="true"`
 - CSS: `position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center center;`
 - Initial opacity: `0`
@@ -168,6 +168,7 @@ Current revealed-state logic:
 
 - The desktop hero video URL is present directly in the native video `src`, so the browser can start fetching it before the setup script runs.
 - Desktop/mobile hero videos are also preloaded in `fastFirstPaint`.
+- The native hero video is not marked `autoplay` in static HTML. JS adds autoplay and starts muted playback from `currentTime = 0` when it is ready to reveal, so the video does not advance invisibly behind the poster.
 - `heroRevealDelayMs = 60`
 - `heroLoopStartSeconds = 0`
 - `heroLoopEndPaddingSeconds = 0.18`
@@ -378,6 +379,6 @@ If Safari still refuses hero autoplay after this native setup, do not start rand
 
 1. Confirm the deployed page still uses the exact VPS media URLs above.
 2. Confirm the deployed HTML still has exactly one visible pre-video poster: `#hero-preload-overlay`.
-3. Confirm the native `<video>` still has `autoplay muted playsinline webkit-playsinline preload="auto"` and an initial desktop `src`.
+3. Confirm the native `<video>` still has `muted playsinline webkit-playsinline preload="auto"` and an initial desktop `src`; JS should add `autoplay` when playback starts.
 4. Confirm `hero-video-started` is added only after `playing`, `requestVideoFrameCallback`, `canplay` plus short delay, or `timeupdate`.
 5. Test alternate delivery only after the file/header/poster checks above are still true.
