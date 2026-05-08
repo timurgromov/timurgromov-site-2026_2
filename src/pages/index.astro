@@ -51,7 +51,7 @@ const casePreviewVideoItems = [
 ] as const;
 const casePreviewVideoConfig = JSON.stringify(casePreviewVideoItems);
 const showreelPopupCloudVideoUrl =
-  "https://global.s3.cloud.ru/tg26video-public/moroяovkaRF24.mp4";
+  "https://global.s3.cloud.ru/tg26video-public/moro%D1%8FovkaRF24.mp4";
 const cleanVideoPopupItems = [
   {
     hook: "#popup:showreel",
@@ -61,12 +61,12 @@ const cleanVideoPopupItems = [
   {
     hook: "#popup:ozero-komo",
     title: "Камерная свадьба на о. Комо",
-    src: "https://global.s3.cloud.ru/tg26video-public/КomoRF26.mp4",
+    src: "https://global.s3.cloud.ru/tg26video-public/%D0%9AomoRF26.mp4",
   },
   {
     hook: "#popup:morozovka",
     title: "Грандиозная свадьба в Морозовке",
-    src: "https://global.s3.cloud.ru/tg26video-public/moroяovkaRF24.mp4",
+    src: "https://global.s3.cloud.ru/tg26video-public/moro%D1%8FovkaRF24.mp4",
   },
   {
     hook: "#popup:toskana",
@@ -1259,6 +1259,37 @@ const standaloneShowreelPopupAssets = `<style>
       if (title) title.textContent = item && item.title ? item.title : '';
     }
 
+    function prepareVideo(item, shouldLoad){
+      var video = getVideo();
+      if (!video || !item) return null;
+      video.controls = true;
+      video.setAttribute('controls', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      video.setAttribute('preload', 'auto');
+      if (video.getAttribute('src') !== item.src) {
+        video.pause();
+        video.setAttribute('src', item.src);
+        if (shouldLoad) video.load();
+      }
+      return video;
+    }
+
+    function playVideo(video){
+      if (!video) return;
+      var playResult = video.play();
+      if (playResult && typeof playResult.catch === 'function') {
+        playResult.catch(function(){});
+      }
+    }
+
+    function playOpenVideo(){
+      var popup = getPopup();
+      var video = getVideo();
+      if (!popup || !video || !popup.classList.contains('is-open')) return;
+      playVideo(video);
+    }
+
     function openPopup(item, event){
       if (event) {
         event.preventDefault();
@@ -1266,23 +1297,18 @@ const standaloneShowreelPopupAssets = `<style>
         if (event.stopImmediatePropagation) event.stopImmediatePropagation();
       }
       var popup = getPopup();
-      var video = getVideo();
+      var video = prepareVideo(item, true);
       if (!popup || !video || !item) return;
       popup.classList.add('is-open');
       popup.setAttribute('aria-hidden', 'false');
       document.body.classList.add('clean-showreel-popup-open');
       setTitle(item);
-      if (video.getAttribute('src') !== item.src) {
-        video.pause();
-        video.setAttribute('src', item.src);
+      if (video.readyState >= 1) {
+        try {
+          video.currentTime = 0;
+        } catch (error) {}
       }
-      video.setAttribute('playsinline', '');
-      video.setAttribute('webkit-playsinline', '');
-      video.load();
-      var playResult = video.play();
-      if (playResult && typeof playResult.catch === 'function') {
-        playResult.catch(function(){});
-      }
+      playVideo(video);
     }
 
     function closePopup(){
@@ -1308,8 +1334,26 @@ const standaloneShowreelPopupAssets = `<style>
       }
     }, true);
 
+    document.addEventListener('pointerdown', function(event){
+      var opener = event.target && event.target.closest && event.target.closest('a[href^="#popup:"]');
+      var item = opener ? videoByHook[opener.getAttribute('href')] : null;
+      if (item) prepareVideo(item, true);
+    }, true);
+
     document.addEventListener('keydown', function(event){
       if (event.key === 'Escape') closePopup();
+    });
+
+    document.addEventListener('DOMContentLoaded', function(){
+      var video = getVideo();
+      if (!video || video.dataset.cleanPopupBound) return;
+      video.dataset.cleanPopupBound = 'true';
+      video.addEventListener('loadedmetadata', playOpenVideo);
+      video.addEventListener('loadeddata', playOpenVideo);
+      video.addEventListener('canplay', playOpenVideo);
+      video.addEventListener('canplaythrough', playOpenVideo);
+      video.addEventListener('stalled', playOpenVideo);
+      video.addEventListener('waiting', playOpenVideo);
     });
   }());
 </script>`;

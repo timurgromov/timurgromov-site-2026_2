@@ -14,9 +14,9 @@ This file is the canonical list of video URLs that have been used on the site in
 | Case preview: Morozovka | Cloud.ru | `https://global.s3.cloud.ru/tg26video-public/demo_morozRF28%20576%20.mp4?v=case-preview-20260505b` |
 | Case preview: Toscana | Cloud.ru | `https://global.s3.cloud.ru/tg26video-public/demo_toscanaRF28.mp4?v=case-preview-20260505b` |
 | Case preview: Nemchinovka / Kolizei | Cloud.ru | `https://global.s3.cloud.ru/tg26video-public/demo_nemchRF28%20576.mp4?v=case-preview-20260505b` |
-| Popup: showreel | Cloud.ru | `https://global.s3.cloud.ru/tg26video-public/moroяovkaRF24.mp4` |
-| Popup: Komo | Cloud.ru | `https://global.s3.cloud.ru/tg26video-public/КomoRF26.mp4` |
-| Popup: Morozovka | Cloud.ru | `https://global.s3.cloud.ru/tg26video-public/moroяovkaRF24.mp4` |
+| Popup: showreel | Cloud.ru | `https://global.s3.cloud.ru/tg26video-public/moro%D1%8FovkaRF24.mp4` |
+| Popup: Komo | Cloud.ru | `https://global.s3.cloud.ru/tg26video-public/%D0%9AomoRF26.mp4` |
+| Popup: Morozovka | Cloud.ru | `https://global.s3.cloud.ru/tg26video-public/moro%D1%8FovkaRF24.mp4` |
 | Popup: Toscana | Cloud.ru | `https://global.s3.cloud.ru/tg26video-public/ToscanaRF26.mp4` |
 | Popup: Nemchinovka / Kolizei | Cloud.ru | `https://global.s3.cloud.ru/tg26video-public/NemchinovkaRF28.mp4` |
 
@@ -54,9 +54,9 @@ Popups use the custom clean popup layer in `src/pages/index.astro`. The full Clo
 
 | Popup | Legacy Boomstream URL found in export/history | Current Cloud.ru URL |
 | --- | --- | --- |
-| Showreel | `https://cdnv.boomstream.com/balancer/UtWkPqj2-EuQeQgfF.mp4` | `https://global.s3.cloud.ru/tg26video-public/moroяovkaRF24.mp4` |
-| Komo | `https://cdnv.boomstream.com/balancer/AKPfzEht-EuQeQgfF.mp4` | `https://global.s3.cloud.ru/tg26video-public/КomoRF26.mp4` |
-| Morozovka | `https://cdnv.boomstream.com/balancer/hH4vBR87-EuQeQgfF.mp4` | `https://global.s3.cloud.ru/tg26video-public/moroяovkaRF24.mp4` |
+| Showreel | `https://cdnv.boomstream.com/balancer/UtWkPqj2-EuQeQgfF.mp4` | `https://global.s3.cloud.ru/tg26video-public/moro%D1%8FovkaRF24.mp4` |
+| Komo | `https://cdnv.boomstream.com/balancer/AKPfzEht-EuQeQgfF.mp4` | `https://global.s3.cloud.ru/tg26video-public/%D0%9AomoRF26.mp4` |
+| Morozovka | `https://cdnv.boomstream.com/balancer/hH4vBR87-EuQeQgfF.mp4` | `https://global.s3.cloud.ru/tg26video-public/moro%D1%8FovkaRF24.mp4` |
 | Toscana | `https://cdnv.boomstream.com/balancer/hH4vBR87-EuQeQgfF.mp4` | `https://global.s3.cloud.ru/tg26video-public/ToscanaRF26.mp4` |
 | Nemchinovka / Kolizei | `https://cdnv.boomstream.com/balancer/lsooq7dU-EuQeQgfF.mp4` | `https://global.s3.cloud.ru/tg26video-public/NemchinovkaRF28.mp4` |
 

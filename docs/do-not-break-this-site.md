@@ -200,17 +200,17 @@ The popup data is stored in `cleanVideoPopupItems`:
   {
     hook: "#popup:showreel",
     title: "Ведущий Тимур Громов",
-    src: "https://global.s3.cloud.ru/tg26video-public/moroяovkaRF24.mp4",
+    src: "https://global.s3.cloud.ru/tg26video-public/moro%D1%8FovkaRF24.mp4",
   },
   {
     hook: "#popup:ozero-komo",
     title: "Камерная свадьба на о. Комо",
-    src: "https://global.s3.cloud.ru/tg26video-public/КomoRF26.mp4",
+    src: "https://global.s3.cloud.ru/tg26video-public/%D0%9AomoRF26.mp4",
   },
   {
     hook: "#popup:morozovka",
     title: "Грандиозная свадьба в Морозовке",
-    src: "https://global.s3.cloud.ru/tg26video-public/moroяovkaRF24.mp4",
+    src: "https://global.s3.cloud.ru/tg26video-public/moro%D1%8FovkaRF24.mp4",
   },
   {
     hook: "#popup:toskana",
@@ -247,10 +247,11 @@ Popup behavior:
   - set `aria-hidden="false"`;
   - add `body.clean-showreel-popup-open`;
   - set title;
-  - set video `src`;
+  - set video `src` using ASCII percent-encoded Cloud.ru URLs when filenames contain Cyrillic characters;
   - set `playsinline` and `webkit-playsinline`;
-  - call `video.load()`;
+  - call `video.load()` only when preparing or changing `src`, not as a blind reset on every open;
   - call `video.play()` inside the user click flow.
+  - retry `video.play()` on `loadedmetadata`, `loadeddata`, `canplay`, and `canplaythrough` while the popup is open.
 - On close:
   - pause video;
   - remove `.is-open`;
