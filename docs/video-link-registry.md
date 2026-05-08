@@ -32,6 +32,8 @@ This file is the canonical list of video URLs that have been used on the site in
 
 Case previews are the small autoplay clips inside `rec862347176`. Do not replace these with full popup videos.
 
+Current implementation is native `<video class="case-preview-native-video">`, not Annex/Tilda. The Annex records `rec862376352`, `rec862385545`, `rec862392569`, and `rec862397203` are legacy records and should stay hidden while native previews are active.
+
 | Case | Original Boomstream URL in export | Boomstream replacement URL | Current Cloud.ru demo URL |
 | --- | --- | --- | --- |
 | Komo | `https://cdnv.boomstream.com/balancer/RCpP5hSc-oqvc9Qft.mp4` | `https://bs.boomstream.dev/balancer/N2LPspm9-jAhiWugB.mp4` | `https://global.s3.cloud.ru/tg26video-public/demo_komoRF28.mp4?v=case-preview-20260505b` |
@@ -39,7 +41,7 @@ Case previews are the small autoplay clips inside `rec862347176`. Do not replace
 | Toscana | `https://cdnv.boomstream.com/balancer/Lww7hY2N-oqvc9Qft.mp4` | `https://bs.boomstream.dev/balancer/Oumx0U4Z-jAhiWugB.mp4` | `https://global.s3.cloud.ru/tg26video-public/demo_toscanaRF28.mp4?v=case-preview-20260505b` |
 | Nemchinovka / Kolizei | `https://cdnv.boomstream.com/balancer/U7iCUgz4-oqvc9Qft.mp4` | `https://bs.boomstream.dev/balancer/gzJNWWi6-EuQeQgfF.mp4` | `https://global.s3.cloud.ru/tg26video-public/demo_nemchRF28%20576.mp4?v=case-preview-20260505b` |
 
-Current case preview records:
+Legacy Annex case preview records:
 
 - `rec862376352`
 - `rec862385545`

@@ -318,41 +318,43 @@ Do not replace these popups with Tilda `data-mp4video` popups without explicit a
 
 ## Current Case Preview Autoplay
 
-The case previews in `rec862347176` are small autoplay preview clips, not the full popup videos.
+The case previews in `rec862347176` are native muted autoplay videos, using the same basic approach as the hero video.
 
 Current rule:
 
-- Keep the Annex/Tilda preview records active:
+- Keep the legacy Annex/Tilda preview records hidden:
   - `rec862376352`
   - `rec862385545`
   - `rec862392569`
   - `rec862397203`
-- Do not hide those records in `hiddenMarketingVideoAdviceRecordIds`.
+- Keep those records in `hiddenMarketingVideoAdviceRecordIds`.
 - Do not inject the full Cloud.ru popup videos into the case preview shapes.
 - Full Cloud.ru videos belong to the click popups only.
 - Keep the existing Tilda shape coordinates and popup link overlays intact.
-- The source swap for the small preview clips lives in `src/pages/index.astro` as `casePreviewVideoReplacements`.
+- The native preview videos are injected in `src/pages/index.astro` as `.case-preview-native-video`.
+- Videos must stay muted, inline, looped, `preload="auto"`, and pointer-events-free.
+- Revealing the preview should wait until playback has actually started, via `.case-preview-video-ready`.
 
-Current small preview mapping:
+Current native Cloud.ru preview mapping:
 
 ```ts
 [
-  [
-    "https://cdnv.boomstream.com/balancer/RCpP5hSc-oqvc9Qft.mp4",
-    "https://global.s3.cloud.ru/tg26video-public/demo_komoRF28.mp4?v=case-preview-20260505b",
-  ],
-  [
-    "https://cdnv.boomstream.com/balancer/gk8znhXX-oqvc9Qft.mp4",
-    "https://global.s3.cloud.ru/tg26video-public/demo_morozRF28%20576%20.mp4?v=case-preview-20260505b",
-  ],
-  [
-    "https://cdnv.boomstream.com/balancer/Lww7hY2N-oqvc9Qft.mp4",
-    "https://global.s3.cloud.ru/tg26video-public/demo_toscanaRF28.mp4?v=case-preview-20260505b",
-  ],
-  [
-    "https://cdnv.boomstream.com/balancer/U7iCUgz4-oqvc9Qft.mp4",
-    "https://global.s3.cloud.ru/tg26video-public/demo_nemchRF28%20576.mp4?v=case-preview-20260505b",
-  ],
+  {
+    shapeSelector: ".tn-elem__8623471761738859374619",
+    src: "https://global.s3.cloud.ru/tg26video-public/demo_komoRF28.mp4?v=case-preview-20260505b",
+  },
+  {
+    shapeSelector: ".tn-elem__8623471761738861518577",
+    src: "https://global.s3.cloud.ru/tg26video-public/demo_morozRF28%20576%20.mp4?v=case-preview-20260505b",
+  },
+  {
+    shapeSelector: ".tn-elem__8623471761738862757939",
+    src: "https://global.s3.cloud.ru/tg26video-public/demo_toscanaRF28.mp4?v=case-preview-20260505b",
+  },
+  {
+    shapeSelector: ".tn-elem__8623471761738863568198",
+    src: "https://global.s3.cloud.ru/tg26video-public/demo_nemchRF28%20576.mp4?v=case-preview-20260505b",
+  },
 ]
 ```
 
