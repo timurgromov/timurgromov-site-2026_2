@@ -480,7 +480,7 @@ const casePreviewVideoAssets = `<style>
       }
     }
 
-    function prepareVideo(video, src, shouldLoad){
+    function prepareVideo(video, src){
       video.muted = true;
       video.defaultMuted = true;
       video.loop = true;
@@ -489,31 +489,27 @@ const casePreviewVideoAssets = `<style>
       video.setAttribute('playsinline', '');
       video.setAttribute('webkit-playsinline', '');
       video.setAttribute('preload', 'auto');
-      video.setAttribute('data-case-preview-src', src);
-      if (shouldLoad && video.getAttribute('src') !== src) {
-        video.setAttribute('src', src);
-        video.load();
-      }
-    }
-
-    function activatePreview(video){
-      var src = video.getAttribute('data-case-preview-src');
-      if (src && video.getAttribute('src') !== src) {
+      if (video.getAttribute('src') !== src) {
         video.setAttribute('src', src);
         video.load();
       }
       tryPlay(video);
+    }
+
+    function activatePreview(video){
+      tryPlay(video);
       markReady(video, true);
     }
 
-    function bindCasePreviews(shouldActivate){
+    function bindCasePreviews(){
       previewItems.forEach(function(item){
         var shape = document.querySelector(item.shapeSelector);
         var video = shape && shape.querySelector('.case-preview-native-video');
         if (!video) return;
-        prepareVideo(video, item.src, shouldActivate);
+        prepareVideo(video, item.src);
         if (!video.dataset.casePreviewBound) {
           video.dataset.casePreviewBound = 'true';
+          video.addEventListener('loadedmetadata', function(){ tryPlay(video); });
           video.addEventListener('loadeddata', function(){ markReady(video, true); });
           video.addEventListener('playing', function(){ markReady(video, false); });
           video.addEventListener('timeupdate', function(){ markReady(video, false); });
@@ -522,7 +518,7 @@ const casePreviewVideoAssets = `<style>
             window.setTimeout(function(){ markReady(video, true); }, 250);
           });
         }
-        if (shouldActivate) activatePreview(video);
+        activatePreview(video);
       });
     }
 
@@ -534,31 +530,14 @@ const casePreviewVideoAssets = `<style>
       });
     }
 
-    bindCasePreviews(false);
-
-    if ('IntersectionObserver' in window) {
-      var observer = new IntersectionObserver(function(entries){
-        entries.forEach(function(entry){
-          if (!entry.isIntersecting) return;
-          var video = entry.target.querySelector('.case-preview-native-video');
-          if (video) activatePreview(video);
-        });
-      }, { rootMargin: '500px 0px', threshold: 0.01 });
-
-      previewItems.forEach(function(item){
-        var shape = document.querySelector(item.shapeSelector);
-        if (shape) observer.observe(shape);
-      });
-    } else {
-      window.addEventListener('load', activateVisiblePreviews);
-    }
-
+    bindCasePreviews();
     document.addEventListener('click', activateVisiblePreviews, { passive:true });
     document.addEventListener('touchstart', activateVisiblePreviews, { passive:true });
-    document.addEventListener('pointerenter', activateVisiblePreviews, { passive:true });
     document.addEventListener('mouseover', activateVisiblePreviews, { passive:true });
-    window.addEventListener('pageshow', function(){ bindCasePreviews(false); });
-    window.addEventListener('resize', function(){ bindCasePreviews(false); });
+    window.addEventListener('load', bindCasePreviews);
+    window.addEventListener('pageshow', bindCasePreviews);
+    window.addEventListener('resize', bindCasePreviews);
+    window.addEventListener('scroll', activateVisiblePreviews, { passive:true });
   }());
 </script>`;
 const contactShortcutEnhancer = `<style>
@@ -1429,7 +1408,7 @@ function injectCasePreviewVideos(html: string) {
     const pattern = new RegExp(
       `(<div class='t396__elem tn-elem ${shapeClass}[^']*'[\\s\\S]*?<div class='tn-atom'>\\s*</div>)`,
     );
-    const videoMarkup = `<video class="case-preview-native-video" autoplay muted playsinline webkit-playsinline preload="auto" loop aria-hidden="true" data-case-preview-src="${item.src}"></video>`;
+    const videoMarkup = `<video class="case-preview-native-video" autoplay muted playsinline webkit-playsinline preload="auto" loop aria-hidden="true" src="${item.src}"></video>`;
 
     return nextHtml.replace(pattern, `$1${videoMarkup}`);
   }, html);
