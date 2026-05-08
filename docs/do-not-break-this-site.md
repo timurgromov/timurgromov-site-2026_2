@@ -41,7 +41,7 @@ Exact current setup:
 const heroPosterVersion = "2306bab";
 const heroPosterDesktopUrl = `${basePath}images/hero-poster-desktop.jpg?v=${heroPosterVersion}`;
 const heroPosterMobileUrl = `${basePath}images/hero-poster-mobile.jpg?v=${heroPosterVersion}`;
-const heroNativeVideoMarkup = `<video class="hero-native-video" autoplay muted playsinline webkit-playsinline preload="auto" poster="${heroPosterDesktopUrl}" aria-hidden="true"></video>`;
+const heroNativeVideoMarkup = `<video class="hero-native-video" autoplay muted playsinline webkit-playsinline preload="auto" poster="${heroPosterDesktopUrl}" src="${heroCloudDesktopVideoUrl}" aria-hidden="true"></video>`;
 const heroPreloadOverlay = `<div id="hero-preload-overlay" aria-hidden="true"></div>`;
 ```
 
@@ -166,9 +166,12 @@ VPS media source checks from 2026-05-08:
 
 Current revealed-state logic:
 
-- `heroRevealDelaySeconds = 0.25`
-- `heroLoopStartSeconds = 0.25`
+- The desktop hero video URL is present directly in the native video `src`, so the browser can start fetching it before the setup script runs.
+- Desktop/mobile hero videos are also preloaded in `fastFirstPaint`.
+- `heroRevealDelayMs = 60`
+- `heroLoopStartSeconds = 0`
 - `heroLoopEndPaddingSeconds = 0.18`
+- `requestVideoFrameCallback` is used when available so the poster fades only after a real painted video frame.
 - `markHeroVideoStarted(video)` adds:
   - `hero-video-started`
   - `hero-preload-hidden`
@@ -369,12 +372,12 @@ Current native VPS preview mapping:
 
 These VPS demo files are the small preview clips. Do not reuse the 25-50 MB popup videos as previews.
 
-## Future Cloud.ru Safari Notes
+## Future VPS/Safari Notes
 
-If Safari still refuses Cloud.ru hero autoplay after this native setup, do not start random patches. Check in this order:
+If Safari still refuses hero autoplay after this native setup, do not start random patches. Check in this order:
 
-1. Confirm the deployed page still uses the exact Cloud.ru URLs above.
+1. Confirm the deployed page still uses the exact VPS media URLs above.
 2. Confirm the deployed HTML still has exactly one visible pre-video poster: `#hero-preload-overlay`.
-3. Confirm the native `<video>` still has `autoplay muted playsinline webkit-playsinline preload="auto"`.
-4. Confirm `hero-video-started` is added only after `playing`, `canplay` plus delay, or `timeupdate`.
-5. Test the same Cloud.ru source through Annex only after the file/header/poster checks above are still true.
+3. Confirm the native `<video>` still has `autoplay muted playsinline webkit-playsinline preload="auto"` and an initial desktop `src`.
+4. Confirm `hero-video-started` is added only after `playing`, `requestVideoFrameCallback`, `canplay` plus short delay, or `timeupdate`.
+5. Test alternate delivery only after the file/header/poster checks above are still true.

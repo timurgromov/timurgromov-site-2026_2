@@ -101,9 +101,25 @@ const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
     decoding="async"
   />
 </picture>`;
-const heroNativeVideoMarkup = `<video class="hero-native-video" autoplay muted playsinline webkit-playsinline preload="auto" poster="${heroPosterDesktopUrl}" aria-hidden="true"></video>`;
+const heroNativeVideoMarkup = `<video class="hero-native-video" autoplay muted playsinline webkit-playsinline preload="auto" poster="${heroPosterDesktopUrl}" src="${heroCloudDesktopVideoUrl}" aria-hidden="true"></video>`;
 const heroPreloadOverlay = `<div id="hero-preload-overlay" aria-hidden="true"></div>`;
 const fastFirstPaint = `<link rel="preconnect" href="${videoMediaBaseUrl}" crossorigin>
+<link
+  rel="preload"
+  as="video"
+  href="${heroCloudDesktopVideoUrl}"
+  type="video/mp4"
+  media="(min-width: 640px)"
+  crossorigin
+/>
+<link
+  rel="preload"
+  as="video"
+  href="${heroCloudMobileVideoUrl}"
+  type="video/mp4"
+  media="(max-width: 639px)"
+  crossorigin
+/>
 <link
   rel="preload"
   as="image"
@@ -300,8 +316,8 @@ const fastFirstPaint = `<link rel="preconnect" href="${videoMediaBaseUrl}" cross
   (function() {
     var heroRecordId = 'rec861352716';
     var heroShapeSelector = '.tn-elem__8613527161738731141089';
-    var heroRevealDelaySeconds = 0.25;
-    var heroLoopStartSeconds = 0.25;
+    var heroRevealDelayMs = 60;
+    var heroLoopStartSeconds = 0;
     var heroLoopEndPaddingSeconds = 0.18;
 
     function getHeroVideoSrc() {
@@ -311,7 +327,7 @@ const fastFirstPaint = `<link rel="preconnect" href="${videoMediaBaseUrl}" cross
     }
 
     function isHeroVideoReadyToReveal(video) {
-      return video && !video.paused && !video.ended && video.readyState >= 2 && video.currentTime >= heroRevealDelaySeconds;
+      return video && !video.paused && !video.ended && video.readyState >= 2;
     }
 
     function markHeroVideoStarted(video) {
@@ -322,6 +338,19 @@ const fastFirstPaint = `<link rel="preconnect" href="${videoMediaBaseUrl}" cross
 
       record.classList.add('hero-video-started');
       record.classList.add('hero-preload-hidden');
+    }
+
+    function revealHeroOnPaintedFrame(video) {
+      if (!video) return;
+      if (typeof video.requestVideoFrameCallback === 'function') {
+        video.requestVideoFrameCallback(function() {
+          markHeroVideoStarted(video);
+        });
+        return;
+      }
+      window.setTimeout(function() {
+        markHeroVideoStarted(video);
+      }, heroRevealDelayMs);
     }
 
     function tryPlayHeroVideo(video) {
@@ -375,13 +404,13 @@ const fastFirstPaint = `<link rel="preconnect" href="${videoMediaBaseUrl}" cross
           video.addEventListener('loadedmetadata', function() { tryPlayHeroVideo(video); });
           video.addEventListener('loadeddata', function() { tryPlayHeroVideo(video); });
           video.addEventListener('canplay', function() { tryPlayHeroVideo(video); });
-          video.addEventListener('playing', function() { markHeroVideoStarted(video); });
+          video.addEventListener('playing', function() { revealHeroOnPaintedFrame(video); });
           video.addEventListener('timeupdate', function() {
             markHeroVideoStarted(video);
             keepHeroLoopClean(video);
           });
           video.addEventListener('canplay', function() {
-            window.setTimeout(function() { markHeroVideoStarted(video); }, heroRevealDelaySeconds * 1000);
+            window.setTimeout(function() { markHeroVideoStarted(video); }, heroRevealDelayMs);
           });
           video.addEventListener('ended', function() {
             video.currentTime = heroLoopStartSeconds;

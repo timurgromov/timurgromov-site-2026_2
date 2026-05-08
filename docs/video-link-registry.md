@@ -33,7 +33,7 @@ This file is the canonical list of video URLs that have been used on the site in
 
 Case previews are the small autoplay clips inside `rec862347176`. Do not replace these with full popup videos.
 
-Current implementation is native `<video class="case-preview-native-video">`, not Annex/Tilda. The Annex records `rec862376352`, `rec862385545`, `rec862392569`, and `rec862397203` are legacy records and should stay hidden while native previews are active. The Cloud.ru URL stays in the video `src`, matching the hero-video approach; previews also match the hero reveal rule by seeking to `0.25s` and revealing only after playback is actually running, not on plain `loadeddata`/`canplay`. Desktop Safari gets extra retries on IntersectionObserver entry, media readiness events, scroll, wheel, pointer, keyboard, and tap/click so the small loops are started again when the case cards approach the viewport.
+Current implementation is native `<video class="case-preview-native-video">`, not Annex/Tilda. The Annex records `rec862376352`, `rec862385545`, `rec862392569`, and `rec862397203` are legacy records and should stay hidden while native previews are active. The VPS media URL stays in the video `src`, matching the hero-video approach. Case previews still seek to `0.25s` before reveal to avoid black first frames; hero uses direct `src`, video preload, and `requestVideoFrameCallback` for a faster first paint. Desktop Safari gets extra retries on IntersectionObserver entry, media readiness events, scroll, wheel, pointer, keyboard, and tap/click so the small loops are started again when the case cards approach the viewport.
 
 | Case | Original Boomstream URL in export | Boomstream replacement URL | Current VPS demo URL |
 | --- | --- | --- | --- |
