@@ -436,12 +436,17 @@ const casePreviewVideoAssets = `<style>
   #rec862347176 .tn-elem__8623471761738861518577 .tn-atom,
   #rec862347176 .tn-elem__8623471761738862757939 .tn-atom,
   #rec862347176 .tn-elem__8623471761738863568198 .tn-atom{
+    position:relative;
     background-color:#1c1b1a !important;
+    overflow:hidden;
   }
-  #rec862347176 .case-preview-native-video{
+  #rec862347176 .tn-elem__8623471761738859374619 > .case-preview-native-video,
+  #rec862347176 .tn-elem__8623471761738861518577 > .case-preview-native-video,
+  #rec862347176 .tn-elem__8623471761738862757939 > .case-preview-native-video,
+  #rec862347176 .tn-elem__8623471761738863568198 > .case-preview-native-video{
     position:absolute;
     inset:0;
-    z-index:1;
+    z-index:10;
     display:block;
     width:100%;
     height:100%;
@@ -459,21 +464,26 @@ const casePreviewVideoAssets = `<style>
 <script>
   (function(){
     var previewItems = ${casePreviewVideoConfig};
+    var previewRevealDelaySeconds = 0.25;
+    var previewLoopStartSeconds = 0.25;
 
-    function isReadyToReveal(video, allowFirstFrame){
-      if (!video || video.ended || video.readyState < 2) return false;
-      if (allowFirstFrame) return true;
-      return !video.paused && video.currentTime >= 0.02;
+    function isReadyToReveal(video){
+      return video && !video.paused && !video.ended && video.readyState >= 2 && video.currentTime >= previewRevealDelaySeconds;
     }
 
-    function markReady(video, allowFirstFrame){
-      if (!isReadyToReveal(video, allowFirstFrame)) return;
+    function markReady(video){
+      if (!isReadyToReveal(video)) return;
       var shape = video.closest && video.closest('.tn-elem');
       if (shape) shape.classList.add('case-preview-video-ready');
     }
 
     function tryPlay(video){
       if (!video) return;
+      if (video.readyState >= 1 && video.currentTime < previewLoopStartSeconds) {
+        try {
+          video.currentTime = previewLoopStartSeconds;
+        } catch (error) {}
+      }
       var playResult = video.play();
       if (playResult && typeof playResult.catch === 'function') {
         playResult.catch(function(){});
@@ -498,7 +508,7 @@ const casePreviewVideoAssets = `<style>
 
     function activatePreview(video){
       tryPlay(video);
-      markReady(video, true);
+      markReady(video);
     }
 
     function bindCasePreviews(){
@@ -510,12 +520,12 @@ const casePreviewVideoAssets = `<style>
         if (!video.dataset.casePreviewBound) {
           video.dataset.casePreviewBound = 'true';
           video.addEventListener('loadedmetadata', function(){ tryPlay(video); });
-          video.addEventListener('loadeddata', function(){ markReady(video, true); });
-          video.addEventListener('playing', function(){ markReady(video, false); });
-          video.addEventListener('timeupdate', function(){ markReady(video, false); });
+          video.addEventListener('loadeddata', function(){ tryPlay(video); });
+          video.addEventListener('playing', function(){ markReady(video); });
+          video.addEventListener('timeupdate', function(){ markReady(video); });
           video.addEventListener('canplay', function(){
             tryPlay(video);
-            window.setTimeout(function(){ markReady(video, true); }, 250);
+            window.setTimeout(function(){ markReady(video); }, previewRevealDelaySeconds * 1000);
           });
         }
         activatePreview(video);
