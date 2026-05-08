@@ -6,6 +6,8 @@ The homepage is a Tilda export transformed in `src/pages/index.astro`. Some fixe
 
 Before changing any fragile part of the site, read this file and compare with the current code. Add future hard-won fixes here too, not only video fixes.
 
+Exact video URLs for Cloud.ru and Boomstream versions live in `docs/video-link-registry.md`.
+
 ## Current Safe State
 
 - Last confirmed working hero poster fix: `44a92b5 Restore single hero poster layer`.
