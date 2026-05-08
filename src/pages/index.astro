@@ -1470,7 +1470,57 @@ function injectBeforeTildaRecordScript(
 
   return html.replace(marker, `${markup}${marker}`);
 }
-const headHtml = headMatch[1]
+
+function removeHeadAssetReferences(html: string, assetPaths: string[]) {
+  return assetPaths.reduce((nextHtml, assetPath) => {
+    const escapedPath = assetPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const linkPattern = new RegExp(
+      `<link\\b(?=[^>]*\\bhref=(['"])${escapedPath}\\1)[^>]*>\\s*`,
+      "gi",
+    );
+    const scriptPattern = new RegExp(
+      `<script\\b(?=[^>]*\\bsrc=(['"])${escapedPath}\\1)[^>]*>\\s*<\\/script>\\s*`,
+      "gi",
+    );
+
+    return nextHtml.replace(linkPattern, "").replace(scriptPattern, "");
+  }, html);
+}
+
+function dedupeHeadAssetReferences(html: string) {
+  const seen = new Set<string>();
+
+  return html.replace(
+    /<(link|script)\b[^>]*(?:href|src)=(['"])([^'"]+)\2[^>]*(?:><\/script>|>)/gi,
+    (tag, tagName, _quote, rawUrl) => {
+      if (!/^(css|js)\//.test(rawUrl)) {
+        return tag;
+      }
+
+      const key = `${tagName.toLowerCase()}:${rawUrl}`;
+
+      if (seen.has(key)) {
+        return "";
+      }
+
+      seen.add(key);
+      return tag;
+    },
+  );
+}
+
+const unusedTildaHeadAssets = [
+  "https://neo.tildacdn.com/js/tilda-fallback-1.0.min.js",
+  "https://ws.tildacdn.com",
+  "css/tilda-zero-gallery-1.0.min.css",
+  "css/tilda-zoom-2.0.min.css",
+  "js/tilda-zero-gallery-1.0.min.js",
+  "js/tilda-zoom-2.0.min.js",
+];
+
+const headHtml = dedupeHeadAssetReferences(
+  removeHeadAssetReferences(headMatch[1], unusedTildaHeadAssets),
+)
   .replace(
     /<meta property="og:url" content="[^"]*"\s*\/?>/i,
     `<meta property="og:url" content="${previewUrl}" />`,

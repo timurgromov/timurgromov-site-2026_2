@@ -9,7 +9,7 @@ Before changing any fragile part of the site, read this file and compare with th
 Exact active VPS video URLs and historical Boomstream/Cloud.ru URLs live in `docs/video-link-registry.md`.
 
 Current public site is GitHub Pages: `https://timurgromov.github.io/timurgromov-site-2026_2/`.
-Do not touch `timurgromov.ru` from this repo; it is the Tilda/original reference, not the deploy target.
+Do not deploy to `timurgromov.ru` from this repo until the domain migration is explicitly started; right now it is the Tilda/original reference.
 
 ## Current Safe State
 

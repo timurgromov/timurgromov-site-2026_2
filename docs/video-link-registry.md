@@ -6,7 +6,7 @@ This file is the canonical list of video sources for the GitHub Pages site. Keep
 
 Current public site: `https://timurgromov.github.io/timurgromov-site-2026_2/`
 
-Do not touch `timurgromov.ru` from this repo. It is a Tilda domain and only a historical visual/reference source.
+Do not deploy to `timurgromov.ru` from this repo until the domain migration is explicitly started. Right now it is a Tilda domain and visual/reference source.
 
 ## Current Active Sources
 
