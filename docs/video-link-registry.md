@@ -104,18 +104,6 @@ Legacy Tilda case-video popup records `rec862660772`, `rec862660859`, `rec862666
 | Toscana | `https://cdnv.boomstream.com/balancer/hH4vBR87-EuQeQgfF.mp4` | `https://media.89-22-227-133.sslip.io/ToscanaRF26.mp4` |
 | Nemchinovka / Kolizei | `https://cdnv.boomstream.com/balancer/lsooq7dU-EuQeQgfF.mp4` | `https://media.89-22-227-133.sslip.io/NemchinovkaRF28.mp4` |
 
-## Removed Advice Popups
-
-The old advice videos were moved off the main sales landing page to the materials subdomain. Their Tilda popup wrappers, popup contents, and visible teaser elements are removed from the built homepage in `src/pages/index.astro`.
-
-| Removed homepage hook | Legacy Boomstream URL | Notes |
-| --- | --- | --- |
-| `#popup:video-sovet-1` | `https://cdnv.boomstream.com/balancer/roHksxqq-SxJPiQup.mp4` | Advice popup removed from homepage build. |
-| `#popup:video-sovet-2` | `https://cdnv.boomstream.com/balancer/aszKpzRZ-SxJPiQup.mp4` | Advice popup removed from homepage build. |
-| `#popup:video-sovet-3` | `https://cdnv.boomstream.com/balancer/qzinNGjh-SxJPiQup.mp4` | Advice popup removed from homepage build. |
-
-As of 2026-05-08 the built homepage still has one legacy Tilda `data-mp4video`: the review popup `#popup:anton-i-kristina` with `https://cdnv.boomstream.com/balancer/lsooq7dU-EuQeQgfF.mp4`. It is not an advice video. Do not remove it as part of advice cleanup unless the review popup is migrated or intentionally deleted.
-
 ## Other Boomstream Links Found In Export
 
 These links are present in historical/exported video blocks and may belong to hidden advice, materials, or old popup/video experiments. They are not the current active homepage case preview or popup mapping unless listed above.
