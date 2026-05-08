@@ -27,31 +27,32 @@ if (!bodyTagMatch) {
 const bodyAttrs = bodyTagMatch[1];
 const bodyClass = bodyAttrs.match(/\bclass=(['"])(.*?)\1/i)?.[2];
 const bodyStyle = bodyAttrs.match(/\bstyle=(['"])(.*?)\1/i)?.[2];
+const videoMediaBaseUrl = "https://media.89-22-227-133.sslip.io";
 const heroCloudDesktopVideoUrl =
-  "https://global.s3.cloud.ru/tg26video-public/hero_desc_RF28.mp4";
+  `${videoMediaBaseUrl}/hero_desc_RF28.mp4`;
 const heroCloudMobileVideoUrl =
-  "https://global.s3.cloud.ru/tg26video-public/hero_mob_RF28.mp4";
+  `${videoMediaBaseUrl}/hero_mob_RF28.mp4`;
 const casePreviewVideoItems = [
   {
     shapeSelector: ".tn-elem__8623471761738859374619",
-    src: "https://media.89-22-227-133.sslip.io/demo_komoRF28.mp4",
+    src: `${videoMediaBaseUrl}/demo_komoRF28.mp4`,
   },
   {
     shapeSelector: ".tn-elem__8623471761738861518577",
-    src: "https://global.s3.cloud.ru/tg26video-public/demo_morozRF28%20576%20.mp4?v=case-preview-20260505b",
+    src: `${videoMediaBaseUrl}/demo_morozRF28_576.mp4`,
   },
   {
     shapeSelector: ".tn-elem__8623471761738862757939",
-    src: "https://global.s3.cloud.ru/tg26video-public/demo_toscanaRF28.mp4?v=case-preview-20260505b",
+    src: `${videoMediaBaseUrl}/demo_toscanaRF28.mp4`,
   },
   {
     shapeSelector: ".tn-elem__8623471761738863568198",
-    src: "https://global.s3.cloud.ru/tg26video-public/demo_nemchRF28%20576.mp4?v=case-preview-20260505b",
+    src: `${videoMediaBaseUrl}/demo_nemchRF28_576.mp4`,
   },
 ] as const;
 const casePreviewVideoConfig = JSON.stringify(casePreviewVideoItems);
 const showreelPopupCloudVideoUrl =
-  "https://global.s3.cloud.ru/tg26video-public/moro%D1%8FovkaRF24.mp4";
+  `${videoMediaBaseUrl}/morozovkaRF24.mp4`;
 const cleanVideoPopupItems = [
   {
     hook: "#popup:showreel",
@@ -61,22 +62,22 @@ const cleanVideoPopupItems = [
   {
     hook: "#popup:ozero-komo",
     title: "Камерная свадьба на о. Комо",
-    src: "https://media.89-22-227-133.sslip.io/KomoRF26.mp4",
+    src: `${videoMediaBaseUrl}/KomoRF26.mp4`,
   },
   {
     hook: "#popup:morozovka",
     title: "Грандиозная свадьба в Морозовке",
-    src: "https://global.s3.cloud.ru/tg26video-public/moro%D1%8FovkaRF24.mp4",
+    src: showreelPopupCloudVideoUrl,
   },
   {
     hook: "#popup:toskana",
     title: "Веселая свадьба в Тоскане",
-    src: "https://media.89-22-227-133.sslip.io/ToscanaRF26.mp4",
+    src: `${videoMediaBaseUrl}/ToscanaRF26.mp4`,
   },
   {
     hook: "#popup:kolizei",
     title: "Красивая свадьба в Колизее",
-    src: "https://global.s3.cloud.ru/tg26video-public/NemchinovkaRF28.mp4",
+    src: `${videoMediaBaseUrl}/NemchinovkaRF28.mp4`,
   },
 ] as const;
 const cleanVideoPopupConfig = JSON.stringify(cleanVideoPopupItems);
@@ -102,7 +103,7 @@ const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
 </picture>`;
 const heroNativeVideoMarkup = `<video class="hero-native-video" autoplay muted playsinline webkit-playsinline preload="auto" poster="${heroPosterDesktopUrl}" aria-hidden="true"></video>`;
 const heroPreloadOverlay = `<div id="hero-preload-overlay" aria-hidden="true"></div>`;
-const fastFirstPaint = `<link rel="preconnect" href="https://global.s3.cloud.ru" crossorigin>
+const fastFirstPaint = `<link rel="preconnect" href="${videoMediaBaseUrl}" crossorigin>
 <link
   rel="preload"
   as="image"

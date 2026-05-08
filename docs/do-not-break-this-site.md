@@ -146,21 +146,22 @@ function getHeroVideoSrc() {
 
 The variable names still contain `Cloud` for historical reasons. Do not assume the name reflects the provider; inspect the actual URL values.
 
-Current Cloud.ru hero test sources:
+Current VPS media hero sources:
 
 ```ts
+const videoMediaBaseUrl = "https://media.89-22-227-133.sslip.io";
 const heroCloudDesktopVideoUrl =
-  "https://global.s3.cloud.ru/tg26video-public/hero_desc_RF28.mp4";
+  `${videoMediaBaseUrl}/hero_desc_RF28.mp4`;
 const heroCloudMobileVideoUrl =
-  "https://global.s3.cloud.ru/tg26video-public/hero_mob_RF28.mp4";
+  `${videoMediaBaseUrl}/hero_mob_RF28.mp4`;
 ```
 
-Cloud.ru source checks from 2026-05-06:
+VPS media source checks from 2026-05-08:
 
-- `hero_desc_RF28.mp4`: `200 OK`, `Content-Type: video/mp4`, `Content-Length: 1943138`, `Accept-Ranges: bytes`.
-- `hero_mob_RF28.mp4`: `200 OK`, `Content-Type: video/mp4`, `Content-Length: 1448901`, `Accept-Ranges: bytes`.
-- Both files answered `206 Partial Content` for `Range: bytes=0-1023`.
-- Both first 1024-byte chunks include `moov` before media data, so the files look faststart-ready.
+- Caddy serves the media host in a separate container on the VPS.
+- Files answer `206 Partial Content` for range requests.
+- Headers include `Accept-Ranges: bytes`, `Content-Type: video/mp4`, cache headers, and permissive CORS for media loads.
+- MP4 files were copied with `ffmpeg -c copy -movflags +faststart`.
 - This setup is native hero video without Annex and without Tilda mp4 popup mechanics.
 
 Current revealed-state logic:
@@ -204,27 +205,27 @@ The popup data is stored in `cleanVideoPopupItems`:
   {
     hook: "#popup:showreel",
     title: "Ведущий Тимур Громов",
-    src: "https://global.s3.cloud.ru/tg26video-public/moro%D1%8FovkaRF24.mp4",
+    src: `${videoMediaBaseUrl}/morozovkaRF24.mp4`,
   },
   {
     hook: "#popup:ozero-komo",
     title: "Камерная свадьба на о. Комо",
-    src: "https://global.s3.cloud.ru/tg26video-public/%D0%9AomoRF26.mp4",
+    src: `${videoMediaBaseUrl}/KomoRF26.mp4`,
   },
   {
     hook: "#popup:morozovka",
     title: "Грандиозная свадьба в Морозовке",
-    src: "https://global.s3.cloud.ru/tg26video-public/moro%D1%8FovkaRF24.mp4",
+    src: `${videoMediaBaseUrl}/morozovkaRF24.mp4`,
   },
   {
     hook: "#popup:toskana",
     title: "Веселая свадьба в Тоскане",
-    src: "https://global.s3.cloud.ru/tg26video-public/ToscanaRF26.mp4",
+    src: `${videoMediaBaseUrl}/ToscanaRF26.mp4`,
   },
   {
     hook: "#popup:kolizei",
     title: "Красивая свадьба в Колизее",
-    src: "https://global.s3.cloud.ru/tg26video-public/NemchinovkaRF28.mp4",
+    src: `${videoMediaBaseUrl}/NemchinovkaRF28.mp4`,
   },
 ]
 ```
@@ -251,7 +252,7 @@ Popup behavior:
   - set `aria-hidden="false"`;
   - add `body.clean-showreel-popup-open`;
   - set title;
-  - set video `src` using ASCII percent-encoded Cloud.ru URLs when filenames contain Cyrillic characters;
+  - set video `src` using the VPS media URLs from `videoMediaBaseUrl`;
   - set `playsinline` and `webkit-playsinline`;
   - call `video.load()` only when preparing or changing `src`, not as a blind reset on every open;
   - call `video.play()` inside the user click flow.
@@ -333,40 +334,40 @@ Current rule:
   - `rec862392569`
   - `rec862397203`
 - Keep those records in `hiddenMarketingVideoAdviceRecordIds`.
-- Do not inject the full Cloud.ru popup videos into the case preview shapes.
-- Full Cloud.ru videos belong to the click popups only.
+- Do not inject the full VPS popup videos into the case preview shapes.
+- Full VPS videos belong to the click popups only.
 - Keep the existing Tilda shape coordinates and popup link overlays intact.
 - The native preview videos are injected in `src/pages/index.astro` as `.case-preview-native-video`.
 - Videos must stay muted, inline, looped, `preload="auto"`, and pointer-events-free.
 - Revealing the preview should match the hero logic: seek to `0.25s`, call `play()`, then add `.case-preview-video-ready` only after playback has actually started and `currentTime >= 0.25`. Do not reveal on `loadeddata` or plain `canplay`; Safari can show the black first frame.
-- Keep the real Cloud.ru demo URL in the native preview video `src`, the same way the hero receives a real `src`. Desktop Safari can leave the preview black if the URL is kept only in `data-*` and assigned later through viewport observers.
+- Keep the real VPS demo URL in the native preview video `src`, the same way the hero receives a real `src`. Desktop Safari can leave the preview black if the URL is kept only in `data-*` and assigned later through viewport observers.
 - Retry `play()` on initial bind, `loadedmetadata`, `loadeddata`, `canplay`, `canplaythrough`, `waiting`, `stalled`, `suspend`, `load`, `pageshow`, resize/scroll, IntersectionObserver entry, and user gestures including click/touch/pointer/wheel/keyboard.
 - CSS should also mirror hero: the video is a direct child of the Tilda shape, positioned `absolute` with `z-index:10`; the underlying `.tn-atom` stays `position:relative`, dark, and clipped.
 
-Current native Cloud.ru preview mapping:
+Current native VPS preview mapping:
 
 ```ts
 [
   {
     shapeSelector: ".tn-elem__8623471761738859374619",
-    src: "https://global.s3.cloud.ru/tg26video-public/demo_komoRF28.mp4?v=case-preview-20260505b",
+    src: `${videoMediaBaseUrl}/demo_komoRF28.mp4`,
   },
   {
     shapeSelector: ".tn-elem__8623471761738861518577",
-    src: "https://global.s3.cloud.ru/tg26video-public/demo_morozRF28%20576%20.mp4?v=case-preview-20260505b",
+    src: `${videoMediaBaseUrl}/demo_morozRF28_576.mp4`,
   },
   {
     shapeSelector: ".tn-elem__8623471761738862757939",
-    src: "https://global.s3.cloud.ru/tg26video-public/demo_toscanaRF28.mp4?v=case-preview-20260505b",
+    src: `${videoMediaBaseUrl}/demo_toscanaRF28.mp4`,
   },
   {
     shapeSelector: ".tn-elem__8623471761738863568198",
-    src: "https://global.s3.cloud.ru/tg26video-public/demo_nemchRF28%20576.mp4?v=case-preview-20260505b",
+    src: `${videoMediaBaseUrl}/demo_nemchRF28_576.mp4`,
   },
 ]
 ```
 
-These Cloud.ru demo files are the small preview clips. Do not reuse the 25-50 MB popup videos as previews.
+These VPS demo files are the small preview clips. Do not reuse the 25-50 MB popup videos as previews.
 
 ## Future Cloud.ru Safari Notes
 
