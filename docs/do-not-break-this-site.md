@@ -169,6 +169,7 @@ VPS media source checks from 2026-05-08:
 - Headers include `Accept-Ranges: bytes`, `Content-Type: video/mp4`, cache headers, and permissive CORS for media loads.
 - MP4 files were copied with `ffmpeg -c copy -movflags +faststart`.
 - This setup is native hero video without Annex and without Tilda mp4 popup mechanics.
+- Emergency migration steps for moving the media host to another VPS live in `docs/video-link-registry.md` under "Emergency VPS Migration Runbook". Use VPS + Caddy as the stable pattern; do not switch back to Cloud.ru S3/Object Storage without explicit approval and Safari testing.
 
 Current revealed-state logic:
 

@@ -4,6 +4,7 @@
 - Current public URL: `https://timurgromov.github.io/timurgromov-site-2026_2/`
 - Original/Tilda reference: `https://timurgromov.ru/`
 - Goal: поддерживать одностраничный лендинг из Tilda export внутри Astro, не ломая Zero Block геометрию, popups и Safari video fixes.
+- Media migration runbook: `docs/video-link-registry.md` -> "Emergency VPS Migration Runbook".
 
 `timurgromov.ru` сейчас не является деплой-целью этого репозитория. Он привязан к Tilda и используется как источник/визуальный ориентир. Позже домен планируется перенести на управляемую версию отдельным DNS/deploy шагом.
 
@@ -21,6 +22,8 @@
 - Deployment target: `GitHub Pages`
 - Source assets: Tilda export в текущем репозитории
 - Active media host: VPS/Caddy at `https://media.89-22-227-133.sslip.io`
+- Active media files path on VPS: `/srv/tg26-video/public`
+- Active media container: `tg26-video-caddy`
 
 ## 4. Source Of Truth
 Главные источники:

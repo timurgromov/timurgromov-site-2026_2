@@ -59,6 +59,148 @@ ssh root@89.22.227.133 "docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Po
 ssh root@89.22.227.133 "ls -lh /srv/tg26-video/public"
 ```
 
+## Emergency VPS Migration Runbook
+
+Use this if the current media VPS becomes unavailable or video delivery needs to move quickly to another VPS. The goal is to recreate the same simple setup: static MP4 files served by Caddy with byte-range support and Safari-friendly headers.
+
+Do not move these files to Cloud.ru S3/Object Storage as the primary video source without a fresh Safari test. The current stable setup is VPS + Caddy, not object storage.
+
+### 1. Pick The New Host
+
+Any VPS is acceptable if it can serve HTTPS reliably to the target audience. Preferred order:
+
+1. International VPS with good routing for users with and without VPN.
+2. Cloud.ru VPS as a controlled fallback.
+3. Object Storage only as a temporary transfer source, not the final playback host.
+
+Record the new public IP and choose a temporary media host:
+
+```text
+https://media.NEW-IP-WITH-DASHES.sslip.io
+```
+
+Example for `203.0.113.10`:
+
+```text
+https://media.203-0-113-10.sslip.io
+```
+
+### 2. Prepare The New VPS
+
+Install Docker, create the media directory, and keep it separate from unrelated proxy/VPN services.
+
+```bash
+mkdir -p /srv/tg26-video/public
+mkdir -p /srv/tg26-video/caddy
+```
+
+Create `/srv/tg26-video/caddy/Caddyfile` on the new VPS:
+
+```caddyfile
+media.NEW-IP-WITH-DASHES.sslip.io {
+  root * /srv/tg26-video/public
+
+  header {
+    Access-Control-Allow-Origin "*"
+    Access-Control-Allow-Methods "GET, HEAD, OPTIONS"
+    Access-Control-Allow-Headers "Range"
+    Access-Control-Expose-Headers "Accept-Ranges, Content-Length, Content-Range, Content-Type"
+    Cache-Control "public, max-age=31536000, immutable"
+  }
+
+  file_server
+}
+```
+
+Start Caddy in its own container:
+
+```bash
+docker run -d \
+  --name tg26-video-caddy \
+  --restart unless-stopped \
+  -p 80:80 \
+  -p 443:443 \
+  -v /srv/tg26-video/public:/srv/tg26-video/public:ro \
+  -v /srv/tg26-video/caddy/Caddyfile:/etc/caddy/Caddyfile:ro \
+  -v tg26-video-caddy-data:/data \
+  -v tg26-video-caddy-config:/config \
+  caddy:2
+```
+
+If ports `80` or `443` are already used by another reverse proxy on the VPS, do not change unrelated services blindly. Either route the media hostname through the existing proxy or choose a clean VPS.
+
+### 3. Copy The Current Media Files
+
+From the new VPS, copy the current media directory from the old VPS:
+
+```bash
+rsync -avz root@89.22.227.133:/srv/tg26-video/public/ /srv/tg26-video/public/
+```
+
+If `rsync` is not installed:
+
+```bash
+apt-get update
+apt-get install -y rsync
+```
+
+Do not commit VPS passwords, private keys, tokens, or shell history with secrets to this repository.
+
+### 4. Verify The New Host Before Switching The Site
+
+Run these checks against the new media URL:
+
+```bash
+curl -I https://media.NEW-IP-WITH-DASHES.sslip.io/hero_desc_RF28.mp4
+curl -I -H "Range: bytes=0-1" https://media.NEW-IP-WITH-DASHES.sslip.io/hero_desc_RF28.mp4
+curl -I -H "Range: bytes=0-1" https://media.NEW-IP-WITH-DASHES.sslip.io/ToscanaRF26.mp4
+```
+
+Expected result for range checks:
+
+- HTTP status: `206 Partial Content`
+- `Accept-Ranges: bytes`
+- `Content-Range: bytes 0-1/...`
+- `Content-Type: video/mp4`
+- cache headers are present
+- CORS headers are present
+
+Also open at least one hero file and one popup file directly in Safari desktop before switching the site.
+
+### 5. Switch The Site
+
+In `src/pages/index.astro`, update only:
+
+```ts
+const videoMediaBaseUrl = "https://media.NEW-IP-WITH-DASHES.sslip.io";
+```
+
+Then update this file and `docs/do-not-break-this-site.md` with the new host, path, and checks.
+
+Run:
+
+```bash
+npm run build
+npm run verify:contacts
+npm run deploy:pages
+```
+
+After deploy, verify the published GitHub Pages HTML contains the new media host and test in Safari desktop:
+
+```bash
+curl -sS https://timurgromov.github.io/timurgromov-site-2026_2/ | rg "media.NEW-IP-WITH-DASHES.sslip.io"
+```
+
+### 6. Rollback
+
+Rollback is just changing `videoMediaBaseUrl` back to:
+
+```ts
+const videoMediaBaseUrl = "https://media.89-22-227-133.sslip.io";
+```
+
+Then build and deploy again. Keep the old VPS alive until the new VPS is tested in Safari and the published page is confirmed.
+
 ## Hero Video Versions
 
 | Version | Desktop URL | Mobile URL | Notes |
