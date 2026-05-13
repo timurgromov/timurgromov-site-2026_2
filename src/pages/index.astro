@@ -96,7 +96,7 @@ const cleanVideoPopupItems = [
   },
   {
     hook: "#popup:russko-kubinskaya",
-    title: "Русско-Кубинская свадьба",
+    title: "Антон и Лея",
     src: `${videoMediaBaseUrl}/review_russian_cuban_RF.mp4`,
   },
 ] as const;
@@ -1472,6 +1472,29 @@ function replaceTildaText(html: string, elemId: string, nextText: string) {
   return html.replace(pattern, `$1${nextText}$4`);
 }
 
+function restoreReviewCardImageSources(html: string) {
+  const imagePairs = [
+    [
+      "images/tild3531-3736-4130-b134-656166333363__-__resize__20x__image_1.png",
+      "images/tild3531-3736-4130-b134-656166333363__image_1.png",
+    ],
+    [
+      "images/tild3836-6430-4336-a537-346361373366__-__resize__20x__image_2.png",
+      "images/tild3836-6430-4336-a537-346361373366__image_2.png",
+    ],
+    [
+      "images/tild3536-6134-4431-a534-386135323839__-__resize__20x__image_3.png",
+      "images/tild3536-6134-4431-a534-386135323839__image_3.png",
+    ],
+  ];
+
+  return imagePairs.reduce(
+    (nextHtml, [placeholder, fullSize]) =>
+      nextHtml.replaceAll(`src='${placeholder}'`, `src='${fullSize}'`),
+    html,
+  );
+}
+
 function injectCasePreviewVideos(html: string) {
   return casePreviewVideoItems.reduce((nextHtml, item) => {
     const shapeClass = item.shapeSelector.slice(1);
@@ -1599,7 +1622,11 @@ const transformedBodyHtml = filteredBodySource
   );
 
 const popupPhraseBodyHtml = replaceTildaText(
-  injectCasePreviewVideos(transformedBodyHtml),
+  replaceTildaText(
+    restoreReviewCardImageSources(injectCasePreviewVideos(transformedBodyHtml)),
+    "1738867968180",
+    "Антон и Лея",
+  ),
   "1738924888773",
   "Праздник, который вспоминают с теплом",
 );

@@ -257,7 +257,7 @@ The popup data is stored in `cleanVideoPopupItems`:
   },
   {
     hook: "#popup:russko-kubinskaya",
-    title: "Русско-Кубинская свадьба",
+    title: "Антон и Лея",
     src: `${videoMediaBaseUrl}/review_russian_cuban_RF.mp4`,
   },
 ]
