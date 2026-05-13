@@ -79,6 +79,26 @@ const cleanVideoPopupItems = [
     title: "Красивая свадьба в Колизее",
     src: `${videoMediaBaseUrl}/NemchinovkaRF28.mp4`,
   },
+  {
+    hook: "#popup:anton-i-kristina",
+    title: "Антон и Кристина",
+    src: `${videoMediaBaseUrl}/review_anton_kristina_RF.mp4`,
+  },
+  {
+    hook: "#popup:temur-i-yana",
+    title: "Темур и Яна",
+    src: `${videoMediaBaseUrl}/review_temur_margo_RF.mp4`,
+  },
+  {
+    hook: "#popup:katya-i-zhenia",
+    title: "Катя и Женя",
+    src: `${videoMediaBaseUrl}/review_katya_zhenya_RF.mp4`,
+  },
+  {
+    hook: "#popup:russko-kubinskaya",
+    title: "Русско-Кубинская свадьба",
+    src: `${videoMediaBaseUrl}/review_russian_cuban_RF.mp4`,
+  },
 ] as const;
 const cleanVideoPopupConfig = JSON.stringify(cleanVideoPopupItems);
 const heroPosterVersion = "2306bab";
@@ -1385,6 +1405,15 @@ const hiddenMarketingVideoAdviceRecordIds = [
   "rec862667414",
   "rec862668031",
   "rec862668074",
+  // Legacy Tilda review video popups; clean-showreel-popup owns these hooks now.
+  "rec862674603",
+  "rec862674662",
+  "rec862683025",
+  "rec862683069",
+  "rec862685732",
+  "rec862685694",
+  "rec862687402",
+  "rec862687388",
   // Legacy Annex case preview autoplay; replaced by native muted Cloud.ru demo loops.
   "rec862376352",
   "rec862385545",

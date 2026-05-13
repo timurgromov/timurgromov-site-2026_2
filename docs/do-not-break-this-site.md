@@ -209,6 +209,8 @@ Keep the legacy Tilda showreel records `rec862614275`, `rec862592933`, and `rec8
 
 Keep the legacy Tilda case-video popup records `rec862660772`, `rec862660859`, `rec862666264`, `rec862666433`, `rec862667392`, `rec862667414`, `rec862668031`, and `rec862668074` hidden too. The clean popup owns `#popup:ozero-komo`, `#popup:morozovka`, `#popup:toskana`, and `#popup:kolizei`; leaving the old Tilda popups in the page reintroduces hidden Boomstream players and intermittent Safari behavior.
 
+Keep the legacy Tilda review-video popup records `rec862674603`, `rec862674662`, `rec862683025`, `rec862683069`, `rec862685732`, `rec862685694`, `rec862687402`, and `rec862687388` hidden as well. The original review carousel/cards stay visible; only their popup playback is replaced by the clean native popup layer.
+
 The popup data is stored in `cleanVideoPopupItems`:
 
 ```ts
@@ -237,6 +239,26 @@ The popup data is stored in `cleanVideoPopupItems`:
     hook: "#popup:kolizei",
     title: "Красивая свадьба в Колизее",
     src: `${videoMediaBaseUrl}/NemchinovkaRF28.mp4`,
+  },
+  {
+    hook: "#popup:anton-i-kristina",
+    title: "Антон и Кристина",
+    src: `${videoMediaBaseUrl}/review_anton_kristina_RF.mp4`,
+  },
+  {
+    hook: "#popup:temur-i-yana",
+    title: "Темур и Яна",
+    src: `${videoMediaBaseUrl}/review_temur_margo_RF.mp4`,
+  },
+  {
+    hook: "#popup:katya-i-zhenia",
+    title: "Катя и Женя",
+    src: `${videoMediaBaseUrl}/review_katya_zhenya_RF.mp4`,
+  },
+  {
+    hook: "#popup:russko-kubinskaya",
+    title: "Русско-Кубинская свадьба",
+    src: `${videoMediaBaseUrl}/review_russian_cuban_RF.mp4`,
   },
 ]
 ```

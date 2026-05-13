@@ -29,6 +29,10 @@ The current files are already heavily compressed RF files. Do not re-encode agai
 | Popup: Morozovka | VPS media | `https://media.89-22-227-133.sslip.io/morozovkaRF24.mp4` |
 | Popup: Toscana | VPS media | `https://media.89-22-227-133.sslip.io/ToscanaRF26.mp4` |
 | Popup: Nemchinovka / Kolizei | VPS media | `https://media.89-22-227-133.sslip.io/NemchinovkaRF28.mp4` |
+| Review popup: Anton and Kristina | VPS media | `https://media.89-22-227-133.sslip.io/review_anton_kristina_RF.mp4` |
+| Review popup: Temur and Yana | VPS media | `https://media.89-22-227-133.sslip.io/review_temur_margo_RF.mp4` |
+| Review popup: Katya and Zhenya | VPS media | `https://media.89-22-227-133.sslip.io/review_katya_zhenya_RF.mp4` |
+| Review popup: Russian-Cuban wedding | VPS media | `https://media.89-22-227-133.sslip.io/review_russian_cuban_RF.mp4` |
 
 ## VPS Media Host
 
@@ -238,6 +242,8 @@ Legacy Tilda showreel popup records `rec862614275`, `rec862592933`, and `rec8625
 
 Legacy Tilda case-video popup records `rec862660772`, `rec862660859`, `rec862666264`, `rec862666433`, `rec862667392`, `rec862667414`, `rec862668031`, and `rec862668074` must also stay hidden. Their old Boomstream `data-mp4video` blocks duplicate the clean native popups for the same hooks.
 
+Legacy Tilda review-video popup records `rec862674603`, `rec862674662`, `rec862683025`, `rec862683069`, `rec862685732`, `rec862685694`, `rec862687402`, and `rec862687388` must stay hidden too. The review cards remain in the original Tilda review carousel, but clicks are handled by the clean native popup layer.
+
 | Popup | Legacy Boomstream URL found in export/history | Current VPS URL |
 | --- | --- | --- |
 | Showreel | `https://cdnv.boomstream.com/balancer/UtWkPqj2-EuQeQgfF.mp4` | `https://media.89-22-227-133.sslip.io/morozovkaRF24.mp4` |
@@ -245,6 +251,10 @@ Legacy Tilda case-video popup records `rec862660772`, `rec862660859`, `rec862666
 | Morozovka | `https://cdnv.boomstream.com/balancer/hH4vBR87-EuQeQgfF.mp4` | `https://media.89-22-227-133.sslip.io/morozovkaRF24.mp4` |
 | Toscana | `https://cdnv.boomstream.com/balancer/hH4vBR87-EuQeQgfF.mp4` | `https://media.89-22-227-133.sslip.io/ToscanaRF26.mp4` |
 | Nemchinovka / Kolizei | `https://cdnv.boomstream.com/balancer/lsooq7dU-EuQeQgfF.mp4` | `https://media.89-22-227-133.sslip.io/NemchinovkaRF28.mp4` |
+| Review: Anton and Kristina | `https://cdnv.boomstream.com/balancer/lsooq7dU-EuQeQgfF.mp4` | `https://media.89-22-227-133.sslip.io/review_anton_kristina_RF.mp4` |
+| Review: Temur and Yana | Vimeo `1044577884` | `https://media.89-22-227-133.sslip.io/review_temur_margo_RF.mp4` |
+| Review: Katya and Zhenya | Vimeo `1044588860` | `https://media.89-22-227-133.sslip.io/review_katya_zhenya_RF.mp4` |
+| Review: Russian-Cuban wedding | Vimeo `1044579944` | `https://media.89-22-227-133.sslip.io/review_russian_cuban_RF.mp4` |
 
 ## Other Boomstream Links Found In Export
 
