@@ -1472,27 +1472,17 @@ function replaceTildaText(html: string, elemId: string, nextText: string) {
   return html.replace(pattern, `$1${nextText}$4`);
 }
 
-function restoreReviewCardImageSources(html: string) {
-  const imagePairs = [
-    [
-      "images/tild3531-3736-4130-b134-656166333363__-__resize__20x__image_1.png",
-      "images/tild3531-3736-4130-b134-656166333363__image_1.png",
-    ],
-    [
-      "images/tild3836-6430-4336-a537-346361373366__-__resize__20x__image_2.png",
-      "images/tild3836-6430-4336-a537-346361373366__image_2.png",
-    ],
-    [
-      "images/tild3536-6134-4431-a534-386135323839__-__resize__20x__image_3.png",
-      "images/tild3536-6134-4431-a534-386135323839__image_3.png",
-    ],
-  ];
+function restoreTildaImageSources(html: string) {
+  return html.replace(/<img\b[^>]*>/g, (tag) => {
+    const src = tag.match(/\bsrc=(['"])(.*?)\1/i)?.[2];
+    const original = tag.match(/\bdata-original=(['"])(.*?)\1/i)?.[2];
 
-  return imagePairs.reduce(
-    (nextHtml, [placeholder, fullSize]) =>
-      nextHtml.replaceAll(`src='${placeholder}'`, `src='${fullSize}'`),
-    html,
-  );
+    if (!src || !original || !src.includes("__resize__20x__")) {
+      return tag;
+    }
+
+    return tag.replace(/\bsrc=(['"])(.*?)\1/i, (_match, quote) => `src=${quote}${original}${quote}`);
+  });
 }
 
 function injectCasePreviewVideos(html: string) {
@@ -1623,7 +1613,7 @@ const transformedBodyHtml = filteredBodySource
 
 const popupPhraseBodyHtml = replaceTildaText(
   replaceTildaText(
-    restoreReviewCardImageSources(injectCasePreviewVideos(transformedBodyHtml)),
+    restoreTildaImageSources(injectCasePreviewVideos(transformedBodyHtml)),
     "1738867968180",
     "Антон и Лея",
   ),

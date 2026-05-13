@@ -205,6 +205,10 @@ Current rule:
 
 The active popups are custom lightweight popups, not Tilda mp4 popups.
 
+## Tilda Image Placeholder Rule
+
+The Tilda export can leave 20px lazy placeholders in `src` and keep the real image in `data-original`. On horizontal Zero Block carousels this can remain blurry if Tilda lazy loading misses the element. `src/pages/index.astro` restores `src` from `data-original` for local `__resize__20x__` images at build time; do not remove this unless the lazy-loading behavior is replaced and checked in Chrome and Safari.
+
 Keep the legacy Tilda showreel records `rec862614275`, `rec862592933`, and `rec862584405` hidden in `hiddenMarketingVideoAdviceRecordIds`. Do not reconnect `showreelCustomVideoAssets` or inject a second showreel `<video>` into `rec862592933`; that creates two competing players for `#popup:showreel`, and Safari can freeze the visible popup while a hidden video keeps playing audio.
 
 Keep the legacy Tilda case-video popup records `rec862660772`, `rec862660859`, `rec862666264`, `rec862666433`, `rec862667392`, `rec862667414`, `rec862668031`, and `rec862668074` hidden too. The clean popup owns `#popup:ozero-komo`, `#popup:morozovka`, `#popup:toskana`, and `#popup:kolizei`; leaving the old Tilda popups in the page reintroduces hidden Boomstream players and intermittent Safari behavior.
