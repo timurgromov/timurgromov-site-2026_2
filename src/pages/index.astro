@@ -494,10 +494,10 @@ const casePreviewVideoAssets = `<style>
     background-color:#1c1b1a !important;
     overflow:hidden;
   }
-  #rec862347176 .tn-elem__8623471761738859374619 > .case-preview-native-video,
-  #rec862347176 .tn-elem__8623471761738861518577 > .case-preview-native-video,
-  #rec862347176 .tn-elem__8623471761738862757939 > .case-preview-native-video,
-  #rec862347176 .tn-elem__8623471761738863568198 > .case-preview-native-video{
+  #rec862347176 .tn-elem__8623471761738859374619 .tn-atom > .case-preview-native-video,
+  #rec862347176 .tn-elem__8623471761738861518577 .tn-atom > .case-preview-native-video,
+  #rec862347176 .tn-elem__8623471761738862757939 .tn-atom > .case-preview-native-video,
+  #rec862347176 .tn-elem__8623471761738863568198 .tn-atom > .case-preview-native-video{
     position:absolute;
     inset:0;
     z-index:10;
@@ -1489,11 +1489,11 @@ function injectCasePreviewVideos(html: string) {
   return casePreviewVideoItems.reduce((nextHtml, item) => {
     const shapeClass = item.shapeSelector.slice(1);
     const pattern = new RegExp(
-      `(<div class='t396__elem tn-elem ${shapeClass}[^']*'[\\s\\S]*?<div class='tn-atom'>\\s*</div>)`,
+      `(<div class='t396__elem tn-elem ${shapeClass}[^']*'[\\s\\S]*?<div class='tn-atom'>)(\\s*)(</div>)`,
     );
     const videoMarkup = `<video class="case-preview-native-video" autoplay muted playsinline webkit-playsinline preload="auto" loop aria-hidden="true" src="${item.src}"></video>`;
 
-    return nextHtml.replace(pattern, `$1${videoMarkup}`);
+    return nextHtml.replace(pattern, `$1$2${videoMarkup}$3`);
   }, html);
 }
 
