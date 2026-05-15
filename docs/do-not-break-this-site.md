@@ -217,6 +217,10 @@ Keep `.case-preview-native-video` inside the shape's `.tn-atom`, not as a siblin
 
 The reveal selector must match that nesting: `.case-preview-video-ready .tn-atom > .case-preview-native-video`. If it only targets `.case-preview-video-ready > .case-preview-native-video`, the video remains at `opacity:0` and the case tiles turn into black rectangles.
 
+Do not remove `tilda-zero-gallery-1.0.min.js/css` or `tilda-zoom-2.0.min.js/css` from the page head as "unused" Tilda files. `tilda-zero-1.1.min.js` and the gallery code still call `t_zeroGallery__init` and `t_initZoom`; removing those assets can stop Zero Block initialization and break SBS hover geometry in this portfolio block.
+
+On the `640-1199px` tablet breakpoint, keep the injected preview video wrappers visually fixed inside the card on hover. The original Tilda SBS transform moves the media thumbnail away from the card at that breakpoint and leaves a blank top area; desktop hover reveal still stays active above `1199px`.
+
 Keep the legacy Tilda showreel records `rec862614275`, `rec862592933`, and `rec862584405` hidden in `hiddenMarketingVideoAdviceRecordIds`. Do not reconnect `showreelCustomVideoAssets` or inject a second showreel `<video>` into `rec862592933`; that creates two competing players for `#popup:showreel`, and Safari can freeze the visible popup while a hidden video keeps playing audio.
 
 Keep the legacy Tilda case-video popup records `rec862660772`, `rec862660859`, `rec862666264`, `rec862666433`, `rec862667392`, `rec862667414`, `rec862668031`, and `rec862668074` hidden too. The clean popup owns `#popup:ozero-komo`, `#popup:morozovka`, `#popup:toskana`, and `#popup:kolizei`; leaving the old Tilda popups in the page reintroduces hidden Boomstream players and intermittent Safari behavior.
@@ -387,7 +391,7 @@ Current rule:
 - Revealing the preview should match the hero logic: seek to `0.25s`, call `play()`, then add `.case-preview-video-ready` only after playback has actually started and `currentTime >= 0.25`. Do not reveal on `loadeddata` or plain `canplay`; Safari can show the black first frame.
 - Keep the real VPS demo URL in the native preview video `src`, the same way the hero receives a real `src`. Desktop Safari can leave the preview black if the URL is kept only in `data-*` and assigned later through viewport observers.
 - Retry `play()` on initial bind, `loadedmetadata`, `loadeddata`, `canplay`, `canplaythrough`, `waiting`, `stalled`, `suspend`, `load`, `pageshow`, resize/scroll, IntersectionObserver entry, and user gestures including click/touch/pointer/wheel/keyboard.
-- CSS should also mirror hero: the video is a direct child of the Tilda shape, positioned `absolute` with `z-index:10`; the underlying `.tn-atom` stays `position:relative`, dark, and clipped.
+- CSS should also mirror hero: the video is a direct child of the shape's `.tn-atom`, positioned `absolute` with `z-index:10`; the `.tn-atom` stays `position:relative`, dark, and clipped.
 
 Current native VPS preview mapping:
 

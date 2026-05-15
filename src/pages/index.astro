@@ -514,6 +514,16 @@ const casePreviewVideoAssets = `<style>
   #rec862347176 .case-preview-video-ready .tn-atom > .case-preview-native-video{
     opacity:1;
   }
+  @media screen and (min-width:640px) and (max-width:1199px){
+    #rec862347176 .tn-elem__8623471761738859374619 .tn-atom__sbs-anim-wrapper,
+    #rec862347176 .tn-elem__8623471761738861518577 .tn-atom__sbs-anim-wrapper,
+    #rec862347176 .tn-elem__8623471761738862757939 .tn-atom__sbs-anim-wrapper,
+    #rec862347176 .tn-elem__8623471761738863568198 .tn-atom__sbs-anim-wrapper{
+      animation:none !important;
+      transform:none !important;
+      opacity:1 !important;
+    }
+  }
 </style>
 <script>
   (function(){
@@ -639,7 +649,67 @@ const casePreviewVideoAssets = `<style>
       });
     }
 
+    function forceCaseHoverAnimation(element, reverse){
+      if (!element) return;
+
+      element.classList.remove('t-sbs-anim_started', 't-sbs-anim_reversed', 't-sbs-anim_playing');
+      void element.offsetWidth;
+      element.classList.add('t-sbs-anim_started');
+
+      if (reverse) {
+        element.classList.add('t-sbs-anim_reversed');
+      }
+    }
+
+    function getCaseHoverTriggers(record, animatedElement){
+      var triggerIds = (animatedElement.getAttribute('data-animate-sbs-trgels') || '')
+        .split(',')
+        .map(function(id){ return id.trim(); })
+        .filter(Boolean);
+
+      if (!triggerIds.length) return [animatedElement];
+
+      return triggerIds
+        .map(function(id){
+          return record.querySelector('.tn-elem__862347176' + id + ', .tn-group__862347176' + id);
+        })
+        .filter(Boolean);
+    }
+
+    function bindCasePortfolioHover(){
+      var record = document.getElementById('rec862347176');
+      if (!record) return;
+
+      var animatedElements = Array.prototype.slice.call(
+        record.querySelectorAll('[data-animate-sbs-event="hover"]')
+      );
+      var triggerMap = new Map();
+
+      animatedElements.forEach(function(animatedElement){
+        getCaseHoverTriggers(record, animatedElement).forEach(function(trigger){
+          if (!triggerMap.has(trigger)) triggerMap.set(trigger, []);
+          triggerMap.get(trigger).push(animatedElement);
+        });
+      });
+
+      triggerMap.forEach(function(elements, trigger){
+        var hoverTarget = trigger.querySelector('.tn-molecule, .tn-atom') || trigger;
+        if (hoverTarget.dataset.caseHoverBridgeBound === 'true') return;
+        hoverTarget.dataset.caseHoverBridgeBound = 'true';
+        trigger.dataset.caseHoverBridgeBound = 'true';
+
+        hoverTarget.addEventListener('mouseenter', function(){
+          elements.forEach(function(element){ forceCaseHoverAnimation(element, false); });
+        });
+
+        hoverTarget.addEventListener('mouseleave', function(){
+          elements.forEach(function(element){ forceCaseHoverAnimation(element, true); });
+        });
+      });
+    }
+
     bindCasePreviews();
+    bindCasePortfolioHover();
     document.addEventListener('click', activateVisiblePreviews, { passive:true });
     document.addEventListener('touchstart', activateVisiblePreviews, { passive:true });
     document.addEventListener('pointermove', activateVisiblePreviews, { passive:true });
@@ -647,8 +717,14 @@ const casePreviewVideoAssets = `<style>
     document.addEventListener('wheel', activateVisiblePreviews, { passive:true });
     document.addEventListener('keydown', activateVisiblePreviews);
     window.addEventListener('load', bindCasePreviews);
+    window.addEventListener('load', bindCasePortfolioHover);
     window.addEventListener('pageshow', bindCasePreviews);
+    window.addEventListener('pageshow', bindCasePortfolioHover);
     window.addEventListener('resize', bindCasePreviews);
+    window.addEventListener('resize', function(){
+      window.clearTimeout(window.__caseHoverBridgeResizeTimer);
+      window.__caseHoverBridgeResizeTimer = window.setTimeout(bindCasePortfolioHover, 600);
+    });
     window.addEventListener('scroll', activateVisiblePreviews, { passive:true });
   }());
 </script>`;
@@ -1554,10 +1630,6 @@ function dedupeHeadAssetReferences(html: string) {
 const unusedTildaHeadAssets = [
   "https://neo.tildacdn.com/js/tilda-fallback-1.0.min.js",
   "https://ws.tildacdn.com",
-  "css/tilda-zero-gallery-1.0.min.css",
-  "css/tilda-zoom-2.0.min.css",
-  "js/tilda-zero-gallery-1.0.min.js",
-  "js/tilda-zoom-2.0.min.js",
 ];
 
 const headHtml = dedupeHeadAssetReferences(
