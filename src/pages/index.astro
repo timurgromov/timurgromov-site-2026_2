@@ -1209,6 +1209,31 @@ const contactShortcutEnhancer = `<style>
 const popupContactShortcutMarkup = ` <div class='t396__elem tn-elem tn-elem__8627076081746200000001' data-elem-id='1746200000001' data-elem-type='text' data-field-top-value="436" data-field-left-value="1405" data-field-height-value="24" data-field-width-value="310" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-textfit-value="autoheight" data-field-fontsize-value="20" data-field-top-res-640-value="532" data-field-left-res-640-value="332" data-field-width-res-640-value="240" data-field-fontsize-res-640-value="13" data-field-top-res-1200-value="288" data-field-left-res-1200-value="880" data-field-width-res-1200-value="280" data-field-fontsize-res-1200-value="13"> <div class='tn-atom'><span class="contact-shortcut-inline__content"><span class="contact-shortcut-inline__label">Написать мне</span><a class="contact-shortcut-inline__link" href="${telegramContactUrl}" target="_blank" rel="nofollow">Telegram</a><a class="contact-shortcut-inline__link" href="${maxContactUrl}" target="_blank" rel="nofollow">MAX</a></span></div> </div>`;
 const footerContactShortcutMarkup = ` <div class='t396__elem tn-elem tn-elem__8626239211746200000002' data-elem-id='1746200000002' data-elem-type='text' data-field-top-value="928" data-field-left-value="1285" data-field-height-value="24" data-field-width-value="320" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-textfit-value="autoheight" data-field-fontsize-value="20" data-field-top-res-320-value="532" data-field-left-res-320-value="25" data-field-width-res-320-value="220" data-field-fontsize-res-320-value="12" data-field-top-res-640-value="566" data-field-left-res-640-value="311" data-field-width-res-640-value="230" data-field-fontsize-res-640-value="13" data-field-top-res-1200-value="584" data-field-left-res-1200-value="800" data-field-width-res-1200-value="260" data-field-fontsize-res-1200-value="13"> <div class='tn-atom'><span class="contact-shortcut-inline__content"><span class="contact-shortcut-inline__label">Написать мне</span><a class="contact-shortcut-inline__link" href="${telegramContactUrl}" target="_blank" rel="nofollow">Telegram</a><a class="contact-shortcut-inline__link" href="${maxContactUrl}" target="_blank" rel="nofollow">MAX</a></span></div> </div>`;
 
+const sectionSpacingPolish = `<style>
+  #rec862405056{
+    margin-bottom:-80px;
+  }
+  #rec862529266{
+    margin-bottom:-80px;
+  }
+  @media screen and (max-width:1199px){
+    #rec862405056{
+      margin-bottom:-140px;
+    }
+    #rec862529266{
+      margin-bottom:-130px;
+    }
+  }
+  @media screen and (max-width:639px){
+    #rec862405056{
+      margin-bottom:0;
+    }
+    #rec862529266{
+      margin-bottom:-60px;
+    }
+  }
+</style>`;
+
 const standaloneShowreelPopupMarkup = `<div id="clean-showreel-popup" class="clean-showreel-popup" aria-hidden="true">
   <div class="clean-showreel-popup__backdrop" data-clean-showreel-close></div>
   <button class="clean-showreel-popup__close" type="button" aria-label="Закрыть видео" data-clean-showreel-close></button>
@@ -1649,6 +1674,9 @@ const headHtml = dedupeHeadAssetReferences(
   )
   .concat(
     contactShortcutEnhancer,
+  )
+  .concat(
+    sectionSpacingPolish,
   )
   .concat(
     casePreviewVideoAssets,
