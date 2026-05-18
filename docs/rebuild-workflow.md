@@ -74,8 +74,9 @@
 1. сверка с export;
 2. сверка с GitHub Pages;
 3. локальная сборка;
-4. визуальная проверка через браузер/Playwright на одинаковом viewport;
-5. только после этого переход дальше.
+4. быстрая проверка маркеров в HTML или `verify:pages` после публикации;
+5. визуальную проверку через браузер/Playwright делать только для крупных секций, спорной геометрии, контактов/popup/footer/video или по прямой просьбе владельца;
+6. для простых визуальных правок отдавать опубликованную страницу владельцу на ручную проверку, не задерживая push из-за автоматических скриншотов.
 
 ## 7. Change Cycle
 Для каждого значимого изменения:
@@ -86,7 +87,8 @@
 5. commit;
 6. push в **`main`**;
 7. дождаться GitHub Actions (**Deploy to gh-pages**) — ветка `gh-pages` обновится сама;
-8. проверить live URL.
+8. быстро проверить live URL по HTML-маркерам;
+9. попросить владельца проверить визуально, если изменение относится к дизайну/верстке и не требует обязательной автоматической browser-проверки.
 
 Ручной деплой на Pages только если CI недоступен: `npm run deploy:pages` (см. `docs/github-pages-deploy.md`).
 
@@ -113,6 +115,8 @@ Popup и burger/menu overlay — состояния интерфейса вну�
 ```bash
 ps aux | egrep "headless|remote-debugging-port|astro preview|npm run preview" | grep -v egrep
 ```
+
+Не запускать preview/headless/Playwright/MCP browser автоматически для простых правок текста, цен, CSS hover/active-состояний и небольших перестановок внутри уже существующего Zero Block. Для таких задач действует короткий цикл из `docs/quick-edit-playbook.md`: build -> commit -> push -> live marker check -> ручная проверка владельцем.
 
 ## 12. Video Rule
 Видео уже подключены через native video + VPS media. При любых задачах с видео сначала читать `docs/video-link-registry.md` и `docs/do-not-break-this-site.md`.
