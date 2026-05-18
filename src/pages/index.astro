@@ -1298,7 +1298,7 @@ const priceSectionMarkup = `<div id="rec862304479" class="r t-rec price-section-
   </section>
 </div>`;
 
-const priceSectionAssets = `<style>
+const unusedDarkPriceSectionAssets = `<style>
   #rec862304479.price-section-custom{
     background:#202020;
     color:#fffefa;
@@ -1626,6 +1626,64 @@ const priceSectionAssets = `<style>
     #rec862304479 .price-contact-links a{
       min-height:44px;
       font-size:15px;
+    }
+  }
+</style>`;
+
+const priceSectionAssets = `<style>
+  #rec862304479,
+  #rec862317152{
+    background:#fffefa !important;
+  }
+  #rec862317152 .tn-elem[data-elem-id="1738854720290"] .tn-atom ul{
+    margin:0;
+    padding-left:1.05em;
+  }
+  #rec862317152 .tn-elem[data-elem-id="1738854720290"] .tn-atom li{
+    margin:0 0 3px;
+  }
+  #rec862317152 .tn-elem[data-elem-id="1738854964490"] .tn-atom,
+  #rec862317152 .tn-elem[data-elem-id="1738855283679"] .tn-atom{
+    white-space:nowrap;
+  }
+  @media screen and (max-width:1919px){
+    #rec862317152 .tn-elem[data-elem-id="1738854720290"] .tn-atom li{
+      margin-bottom:1px;
+    }
+  }
+  @media screen and (max-width:1199px){
+    #rec862317152 .tn-elem[data-elem-id="1738854964490"] .tn-atom,
+    #rec862317152 .tn-elem[data-elem-id="1738855283679"] .tn-atom{
+      white-space:nowrap;
+    }
+  }
+  @media screen and (max-width:639px){
+    #rec862317152 .t396__artboard,
+    #rec862317152 .t396__filter,
+    #rec862317152 .t396__carrier{
+      height:610px !important;
+    }
+    #rec862317152 .tn-elem[data-elem-id="1738853836587"]{
+      height:396px !important;
+    }
+    #rec862317152 .tn-elem[data-elem-id="1738854720290"] .tn-atom ul{
+      padding-left:1em;
+    }
+    #rec862317152 .tn-elem[data-elem-id="1738854720290"] .tn-atom li{
+      margin-bottom:0;
+    }
+    #rec862317152 .tn-elem[data-elem-id="1738854964490"]{
+      top:424px !important;
+    }
+    #rec862317152 .tn-elem[data-elem-id="1738855086828"],
+    #rec862317152 .tn-elem[data-elem-id="1738855153779"]{
+      top:463px !important;
+    }
+    #rec862317152 .tn-elem[data-elem-id="1738855283679"]{
+      top:508px !important;
+    }
+    #rec862317152 .tn-elem[data-elem-id="1738855283674"]{
+      top:547px !important;
     }
   }
 </style>`;
@@ -2164,17 +2222,75 @@ const filteredBodySource = hiddenMarketingVideoAdviceElementIds
   );
 
 const legacyPriceRecordIds = [
-  "rec862317152",
   "rec862334119",
   "rec862336377",
   "rec862341428",
 ];
 
-const priceBodySource = replaceTildaRecord(
-  legacyPriceRecordIds.reduce(removeTildaRecord, filteredBodySource),
-  "rec862304479",
-  priceSectionMarkup,
-);
+const priceBodySource = legacyPriceRecordIds
+  .reduce(removeTildaRecord, filteredBodySource)
+  .replace(
+    /(#rec862317152 \.t396__artboard,#rec862317152 \.t396__filter,#rec862317152 \.t396__carrier \{height:)536px;/,
+    (_, prefix) => `${prefix}610px;`,
+  )
+  .replace(/(data-artboard-height-res-320=")536"/, (_, prefix) => `${prefix}610"`)
+  .replace(
+    /(#rec862317152 \.tn-elem\[data-elem-id="1738853836587"\]\{top:184px;;left:calc\(50% - 160px \+ 10px\);;width:300px;height:)322px;/,
+    (_, prefix) => `${prefix}396px;`,
+  )
+  .replace(
+    /(data-elem-id='1738853836587'[\s\S]*?data-field-height-res-320-value=")322"/,
+    (_, prefix) => `${prefix}396"`,
+  )
+  .replace(
+    /(#rec862317152 \.tn-elem\[data-elem-id="1738854964490"\]\{top:)374px;/,
+    (_, prefix) => `${prefix}424px;`,
+  )
+  .replace(
+    /(data-elem-id='1738854964490'[\s\S]*?data-field-top-res-320-value=")374"/,
+    (_, prefix) => `${prefix}424"`,
+  )
+  .replace(
+    /(#rec862317152 \.tn-elem\[data-elem-id="1738855086828"\]\{top:)405px;/,
+    (_, prefix) => `${prefix}463px;`,
+  )
+  .replace(
+    /(data-elem-id='1738855086828'[\s\S]*?data-field-top-res-320-value=")405"/,
+    (_, prefix) => `${prefix}463"`,
+  )
+  .replace(
+    /(#rec862317152 \.tn-elem\[data-elem-id="1738855153779"\]\{top:)405px;/,
+    (_, prefix) => `${prefix}463px;`,
+  )
+  .replace(
+    /(data-elem-id='1738855153779'[\s\S]*?data-field-top-res-320-value=")405"/,
+    (_, prefix) => `${prefix}463"`,
+  )
+  .replace(
+    /(#rec862317152 \.tn-elem\[data-elem-id="1738855283679"\]\{top:)442px;/,
+    (_, prefix) => `${prefix}508px;`,
+  )
+  .replace(
+    /(data-elem-id='1738855283679'[\s\S]*?data-field-top-res-320-value=")442"/,
+    (_, prefix) => `${prefix}508"`,
+  )
+  .replace(
+    /(#rec862317152 \.tn-elem\[data-elem-id="1738855283674"\]\{top:)473px;/,
+    (_, prefix) => `${prefix}547px;`,
+  )
+  .replace(
+    /(data-elem-id='1738855283674'[\s\S]*?data-field-top-res-320-value=")473"/,
+    (_, prefix) => `${prefix}547"`,
+  )
+  .replace(
+    `<ul><li data-list="bullet">Работа ведущего (5 часов)</li><li data-list="bullet">Профессиональный Dj (5 часов) </li><li data-list="bullet">Разработка сценария и концепции </li><li data-list="bullet">Помощь с подготовкой </li><li data-list="bullet">Консультации (без ограничений)</li><li data-list="bullet">2-3 встречи (онлайн/офлайн) </li><li data-list="bullet">Поделюсь базой проверенных подрядчиков</li></ul>`,
+    `<ul><li data-list="bullet">Камерная свадьба до 45 гостей — 5 часов</li><li data-list="bullet">Классическая свадьба более 45 гостей — 6 часов</li><li data-list="bullet">Ведущий + DJ + оборудование под ключ</li><li data-list="bullet">Сценарий, встречи и созвоны до свадьбы</li><li data-list="bullet">Помощь с таймингом и синхронизацией подрядчиков</li><li data-list="bullet">Спокойный контроль ключевых моментов вечера</li></ul>`,
+  )
+  .replace("105 000 ₽ / 125 000 ₽", "125 000 ₽ / 145 000 ₽")
+  .replace("20 000 ₽ / час", "15 000 / 20 000 ₽ / час")
+  .replace("Пн - Чт", "До 45 гостей")
+  .replace(" Пт - Вс", "Более 45 гостей")
+  .replace("Продление в любой день", "Продление по формату");
 
 const transformedBodyHtml = priceBodySource
   // Tilda t270 by default writes section hashes into history, so the browser can reopen /#about.

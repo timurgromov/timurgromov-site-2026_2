@@ -10,7 +10,7 @@
 | 4 | about | `index.astro` | `rec861444942` + `rec861496085` (+ popup `rec862626481/rec862626544` позже) |
 | 5 | как я веду | `index.astro` | якорь `rec864988776`, секция `rec861547217` |
 | 6 | полезности | — | |
-| 7 | price | `src/pages/index.astro` | якорь `rec862619449`, кастомная замена `rec862304479`, старые records `rec862317152` + `rec862334119` + `rec862336377`, старый tabs-controller `rec862341428` |
+| 7 | price | `src/pages/index.astro` | якорь `rec862619449`; сохранены старые visible records `rec862304479` + `rec862317152`, в `rec862317152` через transform заменён текст прайса; скрытые старые таб-records `rec862334119` + `rec862336377` и tabs-controller `rec862341428` удаляются |
 | 8 | cases | — | |
 | 9 | contacts / footer | `src/pages/index.astro`, `scripts/check-contact-layout.mjs` | `rec862623921`, см. `docs/quick-edit-playbook.md` |
 | 10 | popup/menu overlay | `src/pages/index.astro`, `scripts/check-contact-layout.mjs` | `rec862707608`, см. `docs/quick-edit-playbook.md` |
