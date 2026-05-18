@@ -8,6 +8,8 @@
 
 Тебе и агенту **не нужно вручную** вызывать `npx gh-pages` в нормальном режиме — достаточно **закоммитить и запушить `main`**.
 
+Важно: push в `pushable-scaffold`, `codex/...` или любую другую рабочую ветку **не обновляет публичный сайт**. Для задач "поменять сайт" работа не считается законченной, пока `origin/main` не указывает на финальный коммит и live URL не проверен.
+
 Ручной деплой — только запасной вариант (CI упал, Actions отключены, форс-обновить без коммита): см. §6.
 
 ## 1. Что где лежит
@@ -31,6 +33,18 @@
 3. `git add` / `git commit` / **`git push` в `main`** (через обычный git по HTTPS — см. §4).
 4. На GitHub открыть вкладку **Actions** — дождаться зелёного прогона **Deploy to gh-pages**.
 5. Через 1–3 минуты проверить live URL (при необходимости жёсткое обновление / инкогнито).
+
+Если работа идёт из другой локальной ветки, но финальный коммит уже готов и должен стать публичным:
+
+```bash
+git push origin HEAD:main
+```
+
+После этого обязательно проверить, что `gh-pages` собран из этого же SHA и опубликованный HTML содержит новые маркеры:
+
+```bash
+npm run verify:pages -- --contains "новый текст" --absent "старый текст"
+```
 
 ## 3. Один раз: положить workflow в репозиторий
 
@@ -132,9 +146,10 @@ npx --yes gh-pages -d dist -b gh-pages
 ## 7. Частые ошибки
 
 1. **Смотришь на сайт, а изменений нет** — не дождался Actions или кеш браузера; открой вкладку Actions.
-2. **Сломанные пути к картинкам на Pages** — в Astro заданы `site` и **`base`**; пути из `public/` собирать с учётом base (в проекте — `asset()` в `index.astro`).
-3. **`Could not resolve host: github.com`** — сеть на машине; push/CI не обновили репо.
-4. **Workflow не попал в репозиторий** — см. §3 (scope `workflow` или создание файла на GitHub).
+2. **Запушил не туда** — push в `pushable-scaffold` или другую рабочую ветку не запускает публикацию; нужен `git push origin HEAD:main`.
+3. **Сломанные пути к картинкам на Pages** — в Astro заданы `site` и **`base`**; пути из `public/` собирать с учётом base (в проекте — `asset()` в `index.astro`).
+4. **`Could not resolve host: github.com`** — сеть на машине; push/CI не обновили репо.
+5. **Workflow не попал в репозиторий** — см. §3 (scope `workflow` или создание файла на GitHub).
 
 ## 8. Опциональная ветка `gh-pages-source`
 
@@ -142,6 +157,8 @@ npx --yes gh-pages -d dist -b gh-pages
 
 ## 9. Шпаргалка
 
-**Нормально:** правки → commit → **`git push origin main`** → ждать Actions.
+**Нормально:** правки → commit → **`git push origin main`** → ждать Actions → `npm run verify:pages -- --contains "новый маркер"`.
+
+**Если сидишь на рабочей ветке:** правки → commit → **`git push origin HEAD:main`** → ждать Actions → `npm run verify:pages -- --contains "новый маркер"`.
 
 **Запас:** `npm run deploy:pages`.

@@ -26,7 +26,8 @@
 6. Если это контакты, popup, меню, телефон, Telegram/MAX, Instagram/VK или footer - обязательно запустить `npm run verify:contacts`.
 7. Если это другая визуальная правка - минимум `npm run build`; если есть риск геометрии, добавить маленькую проверку в `scripts/check-contact-layout.mjs`.
 8. После browser/headless/preview проверки закрыть тестовые процессы.
-9. Только после успешной проверки: commit, push в `main`, deploy.
+9. Только после успешной проверки: commit, push именно в `main`, дождаться автодеплоя `gh-pages`, проверить опубликованный GitHub Pages URL.
+10. Если push был только в рабочую ветку, сайт не обновлён. Для live-задач это незавершённая работа.
 
 ## Нельзя
 
@@ -97,3 +98,19 @@ ps aux | egrep "contact-layout-chrome|remote-debugging-port=|headless=new|astro 
 ```
 
 Если команда ничего не выводит - тестовых процессов нет.
+
+## Быстрый deploy-check
+
+Публичный сайт обновляется автоматически только после push в `main`: workflow `.github/workflows/deploy-gh-pages.yml` собирает `dist/` и пушит его в ветку `gh-pages`.
+
+Минимальная команда после публикации:
+
+```bash
+npm run verify:pages -- --contains "текст, который должен появиться" --absent "старый текст, который должен исчезнуть"
+```
+
+Для блока цен пример:
+
+```bash
+npm run verify:pages -- --contains "Два понятных формата" --contains "145 000 ₽" --absent "105 000 ₽ / 125 000 ₽" --absent "Пн - Чт"
+```
