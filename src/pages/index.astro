@@ -107,6 +107,12 @@ const heroPosterMobileUrl = `${basePath}images/hero-poster-mobile.jpg?v=${heroPo
 const telegramContactUrl = "https://t.me/timurgromovv";
 const maxContactUrl =
   "https://max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM?clckid=c487e7dc";
+const pricePhotoPrimaryUrl =
+  "images/tild3134-3130-4739-b462-666632633730______3iiwa_mnwni_1_2_.png";
+const pricePhotoTeamUrl =
+  "images/tild3131-3339-4434-b133-363636653433____548_2.png";
+const pricePhotoContactUrl =
+  "images/tild3835-6631-4561-a637-323435623332__y6mmbvcd9l8_1.png";
 const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
   <source
     media="(max-width: 639px)"
@@ -1209,6 +1215,421 @@ const contactShortcutEnhancer = `<style>
 const popupContactShortcutMarkup = ` <div class='t396__elem tn-elem tn-elem__8627076081746200000001' data-elem-id='1746200000001' data-elem-type='text' data-field-top-value="436" data-field-left-value="1405" data-field-height-value="24" data-field-width-value="310" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-textfit-value="autoheight" data-field-fontsize-value="20" data-field-top-res-640-value="532" data-field-left-res-640-value="332" data-field-width-res-640-value="240" data-field-fontsize-res-640-value="13" data-field-top-res-1200-value="288" data-field-left-res-1200-value="880" data-field-width-res-1200-value="280" data-field-fontsize-res-1200-value="13"> <div class='tn-atom'><span class="contact-shortcut-inline__content"><span class="contact-shortcut-inline__label">Написать мне</span><a class="contact-shortcut-inline__link" href="${telegramContactUrl}" target="_blank" rel="nofollow">Telegram</a><a class="contact-shortcut-inline__link" href="${maxContactUrl}" target="_blank" rel="nofollow">MAX</a></span></div> </div>`;
 const footerContactShortcutMarkup = ` <div class='t396__elem tn-elem tn-elem__8626239211746200000002' data-elem-id='1746200000002' data-elem-type='text' data-field-top-value="928" data-field-left-value="1285" data-field-height-value="24" data-field-width-value="320" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-textfit-value="autoheight" data-field-fontsize-value="20" data-field-top-res-320-value="532" data-field-left-res-320-value="25" data-field-width-res-320-value="220" data-field-fontsize-res-320-value="12" data-field-top-res-640-value="566" data-field-left-res-640-value="311" data-field-width-res-640-value="230" data-field-fontsize-res-640-value="13" data-field-top-res-1200-value="584" data-field-left-res-1200-value="800" data-field-width-res-1200-value="260" data-field-fontsize-res-1200-value="13"> <div class='tn-atom'><span class="contact-shortcut-inline__content"><span class="contact-shortcut-inline__label">Написать мне</span><a class="contact-shortcut-inline__link" href="${telegramContactUrl}" target="_blank" rel="nofollow">Telegram</a><a class="contact-shortcut-inline__link" href="${maxContactUrl}" target="_blank" rel="nofollow">MAX</a></span></div> </div>`;
 
+const priceSectionMarkup = `<div id="rec862304479" class="r t-rec price-section-custom" style=" " data-animationappear="off" data-record-type="396">
+  <section class="price-section" aria-labelledby="price-section-title">
+    <div class="price-section__inner">
+      <div class="price-section__header">
+        <p class="price-section__eyebrow">честно о ценах</p>
+        <div class="price-section__intro">
+          <h2 id="price-section-title">Два понятных формата без скрытых доплат</h2>
+          <p>В стоимость уже входят ведущий, DJ и оборудование. Вы выбираете масштаб свадьбы, а не собираете смету из отдельных пунктов.</p>
+        </div>
+      </div>
+
+      <div class="price-section__row price-section__row--formats">
+        <div class="price-section__panel price-section__panel--formats">
+          <article class="price-format">
+            <div>
+              <p class="price-format__kicker">До 45 гостей</p>
+              <h3>Камерная свадьба</h3>
+              <p class="price-format__offer">Ведущий + DJ + оборудование под ключ</p>
+            </div>
+            <div class="price-format__numbers">
+              <p><span>5 часов программы</span><strong>125 000 ₽</strong></p>
+              <p><span>Дополнительный час</span><strong>15 000 ₽</strong></p>
+            </div>
+            <p class="price-format__note">Для уютных свадеб с самыми близкими, где важна теплая атмосфера и внимание к каждому гостю.</p>
+          </article>
+          <article class="price-format">
+            <div>
+              <p class="price-format__kicker">Более 45 гостей</p>
+              <h3>Классическая свадьба</h3>
+              <p class="price-format__offer">Ведущий + DJ + оборудование под ключ</p>
+            </div>
+            <div class="price-format__numbers">
+              <p><span>6 часов программы</span><strong>145 000 ₽</strong></p>
+              <p><span>Дополнительный час</span><strong>20 000 ₽</strong></p>
+            </div>
+            <p class="price-format__note">Для свадеб с большим количеством гостей, насыщенной программой и более активной динамикой вечера.</p>
+          </article>
+        </div>
+        <figure class="price-section__media" aria-hidden="true">
+          <img src="${pricePhotoPrimaryUrl}" alt="" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+
+      <div class="price-section__row price-section__row--value">
+        <div class="price-section__panel price-section__panel--value">
+          <h3>Что входит в работу</h3>
+          <ul class="price-value-list">
+            <li>работа ведущего на программе</li>
+            <li>профессиональный DJ</li>
+            <li>звук, микрофоны и оборудование под выбранный формат</li>
+            <li>разработка сценария и структуры вечера</li>
+            <li>встречи и созвоны до свадьбы</li>
+            <li>помощь с таймингом</li>
+            <li>предварительная синхронизация с подрядчиками и площадкой</li>
+            <li>спокойный контроль ключевых моментов вечера</li>
+          </ul>
+          <p class="price-section__fineprint">Я не заменяю свадебного координатора, но помогаю выстроить ход вечера так, чтобы праздник проходил спокойно и без хаоса.</p>
+        </div>
+        <figure class="price-section__media" aria-hidden="true">
+          <img src="${pricePhotoTeamUrl}" alt="" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+
+      <div class="price-section__row price-section__row--contact">
+        <div class="price-section__panel price-section__panel--contact">
+          <div>
+            <h3>Бесплатная консультация</h3>
+            <p>На встрече разберем масштаб свадьбы, подберем подходящий формат и честно обсудим, что понадобится именно вашей площадке. Встреча бесплатная и ни к чему не обязывает.</p>
+          </div>
+          <div class="price-contact-links" aria-label="Способы связаться">
+            <a href="${telegramContactUrl}" target="_blank" rel="nofollow">Написать в Telegram</a>
+            <a href="${maxContactUrl}" target="_blank" rel="nofollow">Написать в MAX</a>
+            <a href="tel:+79253900772">+7 925 390 07 72</a>
+          </div>
+        </div>
+        <figure class="price-section__media" aria-hidden="true">
+          <img src="${pricePhotoContactUrl}" alt="" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+    </div>
+  </section>
+</div>`;
+
+const priceSectionAssets = `<style>
+  #rec862304479.price-section-custom{
+    background:#202020;
+    color:#fffefa;
+  }
+  #rec862304479.price-section-custom *{
+    box-sizing:border-box;
+  }
+  #rec862304479 .price-section{
+    padding:110px 0 88px;
+    font-family:'Manrope', Arial, sans-serif;
+  }
+  #rec862304479 .price-section__inner{
+    width:min(calc(100% - 130px), 1790px);
+    margin:0 auto;
+  }
+  #rec862304479 .price-section__header{
+    display:grid;
+    grid-template-columns:minmax(0, 620px) minmax(0, 830px);
+    gap:90px;
+    align-items:end;
+    margin-bottom:38px;
+  }
+  #rec862304479 .price-section__eyebrow{
+    margin:0;
+    color:#fffefa;
+    font-size:96px;
+    font-weight:400;
+    line-height:.98;
+    letter-spacing:0;
+    text-transform:lowercase;
+  }
+  #rec862304479 .price-section__intro{
+    max-width:760px;
+  }
+  #rec862304479 .price-section__intro h2{
+    margin:0 0 18px;
+    color:#fffefa;
+    font-size:52px;
+    font-weight:400;
+    line-height:1.04;
+    letter-spacing:0;
+  }
+  #rec862304479 .price-section__intro p,
+  #rec862304479 .price-section__panel p,
+  #rec862304479 .price-section__panel li{
+    margin:0;
+    color:rgba(255,254,250,.78);
+    font-size:20px;
+    font-weight:400;
+    line-height:1.35;
+    letter-spacing:0;
+  }
+  #rec862304479 .price-section__row{
+    display:grid;
+    grid-template-columns:minmax(0, 880px) minmax(0, 880px);
+    gap:30px;
+    align-items:stretch;
+    margin-top:30px;
+  }
+  #rec862304479 .price-section__panel,
+  #rec862304479 .price-section__media{
+    min-height:480px;
+    border-radius:5px;
+    overflow:hidden;
+  }
+  #rec862304479 .price-section__panel{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    background:#2a2927;
+    padding:32px;
+  }
+  #rec862304479 .price-section__media{
+    margin:0;
+    background:#2a2927;
+  }
+  #rec862304479 .price-section__media img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+  }
+  #rec862304479 .price-section__panel--formats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+  }
+  #rec862304479 .price-format{
+    display:flex;
+    min-width:0;
+    flex-direction:column;
+    justify-content:space-between;
+    gap:26px;
+  }
+  #rec862304479 .price-format + .price-format{
+    border-left:1px solid rgba(255,254,250,.18);
+    padding-left:30px;
+  }
+  #rec862304479 .price-format__kicker{
+    display:inline-flex;
+    width:fit-content;
+    margin:0 0 18px;
+    padding:8px 12px;
+    border:1px solid rgba(255,254,250,.22);
+    border-radius:999px;
+    color:#fffefa;
+    font-size:14px;
+    line-height:1;
+  }
+  #rec862304479 .price-format h3,
+  #rec862304479 .price-section__panel h3{
+    margin:0;
+    color:#fffefa;
+    font-size:42px;
+    font-weight:400;
+    line-height:1.05;
+    letter-spacing:0;
+  }
+  #rec862304479 .price-format__offer{
+    max-width:310px;
+    margin-top:16px !important;
+    color:#fffefa !important;
+  }
+  #rec862304479 .price-format__numbers{
+    display:grid;
+    gap:16px;
+  }
+  #rec862304479 .price-format__numbers p{
+    display:grid;
+    gap:7px;
+  }
+  #rec862304479 .price-format__numbers span{
+    color:rgba(255,254,250,.64);
+    font-size:15px;
+    line-height:1.15;
+  }
+  #rec862304479 .price-format__numbers strong{
+    color:#fffefa;
+    font-size:40px;
+    font-weight:400;
+    line-height:1;
+    white-space:nowrap;
+  }
+  #rec862304479 .price-format__note{
+    max-width:340px;
+    font-size:16px !important;
+  }
+  #rec862304479 .price-value-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px 28px;
+    margin:34px 0 0;
+    padding:0;
+    list-style:none;
+  }
+  #rec862304479 .price-value-list li{
+    position:relative;
+    min-height:26px;
+    padding-left:20px;
+  }
+  #rec862304479 .price-value-list li::before{
+    content:"";
+    position:absolute;
+    top:.62em;
+    left:0;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#fa4604;
+  }
+  #rec862304479 .price-section__fineprint{
+    max-width:700px;
+    margin-top:34px !important;
+    color:#fffefa !important;
+  }
+  #rec862304479 .price-section__panel--contact{
+    gap:38px;
+  }
+  #rec862304479 .price-section__panel--contact h3{
+    margin-bottom:22px;
+  }
+  #rec862304479 .price-section__panel--contact p{
+    max-width:760px;
+  }
+  #rec862304479 .price-contact-links{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:10px;
+  }
+  #rec862304479 .price-contact-links a{
+    display:flex;
+    min-height:48px;
+    align-items:center;
+    justify-content:center;
+    border:1px solid rgba(255,254,250,.18);
+    border-radius:5px;
+    color:#fffefa;
+    font-size:18px;
+    line-height:1.1;
+    text-align:center;
+    text-decoration:none;
+    transition:background-color .2s ease, border-color .2s ease;
+  }
+  #rec862304479 .price-contact-links a:first-child{
+    border-color:#fa4604;
+    background:#fa4604;
+  }
+  #rec862304479 .price-contact-links a:hover{
+    border-color:#fa4604;
+    background:#fa4604;
+  }
+  @media screen and (max-width:1199px){
+    #rec862304479 .price-section{
+      padding:110px 0 72px;
+    }
+    #rec862304479 .price-section__inner{
+      width:min(calc(100% - 80px), 1120px);
+    }
+    #rec862304479 .price-section__header{
+      grid-template-columns:1fr;
+      gap:24px;
+      margin-bottom:30px;
+    }
+    #rec862304479 .price-section__eyebrow{
+      font-size:64px;
+    }
+    #rec862304479 .price-section__intro h2{
+      max-width:760px;
+      font-size:44px;
+    }
+    #rec862304479 .price-section__row{
+      grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);
+      gap:20px;
+      margin-top:20px;
+    }
+    #rec862304479 .price-section__panel,
+    #rec862304479 .price-section__media{
+      min-height:520px;
+    }
+    #rec862304479 .price-section__panel{
+      padding:28px;
+    }
+    #rec862304479 .price-section__panel--formats{
+      grid-template-columns:1fr;
+      gap:22px;
+    }
+    #rec862304479 .price-format{
+      gap:18px;
+    }
+    #rec862304479 .price-format + .price-format{
+      border-top:1px solid rgba(255,254,250,.18);
+      border-left:0;
+      padding-top:22px;
+      padding-left:0;
+    }
+    #rec862304479 .price-format h3,
+    #rec862304479 .price-section__panel h3{
+      font-size:34px;
+    }
+    #rec862304479 .price-format__numbers strong{
+      font-size:34px;
+    }
+    #rec862304479 .price-section__intro p,
+    #rec862304479 .price-section__panel p,
+    #rec862304479 .price-section__panel li{
+      font-size:18px;
+    }
+    #rec862304479 .price-value-list{
+      grid-template-columns:1fr;
+      gap:13px;
+    }
+    #rec862304479 .price-contact-links{
+      grid-template-columns:1fr;
+    }
+  }
+  @media screen and (max-width:899px){
+    #rec862304479 .price-section__row{
+      grid-template-columns:1fr;
+    }
+    #rec862304479 .price-section__panel,
+    #rec862304479 .price-section__media{
+      min-height:auto;
+    }
+    #rec862304479 .price-section__media{
+      aspect-ratio:1.45;
+    }
+  }
+  @media screen and (max-width:639px){
+    #rec862304479 .price-section{
+      padding:110px 0 56px;
+    }
+    #rec862304479 .price-section__inner{
+      width:calc(100% - 40px);
+    }
+    #rec862304479 .price-section__eyebrow{
+      font-size:40px;
+    }
+    #rec862304479 .price-section__intro h2{
+      font-size:32px;
+    }
+    #rec862304479 .price-section__intro p,
+    #rec862304479 .price-section__panel p,
+    #rec862304479 .price-section__panel li{
+      font-size:15px;
+    }
+    #rec862304479 .price-section__panel{
+      padding:22px;
+    }
+    #rec862304479 .price-format h3,
+    #rec862304479 .price-section__panel h3{
+      font-size:28px;
+    }
+    #rec862304479 .price-format__offer{
+      max-width:none;
+    }
+    #rec862304479 .price-format__numbers strong{
+      font-size:30px;
+    }
+    #rec862304479 .price-format__note{
+      font-size:14px !important;
+    }
+    #rec862304479 .price-section__fineprint{
+      margin-top:26px !important;
+    }
+    #rec862304479 .price-contact-links a{
+      min-height:44px;
+      font-size:15px;
+    }
+  }
+</style>`;
+
 const sectionSpacingPolish = `<style>
   #rec862405056{
     margin-bottom:-80px;
@@ -1579,6 +2000,20 @@ function removeTildaRecord(html: string, recordId: string) {
   return `${html.slice(0, startIndex)}${html.slice(endIndex)}`;
 }
 
+function replaceTildaRecord(html: string, recordId: string, nextRecord: string) {
+  const startMarker = `<div id="${recordId}"`;
+  const startIndex = html.indexOf(startMarker);
+
+  if (startIndex === -1) {
+    return html;
+  }
+
+  const nextRecordIndex = html.indexOf(' <div id="rec', startIndex + startMarker.length);
+  const endIndex = nextRecordIndex === -1 ? html.length : nextRecordIndex;
+
+  return `${html.slice(0, startIndex)}${nextRecord}${html.slice(endIndex)}`;
+}
+
 function removeTildaElement(html: string, elemId: string) {
   const elemMarker = `data-elem-id='${elemId}'`;
   const markerIndex = html.indexOf(elemMarker);
@@ -1710,6 +2145,9 @@ const headHtml = dedupeHeadAssetReferences(
     contactShortcutEnhancer,
   )
   .concat(
+    priceSectionAssets,
+  )
+  .concat(
     sectionSpacingPolish,
   )
   .concat(
@@ -1725,7 +2163,20 @@ const filteredBodySource = hiddenMarketingVideoAdviceElementIds
     hiddenMarketingVideoAdviceRecordIds.reduce(removeTildaRecord, bodySource),
   );
 
-const transformedBodyHtml = filteredBodySource
+const legacyPriceRecordIds = [
+  "rec862317152",
+  "rec862334119",
+  "rec862336377",
+  "rec862341428",
+];
+
+const priceBodySource = replaceTildaRecord(
+  legacyPriceRecordIds.reduce(removeTildaRecord, filteredBodySource),
+  "rec862304479",
+  priceSectionMarkup,
+);
+
+const transformedBodyHtml = priceBodySource
   // Tilda t270 by default writes section hashes into history, so the browser can reopen /#about.
   // Keep anchor scrolling, but do not persist those hashes in the address bar.
   .replace(
