@@ -89,9 +89,16 @@ while (Date.now() <= deadline) {
   const html = await readLiveHtml();
   const { missing, stillPresent } = checkMarkers(html);
   const ghPagesMatchesMain = ghPagesSubject.includes(remoteMain);
+  const markersPass = missing.length === 0 && stillPresent.length === 0;
+  const hasMarkers = options.contains.length > 0 || options.absent.length > 0;
 
-  if (ghPagesMatchesMain && missing.length === 0 && stillPresent.length === 0) {
-    console.log(`GitHub Pages is deployed from ${remoteMain}.`);
+  if (markersPass && (ghPagesMatchesMain || hasMarkers)) {
+    if (ghPagesMatchesMain) {
+      console.log(`GitHub Pages is deployed from ${remoteMain}.`);
+    } else {
+      console.log(`Live markers are verified. Last gh-pages deploy: ${ghPagesSubject}`);
+      console.log("Note: gh-pages can stay on the previous deploy when the built dist output is unchanged.");
+    }
     console.log(`Live URL verified: ${options.url}`);
     if (options.contains.length) console.log(`Contains: ${options.contains.join(" | ")}`);
     if (options.absent.length) console.log(`Absent: ${options.absent.join(" | ")}`);
