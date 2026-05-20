@@ -10,7 +10,7 @@
 | 4 | about | `index.astro` | `rec861444942` + `rec861496085` (+ popup `rec862626481/rec862626544` позже) |
 | 5 | как я веду | `index.astro` | якорь `rec864988776`, секция `rec861547217` |
 | 6 | полезности | — | |
-| 7 | price | `src/pages/index.astro` | якорь `rec862619449`; сохранены Tilda records `rec862304479`, `rec862317152`, `rec862334119`, `rec862336377`; старый Nolim tabs-controller `rec862341428` удаляется, вкладки переключает scoped `priceTabsController`; контент вкладок: стоимость / что входит / консультация |
+| 7 | price | `src/pages/index.astro`, `docs/price-section-editing.md` | якорь `rec862619449`; сохранены Tilda records `rec862304479`, `rec862317152`, `rec862334119`, `rec862336377`; старый Nolim tabs-controller `rec862341428` удаляется, вкладки переключает scoped `priceTabsController`; контент вкладок: стоимость / что входит / консультация |
 | 8 | cases | — | |
 | 9 | contacts / footer | `src/pages/index.astro`, `scripts/check-contact-layout.mjs` | `rec862623921`, см. `docs/quick-edit-playbook.md` |
 | 10 | popup/menu overlay | `src/pages/index.astro`, `scripts/check-contact-layout.mjs` | `rec862707608`, см. `docs/quick-edit-playbook.md` |
