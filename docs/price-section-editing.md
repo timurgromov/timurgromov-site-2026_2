@@ -23,8 +23,8 @@
 |---|---|
 | CSS вкладок, тарифной сетки, списков | `priceSectionAssets` |
 | Переключение вкладок | `priceTabsController` |
-| Первая вкладка: тарифы | `priceFormatsMarkup` |
-| Вторая вкладка: что входит | `priceValueMarkup`, `priceFineprintMarkup` |
+| Первая вкладка: тарифы и ссылка `что входит в работу` | `priceFormatsMarkup` |
+| Вторая вкладка: что входит | `priceValueMarkup`; `priceFineprintMarkup` сейчас пустой |
 | Третья вкладка: консультация | `priceConsultationMarkup` |
 | Заголовки вкладок и замены Tilda-текстов | `priceTextReplacements`, `priceBodyWithText` |
 
@@ -69,6 +69,8 @@
 
 Вкладки используют родную Tilda-плашку фоном/рамкой. Не добавлять отдельные рамки на каждую кнопку: это превращает меню в три прямоугольника и ломает оригинальный вид.
 
+Под тарифами есть маленькая ссылка `что входит в работу`. Это `button` с `data-price-tab-target="includes"` внутри `priceFormatsMarkup`; обработчик в `priceTabsController` переключает ее на вкладку `что входит`.
+
 ## Fast Change Recipes
 
 ### Поменять текст тарифа
@@ -85,7 +87,7 @@ npm run verify:pages -- --contains "новый текст" --absent "стары�
 
 ### Поменять список "Что входит"
 
-Править `priceValueMarkup`. Если меняется нижнее пояснение - `priceFineprintMarkup`.
+Править `priceValueMarkup`. Не добавлять фразу "я не координатор" или похожие оправдательные формулировки. Владелец хочет говорить только о том, что он делает.
 
 ### Поменять текст консультации
 

@@ -1382,9 +1382,30 @@ const priceSectionAssets = `<style>
 
   .tg-price-under{
     max-width:790px;
-    margin-top:26px;
-    padding-top:18px;
-    border-top:1px solid rgba(28,27,26,.16);
+    margin-top:20px;
+    padding-top:0;
+    border-top:0;
+  }
+
+  .tg-price-includes-link{
+    appearance:none;
+    margin:0;
+    padding:0 0 2px;
+    border:0;
+    border-bottom:1px solid currentColor;
+    background:transparent;
+    color:#fa4604;
+    font:inherit;
+    line-height:1.1;
+    cursor:pointer;
+    text-align:left;
+    transition:color .18s ease;
+  }
+
+  .tg-price-includes-link:hover,
+  .tg-price-includes-link:focus-visible{
+    color:#1c1b1a;
+    outline:0;
   }
 
   .tg-price-value-list{
@@ -1510,7 +1531,10 @@ const priceSectionAssets = `<style>
     }
 
     .tg-price-under{
-      display:none;
+      display:block;
+      margin-top:11px;
+      font-size:13px;
+      line-height:1.18;
     }
 
     .tg-price-value-list{
@@ -1523,8 +1547,7 @@ const priceSectionAssets = `<style>
     }
 
     .tg-price-fineprint{
-      font-size:15px;
-      line-height:1.24;
+      display:none;
     }
   }
 
@@ -1584,7 +1607,7 @@ const priceSectionAssets = `<style>
     }
 
     .tg-price-fineprint{
-      font-size:15px;
+      display:none;
     }
   }
 
@@ -1676,8 +1699,8 @@ const priceSectionAssets = `<style>
     }
 
     .tg-price-under{
-      margin-top:18px;
-      padding-top:13px;
+      margin-top:16px;
+      padding-top:0;
     }
 
     .tg-price-value-list{
@@ -1696,8 +1719,7 @@ const priceSectionAssets = `<style>
     }
 
     .tg-price-fineprint{
-      font-size:13px;
-      line-height:1.25;
+      display:none;
     }
   }
 </style>`;
@@ -1738,6 +1760,12 @@ const priceTabsController = `<script>
         button.addEventListener('click', function(event){
           event.preventDefault();
           setActive(index);
+        });
+      });
+      document.querySelectorAll('[data-price-tab-target="includes"]').forEach(function(link){
+        link.addEventListener('click', function(event){
+          event.preventDefault();
+          setActive(1);
         });
       });
       setActive(0);
@@ -2385,20 +2413,18 @@ const priceFormatsMarkup = `<div class="tg-price-formats">
     <p class="tg-price-note">Для свадеб с большим количеством гостей, насыщенной программой и более активной динамикой вечера.</p>
   </article>
 </div>
-<p class="tg-price-under">Финальная цена понятна заранее: ведущий, DJ и оборудование уже входят в стоимость.</p>`;
+<p class="tg-price-under"><button class="tg-price-includes-link" type="button" data-price-tab-target="includes">что входит в работу</button></p>`;
 
 const priceValueMarkup = `<ul class="tg-price-value-list">
-  <li>работа ведущего на программе</li>
-  <li>профессиональный DJ</li>
-  <li>звук, микрофоны и оборудование под формат</li>
-  <li>сценарий и структура вечера</li>
-  <li>встречи и созвоны до свадьбы</li>
-  <li>помощь с таймингом</li>
-  <li>синхронизация с подрядчиками и площадкой</li>
-  <li>спокойный контроль ключевых моментов</li>
+  <li>помогаю собрать понятный тайминг вечера</li>
+  <li>заранее сверяю программу с DJ, площадкой и ключевыми подрядчиками</li>
+  <li>согласовываю технические моменты: звук, микрофоны, музыка, важные выходы</li>
+  <li>помогаю выстроить поздравления, торт, первый танец и другие ключевые моменты</li>
+  <li>держу ритм вечера, чтобы праздник шел спокойно и без хаоса</li>
+  <li>вижу вечер целиком, а не только сценарий и микрофон</li>
 </ul>`;
 
-const priceFineprintMarkup = `<p class="tg-price-fineprint">Я не заменяю свадебного координатора, но помогаю выстроить ход вечера так, чтобы праздник проходил спокойно и без хаоса.</p>`;
+const priceFineprintMarkup = ``;
 
 const priceConsultationMarkup =
   `На встрече разберем масштаб свадьбы, подберем подходящий формат и честно обсудим, что понадобится именно вашей площадке. Встреча бесплатная и ни к чему не обязывает.`;
