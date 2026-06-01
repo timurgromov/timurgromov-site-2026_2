@@ -1,8 +1,41 @@
 ---
 import { readFileSync } from "node:fs";
+import {
+  casePreviewVideoItems,
+  cleanVideoPopupItems,
+  heroCloudDesktopVideoUrl,
+  heroCloudMobileVideoUrl,
+  heroPosterVersion,
+  hiddenMarketingVideoAdviceElementIds,
+  hiddenMarketingVideoAdviceRecordIds,
+  maxContactUrl,
+  priceLegacyElementRemovals,
+  pricePhotoContactUrl,
+  pricePhotoPrimaryUrl,
+  pricePhotoTeamUrl,
+  priceTextReplacements,
+  telegramContactUrl,
+  videoMediaBaseUrl,
+} from "../site/home-data";
+import {
+  dedupeHeadAssetReferences,
+  injectBeforeTildaRecordScript,
+  injectCasePreviewVideos,
+  removeHeadAssetReferences,
+  removeTildaElement,
+  removeTildaElementInRecord,
+  removeTildaRecord,
+  replaceTildaButtonTextInRecord,
+  replaceTildaText,
+  replaceTildaTextInRecord,
+  restoreTildaImageSources,
+  transformTildaRecord,
+} from "../lib/tilda-transform";
 
 const basePath = import.meta.env.BASE_URL.replace(/\/?$/, "/");
-const previewUrl = new URL(basePath, "https://timurgromov.github.io").toString();
+const siteOrigin = "https://timurgromov.github.io";
+const previewUrl = new URL(basePath, siteOrigin).toString();
+const socialImageUrl = new URL(`${basePath}images/hero-poster-desktop.jpg`, siteOrigin).toString();
 
 const pageHtml = readFileSync(
   new URL("../../page62008353.html", import.meta.url),
@@ -27,92 +60,10 @@ if (!bodyTagMatch) {
 const bodyAttrs = bodyTagMatch[1];
 const bodyClass = bodyAttrs.match(/\bclass=(['"])(.*?)\1/i)?.[2];
 const bodyStyle = bodyAttrs.match(/\bstyle=(['"])(.*?)\1/i)?.[2];
-const videoMediaBaseUrl = "https://media.89-22-227-133.sslip.io";
-const heroCloudDesktopVideoUrl =
-  `${videoMediaBaseUrl}/hero_desc_RF28.mp4`;
-const heroCloudMobileVideoUrl =
-  `${videoMediaBaseUrl}/hero_mob_RF28.mp4`;
-const casePreviewVideoItems = [
-  {
-    shapeSelector: ".tn-elem__8623471761738859374619",
-    src: `${videoMediaBaseUrl}/demo_komoRF28.mp4`,
-  },
-  {
-    shapeSelector: ".tn-elem__8623471761738861518577",
-    src: `${videoMediaBaseUrl}/demo_morozRF28_576.mp4`,
-  },
-  {
-    shapeSelector: ".tn-elem__8623471761738862757939",
-    src: `${videoMediaBaseUrl}/demo_toscanaRF28.mp4`,
-  },
-  {
-    shapeSelector: ".tn-elem__8623471761738863568198",
-    src: `${videoMediaBaseUrl}/demo_nemchRF28_576.mp4`,
-  },
-] as const;
 const casePreviewVideoConfig = JSON.stringify(casePreviewVideoItems);
-const showreelPopupCloudVideoUrl =
-  `${videoMediaBaseUrl}/morozovkaRF24.mp4`;
-const cleanVideoPopupItems = [
-  {
-    hook: "#popup:showreel",
-    title: "Ведущий Тимур Громов",
-    src: showreelPopupCloudVideoUrl,
-  },
-  {
-    hook: "#popup:ozero-komo",
-    title: "Камерная свадьба на о. Комо",
-    src: `${videoMediaBaseUrl}/KomoRF26.mp4`,
-  },
-  {
-    hook: "#popup:morozovka",
-    title: "Грандиозная свадьба в Морозовке",
-    src: showreelPopupCloudVideoUrl,
-  },
-  {
-    hook: "#popup:toskana",
-    title: "Веселая свадьба в Тоскане",
-    src: `${videoMediaBaseUrl}/ToscanaRF26.mp4`,
-  },
-  {
-    hook: "#popup:kolizei",
-    title: "Красивая свадьба в Колизее",
-    src: `${videoMediaBaseUrl}/NemchinovkaRF28.mp4`,
-  },
-  {
-    hook: "#popup:anton-i-kristina",
-    title: "Антон и Кристина",
-    src: `${videoMediaBaseUrl}/review_anton_kristina_RF.mp4`,
-  },
-  {
-    hook: "#popup:temur-i-yana",
-    title: "Темур и Яна",
-    src: `${videoMediaBaseUrl}/review_temur_margo_RF.mp4`,
-  },
-  {
-    hook: "#popup:katya-i-zhenia",
-    title: "Катя и Женя",
-    src: `${videoMediaBaseUrl}/review_katya_zhenya_RF.mp4`,
-  },
-  {
-    hook: "#popup:russko-kubinskaya",
-    title: "Антон и Лея",
-    src: `${videoMediaBaseUrl}/review_russian_cuban_RF.mp4`,
-  },
-] as const;
 const cleanVideoPopupConfig = JSON.stringify(cleanVideoPopupItems);
-const heroPosterVersion = "2306bab";
 const heroPosterDesktopUrl = `${basePath}images/hero-poster-desktop.jpg?v=${heroPosterVersion}`;
 const heroPosterMobileUrl = `${basePath}images/hero-poster-mobile.jpg?v=${heroPosterVersion}`;
-const telegramContactUrl = "https://t.me/timurgromovv";
-const maxContactUrl =
-  "https://max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM?clckid=c487e7dc";
-const pricePhotoPrimaryUrl =
-  "images/tild3134-3130-4739-b462-666632633730______3iiwa_mnwni_1_2_.png";
-const pricePhotoTeamUrl =
-  "images/tild3131-3339-4434-b133-363636653433____548_2.png";
-const pricePhotoContactUrl =
-  "images/tild3835-6631-4561-a637-323435623332__y6mmbvcd9l8_1.png";
 const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
   <source
     media="(max-width: 639px)"
@@ -127,7 +78,7 @@ const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
     decoding="async"
   />
 </picture>`;
-const heroNativeVideoMarkup = `<video class="hero-native-video" muted playsinline webkit-playsinline preload="auto" poster="${heroPosterDesktopUrl}" src="${heroCloudDesktopVideoUrl}" aria-hidden="true"></video>`;
+const heroNativeVideoMarkup = `<video class="hero-native-video" muted playsinline webkit-playsinline preload="auto" poster="${heroPosterDesktopUrl}" data-desktop-src="${heroCloudDesktopVideoUrl}" data-mobile-src="${heroCloudMobileVideoUrl}" aria-hidden="true"></video>`;
 const heroPreloadOverlay = `<div id="hero-preload-overlay" aria-hidden="true"></div>`;
 const fastFirstPaint = `<link rel="preconnect" href="${videoMediaBaseUrl}" crossorigin>
 <link
@@ -413,7 +364,7 @@ const fastFirstPaint = `<link rel="preconnect" href="${videoMediaBaseUrl}" cross
       video.setAttribute('playsinline', '');
       video.setAttribute('webkit-playsinline', '');
       video.setAttribute('poster', window.matchMedia('(max-width: 639px)').matches ? '${heroPosterMobileUrl}' : '${heroPosterDesktopUrl}');
-      if (video.getAttribute('src') !== nextSrc) {
+      if (video.currentSrc !== nextSrc && video.getAttribute('src') !== nextSrc) {
         video.setAttribute('src', nextSrc);
         video.load();
       }
@@ -576,6 +527,18 @@ const casePreviewVideoAssets = `<style>
       });
     }
 
+    function ensureVideoLoaded(video){
+      if (!video) return false;
+      var src = video.dataset.casePreviewSrc || video.getAttribute('data-src');
+      if (!src) return false;
+      if (video.getAttribute('src') !== src) {
+        video.setAttribute('preload', 'metadata');
+        video.setAttribute('src', src);
+        video.load();
+      }
+      return true;
+    }
+
     function prepareVideo(video, src){
       video.autoplay = true;
       video.muted = true;
@@ -587,19 +550,22 @@ const casePreviewVideoAssets = `<style>
       video.setAttribute('loop', '');
       video.setAttribute('playsinline', '');
       video.setAttribute('webkit-playsinline', '');
-      video.setAttribute('preload', 'auto');
-      if (video.getAttribute('src') !== src) {
-        video.setAttribute('src', src);
-        video.load();
-      }
-      tryPlay(video);
-      queuePreviewRetries(video);
+      video.setAttribute('preload', 'none');
+      video.dataset.casePreviewSrc = src;
     }
 
     function activatePreview(video){
+      if (!ensureVideoLoaded(video)) return;
       tryPlay(video);
       markReady(video);
       queuePreviewRetries(video);
+    }
+
+    function isNearViewport(element){
+      if (!element || !element.getBoundingClientRect) return false;
+      var rect = element.getBoundingClientRect();
+      var margin = Math.min(900, Math.max(420, window.innerHeight || 720));
+      return rect.bottom >= -margin && rect.top <= (window.innerHeight || 720) + margin;
     }
 
     function bindCasePreviewObserver(){
@@ -611,7 +577,7 @@ const casePreviewVideoAssets = `<style>
             var video = entry.target && entry.target.querySelector('.case-preview-native-video');
             if (video) activatePreview(video);
           });
-        }, { rootMargin: '900px 0px', threshold: 0.01 });
+        }, { rootMargin: '650px 0px', threshold: 0.01 });
       }
       previewItems.forEach(function(item){
         var shape = document.querySelector(item.shapeSelector);
@@ -642,16 +608,16 @@ const casePreviewVideoAssets = `<style>
           video.addEventListener('stalled', function(){ activatePreview(video); });
           video.addEventListener('suspend', function(){ activatePreview(video); });
         }
-        activatePreview(video);
       });
       bindCasePreviewObserver();
+      activateVisiblePreviews();
     }
 
     function activateVisiblePreviews(){
       previewItems.forEach(function(item){
         var shape = document.querySelector(item.shapeSelector);
         var video = shape && shape.querySelector('.case-preview-native-video');
-        if (video) activatePreview(video);
+        if (video && isNearViewport(shape)) activatePreview(video);
       });
     }
 
@@ -1031,7 +997,19 @@ const contactShortcutEnhancer = `<style>
       gap:12px;
     }
     #rec862707608 .tn-elem[data-elem-id="1738924888810"]{
-      left:calc(50% - 320px + 539px) !important;
+      top:570px !important;
+      left:calc(50% - 320px + 493px) !important;
+    }
+    #rec862707608 .tn-elem[data-elem-id="1738924888797"]{
+      top:570px !important;
+    }
+    #rec862707608 .tn-elem[data-elem-id="1738924888805"]{
+      top:580px !important;
+      left:calc(50% - 320px + 428px) !important;
+    }
+    #rec862707608 .tn-elem[data-elem-id="1738924888807"]{
+      top:570px !important;
+      left:calc(50% - 320px + 452px) !important;
     }
     #rec862707608 .tn-elem[data-elem-id="1738924888795"]{
       top:614px !important;
@@ -1047,7 +1025,13 @@ const contactShortcutEnhancer = `<style>
       font-size:28px !important;
     }
     #rec862623921 .tn-elem[data-elem-id="1738908342859"]{
-      left:calc(50% - 320px + 519px) !important;
+      left:calc(50% - 320px + 476px) !important;
+    }
+    #rec862623921 .tn-elem[data-elem-id="1738908250516"]{
+      left:calc(50% - 320px + 409px) !important;
+    }
+    #rec862623921 .tn-elem[data-elem-id="1738908294009"]{
+      left:calc(50% - 320px + 434px) !important;
     }
     #rec862623921 .tn-elem[data-elem-id="1738908848846"]{
       top:525px !important;
@@ -2100,288 +2084,6 @@ const standaloneShowreelPopupAssets = `<style>
   }());
 </script>`;
 
-const hiddenMarketingVideoAdviceRecordIds = [
-  // Legacy Anex hero autoplay; replaced by a native background video layer.
-  "rec861372811",
-  // Webinar block and related popup. Temporarily moved off the sales landing page.
-  "rec862714733",
-  "rec905176327",
-  "rec861962232",
-  "rec862050095",
-  "rec863346882",
-  "rec862643056",
-  "rec862643109",
-  // Section anchor and title.
-  "rec862713715",
-  "rec862055949",
-  // Video advice carousel and its ScrollBooster controller. Temporarily hidden for Direct traffic.
-  "rec862301619",
-  "rec862070380",
-  // Popup wrappers and popup contents for the advice videos.
-  "rec893268511",
-  "rec893268655",
-  "rec893271079",
-  "rec893271232",
-  "rec893273557",
-  "rec893273581",
-  "rec893275111",
-  "rec893275240",
-  "rec893277967",
-  "rec893278048",
-  "rec893280313",
-  "rec893281054",
-  // Legacy Tilda showreel popups; clean-showreel-popup is the single active popup.
-  "rec862614275",
-  "rec862592933",
-  // Legacy duplicate showreel popup.
-  "rec862584405",
-  // Legacy Tilda case video popups; clean-showreel-popup owns these hooks now.
-  "rec862660772",
-  "rec862660859",
-  "rec862666264",
-  "rec862666433",
-  "rec862667392",
-  "rec862667414",
-  "rec862668031",
-  "rec862668074",
-  // Legacy Tilda review video popups; clean-showreel-popup owns these hooks now.
-  "rec862674603",
-  "rec862674662",
-  "rec862683025",
-  "rec862683069",
-  "rec862685732",
-  "rec862685694",
-  "rec862687402",
-  "rec862687388",
-  // Legacy Annex case preview autoplay; replaced by native muted Cloud.ru demo loops.
-  "rec862376352",
-  "rec862385545",
-  "rec862392569",
-  "rec862397203",
-];
-
-const hiddenMarketingVideoAdviceElementIds = [
-  // Menu items pointing to the hidden expert-content sections.
-  "1739347764973",
-  "1738924888789",
-  "1738924888784",
-  "1738924888793",
-  "1738908837275",
-];
-
-function removeTildaRecord(html: string, recordId: string) {
-  const startMarker = `<div id="${recordId}"`;
-  const startIndex = html.indexOf(startMarker);
-
-  if (startIndex === -1) {
-    return html;
-  }
-
-  const nextRecordIndex = html.indexOf(' <div id="rec', startIndex + startMarker.length);
-  const endIndex = nextRecordIndex === -1 ? html.length : nextRecordIndex;
-
-  return `${html.slice(0, startIndex)}${html.slice(endIndex)}`;
-}
-
-function replaceTildaRecord(html: string, recordId: string, nextRecord: string) {
-  const startMarker = `<div id="${recordId}"`;
-  const startIndex = html.indexOf(startMarker);
-
-  if (startIndex === -1) {
-    return html;
-  }
-
-  const nextRecordIndex = html.indexOf(' <div id="rec', startIndex + startMarker.length);
-  const endIndex = nextRecordIndex === -1 ? html.length : nextRecordIndex;
-
-  return `${html.slice(0, startIndex)}${nextRecord}${html.slice(endIndex)}`;
-}
-
-function transformTildaRecord(
-  html: string,
-  recordId: string,
-  transform: (recordHtml: string) => string,
-) {
-  const startMarker = `<div id="${recordId}"`;
-  const startIndex = html.indexOf(startMarker);
-
-  if (startIndex === -1) {
-    return html;
-  }
-
-  const nextRecordIndex = html.indexOf(' <div id="rec', startIndex + startMarker.length);
-  const endIndex = nextRecordIndex === -1 ? html.length : nextRecordIndex;
-
-  return `${html.slice(0, startIndex)}${transform(html.slice(startIndex, endIndex))}${html.slice(endIndex)}`;
-}
-
-function removeTildaElement(html: string, elemId: string) {
-  const elemMarker = `data-elem-id='${elemId}'`;
-  const markerIndex = html.indexOf(elemMarker);
-
-  if (markerIndex === -1) {
-    return html;
-  }
-
-  const startIndex = html.lastIndexOf("<div class='t396__elem", markerIndex);
-
-  if (startIndex === -1) {
-    return html;
-  }
-
-  const nextElementIndex = html.indexOf(" <div class='t396__elem", markerIndex);
-  const recordEndIndex = html.indexOf(" </div> </div> <script", markerIndex);
-  const endIndex = [nextElementIndex, recordEndIndex]
-    .filter((index) => index !== -1)
-    .reduce((nextIndex, index) => Math.min(nextIndex, index), html.length);
-
-  return `${html.slice(0, startIndex)}${html.slice(endIndex)}`;
-}
-
-function removeTildaElementInRecord(html: string, recordId: string, elemId: string) {
-  return transformTildaRecord(html, recordId, (recordHtml) =>
-    removeTildaElement(recordHtml, elemId),
-  );
-}
-
-function replaceTildaText(html: string, elemId: string, nextText: string) {
-  const pattern = new RegExp(
-    `(<div\\b[^>]*data-elem-id=(['"])${elemId}\\2[^>]*>[\\s\\S]*?<div class='tn-atom'[^>]*>)([\\s\\S]*?)(</div>)`,
-  );
-
-  return html.replace(pattern, `$1${nextText}$4`);
-}
-
-function replaceTildaTextInRecord(
-  html: string,
-  recordId: string,
-  elemId: string,
-  nextText: string,
-) {
-  const startMarker = `<div id="${recordId}"`;
-  const startIndex = html.indexOf(startMarker);
-
-  if (startIndex === -1) {
-    return html;
-  }
-
-  const nextRecordIndex = html.indexOf(' <div id="rec', startIndex + startMarker.length);
-  const endIndex = nextRecordIndex === -1 ? html.length : nextRecordIndex;
-  const recordHtml = html.slice(startIndex, endIndex);
-
-  return replaceTildaRecord(
-    html,
-    recordId,
-    replaceTildaText(recordHtml, elemId, nextText),
-  );
-}
-
-function replaceTildaButtonTextInRecord(
-  html: string,
-  recordId: string,
-  elemId: string,
-  nextText: string,
-) {
-  const startMarker = `<div id="${recordId}"`;
-  const startIndex = html.indexOf(startMarker);
-
-  if (startIndex === -1) {
-    return html;
-  }
-
-  const nextRecordIndex = html.indexOf(' <div id="rec', startIndex + startMarker.length);
-  const endIndex = nextRecordIndex === -1 ? html.length : nextRecordIndex;
-  const recordHtml = html.slice(startIndex, endIndex);
-  const pattern = new RegExp(
-    `(<div\\b[^>]*data-elem-id=(['"])${elemId}\\2[^>]*>[\\s\\S]*?<span class="tn-atom__button-text">)([\\s\\S]*?)(</span>)`,
-  );
-
-  return replaceTildaRecord(
-    html,
-    recordId,
-    recordHtml.replace(pattern, `$1${nextText}$4`),
-  );
-}
-
-function restoreTildaImageSources(html: string) {
-  return html.replace(/<img\b[^>]*>/g, (tag) => {
-    const src = tag.match(/\bsrc=(['"])(.*?)\1/i)?.[2];
-    const original = tag.match(/\bdata-original=(['"])(.*?)\1/i)?.[2];
-
-    if (!src || !original || !src.includes("__resize__20x__")) {
-      return tag;
-    }
-
-    return tag.replace(/\bsrc=(['"])(.*?)\1/i, (_match, quote) => `src=${quote}${original}${quote}`);
-  });
-}
-
-function injectCasePreviewVideos(html: string) {
-  return casePreviewVideoItems.reduce((nextHtml, item) => {
-    const shapeClass = item.shapeSelector.slice(1);
-    const pattern = new RegExp(
-      `(<div class='t396__elem tn-elem ${shapeClass}[^']*'[\\s\\S]*?<div class='tn-atom'>)(\\s*)(</div>)`,
-    );
-    const videoMarkup = `<video class="case-preview-native-video" autoplay muted playsinline webkit-playsinline preload="auto" loop aria-hidden="true" src="${item.src}"></video>`;
-
-    return nextHtml.replace(pattern, `$1$2${videoMarkup}$3`);
-  }, html);
-}
-
-function injectBeforeTildaRecordScript(
-  html: string,
-  recordNumericId: string,
-  markup: string,
-) {
-  const marker =
-    `</div> </div> <scr` +
-    `ipt>t_onFuncLoad('t396_initialScale',function() {t396_initialScale('${recordNumericId}');});`;
-
-  if (!html.includes(marker)) {
-    return html;
-  }
-
-  return html.replace(marker, `${markup}${marker}`);
-}
-
-function removeHeadAssetReferences(html: string, assetPaths: string[]) {
-  return assetPaths.reduce((nextHtml, assetPath) => {
-    const escapedPath = assetPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const linkPattern = new RegExp(
-      `<link\\b(?=[^>]*\\bhref=(['"])${escapedPath}\\1)[^>]*>\\s*`,
-      "gi",
-    );
-    const scriptPattern = new RegExp(
-      `<script\\b(?=[^>]*\\bsrc=(['"])${escapedPath}\\1)[^>]*>\\s*<\\/script>\\s*`,
-      "gi",
-    );
-
-    return nextHtml.replace(linkPattern, "").replace(scriptPattern, "");
-  }, html);
-}
-
-function dedupeHeadAssetReferences(html: string) {
-  const seen = new Set<string>();
-
-  return html.replace(
-    /<(link|script)\b[^>]*(?:href|src)=(['"])([^'"]+)\2[^>]*(?:><\/script>|>)/gi,
-    (tag, tagName, _quote, rawUrl) => {
-      if (!/^(css|js)\//.test(rawUrl)) {
-        return tag;
-      }
-
-      const key = `${tagName.toLowerCase()}:${rawUrl}`;
-
-      if (seen.has(key)) {
-        return "";
-      }
-
-      seen.add(key);
-      return tag;
-    },
-  );
-}
-
 const unusedTildaHeadAssets = [
   "https://neo.tildacdn.com/js/tilda-fallback-1.0.min.js",
   "https://ws.tildacdn.com",
@@ -2394,7 +2096,14 @@ const headHtml = dedupeHeadAssetReferences(
     /<meta property="og:url" content="[^"]*"\s*\/?>/i,
     `<meta property="og:url" content="${previewUrl}" />`,
   )
-  .replace(/<link rel="canonical" href="[^"]*"\s*\/?>/i, "")
+  .replace(
+    /<meta property="og:image" content="[^"]*"\s*\/?>/i,
+    `<meta property="og:image" content="${socialImageUrl}" />`,
+  )
+  .replace(/<link rel="canonical" href="[^"]*"\s*\/?>/i, `<link rel="canonical" href="${previewUrl}" />`)
+  .concat(
+    `<meta name="twitter:card" content="summary_large_image" /><meta name="twitter:image" content="${socialImageUrl}" />`,
+  )
   // В экспорт не попала вспомогательная Tilda-функция, которая иногда вызывается inline-скриптами.
   .concat(
     `<script>window.t396_elem_fixLineHeight=window.t396_elem_fixLineHeight||function(){return;};</script>`,
@@ -2426,63 +2135,6 @@ const filteredBodySource = hiddenMarketingVideoAdviceElementIds
     removeTildaElement,
     hiddenMarketingVideoAdviceRecordIds.reduce(removeTildaRecord, bodySource),
   );
-
-const priceFormatsMarkup = `<div class="tg-price-formats">
-  <article class="tg-price-format">
-    <p class="tg-price-kicker">До 45 гостей</p>
-    <h3>Камерная свадьба</h3>
-    <p class="tg-price-offer">Ведущий + DJ</p>
-    <p class="tg-price-meta">5 часов программы</p>
-    <strong class="tg-price-number">115 000 ₽</strong>
-    <p class="tg-price-meta">Дополнительный час — 15 000 ₽</p>
-    <p class="tg-price-note">Для уютных свадеб с самыми близкими, где важна теплая атмосфера и внимание к каждому гостю.</p>
-    <p class="tg-price-under"><button class="tg-price-includes-link" type="button" data-price-tab-target="includes">что входит в работу</button></p>
-  </article>
-  <article class="tg-price-format">
-    <p class="tg-price-kicker">Более 45 гостей</p>
-    <h3>Классическая свадьба</h3>
-    <p class="tg-price-offer">Ведущий + DJ</p>
-    <p class="tg-price-meta">6 часов программы</p>
-    <strong class="tg-price-number">135 000 ₽</strong>
-    <p class="tg-price-meta">Дополнительный час — 20 000 ₽</p>
-    <p class="tg-price-note">Для свадеб с большим количеством гостей, насыщенной программой и более активной динамикой вечера.</p>
-    <p class="tg-price-under"><button class="tg-price-includes-link" type="button" data-price-tab-target="includes">что входит в работу</button></p>
-  </article>
-</div>`;
-
-const priceValueMarkup = `<ul class="tg-price-value-list">
-  <li>Выстраиваю тайминг вечера, чтобы он работал в реальности, а не на бумаге</li>
-  <li>Координирую программу с площадкой и всеми подрядчиками</li>
-  <li>Выстраиваю программу, чтобы важные моменты не терялись в хаосе и скучных тостах</li>
-  <li>Контролирую техническую готовность площадки: звук, свет, рассадку и логистику</li>
-  <li>Помогаю собрать свадебную команду из проверенной базы подрядчиков</li>
-  <li>Подсказываю, как избежать частых ошибок</li>
-</ul>`;
-
-const priceFineprintMarkup = ``;
-
-const priceConsultationMarkup =
-  `На встрече разберем масштаб свадьбы, подберем подходящий формат и честно обсудим, что понадобится именно вашей площадке. Встреча бесплатная и ни к чему не обязывает.`;
-
-const priceTextReplacements = [
-  ["rec862317152", "1738854720285", "Два формата под ключ"],
-  ["rec862317152", "1738854720290", priceFormatsMarkup],
-  ["rec862334119", "1738854720285", "Что входит в работу"],
-  ["rec862334119", "1738854720290", priceValueMarkup],
-  ["rec862334119", "1738855581124", priceFineprintMarkup],
-  ["rec862336377", "1738854720285", "Бесплатная консультация"],
-  ["rec862336377", "1738854720290", priceConsultationMarkup],
-  ["rec862336377", "1738855821506", "Написать в MAX"],
-] as const;
-
-const priceLegacyElementRemovals = [
-  ["rec862317152", "1738854964490"],
-  ["rec862317152", "1738855086828"],
-  ["rec862317152", "1738855153779"],
-  ["rec862317152", "1738855283679"],
-  ["rec862317152", "1738855283674"],
-  ["rec862334119", "1738855283679"],
-] as const;
 
 const priceBodyWithText = priceTextReplacements.reduce(
   (html, [recordId, elemId, nextText]) =>
@@ -2539,7 +2191,7 @@ const transformedBodyHtml = priceBodySource
 
 const popupPhraseBodyHtml = replaceTildaText(
   replaceTildaText(
-    restoreTildaImageSources(injectCasePreviewVideos(transformedBodyHtml)),
+    restoreTildaImageSources(injectCasePreviewVideos(transformedBodyHtml, casePreviewVideoItems)),
     "1738867968180",
     "Антон и Лея",
   ),
