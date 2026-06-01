@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://timurgromov.github.io/timurgromov-site-2026_2/sitemap.xml
