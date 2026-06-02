@@ -33,6 +33,9 @@ The current files are already heavily compressed RF files. Do not re-encode agai
 | Review popup: Temur and Yana | VPS media | `https://media.89-22-227-133.sslip.io/review_temur_margo_RF.mp4` |
 | Review popup: Katya and Zhenya | VPS media | `https://media.89-22-227-133.sslip.io/review_katya_zhenya_RF.mp4` |
 | Review popup: Anton and Leia | VPS media | `https://media.89-22-227-133.sslip.io/review_russian_cuban_RF.mp4` |
+| Advice popup: wedding laughter | VPS media | `https://media.89-22-227-133.sslip.io/tg26_advice_wedding_laughter_20260602.mp4` |
+| Advice popup: awkward toasts | VPS media | `https://media.89-22-227-133.sslip.io/tg26_advice_awkward_toasts_20260602.mp4` |
+| Advice popup: wedding chaos | VPS media | `https://media.89-22-227-133.sslip.io/tg26_advice_wedding_chaos_20260602.mp4` |
 
 ## VPS Media Host
 
@@ -255,6 +258,9 @@ Legacy Tilda review-video popup records `rec862674603`, `rec862674662`, `rec8626
 | Review: Temur and Yana | Vimeo `1044577884` | `https://media.89-22-227-133.sslip.io/review_temur_margo_RF.mp4` |
 | Review: Katya and Zhenya | Vimeo `1044588860` | `https://media.89-22-227-133.sslip.io/review_katya_zhenya_RF.mp4` |
 | Review: Anton and Leia | Vimeo `1044579944` | `https://media.89-22-227-133.sslip.io/review_russian_cuban_RF.mp4` |
+| Advice: wedding laughter | `https://cdnv.boomstream.com/balancer/roHksxqq-SxJPiQup.mp4` | `https://media.89-22-227-133.sslip.io/tg26_advice_wedding_laughter_20260602.mp4` |
+| Advice: awkward toasts | `https://cdnv.boomstream.com/balancer/aszKpzRZ-SxJPiQup.mp4` | `https://media.89-22-227-133.sslip.io/tg26_advice_awkward_toasts_20260602.mp4` |
+| Advice: wedding chaos | `https://cdnv.boomstream.com/balancer/qzinNGjh-SxJPiQup.mp4` | `https://media.89-22-227-133.sslip.io/tg26_advice_wedding_chaos_20260602.mp4` |
 
 ## Other Boomstream Links Found In Export
 

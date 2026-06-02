@@ -9,9 +9,9 @@ const showreelPopupCloudVideoUrl =
   `${videoMediaBaseUrl}/morozovkaRF24.mp4`;
 
 const adviceVideoUrls = {
-  weddingLaughter: "https://cdnv.boomstream.com/balancer/roHksxqq-SxJPiQup.mp4",
-  awkwardToasts: "https://cdnv.boomstream.com/balancer/aszKpzRZ-SxJPiQup.mp4",
-  weddingChaos: "https://cdnv.boomstream.com/balancer/qzinNGjh-SxJPiQup.mp4",
+  weddingLaughter: `${videoMediaBaseUrl}/tg26_advice_wedding_laughter_20260602.mp4`,
+  awkwardToasts: `${videoMediaBaseUrl}/tg26_advice_awkward_toasts_20260602.mp4`,
+  weddingChaos: `${videoMediaBaseUrl}/tg26_advice_wedding_chaos_20260602.mp4`,
 } as const;
 
 export const casePreviewVideoItems = [
