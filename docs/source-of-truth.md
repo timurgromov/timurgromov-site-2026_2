@@ -14,7 +14,7 @@
 1. текущий код `src/pages/index.astro`
 2. Tilda body export `files/page62008353body.html`
 3. полный Tilda export `page62008353.html`
-4. опубликованный GitHub Pages сайт `https://timurgromov.github.io/timurgromov-site-2026_2/`
+4. опубликованный production-сайт `https://timurgromov.ru/`
 5. экспортированные ассеты:
    - `images/`
    - `css/`
@@ -29,13 +29,13 @@
    - `docs/do-not-break-this-site.md`
    - `docs/video-link-registry.md`
 
-`https://timurgromov.ru/` - это текущий Tilda-домен и визуальный источник. У этого репозитория пока нет права деплоить туда изменения; будущий перенос домена делается отдельным DNS/deploy шагом. Использовать его для сверки, когда это реально нужно.
+`https://timurgromov.github.io/timurgromov-site-2026_2/` - технический GitHub Pages fallback этого же сайта. Использовать его для сверки, если DNS, HTTPS или кэш на production-домене ещё не сошлись.
 
 ## 3. Interpretation Rule
 - `src/pages/index.astro` — главный источник текущего рабочего поведения.
 - Tilda-export — главный источник исходной структуры, контента, popup hooks и порядка блоков.
-- GitHub Pages — главный опубликованный результат этого репозитория.
-- `timurgromov.ru` — текущий Tilda-источник, не деплой-цель до отдельного переноса домена.
+- `timurgromov.ru` — главный опубликованный production-результат этого репозитория.
+- GitHub Pages URL — резервный publish/fallback URL того же сайта.
 - Скриншоты нужны для уточнения спорных деталей.
 - Локальная документация не должна противоречить export.
 
@@ -65,14 +65,14 @@
 После каждой значимой секции нужно сверять:
 1. текущий код
 2. export
-3. опубликованную GitHub Pages версию
-4. live original на Tilda только при спорных визуальных вопросах
+3. опубликованную production-версию
+4. GitHub Pages fallback или исторический Tilda-оригинал при спорных вопросах
 
 Не проверять только локально.
 Не сверять только по памяти.
 
 ## 7. Live Verification Rule
-Для этого проекта опубликованный `GitHub Pages` URL является обязательной точкой проверки после deploy.
+Для этого проекта опубликованный `https://timurgromov.ru/` является обязательной точкой проверки после deploy.
 
 Локальная сборка нужна для скорости, но не считается финальным подтверждением, если изменены:
 - секции страницы

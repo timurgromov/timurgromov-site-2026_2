@@ -1,6 +1,6 @@
 import { execFileSync } from "node:child_process";
 
-const defaultUrl = "https://timurgromov.github.io/timurgromov-site-2026_2/";
+const defaultUrl = "https://timurgromov.ru/";
 const pollIntervalMs = 10000;
 
 const options = {

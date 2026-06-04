@@ -1,12 +1,13 @@
 # Project Spec
 
 ## 1. Project
-- Current public URL: `https://timurgromov.github.io/timurgromov-site-2026_2/`
-- Original/Tilda reference: `https://timurgromov.ru/`
+- Current public URL: `https://timurgromov.ru/`
+- GitHub Pages fallback URL: `https://timurgromov.github.io/timurgromov-site-2026_2/`
+- Original/Tilda reference: historical pre-migration state on the same domain
 - Goal: поддерживать одностраничный лендинг из Tilda export внутри Astro, не ломая Zero Block геометрию, popups и Safari video fixes.
 - Media migration runbook: `docs/video-link-registry.md` -> "Emergency VPS Migration Runbook".
 
-`timurgromov.ru` сейчас не является деплой-целью этого репозитория. Он привязан к Tilda и используется как источник/визуальный ориентир. Позже домен планируется перенести на управляемую версию отдельным DNS/deploy шагом.
+`timurgromov.ru` — production-домен этого репозитория. `github.io` оставлен как резервный publish URL и удобная точка для отладки Pages, если DNS/HTTPS ещё расходятся.
 
 ## 2. Primary Goal
 Восстановить оригинальный лендинг максимально близко к export и живому сайту:
@@ -30,8 +31,8 @@
 1. `src/pages/index.astro`
 2. `files/page62008353body.html`
 3. `page62008353.html`
-4. опубликованный GitHub Pages сайт `https://timurgromov.github.io/timurgromov-site-2026_2/`
-5. `https://timurgromov.ru/` только как Tilda/original reference
+4. опубликованный production-сайт `https://timurgromov.ru/`
+5. GitHub Pages fallback `https://timurgromov.github.io/timurgromov-site-2026_2/`
 6. экспортированные `images/`, `css/`, `js/`
 7. скриншоты оригинала
 
@@ -39,7 +40,7 @@
 - Не делать новый дизайн.
 - Не менять порядок секций.
 - Не придумывать тексты, CTA, цены, отзывы, кейсы и FAQ.
-- Не трогать `timurgromov.ru` как деплой-цель.
+- Не ломать production-домен `timurgromov.ru` DNS- или Pages-правками без проверки.
 - Не откатывать видео на Boomstream, Cloud.ru или Tilda/Annex без прямого решения пользователя.
 - Не коммитить VPS-пароли, токены и приватные ключи.
 

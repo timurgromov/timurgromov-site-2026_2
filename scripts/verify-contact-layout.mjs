@@ -1,7 +1,7 @@
 import { spawn } from "node:child_process";
 
 const port = Number(process.env.CONTACT_LAYOUT_PREVIEW_PORT || 4400 + (process.pid % 500));
-const url = `http://127.0.0.1:${port}/timurgromov-site-2026_2/`;
+const url = `http://127.0.0.1:${port}/`;
 
 function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));

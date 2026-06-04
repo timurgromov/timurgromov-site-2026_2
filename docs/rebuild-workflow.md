@@ -14,16 +14,16 @@
 1. текущий код `src/pages/index.astro`
 2. `files/page62008353body.html`
 3. `page62008353.html`
-4. опубликованный GitHub Pages сайт `https://timurgromov.github.io/timurgromov-site-2026_2/`
-5. живой Tilda-сайт `https://timurgromov.ru/` только как исторический визуальный ориентир
+4. опубликованный production-сайт `https://timurgromov.ru/`
+5. GitHub Pages fallback `https://timurgromov.github.io/timurgromov-site-2026_2/`
 6. экспортированные папки `images/`, `css/`, `js/` и другие файлы export
 7. пользовательские скриншоты
 8. служебная документация проекта
 
 Правило:
 - export — главный источник структуры и контента;
-- GitHub Pages — главный опубликованный результат этого репозитория;
-- `timurgromov.ru` не трогать как деплой-цель до отдельного шага переноса домена;
+- `timurgromov.ru` — главный опубликованный результат этого репозитория;
+- `github.io` использовать как fallback и дополнительную точку проверки Pages;
 - если есть сомнение, сначала проверять реальные файлы, а не предполагать.
 
 ## 3. Hard Rules
@@ -43,7 +43,7 @@
 
 Порядок:
 1. export-first baseline: страница должна рендерить Tilda export максимально близко к оригиналу
-2. visual gate: сверка baseline с GitHub Pages и, при необходимости, Tilda-оригиналом
+2. visual gate: сверка baseline с production-сайтом и, при необходимости, fallback/Tilda-оригиналом
 3. глобальная база: шрифты, цвета, spacing, фон, базовые контейнеры, кнопки
 4. fixed header
 5. hero
@@ -62,7 +62,7 @@
 ## 5. Section Rule
 Каждая секция проходит один и тот же цикл:
 1. найти секцию в export;
-2. найти соответствующий блок на опубликованном GitHub Pages сайте или в Tilda-оригинале, если нужна историческая сверка;
+2. найти соответствующий блок на опубликованном production-сайте или в fallback/Tilda-оригинале, если нужна историческая сверка;
 3. восстановить только эту секцию поверх baseline;
 4. сверить результат в браузере;
 5. только потом переходить к следующей.
@@ -72,7 +72,7 @@
 ## 6. Verification Rule
 После каждой завершенной секции обязательно:
 1. сверка с export;
-2. сверка с GitHub Pages;
+2. сверка с production-сайтом;
 3. локальная сборка;
 4. быстрая проверка маркеров в HTML или `verify:pages` после публикации;
 5. визуальную проверку через браузер/Playwright делать только для крупных секций, спорной геометрии, контактов/popup/footer/video или по прямой просьбе владельца;
@@ -87,13 +87,13 @@
 5. commit;
 6. push в **`main`**;
 7. дождаться GitHub Actions (**Deploy to gh-pages**) — ветка `gh-pages` обновится сама;
-8. быстро проверить live URL по HTML-маркерам;
+8. быстро проверить `https://timurgromov.ru/` по HTML-маркерам;
 9. попросить владельца проверить визуально, если изменение относится к дизайну/верстке и не требует обязательной автоматической browser-проверки.
 
 Ручной деплой на Pages только если CI недоступен: `npm run deploy:pages` (см. `docs/github-pages-deploy.md`).
 
 ## 8. Deploy Rule
-Deploy должен быть простым и повторяемым: локальная проверка → commit → push → GitHub Pages → проверка опубликованной версии.
+Deploy должен быть простым и повторяемым: локальная проверка → commit → push → GitHub Pages build → проверка опубликованной production-версии.
 
 **Конкретные команды и нюансы (main vs gh-pages, HTTPS, PAT, `npx gh-pages`):** см. `docs/github-pages-deploy.md`.
 
@@ -125,7 +125,7 @@ ps aux | egrep "headless|remote-debugging-port|astro preview|npm run preview" | 
 Формы — после статического rebuild, popup/menu и стабилизации deploy.
 
 ## 14. Definition Of Done
-Этап завершён, когда структура и порядок совпадают с оригиналом, тексты и картинки из export, popup/menu работают, сверка с live и GitHub Pages пройдена.
+Этап завершён, когда структура и порядок совпадают с оригиналом, тексты и картинки из export, popup/menu работают, сверка с production и fallback пройдена.
 
 ## 15. Agent Startup Rule
 Каждый новый чат или агент:

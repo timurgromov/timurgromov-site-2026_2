@@ -20,9 +20,13 @@
 | Собранный статический сайт | ветка **`gh-pages`** | отдаёт **GitHub Pages** (источник — ветка, не «GitHub Actions» в настройках Pages) |
 | Папка `dist/` локально | **не в git** (`.gitignore`) | появляется после `npm run build` |
 
-Превью-URL (с учётом `base` в `astro.config.mjs`):
+GitHub Pages fallback URL:
 
 `https://timurgromov.github.io/timurgromov-site-2026_2/`
+
+Production URL:
+
+`https://timurgromov.ru/`
 
 **Settings → Pages:** источник публикации — **Deploy from a branch** → **Branch: `gh-pages`**, folder **`/` (root)**. Менять на «GitHub Actions» не нужно: workflow сам обновляет ветку `gh-pages`.
 
@@ -32,7 +36,7 @@
 2. Локально по желанию: `ASTRO_TELEMETRY_DISABLED=1 npm run build` (проверка перед пушем).
 3. `git add` / `git commit` / **`git push` в `main`** (через обычный git по HTTPS — см. §4).
 4. На GitHub открыть вкладку **Actions** — дождаться зелёного прогона **Deploy to gh-pages**.
-5. Через 1–3 минуты проверить live URL (при необходимости жёсткое обновление / инкогнито).
+5. Через 1–3 минуты проверить `https://timurgromov.ru/` и при необходимости fallback `github.io` (жёсткое обновление / инкогнито).
 
 Если репозиторий недавно переводили из private в public, сделай ещё один свежий push в `main`, чтобы принудительно запустить новую публикацию Pages после переподключения сайта.
 
@@ -48,7 +52,7 @@ git push origin HEAD:main
 npm run verify:pages -- --contains "новый текст" --absent "старый текст"
 ```
 
-Для правок только в документации или служебных скриптах `gh-pages` может остаться на предыдущем deploy-коммите, если итоговый `dist/` не изменился. Это нормально: важна live-проверка маркеров для задач, которые меняют сайт.
+Для правок только в документации или служебных скриптах `gh-pages` может остаться на предыдущем deploy-коммите, если итоговый `dist/` не изменился. Это нормально: важна live-проверка production-домена для задач, которые меняют сайт.
 
 ## 3. Один раз: положить workflow в репозиторий
 
@@ -130,6 +134,18 @@ jobs:
 - Ошибка в workflow (лог job в Actions).
 - Лимиты / очередь GitHub (редко).
 
+## 5.1. Custom Domain Checklist
+
+Для `timurgromov.ru` держать такую схему:
+
+- В `public/CNAME` лежит `timurgromov.ru`.
+- В `Settings -> Pages -> Custom domain` указан `timurgromov.ru`.
+- В DNS у apex-домена стоят `A` записи GitHub Pages: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`.
+- Для `www` стоит `CNAME` на `timurgromov.github.io`.
+- После сохранения дождаться HTTPS certificate issuance и включить `Enforce HTTPS`.
+
+Если DNS только что изменён, сначала проверять fallback `github.io`, затем production-домен.
+
 ## 6. Ручной запасной деплой (без CI)
 
 Из корня репозитория:
@@ -149,7 +165,7 @@ npx --yes gh-pages -d dist -b gh-pages
 
 ## 7. Частые ошибки
 
-1. **Смотришь на сайт, а изменений нет** — не дождался Actions или кеш браузера; открой вкладку Actions.
+1. **Смотришь на сайт, а изменений нет** — не дождался Actions, DNS/HTTPS ещё не сошлись или кеш браузера; открой вкладку Actions и проверь fallback `github.io`.
 2. **Запушил не туда** — push в `pushable-scaffold` или другую рабочую ветку не запускает публикацию; нужен `git push origin HEAD:main`.
 3. **Сломанные пути к картинкам на Pages** — в Astro заданы `site` и **`base`**; пути из `public/` собирать с учётом base (в проекте — `asset()` в `index.astro`).
 4. **`Could not resolve host: github.com`** — сеть на машине; push/CI не обновили репо.
@@ -161,8 +177,8 @@ npx --yes gh-pages -d dist -b gh-pages
 
 ## 9. Шпаргалка
 
-**Нормально:** правки → commit → **`git push origin main`** → ждать Actions → `npm run verify:pages -- --contains "новый маркер"`.
+**Нормально:** правки → commit → **`git push origin main`** → ждать Actions → `npm run verify:pages -- --contains "новый маркер"` → открыть `https://timurgromov.ru/`.
 
-**Если сидишь на рабочей ветке:** правки → commit → **`git push origin HEAD:main`** → ждать Actions → `npm run verify:pages -- --contains "новый маркер"`.
+**Если сидишь на рабочей ветке:** правки → commit → **`git push origin HEAD:main`** → ждать Actions → `npm run verify:pages -- --contains "новый маркер"` → открыть `https://timurgromov.ru/`.
 
 **Запас:** `npm run deploy:pages`.

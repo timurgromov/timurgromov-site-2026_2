@@ -9,7 +9,7 @@ const chromePath =
 const targetUrl =
   process.env.CONTACT_LAYOUT_URL ||
   process.argv[2] ||
-  "http://127.0.0.1:4321/timurgromov-site-2026_2/";
+  "http://127.0.0.1:4321/";
 const viewports = (process.env.CONTACT_LAYOUT_VIEWPORTS || "1911x1064,1440x900,390x844")
   .split(",")
   .map((viewport) => {

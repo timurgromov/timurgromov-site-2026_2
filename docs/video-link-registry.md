@@ -2,11 +2,11 @@
 
 Last checked: 2026-05-08.
 
-This file is the canonical list of video sources for the GitHub Pages site. Keep it in sync when changing video URLs in `src/pages/index.astro`.
+This file is the canonical list of video sources for the production site. Keep it in sync when changing video URLs in `src/pages/index.astro`.
 
-Current public site: `https://timurgromov.github.io/timurgromov-site-2026_2/`
+Current public site: `https://timurgromov.ru/`
 
-Do not deploy to `timurgromov.ru` from this repo until the domain migration is explicitly started. Right now it is a Tilda domain and visual/reference source.
+GitHub Pages fallback: `https://timurgromov.github.io/timurgromov-site-2026_2/`
 
 ## Current Active Sources
 
@@ -195,7 +195,7 @@ npm run deploy:pages
 After deploy, verify the published GitHub Pages HTML contains the new media host and test in Safari desktop:
 
 ```bash
-curl -sS https://timurgromov.github.io/timurgromov-site-2026_2/ | rg "media.NEW-IP-WITH-DASHES.sslip.io"
+curl -sS https://timurgromov.ru/ | rg "media.NEW-IP-WITH-DASHES.sslip.io"
 ```
 
 ### 6. Rollback
