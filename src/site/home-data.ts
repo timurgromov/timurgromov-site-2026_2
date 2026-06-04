@@ -202,7 +202,7 @@ export const priceFormatsMarkup = `<div class="tg-price-formats">
     <h3>Классическая свадьба</h3>
     <p class="tg-price-offer">Ведущий + DJ</p>
     <p class="tg-price-meta">6 часов программы</p>
-    <strong class="tg-price-number">135 000 ₽</strong>
+    <strong class="tg-price-number">145 000 ₽</strong>
     <p class="tg-price-meta">Дополнительный час — 20 000 ₽</p>
     <p class="tg-price-note">Для свадеб с большим количеством гостей, насыщенной программой и более активной динамикой вечера.</p>
     <p class="tg-price-under"><button class="tg-price-includes-link" type="button" data-price-tab-target="includes">что входит в работу</button></p>
