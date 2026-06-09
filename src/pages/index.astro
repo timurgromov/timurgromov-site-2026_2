@@ -40,6 +40,8 @@ const previewUrl = new URL(basePath, siteOrigin).toString();
 const socialImageUrl = new URL(`${basePath}images/hero-poster-desktop.jpg`, siteOrigin).toString();
 const privacyPolicyUrl = `${basePath}privacy/`;
 const privacyConsentUrl = `${basePath}privacy/#consent`;
+const offerPageUrl = `${basePath}offer/`;
+const offerPdfUrl = `${basePath}svadebnyy_gid_timur_gromov.pdf`;
 
 const pageHtml = readFileSync(
   new URL("../../page62008353.html", import.meta.url),
@@ -2900,7 +2902,7 @@ const consultationContactPopupMarkup = `<div id="consultation-contact-popup" cla
           <textarea name="message" placeholder="Дата свадьбы, площадка или любой вопрос"></textarea>
         </label>
         <button type="submit">Отправить</button>
-        <p class="tg-contact-popup__consent">Нажимая «Отправить», вы соглашаетесь с <a href="${privacyPolicyUrl}" target="_blank" rel="nofollow">политикой конфиденциальности</a> и <a href="${privacyConsentUrl}" target="_blank" rel="nofollow">согласием на обработку персональных данных</a>.</p>
+        <p class="tg-contact-popup__consent">Нажимая «Отправить», вы соглашаетесь с <a href="${privacyPolicyUrl}" target="_blank" rel="nofollow">политикой конфиденциальности</a>, <a href="${privacyConsentUrl}" target="_blank" rel="nofollow">согласием на обработку персональных данных</a> и <a href="${offerPageUrl}" target="_blank" rel="nofollow">условиями оферты</a>.</p>
         <p class="tg-contact-popup__status" data-contact-status></p>
       </form>
     </div>
@@ -3400,6 +3402,12 @@ const popupPhraseBodyHtml = replaceTildaText(
   ),
   "1738924888773",
   "Праздник, который вспоминают с теплом",
+).replace(
+  `<div class='tn-atom'field='tn_text_1738909152475'>©2025 Все права защищены</div>`,
+  `<div class='tn-atom'field='tn_text_1738909152475'>©2025 Все права защищены | <a href="${offerPageUrl}" target="_blank" rel="nofollow" style="color: inherit">Оферта</a> | <a href="${offerPdfUrl}" target="_blank" rel="nofollow" style="color: inherit">Оферта PDF</a></div>`,
+).replace(
+  `<div class='tn-atom'><a href="https://komarovaeee.com/"target="_blank"style="color: inherit">komarovaeee</a></div>`,
+  `<div class='tn-atom'><a href="https://komarovaeee.com/"target="_blank"style="color: inherit">komarovaeee</a></div>`,
 );
 
 const bodyHtml = injectBeforeTildaRecordScript(
