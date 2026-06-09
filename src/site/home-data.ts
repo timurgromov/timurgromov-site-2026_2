@@ -98,9 +98,12 @@ export const cleanVideoPopupItems = [
 
 export const heroPosterVersion = "2306bab";
 
-export const telegramContactUrl = "https://t.me/timurgromovv";
+export const telegramBotUsername = "gromov_wedding_bot";
+export const telegramPlanUrl = `https://t.me/${telegramBotUsername}?start=site_plan`;
+export const telegramMeetingUrl = `https://t.me/${telegramBotUsername}?start=site_meeting`;
+export const telegramContactUrl = telegramMeetingUrl;
 export const maxContactUrl =
-  "https://max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM?clckid=c487e7dc";
+  "https://clck.ru/3RRXHX";
 
 export const pricePhotoPrimaryUrl =
   "images/tild3134-3130-4739-b462-666632633730______3iiwa_mnwni_1_2_.png";
@@ -221,7 +224,7 @@ export const priceValueMarkup = `<ul class="tg-price-value-list">
 export const priceFineprintMarkup = ``;
 
 export const priceConsultationMarkup =
-  `На встрече разберем масштаб свадьбы, подберем подходящий формат и честно обсудим, что понадобится именно вашей площадке. Встреча бесплатная и ни к чему не обязывает.`;
+  `На встрече разберем формат свадьбы, гостей, площадку и тайминг. Вы поймете, подхожу ли я для вашей свадьбы и как может быть устроен именно ваш вечер. Встреча бесплатная и ни к чему не обязывает.`;
 
 export const priceTextReplacements = [
   ["rec862317152", "1738854720285", "Два формата под ключ"],

@@ -15,6 +15,8 @@ import {
   pricePhotoTeamUrl,
   priceTextReplacements,
   telegramContactUrl,
+  telegramMeetingUrl,
+  telegramPlanUrl,
   videoMediaBaseUrl,
 } from "../site/home-data";
 import {
@@ -36,6 +38,8 @@ const basePath = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const siteOrigin = "https://timurgromov.ru";
 const previewUrl = new URL(basePath, siteOrigin).toString();
 const socialImageUrl = new URL(`${basePath}images/hero-poster-desktop.jpg`, siteOrigin).toString();
+const privacyPolicyUrl = `${basePath}privacy/`;
+const privacyConsentUrl = `${basePath}privacy/#consent`;
 
 const pageHtml = readFileSync(
   new URL("../../page62008353.html", import.meta.url),
@@ -1644,7 +1648,7 @@ const priceSectionAssets = `<style>
 
     #rec862317152 .tn-elem[data-elem-id="1738853836587"],
     #rec862334119 .tn-elem[data-elem-id="1738853836587"]{
-      height:466px !important;
+      height:660px !important;
     }
 
     #rec862317152 .tn-elem[data-elem-id="1738854720285"],
@@ -1741,6 +1745,1167 @@ const priceSectionAssets = `<style>
     }
   }
 </style>`;
+
+const planCtaSectionAssets = `<style>
+  .tg-plan-cta{
+    background:#fff8f3;
+    color:#1c1b1a;
+    padding:96px 64px 90px;
+    border-top:1px solid rgba(28,27,26,.08);
+    border-bottom:1px solid rgba(28,27,26,.08);
+  }
+
+  .tg-plan-cta__inner{
+    display:grid;
+    grid-template-columns:minmax(0, .86fr) minmax(320px, .64fr);
+    gap:68px;
+    width:min(1680px, 100%);
+    margin:0 auto;
+    align-items:end;
+  }
+
+  .tg-plan-cta__kicker,
+  .tg-plan-cta__text,
+  .tg-plan-cta__note,
+  .tg-plan-cta__item span{
+    margin:0;
+    font-family:var(--t-text-font, Arial);
+    font-weight:400;
+    letter-spacing:0;
+  }
+
+  .tg-plan-cta__kicker{
+    margin-bottom:22px;
+    color:#fa4604;
+    font-size:18px;
+    line-height:1.1;
+  }
+
+  .tg-plan-cta h2{
+    max-width:760px;
+    margin:0 0 22px;
+    color:#1c1b1a;
+    font-family:var(--t-headline-font, Arial);
+    font-size:67px;
+    font-weight:500;
+    line-height:1;
+    text-transform:uppercase;
+    letter-spacing:0;
+  }
+
+  .tg-plan-cta__text{
+    max-width:620px;
+    color:rgba(28,27,26,.78);
+    font-size:20px;
+    line-height:1.28;
+  }
+
+  .tg-plan-cta__actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:30px;
+  }
+
+  .tg-plan-cta__button{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:56px;
+    padding:0 24px;
+    border:1px solid #fa4604;
+    border-radius:8px;
+    box-sizing:border-box;
+    color:#1c1b1a !important;
+    font-family:var(--t-text-font, Arial);
+    font-size:18px;
+    font-weight:400;
+    line-height:1;
+    text-decoration:none !important;
+    transition:background-color .18s ease,color .18s ease,border-color .18s ease;
+  }
+
+  .tg-plan-cta__button--primary{
+    background:#fa4604;
+    color:#fffefa !important;
+  }
+
+  .tg-plan-cta__button--secondary{
+    background:#fffefa;
+  }
+
+  @media (hover:hover){
+    .tg-plan-cta__button:hover{
+      background:#fa4604;
+      border-color:#fa4604;
+      color:#fffefa !important;
+    }
+
+    .tg-plan-cta__button--primary:hover{
+      background:#fffefa;
+      color:#fa4604 !important;
+    }
+  }
+
+  .tg-plan-cta__side{
+    display:grid;
+    gap:18px;
+    padding-bottom:6px;
+  }
+
+  .tg-plan-cta__item{
+    display:grid;
+    grid-template-columns:54px minmax(0, 1fr);
+    gap:18px;
+    align-items:start;
+    padding-top:18px;
+    border-top:1px solid rgba(28,27,26,.12);
+  }
+
+  .tg-plan-cta__item strong{
+    color:#fa4604;
+    font-family:var(--t-headline-font, Arial);
+    font-size:44px;
+    font-weight:500;
+    line-height:1;
+    letter-spacing:0;
+  }
+
+  .tg-plan-cta__item span{
+    color:rgba(28,27,26,.8);
+    font-size:18px;
+    line-height:1.24;
+  }
+
+  .tg-plan-cta__note{
+    max-width:520px;
+    margin-top:12px;
+    color:rgba(28,27,26,.54);
+    font-size:15px;
+    line-height:1.25;
+  }
+
+  @media screen and (max-width:1199px){
+    .tg-plan-cta{
+      padding:74px 40px 72px;
+    }
+
+    .tg-plan-cta__inner{
+      grid-template-columns:1fr;
+      gap:46px;
+    }
+
+    .tg-plan-cta h2{
+      max-width:700px;
+      font-size:58px;
+    }
+
+    .tg-plan-cta__text{
+      max-width:660px;
+      font-size:19px;
+    }
+
+    .tg-plan-cta__side{
+      max-width:700px;
+    }
+  }
+
+  @media screen and (max-width:639px){
+    .tg-plan-cta{
+      padding:58px 20px 56px;
+    }
+
+    .tg-plan-cta__inner{
+      gap:32px;
+    }
+
+    .tg-plan-cta__kicker{
+      margin-bottom:18px;
+      font-size:15px;
+    }
+
+    .tg-plan-cta h2{
+      margin-bottom:18px;
+      font-size:38px;
+      line-height:1;
+    }
+
+    .tg-plan-cta__text{
+      font-size:17px;
+      line-height:1.25;
+    }
+
+    .tg-plan-cta__actions{
+      display:grid;
+      gap:10px;
+      margin-top:28px;
+    }
+
+    .tg-plan-cta__button{
+      width:100%;
+      min-height:52px;
+      padding:0 18px;
+      font-size:16px;
+    }
+
+    .tg-plan-cta__item{
+      grid-template-columns:48px minmax(0, 1fr);
+      gap:14px;
+      padding-top:18px;
+    }
+
+    .tg-plan-cta__item strong{
+      font-size:34px;
+    }
+
+    .tg-plan-cta__item span{
+      font-size:16px;
+      line-height:1.24;
+    }
+
+    .tg-plan-cta__note{
+      font-size:14px;
+    }
+  }
+</style>`;
+
+const planCtaSectionMarkup = `<section id="plan-evening" class="tg-plan-cta" data-local-only="telegram-funnel-prototype">
+  <div class="tg-plan-cta__inner">
+    <div>
+      <p class="tg-plan-cta__kicker">Бесплатно в Telegram</p>
+      <h2>План свадебного вечера</h2>
+      <p class="tg-plan-cta__text">Короткая структура вечера: основные блоки, точки риска и вопросы, которые стоит обсудить с ведущим до договора.</p>
+      <div class="tg-plan-cta__actions">
+        <a class="tg-plan-cta__button tg-plan-cta__button--primary" href="#plan-delivery-popup" data-plan-popup-open>Получить план</a>
+        <a class="tg-plan-cta__button tg-plan-cta__button--secondary" href="#consultation-contact" data-consultation-popup-open>Обсудить свадьбу</a>
+      </div>
+    </div>
+    <div class="tg-plan-cta__side" aria-label="Что внутри">
+      <div class="tg-plan-cta__item"><strong>01</strong><span>Тайминг без лишней воды: welcome, церемония, банкет, тосты, интерактивы и финал.</span></div>
+      <div class="tg-plan-cta__item"><strong>02</strong><span>Места, где чаще всего появляются паузы, хаос и неловкие моменты.</span></div>
+      <div class="tg-plan-cta__item"><strong>03</strong><span>После плана можно открыть смету или чеклист выбора ведущего, если это актуально.</span></div>
+      <p class="tg-plan-cta__note">План не заменяет личную встречу, но помогает быстро понять, как будет устроен вечер и что важно обсудить заранее.</p>
+    </div>
+  </div>
+</section>`;
+
+const consultationCtaSectionAssets = `<style>
+  .tg-consultation-cta{
+    background:#fffefa;
+    color:#1c1b1a;
+    padding:82px 64px 86px;
+  }
+
+  .tg-consultation-cta__inner{
+    display:grid;
+    grid-template-columns:minmax(0, .88fr) minmax(320px, .62fr);
+    gap:50px;
+    width:min(1680px, 100%);
+    margin:0 auto;
+    align-items:start;
+  }
+
+  .tg-consultation-cta__eyebrow,
+  .tg-consultation-cta__text,
+  .tg-consultation-cta__note,
+  .tg-consultation-cta__card p{
+    margin:0;
+    font-family:var(--t-text-font, Arial);
+    font-weight:400;
+    letter-spacing:0;
+  }
+
+  .tg-consultation-cta__eyebrow{
+    margin-bottom:18px;
+    color:#fa4604;
+    font-size:18px;
+    line-height:1.1;
+  }
+
+  .tg-consultation-cta h2{
+    max-width:760px;
+    margin:0 0 20px;
+    color:#1c1b1a;
+    font-family:var(--t-headline-font, Arial);
+    font-size:67px;
+    font-weight:500;
+    line-height:1;
+    text-transform:uppercase;
+    letter-spacing:0;
+  }
+
+  .tg-consultation-cta__text{
+    max-width:640px;
+    color:rgba(28,27,26,.78);
+    font-size:20px;
+    line-height:1.28;
+  }
+
+  .tg-consultation-cta__actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:30px;
+  }
+
+  .tg-consultation-cta__button{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:56px;
+    padding:0 24px;
+    border:1px solid #fa4604;
+    border-radius:8px;
+    box-sizing:border-box;
+    color:#1c1b1a !important;
+    background:#fffefa;
+    font-family:var(--t-text-font, Arial);
+    font-size:18px;
+    font-weight:400;
+    line-height:1;
+    text-decoration:none !important;
+    transition:background-color .18s ease,color .18s ease,border-color .18s ease;
+  }
+
+  .tg-consultation-cta__button--primary{
+    background:#fa4604;
+    color:#fffefa !important;
+  }
+
+  @media (hover:hover){
+    .tg-consultation-cta__button:hover{
+      background:#fa4604;
+      border-color:#fa4604;
+      color:#fffefa !important;
+    }
+
+    .tg-consultation-cta__button--primary:hover{
+      background:#fffefa;
+      color:#fa4604 !important;
+    }
+  }
+
+  .tg-consultation-cta__note{
+    margin-top:18px;
+    color:rgba(28,27,26,.52);
+    font-size:15px;
+    line-height:1.28;
+  }
+
+  .tg-consultation-cta__side{
+    display:grid;
+    gap:14px;
+    padding-top:42px;
+  }
+
+  .tg-consultation-cta__card{
+    padding:20px 22px;
+    border:1px solid rgba(28,27,26,.1);
+    border-radius:8px;
+    background:#fffefa;
+  }
+
+  .tg-consultation-cta__card strong{
+    display:block;
+    margin-bottom:8px;
+    color:#1c1b1a;
+    font-family:var(--t-headline-font, Arial);
+    font-size:27px;
+    font-weight:500;
+    line-height:1;
+    letter-spacing:0;
+    text-transform:uppercase;
+  }
+
+  .tg-consultation-cta__card p{
+    color:rgba(28,27,26,.78);
+    font-size:16px;
+    line-height:1.26;
+  }
+
+  @media screen and (max-width:1199px){
+    .tg-consultation-cta{
+      padding:68px 40px 70px;
+    }
+
+    .tg-consultation-cta__inner{
+      grid-template-columns:1fr;
+      gap:34px;
+    }
+
+    .tg-consultation-cta__side{
+      padding-top:0;
+    }
+
+    .tg-consultation-cta h2{
+      max-width:700px;
+      font-size:58px;
+    }
+
+    .tg-consultation-cta__text{
+      max-width:660px;
+      font-size:19px;
+    }
+  }
+
+  @media screen and (max-width:639px){
+    .tg-consultation-cta{
+      padding:54px 20px 58px;
+    }
+
+    .tg-consultation-cta__eyebrow{
+      margin-bottom:16px;
+      font-size:15px;
+    }
+
+    .tg-consultation-cta h2{
+      margin-bottom:18px;
+      font-size:36px;
+      line-height:1;
+    }
+
+    .tg-consultation-cta__text{
+      font-size:17px;
+      line-height:1.26;
+    }
+
+    .tg-consultation-cta__actions{
+      display:grid;
+      gap:10px;
+      margin-top:24px;
+    }
+
+    .tg-consultation-cta__button{
+      width:100%;
+      min-height:52px;
+      padding:0 18px;
+      font-size:16px;
+    }
+
+    .tg-consultation-cta__card{
+      padding:18px 18px 20px;
+    }
+
+    .tg-consultation-cta__card strong{
+      margin-bottom:6px;
+      font-size:26px;
+    }
+
+    .tg-consultation-cta__card p{
+      font-size:15px;
+      line-height:1.24;
+    }
+
+    .tg-consultation-cta__note{
+      font-size:14px;
+    }
+  }
+</style>`;
+
+const consultationCtaSectionMarkup = `<section id="free-consultation" class="tg-consultation-cta" data-local-only="consultation-funnel-prototype">
+  <div class="tg-consultation-cta__inner">
+    <div>
+      <p class="tg-consultation-cta__eyebrow">Бесплатная консультация</p>
+      <h2>Понять, подхожу ли я для вашей свадьбы</h2>
+      <p class="tg-consultation-cta__text">Если вы уже выбираете ведущего, можно не идти через Telegram. На короткой встрече разберем формат свадьбы, тайминг, площадку и вашу задачу без навязывания и без обязательств.</p>
+      <div class="tg-consultation-cta__actions">
+        <a class="tg-consultation-cta__button tg-consultation-cta__button--primary" href="#consultation-contact" data-consultation-popup-open>Записаться на бесплатную встречу</a>
+        <a class="tg-consultation-cta__button" href="tel:+79253900772" rel="nofollow">Позвонить</a>
+      </div>
+      <p class="tg-consultation-cta__note">Встреча ни к чему не обязывает: вы просто знакомитесь, задаете вопросы и смотрите, комфортно ли вам идти дальше именно со мной.</p>
+    </div>
+    <div class="tg-consultation-cta__side" aria-label="Что будет на встрече">
+      <article class="tg-consultation-cta__card"><strong>20-30 минут</strong><p>Без длинной продажи и без анкет на полчаса.</p></article>
+      <article class="tg-consultation-cta__card"><strong>По делу</strong><p>Обсудим гостей, площадку, формат вечера и реальные точки риска именно вашей свадьбы.</p></article>
+      <article class="tg-consultation-cta__card"><strong>Без давления</strong><p>После встречи вы просто поймете, рассматриваете ли меня как своего ведущего дальше.</p></article>
+    </div>
+  </div>
+</section>`;
+
+const consultationContactPopupAssets = `<style>
+  .tg-contact-popup{
+    position:fixed;
+    inset:0;
+    z-index:10020;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:28px;
+    box-sizing:border-box;
+    color:#1c1b1a;
+  }
+
+  .tg-contact-popup.is-open{
+    display:flex;
+  }
+
+  .tg-contact-popup__backdrop{
+    position:absolute;
+    inset:0;
+    background:rgba(28,27,26,.42);
+    backdrop-filter:blur(10px);
+  }
+
+  .tg-contact-popup__panel{
+    position:relative;
+    z-index:1;
+    width:min(920px, 100%);
+    max-height:min(760px, calc(100vh - 56px));
+    overflow:auto;
+    border-radius:12px;
+    background:#fffefa;
+    box-shadow:0 24px 80px rgba(28,27,26,.24);
+  }
+
+  .tg-contact-popup__close{
+    position:absolute;
+    top:18px;
+    right:18px;
+    z-index:2;
+    width:42px;
+    height:42px;
+    border:1px solid rgba(28,27,26,.14);
+    border-radius:50%;
+    background:#fffefa;
+    cursor:pointer;
+  }
+
+  .tg-contact-popup__close::before,
+  .tg-contact-popup__close::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:18px;
+    height:2px;
+    background:#1c1b1a;
+    transform-origin:center;
+  }
+
+  .tg-contact-popup__close::before{
+    transform:translate(-50%, -50%) rotate(45deg);
+  }
+
+  .tg-contact-popup__close::after{
+    transform:translate(-50%, -50%) rotate(-45deg);
+  }
+
+  .tg-contact-popup__content{
+    display:grid;
+    grid-template-columns:minmax(0, .95fr) minmax(280px, .7fr);
+    gap:42px;
+    padding:54px;
+  }
+
+  .tg-contact-popup__eyebrow,
+  .tg-contact-popup__text,
+  .tg-contact-popup__hint,
+  .tg-contact-popup__consent,
+  .tg-contact-popup__form label,
+  .tg-contact-popup__form input,
+  .tg-contact-popup__form textarea,
+  .tg-contact-popup__form button,
+  .tg-contact-popup__link,
+  .tg-contact-popup__status{
+    font-family:var(--t-text-font, Arial);
+    letter-spacing:0;
+  }
+
+  .tg-contact-popup__eyebrow{
+    margin:0 0 16px;
+    color:#fa4604;
+    font-size:18px;
+    line-height:1.1;
+  }
+
+  .tg-contact-popup h2{
+    margin:0 48px 20px 0;
+    color:#1c1b1a;
+    font-family:var(--t-headline-font, Arial);
+    font-size:64px;
+    font-weight:500;
+    line-height:1;
+    text-transform:uppercase;
+    letter-spacing:0;
+  }
+
+  .tg-contact-popup__text{
+    max-width:520px;
+    margin:0 0 28px;
+    color:rgba(28,27,26,.76);
+    font-size:20px;
+    line-height:1.24;
+  }
+
+  .tg-contact-popup__links{
+    display:grid;
+    gap:12px;
+  }
+
+  .tg-contact-popup__link{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    min-height:58px;
+    padding:0 20px;
+    border:1px solid rgba(28,27,26,.14);
+    border-radius:8px;
+    box-sizing:border-box;
+    color:#1c1b1a !important;
+    background:#fffefa;
+    font-size:18px;
+    line-height:1;
+    text-decoration:none !important;
+    transition:background-color .18s ease,border-color .18s ease,color .18s ease;
+  }
+
+  .tg-contact-popup__link::after{
+    content:"";
+    width:9px;
+    height:9px;
+    border-top:2px solid currentColor;
+    border-right:2px solid currentColor;
+    transform:rotate(45deg);
+  }
+
+  @media (hover:hover){
+    .tg-contact-popup__link:hover{
+      border-color:#fa4604;
+      background:#fa4604;
+      color:#fffefa !important;
+    }
+  }
+
+  .tg-contact-popup__hint{
+    margin:14px 0 0;
+    color:rgba(28,27,26,.52);
+    font-size:14px;
+    line-height:1.28;
+  }
+
+
+  .tg-contact-popup__form{
+    display:grid;
+    gap:10px;
+    padding:18px;
+    border:1px solid rgba(28,27,26,.12);
+    border-radius:8px;
+    background:#fffefa;
+    align-content:start;
+  }
+
+  .tg-contact-popup__form-title{
+    margin:0 0 2px;
+    color:#1c1b1a;
+    font-family:var(--t-headline-font, Arial);
+    font-size:34px;
+    font-weight:500;
+    line-height:1;
+    text-transform:uppercase;
+    letter-spacing:0;
+  }
+
+  .tg-contact-popup__form label{
+    display:grid;
+    gap:6px;
+    color:rgba(28,27,26,.62);
+    font-size:13px;
+    line-height:1.2;
+  }
+
+  .tg-contact-popup__form input,
+  .tg-contact-popup__form textarea{
+    width:100%;
+    min-height:48px;
+    padding:0 14px;
+    border:1px solid rgba(28,27,26,.18);
+    border-radius:8px;
+    box-sizing:border-box;
+    background:#fffefa;
+    color:#1c1b1a;
+    font-size:16px;
+    line-height:1.2;
+    outline:0;
+  }
+
+  .tg-contact-popup__form textarea{
+    min-height:68px;
+    padding-top:10px;
+    resize:vertical;
+  }
+
+  .tg-contact-popup__form input:focus,
+  .tg-contact-popup__form textarea:focus{
+    border-color:#fa4604;
+  }
+
+  .tg-contact-popup__form button{
+    min-height:48px;
+    margin-top:2px;
+    border:1px solid #fa4604;
+    border-radius:8px;
+    background:#fa4604;
+    color:#fffefa;
+    font-size:17px;
+    font-weight:400;
+    cursor:pointer;
+  }
+
+  .tg-contact-popup__status{
+    min-height:0;
+    margin:0;
+    color:rgba(28,27,26,.58);
+    font-size:13px;
+    line-height:1.25;
+  }
+
+  .tg-contact-popup__consent{
+    margin:2px 0 0;
+    color:rgba(28,27,26,.52);
+    font-size:12px;
+    line-height:1.3;
+  }
+
+  .tg-contact-popup__consent a{
+    color:#1c1b1a;
+    text-decoration:underline;
+    text-underline-offset:2px;
+  }
+
+  body.tg-contact-popup-open{
+    overflow:hidden !important;
+  }
+
+  @media screen and (max-width:1199px){
+    .tg-contact-popup__content{
+      grid-template-columns:1fr;
+      gap:30px;
+      padding:44px;
+    }
+
+    .tg-contact-popup h2{
+      font-size:54px;
+    }
+  }
+
+  @media screen and (max-width:639px){
+    .tg-contact-popup{
+      padding:12px;
+      align-items:flex-end;
+    }
+
+    .tg-contact-popup__panel{
+      max-height:calc(100vh - 24px);
+      border-radius:10px;
+    }
+
+    .tg-contact-popup__content{
+      gap:24px;
+      padding:34px 18px 20px;
+    }
+
+    .tg-contact-popup__close{
+      top:10px;
+      right:10px;
+      width:36px;
+      height:36px;
+    }
+
+    .tg-contact-popup__eyebrow{
+      font-size:15px;
+    }
+
+    .tg-contact-popup h2{
+      margin-right:36px;
+      font-size:38px;
+    }
+
+    .tg-contact-popup__text{
+      font-size:16px;
+      line-height:1.28;
+    }
+
+    .tg-contact-popup__link{
+      min-height:54px;
+      padding:0 16px;
+      font-size:16px;
+    }
+
+    .tg-contact-popup__form{
+      padding:16px;
+    }
+
+    .tg-contact-popup__consent{
+      font-size:11px;
+    }
+
+    .tg-contact-popup__form-title{
+      font-size:28px;
+    }
+  }
+</style>
+<script>
+  (function(){
+    var popupId = 'consultation-contact-popup';
+    var openSelector = '[data-consultation-popup-open]';
+    var endpoint = '/api/consultation-lead';
+
+    function getPopup(){
+      return document.getElementById(popupId);
+    }
+
+    function openPopup(event){
+      if (event) event.preventDefault();
+      var popup = getPopup();
+      if (!popup) return;
+      popup.classList.add('is-open');
+      popup.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('tg-contact-popup-open');
+    }
+
+    function closePopup(){
+      var popup = getPopup();
+      if (!popup) return;
+      popup.classList.remove('is-open');
+      popup.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('tg-contact-popup-open');
+    }
+
+    function setStatus(form, text){
+      var status = form.querySelector('[data-contact-status]');
+      if (status) status.textContent = text || '';
+    }
+
+    document.addEventListener('click', function(event){
+      var opener = event.target && event.target.closest && event.target.closest(openSelector);
+      if (opener) {
+        openPopup(event);
+        return;
+      }
+
+      var closer = event.target && event.target.closest && event.target.closest('[data-consultation-popup-close]');
+      if (closer) {
+        event.preventDefault();
+        closePopup();
+      }
+    });
+
+    document.addEventListener('keydown', function(event){
+      if (event.key === 'Escape') closePopup();
+    });
+
+    document.addEventListener('submit', function(event){
+      var form = event.target && event.target.closest && event.target.closest('[data-consultation-lead-form]');
+      if (!form) return;
+
+      event.preventDefault();
+      var button = form.querySelector('button[type="submit"]');
+      var formData = new FormData(form);
+      setStatus(form, 'Отправляю...');
+      if (button) button.disabled = true;
+
+      fetch(endpoint, {
+        method: 'POST',
+        body: formData,
+        credentials: 'same-origin'
+      })
+        .then(function(response){
+          if (!response.ok) throw new Error('lead endpoint unavailable');
+          form.reset();
+          setStatus(form, 'Заявка отправлена. Тимур свяжется с вами.');
+        })
+        .catch(function(){
+          setStatus(form, 'Форма готова для подключения к боту. Сейчас лучше написать в Telegram или MAX.');
+        })
+        .finally(function(){
+          if (button) button.disabled = false;
+        });
+    });
+  }());
+</script>`;
+
+const planDeliveryPopupAssets = `<style>
+  .tg-plan-popup{
+    position:fixed;
+    inset:0;
+    z-index:10015;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:28px;
+    box-sizing:border-box;
+    color:#1c1b1a;
+  }
+
+  .tg-plan-popup.is-open{
+    display:flex;
+  }
+
+  .tg-plan-popup__backdrop{
+    position:absolute;
+    inset:0;
+    background:rgba(28,27,26,.42);
+    backdrop-filter:blur(10px);
+  }
+
+  .tg-plan-popup__panel{
+    position:relative;
+    z-index:1;
+    width:min(720px, 100%);
+    padding:46px 42px 38px;
+    border-radius:12px;
+    background:#fffefa;
+    box-shadow:0 24px 80px rgba(28,27,26,.24);
+  }
+
+  .tg-plan-popup__close{
+    position:absolute;
+    top:18px;
+    right:18px;
+    z-index:2;
+    width:42px;
+    height:42px;
+    border:1px solid rgba(28,27,26,.14);
+    border-radius:50%;
+    background:#fffefa;
+    cursor:pointer;
+  }
+
+  .tg-plan-popup__close::before,
+  .tg-plan-popup__close::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:18px;
+    height:2px;
+    background:#1c1b1a;
+    transform-origin:center;
+  }
+
+  .tg-plan-popup__close::before{
+    transform:translate(-50%, -50%) rotate(45deg);
+  }
+
+  .tg-plan-popup__close::after{
+    transform:translate(-50%, -50%) rotate(-45deg);
+  }
+
+  .tg-plan-popup__eyebrow,
+  .tg-plan-popup__text,
+  .tg-plan-popup__note,
+  .tg-plan-popup__link{
+    font-family:var(--t-text-font, Arial);
+    letter-spacing:0;
+  }
+
+  .tg-plan-popup__eyebrow{
+    margin:0 0 16px;
+    color:#fa4604;
+    font-size:18px;
+    line-height:1.1;
+  }
+
+  .tg-plan-popup h2{
+    margin:0 52px 18px 0;
+    color:#1c1b1a;
+    font-family:var(--t-headline-font, Arial);
+    font-size:56px;
+    font-weight:500;
+    line-height:1;
+    text-transform:uppercase;
+    letter-spacing:0;
+  }
+
+  .tg-plan-popup__text{
+    max-width:520px;
+    margin:0 0 24px;
+    color:rgba(28,27,26,.76);
+    font-size:20px;
+    line-height:1.24;
+  }
+
+  .tg-plan-popup__links{
+    display:grid;
+    gap:12px;
+  }
+
+  .tg-plan-popup__link{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    min-height:58px;
+    padding:0 20px;
+    border:1px solid rgba(28,27,26,.14);
+    border-radius:8px;
+    box-sizing:border-box;
+    color:#1c1b1a !important;
+    background:#fffefa;
+    font-size:18px;
+    line-height:1;
+    text-decoration:none !important;
+    transition:background-color .18s ease,border-color .18s ease,color .18s ease;
+  }
+
+  .tg-plan-popup__link::after{
+    content:"";
+    width:9px;
+    height:9px;
+    border-top:2px solid currentColor;
+    border-right:2px solid currentColor;
+    transform:rotate(45deg);
+  }
+
+  @media (hover:hover){
+    .tg-plan-popup__link:hover{
+      border-color:#fa4604;
+      background:#fa4604;
+      color:#fffefa !important;
+    }
+  }
+
+  .tg-plan-popup__note{
+    margin:14px 0 0;
+    color:rgba(28,27,26,.52);
+    font-size:14px;
+    line-height:1.28;
+  }
+
+  body.tg-plan-popup-open{
+    overflow:hidden !important;
+  }
+
+  @media screen and (max-width:639px){
+    .tg-plan-popup{
+      padding:12px;
+      align-items:flex-end;
+    }
+
+    .tg-plan-popup__panel{
+      padding:34px 18px 20px;
+      border-radius:10px;
+    }
+
+    .tg-plan-popup__close{
+      top:10px;
+      right:10px;
+      width:36px;
+      height:36px;
+    }
+
+    .tg-plan-popup__eyebrow{
+      font-size:15px;
+    }
+
+    .tg-plan-popup h2{
+      margin-right:36px;
+      font-size:36px;
+    }
+
+    .tg-plan-popup__text{
+      font-size:16px;
+      line-height:1.28;
+    }
+
+    .tg-plan-popup__link{
+      min-height:54px;
+      padding:0 16px;
+      font-size:16px;
+    }
+  }
+</style>
+<script>
+  (function(){
+    var popupId = 'plan-delivery-popup';
+    var openSelector = '[data-plan-popup-open]';
+
+    function getPopup(){
+      return document.getElementById(popupId);
+    }
+
+    function openPopup(event){
+      if (event) event.preventDefault();
+      var popup = getPopup();
+      if (!popup) return;
+      popup.classList.add('is-open');
+      popup.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('tg-plan-popup-open');
+    }
+
+    function closePopup(){
+      var popup = getPopup();
+      if (!popup) return;
+      popup.classList.remove('is-open');
+      popup.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('tg-plan-popup-open');
+    }
+
+    document.addEventListener('click', function(event){
+      var opener = event.target && event.target.closest && event.target.closest(openSelector);
+      if (opener) {
+        openPopup(event);
+        return;
+      }
+
+      var closer = event.target && event.target.closest && event.target.closest('[data-plan-popup-close]');
+      if (closer) {
+        event.preventDefault();
+        closePopup();
+      }
+    });
+
+    document.addEventListener('keydown', function(event){
+      if (event.key === 'Escape') closePopup();
+    });
+  }());
+</script>`;
+
+const planDeliveryPopupMarkup = `<div id="plan-delivery-popup" class="tg-plan-popup" aria-hidden="true">
+  <div class="tg-plan-popup__backdrop" data-plan-popup-close></div>
+  <div class="tg-plan-popup__panel" role="dialog" aria-modal="true" aria-labelledby="plan-delivery-title">
+    <button class="tg-plan-popup__close" type="button" aria-label="Закрыть" data-plan-popup-close></button>
+    <p class="tg-plan-popup__eyebrow">План свадебного вечера</p>
+    <h2 id="plan-delivery-title">Получить в Telegram</h2>
+    <p class="tg-plan-popup__text">Материал откроется в Telegram. Там же потом можно будет перейти к смете, онлайн-разбору и другим полезным материалам.</p>
+    <div class="tg-plan-popup__links">
+      <a class="tg-plan-popup__link" href="${telegramPlanUrl}" target="_blank" rel="nofollow" data-plan-channel="telegram">Получить план в Telegram</a>
+    </div>
+    <p class="tg-plan-popup__note">Материалы пока выдаются только в Telegram. Для связи по-прежнему можно выбрать Telegram или MAX.</p>
+  </div>
+</div>`;
+
+const consultationContactPopupMarkup = `<div id="consultation-contact-popup" class="tg-contact-popup" aria-hidden="true">
+  <div class="tg-contact-popup__backdrop" data-consultation-popup-close></div>
+  <div class="tg-contact-popup__panel" role="dialog" aria-modal="true" aria-labelledby="consultation-contact-title">
+    <button class="tg-contact-popup__close" type="button" aria-label="Закрыть" data-consultation-popup-close></button>
+    <div class="tg-contact-popup__content">
+      <div>
+        <p class="tg-contact-popup__eyebrow">Бесплатная встреча</p>
+        <h2 id="consultation-contact-title">Выберите удобный способ</h2>
+        <p class="tg-contact-popup__text">Выберите удобный способ: написать в Telegram или MAX, позвонить, либо оставить телефон, чтобы Тимур связался с вами.</p>
+        <div class="tg-contact-popup__links">
+          <a class="tg-contact-popup__link" href="${telegramMeetingUrl}" target="_blank" rel="nofollow" data-contact-channel="telegram">Написать в Telegram</a>
+          <a class="tg-contact-popup__link" href="${maxContactUrl}" target="_blank" rel="nofollow" data-contact-channel="max">Написать в MAX</a>
+          <a class="tg-contact-popup__link" href="tel:+79253900772" rel="nofollow" data-contact-channel="phone">Позвонить</a>
+        </div>
+        <p class="tg-contact-popup__hint">Можно выбрать любой удобный способ связи.</p>
+      </div>
+      <form class="tg-contact-popup__form" data-consultation-lead-form>
+        <p class="tg-contact-popup__form-title">Оставить телефон</p>
+        <input type="hidden" name="source" value="site_consultation_popup" />
+        <label>Ваш телефон
+          <input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7" required />
+        </label>
+        <label>Комментарий
+          <textarea name="message" placeholder="Дата свадьбы, площадка или любой вопрос"></textarea>
+        </label>
+        <button type="submit">Отправить</button>
+        <p class="tg-contact-popup__consent">Нажимая «Отправить», вы соглашаетесь с <a href="${privacyPolicyUrl}" target="_blank" rel="nofollow">политикой конфиденциальности</a> и <a href="${privacyConsentUrl}" target="_blank" rel="nofollow">согласием на обработку персональных данных</a>.</p>
+        <p class="tg-contact-popup__status" data-contact-status></p>
+      </form>
+    </div>
+  </div>
+</div>`;
 
 const priceTabsController = `<script>
   (function(){
@@ -2118,6 +3283,18 @@ const headHtml = dedupeHeadAssetReferences(
     priceSectionAssets,
   )
   .concat(
+    planCtaSectionAssets,
+  )
+  .concat(
+    consultationCtaSectionAssets,
+  )
+  .concat(
+    consultationContactPopupAssets,
+  )
+  .concat(
+    planDeliveryPopupAssets,
+  )
+  .concat(
     priceTabsController,
   )
   .concat(
@@ -2155,7 +3332,25 @@ const priceBodyWithText = priceTextReplacements.reduce(
 
 const priceBodySource = transformTildaRecord(
   transformTildaRecord(
-    priceBodyWithText,
+    transformTildaRecord(
+      replaceTildaTextInRecord(
+        replaceTildaTextInRecord(
+          priceBodyWithText,
+          "rec861352716",
+          "1738732845597",
+          "Коротко покажу, какие блоки вечера стоит продумать заранее и что важно обсудить с ведущим до договора.",
+        ),
+        "rec861352716",
+        "1738733079599",
+        "получить план вечера",
+      ),
+      "rec861352716",
+      (recordHtml) =>
+        recordHtml.replace(
+          `<a class='tn-atom' href="http://t.me/timurgromovv" rel="nofollow" target="_blank"> </a>`,
+          `<a class='tn-atom' href="#plan-evening"> </a>`,
+        ),
+    ),
     "rec862317152",
     (recordHtml) =>
       recordHtml
@@ -2187,6 +3382,14 @@ const transformedBodyHtml = priceBodySource
   .replace(
     /(<div class='t396__elem tn-elem tn-elem__8613527161738731141089'[\s\S]*?<div class='tn-atom'>\s*<\/div>)/,
     `$1${heroNativeVideoMarkup}${heroPosterLayer}`,
+  )
+  .replace(
+    /(<div id="rec862619449")/,
+    `${planCtaSectionMarkup} $1`,
+  )
+  .replace(
+    /(<div id="rec862619974")/,
+    `${consultationCtaSectionMarkup} $1`,
   );
 
 const popupPhraseBodyHtml = replaceTildaText(
@@ -2207,7 +3410,7 @@ const bodyHtml = injectBeforeTildaRecordScript(
   ),
   "862623921",
   footerContactShortcutMarkup,
-) + standaloneShowreelPopupMarkup;
+) + planDeliveryPopupMarkup + consultationContactPopupMarkup + standaloneShowreelPopupMarkup;
 ---
 
 <!doctype html>
