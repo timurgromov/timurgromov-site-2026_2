@@ -13,10 +13,40 @@
 5. `docs/do-not-break-this-site.md`
 6. `docs/video-link-registry.md` для любых задач с видео/Safari/VPS
 7. `docs/github-pages-deploy.md` перед deploy/push-проверкой
+8. `docs/history/README.md`
+9. `docs/history/CURRENT_STATE.md`
+10. последние 3-5 записей из `docs/history/worklog/`
+11. `docs/history/DECISIONS.md`, если задача затрагивает UX, воронку, архитектуру, deploy или качество
 
 Важно: основной публичный сайт должен открываться на:
 `https://timurgromov.ru/`.
 GitHub Pages URL `https://timurgromov.github.io/timurgromov-site-2026_2/` остаётся техническим fallback / deploy-preview. Если есть расхождение, production-проверку делать по `timurgromov.ru`, а `github.io` использовать как резервную точку сверки.
+
+## Project Memory
+
+Проект ведёт наследуемую память в `docs/history/`. Это не замена git и не стенограмма чатов. Git отвечает на вопрос "что изменилось в файлах", project memory отвечает на вопрос "зачем, что проверили, какой результат и что нельзя забыть".
+
+Перед крупной задачей или в новом чате агент обязан прочитать:
+
+1. `docs/history/README.md`
+2. `docs/history/CURRENT_STATE.md`
+3. последние 3-5 записей из `docs/history/worklog/`
+4. `docs/history/DECISIONS.md`, если задача затрагивает архитектуру, UX, API, данные, production, платежи, AI/runtime, безопасность или качество
+
+После каждого завершённого meaningful change агент обязан добавить или обновить запись в `docs/history/worklog/`.
+
+Meaningful change - это:
+
+- изменение кода, UX, API, данных или инфраструктуры
+- deploy/release
+- важное расследование
+- исправление production-инцидента
+- изменение правил проекта
+- решение, которое может повлиять на будущие правки
+
+Если принято, отменено или переоценено важное правило проекта, агент обязан обновить `docs/history/DECISIONS.md`.
+
+Если изменился текущий handoff проекта, агент обязан обновить `docs/history/CURRENT_STATE.md`.
 
 ## Tilda Zero Rule
 

@@ -1,0 +1,167 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const homeHref = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+---
+
+<BaseLayout
+  title="Политика конфиденциальности | Тимур Громов"
+  description="Политика конфиденциальности и согласие на обработку персональных данных для формы обратной связи."
+>
+  <main class="privacy-page">
+    <section class="privacy-page__shell">
+      <p class="privacy-page__eyebrow">Документы сайта</p>
+      <h1>Политика конфиденциальности</h1>
+      <p class="privacy-page__lead">
+        Эта страница описывает, как обрабатываются контактные данные,
+        которые пользователь оставляет через форму обратной связи на сайте
+        Тимура Громова.
+      </p>
+
+      <section class="privacy-page__section" id="policy">
+        <h2>1. Какие данные собираются</h2>
+        <p>
+          Через форму обратной связи могут передаваться номер телефона и
+          комментарий пользователя, если он решил их оставить.
+        </p>
+      </section>
+
+      <section class="privacy-page__section">
+        <h2>2. Для чего используются данные</h2>
+        <p>Контактные данные используются только для обратной связи по запросу пользователя, обсуждения свадьбы и согласования встречи.</p>
+      </section>
+
+      <section class="privacy-page__section">
+        <h2>3. Как обрабатываются данные</h2>
+        <p>
+          Данные не публикуются в открытом доступе, не используются для
+          массовых рассылок без отдельного согласия и передаются только в те
+          сервисы, которые нужны для связи с пользователем и ведения заявки.
+        </p>
+      </section>
+
+      <section class="privacy-page__section">
+        <h2>4. Срок обработки</h2>
+        <p>
+          Данные хранятся только столько, сколько это необходимо для ответа,
+          согласования деталей и ведения коммуникации по обращению.
+        </p>
+      </section>
+
+      <section class="privacy-page__section">
+        <h2>5. Запрос на удаление</h2>
+        <p>
+          Пользователь может в любой момент запросить прекращение обработки и
+          удаление своих данных, написав по тем контактам, которые указаны на
+          сайте.
+        </p>
+      </section>
+
+      <section class="privacy-page__section" id="consent">
+        <h2>Согласие на обработку персональных данных</h2>
+        <p>
+          Отправляя форму обратной связи на сайте, пользователь добровольно
+          соглашается на обработку переданных им персональных данных для
+          обратной связи, обсуждения запроса, записи на встречу и дальнейшей
+          коммуникации по своему обращению.
+        </p>
+      </section>
+
+      <p class="privacy-page__back"><a href={homeHref}>Вернуться на главную</a></p>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .privacy-page{
+    min-height:100vh;
+    padding:48px 20px 64px;
+    background:#fffefa;
+    color:#1c1b1a;
+  }
+
+  .privacy-page__shell{
+    width:min(900px, 100%);
+    margin:0 auto;
+  }
+
+  .privacy-page__eyebrow{
+    margin:0 0 18px;
+    color:#fa4604;
+    font-size:18px;
+    line-height:1.1;
+  }
+
+  .privacy-page h1,
+  .privacy-page h2{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight:500;
+    letter-spacing:0;
+    text-transform:uppercase;
+  }
+
+  .privacy-page h1{
+    margin-bottom:20px;
+    font-size:56px;
+    line-height:1;
+  }
+
+  .privacy-page__lead,
+  .privacy-page p{
+    margin:0;
+    font-size:20px;
+    line-height:1.45;
+  }
+
+  .privacy-page__lead{
+    max-width:760px;
+    color:rgba(28,27,26,.78);
+  }
+
+  .privacy-page__section{
+    margin-top:34px;
+    padding-top:22px;
+    border-top:1px solid rgba(28,27,26,.12);
+  }
+
+  .privacy-page__section h2{
+    margin-bottom:10px;
+    font-size:28px;
+    line-height:1.05;
+  }
+
+  .privacy-page__back{
+    margin-top:34px;
+  }
+
+  .privacy-page a{
+    color:#fa4604;
+    text-decoration:underline;
+    text-underline-offset:3px;
+  }
+
+  @media screen and (max-width:639px){
+    .privacy-page{
+      padding:34px 18px 48px;
+    }
+
+    .privacy-page__eyebrow{
+      font-size:15px;
+    }
+
+    .privacy-page h1{
+      font-size:34px;
+    }
+
+    .privacy-page__lead,
+    .privacy-page p{
+      font-size:17px;
+      line-height:1.38;
+    }
+
+    .privacy-page__section h2{
+      font-size:22px;
+    }
+  }
+</style>
