@@ -3372,12 +3372,18 @@ const priceBodyWithText = priceTextReplacements.reduce(
   ),
 );
 
+const priceBodyWithoutMetaDisclaimer = removeTildaElementInRecord(
+  priceBodyWithText,
+  "rec862623921",
+  "1738909098668",
+);
+
 const priceBodySource = transformTildaRecord(
   transformTildaRecord(
     transformTildaRecord(
       replaceTildaTextInRecord(
         replaceTildaTextInRecord(
-          priceBodyWithText,
+          priceBodyWithoutMetaDisclaimer,
           "rec861352716",
           "1738732845597",
           "Коротко покажу, какие блоки вечера стоит продумать заранее и что важно обсудить с ведущим до договора.",
