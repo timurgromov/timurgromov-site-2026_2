@@ -64,5 +64,6 @@
 ## Last Known Good State
 
 - Branch: `codex/audit-tilda-astro-20260531`
-- Local verification: `npm run build`, stable local docker preview `http://127.0.0.1:4323/`
+- Local verification: `npm run build`, stable local docker preview `http://127.0.0.1:4323/`.
+- Последнее правленное состояние: стабилизирован блок оферты в подвале на мобильной и десктопной версии, убраны перекрытия и сдвиги после редизайна ссылок.
 - Production deploy: intentionally not performed for this iteration

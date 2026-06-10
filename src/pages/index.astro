@@ -721,6 +721,9 @@ const contactShortcutEnhancer = `<style>
     visibility:hidden !important;
     pointer-events:none !important;
   }
+  #rec862623921{
+    overflow: visible !important;
+  }
   .contact-shortcut-inline__content{
     display:inline-flex;
     align-items:center;
@@ -734,44 +737,130 @@ const contactShortcutEnhancer = `<style>
     opacity:1;
     pointer-events:none;
   }
-  .legal-doc-link{
-    color:#fffefa !important;
-    -webkit-text-fill-color:#fffefa;
-    text-decoration:none !important;
-    transition:opacity .2s ease, border-color .2s ease, color .2s ease;
-    opacity:1 !important;
-  }
-  .legal-doc-link:visited{
-    color:#fffefa !important;
-    -webkit-text-fill-color:#fffefa;
-    opacity:1 !important;
-    pointer-events:auto !important;
-  }
-  .legal-doc-link:hover{
-    opacity:.5 !important;
-    color:#fffefa !important;
-    -webkit-text-fill-color:#fffefa;
-  }
-  .legal-doc-link:focus-visible{
-    outline:1px solid #fffefa;
-    outline-offset:4px;
-  }
+  .legal-doc-link,
   #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom a.legal-doc-link{
-    transition:opacity .2s ease, color .2s ease;
+    color:#fffefa !important;
+    -webkit-text-fill-color:#fffefa !important;
+    text-decoration:none !important;
+    transition:opacity .22s ease, color .2s ease, filter .2s ease;
+    will-change: opacity;
+    opacity:1 !important;
+    display:block;
+    filter:none !important;
+    transform:none !important;
+    white-space:normal;
+    pointer-events:auto !important;
+    cursor:pointer;
   }
+  .legal-doc-link:link,
+  #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom a.legal-doc-link:link{
+    color:#fffefa !important;
+    -webkit-text-fill-color:#fffefa !important;
+    opacity:1 !important;
+  }
+  .legal-doc-link:visited,
+  #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom a.legal-doc-link:visited{
+    color:#fffefa !important;
+    -webkit-text-fill-color:#fffefa !important;
+    opacity:1 !important;
+  }
+  .legal-doc-link:hover,
   #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom a.legal-doc-link:hover{
     opacity:.5 !important;
     color:#fffefa !important;
     -webkit-text-fill-color:#fffefa !important;
+    filter:none !important;
+  }
+  #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom:hover{
+    opacity:1 !important;
+  }
+  #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom:hover a.legal-doc-link{
+    opacity:.5 !important;
+    color:#fffefa !important;
+    -webkit-text-fill-color:#fffefa !important;
+  }
+  .legal-doc-link:focus-visible,
+  #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom a.legal-doc-link:focus-visible{
+    outline:1px solid #fffefa !important;
+    outline-offset:4px;
+  }
+  #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom a.legal-doc-link{
+    display:block;
+    transition:opacity .22s ease, color .2s ease, filter .2s ease !important;
+    will-change: opacity;
+    white-space:nowrap;
+  }
+  #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom .legal-doc-line{
+    display:block;
+    margin:0 !important;
+    padding:0 !important;
+    line-height:1.15 !important;
+  }
+  #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom a.legal-doc-link,
+  #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom a.legal-doc-link:visited,
+  #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom a.legal-doc-link:hover,
+  #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom a.legal-doc-link:active,
+  #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom a.legal-doc-link:focus-visible{
+    color:#fffefa !important;
+    -webkit-text-fill-color:#fffefa !important;
     text-decoration:none !important;
-    transform:translateY(-1px);
+  }
+  #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom a.legal-doc-link{
+    opacity:1 !important;
+    transition:opacity .22s ease-in-out !important;
+    filter:none !important;
+  }
+  #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom{
+    width:520px !important;
+    font-size:13px !important;
+    line-height:1.2 !important;
+    white-space:normal;
+    display:flex !important;
+    flex-direction:column !important;
+    row-gap:2px !important;
+    align-items:flex-start !important;
+  }
+  #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom,
+  #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom .legal-doc-line,
+  #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom a.legal-doc-link{
+    color:#fffefa !important;
+    -webkit-text-fill-color:#fffefa !important;
+    opacity:1 !important;
+    filter:none !important;
+  }
+  #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom a.legal-doc-link:hover{
+    opacity:.5 !important;
+    filter:brightness(.85) !important;
   }
   #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom a.legal-doc-link:active{
     opacity:.45 !important;
   }
+  #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom a.legal-doc-link:focus{
+    opacity:.5 !important;
+    filter:brightness(.85) !important;
+  }
   #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom a.legal-doc-link:focus-visible{
     outline:1px solid #fffefa;
     outline-offset:4px;
+  }
+  #rec862623921 .tn-elem[data-elem-id="1738909152475"]{
+    top:700px !important;
+  }
+  
+  @media screen and (min-width:1200px) and (max-width:1919px){
+    #rec862623921 .tn-elem[data-elem-id="1738909152475"]{
+      top:650px !important;
+    }
+    #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom{
+      width:380px !important;
+      font-size:12px !important;
+      line-height:1.18 !important;
+      white-space:normal;
+    }
+    #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom .legal-doc-line{
+      margin-bottom:0 !important;
+      line-height:1.15 !important;
+    }
   }
   .contact-shortcut-inline__link{
     color:#fffefa !important;
@@ -1023,6 +1112,12 @@ const contactShortcutEnhancer = `<style>
     }
   }
   @media screen and (max-width:1199px){
+    #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom a.legal-doc-link{
+      white-space:normal;
+    }
+    #rec862623921 .tn-elem[data-elem-id="1738909152475"]{
+      top:780px !important;
+    }
     #rec862707608 .tn-elem[data-elem-id="1746200000001"]{
       top:532px;
       left:calc(50% - 320px + 332px);
@@ -1186,12 +1281,6 @@ const contactShortcutEnhancer = `<style>
     #rec862623921 .tn-elem[data-elem-id="1738908872836"]{
       top:705px !important;
     }
-  #rec862623921 .tn-elem[data-elem-id="1738908883710"]{
-    top:730px !important;
-  }
-  #rec862623921 .tn-elem[data-elem-id="1738909152475"]{
-    top:752px !important;
-  }
     #rec862623921 .tn-elem[data-elem-id="1738908098051"]{
       top:407px !important;
     }
@@ -1228,17 +1317,44 @@ const contactShortcutEnhancer = `<style>
       width:285px !important;
     }
     #rec862623921 .tn-elem[data-elem-id="1738909017957"]{
-      top:766px !important;
+      top:760px !important;
     }
     #rec862623921 .tn-elem[data-elem-id="1738909098665"],
     #rec862623921 .tn-elem[data-elem-id="1739077659698"]{
-      top:840px !important;
+      top:830px !important;
+    }
+    #rec862623921 .tn-elem[data-elem-id="1738908883710"]{
+      top:730px !important;
     }
     #rec862623921 .tn-elem[data-elem-id="1738909152475"]{
-      top:752px !important;
+      top:865px !important;
     }
-    #rec862623921 .tn-elem[data-elem-id="1738909098668"]{
-      top:901px !important;
+    #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom{
+      width:240px !important;
+      font-size:12px !important;
+      line-height:1.35 !important;
+    }
+    #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom > .legal-doc-line{
+      margin:0 !important;
+    }
+    #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom a.legal-doc-link{
+      white-space:normal !important;
+      display:block !important;
+      margin:0 !important;
+      line-height:1.2 !important;
+    }
+    #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom{
+      color:#fffefa !important;
+      -webkit-text-fill-color:#fffefa !important;
+      opacity:1 !important;
+      filter:none !important;
+    }
+    #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom a.legal-doc-link{
+      color:#fffefa !important;
+      -webkit-text-fill-color:#fffefa !important;
+      opacity:1 !important;
+      text-decoration:none !important;
+      filter:none !important;
     }
   }
 </style>`;
@@ -3492,7 +3608,7 @@ const popupPhraseBodyHtml = replaceTildaText(
   "Праздник, который вспоминают с теплом",
 ).replace(
   `<div class='tn-atom'field='tn_text_1738909152475'>©2025 Все права защищены</div>`,
-  `<div class='tn-atom'field='tn_text_1738909152475' style="line-height:1.2; color:#ffffff !important; opacity:1 !important;"><span style="display:inline-block; margin-bottom:8px;">©2025 Все права защищены</span><br><a class="legal-doc-link" href="${privacyPolicyUrl}" rel="nofollow" style="white-space: nowrap; opacity:1 !important;">Политика конфиденциальности</a><br><a class="legal-doc-link" href="${privacyConsentUrl}" rel="nofollow" style="white-space: nowrap; opacity:1 !important;">Согласие на обработку персональных данных</a><br><a class="legal-doc-link" href="${offerPageUrl}" rel="nofollow" style="opacity:1 !important;">Публичная оферта</a></div>`,
+  `<div class='tn-atom'field='tn_text_1738909152475' style="color:#ffffff !important;"><span class="legal-doc-line">©2025 Все права защищены</span><a class="legal-doc-link legal-doc-line" style="color:#fffefa !important;-webkit-text-fill-color:#fffefa !important;opacity:1 !important;transition:opacity .22s ease,color .2s ease,filter .2s ease !important;" href="${privacyPolicyUrl}" rel="nofollow">Политика конфиденциальности</a><a class="legal-doc-link legal-doc-line" style="color:#fffefa !important;-webkit-text-fill-color:#fffefa !important;opacity:1 !important;transition:opacity .22s ease,color .2s ease,filter .2s ease !important;" href="${privacyConsentUrl}" rel="nofollow">Согласие на обработку персональных данных</a><a class="legal-doc-link legal-doc-line" style="color:#fffefa !important;-webkit-text-fill-color:#fffefa !important;opacity:1 !important;transition:opacity .22s ease,color .2s ease,filter .2s ease !important;" href="${offerPageUrl}" rel="nofollow">Публичная оферта</a></div>`,
 ).replace(
   `<div class='tn-atom'><a href="https://komarovaeee.com/"target="_blank"style="color: inherit">komarovaeee</a></div>`,
   `<div class='tn-atom'><a href="https://komarovaeee.com/"target="_blank"style="color: inherit">komarovaeee</a></div>`,
