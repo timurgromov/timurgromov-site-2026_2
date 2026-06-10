@@ -41,7 +41,6 @@ const socialImageUrl = new URL(`${basePath}images/hero-poster-desktop.jpg`, site
 const privacyPolicyUrl = `${basePath}privacy/`;
 const privacyConsentUrl = `${basePath}privacy/#consent`;
 const offerPageUrl = `${basePath}offer/`;
-const offerPdfUrl = `${basePath}offer-contract-timur-gromov.pdf`;
 
 const pageHtml = readFileSync(
   new URL("../../page62008353.html", import.meta.url),
@@ -3269,6 +3268,15 @@ const headHtml = dedupeHeadAssetReferences(
   )
   .replace(/<link rel="canonical" href="[^"]*"\s*\/?>/i, `<link rel="canonical" href="${previewUrl}" />`)
   .concat(
+    `<style>
+      .t-tildalabel,
+      .t-tildalabel-free,
+      #tildacopy{
+        display: none !important;
+      }
+    </style>`,
+  )
+  .concat(
     `<meta name="twitter:card" content="summary_large_image" /><meta name="twitter:image" content="${socialImageUrl}" />`,
   )
   // В экспорт не попала вспомогательная Tilda-функция, которая иногда вызывается inline-скриптами.
@@ -3307,6 +3315,38 @@ const headHtml = dedupeHeadAssetReferences(
   )
   .concat(
     standaloneShowreelPopupAssets,
+  )
+  .concat(
+    `<script>
+      (function() {
+        function hideTildaBranding() {
+          var labels = document.querySelectorAll('.t-tildalabel, .t-tildalabel-free, #tildacopy');
+          labels.forEach(function(label) {
+            if (label && label.parentNode) {
+              label.parentNode.removeChild(label);
+            }
+          });
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', hideTildaBranding);
+        } else {
+          hideTildaBranding();
+        }
+
+        try {
+          new MutationObserver(function() {
+            hideTildaBranding();
+          }).observe(document.documentElement, {
+            childList: true,
+            subtree: true,
+          });
+        } catch (error) {
+          // Mutations API can be unavailable in some old browsers; fallback to periodic cleanup.
+          setInterval(hideTildaBranding, 700);
+        }
+      }());
+    </script>`,
   );
 
 const filteredBodySource = hiddenMarketingVideoAdviceElementIds
@@ -3404,7 +3444,7 @@ const popupPhraseBodyHtml = replaceTildaText(
   "Праздник, который вспоминают с теплом",
 ).replace(
   `<div class='tn-atom'field='tn_text_1738909152475'>©2025 Все права защищены</div>`,
-  `<div class='tn-atom'field='tn_text_1738909152475'>©2025 Все права защищены | <a href="${offerPageUrl}" target="_blank" rel="nofollow" style="color: inherit">Оферта</a> | <a href="${offerPdfUrl}" target="_blank" rel="nofollow" style="color: inherit">Оферта PDF</a></div>`,
+  `<div class='tn-atom'field='tn_text_1738909152475'>©2025 Все права защищены | <a href="${offerPageUrl}" rel="nofollow" style="color: inherit">Оферта</a></div>`,
 ).replace(
   `<div class='tn-atom'><a href="https://komarovaeee.com/"target="_blank"style="color: inherit">komarovaeee</a></div>`,
   `<div class='tn-atom'><a href="https://komarovaeee.com/"target="_blank"style="color: inherit">komarovaeee</a></div>`,
