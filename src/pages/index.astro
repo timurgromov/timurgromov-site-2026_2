@@ -734,6 +734,25 @@ const contactShortcutEnhancer = `<style>
     opacity:1;
     pointer-events:none;
   }
+  .legal-doc-link{
+    color:#adadad !important;
+    -webkit-text-fill-color:#adadad;
+    border-bottom:1px solid rgba(173,173,173,.5);
+    text-decoration:none;
+    transition:opacity .2s ease, border-color .2s ease, color .2s ease;
+    opacity:1 !important;
+  }
+  .legal-doc-link:visited{
+    color:#adadad !important;
+    -webkit-text-fill-color:#adadad;
+    opacity:1 !important;
+  }
+  .legal-doc-link:hover{
+    opacity:.5 !important;
+    color:#fffefa !important;
+    -webkit-text-fill-color:#fffefa;
+    border-bottom-color:rgba(255,254,250,.5);
+  }
   .contact-shortcut-inline__link{
     color:#fffefa !important;
     -webkit-text-fill-color:#fffefa;
@@ -3450,7 +3469,7 @@ const popupPhraseBodyHtml = replaceTildaText(
   "Праздник, который вспоминают с теплом",
 ).replace(
   `<div class='tn-atom'field='tn_text_1738909152475'>©2025 Все права защищены</div>`,
-  `<div class='tn-atom'field='tn_text_1738909152475' style="position:relative; top:-20px; line-height:1.2; color:#ffffff !important; opacity:1 !important;">©2025 Все права защищены<br><a href="${privacyPolicyUrl}" rel="nofollow" style="color: #ffffff !important; white-space: nowrap; opacity:1 !important;">Политика конфиденциальности</a><br><a href="${privacyConsentUrl}" rel="nofollow" style="color: #ffffff !important; white-space: nowrap; opacity:1 !important;">Согласие на обработку персональных данных</a><br><a href="${offerPageUrl}" rel="nofollow" style="color: #ffffff !important; opacity:1 !important;">Публичная оферта</a></div>`,
+  `<div class='tn-atom'field='tn_text_1738909152475' style="position:relative; top:-30px; line-height:1.2; color:#ffffff !important; opacity:1 !important;"><span style="display:inline-block; margin-bottom:8px;">©2025 Все права защищены</span><br><a class="legal-doc-link" href="${privacyPolicyUrl}" rel="nofollow" style="white-space: nowrap; opacity:1 !important;">Политика конфиденциальности</a><br><a class="legal-doc-link" href="${privacyConsentUrl}" rel="nofollow" style="white-space: nowrap; opacity:1 !important;">Согласие на обработку персональных данных</a><br><a class="legal-doc-link" href="${offerPageUrl}" rel="nofollow" style="opacity:1 !important;">Публичная оферта</a></div>`,
 ).replace(
   `<div class='tn-atom'><a href="https://komarovaeee.com/"target="_blank"style="color: inherit">komarovaeee</a></div>`,
   `<div class='tn-atom'><a href="https://komarovaeee.com/"target="_blank"style="color: inherit">komarovaeee</a></div>`,
