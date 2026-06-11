@@ -25,3 +25,25 @@
 - Notes
   - Desktop после отправки не открывает Telegram автоматически, чтобы не создавать агрессивный redirect. Пользователь видит подтверждение и сам нажимает `Открыть Telegram`.
   - Inline-форма длиннее одного экрана на desktop 1440x900, но не имеет горизонтального overflow и штатно скроллится вместе с секцией.
+
+## Follow-up: dropdown qualification controls
+
+- Context
+  - Первая визуальная версия использовала набор radio-pill кнопок для каждого вопроса.
+  - Пользователь отметил, что popup перегружен: нужно не много кнопок, а поле, которое раскрывает варианты по нажатию.
+
+- Changes
+  - Три обязательных вопроса tripwire-формы заменены на styled `<select>` controls:
+    - `Кто вы?`
+    - `Когда свадьба?`
+    - `Где будет свадьба?`
+  - Старые radio inputs и `.tg-tripwire-choice` стили удалены.
+  - Payload и backend contract не менялись: имена полей остались `role`, `wedding_timing`, `wedding_location`.
+
+- Verification
+  - `npm run build` — passed.
+  - Headless Chrome/CDP на локальном preview:
+    - desktop popup переснят после задержки, заголовок и select-поля отображаются корректно;
+    - inline desktop проверен скриншотом;
+    - mobile popup 390x844: panel `x=12 y=47.4375 width=366 height=784.5625 bottom=832`, без выхода за viewport;
+    - `radioCount=0`, `choiceCount=0`, FormData собирает корректный payload.
