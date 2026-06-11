@@ -2312,7 +2312,9 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   (function(){
     var popupId = 'consultation-contact-popup';
     var openSelector = '[data-consultation-popup-open]';
-    var endpoint = '/api/consultation-lead';
+    var endpoint = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname)
+      ? 'http://127.0.0.1:8000/api/v1/site/consultation-request'
+      : 'https://calcul.timurgromov.ru/api/v1/site/consultation-request';
 
     function getPopup(){
       return document.getElementById(popupId);
@@ -2365,21 +2367,38 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
       event.preventDefault();
       var button = form.querySelector('button[type="submit"]');
       var formData = new FormData(form);
+      var payload = {
+        name: String(formData.get('name') || '').trim(),
+        phone: String(formData.get('phone') || '').trim(),
+        comment: String(formData.get('comment') || '').trim(),
+        form_source: String(formData.get('form_source') || 'site_consultation_popup').trim(),
+        page_url: window.location.href
+      };
+
+      if (!payload.name || !payload.phone) {
+        setStatus(form, 'Укажите имя и телефон.');
+        return;
+      }
+
       setStatus(form, 'Отправляю...');
       if (button) button.disabled = true;
 
       fetch(endpoint, {
         method: 'POST',
-        body: formData,
-        credentials: 'same-origin'
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload),
+        credentials: 'omit'
       })
         .then(function(response){
-          if (!response.ok) throw new Error('lead endpoint unavailable');
+          if (!response.ok) throw new Error('consultation request failed');
           form.reset();
           setStatus(form, 'Заявка отправлена. Тимур свяжется с вами.');
         })
         .catch(function(){
-          setStatus(form, 'Форма готова для подключения к боту. Сейчас лучше написать в Telegram или MAX.');
+          setStatus(form, 'Не удалось отправить форму. Лучше написать в Telegram или MAX.');
         })
         .finally(function(){
           if (button) button.disabled = false;
@@ -3811,13 +3830,16 @@ setTimeout(function() {var curPath=window.location.pathname;var curFullPath=wind
         <p class="tg-contact-popup__hint">Можно выбрать любой удобный способ связи.</p>
       </div>
       <form class="tg-contact-popup__form" data-consultation-lead-form>
-        <p class="tg-contact-popup__form-title">Оставить телефон</p>
-        <input type="hidden" name="source" value="site_consultation_popup" />
-        <label>Ваш телефон
+        <p class="tg-contact-popup__form-title">Оставить заявку</p>
+        <input type="hidden" name="form_source" value="site_consultation_popup" />
+        <label>Ваше имя *
+          <input name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" required />
+        </label>
+        <label>Ваш телефон *
           <input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7" required />
         </label>
         <label>Комментарий
-          <textarea name="message" placeholder="Дата свадьбы, площадка или любой вопрос"></textarea>
+          <textarea name="comment" placeholder="Дата свадьбы, площадка или любой вопрос"></textarea>
         </label>
         <button type="submit">Отправить</button>
         <p class="tg-contact-popup__consent">Нажимая «Отправить», вы соглашаетесь с <a href="/privacy/" target="_blank" rel="nofollow">политикой конфиденциальности</a>, <a href="/privacy/#consent" target="_blank" rel="nofollow">согласием на обработку персональных данных</a> и <a href="/offer/" target="_blank" rel="nofollow">условиями оферты</a>.</p>
