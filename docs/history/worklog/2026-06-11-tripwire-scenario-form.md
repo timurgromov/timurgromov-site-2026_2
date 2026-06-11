@@ -47,3 +47,22 @@
     - inline desktop проверен скриншотом;
     - mobile popup 390x844: panel `x=12 y=47.4375 width=366 height=784.5625 bottom=832`, без выхода за viewport;
     - `radioCount=0`, `choiceCount=0`, FormData собирает корректный payload.
+
+## Follow-up: clean success state
+
+- Context
+  - После отправки tripwire-формы в popup оставались предпродажные пояснения: просьба ответить на три вопроса и note про телефон.
+  - На thank-you state эти тексты уже не нужны, потому что пользователь уже ответил и ждёт следующий шаг.
+
+- Changes
+  - Popup получает состояние `is-tripwire-sent` после успешной отправки.
+  - В этом состоянии скрываются `.tg-plan-popup__text` и `.tg-plan-popup__note`.
+  - Success copy сокращён до одной фразы и CTA `Открыть Telegram`.
+
+- Verification
+  - `npm run build` — passed.
+  - Headless Chrome/CDP на локальном preview с mock API:
+    - popup получил class `is-tripwire-sent`;
+    - `.tg-plan-popup__text` display `none`;
+    - `.tg-plan-popup__note` display `none`;
+    - visible text больше не содержит просьбу ответить на вопросы и note про телефон.
