@@ -1920,7 +1920,7 @@ const planCtaSectionAssets = `<style>
     gap:68px;
     width:min(1680px, 100%);
     margin:0 auto;
-    align-items:end;
+    align-items:start;
   }
 
   .tg-plan-cta__kicker,
@@ -2009,7 +2009,6 @@ const planCtaSectionAssets = `<style>
   .tg-plan-cta__side{
     display:grid;
     gap:18px;
-    padding-bottom:6px;
   }
 
   .tg-plan-cta__item{
@@ -2042,6 +2041,18 @@ const planCtaSectionAssets = `<style>
     color:rgba(28,27,26,.54);
     font-size:15px;
     line-height:1.25;
+  }
+
+  .tg-plan-cta__form{
+    margin-top:24px;
+  }
+
+  .tg-plan-cta__form .tg-tripwire-form{
+    padding:16px;
+  }
+
+  .tg-plan-cta__form .tg-tripwire-form__fields{
+    gap:12px;
   }
 
   @media screen and (max-width:1199px){
@@ -2125,17 +2136,68 @@ const planCtaSectionAssets = `<style>
     .tg-plan-cta__note{
       font-size:14px;
     }
+
+    .tg-plan-cta__form{
+      margin-top:22px;
+    }
   }
 </style>`;
+
+const tripwireFormMarkup = (variant: 'popup' | 'inline') => `<form class="tg-tripwire-form tg-tripwire-form--${variant}" data-tripwire-form data-tripwire-variant="${variant}">
+  <div class="tg-tripwire-form__fields">
+    <input type="hidden" name="form_source" value="site_plan_tripwire_${variant}" />
+    <div class="tg-tripwire-form__group">
+      <p class="tg-tripwire-form__label">Кто вы?</p>
+      <div class="tg-tripwire-form__choices tg-tripwire-form__choices--role">
+        <label class="tg-tripwire-choice"><input type="radio" name="role" value="Невеста" required /><span>Невеста</span></label>
+        <label class="tg-tripwire-choice"><input type="radio" name="role" value="Жених" required /><span>Жених</span></label>
+        <label class="tg-tripwire-choice"><input type="radio" name="role" value="Мама невесты" required /><span>Мама невесты</span></label>
+        <label class="tg-tripwire-choice"><input type="radio" name="role" value="Свадебный специалист" required /><span>Свадебный специалист</span></label>
+        <label class="tg-tripwire-choice"><input type="radio" name="role" value="Другое" required /><span>Другое</span></label>
+      </div>
+    </div>
+    <div class="tg-tripwire-form__group">
+      <p class="tg-tripwire-form__label">Когда свадьба?</p>
+      <div class="tg-tripwire-form__choices">
+        <label class="tg-tripwire-choice"><input type="radio" name="wedding_timing" value="Летом" required /><span>Летом</span></label>
+        <label class="tg-tripwire-choice"><input type="radio" name="wedding_timing" value="Осенью" required /><span>Осенью</span></label>
+        <label class="tg-tripwire-choice"><input type="radio" name="wedding_timing" value="Зимой" required /><span>Зимой</span></label>
+        <label class="tg-tripwire-choice"><input type="radio" name="wedding_timing" value="Весной" required /><span>Весной</span></label>
+        <label class="tg-tripwire-choice"><input type="radio" name="wedding_timing" value="В следующем году" required /><span>В следующем году</span></label>
+        <label class="tg-tripwire-choice"><input type="radio" name="wedding_timing" value="Ещё не решили" required /><span>Ещё не решили</span></label>
+      </div>
+    </div>
+    <div class="tg-tripwire-form__group">
+      <p class="tg-tripwire-form__label">Где будет свадьба?</p>
+      <div class="tg-tripwire-form__choices">
+        <label class="tg-tripwire-choice"><input type="radio" name="wedding_location" value="Москва" required /><span>Москва</span></label>
+        <label class="tg-tripwire-choice"><input type="radio" name="wedding_location" value="Московская область" required /><span>Московская область</span></label>
+        <label class="tg-tripwire-choice"><input type="radio" name="wedding_location" value="Другой регион" required /><span>Другой регион</span></label>
+        <label class="tg-tripwire-choice"><input type="radio" name="wedding_location" value="Ещё не решили" required /><span>Ещё не решили</span></label>
+      </div>
+    </div>
+    <label class="tg-tripwire-form__details">Что уже известно?
+      <textarea name="details" placeholder="Дата, площадка, формат или любой комментарий"></textarea>
+    </label>
+    <button class="tg-tripwire-form__submit" type="submit" data-tripwire-submit>Получить сценарий в Telegram</button>
+    <p class="tg-tripwire-form__status" data-tripwire-status></p>
+  </div>
+  <div class="tg-tripwire-form__success" data-tripwire-success aria-live="polite">
+    <span class="tg-tripwire-form__success-icon" aria-hidden="true"></span>
+    <p class="tg-tripwire-form__success-title">Ответы сохранены</p>
+    <p class="tg-tripwire-form__success-text">Откройте Telegram: там будет сценарий, калькулятор и полезные материалы. На телефоне бот может открыться автоматически.</p>
+    <a class="tg-tripwire-form__telegram" href="${telegramPlanUrl}" target="_blank" rel="nofollow">Открыть Telegram</a>
+  </div>
+</form>`;
 
 const planCtaSectionMarkup = `<section id="plan-evening" class="tg-plan-cta" data-local-only="telegram-funnel-prototype">
   <div class="tg-plan-cta__inner">
     <div>
       <p class="tg-plan-cta__kicker">Бесплатно в Telegram</p>
-      <h2>План свадебного вечера</h2>
+      <h2>План-сценарий свадебного вечера</h2>
       <p class="tg-plan-cta__text">Короткая структура вечера: основные блоки, точки риска и вопросы, которые стоит обсудить с ведущим до договора.</p>
       <div class="tg-plan-cta__actions">
-        <a class="tg-plan-cta__button tg-plan-cta__button--primary" href="#plan-delivery-popup" data-plan-popup-open>Получить план</a>
+        <a class="tg-plan-cta__button tg-plan-cta__button--primary" href="#plan-delivery-popup" data-plan-popup-open>Получить сценарий</a>
         <a class="tg-plan-cta__button tg-plan-cta__button--secondary" href="#consultation-contact" data-consultation-popup-open>Обсудить свадьбу</a>
       </div>
     </div>
@@ -2144,6 +2206,9 @@ const planCtaSectionMarkup = `<section id="plan-evening" class="tg-plan-cta" dat
       <div class="tg-plan-cta__item"><strong>02</strong><span>Места, где чаще всего появляются паузы, хаос и неловкие моменты.</span></div>
       <div class="tg-plan-cta__item"><strong>03</strong><span>После плана можно открыть смету или чеклист выбора ведущего, если это актуально.</span></div>
       <p class="tg-plan-cta__note">План не заменяет личную встречу, но помогает быстро понять, как будет устроен вечер и что важно обсудить заранее.</p>
+      <div class="tg-plan-cta__form">
+        ${tripwireFormMarkup('inline')}
+      </div>
     </div>
   </div>
 </section>`;
@@ -2977,6 +3042,265 @@ const consultationContactPopupAssets = `<style>
 </script>`;
 
 const planDeliveryPopupAssets = `<style>
+  .tg-tripwire-form{
+    display:grid;
+    padding:18px;
+    border:1px solid rgba(28,27,26,.12);
+    border-radius:8px;
+    background:#fffefa;
+  }
+
+  .tg-tripwire-form__fields{
+    display:grid;
+    gap:14px;
+  }
+
+  .tg-tripwire-form__group{
+    display:grid;
+    gap:8px;
+  }
+
+  .tg-tripwire-form__label,
+  .tg-tripwire-form__details,
+  .tg-tripwire-form__status,
+  .tg-tripwire-choice span,
+  .tg-tripwire-form__submit,
+  .tg-tripwire-form__success-text,
+  .tg-tripwire-form__telegram{
+    font-family:var(--t-text-font, Arial);
+    letter-spacing:0;
+  }
+
+  .tg-tripwire-form__label,
+  .tg-tripwire-form__details{
+    margin:0;
+    color:rgba(28,27,26,.62);
+    font-size:13px;
+    line-height:1.2;
+  }
+
+  .tg-tripwire-form__choices{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  .tg-tripwire-choice{
+    display:inline-flex;
+    min-width:0;
+    cursor:pointer;
+  }
+
+  .tg-tripwire-choice input{
+    position:absolute;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+    clip:rect(0 0 0 0);
+  }
+
+  .tg-tripwire-choice span{
+    display:inline-flex;
+    align-items:center;
+    min-height:38px;
+    padding:0 13px;
+    border:1px solid rgba(28,27,26,.14);
+    border-radius:999px;
+    box-sizing:border-box;
+    color:#1c1b1a;
+    background:#fffefa;
+    font-size:14px;
+    line-height:1;
+    transition:background-color .16s ease,border-color .16s ease,color .16s ease;
+  }
+
+  .tg-tripwire-choice input:checked + span{
+    border-color:#fa4604;
+    background:#fa4604;
+    color:#fffefa;
+  }
+
+  .tg-tripwire-choice input:focus-visible + span{
+    outline:2px solid rgba(250,70,4,.34);
+    outline-offset:2px;
+  }
+
+  .tg-tripwire-form__details{
+    display:grid;
+    gap:7px;
+  }
+
+  .tg-tripwire-form__details textarea{
+    width:100%;
+    min-height:72px;
+    padding:10px 13px;
+    border:1px solid rgba(28,27,26,.18);
+    border-radius:8px;
+    box-sizing:border-box;
+    background:#fffefa;
+    color:#1c1b1a;
+    font-family:var(--t-text-font, Arial);
+    font-size:15px;
+    line-height:1.28;
+    letter-spacing:0;
+    resize:vertical;
+    outline:0;
+  }
+
+  .tg-tripwire-form__details textarea:focus{
+    border-color:#fa4604;
+  }
+
+  .tg-tripwire-form__submit{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    min-height:48px;
+    border:1px solid #fa4604;
+    border-radius:8px;
+    background:#fa4604;
+    color:#fffefa;
+    font-size:16px;
+    font-weight:400;
+    line-height:1;
+    cursor:pointer;
+  }
+
+  .tg-tripwire-form__submit[disabled]{
+    opacity:.74;
+    cursor:wait;
+  }
+
+  .tg-tripwire-form__submit.is-loading::before{
+    content:"";
+    width:15px;
+    height:15px;
+    border:2px solid rgba(255,254,250,.45);
+    border-top-color:#fffefa;
+    border-radius:50%;
+    animation:tgTripwireSpin .8s linear infinite;
+  }
+
+  @keyframes tgTripwireSpin{
+    to{ transform:rotate(360deg); }
+  }
+
+  .tg-tripwire-form__status{
+    min-height:0;
+    margin:0;
+    color:rgba(28,27,26,.58);
+    font-size:13px;
+    line-height:1.25;
+  }
+
+  .tg-tripwire-form__success{
+    display:none;
+    min-height:260px;
+    align-content:center;
+    justify-items:start;
+    gap:14px;
+  }
+
+  .tg-tripwire-form.is-sent{
+    align-content:center;
+    padding:24px;
+  }
+
+  .tg-tripwire-form.is-sent .tg-tripwire-form__fields{
+    display:none;
+  }
+
+  .tg-tripwire-form.is-sent .tg-tripwire-form__success{
+    display:grid;
+  }
+
+  .tg-tripwire-form__success-icon{
+    position:relative;
+    width:54px;
+    height:54px;
+    border-radius:50%;
+    background:#fa4604;
+    box-shadow:0 14px 32px rgba(250,70,4,.26);
+    transform:scale(.88);
+    animation:tgTripwireSuccessPop .36s cubic-bezier(.18,.89,.32,1.28) forwards;
+  }
+
+  .tg-tripwire-form__success-icon::after{
+    content:"";
+    position:absolute;
+    left:18px;
+    top:15px;
+    width:17px;
+    height:10px;
+    border-left:3px solid #fffefa;
+    border-bottom:3px solid #fffefa;
+    transform:rotate(-45deg);
+  }
+
+  .tg-tripwire-form__success-title{
+    margin:0;
+    color:#1c1b1a;
+    font-family:var(--t-headline-font, Arial);
+    font-size:36px;
+    font-weight:500;
+    line-height:1;
+    text-transform:uppercase;
+    letter-spacing:0;
+  }
+
+  .tg-tripwire-form__success-text{
+    max-width:360px;
+    margin:0;
+    color:rgba(28,27,26,.66);
+    font-size:16px;
+    line-height:1.28;
+  }
+
+  .tg-tripwire-form__telegram{
+    display:inline-flex;
+    align-items:center;
+    justify-content:space-between;
+    min-width:210px;
+    min-height:46px;
+    margin-top:8px;
+    padding:0 16px;
+    border:1px solid rgba(28,27,26,.14);
+    border-radius:8px;
+    box-sizing:border-box;
+    color:#1c1b1a !important;
+    background:#fffefa;
+    font-size:15px;
+    line-height:1;
+    text-decoration:none !important;
+  }
+
+  .tg-tripwire-form__telegram::after{
+    content:"";
+    width:8px;
+    height:8px;
+    border-top:2px solid currentColor;
+    border-right:2px solid currentColor;
+    transform:rotate(45deg);
+  }
+
+  @media (hover:hover){
+    .tg-tripwire-choice:hover span{
+      border-color:rgba(250,70,4,.55);
+    }
+
+    .tg-tripwire-form__telegram:hover{
+      border-color:#fa4604;
+      background:#fa4604;
+      color:#fffefa !important;
+    }
+  }
+
+  @keyframes tgTripwireSuccessPop{
+    to{ transform:scale(1); }
+  }
+
   .tg-plan-popup{
     position:fixed;
     inset:0;
@@ -3003,9 +3327,12 @@ const planDeliveryPopupAssets = `<style>
   .tg-plan-popup__panel{
     position:relative;
     z-index:1;
-    width:min(720px, 100%);
+    width:min(960px, 100%);
+    max-height:min(820px, calc(100vh - 56px));
+    overflow:auto;
     padding:46px 42px 38px;
     border-radius:12px;
+    box-sizing:border-box;
     background:#fffefa;
     box-shadow:0 24px 80px rgba(28,27,26,.24);
   }
@@ -3123,6 +3450,10 @@ const planDeliveryPopupAssets = `<style>
     line-height:1.28;
   }
 
+  .tg-plan-popup__form{
+    margin-top:24px;
+  }
+
   body.tg-plan-popup-open{
     overflow:hidden !important;
   }
@@ -3135,6 +3466,7 @@ const planDeliveryPopupAssets = `<style>
 
     .tg-plan-popup__panel{
       padding:34px 18px 20px;
+      max-height:calc(100vh - 24px);
       border-radius:10px;
     }
 
@@ -3164,21 +3496,78 @@ const planDeliveryPopupAssets = `<style>
       padding:0 16px;
       font-size:16px;
     }
+
+    .tg-plan-popup__form{
+      margin-top:20px;
+    }
+
+    .tg-tripwire-form{
+      padding:16px;
+    }
+
+    .tg-tripwire-form.is-sent{
+      min-height:300px;
+      padding:20px;
+    }
+
+    .tg-tripwire-form__choices{
+      gap:7px;
+    }
+
+    .tg-tripwire-choice span{
+      min-height:36px;
+      padding:0 11px;
+      font-size:13px;
+    }
+
+    .tg-tripwire-form__success-title{
+      font-size:31px;
+    }
   }
 </style>
 <script>
   (function(){
     var popupId = 'plan-delivery-popup';
     var openSelector = '[data-plan-popup-open]';
+    var telegramPlanUrl = ${JSON.stringify(telegramPlanUrl)};
+    var endpoint = /^(localhost|127\\.0\\.0\\.1)$/.test(window.location.hostname)
+      ? 'http://127.0.0.1:8000/api/v1/site/tripwire-request'
+      : 'https://calcul.timurgromov.ru/api/v1/site/tripwire-request';
 
     function getPopup(){
       return document.getElementById(popupId);
+    }
+
+    function setTripwireStatus(form, text){
+      var status = form.querySelector('[data-tripwire-status]');
+      if (status) status.textContent = text || '';
+    }
+
+    function setTripwireLoading(form, isLoading){
+      var button = form.querySelector('[data-tripwire-submit]');
+      if (!button) return;
+      button.disabled = isLoading;
+      button.classList.toggle('is-loading', isLoading);
+      button.textContent = isLoading ? 'Отправляем...' : 'Получить сценарий в Telegram';
+    }
+
+    function resetTripwireForm(form){
+      if (!form) return;
+      form.classList.remove('is-sent');
+      setTripwireStatus(form, '');
+      setTripwireLoading(form, false);
+    }
+
+    function resetPopupForms(popup){
+      if (!popup) return;
+      popup.querySelectorAll('[data-tripwire-form]').forEach(resetTripwireForm);
     }
 
     function openPopup(event){
       if (event) event.preventDefault();
       var popup = getPopup();
       if (!popup) return;
+      resetPopupForms(popup);
       popup.classList.add('is-open');
       popup.setAttribute('aria-hidden', 'false');
       document.body.classList.add('tg-plan-popup-open');
@@ -3209,6 +3598,61 @@ const planDeliveryPopupAssets = `<style>
     document.addEventListener('keydown', function(event){
       if (event.key === 'Escape') closePopup();
     });
+
+    document.addEventListener('submit', function(event){
+      var form = event.target && event.target.closest && event.target.closest('[data-tripwire-form]');
+      if (!form) return;
+
+      event.preventDefault();
+      var formData = new FormData(form);
+      var payload = {
+        role: String(formData.get('role') || '').trim(),
+        wedding_timing: String(formData.get('wedding_timing') || '').trim(),
+        wedding_location: String(formData.get('wedding_location') || '').trim(),
+        details: String(formData.get('details') || '').trim(),
+        form_source: String(formData.get('form_source') || 'site_plan_tripwire').trim(),
+        page_url: window.location.href
+      };
+
+      if (!payload.role || !payload.wedding_timing || !payload.wedding_location) {
+        setTripwireStatus(form, 'Выберите, кто вы, когда и где будет свадьба.');
+        if (typeof form.reportValidity === 'function') form.reportValidity();
+        return;
+      }
+
+      setTripwireStatus(form, 'Сохраняю ответы...');
+      setTripwireLoading(form, true);
+
+      fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload),
+        credentials: 'omit'
+      })
+        .then(function(response){
+          if (!response.ok) throw new Error('tripwire request failed');
+          form.reset();
+          setTripwireStatus(form, '');
+          form.classList.add('is-sent');
+          if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) {
+            window.setTimeout(function(){
+              window.location.href = telegramPlanUrl;
+            }, 650);
+          }
+        })
+        .catch(function(){
+          setTripwireStatus(form, 'Не удалось сохранить ответы. Можно открыть Telegram напрямую.');
+          setTripwireLoading(form, false);
+        })
+        .finally(function(){
+          if (!form.classList.contains('is-sent')) {
+            setTripwireLoading(form, false);
+          }
+        });
+    });
   }());
 </script>`;
 
@@ -3216,13 +3660,13 @@ const planDeliveryPopupMarkup = `<div id="plan-delivery-popup" class="tg-plan-po
   <div class="tg-plan-popup__backdrop" data-plan-popup-close></div>
   <div class="tg-plan-popup__panel" role="dialog" aria-modal="true" aria-labelledby="plan-delivery-title">
     <button class="tg-plan-popup__close" type="button" aria-label="Закрыть" data-plan-popup-close></button>
-    <p class="tg-plan-popup__eyebrow">План свадебного вечера</p>
-    <h2 id="plan-delivery-title">Получить в Telegram</h2>
-    <p class="tg-plan-popup__text">Материал откроется в Telegram. Там же потом можно будет перейти к смете, онлайн-разбору и другим полезным материалам.</p>
-    <div class="tg-plan-popup__links">
-      <a class="tg-plan-popup__link" href="${telegramPlanUrl}" target="_blank" rel="nofollow" data-plan-channel="telegram">Получить план в Telegram</a>
+    <p class="tg-plan-popup__eyebrow">Бесплатно в Telegram</p>
+    <h2 id="plan-delivery-title">Получить сценарий свадьбы</h2>
+    <p class="tg-plan-popup__text">Ответьте на три коротких вопроса, и бот откроет план-сценарий вечера, калькулятор и другие полезные материалы.</p>
+    <div class="tg-plan-popup__form">
+      ${tripwireFormMarkup('popup')}
     </div>
-    <p class="tg-plan-popup__note">Материалы пока выдаются только в Telegram. Для связи по-прежнему можно выбрать Telegram или MAX.</p>
+    <p class="tg-plan-popup__note">Телефон не нужен: это не заявка на встречу, а быстрый доступ к материалам.</p>
   </div>
 </div>`;
 
@@ -3752,13 +4196,13 @@ const priceBodySource = transformTildaRecord(
         ),
         "rec861352716",
         "1738733079599",
-        "получить план вечера",
+        "получить сценарий",
       ),
       "rec861352716",
       (recordHtml) =>
         recordHtml.replace(
           `<a class='tn-atom' href="http://t.me/timurgromovv" rel="nofollow" target="_blank"> </a>`,
-          `<a class='tn-atom' href="#plan-evening"> </a>`,
+          `<a class='tn-atom' href="#plan-delivery-popup" data-plan-popup-open> </a>`,
         ),
     ),
     "rec862317152",
