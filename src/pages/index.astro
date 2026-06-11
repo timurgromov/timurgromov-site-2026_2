@@ -1796,7 +1796,7 @@ const priceSectionAssets = `<style>
     #rec862317152 .t396__artboard,
     #rec862317152 .t396__filter,
     #rec862317152 .t396__carrier{
-      height:860px !important;
+      height:740px !important;
     }
 
     #rec862334119 .t396__artboard,
@@ -1805,7 +1805,10 @@ const priceSectionAssets = `<style>
       height:760px !important;
     }
 
-    #rec862317152 .tn-elem[data-elem-id="1738853836587"],
+    #rec862317152 .tn-elem[data-elem-id="1738853836587"]{
+      height:560px !important;
+    }
+
     #rec862334119 .tn-elem[data-elem-id="1738853836587"]{
       height:660px !important;
     }
@@ -4248,8 +4251,8 @@ const priceBodySource = transformTildaRecord(
     "rec862317152",
     (recordHtml) =>
       recordHtml
-        .replaceAll("height:536px;", "height:860px;")
-        .replace('data-artboard-height-res-320="536"', 'data-artboard-height-res-320="860"'),
+        .replaceAll("height:536px;", "height:740px;")
+        .replace('data-artboard-height-res-320="536"', 'data-artboard-height-res-320="740"'),
   ),
   "rec862334119",
   (recordHtml) =>
