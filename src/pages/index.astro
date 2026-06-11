@@ -1453,6 +1453,10 @@ const priceSectionAssets = `<style>
     max-width:810px;
   }
 
+  .tg-price-mobile-title{
+    display:none;
+  }
+
   .tg-price-format{
     min-width:0;
     padding-right:30px;
@@ -1796,7 +1800,7 @@ const priceSectionAssets = `<style>
     #rec862317152 .t396__artboard,
     #rec862317152 .t396__filter,
     #rec862317152 .t396__carrier{
-      height:740px !important;
+      height:750px !important;
     }
 
     #rec862334119 .t396__artboard,
@@ -1806,7 +1810,7 @@ const priceSectionAssets = `<style>
     }
 
     #rec862317152 .tn-elem[data-elem-id="1738853836587"]{
-      height:560px !important;
+      display:none !important;
     }
 
     #rec862334119 .tn-elem[data-elem-id="1738853836587"]{
@@ -1818,10 +1822,41 @@ const priceSectionAssets = `<style>
       width:268px !important;
     }
 
+    #rec862317152 .tn-elem[data-elem-id="1738854720285"]{
+      display:none !important;
+    }
+
     #rec862317152 .tn-elem[data-elem-id="1738854720290"],
     #rec862334119 .tn-elem[data-elem-id="1738854720290"]{
       top:239px !important;
       width:264px !important;
+    }
+
+    #rec862317152 .tn-elem[data-elem-id="1738854720290"]{
+      top:184px !important;
+      left:calc(50% - 160px + 10px) !important;
+      width:300px !important;
+    }
+
+    #rec862317152 .tn-elem[data-elem-id="1738854720290"] .tn-atom{
+      display:block !important;
+      padding:18px 12px 15px !important;
+      border:1px solid #1c1b1a !important;
+      border-radius:8px !important;
+      background:#fffefa !important;
+      box-sizing:border-box !important;
+      vertical-align:top !important;
+    }
+
+    .tg-price-mobile-title{
+      display:block;
+      margin:0 0 18px;
+      color:#1c1b1a;
+      font-family:var(--t-headline-font, Arial);
+      font-size:22px;
+      font-weight:500;
+      line-height:1;
+      letter-spacing:0;
     }
 
     #rec862336377 .tn-elem[data-elem-id="1738854720290"]{
@@ -4285,8 +4320,8 @@ const priceBodySource = transformTildaRecord(
     "rec862317152",
     (recordHtml) =>
       recordHtml
-        .replaceAll("height:536px;", "height:740px;")
-        .replace('data-artboard-height-res-320="536"', 'data-artboard-height-res-320="740"'),
+        .replaceAll("height:536px;", "height:750px;")
+        .replace('data-artboard-height-res-320="536"', 'data-artboard-height-res-320="750"'),
   ),
   "rec862334119",
   (recordHtml) =>

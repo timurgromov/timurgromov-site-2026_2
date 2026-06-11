@@ -189,7 +189,8 @@ export const hiddenMarketingVideoAdviceElementIds = [
   "1738908837275",
 ] as const;
 
-export const priceFormatsMarkup = `<div class="tg-price-formats">
+export const priceFormatsMarkup = `<p class="tg-price-mobile-title">Два формата под ключ</p>
+<div class="tg-price-formats">
   <article class="tg-price-format">
     <p class="tg-price-kicker">До 45 гостей</p>
     <h3>Камерная свадьба</h3>
