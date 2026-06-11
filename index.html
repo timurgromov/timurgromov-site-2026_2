@@ -2605,18 +2605,14 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
 
   .tg-tripwire-form__fields{
     display:grid;
-    gap:14px;
-  }
-
-  .tg-tripwire-form__group{
-    display:grid;
-    gap:8px;
+    gap:12px;
   }
 
   .tg-tripwire-form__label,
+  .tg-tripwire-form__select-field,
+  .tg-tripwire-form__select-wrap select,
   .tg-tripwire-form__details,
   .tg-tripwire-form__status,
-  .tg-tripwire-choice span,
   .tg-tripwire-form__submit,
   .tg-tripwire-form__success-text,
   .tg-tripwire-form__telegram{
@@ -2625,6 +2621,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   }
 
   .tg-tripwire-form__label,
+  .tg-tripwire-form__select-field,
   .tg-tripwire-form__details{
     margin:0;
     color:rgba(28,27,26,.62);
@@ -2632,50 +2629,67 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     line-height:1.2;
   }
 
-  .tg-tripwire-form__choices{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
+  .tg-tripwire-form__select-field{
+    display:grid;
+    gap:7px;
   }
 
-  .tg-tripwire-choice{
-    display:inline-flex;
-    min-width:0;
-    cursor:pointer;
+  .tg-tripwire-form__select-wrap{
+    position:relative;
+    display:block;
   }
 
-  .tg-tripwire-choice input{
+  .tg-tripwire-form__select-wrap::after{
+    content:"";
     position:absolute;
-    width:1px;
-    height:1px;
-    overflow:hidden;
-    clip:rect(0 0 0 0);
+    right:16px;
+    top:50%;
+    width:9px;
+    height:9px;
+    border-right:2px solid #1c1b1a;
+    border-bottom:2px solid #1c1b1a;
+    pointer-events:none;
+    transform:translateY(-64%) rotate(45deg);
   }
 
-  .tg-tripwire-choice span{
-    display:inline-flex;
-    align-items:center;
-    min-height:38px;
-    padding:0 13px;
-    border:1px solid rgba(28,27,26,.14);
-    border-radius:999px;
+  .tg-tripwire-form__select-wrap select{
+    width:100%;
+    min-height:50px;
+    padding:0 46px 0 15px;
+    border:1px solid rgba(28,27,26,.16);
+    border-radius:8px;
     box-sizing:border-box;
+    appearance:none;
+    -webkit-appearance:none;
+    background:#fffefa;
+    color:#1c1b1a;
+    font-size:16px;
+    line-height:1.1;
+    outline:0;
+    cursor:pointer;
+    transition:border-color .16s ease,box-shadow .16s ease,background-color .16s ease;
+  }
+
+  .tg-tripwire-form__select-wrap select:invalid{
+    color:rgba(28,27,26,.46);
+  }
+
+  .tg-tripwire-form__select-wrap select:focus{
+    border-color:#fa4604;
+    box-shadow:0 0 0 3px rgba(250,70,4,.12);
+  }
+
+  .tg-tripwire-form__select-wrap select option{
     color:#1c1b1a;
     background:#fffefa;
-    font-size:14px;
-    line-height:1;
-    transition:background-color .16s ease,border-color .16s ease,color .16s ease;
   }
 
-  .tg-tripwire-choice input:checked + span{
+  .tg-tripwire-form__select-wrap select option:disabled{
+    color:rgba(28,27,26,.46);
+  }
+
+  .tg-tripwire-form__select-wrap:focus-within::after{
     border-color:#fa4604;
-    background:#fa4604;
-    color:#fffefa;
-  }
-
-  .tg-tripwire-choice input:focus-visible + span{
-    outline:2px solid rgba(250,70,4,.34);
-    outline-offset:2px;
   }
 
   .tg-tripwire-form__details{
@@ -2839,7 +2853,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   }
 
   @media (hover:hover){
-    .tg-tripwire-choice:hover span{
+    .tg-tripwire-form__select-wrap select:hover{
       border-color:rgba(250,70,4,.55);
     }
 
@@ -3063,14 +3077,9 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
       padding:20px;
     }
 
-    .tg-tripwire-form__choices{
-      gap:7px;
-    }
-
-    .tg-tripwire-choice span{
-      min-height:36px;
-      padding:0 11px;
-      font-size:13px;
+    .tg-tripwire-form__select-wrap select{
+      min-height:48px;
+      font-size:15px;
     }
 
     .tg-tripwire-form__success-title{
@@ -3991,36 +4000,42 @@ alt='' imgfield='tn_img_1739373126567'
         <form class="tg-tripwire-form tg-tripwire-form--inline" data-tripwire-form data-tripwire-variant="inline">
   <div class="tg-tripwire-form__fields">
     <input type="hidden" name="form_source" value="site_plan_tripwire_inline" />
-    <div class="tg-tripwire-form__group">
-      <p class="tg-tripwire-form__label">Кто вы?</p>
-      <div class="tg-tripwire-form__choices tg-tripwire-form__choices--role">
-        <label class="tg-tripwire-choice"><input type="radio" name="role" value="Невеста" required /><span>Невеста</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="role" value="Жених" required /><span>Жених</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="role" value="Мама невесты" required /><span>Мама невесты</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="role" value="Свадебный специалист" required /><span>Свадебный специалист</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="role" value="Другое" required /><span>Другое</span></label>
-      </div>
-    </div>
-    <div class="tg-tripwire-form__group">
-      <p class="tg-tripwire-form__label">Когда свадьба?</p>
-      <div class="tg-tripwire-form__choices">
-        <label class="tg-tripwire-choice"><input type="radio" name="wedding_timing" value="Летом" required /><span>Летом</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="wedding_timing" value="Осенью" required /><span>Осенью</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="wedding_timing" value="Зимой" required /><span>Зимой</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="wedding_timing" value="Весной" required /><span>Весной</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="wedding_timing" value="В следующем году" required /><span>В следующем году</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="wedding_timing" value="Ещё не решили" required /><span>Ещё не решили</span></label>
-      </div>
-    </div>
-    <div class="tg-tripwire-form__group">
-      <p class="tg-tripwire-form__label">Где будет свадьба?</p>
-      <div class="tg-tripwire-form__choices">
-        <label class="tg-tripwire-choice"><input type="radio" name="wedding_location" value="Москва" required /><span>Москва</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="wedding_location" value="Московская область" required /><span>Московская область</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="wedding_location" value="Другой регион" required /><span>Другой регион</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="wedding_location" value="Ещё не решили" required /><span>Ещё не решили</span></label>
-      </div>
-    </div>
+    <label class="tg-tripwire-form__select-field">Кто вы?
+      <span class="tg-tripwire-form__select-wrap">
+        <select name="role" required>
+          <option value="" selected disabled>Выберите вариант</option>
+          <option value="Невеста">Невеста</option>
+          <option value="Жених">Жених</option>
+          <option value="Мама невесты">Мама невесты</option>
+          <option value="Свадебный специалист">Свадебный специалист</option>
+          <option value="Другое">Другое</option>
+        </select>
+      </span>
+    </label>
+    <label class="tg-tripwire-form__select-field">Когда свадьба?
+      <span class="tg-tripwire-form__select-wrap">
+        <select name="wedding_timing" required>
+          <option value="" selected disabled>Выберите сезон или срок</option>
+          <option value="Летом">Летом</option>
+          <option value="Осенью">Осенью</option>
+          <option value="Зимой">Зимой</option>
+          <option value="Весной">Весной</option>
+          <option value="В следующем году">В следующем году</option>
+          <option value="Ещё не решили">Ещё не решили</option>
+        </select>
+      </span>
+    </label>
+    <label class="tg-tripwire-form__select-field">Где будет свадьба?
+      <span class="tg-tripwire-form__select-wrap">
+        <select name="wedding_location" required>
+          <option value="" selected disabled>Выберите регион</option>
+          <option value="Москва">Москва</option>
+          <option value="Московская область">Московская область</option>
+          <option value="Другой регион">Другой регион</option>
+          <option value="Ещё не решили">Ещё не решили</option>
+        </select>
+      </span>
+    </label>
     <label class="tg-tripwire-form__details">Что уже известно?
       <textarea name="details" placeholder="Дата, площадка, формат или любой комментарий"></textarea>
     </label>
@@ -4428,36 +4443,42 @@ setTimeout(function() {var curPath=window.location.pathname;var curFullPath=wind
       <form class="tg-tripwire-form tg-tripwire-form--popup" data-tripwire-form data-tripwire-variant="popup">
   <div class="tg-tripwire-form__fields">
     <input type="hidden" name="form_source" value="site_plan_tripwire_popup" />
-    <div class="tg-tripwire-form__group">
-      <p class="tg-tripwire-form__label">Кто вы?</p>
-      <div class="tg-tripwire-form__choices tg-tripwire-form__choices--role">
-        <label class="tg-tripwire-choice"><input type="radio" name="role" value="Невеста" required /><span>Невеста</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="role" value="Жених" required /><span>Жених</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="role" value="Мама невесты" required /><span>Мама невесты</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="role" value="Свадебный специалист" required /><span>Свадебный специалист</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="role" value="Другое" required /><span>Другое</span></label>
-      </div>
-    </div>
-    <div class="tg-tripwire-form__group">
-      <p class="tg-tripwire-form__label">Когда свадьба?</p>
-      <div class="tg-tripwire-form__choices">
-        <label class="tg-tripwire-choice"><input type="radio" name="wedding_timing" value="Летом" required /><span>Летом</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="wedding_timing" value="Осенью" required /><span>Осенью</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="wedding_timing" value="Зимой" required /><span>Зимой</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="wedding_timing" value="Весной" required /><span>Весной</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="wedding_timing" value="В следующем году" required /><span>В следующем году</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="wedding_timing" value="Ещё не решили" required /><span>Ещё не решили</span></label>
-      </div>
-    </div>
-    <div class="tg-tripwire-form__group">
-      <p class="tg-tripwire-form__label">Где будет свадьба?</p>
-      <div class="tg-tripwire-form__choices">
-        <label class="tg-tripwire-choice"><input type="radio" name="wedding_location" value="Москва" required /><span>Москва</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="wedding_location" value="Московская область" required /><span>Московская область</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="wedding_location" value="Другой регион" required /><span>Другой регион</span></label>
-        <label class="tg-tripwire-choice"><input type="radio" name="wedding_location" value="Ещё не решили" required /><span>Ещё не решили</span></label>
-      </div>
-    </div>
+    <label class="tg-tripwire-form__select-field">Кто вы?
+      <span class="tg-tripwire-form__select-wrap">
+        <select name="role" required>
+          <option value="" selected disabled>Выберите вариант</option>
+          <option value="Невеста">Невеста</option>
+          <option value="Жених">Жених</option>
+          <option value="Мама невесты">Мама невесты</option>
+          <option value="Свадебный специалист">Свадебный специалист</option>
+          <option value="Другое">Другое</option>
+        </select>
+      </span>
+    </label>
+    <label class="tg-tripwire-form__select-field">Когда свадьба?
+      <span class="tg-tripwire-form__select-wrap">
+        <select name="wedding_timing" required>
+          <option value="" selected disabled>Выберите сезон или срок</option>
+          <option value="Летом">Летом</option>
+          <option value="Осенью">Осенью</option>
+          <option value="Зимой">Зимой</option>
+          <option value="Весной">Весной</option>
+          <option value="В следующем году">В следующем году</option>
+          <option value="Ещё не решили">Ещё не решили</option>
+        </select>
+      </span>
+    </label>
+    <label class="tg-tripwire-form__select-field">Где будет свадьба?
+      <span class="tg-tripwire-form__select-wrap">
+        <select name="wedding_location" required>
+          <option value="" selected disabled>Выберите регион</option>
+          <option value="Москва">Москва</option>
+          <option value="Московская область">Московская область</option>
+          <option value="Другой регион">Другой регион</option>
+          <option value="Ещё не решили">Ещё не решили</option>
+        </select>
+      </span>
+    </label>
     <label class="tg-tripwire-form__details">Что уже известно?
       <textarea name="details" placeholder="Дата, площадка, формат или любой комментарий"></textarea>
     </label>
