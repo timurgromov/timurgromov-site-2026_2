@@ -2158,6 +2158,17 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     align-content:start;
   }
 
+  .tg-contact-popup__form.is-sent{
+    min-height:100%;
+    align-content:center;
+    padding:24px;
+  }
+
+  .tg-contact-popup__form-fields{
+    display:grid;
+    gap:10px;
+  }
+
   .tg-contact-popup__form-title{
     margin:0 0 2px;
     color:#1c1b1a;
@@ -2204,6 +2215,11 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   }
 
   .tg-contact-popup__form button{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
     min-height:48px;
     margin-top:2px;
     border:1px solid #fa4604;
@@ -2213,6 +2229,26 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     font-size:17px;
     font-weight:400;
     cursor:pointer;
+    transition:opacity .18s ease,transform .18s ease;
+  }
+
+  .tg-contact-popup__form button[disabled]{
+    opacity:.74;
+    cursor:wait;
+  }
+
+  .tg-contact-popup__form button.is-loading::before{
+    content:"";
+    width:15px;
+    height:15px;
+    border:2px solid rgba(255,254,250,.45);
+    border-top-color:#fffefa;
+    border-radius:50%;
+    animation:tgContactButtonSpin .8s linear infinite;
+  }
+
+  @keyframes tgContactButtonSpin{
+    to{ transform:rotate(360deg); }
   }
 
   .tg-contact-popup__status{
@@ -2234,6 +2270,107 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     color:#1c1b1a;
     text-decoration:underline;
     text-underline-offset:2px;
+  }
+
+  .tg-contact-popup__success{
+    display:none;
+    min-height:260px;
+    align-content:center;
+    justify-items:start;
+    gap:14px;
+  }
+
+  .tg-contact-popup__form.is-sent .tg-contact-popup__success{
+    display:grid;
+  }
+
+  .tg-contact-popup__form.is-sent .tg-contact-popup__form-fields{
+    display:none;
+  }
+
+  .tg-contact-popup__success-icon{
+    position:relative;
+    width:54px;
+    height:54px;
+    border-radius:50%;
+    background:#fa4604;
+    box-shadow:0 14px 32px rgba(250,70,4,.26);
+    transform:scale(.88);
+    animation:tgContactSuccessPop .36s cubic-bezier(.18,.89,.32,1.28) forwards;
+  }
+
+  .tg-contact-popup__success-icon::after{
+    content:"";
+    position:absolute;
+    left:18px;
+    top:15px;
+    width:17px;
+    height:10px;
+    border-left:3px solid #fffefa;
+    border-bottom:3px solid #fffefa;
+    transform:rotate(-45deg);
+  }
+
+  .tg-contact-popup__success-title{
+    margin:0;
+    color:#1c1b1a;
+    font-family:var(--t-headline-font, Arial);
+    font-size:38px;
+    font-weight:500;
+    line-height:1;
+    text-transform:uppercase;
+    letter-spacing:0;
+  }
+
+  .tg-contact-popup__success-text{
+    max-width:290px;
+    margin:0;
+    color:rgba(28,27,26,.66);
+    font-family:var(--t-text-font, Arial);
+    font-size:16px;
+    line-height:1.28;
+    letter-spacing:0;
+  }
+
+  .tg-contact-popup__success-link{
+    display:inline-flex;
+    align-items:center;
+    justify-content:space-between;
+    min-width:210px;
+    min-height:46px;
+    margin-top:8px;
+    padding:0 16px;
+    border:1px solid rgba(28,27,26,.14);
+    border-radius:8px;
+    box-sizing:border-box;
+    color:#1c1b1a !important;
+    background:#fffefa;
+    font-family:var(--t-text-font, Arial);
+    font-size:15px;
+    line-height:1;
+    text-decoration:none !important;
+    letter-spacing:0;
+  }
+
+  .tg-contact-popup__success-link::after{
+    content:"";
+    width:8px;
+    height:8px;
+    border-top:2px solid currentColor;
+    border-right:2px solid currentColor;
+    transform:rotate(45deg);
+  }
+
+  @media (hover:hover){
+    .tg-contact-popup__success-link:hover{
+      border-color:#fa4604;
+      background:#fa4604;
+      color:#fffefa !important;
+    }
+  }
+
+  @keyframes tgContactSuccessPop{
+    to{ transform:scale(1); }
   }
 
   body.tg-contact-popup-open{
@@ -2299,6 +2436,15 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
       padding:16px;
     }
 
+    .tg-contact-popup__form.is-sent{
+      min-height:300px;
+      padding:20px;
+    }
+
+    .tg-contact-popup__success-title{
+      font-size:32px;
+    }
+
     .tg-contact-popup__consent{
       font-size:11px;
     }
@@ -2320,10 +2466,24 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
       return document.getElementById(popupId);
     }
 
+    function resetLeadForm(popup){
+      var form = popup ? popup.querySelector('[data-consultation-lead-form]') : null;
+      var button = form ? form.querySelector('[data-contact-submit]') : null;
+      if (!form) return;
+      form.classList.remove('is-sent');
+      setStatus(form, '');
+      if (button) {
+        button.disabled = false;
+        button.classList.remove('is-loading');
+        button.textContent = 'Отправить';
+      }
+    }
+
     function openPopup(event){
       if (event) event.preventDefault();
       var popup = getPopup();
       if (!popup) return;
+      resetLeadForm(popup);
       popup.classList.add('is-open');
       popup.setAttribute('aria-hidden', 'false');
       document.body.classList.add('tg-contact-popup-open');
@@ -2365,7 +2525,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
       if (!form) return;
 
       event.preventDefault();
-      var button = form.querySelector('button[type="submit"]');
+      var button = form.querySelector('[data-contact-submit]');
       var formData = new FormData(form);
       var payload = {
         name: String(formData.get('name') || '').trim(),
@@ -2381,7 +2541,11 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
       }
 
       setStatus(form, 'Отправляю...');
-      if (button) button.disabled = true;
+      if (button) {
+        button.disabled = true;
+        button.classList.add('is-loading');
+        button.textContent = 'Отправляем...';
+      }
 
       fetch(endpoint, {
         method: 'POST',
@@ -2395,13 +2559,23 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
         .then(function(response){
           if (!response.ok) throw new Error('consultation request failed');
           form.reset();
-          setStatus(form, 'Заявка отправлена. Тимур свяжется с вами.');
+          setStatus(form, '');
+          form.classList.add('is-sent');
         })
         .catch(function(){
           setStatus(form, 'Не удалось отправить форму. Лучше написать в Telegram или MAX.');
+          if (button) {
+            button.disabled = false;
+            button.classList.remove('is-loading');
+            button.textContent = 'Отправить';
+          }
         })
         .finally(function(){
-          if (button) button.disabled = false;
+          if (button && !form.classList.contains('is-sent')) {
+            button.disabled = false;
+            button.classList.remove('is-loading');
+            button.textContent = 'Отправить';
+          }
         });
     });
   }());
@@ -3830,20 +4004,28 @@ setTimeout(function() {var curPath=window.location.pathname;var curFullPath=wind
         <p class="tg-contact-popup__hint">Можно выбрать любой удобный способ связи.</p>
       </div>
       <form class="tg-contact-popup__form" data-consultation-lead-form>
-        <p class="tg-contact-popup__form-title">Оставить заявку</p>
-        <input type="hidden" name="form_source" value="site_consultation_popup" />
-        <label>Ваше имя *
-          <input name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" required />
-        </label>
-        <label>Ваш телефон *
-          <input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7" required />
-        </label>
-        <label>Комментарий
-          <textarea name="comment" placeholder="Дата свадьбы, площадка или любой вопрос"></textarea>
-        </label>
-        <button type="submit">Отправить</button>
-        <p class="tg-contact-popup__consent">Нажимая «Отправить», вы соглашаетесь с <a href="/privacy/" target="_blank" rel="nofollow">политикой конфиденциальности</a>, <a href="/privacy/#consent" target="_blank" rel="nofollow">согласием на обработку персональных данных</a> и <a href="/offer/" target="_blank" rel="nofollow">условиями оферты</a>.</p>
-        <p class="tg-contact-popup__status" data-contact-status></p>
+        <div class="tg-contact-popup__form-fields">
+          <p class="tg-contact-popup__form-title">Оставить заявку</p>
+          <input type="hidden" name="form_source" value="site_consultation_popup" />
+          <label>Ваше имя *
+            <input name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" required />
+          </label>
+          <label>Ваш телефон *
+            <input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7" required />
+          </label>
+          <label>Комментарий
+            <textarea name="comment" placeholder="Дата свадьбы, площадка или любой вопрос"></textarea>
+          </label>
+          <button type="submit" data-contact-submit>Отправить</button>
+          <p class="tg-contact-popup__consent">Нажимая «Отправить», вы соглашаетесь с <a href="/privacy/" target="_blank" rel="nofollow">политикой конфиденциальности</a>, <a href="/privacy/#consent" target="_blank" rel="nofollow">согласием на обработку персональных данных</a> и <a href="/offer/" target="_blank" rel="nofollow">условиями оферты</a>.</p>
+          <p class="tg-contact-popup__status" data-contact-status></p>
+        </div>
+        <div class="tg-contact-popup__success" data-contact-success aria-live="polite">
+          <span class="tg-contact-popup__success-icon" aria-hidden="true"></span>
+          <p class="tg-contact-popup__success-title">Заявка отправлена</p>
+          <p class="tg-contact-popup__success-text">Тимур свяжется с вами в ближайшее время. Если хочется быстрее, можно написать сразу в Telegram.</p>
+          <a class="tg-contact-popup__success-link" href="https://t.me/gromov_wedding_bot?start=site_meeting" target="_blank" rel="nofollow">Написать в Telegram</a>
+        </div>
       </form>
     </div>
   </div>
