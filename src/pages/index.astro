@@ -3352,6 +3352,8 @@ const planDeliveryPopupAssets = `<style>
   .tg-plan-popup__panel{
     position:relative;
     z-index:1;
+    display:grid;
+    align-content:start;
     width:min(960px, 100%);
     max-height:min(820px, calc(100vh - 56px));
     overflow:auto;
@@ -3363,16 +3365,22 @@ const planDeliveryPopupAssets = `<style>
   }
 
   .tg-plan-popup__close{
-    position:absolute;
-    top:18px;
-    right:18px;
-    z-index:2;
-    width:42px;
-    height:42px;
-    border:1px solid rgba(28,27,26,.14);
+    position:sticky;
+    top:0;
+    z-index:3;
+    display:grid;
+    place-items:center;
+    margin:-12px -8px 10px auto;
+    width:46px;
+    height:46px;
+    border:1px solid rgba(28,27,26,.18);
     border-radius:50%;
-    background:#fffefa;
+    box-sizing:border-box;
+    background:rgba(255,254,250,.96);
+    box-shadow:0 12px 28px rgba(28,27,26,.12);
+    backdrop-filter:blur(10px);
     cursor:pointer;
+    touch-action:manipulation;
   }
 
   .tg-plan-popup__close::before,
@@ -3393,6 +3401,11 @@ const planDeliveryPopupAssets = `<style>
 
   .tg-plan-popup__close::after{
     transform:translate(-50%, -50%) rotate(-45deg);
+  }
+
+  .tg-plan-popup__close:focus-visible{
+    outline:2px solid rgba(250,70,4,.34);
+    outline-offset:2px;
   }
 
   .tg-plan-popup__eyebrow,
@@ -3461,6 +3474,11 @@ const planDeliveryPopupAssets = `<style>
   }
 
   @media (hover:hover){
+    .tg-plan-popup__close:hover{
+      border-color:rgba(250,70,4,.42);
+      box-shadow:0 16px 34px rgba(28,27,26,.16);
+    }
+
     .tg-plan-popup__link:hover{
       border-color:#fa4604;
       background:#fa4604;
@@ -3496,10 +3514,9 @@ const planDeliveryPopupAssets = `<style>
     }
 
     .tg-plan-popup__close{
-      top:10px;
-      right:10px;
-      width:36px;
-      height:36px;
+      margin:-6px -4px 8px auto;
+      width:40px;
+      height:40px;
     }
 
     .tg-plan-popup__eyebrow{

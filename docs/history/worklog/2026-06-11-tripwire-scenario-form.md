@@ -66,3 +66,19 @@
     - `.tg-plan-popup__text` display `none`;
     - `.tg-plan-popup__note` display `none`;
     - visible text больше не содержит просьбу ответить на вопросы и note про телефон.
+
+## Follow-up: sticky close button
+
+- Context
+  - В popup уже был `X`, но он выглядел слабо и мог восприниматься как потерянный при работе с длинным scrollable-контентом.
+
+- Changes
+  - Кнопка закрытия `.tg-plan-popup__close` переведена в `position: sticky`.
+  - У кнопки усилены рамка, фон и тень, чтобы она была явно заметна и на первом экране, и после скролла.
+  - Desktop/mobile размеры скорректированы отдельно, без изменения markup.
+
+- Verification
+  - `npm run build` — passed.
+  - Headless Chrome/CDP на локальном preview:
+    - desktop open/scrolled: `closeVisible=true`, `position=sticky`, координаты крестика не меняются после scroll;
+    - mobile open/scrolled: `closeVisible=true`, `position=sticky`, крестик остаётся в правом верхнем углу панели.
