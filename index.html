@@ -2884,6 +2884,11 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     display:flex;
   }
 
+  .tg-plan-popup.is-tripwire-sent .tg-plan-popup__text,
+  .tg-plan-popup.is-tripwire-sent .tg-plan-popup__note{
+    display:none;
+  }
+
   .tg-plan-popup__backdrop{
     position:absolute;
     inset:0;
@@ -3122,6 +3127,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
 
     function resetPopupForms(popup){
       if (!popup) return;
+      popup.classList.remove('is-tripwire-sent');
       popup.querySelectorAll('[data-tripwire-form]').forEach(resetTripwireForm);
     }
 
@@ -3199,6 +3205,8 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
           form.reset();
           setTripwireStatus(form, '');
           form.classList.add('is-sent');
+          var popup = form.closest('.tg-plan-popup');
+          if (popup) popup.classList.add('is-tripwire-sent');
           if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) {
             window.setTimeout(function(){
               window.location.href = telegramPlanUrl;
@@ -4045,7 +4053,7 @@ alt='' imgfield='tn_img_1739373126567'
   <div class="tg-tripwire-form__success" data-tripwire-success aria-live="polite">
     <span class="tg-tripwire-form__success-icon" aria-hidden="true"></span>
     <p class="tg-tripwire-form__success-title">Ответы сохранены</p>
-    <p class="tg-tripwire-form__success-text">Откройте Telegram: там будет сценарий, калькулятор и полезные материалы. На телефоне бот может открыться автоматически.</p>
+    <p class="tg-tripwire-form__success-text">Откройте Telegram: там будет сценарий, калькулятор и полезные материалы.</p>
     <a class="tg-tripwire-form__telegram" href="https://t.me/gromov_wedding_bot?start=site_plan" target="_blank" rel="nofollow">Открыть Telegram</a>
   </div>
 </form>
@@ -4488,7 +4496,7 @@ setTimeout(function() {var curPath=window.location.pathname;var curFullPath=wind
   <div class="tg-tripwire-form__success" data-tripwire-success aria-live="polite">
     <span class="tg-tripwire-form__success-icon" aria-hidden="true"></span>
     <p class="tg-tripwire-form__success-title">Ответы сохранены</p>
-    <p class="tg-tripwire-form__success-text">Откройте Telegram: там будет сценарий, калькулятор и полезные материалы. На телефоне бот может открыться автоматически.</p>
+    <p class="tg-tripwire-form__success-text">Откройте Telegram: там будет сценарий, калькулятор и полезные материалы.</p>
     <a class="tg-tripwire-form__telegram" href="https://t.me/gromov_wedding_bot?start=site_plan" target="_blank" rel="nofollow">Открыть Telegram</a>
   </div>
 </form>
