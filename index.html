@@ -1696,6 +1696,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   .tg-plan-cta__side{
     display:grid;
     gap:18px;
+    padding-top:18px;
     padding-bottom:6px;
   }
 
@@ -1753,6 +1754,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
 
     .tg-plan-cta__side{
       max-width:700px;
+      padding-top:0;
     }
   }
 
@@ -2916,8 +2918,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     display:flex;
   }
 
-  .tg-plan-popup.is-tripwire-sent .tg-plan-popup__text,
-  .tg-plan-popup.is-tripwire-sent .tg-plan-popup__note{
+  .tg-plan-popup.is-tripwire-sent .tg-plan-popup__text{
     display:none;
   }
 
@@ -2989,7 +2990,6 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
 
   .tg-plan-popup__eyebrow,
   .tg-plan-popup__text,
-  .tg-plan-popup__note,
   .tg-plan-popup__link{
     font-family:var(--t-text-font, Arial);
     letter-spacing:0;
@@ -3063,13 +3063,6 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
       background:#fa4604;
       color:#fffefa !important;
     }
-  }
-
-  .tg-plan-popup__note{
-    margin:14px 0 0;
-    color:rgba(28,27,26,.52);
-    font-size:14px;
-    line-height:1.28;
   }
 
   .tg-plan-popup__form{
@@ -4469,7 +4462,7 @@ setTimeout(function() {var curPath=window.location.pathname;var curFullPath=wind
       <label class="tg-tripwire-form__select-field">Когда свадьба?
         <span class="tg-tripwire-form__select-wrap">
           <select name="wedding_timing" required>
-            <option value="" selected disabled>Выберите срок</option>
+            <option value="" selected disabled>Выберите сезон</option>
             <option value="Летом">Летом</option>
             <option value="Осенью">Осенью</option>
             <option value="Зимой">Зимой</option>
@@ -4491,8 +4484,8 @@ setTimeout(function() {var curPath=window.location.pathname;var curFullPath=wind
         </span>
       </label>
     </div>
-    <label class="tg-tripwire-form__details">Что уже известно?
-      <textarea name="details" placeholder="Дата, площадка, формат или любой комментарий"></textarea>
+    <label class="tg-tripwire-form__details">Если уже что-то понятно
+      <textarea name="details" placeholder="Дата, площадка, формат или любая дополнительная информация"></textarea>
     </label>
     <button class="tg-tripwire-form__submit" type="submit" data-tripwire-submit>Получить сценарий в Telegram</button>
     <p class="tg-tripwire-form__status" data-tripwire-status></p>
@@ -4505,7 +4498,6 @@ setTimeout(function() {var curPath=window.location.pathname;var curFullPath=wind
   </div>
 </form>
     </div>
-    <p class="tg-plan-popup__note">Телефон не нужен: это не заявка на встречу, а быстрый доступ к материалам.</p>
   </div>
 </div><div id="consultation-contact-popup" class="tg-contact-popup" aria-hidden="true">
   <div class="tg-contact-popup__backdrop" data-consultation-popup-close></div>
