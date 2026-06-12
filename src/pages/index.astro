@@ -3404,7 +3404,7 @@ const planDeliveryPopupAssets = `<style>
     display:grid;
     align-content:start;
     width:min(960px, 100%);
-    max-height:min(820px, calc(100vh - 56px));
+    max-height:min(820px, calc(100dvh - 40px));
     overflow:auto;
     padding:46px 42px 38px;
     border-radius:12px;
@@ -3544,34 +3544,44 @@ const planDeliveryPopupAssets = `<style>
 
   @media screen and (max-width:639px){
     .tg-plan-popup{
-      padding:12px;
-      align-items:flex-end;
+      padding:8px;
+      align-items:stretch;
     }
 
     .tg-plan-popup__panel{
-      padding:34px 18px 20px;
-      max-height:calc(100vh - 24px);
-      border-radius:10px;
+      width:100%;
+      height:calc(100dvh - 16px);
+      max-height:none;
+      padding:18px 12px 12px;
+      border-radius:12px;
+      overflow:hidden;
     }
 
     .tg-plan-popup__close{
-      margin:-6px -4px 8px auto;
-      width:40px;
-      height:40px;
+      position:absolute;
+      top:10px;
+      right:10px;
+      margin:0;
+      width:36px;
+      height:36px;
     }
 
     .tg-plan-popup__eyebrow{
-      font-size:15px;
+      margin:0 0 8px;
+      font-size:14px;
     }
 
     .tg-plan-popup h2{
-      margin-right:36px;
-      font-size:36px;
+      margin:0 40px 10px 0;
+      font-size:30px;
+      line-height:.94;
     }
 
     .tg-plan-popup__text{
-      font-size:16px;
-      line-height:1.28;
+      max-width:none;
+      margin:0 0 12px;
+      font-size:14px;
+      line-height:1.18;
     }
 
     .tg-plan-popup__link{
@@ -3581,25 +3591,153 @@ const planDeliveryPopupAssets = `<style>
     }
 
     .tg-plan-popup__form{
-      margin-top:18px;
+      margin-top:12px;
     }
 
     .tg-tripwire-form{
-      padding:14px;
+      padding:10px;
     }
 
     .tg-tripwire-form.is-sent{
-      min-height:300px;
-      padding:20px;
+      min-height:0;
+      padding:18px;
+    }
+
+    .tg-tripwire-form__fields{
+      gap:8px;
+    }
+
+    .tg-tripwire-form__select-grid{
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:8px;
+    }
+
+    .tg-tripwire-form__select-grid > .tg-tripwire-form__select-field:last-child{
+      grid-column:1 / -1;
+    }
+
+    .tg-tripwire-form__select-field,
+    .tg-tripwire-form__details{
+      gap:4px;
+      font-size:11px;
+    }
+
+    .tg-tripwire-form__select-wrap::after{
+      right:12px;
+      width:7px;
+      height:7px;
     }
 
     .tg-tripwire-form__select-wrap select{
+      min-height:40px;
+      padding:0 32px 0 10px;
+      font-size:13px;
+    }
+
+    .tg-tripwire-form__details textarea{
+      min-height:48px;
+      padding:8px 10px;
+      font-size:13px;
+      line-height:1.2;
+      resize:none;
+    }
+
+    .tg-tripwire-form__submit{
       min-height:44px;
       font-size:15px;
     }
 
+    .tg-tripwire-form__consent{
+      margin-top:0;
+      font-size:11px;
+      line-height:1.18;
+    }
+
+    .tg-tripwire-form__success{
+      min-height:0;
+      gap:12px;
+    }
+
     .tg-tripwire-form__success-title{
-      font-size:31px;
+      font-size:28px;
+    }
+
+    .tg-tripwire-form__success-text{
+      font-size:14px;
+      line-height:1.2;
+    }
+
+    .tg-tripwire-form__telegram{
+      width:100%;
+      min-width:0;
+      min-height:42px;
+      margin-top:4px;
+      font-size:14px;
+    }
+  }
+
+  @media screen and (max-width:639px) and (max-height:700px){
+    .tg-plan-popup__panel{
+      padding:14px 10px 10px;
+    }
+
+    .tg-plan-popup__close{
+      top:8px;
+      right:8px;
+      width:34px;
+      height:34px;
+    }
+
+    .tg-plan-popup__eyebrow{
+      margin-bottom:6px;
+      font-size:13px;
+    }
+
+    .tg-plan-popup h2{
+      margin:0 36px 8px 0;
+      font-size:26px;
+    }
+
+    .tg-plan-popup__text{
+      margin-bottom:10px;
+      font-size:13px;
+      line-height:1.15;
+    }
+
+    .tg-plan-popup__form{
+      margin-top:10px;
+    }
+
+    .tg-tripwire-form{
+      padding:9px;
+    }
+
+    .tg-tripwire-form__fields{
+      gap:7px;
+    }
+
+    .tg-tripwire-form__select-grid{
+      gap:7px;
+    }
+
+    .tg-tripwire-form__select-wrap select{
+      min-height:38px;
+      font-size:12px;
+    }
+
+    .tg-tripwire-form__details textarea{
+      min-height:42px;
+      font-size:12px;
+    }
+
+    .tg-tripwire-form__submit{
+      min-height:42px;
+      font-size:14px;
+    }
+
+    .tg-tripwire-form__consent{
+      font-size:10px;
+      line-height:1.14;
     }
   }
 
