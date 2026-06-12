@@ -1696,7 +1696,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   .tg-plan-cta__side{
     display:grid;
     gap:18px;
-    padding-top:0;
+    padding-top:42px;
     padding-bottom:6px;
   }
 
@@ -2950,10 +2950,10 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     z-index:1;
     display:grid;
     align-content:start;
-    width:min(960px, 100%);
-    max-height:min(820px, calc(100dvh - 40px));
-    overflow:auto;
-    padding:46px 42px 38px;
+    width:min(1180px, 100%);
+    max-height:min(760px, calc(100dvh - 36px));
+    overflow:hidden;
+    padding:34px 34px 30px;
     border-radius:12px;
     box-sizing:border-box;
     background:#fffefa;
@@ -2961,12 +2961,12 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   }
 
   .tg-plan-popup__close{
-    position:sticky;
-    top:0;
+    position:absolute;
+    top:24px;
+    right:24px;
     z-index:3;
     display:grid;
     place-items:center;
-    margin:-12px -8px 10px auto;
     width:46px;
     height:46px;
     border:1px solid rgba(28,27,26,.18);
@@ -3011,18 +3011,32 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     letter-spacing:0;
   }
 
+  .tg-plan-popup__body{
+    display:grid;
+    grid-template-columns:minmax(0, .92fr) minmax(500px, 1fr);
+    gap:30px;
+    align-items:start;
+  }
+
+  .tg-plan-popup__intro{
+    display:grid;
+    align-content:start;
+    gap:0;
+    padding-right:8px;
+  }
+
   .tg-plan-popup__eyebrow{
-    margin:0 0 16px;
+    margin:0 0 14px;
     color:#fa4604;
     font-size:18px;
     line-height:1.1;
   }
 
   .tg-plan-popup h2{
-    margin:0 52px 18px 0;
+    margin:0 72px 14px 0;
     color:#1c1b1a;
     font-family:var(--t-headline-font, Arial);
-    font-size:56px;
+    font-size:48px;
     font-weight:500;
     line-height:1;
     text-transform:uppercase;
@@ -3030,11 +3044,11 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   }
 
   .tg-plan-popup__text{
-    max-width:520px;
-    margin:0 0 24px;
+    max-width:460px;
+    margin:0;
     color:rgba(28,27,26,.76);
-    font-size:20px;
-    line-height:1.24;
+    font-size:18px;
+    line-height:1.2;
   }
 
   .tg-plan-popup__links{
@@ -3082,7 +3096,64 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   }
 
   .tg-plan-popup__form{
-    margin-top:20px;
+    margin-top:0;
+  }
+
+  .tg-plan-popup .tg-tripwire-form{
+    padding:16px;
+  }
+
+  .tg-plan-popup .tg-tripwire-form__fields{
+    gap:8px;
+  }
+
+  .tg-plan-popup .tg-tripwire-form__details textarea{
+    min-height:54px;
+    resize:none;
+  }
+
+  .tg-plan-popup .tg-tripwire-form__consent{
+    font-size:11px;
+    line-height:1.18;
+  }
+
+  .tg-plan-popup.is-tripwire-sent .tg-plan-popup__body{
+    grid-template-columns:minmax(0, .88fr) minmax(360px, .86fr);
+  }
+
+  @media screen and (max-width:1199px){
+    .tg-plan-popup__panel{
+      width:min(980px, 100%);
+      max-height:min(760px, calc(100dvh - 28px));
+      padding:26px 22px 22px;
+    }
+
+    .tg-plan-popup__close{
+      top:18px;
+      right:18px;
+      width:42px;
+      height:42px;
+    }
+
+    .tg-plan-popup__body{
+      grid-template-columns:1fr;
+      gap:18px;
+    }
+
+    .tg-plan-popup__intro{
+      padding-right:0;
+    }
+
+    .tg-plan-popup h2{
+      margin:0 56px 12px 0;
+      font-size:40px;
+    }
+
+    .tg-plan-popup__text{
+      max-width:640px;
+      font-size:17px;
+      line-height:1.22;
+    }
   }
 
   body.tg-plan-popup-open{
@@ -3105,12 +3176,19 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     }
 
     .tg-plan-popup__close{
-      position:absolute;
       top:10px;
       right:10px;
-      margin:0;
       width:36px;
       height:36px;
+    }
+
+    .tg-plan-popup__body{
+      grid-template-columns:1fr;
+      gap:0;
+    }
+
+    .tg-plan-popup__intro{
+      padding-right:0;
     }
 
     .tg-plan-popup__eyebrow{
@@ -4593,11 +4671,14 @@ setTimeout(function() {var curPath=window.location.pathname;var curFullPath=wind
   <div class="tg-plan-popup__backdrop" data-plan-popup-close></div>
   <div class="tg-plan-popup__panel" role="dialog" aria-modal="true" aria-labelledby="plan-delivery-title">
     <button class="tg-plan-popup__close" type="button" aria-label="Закрыть" data-plan-popup-close></button>
-    <p class="tg-plan-popup__eyebrow">Бесплатно в Telegram</p>
-    <h2 id="plan-delivery-title">Получить сценарий свадьбы</h2>
-    <p class="tg-plan-popup__text">Ответьте на три коротких вопроса, и бот откроет план-сценарий вечера, калькулятор и другие полезные материалы.</p>
-    <div class="tg-plan-popup__form">
-      <form class="tg-tripwire-form tg-tripwire-form--popup" data-tripwire-form data-tripwire-variant="popup">
+    <div class="tg-plan-popup__body">
+      <div class="tg-plan-popup__intro">
+        <p class="tg-plan-popup__eyebrow">Бесплатно в Telegram</p>
+        <h2 id="plan-delivery-title">Получить сценарий свадьбы</h2>
+        <p class="tg-plan-popup__text">Ответьте на три коротких вопроса, и бот откроет план-сценарий вечера, калькулятор и другие полезные материалы.</p>
+      </div>
+      <div class="tg-plan-popup__form">
+        <form class="tg-tripwire-form tg-tripwire-form--popup" data-tripwire-form data-tripwire-variant="popup">
   <div class="tg-tripwire-form__fields">
     <input type="hidden" name="form_source" value="site_plan_tripwire_popup" />
     <div class="tg-tripwire-form__select-grid">
@@ -4652,6 +4733,7 @@ setTimeout(function() {var curPath=window.location.pathname;var curFullPath=wind
     <a class="tg-tripwire-form__telegram" href="https://t.me/gromov_wedding_bot?start=site_plan" target="_blank" rel="nofollow">Открыть Telegram</a>
   </div>
 </form>
+      </div>
     </div>
   </div>
 </div><div id="consultation-contact-popup" class="tg-contact-popup" aria-hidden="true">
