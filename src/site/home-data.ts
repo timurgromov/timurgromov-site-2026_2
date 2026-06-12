@@ -103,7 +103,7 @@ export const telegramPlanUrl = `https://t.me/${telegramBotUsername}?start=site_p
 export const telegramMeetingUrl = `https://t.me/${telegramBotUsername}?start=site_meeting`;
 export const telegramContactUrl = telegramMeetingUrl;
 export const maxContactUrl =
-  "https://clck.ru/3RRXHX";
+  "https://max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM?clckid=c487e7dc";
 
 export const pricePhotoPrimaryUrl =
   "images/tild3134-3130-4739-b462-666632633730______3iiwa_mnwni_1_2_.png";
