@@ -227,6 +227,9 @@ export const priceFineprintMarkup = ``;
 export const priceConsultationMarkup =
   `На встрече разберем формат свадьбы, гостей, площадку и тайминг. Вы поймете, подхожу ли я для вашей свадьбы и как может быть устроен именно ваш вечер. Встреча бесплатная и ни к чему не обязывает.`;
 
+const priceConsultationMaxLinkMarkup =
+  `<a href="${maxContactUrl}" rel="nofollow" target="_blank" style="color: inherit">Написать в MAX</a>`;
+
 export const priceTextReplacements = [
   ["rec862317152", "1738854720285", "Два формата под ключ"],
   ["rec862317152", "1738854720290", priceFormatsMarkup],
@@ -235,7 +238,7 @@ export const priceTextReplacements = [
   ["rec862334119", "1738855581124", priceFineprintMarkup],
   ["rec862336377", "1738854720285", "Бесплатная консультация"],
   ["rec862336377", "1738854720290", priceConsultationMarkup],
-  ["rec862336377", "1738855821506", "Написать в MAX"],
+  ["rec862336377", "1738855821506", priceConsultationMaxLinkMarkup],
 ] as const;
 
 export const priceLegacyElementRemovals = [

@@ -1631,6 +1631,25 @@ const priceSectionAssets = `<style>
   #rec862336377 .tn-elem[data-elem-id="1738855848774"] .tn-atom,
   #rec862336377 .tn-elem[data-elem-id="1738855859150"] .tn-atom{
     white-space:nowrap;
+    position:relative;
+    z-index:4;
+    pointer-events:auto;
+    cursor:pointer;
+  }
+
+  #rec862336377 .tn-elem[data-elem-id="1738855821506"],
+  #rec862336377 .tn-elem[data-elem-id="1738855848774"],
+  #rec862336377 .tn-elem[data-elem-id="1738855859150"]{
+    z-index:4 !important;
+    pointer-events:auto !important;
+  }
+
+  #rec862336377 .tn-elem[data-elem-id="1738855821506"] .tn-atom a,
+  #rec862336377 .tn-elem[data-elem-id="1738855848774"] .tn-atom a,
+  #rec862336377 .tn-elem[data-elem-id="1738855859150"] .tn-atom a{
+    position:relative;
+    z-index:5;
+    pointer-events:auto;
   }
 
   @media screen and (max-width:1919px){
@@ -4731,16 +4750,23 @@ const priceBodyWithoutMetaDisclaimer = removeTildaElementInRecord(
 const priceBodySource = transformTildaRecord(
   transformTildaRecord(
     transformTildaRecord(
-      replaceTildaTextInRecord(
+      transformTildaRecord(
         replaceTildaTextInRecord(
-          priceBodyWithoutMetaDisclaimer,
+          replaceTildaTextInRecord(
+            priceBodyWithoutMetaDisclaimer,
+            "rec861352716",
+            "1738732845597",
+            "Коротко покажу, какие блоки вечера стоит продумать заранее и что важно обсудить с ведущим до договора.",
+          ),
           "rec861352716",
-          "1738732845597",
-          "Коротко покажу, какие блоки вечера стоит продумать заранее и что важно обсудить с ведущим до договора.",
+          "1738733079599",
+          "получить сценарий",
         ),
-        "rec861352716",
-        "1738733079599",
-        "получить сценарий",
+        "rec862336377",
+        (recordHtml) =>
+          recordHtml
+            .replaceAll('href="https://clck.ru/3RRXHX"', `href="${maxContactUrl}"`)
+            .replaceAll('href="https://t.me/timurgromovv"', `href="${telegramMeetingUrl}"`),
       ),
       "rec861352716",
       (recordHtml) =>
