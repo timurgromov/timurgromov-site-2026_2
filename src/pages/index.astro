@@ -2213,6 +2213,7 @@ const tripwireFormMarkup = (variant: 'popup' | 'inline') => `<form class="tg-tri
       <textarea name="details" placeholder="Дата, площадка, формат или любая дополнительная информация"></textarea>
     </label>
     <button class="tg-tripwire-form__submit" type="submit" data-tripwire-submit>Получить сценарий в Telegram</button>
+    <p class="tg-tripwire-form__consent">Нажимая «Получить сценарий в Telegram», вы соглашаетесь с <a href="${privacyPolicyUrl}" target="_blank" rel="nofollow">политикой конфиденциальности</a>, <a href="${privacyConsentUrl}" target="_blank" rel="nofollow">согласием на обработку персональных данных</a> и <a href="${offerPageUrl}" target="_blank" rel="nofollow">условиями оферты</a>.</p>
     <p class="tg-tripwire-form__status" data-tripwire-status></p>
   </div>
   <div class="tg-tripwire-form__success" data-tripwire-success aria-live="polite">
@@ -3181,6 +3182,22 @@ const planDeliveryPopupAssets = `<style>
   .tg-tripwire-form__details{
     display:grid;
     gap:5px;
+  }
+
+  .tg-tripwire-form__consent{
+    margin:2px 0 0;
+    color:rgba(28,27,26,.52);
+    font-family:var(--t-text-font, Arial);
+    font-size:12px;
+    line-height:1.32;
+    letter-spacing:0;
+  }
+
+  .tg-tripwire-form__consent a{
+    color:#1c1b1a !important;
+    text-decoration:underline !important;
+    text-decoration-thickness:1px;
+    text-underline-offset:2px;
   }
 
   .tg-tripwire-form__details textarea{
