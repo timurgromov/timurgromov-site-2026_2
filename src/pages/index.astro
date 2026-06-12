@@ -1954,16 +1954,11 @@ const planCtaSectionAssets = `<style>
 
   .tg-plan-cta__inner{
     display:grid;
-    grid-template-columns:minmax(0, 1fr) minmax(360px, .58fr);
-    gap:56px;
+    grid-template-columns:minmax(0, .92fr) minmax(320px, .68fr);
+    gap:68px;
     width:min(1680px, 100%);
     margin:0 auto;
-    align-items:start;
-  }
-
-  .tg-plan-cta__content{
-    display:grid;
-    align-content:start;
+    align-items:end;
   }
 
   .tg-plan-cta__kicker,
@@ -2009,13 +2004,6 @@ const planCtaSectionAssets = `<style>
     margin-top:30px;
   }
 
-  .tg-plan-cta__details{
-    display:grid;
-    gap:18px;
-    max-width:840px;
-    margin-top:42px;
-  }
-
   .tg-plan-cta__button{
     display:inline-flex;
     align-items:center;
@@ -2059,6 +2047,7 @@ const planCtaSectionAssets = `<style>
   .tg-plan-cta__side{
     display:grid;
     gap:18px;
+    padding-bottom:6px;
   }
 
   .tg-plan-cta__item{
@@ -2086,27 +2075,11 @@ const planCtaSectionAssets = `<style>
   }
 
   .tg-plan-cta__note{
-    max-width:760px;
+    max-width:520px;
     margin-top:12px;
     color:rgba(28,27,26,.54);
     font-size:15px;
     line-height:1.25;
-  }
-
-  .tg-plan-cta__form-column{
-    align-self:start;
-  }
-
-  .tg-plan-cta__form{
-    margin-top:0;
-  }
-
-  .tg-plan-cta__form .tg-tripwire-form{
-    padding:16px;
-  }
-
-  .tg-plan-cta__form .tg-tripwire-form__fields{
-    gap:12px;
   }
 
   @media screen and (max-width:1199px){
@@ -2129,16 +2102,7 @@ const planCtaSectionAssets = `<style>
       font-size:19px;
     }
 
-    .tg-plan-cta__details{
-      max-width:700px;
-      margin-top:34px;
-    }
-
     .tg-plan-cta__side{
-      max-width:700px;
-    }
-
-    .tg-plan-cta__form-column{
       max-width:700px;
     }
   }
@@ -2174,11 +2138,6 @@ const planCtaSectionAssets = `<style>
       margin-top:28px;
     }
 
-    .tg-plan-cta__details{
-      gap:16px;
-      margin-top:28px;
-    }
-
     .tg-plan-cta__button{
       width:100%;
       min-height:52px;
@@ -2204,52 +2163,50 @@ const planCtaSectionAssets = `<style>
     .tg-plan-cta__note{
       font-size:14px;
     }
-
-    .tg-plan-cta__form{
-      margin-top:22px;
-    }
   }
 </style>`;
 
 const tripwireFormMarkup = (variant: 'popup' | 'inline') => `<form class="tg-tripwire-form tg-tripwire-form--${variant}" data-tripwire-form data-tripwire-variant="${variant}">
   <div class="tg-tripwire-form__fields">
     <input type="hidden" name="form_source" value="site_plan_tripwire_${variant}" />
-    <label class="tg-tripwire-form__select-field">Кто вы?
-      <span class="tg-tripwire-form__select-wrap">
-        <select name="role" required>
-          <option value="" selected disabled>Выберите вариант</option>
-          <option value="Невеста">Невеста</option>
-          <option value="Жених">Жених</option>
-          <option value="Мама невесты">Мама невесты</option>
-          <option value="Свадебный специалист">Свадебный специалист</option>
-          <option value="Другое">Другое</option>
-        </select>
-      </span>
-    </label>
-    <label class="tg-tripwire-form__select-field">Когда свадьба?
-      <span class="tg-tripwire-form__select-wrap">
-        <select name="wedding_timing" required>
-          <option value="" selected disabled>Выберите сезон или срок</option>
-          <option value="Летом">Летом</option>
-          <option value="Осенью">Осенью</option>
-          <option value="Зимой">Зимой</option>
-          <option value="Весной">Весной</option>
-          <option value="В следующем году">В следующем году</option>
-          <option value="Ещё не решили">Ещё не решили</option>
-        </select>
-      </span>
-    </label>
-    <label class="tg-tripwire-form__select-field">Где будет свадьба?
-      <span class="tg-tripwire-form__select-wrap">
-        <select name="wedding_location" required>
-          <option value="" selected disabled>Выберите регион</option>
-          <option value="Москва">Москва</option>
-          <option value="Московская область">Московская область</option>
-          <option value="Другой регион">Другой регион</option>
-          <option value="Ещё не решили">Ещё не решили</option>
-        </select>
-      </span>
-    </label>
+    <div class="tg-tripwire-form__select-grid">
+      <label class="tg-tripwire-form__select-field">Кто вы?
+        <span class="tg-tripwire-form__select-wrap">
+          <select name="role" required>
+            <option value="" selected disabled>Выберите роль</option>
+            <option value="Невеста">Невеста</option>
+            <option value="Жених">Жених</option>
+            <option value="Мама невесты">Мама невесты</option>
+            <option value="Свадебный специалист">Свадебный специалист</option>
+            <option value="Другое">Другое</option>
+          </select>
+        </span>
+      </label>
+      <label class="tg-tripwire-form__select-field">Когда свадьба?
+        <span class="tg-tripwire-form__select-wrap">
+          <select name="wedding_timing" required>
+            <option value="" selected disabled>Выберите срок</option>
+            <option value="Летом">Летом</option>
+            <option value="Осенью">Осенью</option>
+            <option value="Зимой">Зимой</option>
+            <option value="Весной">Весной</option>
+            <option value="В следующем году">В следующем году</option>
+            <option value="Ещё не решили">Ещё не решили</option>
+          </select>
+        </span>
+      </label>
+      <label class="tg-tripwire-form__select-field">Где свадьба?
+        <span class="tg-tripwire-form__select-wrap">
+          <select name="wedding_location" required>
+            <option value="" selected disabled>Выберите регион</option>
+            <option value="Москва">Москва</option>
+            <option value="Московская область">Московская область</option>
+            <option value="Другой регион">Другой регион</option>
+            <option value="Ещё не решили">Ещё не решили</option>
+          </select>
+        </span>
+      </label>
+    </div>
     <label class="tg-tripwire-form__details">Что уже известно?
       <textarea name="details" placeholder="Дата, площадка, формат или любой комментарий"></textarea>
     </label>
@@ -2266,7 +2223,7 @@ const tripwireFormMarkup = (variant: 'popup' | 'inline') => `<form class="tg-tri
 
 const planCtaSectionMarkup = `<section id="plan-evening" class="tg-plan-cta" data-local-only="telegram-funnel-prototype">
   <div class="tg-plan-cta__inner">
-    <div class="tg-plan-cta__content">
+    <div>
       <p class="tg-plan-cta__kicker">Бесплатно в Telegram</p>
       <h2>План-сценарий свадебного вечера</h2>
       <p class="tg-plan-cta__text">Короткая структура вечера: основные блоки, точки риска и вопросы, которые стоит обсудить с ведущим до договора.</p>
@@ -2274,19 +2231,12 @@ const planCtaSectionMarkup = `<section id="plan-evening" class="tg-plan-cta" dat
         <a class="tg-plan-cta__button tg-plan-cta__button--primary" href="#plan-delivery-popup" data-plan-popup-open>Получить сценарий</a>
         <a class="tg-plan-cta__button tg-plan-cta__button--secondary" href="#consultation-contact" data-consultation-popup-open>Обсудить свадьбу</a>
       </div>
-      <div class="tg-plan-cta__details">
-        <div class="tg-plan-cta__side" aria-label="Что внутри">
-          <div class="tg-plan-cta__item"><strong>01</strong><span>Тайминг без лишней воды: welcome, церемония, банкет, тосты, интерактивы и финал.</span></div>
-          <div class="tg-plan-cta__item"><strong>02</strong><span>Места, где чаще всего появляются паузы, хаос и неловкие моменты.</span></div>
-          <div class="tg-plan-cta__item"><strong>03</strong><span>После плана можно открыть смету или чеклист выбора ведущего, если это актуально.</span></div>
-        </div>
-        <p class="tg-plan-cta__note">План не заменяет личную встречу, но помогает быстро понять, как будет устроен вечер и что важно обсудить заранее.</p>
-      </div>
     </div>
-    <div class="tg-plan-cta__form-column">
-      <div class="tg-plan-cta__form">
-        ${tripwireFormMarkup('inline')}
-      </div>
+    <div class="tg-plan-cta__side" aria-label="Что внутри">
+      <div class="tg-plan-cta__item"><strong>01</strong><span>Тайминг без лишней воды: welcome, церемония, банкет, тосты, интерактивы и финал.</span></div>
+      <div class="tg-plan-cta__item"><strong>02</strong><span>Места, где чаще всего появляются паузы, хаос и неловкие моменты.</span></div>
+      <div class="tg-plan-cta__item"><strong>03</strong><span>После плана можно открыть смету или чеклист выбора ведущего, если это актуально.</span></div>
+      <p class="tg-plan-cta__note">План не заменяет личную встречу, но помогает быстро понять, как будет устроен вечер и что важно обсудить заранее.</p>
     </div>
   </div>
 </section>`;
@@ -3130,7 +3080,7 @@ const planDeliveryPopupAssets = `<style>
 
   .tg-tripwire-form__fields{
     display:grid;
-    gap:12px;
+    gap:10px;
   }
 
   .tg-tripwire-form__label,
@@ -3150,13 +3100,19 @@ const planDeliveryPopupAssets = `<style>
   .tg-tripwire-form__details{
     margin:0;
     color:rgba(28,27,26,.62);
-    font-size:13px;
+    font-size:12px;
     line-height:1.2;
+  }
+
+  .tg-tripwire-form__select-grid{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:10px;
   }
 
   .tg-tripwire-form__select-field{
     display:grid;
-    gap:7px;
+    gap:5px;
   }
 
   .tg-tripwire-form__select-wrap{
@@ -3167,10 +3123,10 @@ const planDeliveryPopupAssets = `<style>
   .tg-tripwire-form__select-wrap::after{
     content:"";
     position:absolute;
-    right:16px;
+    right:14px;
     top:50%;
-    width:9px;
-    height:9px;
+    width:8px;
+    height:8px;
     border-right:2px solid #1c1b1a;
     border-bottom:2px solid #1c1b1a;
     pointer-events:none;
@@ -3179,8 +3135,8 @@ const planDeliveryPopupAssets = `<style>
 
   .tg-tripwire-form__select-wrap select{
     width:100%;
-    min-height:50px;
-    padding:0 46px 0 15px;
+    min-height:44px;
+    padding:0 38px 0 13px;
     border:1px solid rgba(28,27,26,.16);
     border-radius:8px;
     box-sizing:border-box;
@@ -3188,10 +3144,13 @@ const planDeliveryPopupAssets = `<style>
     -webkit-appearance:none;
     background:#fffefa;
     color:#1c1b1a;
-    font-size:16px;
+    font-size:15px;
     line-height:1.1;
     outline:0;
     cursor:pointer;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
     transition:border-color .16s ease,box-shadow .16s ease,background-color .16s ease;
   }
 
@@ -3219,21 +3178,21 @@ const planDeliveryPopupAssets = `<style>
 
   .tg-tripwire-form__details{
     display:grid;
-    gap:7px;
+    gap:5px;
   }
 
   .tg-tripwire-form__details textarea{
     width:100%;
-    min-height:72px;
-    padding:10px 13px;
+    min-height:64px;
+    padding:9px 12px;
     border:1px solid rgba(28,27,26,.18);
     border-radius:8px;
     box-sizing:border-box;
     background:#fffefa;
     color:#1c1b1a;
     font-family:var(--t-text-font, Arial);
-    font-size:15px;
-    line-height:1.28;
+    font-size:14px;
+    line-height:1.25;
     letter-spacing:0;
     resize:vertical;
     outline:0;
@@ -3566,7 +3525,7 @@ const planDeliveryPopupAssets = `<style>
   }
 
   .tg-plan-popup__form{
-    margin-top:24px;
+    margin-top:20px;
   }
 
   body.tg-plan-popup-open{
@@ -3612,11 +3571,11 @@ const planDeliveryPopupAssets = `<style>
     }
 
     .tg-plan-popup__form{
-      margin-top:20px;
+      margin-top:18px;
     }
 
     .tg-tripwire-form{
-      padding:16px;
+      padding:14px;
     }
 
     .tg-tripwire-form.is-sent{
@@ -3625,12 +3584,18 @@ const planDeliveryPopupAssets = `<style>
     }
 
     .tg-tripwire-form__select-wrap select{
-      min-height:48px;
+      min-height:44px;
       font-size:15px;
     }
 
     .tg-tripwire-form__success-title{
       font-size:31px;
+    }
+  }
+
+  @media screen and (max-width:959px){
+    .tg-tripwire-form__select-grid{
+      grid-template-columns:1fr;
     }
   }
 </style>
