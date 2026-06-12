@@ -1607,7 +1607,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     gap:68px;
     width:min(1680px, 100%);
     margin:0 auto;
-    align-items:end;
+    align-items:start;
   }
 
   .tg-plan-cta__kicker,
@@ -1696,7 +1696,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   .tg-plan-cta__side{
     display:grid;
     gap:18px;
-    padding-top:18px;
+    padding-top:0;
     padding-bottom:6px;
   }
 
@@ -4478,7 +4478,7 @@ setTimeout(function() {var curPath=window.location.pathname;var curFullPath=wind
       <label class="tg-tripwire-form__select-field">Когда свадьба?
         <span class="tg-tripwire-form__select-wrap">
           <select name="wedding_timing" required>
-            <option value="" selected disabled>Выберите сезон</option>
+            <option value="" selected disabled>Выберите срок или сезон</option>
             <option value="Летом">Летом</option>
             <option value="Осенью">Осенью</option>
             <option value="Зимой">Зимой</option>
@@ -4500,8 +4500,8 @@ setTimeout(function() {var curPath=window.location.pathname;var curFullPath=wind
         </span>
       </label>
     </div>
-    <label class="tg-tripwire-form__details">Если уже что-то понятно
-      <textarea name="details" placeholder="Дата, площадка, формат или любая дополнительная информация"></textarea>
+    <label class="tg-tripwire-form__details">Дополнительная информация
+      <textarea name="details" placeholder="Если уже что-то известно: дата, площадка, формат, пожелания"></textarea>
     </label>
     <button class="tg-tripwire-form__submit" type="submit" data-tripwire-submit>Получить сценарий в Telegram</button>
     <p class="tg-tripwire-form__consent">Нажимая «Получить сценарий в Telegram», вы соглашаетесь с <a href="/privacy/" target="_blank" rel="nofollow">политикой конфиденциальности</a>, <a href="/privacy/#consent" target="_blank" rel="nofollow">согласием на обработку персональных данных</a> и <a href="/offer/" target="_blank" rel="nofollow">условиями оферты</a>.</p>
