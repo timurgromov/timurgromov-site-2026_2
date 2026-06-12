@@ -1651,43 +1651,87 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     margin-top:28px;
   }
 
-  .tg-plan-cta__button{
+  .tg-plan-cta__button,
+  .tg-consultation-cta__button,
+  .tg-contact-popup__link,
+  .tg-contact-popup__success-link,
+  .tg-contact-popup__form button,
+  .tg-tripwire-form__submit,
+  .tg-tripwire-form__telegram,
+  .tg-plan-popup__link{
+    --tg-cta-arrow-box:48px;
+    --tg-cta-pad-left:24px;
+    --tg-cta-pad-right:18px;
+    --tg-cta-divider:rgba(250,70,4,.22);
+    position:relative;
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    min-height:50px;
-    padding:0 20px;
-    border:1px solid #fa4604;
-    border-radius:7px;
+    padding:0 calc(var(--tg-cta-arrow-box) + var(--tg-cta-pad-right)) 0 var(--tg-cta-pad-left);
+    border-radius:8px;
     box-sizing:border-box;
-    color:#1c1b1a !important;
-    font-family:var(--t-text-font, Arial);
-    font-size:16px;
-    font-weight:400;
     line-height:1;
     text-decoration:none !important;
-    transition:background-color .18s ease,color .18s ease,border-color .18s ease;
+    background-repeat:no-repeat;
+    background-position:right var(--tg-cta-arrow-box) top;
+    background-size:1px 100%;
+    background-image:linear-gradient(var(--tg-cta-divider), var(--tg-cta-divider));
+    transition:background-color .18s ease,color .18s ease,border-color .18s ease,box-shadow .18s ease,transform .18s ease;
+  }
+
+  .tg-plan-cta__button::after,
+  .tg-consultation-cta__button::after,
+  .tg-contact-popup__link::after,
+  .tg-contact-popup__success-link::after,
+  .tg-contact-popup__form button::after,
+  .tg-tripwire-form__submit::after,
+  .tg-tripwire-form__telegram::after,
+  .tg-plan-popup__link::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    right:18px;
+    width:10px;
+    height:10px;
+    border-top:2px solid currentColor;
+    border-right:2px solid currentColor;
+    transform:translateY(-50%) rotate(45deg);
+    pointer-events:none;
+  }
+
+  .tg-plan-cta__button{
+    min-height:48px;
+    border:1px solid #fa4604;
+    color:#1c1b1a !important;
+    font-family:var(--t-text-font, Arial);
+    font-size:18px;
+    font-weight:400;
+    background-color:#fffefa;
   }
 
   .tg-plan-cta__button--primary{
-    background:#fa4604;
+    background-color:#fa4604;
     color:#fffefa !important;
+    --tg-cta-divider:rgba(255,254,250,.24);
   }
 
   .tg-plan-cta__button--secondary{
-    background:#fffefa;
+    background-color:#fffefa;
   }
 
   @media (hover:hover){
     .tg-plan-cta__button:hover{
-      background:#fa4604;
+      background-color:#fa4604;
       border-color:#fa4604;
       color:#fffefa !important;
+      --tg-cta-divider:rgba(255,254,250,.24);
+      box-shadow:0 14px 28px rgba(250,70,4,.16);
+      transform:translateY(-1px);
     }
 
     .tg-plan-cta__button--primary:hover{
-      background:#fffefa;
-      color:#fa4604 !important;
+      background-color:#fa4604;
+      color:#fffefa !important;
     }
   }
 
@@ -1790,7 +1834,9 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     .tg-plan-cta__button{
       width:100%;
       min-height:46px;
-      padding:0 16px;
+      --tg-cta-arrow-box:40px;
+      --tg-cta-pad-left:16px;
+      --tg-cta-pad-right:14px;
       font-size:15px;
     }
 
@@ -1873,39 +1919,34 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   }
 
   .tg-consultation-cta__button{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    min-height:50px;
-    padding:0 20px;
+    min-height:48px;
     border:1px solid #fa4604;
-    border-radius:7px;
-    box-sizing:border-box;
     color:#1c1b1a !important;
-    background:#fffefa;
+    background-color:#fffefa;
     font-family:var(--t-text-font, Arial);
-    font-size:16px;
+    font-size:18px;
     font-weight:400;
-    line-height:1;
-    text-decoration:none !important;
-    transition:background-color .18s ease,color .18s ease,border-color .18s ease;
   }
 
   .tg-consultation-cta__button--primary{
-    background:#fa4604;
+    background-color:#fa4604;
     color:#fffefa !important;
+    --tg-cta-divider:rgba(255,254,250,.24);
   }
 
   @media (hover:hover){
     .tg-consultation-cta__button:hover{
-      background:#fa4604;
+      background-color:#fa4604;
       border-color:#fa4604;
       color:#fffefa !important;
+      --tg-cta-divider:rgba(255,254,250,.24);
+      box-shadow:0 14px 28px rgba(250,70,4,.16);
+      transform:translateY(-1px);
     }
 
     .tg-consultation-cta__button--primary:hover{
-      background:#fffefa;
-      color:#fa4604 !important;
+      background-color:#fa4604;
+      color:#fffefa !important;
     }
   }
 
@@ -2002,7 +2043,9 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     .tg-consultation-cta__button{
       width:100%;
       min-height:46px;
-      padding:0 16px;
+      --tg-cta-arrow-box:40px;
+      --tg-cta-pad-left:16px;
+      --tg-cta-pad-right:14px;
       font-size:15px;
     }
 
@@ -2108,6 +2151,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   .tg-contact-popup__form textarea,
   .tg-contact-popup__form button,
   .tg-contact-popup__link,
+  .tg-contact-popup__success-link,
   .tg-contact-popup__status{
     font-family:var(--t-text-font, Arial);
     letter-spacing:0;
@@ -2145,36 +2189,21 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   }
 
   .tg-contact-popup__link{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    min-height:50px;
-    padding:0 18px;
-    border:1px solid rgba(28,27,26,.14);
-    border-radius:7px;
-    box-sizing:border-box;
+    min-height:48px;
+    border:1px solid #fa4604;
     color:#1c1b1a !important;
-    background:#fffefa;
+    background-color:#fffefa;
     font-size:16px;
-    line-height:1;
-    text-decoration:none !important;
-    transition:background-color .18s ease,border-color .18s ease,color .18s ease;
-  }
-
-  .tg-contact-popup__link::after{
-    content:"";
-    width:9px;
-    height:9px;
-    border-top:2px solid currentColor;
-    border-right:2px solid currentColor;
-    transform:rotate(45deg);
   }
 
   @media (hover:hover){
     .tg-contact-popup__link:hover{
       border-color:#fa4604;
-      background:#fa4604;
+      background-color:#fa4604;
       color:#fffefa !important;
+      --tg-cta-divider:rgba(255,254,250,.24);
+      box-shadow:0 14px 28px rgba(250,70,4,.14);
+      transform:translateY(-1px);
     }
   }
 
@@ -2253,26 +2282,29 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   }
 
   .tg-contact-popup__form button{
-    position:relative;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
     gap:10px;
-    min-height:44px;
+    min-height:48px;
     margin-top:2px;
     border:1px solid #fa4604;
-    border-radius:7px;
-    background:#fa4604;
+    background-color:#fa4604;
     color:#fffefa;
-    font-size:15px;
+    font-size:16px;
     font-weight:400;
     cursor:pointer;
-    transition:opacity .18s ease,transform .18s ease;
+    --tg-cta-divider:rgba(255,254,250,.24);
   }
 
   .tg-contact-popup__form button[disabled]{
     opacity:.74;
     cursor:wait;
+  }
+
+  @media (hover:hover){
+    .tg-contact-popup__form button:hover,
+    .tg-tripwire-form__submit:hover{
+      box-shadow:0 14px 28px rgba(250,70,4,.18);
+      transform:translateY(-1px);
+    }
   }
 
   .tg-contact-popup__form button.is-loading::before{
@@ -2283,6 +2315,11 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     border-top-color:#fffefa;
     border-radius:50%;
     animation:tgContactButtonSpin .8s linear infinite;
+  }
+
+  .tg-contact-popup__form button.is-loading::after,
+  .tg-tripwire-form__submit.is-loading::after{
+    opacity:0;
   }
 
   @keyframes tgContactButtonSpin{
@@ -2371,39 +2408,23 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   }
 
   .tg-contact-popup__success-link{
-    display:inline-flex;
-    align-items:center;
-    justify-content:space-between;
     min-width:188px;
-    min-height:42px;
+    min-height:44px;
     margin-top:6px;
-    padding:0 14px;
-    border:1px solid rgba(28,27,26,.14);
-    border-radius:7px;
-    box-sizing:border-box;
+    border:1px solid #fa4604;
     color:#1c1b1a !important;
-    background:#fffefa;
-    font-family:var(--t-text-font, Arial);
-    font-size:14px;
-    line-height:1;
-    text-decoration:none !important;
-    letter-spacing:0;
-  }
-
-  .tg-contact-popup__success-link::after{
-    content:"";
-    width:8px;
-    height:8px;
-    border-top:2px solid currentColor;
-    border-right:2px solid currentColor;
-    transform:rotate(45deg);
+    background-color:#fffefa;
+    font-size:15px;
   }
 
   @media (hover:hover){
     .tg-contact-popup__success-link:hover{
       border-color:#fa4604;
-      background:#fa4604;
+      background-color:#fa4604;
       color:#fffefa !important;
+      --tg-cta-divider:rgba(255,254,250,.24);
+      box-shadow:0 14px 28px rgba(250,70,4,.14);
+      transform:translateY(-1px);
     }
   }
 
@@ -2466,7 +2487,9 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
 
     .tg-contact-popup__link{
       min-height:46px;
-      padding:0 14px;
+      --tg-cta-arrow-box:40px;
+      --tg-cta-pad-left:14px;
+      --tg-cta-pad-right:12px;
       font-size:15px;
     }
 
@@ -2767,20 +2790,15 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   }
 
   .tg-tripwire-form__submit{
-    position:relative;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
     gap:10px;
-    min-height:44px;
+    min-height:48px;
     border:1px solid #fa4604;
-    border-radius:7px;
-    background:#fa4604;
+    background-color:#fa4604;
     color:#fffefa;
-    font-size:15px;
+    font-size:16px;
     font-weight:400;
-    line-height:1;
     cursor:pointer;
+    --tg-cta-divider:rgba(255,254,250,.24);
   }
 
   .tg-tripwire-form__submit[disabled]{
@@ -2874,30 +2892,13 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   }
 
   .tg-tripwire-form__telegram{
-    display:inline-flex;
-    align-items:center;
-    justify-content:space-between;
     min-width:188px;
-    min-height:42px;
+    min-height:44px;
     margin-top:6px;
-    padding:0 14px;
-    border:1px solid rgba(28,27,26,.14);
-    border-radius:7px;
-    box-sizing:border-box;
+    border:1px solid #fa4604;
     color:#1c1b1a !important;
-    background:#fffefa;
-    font-size:14px;
-    line-height:1;
-    text-decoration:none !important;
-  }
-
-  .tg-tripwire-form__telegram::after{
-    content:"";
-    width:8px;
-    height:8px;
-    border-top:2px solid currentColor;
-    border-right:2px solid currentColor;
-    transform:rotate(45deg);
+    background-color:#fffefa;
+    font-size:15px;
   }
 
   @media (hover:hover){
@@ -2907,8 +2908,11 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
 
     .tg-tripwire-form__telegram:hover{
       border-color:#fa4604;
-      background:#fa4604;
+      background-color:#fa4604;
       color:#fffefa !important;
+      --tg-cta-divider:rgba(255,254,250,.24);
+      box-shadow:0 14px 28px rgba(250,70,4,.14);
+      transform:translateY(-1px);
     }
   }
 
@@ -3055,29 +3059,11 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   }
 
   .tg-plan-popup__link{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    min-height:50px;
-    padding:0 18px;
-    border:1px solid rgba(28,27,26,.14);
-    border-radius:7px;
-    box-sizing:border-box;
+    min-height:48px;
+    border:1px solid #fa4604;
     color:#1c1b1a !important;
-    background:#fffefa;
+    background-color:#fffefa;
     font-size:16px;
-    line-height:1;
-    text-decoration:none !important;
-    transition:background-color .18s ease,border-color .18s ease,color .18s ease;
-  }
-
-  .tg-plan-popup__link::after{
-    content:"";
-    width:9px;
-    height:9px;
-    border-top:2px solid currentColor;
-    border-right:2px solid currentColor;
-    transform:rotate(45deg);
   }
 
   @media (hover:hover){
@@ -3088,8 +3074,11 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
 
     .tg-plan-popup__link:hover{
       border-color:#fa4604;
-      background:#fa4604;
+      background-color:#fa4604;
       color:#fffefa !important;
+      --tg-cta-divider:rgba(255,254,250,.24);
+      box-shadow:0 14px 28px rgba(250,70,4,.14);
+      transform:translateY(-1px);
     }
   }
 
@@ -3208,8 +3197,10 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     }
 
     .tg-plan-popup__link{
-      min-height:54px;
-      padding:0 16px;
+      min-height:46px;
+      --tg-cta-arrow-box:40px;
+      --tg-cta-pad-left:16px;
+      --tg-cta-pad-right:14px;
       font-size:16px;
     }
 
@@ -3266,8 +3257,11 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     }
 
     .tg-tripwire-form__submit{
-      min-height:42px;
+      min-height:44px;
       font-size:14px;
+      --tg-cta-arrow-box:38px;
+      --tg-cta-pad-left:14px;
+      --tg-cta-pad-right:12px;
     }
 
     .tg-tripwire-form__consent{
@@ -3295,6 +3289,9 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
       min-width:0;
       min-height:40px;
       margin-top:4px;
+      --tg-cta-arrow-box:38px;
+      --tg-cta-pad-left:14px;
+      --tg-cta-pad-right:12px;
       font-size:13px;
     }
   }
