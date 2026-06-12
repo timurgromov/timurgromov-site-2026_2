@@ -3985,7 +3985,6 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   }());
 </script><style>
   .clean-showreel-popup{
-    --clean-showreel-media-width:auto;
     position:fixed;
     inset:0;
     z-index:2147483000;
@@ -4078,10 +4077,54 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   body.clean-showreel-popup-open{
     overflow:hidden !important;
   }
-  .clean-showreel-popup.is-portrait .clean-showreel-popup__panel,
-  .clean-showreel-popup.is-portrait .clean-showreel-popup__media,
+  .clean-showreel-popup.is-portrait .clean-showreel-popup__panel{
+    width:min(514px, calc(100vw - 48px));
+    max-width:min(514px, calc(100vw - 48px));
+    padding:50px 0 22px;
+    border-radius:15px;
+  }
+  .clean-showreel-popup.is-portrait .clean-showreel-popup__media{
+    width:min(382px, calc(100% - 48px));
+    max-width:min(382px, calc(100% - 48px));
+    margin:0 auto;
+    background:transparent;
+  }
+  .clean-showreel-popup.is-portrait .clean-showreel-popup__video{
+    width:100%;
+    max-width:100%;
+    max-height:calc(100dvh - 230px);
+    border-radius:10px;
+  }
   .clean-showreel-popup.is-portrait .clean-showreel-popup__title{
-    width:var(--clean-showreel-media-width);
+    width:min(467px, calc(100% - 48px));
+    margin:22px auto 0;
+    padding:0;
+    text-align:center;
+    font-size:43px;
+    line-height:1;
+    background:transparent;
+  }
+  @media screen and (max-width:1199px){
+    .clean-showreel-popup.is-portrait .clean-showreel-popup__panel{
+      width:min(380px, calc(100vw - 40px));
+      max-width:min(380px, calc(100vw - 40px));
+      max-height:calc(100dvh - 72px);
+      padding:20px 0 18px;
+      border-radius:10px;
+    }
+    .clean-showreel-popup.is-portrait .clean-showreel-popup__media{
+      width:min(340px, calc(100% - 40px));
+      max-width:min(340px, calc(100% - 40px));
+    }
+    .clean-showreel-popup.is-portrait .clean-showreel-popup__video{
+      max-height:calc(100dvh - 180px);
+      border-radius:7px;
+    }
+    .clean-showreel-popup.is-portrait .clean-showreel-popup__title{
+      width:min(315px, calc(100% - 40px));
+      margin-top:17px;
+      font-size:27px;
+    }
   }
   @media screen and (max-width:639px){
     .clean-showreel-popup{
@@ -4102,6 +4145,29 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     .clean-showreel-popup__title{
       padding:18px 18px 20px;
       font-size:24px;
+    }
+    .clean-showreel-popup.is-portrait .clean-showreel-popup__panel{
+      width:min(300px, calc(100vw - 24px));
+      max-width:min(300px, calc(100vw - 24px));
+      max-height:calc(100dvh - 112px);
+      padding:15px 0 14px;
+      border-radius:10px;
+    }
+    .clean-showreel-popup.is-portrait .clean-showreel-popup__media{
+      width:min(270px, calc(100% - 30px));
+      max-width:min(270px, calc(100% - 30px));
+    }
+    .clean-showreel-popup.is-portrait .clean-showreel-popup__video{
+      max-height:calc(100dvh - 196px);
+      border-radius:7px;
+    }
+    .clean-showreel-popup.is-portrait .clean-showreel-popup__title{
+      width:min(232px, calc(100% - 44px));
+      margin-top:11px;
+      padding:0;
+      font-size:20px;
+      line-height:1;
+      background:transparent;
     }
   }
 </style>
@@ -4130,16 +4196,6 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
       var isPortrait = video.videoHeight > video.videoWidth;
       popup.classList.toggle('is-portrait', !!isPortrait);
       popup.classList.toggle('is-landscape', !!video.videoWidth && !isPortrait);
-      if (!isPortrait) {
-        popup.style.removeProperty('--clean-showreel-media-width');
-        return;
-      }
-      window.requestAnimationFrame(function(){
-        var renderedWidth = Math.round(video.getBoundingClientRect().width);
-        if (renderedWidth > 0) {
-          popup.style.setProperty('--clean-showreel-media-width', renderedWidth + 'px');
-        }
-      });
     }
 
     function syncVideoSize(video){
@@ -4157,7 +4213,6 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
       delete video.dataset.cleanVideoOrientation;
       if (popup) {
         popup.classList.remove('is-portrait', 'is-landscape');
-        popup.style.removeProperty('--clean-showreel-media-width');
       }
     }
 
