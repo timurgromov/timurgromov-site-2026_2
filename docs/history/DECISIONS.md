@@ -305,3 +305,34 @@ Verification:
 
 - `origin/main` указывает на финальный commit
 - `npm run verify:pages` или эквивалентная live-проверка подтверждает production
+
+## DEC-2026-06-14-SITE-STATUS-WORDING-MUST-BE-EXPLICIT
+
+Status: active
+Area: process, communication, deploy
+Decision date: 2026-06-14
+Evidence: repeated operator confusion when local or pushed changes were described with the same wording as live-verified production changes
+Commits: none
+Supersedes: none
+
+Decision:
+Для задач по живому сайту агент обязан явно разделять статусы `локально изменено`, `закоммичено`, `запушено`, `production подтвержден`. Слова `сделано`, `готово`, `исправил` разрешены только после live-проверки production.
+
+Why:
+Даже если код уже в `main`, пользователь может открыть сайт и увидеть старое состояние из-за непройденного deploy, кэша или просто потому, что агент сообщил статус слишком общо. Проблема здесь не только в техническом push/deploy, но и в неточной коммуникации о текущем состоянии.
+
+Do:
+
+- в финальном ответе по site-task писать статусы отдельными строками или явными маркерами
+- если production еще не проверен, прямо писать `локально/commit/push сделаны, live еще не подтвержден`
+- использовать слово `сделано` только после подтвержденного live-state
+
+Do not:
+
+- не смешивать `commit done` и `live done` в одну формулировку
+- не писать `исправил`, если подтверждена только локальная правка или push
+
+Verification:
+
+- правило зафиксировано в `AGENTS.md`
+- будущие ответы по site-task разделяют локальный, git и production-статусы
