@@ -274,3 +274,34 @@ Verification:
 - custom CTA визуально имеет две части: left plate + arrow square
 - обе части кликаются через общий `<a>` или `<button>`
 - `npm run build` проходит
+
+## DEC-2026-06-13-DEPLOY-REQUIRED-FOR-SITE-TASKS
+
+Status: active
+Area: process, deploy
+Decision date: 2026-06-13
+Evidence: repeated confusion when local changes were reported as "done" before commit/push/deploy
+Commits: none
+Supersedes: temporary local-only notes from early project-memory records
+
+Decision:
+Для задач, которые меняют живой сайт, работа считается завершенной только после `commit -> push в main -> GitHub Pages deploy -> live-check production`.
+
+Why:
+Если локальная правка или незапушенный commit описываются как готовый результат, это создает ложный сигнал: пользователь идет на `timurgromov.ru`, не видит изменений и тратит дополнительный прогон на повторную диагностику. Это не вопрос вкуса, а вопрос операционной дисциплины.
+
+Do:
+
+- считать `timurgromov.ru` обязательной финальной точкой проверки для site-task
+- в финальном ответе явно разделять: `локально изменено`, `закоммичено`, `запушено`, `production подтвержден`
+- если изменения влияют на сайт, не останавливаться на локальной сборке и локальной проверке
+
+Do not:
+
+- не трактовать старые исторические записи про `локально, без deploy` как активное правило
+- не сообщать, что задача сделана, если изменения еще не дошли до production
+
+Verification:
+
+- `origin/main` указывает на финальный commit
+- `npm run verify:pages` или эквивалентная live-проверка подтверждает production
