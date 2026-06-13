@@ -2043,6 +2043,7 @@ const planCtaSectionAssets = `<style>
   .tg-tilda-cta{
     --tg-cta-height:30px;
     --tg-cta-arrow-box:30px;
+    --tg-cta-overlap:1px;
     --tg-cta-pad-left:20px;
     --tg-cta-pad-right:18px;
     --tg-cta-radius:5px;
@@ -2055,7 +2056,7 @@ const planCtaSectionAssets = `<style>
     --tg-cta-font-size:12px;
     position:relative;
     display:inline-grid;
-    grid-template-columns:minmax(0, auto) var(--tg-cta-arrow-box);
+    grid-template-columns:minmax(0, auto) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
     align-items:stretch;
     min-height:0 !important;
     height:var(--tg-cta-height) !important;
@@ -2089,12 +2090,14 @@ const planCtaSectionAssets = `<style>
   .tg-tilda-cta__plate{
     grid-column:1;
     min-width:0;
-    border-right:0;
     border-radius:var(--tg-cta-radius) 0 0 var(--tg-cta-radius);
   }
 
   .tg-tilda-cta__arrow-box{
     grid-column:2;
+    width:var(--tg-cta-arrow-box);
+    margin-left:calc(-1 * var(--tg-cta-overlap));
+    border-left:0;
     border-radius:0 var(--tg-cta-radius) var(--tg-cta-radius) 0;
     background:var(--tg-cta-arrow-fill);
   }
@@ -2121,6 +2124,8 @@ const planCtaSectionAssets = `<style>
     z-index:1;
     display:grid;
     place-items:center;
+    width:var(--tg-cta-arrow-box);
+    margin-left:calc(-1 * var(--tg-cta-overlap));
     pointer-events:none;
   }
 
@@ -2165,6 +2170,18 @@ const planCtaSectionAssets = `<style>
     to{ transform:translateY(-50%) rotate(360deg); }
   }
 
+  @media (min-width:1200px){
+    .tg-tilda-cta{
+      --tg-cta-height:clamp(30px, 2.5vw, 48px);
+      --tg-cta-arrow-box:clamp(30px, 2.5vw, 48px);
+      --tg-cta-pad-left:clamp(20px, 1.6667vw, 34px);
+      --tg-cta-pad-right:clamp(18px, 1.5vw, 26px);
+      --tg-cta-radius:clamp(5px, .4167vw, 8px);
+      --tg-cta-icon-size:clamp(10px, .8333vw, 16px);
+      --tg-cta-font-size:clamp(12px, 1vw, 19px);
+    }
+  }
+
   @media (min-width:1920px){
     .tg-tilda-cta{
       --tg-cta-height:48px;
@@ -2190,7 +2207,7 @@ const planCtaSectionAssets = `<style>
   }
 
   .tg-plan-cta__button{
-    min-width:200px;
+    min-width:clamp(200px, 16.6667vw, 320px);
     --tg-cta-fill:#fffefa;
     --tg-cta-color:#1c1b1a;
     --tg-cta-arrow-fill:#fffefa;
@@ -2328,7 +2345,7 @@ const planCtaSectionAssets = `<style>
     .tg-plan-cta__button{
       width:100%;
       min-width:0;
-      grid-template-columns:minmax(0, 1fr) var(--tg-cta-arrow-box);
+      grid-template-columns:minmax(0, 1fr) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
       --tg-cta-pad-left:16px;
       --tg-cta-pad-right:14px;
     }
@@ -2615,7 +2632,7 @@ const consultationCtaSectionAssets = `<style>
     .tg-consultation-cta__button{
       width:100%;
       min-width:0;
-      grid-template-columns:minmax(0, 1fr) var(--tg-cta-arrow-box);
+      grid-template-columns:minmax(0, 1fr) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
       --tg-cta-pad-left:16px;
       --tg-cta-pad-right:14px;
     }
@@ -2783,7 +2800,7 @@ const consultationContactPopupAssets = `<style>
 
   .tg-contact-popup__link{
     width:100%;
-    grid-template-columns:minmax(0, 1fr) var(--tg-cta-arrow-box);
+    grid-template-columns:minmax(0, 1fr) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
     --tg-cta-fill:#fffefa;
     --tg-cta-color:#1c1b1a;
     --tg-cta-arrow-fill:#fffefa;
@@ -2876,9 +2893,8 @@ const consultationContactPopupAssets = `<style>
   }
 
   .tg-contact-popup__form button{
-    width:100%;
-    grid-template-columns:minmax(0, 1fr) var(--tg-cta-arrow-box);
-    gap:10px;
+    justify-self:start;
+    min-width:clamp(160px, 13.3333vw, 256px);
     margin-top:2px;
     cursor:pointer;
     --tg-cta-fill:#fa4604;
@@ -3372,9 +3388,8 @@ const planDeliveryPopupAssets = `<style>
   }
 
   .tg-tripwire-form__submit{
-    width:100%;
-    grid-template-columns:minmax(0, 1fr) var(--tg-cta-arrow-box);
-    gap:10px;
+    justify-self:start;
+    min-width:clamp(271px, 22.5833vw, 434px);
     cursor:pointer;
     --tg-cta-fill:#fa4604;
     --tg-cta-color:#fffefa;
@@ -3626,7 +3641,7 @@ const planDeliveryPopupAssets = `<style>
 
   .tg-plan-popup__link{
     width:100%;
-    grid-template-columns:minmax(0, 1fr) var(--tg-cta-arrow-box);
+    grid-template-columns:minmax(0, 1fr) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
     --tg-cta-fill:#fffefa;
     --tg-cta-color:#1c1b1a;
     --tg-cta-arrow-fill:#fffefa;
@@ -3765,7 +3780,7 @@ const planDeliveryPopupAssets = `<style>
 
     .tg-plan-popup__link{
       width:100%;
-      grid-template-columns:minmax(0, 1fr) var(--tg-cta-arrow-box);
+      grid-template-columns:minmax(0, 1fr) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
       --tg-cta-pad-left:16px;
       --tg-cta-pad-right:14px;
     }
@@ -3823,6 +3838,9 @@ const planDeliveryPopupAssets = `<style>
     }
 
     .tg-tripwire-form__submit{
+      width:100%;
+      min-width:0;
+      grid-template-columns:minmax(0, 1fr) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
       --tg-cta-pad-left:14px;
       --tg-cta-pad-right:12px;
     }
@@ -3849,7 +3867,7 @@ const planDeliveryPopupAssets = `<style>
 
     .tg-tripwire-form__telegram{
       width:100%;
-      grid-template-columns:minmax(0, 1fr) var(--tg-cta-arrow-box);
+      grid-template-columns:minmax(0, 1fr) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
       min-width:0;
       margin-top:4px;
       --tg-cta-pad-left:14px;
