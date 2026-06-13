@@ -312,6 +312,12 @@ Popup behavior:
   - set `aria-hidden="true"`;
   - remove `body.clean-showreel-popup-open`.
 
+Important advice-video ratio rule:
+
+- Advice hooks `#popup:video-sovet-1`, `#popup:video-sovet-2`, and `#popup:video-sovet-3` must use forced CSS aspect ratio `9 / 16`.
+- Do not size these popups from raw `video.videoWidth / video.videoHeight`. The VPS files have portrait `display_aspect_ratio=9:16`, but some raw stream dimensions / SAR values are non-standard. Using raw dimensions can create a square or wide CSS video box and bring back black side fields.
+- For these advice popups, keep the portrait video element matching the media box, with `object-fit:cover`, transparent video background, and the white title card below it.
+
 Important popup CSS:
 
 ```css
