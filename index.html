@@ -1720,15 +1720,14 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   .tg-tilda-cta__plate{
     grid-column:1;
     min-width:0;
-    border-radius:var(--tg-cta-radius) 0 0 var(--tg-cta-radius);
+    border-radius:var(--tg-cta-radius);
   }
 
   .tg-tilda-cta__arrow-box{
     grid-column:2;
     width:var(--tg-cta-arrow-box);
     margin-left:calc(-1 * var(--tg-cta-overlap));
-    border-left:0;
-    border-radius:0 var(--tg-cta-radius) var(--tg-cta-radius) 0;
+    border-radius:var(--tg-cta-radius);
     background:var(--tg-cta-arrow-fill);
   }
 
@@ -4212,9 +4211,12 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   }
   .clean-showreel-popup.is-portrait .clean-showreel-popup__title{
     width:min(477px, 100%);
+    height:86px;
     margin:23px auto 0;
     padding:0;
+    overflow:hidden;
     text-align:center;
+    font-weight:500;
     font-size:43px;
     line-height:1;
     background:transparent;
@@ -4236,6 +4238,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     }
     .clean-showreel-popup.is-portrait .clean-showreel-popup__title{
       width:min(291px, 100%);
+      height:54px;
       margin-top:19px;
       font-size:27px;
       line-height:1;
@@ -4259,6 +4262,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     }
     .clean-showreel-popup.is-portrait .clean-showreel-popup__title{
       width:min(315px, calc(100% - 40px));
+      height:54px;
       margin-top:18px;
       font-size:27px;
       line-height:1;
@@ -4300,7 +4304,8 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
       border-radius:7px;
     }
     .clean-showreel-popup.is-portrait .clean-showreel-popup__title{
-      width:min(232px, calc(100% - 44px));
+      width:min(208px, calc(100% - 44px));
+      height:auto;
       margin-top:11px;
       padding:0;
       font-size:20px;
