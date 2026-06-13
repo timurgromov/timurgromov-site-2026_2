@@ -29,6 +29,25 @@
 9. Если запускались browser/headless/preview проверки, закрыть тестовые процессы.
 10. Если push был только в рабочую ветку, сайт не обновлён. Для live-задач это незавершённая работа.
 
+## Codex Sandbox Rule
+
+В текущем Codex окружении команды, которые поднимают локальный сервер, открывают headless Chrome или читают список процессов, часто требуют escalated permissions.
+
+Типовые симптомы:
+
+- `listen EPERM: operation not permitted 127.0.0.1:<port>` при `npm run verify:contacts` или `npm run preview`;
+- `operation not permitted: ps` при cleanup-проверке процессов;
+- DNS/network ошибки при live-проверках GitHub/production.
+
+Это не означает, что сайт сломан. Это ограничение managed sandbox.
+
+Правило:
+
+- `npm run verify:contacts` запускать сразу с escalated permissions, потому что он всегда поднимает `astro preview` и headless Chrome.
+- `ps aux | egrep ...` для cleanup тоже запускать с escalated permissions, если обычный запуск запрещён.
+- `npm run verify:pages` / `git ls-remote` / live `curl`, если падают на DNS/network в sandbox, повторять с escalated permissions.
+- Не тратить время на повтор одного и того же sandbox-запуска после `EPERM`; это ожидаемый отказ среды, а не диагностический сигнал по сайту.
+
 ## Visual Proof Rule
 
 Для задач формата `сделай как раньше`, `уменьши кнопки`, `слишком большие`, `слишком громоздко`, `подгони под дизайн`, `по скрину должно быть ближе` не нужно автоматически включать тяжелую визуальную проверку на каждом проходе.
@@ -158,6 +177,8 @@ Footer legal IDs:
 ## Что проверяет страховка контактов
 
 `npm run verify:contacts` собирает сайт, запускает preview, открывает отдельный headless Chrome и проверяет `1911x1064`, `1440x900`, `390x844`.
+
+В Codex managed sandbox эту команду запускать сразу с escalated permissions. Обычный sandbox часто запрещает bind локального preview-порта и даёт `listen EPERM`; после разрешения тот же тест должен выполняться нормально.
 
 Проверка ловит:
 

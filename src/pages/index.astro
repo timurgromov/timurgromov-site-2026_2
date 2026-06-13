@@ -2794,12 +2794,12 @@ const consultationContactPopupAssets = `<style>
 
   .tg-contact-popup__links{
     display:grid;
+    justify-items:start;
     gap:12px;
   }
 
   .tg-contact-popup__link{
-    width:100%;
-    grid-template-columns:minmax(0, 1fr) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
+    min-width:clamp(280px, 22vw, 360px);
     --tg-cta-fill:#fffefa;
     --tg-cta-color:#1c1b1a;
     --tg-cta-arrow-fill:#fffefa;
@@ -2892,7 +2892,7 @@ const consultationContactPopupAssets = `<style>
   }
 
   .tg-contact-popup__form button{
-    justify-self:start;
+    justify-self:end;
     min-width:clamp(160px, 13.3333vw, 256px);
     margin-top:2px;
     cursor:pointer;
@@ -3075,8 +3075,14 @@ const consultationContactPopupAssets = `<style>
 
     .tg-contact-popup__link{
       width:100%;
+      min-width:0;
+      grid-template-columns:minmax(0, 1fr) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
       --tg-cta-pad-left:14px;
       --tg-cta-pad-right:12px;
+    }
+
+    .tg-contact-popup__form button{
+      justify-self:start;
     }
 
     .tg-contact-popup__form{
@@ -4108,7 +4114,7 @@ const consultationContactPopupMarkup = `<div id="consultation-contact-popup" cla
       <div>
         <p class="tg-contact-popup__eyebrow">Бесплатная встреча</p>
         <h2 id="consultation-contact-title">Выберите удобный способ</h2>
-        <p class="tg-contact-popup__text">Выберите удобный способ: написать в Telegram или MAX, позвонить, либо оставить телефон, чтобы Тимур связался с вами.</p>
+        <p class="tg-contact-popup__text">Напишите в Telegram или MAX, позвоните либо оставьте телефон, чтобы Тимур связался с вами.</p>
         <div class="tg-contact-popup__links">
           ${tildaCtaLink("tg-contact-popup__link", telegramMeetingUrl, "Написать в Telegram", 'target="_blank" rel="nofollow" data-contact-channel="telegram"')}
           ${tildaCtaLink("tg-contact-popup__link", maxContactUrl, "Написать в MAX", 'target="_blank" rel="nofollow" data-contact-channel="max"')}

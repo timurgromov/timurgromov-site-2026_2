@@ -48,6 +48,8 @@ Tilda Zero Block после загрузки делает `t396_initialScale` и
 npm run verify:contacts
 ```
 
+В Codex managed sandbox эту команду запускать сразу с escalated permissions. Она всегда поднимает локальный `astro preview` на `127.0.0.1:<port>` и открывает headless Chrome; обычный sandbox часто блокирует bind порта с ошибкой `listen EPERM`. Это не баг сайта и не падение верстки.
+
 Для обычных visual/content правок внутри уже существующих блоков - например текст, цены, подписи, CSS active/hover, небольшая правка сетки - не запускать MCP/browser/headless-проверки автоматически. Достаточно:
 
 ```bash
@@ -86,6 +88,8 @@ npm run build
 ```bash
 ps aux | egrep "headless|remote-debugging-port|astro preview|npm run preview" | grep -v egrep
 ```
+
+Если `ps` в sandbox падает с `operation not permitted`, повторить cleanup-check с escalated permissions. Не считать это ошибкой сайта.
 
 Если есть тестовые хвосты - остановить только их. Обычный Chrome пользователя не трогать без прямой просьбы.
 

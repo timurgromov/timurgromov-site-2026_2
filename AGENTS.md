@@ -65,6 +65,8 @@ Meaningful change - это:
 npm run verify:contacts
 ```
 
+Важно для Codex sandbox: `npm run verify:contacts` поднимает локальный `astro preview` и headless Chrome. В managed sandbox обычный запуск часто падает с `listen EPERM ... 127.0.0.1:<port>` или запретом `ps`. Это не ошибка сайта. Если команда нужна для задачи, запускай её сразу с escalated permissions; не делай сначала заведомо падающий sandbox-прогон.
+
 Для обычных визуальных правок:
 
 ```bash
@@ -83,6 +85,8 @@ Visual Proof Rule:
 ```bash
 ps aux | egrep "headless|remote-debugging-port|astro preview|npm run preview" | grep -v egrep
 ```
+
+В Codex sandbox эту cleanup-команду тоже может потребоваться запускать с escalated permissions, потому что чтение списка процессов может быть запрещено.
 
 Обычный Chrome пользователя не закрывать, если он прямо не попросил.
 
