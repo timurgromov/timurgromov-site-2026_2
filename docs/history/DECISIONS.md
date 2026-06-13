@@ -238,3 +238,39 @@ Verification:
 
 - в `AGENTS.md`, `docs/quick-edit-playbook.md` и `docs/tilda-zero-editing.md` зафиксировано правило visual proof
 - будущие финальные ответы по визуальным задачам разделяют факт deploy и факт визуального подтверждения
+
+## DEC-2026-06-13-TILDA-SPLIT-CTA-STANDARD
+
+Status: active
+Area: ux, frontend, quality
+Decision date: 2026-06-13
+Evidence: original Tilda export `rec862529266`, repeated mismatch when custom CTA buttons were redrawn as one-piece rounded rectangles
+Commits: none
+Supersedes: none
+
+Decision:
+Все новые кастомные CTA-кнопки на главной странице и в pop-up должны использовать общий Tilda-like split-button pattern `tg-tilda-cta`: отдельная левая скругленная плашка, отдельный правый скругленный квадрат со стрелкой и общий кликабельный wrapper.
+
+Why:
+В исходном Tilda-дизайне CTA визуально собран из двух соседних элементов, а не из одной цельной кнопки. Когда внутренние скругления убираются и квадрат стрелки превращается в продолжение левой плашки, кнопка визуально становится generic UI и перестает совпадать с языком сайта.
+
+Do:
+
+- использовать helper `tildaCtaLink` / `tildaCtaButton` в `src/pages/index.astro`
+- сохранять отдельные скругления у `tg-tilda-cta__plate` и `tg-tilda-cta__arrow-box`
+- сохранять `1px` overlap между левой плашкой и квадратом, как в export
+- использовать реальный export asset `images/tild3536-3939-4363-b163-323761323432__vector_8.svg`
+- держать hover-поворот стрелки
+
+Do not:
+
+- не рисовать CTA заново через generic rounded button
+- не делать стрелку CSS-chevron, если доступен исходный SVG
+- не обнулять внутренние скругления между левой частью и квадратом
+- не превращать split-button обратно в один визуально сплошной прямоугольник
+
+Verification:
+
+- custom CTA визуально имеет две части: left plate + arrow square
+- обе части кликаются через общий `<a>` или `<button>`
+- `npm run build` проходит

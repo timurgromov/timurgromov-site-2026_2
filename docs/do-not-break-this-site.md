@@ -201,6 +201,39 @@ Current rule:
 - Do not force `opacity:1`, `visibility:visible`, or `transform:none` on `1738923639678`; that makes the hover photo visible on first paint and clips the logo text.
 - Do not globally freeze `1738923639672`; that breaks the intended hover slide-out animation.
 
+## CTA Split Button Rule
+
+Problem:
+
+- The original Tilda CTA style is not a single rounded rectangle with an icon inside it.
+- In the export, button-like CTAs such as `rec862529266` / `смотреть больше` are composed from separate layers:
+  - left rounded shape `1738905669528`;
+  - right rounded square `1738905669537`;
+  - text layer `1738905669544`;
+  - full click target `1738905669553`;
+  - arrow SVG `1738905669558` using `images/tild3536-3939-4363-b163-323761323432__vector_8.svg`.
+
+Current rule:
+
+- New custom CTA buttons must use the shared `tg-tilda-cta` helper in `src/pages/index.astro`, not a freshly drawn generic button.
+- Keep the visual structure as two joined elements: a rounded left plate plus a rounded right square.
+- Keep `--tg-cta-overlap:1px`, matching the export where the right square overlaps the left plate by one pixel.
+- Do not set the inner join to `border-radius:0` and do not remove the right square's left border. That makes the CTA look like one solid rectangle and loses the Tilda style.
+- Keep the whole wrapper clickable and keep the arrow hover rotation.
+
+Do not reintroduce:
+
+```css
+.tg-tilda-cta__plate{
+  border-radius:var(--tg-cta-radius) 0 0 var(--tg-cta-radius);
+}
+
+.tg-tilda-cta__arrow-box{
+  border-left:0;
+  border-radius:0 var(--tg-cta-radius) var(--tg-cta-radius) 0;
+}
+```
+
 ## Current Clean Video Popups
 
 The active popups are custom lightweight popups, not Tilda mp4 popups.
@@ -318,10 +351,10 @@ Important advice-video ratio rule:
 - Do not size these popups from raw `video.videoWidth / video.videoHeight`. The VPS files have portrait `display_aspect_ratio=9:16`, but some raw stream dimensions / SAR values are non-standard. Using raw dimensions can create a square or wide CSS video box and bring back black side fields.
 - For these advice popups, keep the portrait video element matching the media box, with `object-fit:cover`, transparent video background, and the white title card below it.
 - For advice popup `#popup:video-sovet-1` / original Tilda export `rec892727326`, keep the original breakpoint geometry. Do not apply the large `1920+` white card below `1920px`:
-  - `1920+`: white panel `514x889`, video `382x679`, title width `477`, title font `43px`.
-  - `1200-1919`: white panel `308x570`, video `246x437`, title width `291`, title font `27px`.
-  - `640-1199`: white panel `380x718`, video `340x604`, title width `315`, title font `27px`.
-  - `320-639`: white panel `300x564`, video `270x480`, title width `232`, title font `20px`.
+  - `1920+`: white panel `514x889`, video `382x679`, title `477x86`, title font `43px`.
+  - `1200-1919`: white panel `308x570`, video `246x437`, title `291x54`, title font `27px`.
+  - `640-1199`: white panel `380x718`, video `340x604`, title `315x54`, title font `27px`.
+  - `320-639`: white panel `300x564`, video `270x480`, title width `208`, title font `20px`.
 
 Important popup CSS:
 
