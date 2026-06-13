@@ -317,6 +317,11 @@ Important advice-video ratio rule:
 - Advice hooks `#popup:video-sovet-1`, `#popup:video-sovet-2`, and `#popup:video-sovet-3` must use forced CSS aspect ratio `9 / 16`.
 - Do not size these popups from raw `video.videoWidth / video.videoHeight`. The VPS files have portrait `display_aspect_ratio=9:16`, but some raw stream dimensions / SAR values are non-standard. Using raw dimensions can create a square or wide CSS video box and bring back black side fields.
 - For these advice popups, keep the portrait video element matching the media box, with `object-fit:cover`, transparent video background, and the white title card below it.
+- For advice popup `#popup:video-sovet-1` / original Tilda export `rec892727326`, keep the original breakpoint geometry. Do not apply the large `1920+` white card below `1920px`:
+  - `1920+`: white panel `514x889`, video `382x679`, title width `477`, title font `43px`.
+  - `1200-1919`: white panel `308x570`, video `246x437`, title width `291`, title font `27px`.
+  - `640-1199`: white panel `380x718`, video `340x604`, title width `315`, title font `27px`.
+  - `320-639`: white panel `300x564`, video `270x480`, title width `232`, title font `20px`.
 
 Important popup CSS:
 
