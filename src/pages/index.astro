@@ -2491,7 +2491,7 @@ const planCtaSectionMarkup = `<section id="plan-evening" class="tg-plan-cta" dat
     <div>
       <p class="tg-plan-cta__kicker">Бесплатно в Telegram</p>
       <h2>Получить сценарий свадьбы</h2>
-      <p class="tg-plan-cta__text">В Telegram-боте ответьте на 3 коротких вопроса и получите план вечера: тайминг, ключевые блоки и полезные материалы.</p>
+      <p class="tg-plan-cta__text">Короткая структура вечера: основные блоки, точки риска и вопросы, которые стоит обсудить с ведущим до договора. В Telegram-боте ответьте на 3 коротких вопроса — и получите материал сразу в чате.</p>
       <div class="tg-plan-cta__actions">
         ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--primary", telegramPlanUrl, "Получить сценарий", 'target="_blank" rel="nofollow"')}
         ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--secondary", "#consultation-contact", "Обсудить свадьбу", "data-consultation-popup-open")}
@@ -3610,10 +3610,10 @@ const planDeliveryPopupAssets = `<style>
     z-index:1;
     display:grid;
     align-content:start;
-    width:min(1180px, 100%);
-    max-height:min(760px, calc(100dvh - 36px));
+    width:min(640px, 100%);
+    max-height:min(620px, calc(100dvh - 36px));
     overflow:hidden;
-    padding:34px 34px 30px;
+    padding:34px 34px 32px;
     border-radius:12px;
     box-sizing:border-box;
     background:#fffefa;
@@ -3673,9 +3673,9 @@ const planDeliveryPopupAssets = `<style>
 
   .tg-plan-popup__body{
     display:grid;
-    grid-template-columns:minmax(0, .92fr) minmax(500px, 1fr);
-    gap:30px;
-    align-items:start;
+    grid-template-columns:1fr;
+    gap:24px;
+    align-items:center;
   }
 
   .tg-plan-popup__intro{
@@ -3704,7 +3704,7 @@ const planDeliveryPopupAssets = `<style>
   }
 
   .tg-plan-popup__text{
-    max-width:460px;
+    max-width:520px;
     margin:0;
     color:rgba(28,27,26,.76);
     font-size:18px;
@@ -3713,13 +3713,17 @@ const planDeliveryPopupAssets = `<style>
 
   .tg-plan-popup__actions{
     display:grid;
-    align-content:center;
+    align-content:start;
     justify-items:start;
-    min-height:180px;
+    min-height:0;
   }
 
   .tg-plan-popup__telegram{
     min-width:260px;
+    --tg-cta-fill:#fa4604;
+    --tg-cta-color:#fffefa;
+    --tg-cta-arrow-fill:#fa4604;
+    --tg-cta-arrow-color:#fffefa;
   }
 
   .tg-plan-popup__links{
@@ -3748,6 +3752,15 @@ const planDeliveryPopupAssets = `<style>
       --tg-cta-arrow-fill:#fa4604;
       --tg-cta-arrow-color:#fffefa;
       box-shadow:0 14px 28px rgba(250,70,4,.14);
+      transform:translateY(-1px);
+    }
+
+    .tg-plan-popup__telegram:hover{
+      --tg-cta-fill:#fa4604;
+      --tg-cta-color:#fffefa;
+      --tg-cta-arrow-fill:#fa4604;
+      --tg-cta-arrow-color:#fffefa;
+      box-shadow:0 14px 28px rgba(250,70,4,.16);
       transform:translateY(-1px);
     }
   }
@@ -3780,8 +3793,8 @@ const planDeliveryPopupAssets = `<style>
 
   @media screen and (max-width:1199px){
     .tg-plan-popup__panel{
-      width:min(980px, 100%);
-      max-height:min(760px, calc(100dvh - 28px));
+      width:min(640px, 100%);
+      max-height:min(620px, calc(100dvh - 28px));
       padding:26px 22px 22px;
     }
 
@@ -3803,7 +3816,7 @@ const planDeliveryPopupAssets = `<style>
 
     .tg-plan-popup h2{
       margin:0 56px 12px 0;
-      font-size:40px;
+      font-size:38px;
     }
 
     .tg-plan-popup__text{
@@ -4192,7 +4205,7 @@ const planDeliveryPopupMarkup = `<div id="plan-delivery-popup" class="tg-plan-po
     <div class="tg-plan-popup__body">
       <div class="tg-plan-popup__intro">
         <p class="tg-plan-popup__eyebrow">Бесплатно в Telegram</p>
-        <h2 id="plan-delivery-title">Получить сценарий свадьбы</h2>
+        <h2 id="plan-delivery-title">Получить сценарий</h2>
         <p class="tg-plan-popup__text">Откройте Telegram-бота, ответьте на 3 коротких вопроса и получите план вечера: тайминг, ключевые блоки, калькулятор и полезные материалы.</p>
       </div>
       <div class="tg-plan-popup__actions">
