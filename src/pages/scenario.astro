@@ -598,9 +598,9 @@ const contactLinks = [
     --ink: #241d19;
     --muted: rgba(36, 29, 25, 0.76);
     --soft: rgba(36, 29, 25, 0.12);
-    --accent: #cf6438;
-    --accent-soft: rgba(207, 100, 56, 0.1);
-    --accent-strong: #efe4d5;
+    --accent: #fa4604;
+    --accent-soft: rgba(250, 70, 4, 0.08);
+    --accent-strong: #f5dccf;
     --dark: #1f1916;
     --tip: #4d8a73;
     --warn: #b77234;
@@ -760,7 +760,7 @@ const contactLinks = [
   .scenario-timeblock {
     display: grid;
     gap: 28px;
-    grid-template-columns: minmax(0, 230px) minmax(0, 1fr);
+    grid-template-columns: minmax(260px, 280px) minmax(0, 1fr);
     margin-top: 48px;
   }
 
@@ -781,8 +781,8 @@ const contactLinks = [
 
   .scenario-timeblock h2,
   .scenario-section h2 {
-    font-size: clamp(34px, 4vw, 46px);
-    line-height: 0.98;
+    font-size: clamp(32px, 3.4vw, 42px);
+    line-height: 1;
     color: var(--ink);
   }
 
@@ -791,7 +791,7 @@ const contactLinks = [
   }
 
   .scenario-prose {
-    max-width: 700px;
+    max-width: 660px;
   }
 
   .scenario-prose p,
@@ -1191,7 +1191,7 @@ const contactLinks = [
     text-underline-offset: 3px;
   }
 
-  @media screen and (max-width: 899px) {
+  @media screen and (max-width: 1099px) {
     .scenario-timeblock,
     .scenario-cta__shell,
     .scenario-footer__grid {
@@ -1267,6 +1267,13 @@ const contactLinks = [
     .scenario-contact-list strong {
       font-size: 17px;
       line-height: 1.55;
+    }
+
+    .scenario-prose--dropcap p:first-child::first-letter {
+      float: none;
+      padding: 0;
+      font-size: inherit;
+      line-height: inherit;
     }
 
     .scenario-prose li::before {
