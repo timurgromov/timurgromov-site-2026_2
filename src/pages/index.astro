@@ -2490,17 +2490,17 @@ const planCtaSectionMarkup = `<section id="plan-evening" class="tg-plan-cta" dat
   <div class="tg-plan-cta__inner">
     <div>
       <p class="tg-plan-cta__kicker">Бесплатно в Telegram</p>
-      <h2>Получить сценарий свадьбы</h2>
-      <p class="tg-plan-cta__text">Какие блоки вечера продумать заранее и что обсудить с ведущим до договора.</p>
+      <h2>Получить сценарий свадьбы в Telegram</h2>
+      <p class="tg-plan-cta__text">В Telegram-боте ответьте на 3 коротких вопроса и получите план вечера: тайминг, ключевые блоки и полезные материалы.</p>
       <div class="tg-plan-cta__actions">
-        ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--primary", "#plan-delivery-popup", "Получить сценарий свадьбы", "data-plan-popup-open")}
+        ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--primary", telegramPlanUrl, "Получить сценарий в Telegram", 'target="_blank" rel="nofollow"')}
         ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--secondary", "#consultation-contact", "Обсудить свадьбу", "data-consultation-popup-open")}
       </div>
     </div>
     <div class="tg-plan-cta__side" aria-label="Что внутри">
       <div class="tg-plan-cta__item"><strong>01</strong><span>Тайминг без лишней воды: welcome, церемония, банкет, тосты, интерактивы и финал.</span></div>
       <div class="tg-plan-cta__item"><strong>02</strong><span>Места, где чаще всего появляются паузы, хаос и неловкие моменты.</span></div>
-      <div class="tg-plan-cta__item"><strong>03</strong><span>После плана можно открыть смету или чеклист выбора ведущего, если это актуально.</span></div>
+      <div class="tg-plan-cta__item"><strong>03</strong><span>Внутри можно будет открыть калькулятор, план подготовки и другие полезные материалы.</span></div>
       <p class="tg-plan-cta__note">План не заменяет личную встречу, но помогает быстро понять, как будет устроен вечер и что важно обсудить заранее.</p>
     </div>
   </div>
@@ -5029,7 +5029,7 @@ const priceBodySource = transformTildaRecord(
       (recordHtml) =>
         recordHtml.replace(
           `<a class='tn-atom' href="http://t.me/timurgromovv" rel="nofollow" target="_blank"> </a>`,
-          `<a class='tn-atom' href="#plan-delivery-popup" data-plan-popup-open> </a>`,
+          `<a class='tn-atom' href="${telegramPlanUrl}" rel="nofollow" target="_blank"> </a>`,
         ),
     ),
     "rec862317152",
