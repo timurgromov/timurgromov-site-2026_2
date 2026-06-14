@@ -243,6 +243,40 @@ Verification:
 - основная кнопка CTA-блока содержит `Получить сценарий в Telegram`
 - в опубликованном HTML нет активных элементов `data-plan-popup-open`, кроме пассивной строки селектора legacy-script
 
+## DEC-2026-06-14-SCENARIO-MATERIAL-ROUTE
+
+Status: active
+Area: product, ux, deploy, cross-project
+Decision date: 2026-06-14
+Evidence: отдельная страница из Lovable, текущий bot-first funnel, требование не поднимать лишний runtime-контур
+Commits: none
+Supersedes: none
+
+Decision:
+Материал `Сценарий свадебного вечера`, который бот выдаёт после квалификации `site_plan`, должен жить на основном сайте как отдельный production-route `https://timurgromov.ru/scenario/`.
+
+Why:
+Это позволяет не поднимать третий продукт/отдельный deploy-контур ради одного материала. Сайт остаётся владельцем страницы и её дизайна, а `EventBudjet` остаётся владельцем tracked redirect, bot copy и продовой конфигурации ссылки.
+
+Do:
+
+- хранить исходник production-страницы в этом репозитории
+- деплоить страницу тем же Pages-потоком, что и остальной сайт
+- считать `Страница План Сценарий/` во workspace reference-only source material
+- в `EventBudjet` держать `SITE_PLAN_MATERIAL_URL` направленным на `/scenario/`
+
+Do not:
+
+- не заводить отдельный поддомен, VPS-сервис или третий активный репозиторий без нового решения
+- не переносить ownership страницы в `EventBudjet`
+- не возвращать выдачу материала на главную страницу сайта
+
+Verification:
+
+- в репозитории есть `src/pages/scenario.astro`
+- локальная сборка создаёт `/scenario/index.html`
+- production redirect `SITE_PLAN_MATERIAL_URL` указывает на `https://timurgromov.ru/scenario/`
+
 ## DEC-2026-06-13-VISUAL-PROOF-ON-LIVE
 
 Status: active

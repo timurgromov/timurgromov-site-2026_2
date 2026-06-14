@@ -1,0 +1,1364 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const homeHref = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const discussionTelegramUrl =
+  "https://t.me/timurgromovv?text=%D0%A5%D0%BE%D1%87%D1%83%20%D1%80%D0%B0%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D1%8C%20%D0%BF%D0%BB%D0%B0%D0%BD%20%D1%81%D0%B2%D0%B0%D0%B4%D1%8C%D0%B1%D1%8B";
+
+const eveningSteps = [
+  "Сбор гостей",
+  "Церемония",
+  "Поздравления",
+  "Знакомство гостей с вечером",
+  "Общение и вовлечение",
+  "Эмоциональный пик",
+  "Завершение вечера",
+  "Танцы",
+];
+
+const mistakes = [
+  {
+    title: "Плохо организованные тосты",
+    description:
+      "Если тосты не подготовлены, вечер быстро превращается в длинную очередь выступлений и утомляет гостей.",
+  },
+  {
+    title: "Непродуманные подарки",
+    description:
+      "Когда гости не понимают, как вручать подарки, появляется лишняя суета и напряжение вокруг молодых.",
+  },
+  {
+    title: "Сценарий, который существует только на бумаге",
+    description:
+      "Написать хороший план недостаточно. Его ещё нужно собрать под реальную площадку, тайминг и людей.",
+  },
+  {
+    title: "Отсутствие взаимодействия между подрядчиками",
+    description:
+      "Кухня, площадка, фотограф, диджей и ведущий должны работать как одна команда, а не параллельно друг другу.",
+  },
+  {
+    title: "Непонимание состояния гостей",
+    description:
+      "Главная ошибка — вести свадьбу по бумаге и не замечать, как в конкретный момент чувствует себя зал.",
+  },
+];
+
+const portfolioLinks = [
+  { label: "Свадьбы", value: "timurgromov.ru", href: "https://timurgromov.ru" },
+  { label: "Корпоративы", value: "corp.timurgromov.ru", href: "https://corp.timurgromov.ru" },
+  { label: "Instagram", value: "@timurgromov", href: "https://instagram.com/timurgromov" },
+  { label: "Dzen", value: "dzen.ru/timurgromov", href: "https://dzen.ru/timurgromov" },
+  { label: "Отзывы", value: "clck.ru/TZjT6", href: "https://clck.ru/TZjT6" },
+];
+
+const materialLinks = [
+  {
+    label: "Запись разбора",
+    value: "Пошаговый план подготовки к свадьбе",
+    href: "https://clck.ru/3RX8Nw",
+  },
+  {
+    label: "Telegram-бот",
+    value: "Свадебный калькулятор",
+    href: "https://t.me/gromov_wedding_bot",
+  },
+];
+
+const contactLinks = [
+  { label: "Telegram", value: "@timurgromovv", href: "https://t.me/timurgromovv" },
+  { label: "MAX", value: "clck.ru/3RRXHX", href: "https://clck.ru/3RRXHX" },
+  { label: "Телефон", value: "+7 (925) 390-07-72", href: "tel:+79253900772" },
+];
+---
+
+<BaseLayout
+  title="Сценарий свадебного вечера | Тимур Громов"
+  description="Логика современного свадебного вечера: тайминг, ключевые блоки и ошибки, которые чаще всего ломают атмосферу."
+>
+  <main class="scenario-page">
+    <header class="scenario-hero">
+      <div class="scenario-hero__overlay"></div>
+      <div class="scenario-shell scenario-hero__shell">
+        <a class="scenario-hero__back" href={homeHref}>timurgromov.ru</a>
+        <div class="scenario-hero__eyebrow">Авторский материал — Тимур Громов</div>
+        <h1>
+          Свадебный <em>сценарий</em>
+        </h1>
+        <p class="scenario-hero__lead">
+          Логика современного свадебного вечера и как избежать самых
+          распространённых ошибок при его планировании.
+        </p>
+        <div class="scenario-hero__meta">
+          <div class="scenario-hero__badge">Т</div>
+          <div>
+            <strong>Тимур Громов</strong>
+            <span>Ведущий · 10 минут чтения</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <article class="scenario-shell scenario-article">
+      <section class="scenario-intro">
+        <div class="scenario-eyebrow">Вступление</div>
+        <div class="scenario-prose scenario-prose--dropcap">
+          <p>
+            За годы работы я заметил одну закономерность. Гости редко помнят
+            конкурсы, точный сценарный план или последовательность активностей.
+            Зато они прекрасно помнят свои ощущения от вечера.
+          </p>
+          <p>
+            Было ли комфортно. Было ли понятно, что происходит. Было ли время
+            пообщаться. Были ли моменты, которые действительно тронули.
+          </p>
+          <p>
+            Именно поэтому хороший свадебный вечер строится не вокруг отдельных
+            развлечений, а вокруг <strong>правильной последовательности событий</strong>.
+          </p>
+          <p>
+            Этот материал поможет понять логику современного свадебного вечера и
+            избежать самых распространённых ошибок при его планировании.
+          </p>
+        </div>
+      </section>
+
+      <div class="scenario-ornament" aria-hidden="true">
+        <span></span>
+        <svg viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M7 0L8 6L14 7L8 8L7 14L6 8L0 7L6 6L7 0Z" fill="currentColor"></path>
+        </svg>
+        <span></span>
+      </div>
+
+      <section class="scenario-section">
+        <h2>Карта свадебного вечера</h2>
+        <div class="scenario-prose">
+          <p class="scenario-note">Время в примере условное</p>
+          <p>
+            Каждая свадьба индивидуальна, но сама логика движения вечера чаще
+            всего остаётся похожей.
+          </p>
+        </div>
+        <ol class="scenario-step-grid">
+          {eveningSteps.map((step, index) => (
+            <li>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <strong>{step}</strong>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="scenario-timeblock">
+        <div class="scenario-timeblock__meta">
+          <div class="scenario-timeblock__time">16:00 — 17:00</div>
+          <h2>Сбор гостей и Welcome</h2>
+        </div>
+        <div class="scenario-prose">
+          <p>
+            <strong>
+              Welcome нужен для того, чтобы гости спокойно собрались и с первой
+              минуты почувствовали себя комфортно.
+            </strong>
+          </p>
+          <p>
+            Кто-то приезжает заранее, кто-то задерживается, кто-то ищет парковку
+            или помогает детям подготовиться к празднику. Поэтому большинству
+            свадеб нужен этап, который позволяет людям спокойно войти в
+            атмосферу вечера.
+          </p>
+          <p>Хороший Welcome помогает быстро понять:</p>
+          <ul>
+            <li>куда идти и где находится церемония или банкетный зал;</li>
+            <li>как устроена рассадка;</li>
+            <li>как организованы подарки и поздравления;</li>
+            <li>что будет происходить дальше.</li>
+          </ul>
+          <p>
+            На этом этапе ведущий работает не как артист, а скорее как стюард:
+            помогает гостям сориентироваться и создаёт ощущение контроля.
+          </p>
+          <aside class="scenario-callout scenario-callout--tip">
+            <div>Из практики</div>
+            <p>
+              Большинство проблем начинается ещё до начала свадьбы: когда гости
+              не понимают, куда идти, что делать и сколько ждать.
+            </p>
+          </aside>
+          <aside class="scenario-callout scenario-callout--warn">
+            <div>Частая ошибка</div>
+            <p>
+              Позвать гостей слишком заранее без понятной программы ожидания.
+              В результате одни начинают скучать, а другие приезжают в ощущении
+              спешки.
+            </p>
+          </aside>
+          <aside class="scenario-callout scenario-callout--good">
+            <div>Что работает лучше</div>
+            <p>
+              Для небольшой свадьбы обычно достаточно 30 минут Welcome. Если есть
+              выездная церемония и большой поток гостей, лучше спокойно
+              закладывать от 40 минут до полутора часов.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="scenario-timeblock">
+        <div class="scenario-timeblock__meta">
+          <div class="scenario-timeblock__time">17:00 — 17:40</div>
+          <h2>Церемония, поздравления и фотографии</h2>
+        </div>
+        <div class="scenario-prose">
+          <p>
+            Выездная церемония особенно хорошо работает, если официальный ЗАГС
+            был в другой день или хочется сделать этот момент более личным.
+          </p>
+          <p>
+            Сама церемония обычно занимает около 15 минут. Но многие недооценивают
+            следующий этап — <strong>поздравления и фотографии</strong>.
+          </p>
+          <p>
+            После церемонии гости подходят к молодожёнам, вручают цветы, делают
+            совместные фотографии и говорят важные слова. На практике это один из
+            самых полезных организационных моментов вечера.
+          </p>
+          <blockquote>
+            «Я подошёл и поздравил молодых».
+          </blockquote>
+          <p>
+            Если этот этап пропустить, молодожёнов начинают дёргать всю свадьбу:
+            для фотографий, поздравлений и вручения подарков.
+          </p>
+        </div>
+      </section>
+
+      <section class="scenario-timeblock">
+        <div class="scenario-timeblock__meta">
+          <div class="scenario-timeblock__time">17:40 — 18:20</div>
+          <h2>Знакомство гостей с вечером</h2>
+        </div>
+        <div class="scenario-prose">
+          <p>
+            Первый банкетный блок нужен не для того, чтобы сразу всех развлечь.
+            Его главная задача — <strong>познакомить гостей с правилами вечера</strong>.
+          </p>
+          <p>
+            К этому моменту люди уже приехали, увидели церемонию, поздравили
+            молодожёнов и заняли свои места. Но они ещё не до конца понимают,
+            что будет происходить дальше.
+          </p>
+          <p>Обычно их волнуют простые вопросы:</p>
+          <ul>
+            <li>когда будут тосты;</li>
+            <li>нужно ли будет выступать;</li>
+            <li>как организованы подарки;</li>
+            <li>что вообще будет происходить дальше.</li>
+          </ul>
+          <h3>Как организовать подарки</h3>
+          <p>
+            Вопрос подарков вызывает у гостей больше тревоги, чем кажется.
+            Кто-то хочет вручить подарок лично. Кто-то — вместе с тостом. Кто-то
+            не любит публичность и хочет спокойно передать конверт без внимания
+            всего зала.
+          </p>
+          <p>Обычно есть несколько удобных вариантов:</p>
+          <ul>
+            <li>вручить подарок после церемонии во время поздравлений;</li>
+            <li>вручить подарок вместе с тостом;</li>
+            <li>подойти к молодожёнам лично в одной из пауз вечера.</li>
+          </ul>
+          <aside class="scenario-callout scenario-callout--tip">
+            <div>Из практики</div>
+            <p>
+              Гости намного спокойнее чувствуют себя на свадьбе, когда заранее
+              понимают, как организованы подарки. Неопределённость создаёт
+              больше напряжения, чем сам факт вручения.
+            </p>
+          </aside>
+          <aside class="scenario-callout scenario-callout--good">
+            <div>Что работает лучше</div>
+            <p>
+              Заранее объяснить гостям, как организованы подарки. Чем меньше
+              неопределённости, тем свободнее чувствуют себя люди.
+            </p>
+          </aside>
+          <h3>Как организовать тосты</h3>
+          <p>
+            На многих свадьбах именно тосты становятся главным источником
+            стресса. Для многих людей публичное выступление сравнимо со страхом смерти.
+          </p>
+          <p>
+            Есть гости, которые очень хотят сказать тост. Есть те, кто не хочет
+            выступать ни при каких обстоятельствах. Есть люди, которые принимают
+            решение уже по ходу праздника.
+          </p>
+          <blockquote>
+            Никого насильно говорить тосты никто не будет заставлять.
+          </blockquote>
+          <p>Эта фраза моментально снижает напряжение в зале.</p>
+          <aside class="scenario-callout scenario-callout--tip">
+            <div>Из практики</div>
+            <p>
+              Хорошо организованные тосты делают вечер комфортнее не только для
+              выступающих, но и для всего зала.
+            </p>
+          </aside>
+          <aside class="scenario-callout scenario-callout--good">
+            <div>Что работает лучше</div>
+            <p>
+              Короткая личная история почти всегда звучит сильнее и искреннее,
+              чем длинное поздравление по шаблону.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="scenario-timeblock">
+        <div class="scenario-timeblock__meta">
+          <div class="scenario-timeblock__time">18:40 — 19:20</div>
+          <h2>Общение и вовлечение</h2>
+        </div>
+        <div class="scenario-prose">
+          <p>
+            После первого блока гости уже понимают, как устроен вечер. Они
+            поели, познакомились с атмосферой и увидели ведущего в работе.
+            Теперь можно постепенно усиливать вовлечение.
+          </p>
+          <blockquote>
+            Активности — не цель вечера. Активности — это инструмент.
+          </blockquote>
+          <p>Они помогают:</p>
+          <ul>
+            <li>объединять гостей;</li>
+            <li>создавать поводы для общения;</li>
+            <li>переключать внимание между важными моментами;</li>
+            <li>давать людям возможность проявить себя.</li>
+          </ul>
+          <p>
+            Хороший свадебный юмор строится на доброте, поддержке и совместном
+            смехе. Задача ведущего — не быть главным героем вечера, а создать
+            условия, в которых гости раскрываются сами.
+          </p>
+          <aside class="scenario-callout scenario-callout--warn">
+            <div>Частая ошибка</div>
+            <p>
+              Пытаться заполнить каждую минуту программы активностями. Гости
+              устают не от недостатка развлечений, а от отсутствия возможности
+              спокойно пообщаться.
+            </p>
+          </aside>
+          <aside class="scenario-callout scenario-callout--good">
+            <div>Что работает лучше</div>
+            <p>
+              Строить вечер блоками по 30–40 минут и после каждого блока давать
+              людям смену состояния: общение, музыка, еда, танцы или сильный
+              эмоциональный момент.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="scenario-timeblock">
+        <div class="scenario-timeblock__meta">
+          <div class="scenario-timeblock__time">19:50 — 20:30</div>
+          <h2>Эмоциональный пик</h2>
+        </div>
+        <div class="scenario-prose">
+          <p>
+            Многие пары хотят поставить первый танец как можно раньше. Это
+            понятно: они переживают и хотят быстрее закрыть этот вопрос.
+          </p>
+          <p>
+            Но эмоциональные события работают лучше тогда, когда зал уже
+            разогрет: люди познакомились с атмосферой, поели, расслабились и
+            начали общаться.
+          </p>
+          <p>Ближе к середине или второй половине вечера хорошо работают:</p>
+          <ul>
+            <li>первый танец;</li>
+            <li>благодарности родителям;</li>
+            <li>семейные церемонии;</li>
+            <li>трогательные традиции;</li>
+            <li>сюрпризы гостей.</li>
+          </ul>
+          <aside class="scenario-callout scenario-callout--tip">
+            <div>Из практики</div>
+            <p>
+              Первый танец работает не потому, что он стоит в сценарии. Он
+              работает тогда, когда гости эмоционально готовы его увидеть.
+            </p>
+          </aside>
+          <aside class="scenario-callout scenario-callout--good">
+            <div>Что работает лучше</div>
+            <p>
+              Ставить трогательные моменты в тот момент, когда гости уже
+              включились в вечер и готовы воспринимать эмоции, а не только
+              следить за таймингом.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="scenario-timeblock">
+        <div class="scenario-timeblock__meta">
+          <div class="scenario-timeblock__time">20:30 — 21:00</div>
+          <h2>Завершение вечера</h2>
+        </div>
+        <div class="scenario-prose">
+          <p>
+            Финал формирует послевкусие свадьбы. Поэтому завершение вечера
+            требует не меньше внимания, чем его начало.
+          </p>
+          <p>
+            Часто считается, что торт должен быть самым последним событием
+            программы. На практике это не всегда удобно: от выноса торта до
+            первого съеденного кусочка может пройти 30–40 минут.
+          </p>
+          <p>
+            Поэтому торт чаще стоит рассматривать как <strong>переход к
+            финальной части вечера</strong>, а не как последнюю точку программы.
+          </p>
+          <aside class="scenario-callout scenario-callout--good">
+            <div>Что работает лучше</div>
+            <p>
+              Планировать торт не как последнюю точку, а как переход к финальной
+              части вечера. Тогда гости успевают получить десерт, а финал не
+              разваливается по времени.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <div class="scenario-ornament" aria-hidden="true">
+        <span></span>
+        <svg viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M7 0L8 6L14 7L8 8L7 14L6 8L0 7L6 6L7 0Z" fill="currentColor"></path>
+        </svg>
+        <span></span>
+      </div>
+
+      <section class="scenario-section">
+        <h2>Пять вещей, которые чаще всего ломают свадебный вечер</h2>
+        <ol class="scenario-mistakes">
+          {mistakes.map((item, index) => (
+            <li>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="scenario-thesis">
+        <div class="scenario-eyebrow scenario-eyebrow--light">Главная мысль</div>
+        <p>
+          Нет универсального сценария свадьбы. Есть <em>логика движения вечера</em>.
+        </p>
+        <p class="scenario-thesis__sub">
+          Главная задача ведущего — не проводить конкурсы, а управлять состоянием
+          гостей и движением вечера. Когда эта задача решена, гостям комфортно,
+          молодожёны отдыхают, а важные моменты оказываются на своём месте.
+        </p>
+      </section>
+
+      <section class="scenario-section">
+        <h2>Разобрать свою свадьбу</h2>
+        <div class="scenario-prose">
+          <p>Каждая свадьба отличается:</p>
+          <ul>
+            <li>количеством гостей;</li>
+            <li>площадкой;</li>
+            <li>форматом церемонии;</li>
+            <li>семейными традициями;</li>
+            <li>возрастом гостей;</li>
+            <li>таймингом дня.</li>
+          </ul>
+          <p>
+            Поэтому один и тот же план может отлично работать на одной свадьбе и
+            совершенно не подойти для другой.
+          </p>
+          <p>
+            После прочтения этого материала многие пары понимают, что главный
+            вопрос не в том, какие будут активности. Главный вопрос — <strong>куда
+            поставить каждое событие именно на их свадьбе</strong>.
+          </p>
+        </div>
+        <div class="scenario-card">
+          <p class="scenario-card__lead">
+            Если хотите понять, как может выглядеть именно ваш свадебный вечер,
+            напишите мне:
+          </p>
+          <p class="scenario-card__title">«Хочу разобрать план свадьбы»</p>
+          <div class="scenario-prose scenario-card__list">
+            <p>На встрече мы обычно разбираем:</p>
+            <ul>
+              <li>оптимальное время начала вечера;</li>
+              <li>Welcome и церемонию;</li>
+              <li>организацию подарков и тостов;</li>
+              <li>первый танец;</li>
+              <li>торт и финал;</li>
+              <li>возможные риски именно на вашей свадьбе.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </article>
+
+    <section class="scenario-cta">
+      <div class="scenario-shell scenario-cta__shell">
+        <div>
+          <div class="scenario-eyebrow scenario-eyebrow--light">Дальше — практика</div>
+          <h2>
+            Хочешь, чтобы твой вечер был <em>именно таким?</em>
+          </h2>
+          <p>
+            Напиши мне в Telegram — обсудим дату, формат и соберём логику вечера
+            под твою свадьбу.
+          </p>
+        </div>
+        <div class="scenario-cta__actions">
+          <a class="scenario-cta__button" href={discussionTelegramUrl} target="_blank" rel="noopener noreferrer">
+            Написать в Telegram
+          </a>
+          <a class="scenario-cta__phone" href="tel:+79253900772">
+            или позвонить: +7 (925) 390-07-72
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="scenario-footer">
+      <div class="scenario-shell scenario-footer__shell">
+        <div class="scenario-eyebrow scenario-eyebrow--light">Ведущий</div>
+        <h2>Тимур Громов</h2>
+        <div class="scenario-footer__grid">
+          <section>
+            <h3>Ролики, отзывы и примеры работ</h3>
+            <ul class="scenario-contact-list">
+              {portfolioLinks.map((link) => (
+                <li>
+                  <a href={link.href} target="_blank" rel="noopener noreferrer">
+                    <span>{link.label}</span>
+                    <strong>{link.value}</strong>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+          <section>
+            <h3>Полезные материалы</h3>
+            <ul class="scenario-contact-list">
+              {materialLinks.map((link) => (
+                <li>
+                  <a href={link.href} target="_blank" rel="noopener noreferrer">
+                    <span>{link.label}</span>
+                    <strong>{link.value}</strong>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <h3 class="scenario-footer__contacts">Связаться со мной</h3>
+            <ul class="scenario-contact-list">
+              {contactLinks.map((link) => (
+                <li>
+                  <a href={link.href} target="_blank" rel="noopener noreferrer">
+                    <span>{link.label}</span>
+                    <strong>{link.value}</strong>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+        <div class="scenario-footer__bottom">
+          <span>© 2026 Тимур Громов</span>
+          <a href={homeHref}>Вернуться на главную</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+</BaseLayout>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Instrument+Serif:ital@0;1&display=swap");
+
+  :global(html),
+  :global(body) {
+    background: #f7f1e8;
+    color: #241d19;
+  }
+
+  .scenario-page {
+    --bg: #f7f1e8;
+    --ink: #241d19;
+    --muted: rgba(36, 29, 25, 0.76);
+    --soft: rgba(36, 29, 25, 0.12);
+    --accent: #cf6438;
+    --accent-soft: rgba(207, 100, 56, 0.1);
+    --accent-strong: #efe4d5;
+    --dark: #1f1916;
+    --tip: #4d8a73;
+    --warn: #b77234;
+    --good: #5c8f52;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .scenario-shell {
+    width: min(100%, 1080px);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .scenario-hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 84vh;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background:
+      linear-gradient(180deg, rgba(31, 25, 22, 0.28) 0%, rgba(31, 25, 22, 0.74) 58%, rgba(31, 25, 22, 0.92) 100%),
+      url("/images/scenario-hero.jpg") center center / cover no-repeat,
+      var(--dark);
+    color: #fffaf4;
+  }
+
+  .scenario-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(207, 100, 56, 0.22), transparent 38%);
+  }
+
+  .scenario-hero__shell {
+    position: relative;
+    display: flex;
+    min-height: 84vh;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-top: 42px;
+    padding-bottom: 88px;
+  }
+
+  .scenario-hero__back {
+    position: absolute;
+    top: 32px;
+    left: 24px;
+    color: rgba(255, 250, 244, 0.82);
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .scenario-hero__eyebrow,
+  .scenario-eyebrow {
+    margin: 0 0 18px;
+    color: var(--accent);
+    font-size: 12px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+  }
+
+  .scenario-eyebrow--light {
+    color: rgba(255, 250, 244, 0.82);
+  }
+
+  .scenario-hero h1,
+  .scenario-section h2,
+  .scenario-timeblock h2,
+  .scenario-thesis p,
+  .scenario-cta h2,
+  .scenario-footer h2,
+  .scenario-footer h3,
+  .scenario-card__title,
+  .scenario-mistakes h3 {
+    margin: 0;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  .scenario-hero h1 {
+    max-width: 11ch;
+    font-size: clamp(54px, 8vw, 110px);
+    line-height: 0.92;
+  }
+
+  .scenario-hero h1 em,
+  .scenario-thesis em,
+  .scenario-cta h2 em {
+    font-family: "Instrument Serif", Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+
+  .scenario-hero__lead {
+    margin: 28px 0 0;
+    max-width: 620px;
+    color: rgba(255, 250, 244, 0.8);
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: clamp(24px, 3vw, 34px);
+    font-style: italic;
+    line-height: 1.22;
+  }
+
+  .scenario-hero__meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 42px;
+    color: rgba(255, 250, 244, 0.74);
+  }
+
+  .scenario-hero__meta strong,
+  .scenario-hero__meta span {
+    display: block;
+  }
+
+  .scenario-hero__meta strong {
+    margin-bottom: 3px;
+    color: #fffaf4;
+    font-size: 16px;
+  }
+
+  .scenario-hero__meta span {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .scenario-hero__badge {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--dark);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .scenario-article {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  .scenario-section,
+  .scenario-timeblock {
+    padding-top: 40px;
+    border-top: 1px solid var(--soft);
+  }
+
+  .scenario-timeblock {
+    display: grid;
+    gap: 28px;
+    grid-template-columns: minmax(0, 230px) minmax(0, 1fr);
+    margin-top: 48px;
+  }
+
+  .scenario-timeblock__meta {
+    position: sticky;
+    top: 24px;
+    align-self: start;
+  }
+
+  .scenario-timeblock__time {
+    color: var(--accent);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 31px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .scenario-timeblock h2,
+  .scenario-section h2 {
+    font-size: clamp(34px, 4vw, 46px);
+    line-height: 0.98;
+    color: var(--ink);
+  }
+
+  .scenario-timeblock h2 {
+    margin-top: 12px;
+  }
+
+  .scenario-prose {
+    max-width: 700px;
+  }
+
+  .scenario-prose p,
+  .scenario-prose li,
+  .scenario-mistakes p,
+  .scenario-card__lead,
+  .scenario-cta p,
+  .scenario-footer__bottom,
+  .scenario-contact-list strong {
+    font-size: 19px;
+    line-height: 1.68;
+  }
+
+  .scenario-prose p,
+  .scenario-mistakes p,
+  .scenario-card__lead,
+  .scenario-cta p {
+    margin: 0 0 18px;
+  }
+
+  .scenario-prose p:last-child,
+  .scenario-mistakes p:last-child,
+  .scenario-card__lead:last-child,
+  .scenario-cta p:last-child {
+    margin-bottom: 0;
+  }
+
+  .scenario-prose strong {
+    color: var(--ink);
+  }
+
+  .scenario-prose--dropcap p:first-child::first-letter {
+    float: left;
+    padding: 0.06em 0.12em 0 0;
+    color: var(--accent);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 4.5em;
+    font-weight: 600;
+    line-height: 0.82;
+  }
+
+  .scenario-prose ul {
+    margin: 0 0 20px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .scenario-prose li {
+    position: relative;
+    margin-bottom: 10px;
+    padding-left: 22px;
+  }
+
+  .scenario-prose li::before {
+    content: "";
+    position: absolute;
+    top: 13px;
+    left: 0;
+    width: 9px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .scenario-note {
+    color: var(--warn);
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .scenario-step-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 24px;
+    margin: 30px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .scenario-step-grid li {
+    display: flex;
+    gap: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(36, 29, 25, 0.08);
+  }
+
+  .scenario-step-grid span {
+    color: var(--accent);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .scenario-step-grid strong {
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: 26px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.08;
+  }
+
+  .scenario-callout {
+    margin: 28px 0;
+    padding: 18px 20px 18px 22px;
+    border-left: 2px solid currentColor;
+    background: rgba(255, 255, 255, 0.52);
+    backdrop-filter: blur(8px);
+  }
+
+  .scenario-callout div {
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .scenario-callout p {
+    margin: 0;
+    color: rgba(36, 29, 25, 0.84);
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: 20px;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .scenario-callout--tip {
+    color: var(--tip);
+  }
+
+  .scenario-callout--warn {
+    color: var(--warn);
+  }
+
+  .scenario-callout--good {
+    color: var(--good);
+  }
+
+  .scenario-timeblock h3 {
+    margin: 30px 0 12px;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 34px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .scenario-prose blockquote {
+    margin: 24px 0;
+    padding-left: 20px;
+    border-left: 2px solid var(--accent);
+    color: var(--ink);
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: 30px;
+    font-style: italic;
+    line-height: 1.25;
+  }
+
+  .scenario-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 44px 0;
+    color: rgba(207, 100, 56, 0.7);
+  }
+
+  .scenario-ornament span {
+    width: 48px;
+    height: 1px;
+    background: currentColor;
+  }
+
+  .scenario-ornament svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .scenario-mistakes {
+    display: grid;
+    gap: 26px;
+    margin: 28px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .scenario-mistakes li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 18px;
+  }
+
+  .scenario-mistakes span {
+    color: rgba(207, 100, 56, 0.82);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 54px;
+    font-weight: 600;
+    line-height: 0.9;
+  }
+
+  .scenario-mistakes h3 {
+    margin-bottom: 6px;
+    font-size: 30px;
+    line-height: 1;
+  }
+
+  .scenario-mistakes p {
+    color: var(--muted);
+  }
+
+  .scenario-thesis,
+  .scenario-cta,
+  .scenario-footer {
+    background: var(--accent);
+    color: #fffaf4;
+  }
+
+  .scenario-thesis {
+    margin: 56px 0;
+    padding: 38px 34px 42px;
+  }
+
+  .scenario-thesis p {
+    margin: 0;
+    font-size: clamp(34px, 4vw, 48px);
+    line-height: 1.02;
+  }
+
+  .scenario-thesis__sub {
+    max-width: 760px;
+    margin-top: 22px;
+    color: rgba(255, 250, 244, 0.82) !important;
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: 26px !important;
+    font-style: italic;
+    line-height: 1.42 !important;
+  }
+
+  .scenario-card {
+    margin-top: 34px;
+    padding: 28px;
+    border: 1px solid rgba(207, 100, 56, 0.28);
+    background: var(--accent-soft);
+  }
+
+  .scenario-card__lead {
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: 28px;
+    font-style: italic;
+    line-height: 1.35;
+  }
+
+  .scenario-card__title {
+    color: var(--accent);
+    font-size: 38px;
+    line-height: 1;
+  }
+
+  .scenario-card__list {
+    margin-top: 16px;
+  }
+
+  .scenario-cta__shell {
+    display: grid;
+    gap: 36px;
+    grid-template-columns: minmax(0, 1.35fr) minmax(280px, 1fr);
+    align-items: center;
+    padding-top: 74px;
+    padding-bottom: 76px;
+  }
+
+  .scenario-cta h2,
+  .scenario-footer h2 {
+    color: #fffaf4;
+  }
+
+  .scenario-cta h2 {
+    font-size: clamp(38px, 4.8vw, 62px);
+    line-height: 0.98;
+  }
+
+  .scenario-cta p {
+    max-width: 520px;
+    margin-top: 18px;
+    color: rgba(255, 250, 244, 0.76);
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: 25px;
+    font-style: italic;
+    line-height: 1.38;
+  }
+
+  .scenario-cta__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .scenario-cta__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 58px;
+    padding: 0 30px;
+    border-radius: 999px;
+    background: #fffaf4;
+    color: var(--accent);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 31px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .scenario-cta__phone {
+    color: rgba(255, 250, 244, 0.78);
+    font-size: 15px;
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 250, 244, 0.28);
+    text-underline-offset: 4px;
+  }
+
+  .scenario-footer__shell {
+    padding-top: 26px;
+    padding-bottom: 42px;
+  }
+
+  .scenario-footer h2 {
+    font-size: clamp(36px, 4vw, 56px);
+    line-height: 0.98;
+  }
+
+  .scenario-footer__grid {
+    display: grid;
+    gap: 38px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 34px;
+  }
+
+  .scenario-footer h3 {
+    margin-bottom: 14px;
+    color: rgba(255, 250, 244, 0.72);
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .scenario-footer__contacts {
+    margin-top: 28px;
+  }
+
+  .scenario-contact-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .scenario-contact-list li + li {
+    margin-top: 10px;
+  }
+
+  .scenario-contact-list a {
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+  }
+
+  .scenario-contact-list span {
+    min-width: 120px;
+    color: rgba(255, 250, 244, 0.68);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .scenario-contact-list strong {
+    color: #fffaf4;
+    font-family: "Instrument Serif", Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 250, 244, 0.26);
+    text-underline-offset: 4px;
+  }
+
+  .scenario-footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 250, 244, 0.18);
+    color: rgba(255, 250, 244, 0.72);
+    font-size: 13px;
+  }
+
+  .scenario-footer__bottom a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media screen and (max-width: 899px) {
+    .scenario-timeblock,
+    .scenario-cta__shell,
+    .scenario-footer__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .scenario-timeblock__meta {
+      position: static;
+    }
+  }
+
+  @media screen and (max-width: 639px) {
+    .scenario-shell {
+      padding: 0 18px;
+    }
+
+    .scenario-hero {
+      min-height: auto;
+      background-position: 58% center;
+    }
+
+    .scenario-hero__shell {
+      min-height: auto;
+      padding-top: 74px;
+      padding-bottom: 42px;
+    }
+
+    .scenario-hero__back {
+      top: 20px;
+      left: 18px;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+    }
+
+    .scenario-hero__eyebrow,
+    .scenario-eyebrow {
+      margin-bottom: 14px;
+      font-size: 10px;
+      letter-spacing: 0.24em;
+    }
+
+    .scenario-hero__lead {
+      margin-top: 20px;
+      font-size: 22px;
+      line-height: 1.24;
+    }
+
+    .scenario-hero__meta {
+      margin-top: 26px;
+    }
+
+    .scenario-article {
+      padding-top: 42px;
+      padding-bottom: 42px;
+    }
+
+    .scenario-timeblock,
+    .scenario-section {
+      margin-top: 34px;
+      padding-top: 28px;
+    }
+
+    .scenario-timeblock__time {
+      font-size: 24px;
+    }
+
+    .scenario-prose p,
+    .scenario-prose li,
+    .scenario-mistakes p,
+    .scenario-card__lead,
+    .scenario-cta p,
+    .scenario-footer__bottom,
+    .scenario-contact-list strong {
+      font-size: 17px;
+      line-height: 1.55;
+    }
+
+    .scenario-prose li::before {
+      top: 11px;
+    }
+
+    .scenario-prose blockquote {
+      font-size: 24px;
+    }
+
+    .scenario-step-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .scenario-step-grid strong {
+      font-size: 22px;
+    }
+
+    .scenario-callout {
+      margin: 22px 0;
+      padding: 16px 16px 16px 18px;
+    }
+
+    .scenario-callout p {
+      font-size: 18px;
+      line-height: 1.42;
+    }
+
+    .scenario-mistakes span {
+      font-size: 42px;
+    }
+
+    .scenario-mistakes h3 {
+      font-size: 26px;
+    }
+
+    .scenario-thesis {
+      margin: 40px 0;
+      padding: 26px 20px 30px;
+    }
+
+    .scenario-thesis__sub {
+      font-size: 20px !important;
+    }
+
+    .scenario-card {
+      padding: 20px 18px;
+    }
+
+    .scenario-card__lead {
+      font-size: 23px;
+    }
+
+    .scenario-card__title {
+      font-size: 30px;
+    }
+
+    .scenario-cta__shell {
+      padding-top: 44px;
+      padding-bottom: 46px;
+    }
+
+    .scenario-cta p {
+      font-size: 21px;
+    }
+
+    .scenario-cta__button {
+      width: 100%;
+      min-height: 52px;
+      padding: 0 20px;
+      font-size: 26px;
+      text-align: center;
+    }
+
+    .scenario-footer__shell {
+      padding-top: 22px;
+      padding-bottom: 28px;
+    }
+
+    .scenario-contact-list a {
+      flex-direction: column;
+      gap: 2px;
+      align-items: flex-start;
+    }
+
+    .scenario-contact-list span {
+      min-width: 0;
+    }
+
+    .scenario-footer__bottom {
+      flex-direction: column;
+    }
+  }
+</style>

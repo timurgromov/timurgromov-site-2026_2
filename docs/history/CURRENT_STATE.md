@@ -1,20 +1,22 @@
-# Current State - 2026-06-13
+# Current State - 2026-06-14
 
 ## Project
 
-Сайт свадебного ведущего Тимура Громова на Astro поверх Tilda export. Текущий этап: production-входная воронка сайта подключена к EventBudjet CRM, главный tripwire `Получить сценарий` переведён на bot-first путь: сайт ведёт сразу в Telegram-бота, квалификация проходит уже в чате.
+Сайт свадебного ведущего Тимура Громова на Astro поверх Tilda export. Текущий этап: production-входная воронка сайта подключена к EventBudjet CRM, главный tripwire `Получить сценарий` ведёт в Telegram-бота, а сам материал теперь живёт на отдельной production-странице `/scenario/` внутри этого же сайта.
 
 ## Current Runtime / Stack
 
 - Frontend: Astro 5 + Tilda-export HTML transforms
 - Main page source: `files/page62008353body.html` + `src/pages/index.astro`
 - Content constants: `src/site/home-data.ts`
+- Scenario article route: `src/pages/scenario.astro`
 - Deploy target: GitHub Pages as technical publish path, production domain `timurgromov.ru`
 - Telegram bot project: находится в другой папке и в этот репозиторий не входит
 
 ## What Works Now
 
 - На сайте добавлен CTA-блок `План-сценарий свадебного вечера` перед секцией цен.
+- На сайте есть отдельная production-страница `https://timurgromov.ru/scenario/` с материалом про логику свадебного вечера.
 - На сайте добавлена отдельная CTA-плашка `Бесплатная консультация` после секции цен.
 - В hero-кнопке текст `получить сценарий` ведёт напрямую в Telegram-бота по deep link `site_plan`.
 - Кнопка `Получить сценарий в Telegram` в CTA-блоке тоже ведёт напрямую в Telegram-бота по deep link `site_plan`.
@@ -45,6 +47,7 @@
 - Deep link встречи: `https://t.me/gromov_wedding_bot?start=site_meeting`.
 - Для главного оффера сценария сайт должен вести сразу в Telegram-бота; квалификация проходит в боте после входа.
 - Hero CTA обещает ценность (`получить сценарий`), а CTA-блок рядом уточняет канал доставки (`в Telegram`).
+- Конечный материал для bot-first воронки должен открываться на маршруте `/scenario/`, а не на главной странице сайта.
 - Бесплатная встреча - главная бизнес-цель сайта, поэтому она может быть вынесена отдельным вторым CTA-блоком, но не должна заменять первый холодный вход через план вечера.
 - UX консультации строится вокруг одного pop-up: визуально разные способы связи, технически в будущем все должны попадать в бота/CRM с источником.
 - Калькулятор бюджета не является главным CTA на сайте.
@@ -64,10 +67,11 @@
 - Decisions: `docs/history/DECISIONS.md`
 - Worklog: `docs/history/worklog/`
 - Main implementation: `src/pages/index.astro`, `src/site/home-data.ts`
+- Scenario article implementation: `src/pages/scenario.astro`, `public/images/scenario-hero.jpg`
 
 ## Last Known Good State
 
-- Branch: `codex/audit-tilda-astro-20260531`
+- Branch: `main`
 - Local verification: `npm run build`, stable local docker preview `http://127.0.0.1:4323/`.
-- Последнее правленное состояние: стабилизирован блок оферты в подвале на мобильной и десктопной версии, убраны перекрытия и сдвиги после редизайна ссылок.
+- Последнее правленное состояние: bot-first воронка получила отдельную production-страницу материала `/scenario/` без вмешательства в Tilda-главную.
 - Production deploy: выполняется через push в `main` и GitHub Actions `deploy-gh-pages`.
