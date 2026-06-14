@@ -78,10 +78,13 @@ const contactLinks = [
 >
   <main class="scenario-page">
     <header class="scenario-hero">
+      <div class="scenario-hero__media" aria-hidden="true"></div>
       <div class="scenario-hero__overlay"></div>
       <div class="scenario-shell scenario-hero__shell">
-        <a class="scenario-hero__back" href={homeHref}>timurgromov.ru</a>
-        <div class="scenario-hero__eyebrow">Авторский материал — Тимур Громов</div>
+        <div class="scenario-hero__kicker">
+          <a class="scenario-hero__back" href={homeHref}>timurgromov.ru</a>
+          <div class="scenario-hero__eyebrow">Авторский материал — Тимур Громов</div>
+        </div>
         <h1>
           Свадебный <em>сценарий</em>
         </h1>
@@ -622,17 +625,26 @@ const contactLinks = [
     overflow: hidden;
     min-height: 84vh;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    background:
-      linear-gradient(180deg, rgba(31, 25, 22, 0.28) 0%, rgba(31, 25, 22, 0.74) 58%, rgba(31, 25, 22, 0.92) 100%),
-      url("/images/scenario-hero.jpg") center center / cover no-repeat,
-      var(--dark);
+    background: var(--dark);
     color: #fffaf4;
+  }
+
+  .scenario-hero__media {
+    position: absolute;
+    inset: 0;
+    background:
+      url("/images/tild3133-3138-4363-b630-373733393665______421_vadim_bekk_1.jpg") 72% center / cover no-repeat;
+    filter: grayscale(1) brightness(0.42) contrast(1.06);
+    transform: scale(1.02);
   }
 
   .scenario-hero__overlay {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at top right, rgba(207, 100, 56, 0.22), transparent 38%);
+    background:
+      linear-gradient(180deg, rgba(16, 13, 12, 0.22) 0%, rgba(16, 13, 12, 0.48) 28%, rgba(16, 13, 12, 0.78) 72%, rgba(16, 13, 12, 0.9) 100%),
+      linear-gradient(90deg, rgba(16, 13, 12, 0.76) 0%, rgba(16, 13, 12, 0.34) 44%, rgba(16, 13, 12, 0.6) 100%),
+      radial-gradient(circle at top right, rgba(250, 70, 4, 0.18), transparent 34%);
   }
 
   .scenario-hero__shell {
@@ -641,14 +653,20 @@ const contactLinks = [
     min-height: 84vh;
     flex-direction: column;
     justify-content: flex-end;
-    padding-top: 42px;
+    padding-top: 46px;
     padding-bottom: 88px;
   }
 
+  .scenario-hero__kicker {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 34px;
+  }
+
   .scenario-hero__back {
-    position: absolute;
-    top: 32px;
-    left: 24px;
+    display: inline-block;
     color: rgba(255, 250, 244, 0.82);
     font-size: 13px;
     letter-spacing: 0.18em;
@@ -662,6 +680,10 @@ const contactLinks = [
     font-size: 12px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
+  }
+
+  .scenario-hero__eyebrow {
+    margin: 0;
   }
 
   .scenario-eyebrow--light {
@@ -1132,9 +1154,11 @@ const contactLinks = [
   .scenario-footer h3 {
     margin-bottom: 14px;
     color: rgba(255, 250, 244, 0.72);
-    font-size: 14px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: none;
   }
 
   .scenario-footer__contacts {
@@ -1148,7 +1172,7 @@ const contactLinks = [
   }
 
   .scenario-contact-list li + li {
-    margin-top: 10px;
+    margin-top: 14px;
   }
 
   .scenario-contact-list a {
@@ -1158,18 +1182,20 @@ const contactLinks = [
   }
 
   .scenario-contact-list span {
-    min-width: 120px;
+    min-width: 132px;
     color: rgba(255, 250, 244, 0.68);
     font-size: 12px;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
   }
 
   .scenario-contact-list strong {
     color: #fffaf4;
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-weight: 400;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.08;
     text-decoration: underline;
     text-decoration-color: rgba(255, 250, 244, 0.26);
     text-underline-offset: 4px;
@@ -1210,7 +1236,6 @@ const contactLinks = [
 
     .scenario-hero {
       min-height: auto;
-      background-position: 58% center;
     }
 
     .scenario-hero__shell {
@@ -1219,9 +1244,17 @@ const contactLinks = [
       padding-bottom: 42px;
     }
 
+    .scenario-hero__media {
+      background-position: 76% center;
+      filter: grayscale(1) brightness(0.38) contrast(1.06);
+    }
+
+    .scenario-hero__kicker {
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
     .scenario-hero__back {
-      top: 20px;
-      left: 18px;
       font-size: 11px;
       letter-spacing: 0.14em;
     }
@@ -1354,14 +1387,24 @@ const contactLinks = [
       padding-bottom: 28px;
     }
 
+    .scenario-footer h3 {
+      font-size: 20px;
+      letter-spacing: 0.02em;
+    }
+
     .scenario-contact-list a {
       flex-direction: column;
-      gap: 2px;
+      gap: 4px;
       align-items: flex-start;
     }
 
     .scenario-contact-list span {
       min-width: 0;
+    }
+
+    .scenario-contact-list strong {
+      font-size: 20px;
+      line-height: 1.12;
     }
 
     .scenario-footer__bottom {
