@@ -88,6 +88,14 @@ const casePreviewVideoConfig = JSON.stringify(casePreviewVideoItems);
 const cleanVideoPopupConfig = JSON.stringify(cleanVideoPopupItems);
 const heroPosterDesktopUrl = `${basePath}images/hero-poster-desktop.jpg?v=${heroPosterVersion}`;
 const heroPosterMobileUrl = `${basePath}images/hero-poster-mobile.jpg?v=${heroPosterVersion}`;
+const footerMenuElementIds = [
+  "1738908769393",
+  "1738908801867",
+  "1738908848846",
+  "1738908861448",
+  "1738908872836",
+  "1738908883710",
+];
 const heroPosterLayer = `<picture class="hero-poster-layer" aria-hidden="true">
   <source
     media="(max-width: 639px)"
@@ -896,12 +904,12 @@ const contactShortcutEnhancer = `<style>
     outline-offset:4px;
   }
   #rec862623921 .tn-elem[data-elem-id="1738909152475"]{
-    top:700px !important;
+    top:1028px !important;
   }
   
   @media screen and (min-width:1200px) and (max-width:1919px){
     #rec862623921 .tn-elem[data-elem-id="1738909152475"]{
-      top:650px !important;
+      top:660px !important;
     }
     #rec862623921 .tn-elem[data-elem-id="1738909152475"] .tn-atom{
       width:380px !important;
@@ -1021,6 +1029,12 @@ const contactShortcutEnhancer = `<style>
   #rec862623921 .tn-elem[data-elem-id="1738908505292"]{
     top:1072px !important;
   }
+  #rec862623921 .tn-elem[data-elem-id="1738908769393"],
+  #rec862623921 .tn-elem[data-elem-id="1738908801867"],
+  #rec862623921 .tn-elem[data-elem-id="1738908848846"],
+  #rec862623921 .tn-elem[data-elem-id="1738908861448"],
+  #rec862623921 .tn-elem[data-elem-id="1738908872836"],
+  #rec862623921 .tn-elem[data-elem-id="1738908883710"],
   #rec862623921 .tn-elem[data-elem-id="1738908769393"] .tn-atom,
   #rec862623921 .tn-elem[data-elem-id="1738908801867"] .tn-atom,
   #rec862623921 .tn-elem[data-elem-id="1738908848846"] .tn-atom,
@@ -1043,20 +1057,33 @@ const contactShortcutEnhancer = `<style>
   #rec862623921 .tn-elem[data-elem-id="1738908861448"] .tn-atom a,
   #rec862623921 .tn-elem[data-elem-id="1738908872836"] .tn-atom a,
   #rec862623921 .tn-elem[data-elem-id="1738908883710"] .tn-atom a{
+    opacity:1 !important;
+    color:#fffefa !important;
+    -webkit-text-fill-color:#fffefa !important;
     transition:opacity .2s ease, color .2s ease;
   }
-  #rec862623921 .tn-elem[data-elem-id="1738908769393"] .tn-atom:hover,
-  #rec862623921 .tn-elem[data-elem-id="1738908801867"] .tn-atom:hover,
-  #rec862623921 .tn-elem[data-elem-id="1738908848846"] .tn-atom:hover,
-  #rec862623921 .tn-elem[data-elem-id="1738908861448"] .tn-atom:hover,
-  #rec862623921 .tn-elem[data-elem-id="1738908872836"] .tn-atom:hover,
-  #rec862623921 .tn-elem[data-elem-id="1738908883710"] .tn-atom:hover,
-  #rec862623921 .tn-elem[data-elem-id="1738908769393"] .tn-atom:hover a,
-  #rec862623921 .tn-elem[data-elem-id="1738908801867"] .tn-atom:hover a,
-  #rec862623921 .tn-elem[data-elem-id="1738908848846"] .tn-atom:hover a,
-  #rec862623921 .tn-elem[data-elem-id="1738908861448"] .tn-atom:hover a,
-  #rec862623921 .tn-elem[data-elem-id="1738908872836"] .tn-atom:hover a,
-  #rec862623921 .tn-elem[data-elem-id="1738908883710"] .tn-atom:hover a{
+  #rec862623921 .tn-elem[data-elem-id="1738908769393"] .tn-atom a,
+  #rec862623921 .tn-elem[data-elem-id="1738908801867"] .tn-atom a,
+  #rec862623921 .tn-elem[data-elem-id="1738908848846"] .tn-atom a,
+  #rec862623921 .tn-elem[data-elem-id="1738908861448"] .tn-atom a,
+  #rec862623921 .tn-elem[data-elem-id="1738908872836"] .tn-atom a,
+  #rec862623921 .tn-elem[data-elem-id="1738908883710"] .tn-atom a{
+    display:inline-block;
+    width:auto !important;
+    max-width:max-content;
+  }
+  #rec862623921 .tn-elem[data-elem-id="1738908769393"] .tn-atom a:hover,
+  #rec862623921 .tn-elem[data-elem-id="1738908801867"] .tn-atom a:hover,
+  #rec862623921 .tn-elem[data-elem-id="1738908848846"] .tn-atom a:hover,
+  #rec862623921 .tn-elem[data-elem-id="1738908861448"] .tn-atom a:hover,
+  #rec862623921 .tn-elem[data-elem-id="1738908872836"] .tn-atom a:hover,
+  #rec862623921 .tn-elem[data-elem-id="1738908883710"] .tn-atom a:hover,
+  #rec862623921 .tn-elem[data-elem-id="1738908769393"] .tn-atom a:focus-visible,
+  #rec862623921 .tn-elem[data-elem-id="1738908801867"] .tn-atom a:focus-visible,
+  #rec862623921 .tn-elem[data-elem-id="1738908848846"] .tn-atom a:focus-visible,
+  #rec862623921 .tn-elem[data-elem-id="1738908861448"] .tn-atom a:focus-visible,
+  #rec862623921 .tn-elem[data-elem-id="1738908872836"] .tn-atom a:focus-visible,
+  #rec862623921 .tn-elem[data-elem-id="1738908883710"] .tn-atom a:focus-visible{
     opacity:.5 !important;
   }
   #rec862623921 .tn-elem[data-elem-id="1738908769393"]{
@@ -1145,22 +1172,22 @@ const contactShortcutEnhancer = `<style>
       top:676px !important;
     }
     #rec862623921 .tn-elem[data-elem-id="1738908769393"]{
-      top:514px !important;
+      top:492px !important;
     }
     #rec862623921 .tn-elem[data-elem-id="1738908801867"]{
-      top:538px !important;
+      top:516px !important;
     }
     #rec862623921 .tn-elem[data-elem-id="1738908848846"]{
-      top:562px !important;
+      top:540px !important;
     }
     #rec862623921 .tn-elem[data-elem-id="1738908861448"]{
-      top:586px !important;
+      top:564px !important;
     }
     #rec862623921 .tn-elem[data-elem-id="1738908872836"]{
-      top:610px !important;
+      top:588px !important;
     }
     #rec862623921 .tn-elem[data-elem-id="1738908883710"]{
-      top:634px !important;
+      top:612px !important;
     }
   }
   @media screen and (max-width:1199px){
@@ -4920,6 +4947,20 @@ const headHtml = dedupeHeadAssetReferences(
     </script>`,
   );
 
+const stripTildaHoverAttrs = (html: string, elementIds: string[]) =>
+  elementIds.reduce(
+    (nextHtml, elementId) =>
+      nextHtml.replace(
+        new RegExp(`<div class='t396__elem[^>]*data-elem-id='${elementId}'[^>]*>`, "g"),
+        (tag) =>
+          tag
+            .replace(/\sdata-animate-mobile="y"/g, "")
+            .replace(/\sdata-animate-sbs-event="hover"/g, "")
+            .replace(/\sdata-animate-sbs-opts="[^"]*"/g, ""),
+      ),
+    html,
+  );
+
 const filteredBodySource = hiddenMarketingVideoAdviceElementIds
   .reduce(
     removeTildaElement,
@@ -4944,7 +4985,9 @@ const priceBodyWithText = priceTextReplacements.reduce(
 );
 
 const priceBodyWithoutMetaDisclaimer = removeTildaElementInRecord(
-  priceBodyWithText,
+  transformTildaRecord(priceBodyWithText, "rec862623921", (recordHtml) =>
+    stripTildaHoverAttrs(recordHtml, footerMenuElementIds),
+  ),
   "rec862623921",
   "1738909098668",
 );
