@@ -21,4 +21,4 @@ The lower scenario block also lost the more explanatory subtitle about evening s
 - `npm run build` - passed.
 - `git diff --check` - passed.
 - Local browser preview - popup opens from Hero CTA, compact card is about 640px wide, CTA is orange.
-- Pending: live GitHub Pages verification after push.
+- `npm run verify:pages -- --contains "Короткая структура вечера" --contains "Получить сценарий</h2>" --contains "width:min(640px, 100%)" --contains "tg-plan-popup__telegram" --absent "width:min(1180px, 100%)"` - passed for `https://timurgromov.ru/`.
