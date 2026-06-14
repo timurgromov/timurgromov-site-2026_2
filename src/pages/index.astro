@@ -41,7 +41,6 @@ const socialImageUrl = new URL(`${basePath}images/hero-poster-desktop.jpg`, site
 const privacyPolicyUrl = `${basePath}privacy/`;
 const privacyConsentUrl = `${basePath}privacy/#consent`;
 const offerPageUrl = `${basePath}offer/`;
-const scenarioPageUrl = `${basePath}scenario/`;
 const ctaArrowIconUrl = `${basePath}images/tild3536-3939-4363-b163-323761323432__vector_8.svg`;
 
 const tildaCtaInner = (label: string) => `<span class="tg-tilda-cta__plate" aria-hidden="true"></span>
@@ -2063,9 +2062,6 @@ const planCtaSectionAssets = `<style>
   .tg-plan-cta__kicker,
   .tg-plan-cta__text,
   .tg-plan-cta__note,
-  .tg-plan-cta__proof,
-  .tg-plan-cta__proof a,
-  .tg-plan-cta__proof strong,
   .tg-plan-cta__item span{
     margin:0;
     font-family:var(--t-text-font, Arial);
@@ -2081,11 +2077,11 @@ const planCtaSectionAssets = `<style>
   }
 
   .tg-plan-cta h2{
-    max-width:760px;
+    max-width:1000px;
     margin:0 0 22px;
     color:#1c1b1a;
     font-family:var(--t-headline-font, Arial);
-    font-size:67px;
+    font-size:clamp(48px, 3.1vw, 60px);
     font-weight:500;
     line-height:1;
     text-transform:uppercase;
@@ -2350,43 +2346,6 @@ const planCtaSectionAssets = `<style>
     line-height:1.25;
   }
 
-  .tg-plan-cta__proof{
-    display:grid;
-    grid-template-columns:repeat(3, minmax(0, 1fr));
-    gap:10px;
-    max-width:720px;
-    margin-top:30px;
-  }
-
-  .tg-plan-cta__proof strong,
-  .tg-plan-cta__proof a{
-    display:flex;
-    min-height:58px;
-    align-items:center;
-    padding:12px 14px;
-    border:1px solid rgba(28,27,26,.12);
-    box-sizing:border-box;
-    color:rgba(28,27,26,.72);
-    font-size:14px;
-    line-height:1.15;
-  }
-
-  .tg-plan-cta__proof strong{
-    color:#1c1b1a;
-    background:rgba(28,27,26,.035);
-  }
-
-  .tg-plan-cta__proof a{
-    color:#fa4604;
-    text-decoration:none;
-  }
-
-  @media (hover:hover){
-    .tg-plan-cta__proof a:hover{
-      border-color:rgba(250,70,4,.42);
-    }
-  }
-
   @media screen and (max-width:1199px){
     .tg-plan-cta{
       padding:74px 40px 72px;
@@ -2399,7 +2358,7 @@ const planCtaSectionAssets = `<style>
 
     .tg-plan-cta h2{
       max-width:700px;
-      font-size:58px;
+      font-size:52px;
     }
 
     .tg-plan-cta__text{
@@ -2412,9 +2371,6 @@ const planCtaSectionAssets = `<style>
       padding-top:0;
     }
 
-    .tg-plan-cta__proof{
-      max-width:700px;
-    }
   }
 
   @media screen and (max-width:639px){
@@ -2446,19 +2402,6 @@ const planCtaSectionAssets = `<style>
       display:grid;
       gap:9px;
       margin-top:24px;
-    }
-
-    .tg-plan-cta__proof{
-      grid-template-columns:1fr;
-      gap:8px;
-      margin-top:24px;
-    }
-
-    .tg-plan-cta__proof strong,
-    .tg-plan-cta__proof a{
-      min-height:0;
-      padding:10px 12px;
-      font-size:13px;
     }
 
     .tg-plan-cta__button{
@@ -2553,11 +2496,6 @@ const planCtaSectionMarkup = `<section id="plan-evening" class="tg-plan-cta" dat
       <div class="tg-plan-cta__actions">
         ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--primary", telegramPlanUrl, "Получить сценарий", 'target="_blank" rel="nofollow"')}
         ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--secondary", "#consultation-contact", "Обсудить свадьбу", "data-consultation-popup-open")}
-      </div>
-      <div class="tg-plan-cta__proof" aria-label="Коротко о материале">
-        <strong>Материал откроется после 3 вопросов в боте.</strong>
-        <strong>Внутри: тайминг, риски, финал и полезные ссылки.</strong>
-        <a href="${scenarioPageUrl}">Посмотреть страницу сценария</a>
       </div>
     </div>
     <div class="tg-plan-cta__side" aria-label="Что внутри">
@@ -3673,8 +3611,8 @@ const planDeliveryPopupAssets = `<style>
     z-index:1;
     display:grid;
     align-content:start;
-    width:min(980px, 100%);
-    max-height:min(720px, calc(100dvh - 36px));
+    width:min(840px, 100%);
+    max-height:min(640px, calc(100dvh - 36px));
     overflow:hidden;
     padding:0;
     border-radius:12px;
@@ -3736,7 +3674,7 @@ const planDeliveryPopupAssets = `<style>
 
   .tg-plan-popup__body{
     display:grid;
-    grid-template-columns:minmax(0, .95fr) minmax(300px, .72fr);
+    grid-template-columns:minmax(0, .95fr) minmax(260px, .58fr);
     gap:0;
     align-items:center;
   }
@@ -3745,7 +3683,7 @@ const planDeliveryPopupAssets = `<style>
     display:grid;
     align-content:start;
     gap:0;
-    padding:54px 42px 44px;
+    padding:38px 34px 34px;
   }
 
   .tg-plan-popup__eyebrow{
@@ -3756,10 +3694,10 @@ const planDeliveryPopupAssets = `<style>
   }
 
   .tg-plan-popup h2{
-    margin:0 72px 14px 0;
+    margin:0 64px 12px 0;
     color:#1c1b1a;
     font-family:var(--t-headline-font, Arial);
-    font-size:54px;
+    font-size:42px;
     font-weight:500;
     line-height:1;
     text-transform:uppercase;
@@ -3767,10 +3705,10 @@ const planDeliveryPopupAssets = `<style>
   }
 
   .tg-plan-popup__text{
-    max-width:520px;
+    max-width:480px;
     margin:0;
     color:rgba(28,27,26,.76);
-    font-size:19px;
+    font-size:17px;
     line-height:1.22;
   }
 
@@ -3778,18 +3716,18 @@ const planDeliveryPopupAssets = `<style>
     display:grid;
     grid-template-columns:repeat(3, minmax(0, 1fr));
     gap:8px;
-    margin-top:24px;
+    margin-top:18px;
   }
 
   .tg-plan-popup__mini-map span{
     display:block;
-    min-height:64px;
-    padding:10px 11px;
+    min-height:56px;
+    padding:9px 10px;
     border:1px solid rgba(28,27,26,.12);
     box-sizing:border-box;
     color:rgba(28,27,26,.7);
     font-family:var(--t-text-font, Arial);
-    font-size:13px;
+    font-size:12px;
     line-height:1.15;
   }
 
@@ -3800,7 +3738,7 @@ const planDeliveryPopupAssets = `<style>
     align-content:start;
     align-items:center;
     justify-items:start;
-    margin-top:26px;
+    margin-top:22px;
     min-height:0;
   }
 
@@ -3812,23 +3750,15 @@ const planDeliveryPopupAssets = `<style>
     --tg-cta-arrow-color:#fffefa;
   }
 
-  .tg-plan-popup__preview-link{
-    min-width:210px;
-    --tg-cta-fill:#fffefa;
-    --tg-cta-color:#1c1b1a;
-    --tg-cta-arrow-fill:#fffefa;
-    --tg-cta-arrow-color:#1c1b1a;
-  }
-
   .tg-plan-popup__preview{
     position:relative;
     min-height:100%;
-    padding:54px 34px 38px;
+    padding:38px 28px 30px;
     box-sizing:border-box;
     overflow:hidden;
     background:
       linear-gradient(180deg, rgba(28,27,26,.15), rgba(28,27,26,.78)),
-      url("${basePath}images/scenario-hero.jpg") center center / cover no-repeat,
+      url("${heroPosterDesktopUrl}") center center / cover no-repeat,
       #1c1b1a;
     color:#fffefa;
   }
@@ -3845,7 +3775,7 @@ const planDeliveryPopupAssets = `<style>
     position:relative;
     z-index:1;
     display:grid;
-    min-height:360px;
+    min-height:300px;
     align-content:end;
   }
 
@@ -3870,7 +3800,7 @@ const planDeliveryPopupAssets = `<style>
     max-width:7.5ch;
     color:#fffefa;
     font-family:var(--t-headline-font, Arial);
-    font-size:46px;
+    font-size:36px;
     font-weight:500;
     line-height:.95;
     text-transform:uppercase;
@@ -3879,7 +3809,7 @@ const planDeliveryPopupAssets = `<style>
   .tg-plan-popup__preview-list{
     display:grid;
     gap:8px;
-    margin-top:24px;
+    margin-top:18px;
     padding:0;
     list-style:none;
   }
@@ -3889,7 +3819,7 @@ const planDeliveryPopupAssets = `<style>
     gap:10px;
     color:rgba(255,254,250,.82);
     font-family:var(--t-text-font, Arial);
-    font-size:14px;
+    font-size:13px;
     line-height:1.22;
   }
 
@@ -3922,8 +3852,7 @@ const planDeliveryPopupAssets = `<style>
       box-shadow:0 16px 34px rgba(28,27,26,.16);
     }
 
-    .tg-plan-popup__link:hover,
-    .tg-plan-popup__preview-link:hover{
+    .tg-plan-popup__link:hover{
       --tg-cta-fill:#fa4604;
       --tg-cta-color:#fffefa;
       --tg-cta-arrow-fill:#fa4604;
@@ -3970,7 +3899,7 @@ const planDeliveryPopupAssets = `<style>
 
   @media screen and (max-width:1199px){
     .tg-plan-popup__panel{
-      width:min(900px, 100%);
+      width:min(820px, 100%);
       max-height:min(620px, calc(100dvh - 28px));
     }
 
@@ -3992,12 +3921,12 @@ const planDeliveryPopupAssets = `<style>
 
     .tg-plan-popup h2{
       margin:0 56px 12px 0;
-      font-size:38px;
+      font-size:36px;
     }
 
     .tg-plan-popup__text{
       max-width:640px;
-      font-size:17px;
+      font-size:16px;
       line-height:1.22;
     }
 
@@ -4010,11 +3939,11 @@ const planDeliveryPopupAssets = `<style>
     }
 
     .tg-plan-popup__preview-content{
-      min-height:300px;
+      min-height:260px;
     }
 
     .tg-plan-popup__preview-title{
-      font-size:36px;
+      font-size:32px;
     }
 
     .tg-plan-popup__mini-map{
@@ -4090,7 +4019,7 @@ const planDeliveryPopupAssets = `<style>
     }
 
     .tg-plan-popup__telegram,
-    .tg-plan-popup__preview-link{
+    .tg-plan-popup__link{
       width:100%;
       min-width:0;
     }
@@ -4109,12 +4038,7 @@ const planDeliveryPopupAssets = `<style>
     }
 
     .tg-plan-popup__preview{
-      min-height:auto;
-      padding:16px 12px 18px;
-      background:
-        linear-gradient(180deg, rgba(28,27,26,.4), rgba(28,27,26,.82)),
-        url("${basePath}images/scenario-hero.jpg") center center / cover no-repeat,
-        #1c1b1a;
+      display:none;
     }
 
     .tg-plan-popup__preview-content{
@@ -4462,7 +4386,6 @@ const planDeliveryPopupMarkup = `<div id="plan-delivery-popup" class="tg-plan-po
         </div>
         <div class="tg-plan-popup__actions">
           ${tildaCtaLink("tg-plan-popup__telegram", telegramPlanUrl, "Получить сценарий", 'target="_blank" rel="nofollow"')}
-          ${tildaCtaLink("tg-plan-popup__preview-link", scenarioPageUrl, "Посмотреть страницу", 'rel="nofollow"')}
         </div>
       </div>
       <div class="tg-plan-popup__preview" aria-hidden="true">
