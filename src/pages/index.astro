@@ -2436,9 +2436,10 @@ const tripwireFormMarkup = (variant: 'popup' | 'inline') => `<form class="tg-tri
   <div class="tg-tripwire-form__fields">
     <input type="hidden" name="form_source" value="site_plan_tripwire_${variant}" />
     <div class="tg-tripwire-form__select-grid">
-      <label class="tg-tripwire-form__select-field">Кто вы?
+      <label class="tg-tripwire-form__select-field"><span class="tg-tripwire-form__select-label">Кто вы?</span>
         <span class="tg-tripwire-form__select-wrap">
           <select name="role" required>
+            <option value="" selected disabled>Кто вы?</option>
             <option value="Жених">Жених</option>
             <option value="Невеста">Невеста</option>
             <option value="Родители">Родители</option>
@@ -2446,9 +2447,10 @@ const tripwireFormMarkup = (variant: 'popup' | 'inline') => `<form class="tg-tri
           </select>
         </span>
       </label>
-      <label class="tg-tripwire-form__select-field">Когда свадьба?
+      <label class="tg-tripwire-form__select-field"><span class="tg-tripwire-form__select-label">Когда свадьба?</span>
         <span class="tg-tripwire-form__select-wrap">
           <select name="wedding_timing" required>
+            <option value="" selected disabled>Когда свадьба?</option>
             <option value="Летом">Летом</option>
             <option value="Осенью">Осенью</option>
             <option value="Зимой">Зимой</option>
@@ -2458,9 +2460,10 @@ const tripwireFormMarkup = (variant: 'popup' | 'inline') => `<form class="tg-tri
           </select>
         </span>
       </label>
-      <label class="tg-tripwire-form__select-field">Где свадьба?
+      <label class="tg-tripwire-form__select-field"><span class="tg-tripwire-form__select-label">Где свадьба?</span>
         <span class="tg-tripwire-form__select-wrap">
           <select name="wedding_location" required>
+            <option value="" selected disabled>Где свадьба?</option>
             <option value="Москва">Москва</option>
             <option value="Московская область">Московская область</option>
             <option value="Другой город">Другой город</option>
@@ -3343,7 +3346,19 @@ const planDeliveryPopupAssets = `<style>
 
   .tg-tripwire-form__select-field{
     display:grid;
-    gap:6px;
+    gap:0;
+  }
+
+  .tg-tripwire-form__select-label{
+    position:absolute;
+    width:1px;
+    height:1px;
+    margin:-1px;
+    padding:0;
+    border:0;
+    overflow:hidden;
+    clip:rect(0 0 0 0);
+    white-space:nowrap;
   }
 
   .tg-tripwire-form__select-wrap{
