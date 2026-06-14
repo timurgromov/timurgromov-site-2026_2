@@ -42,8 +42,8 @@ const privacyPolicyUrl = `${basePath}privacy/`;
 const privacyConsentUrl = `${basePath}privacy/#consent`;
 const offerPageUrl = `${basePath}offer/`;
 const ctaArrowIconUrl = `${basePath}images/tild3536-3939-4363-b163-323761323432__vector_8.svg`;
-const planPopupScenarioPreviewUrl =
-  `${basePath}images/scenario-popup-preview.png`;
+const planPopupPortraitUrl =
+  `${basePath}images/tild6461-3464-4935-b237-653233383933__image_1_1.jpg`;
 
 const tildaCtaInner = (label: string) => `<span class="tg-tilda-cta__plate" aria-hidden="true"></span>
   <span class="tg-tilda-cta__arrow-box" aria-hidden="true"></span>
@@ -3802,30 +3802,74 @@ const planDeliveryPopupAssets = `<style>
   .tg-plan-popup__preview{
     position:relative;
     min-height:100%;
-    padding:20px;
+    padding:38px 28px 30px;
     box-sizing:border-box;
     overflow:hidden;
-    background:linear-gradient(180deg, #f5efe8, #ece2d4);
+    background:
+      linear-gradient(180deg, rgba(28,27,26,.15), rgba(28,27,26,.78)),
+      url("${planPopupPortraitUrl}") center center / cover no-repeat,
+      #1c1b1a;
+    color:#fffefa;
   }
 
-  .tg-plan-popup__preview-figure{
+  .tg-plan-popup__preview::after{
+    content:"";
+    position:absolute;
+    inset:auto 0 0;
+    height:45%;
+    background:linear-gradient(180deg, rgba(28,27,26,0), rgba(28,27,26,.88));
+  }
+
+  .tg-plan-popup__preview-content{
     position:relative;
-    height:100%;
+    z-index:1;
+    display:grid;
     min-height:300px;
+    align-content:end;
     margin:0;
-    overflow:hidden;
-    border-radius:14px;
-    border:1px solid rgba(28,27,26,.08);
-    background:#1c1b1a;
-    box-shadow:0 24px 56px rgba(28,27,26,.18);
   }
 
-  .tg-plan-popup__preview-image{
-    display:block;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:center top;
+  .tg-plan-popup__preview-title,
+  .tg-plan-popup__preview-list,
+  .tg-plan-popup__preview-list li{
+    margin:0;
+    letter-spacing:0;
+  }
+
+  .tg-plan-popup__preview-title{
+    max-width:7.5ch;
+    color:#fffefa;
+    font-family:var(--t-headline-font, Arial);
+    font-size:36px;
+    font-weight:500;
+    line-height:.95;
+    text-transform:uppercase;
+  }
+
+  .tg-plan-popup__preview-list{
+    display:grid;
+    gap:8px;
+    margin-top:18px;
+    padding:0;
+    list-style:none;
+  }
+
+  .tg-plan-popup__preview-list li{
+    display:flex;
+    gap:10px;
+    color:rgba(255,254,250,.82);
+    font-family:var(--t-text-font, Arial);
+    font-size:13px;
+    line-height:1.22;
+  }
+
+  .tg-plan-popup__preview-list li::before{
+    content:"";
+    flex:0 0 auto;
+    width:8px;
+    height:1px;
+    margin-top:.65em;
+    background:#fa8a62;
   }
 
   .tg-plan-popup__links{
@@ -3934,8 +3978,12 @@ const planDeliveryPopupAssets = `<style>
       padding:34px 24px 28px;
     }
 
-    .tg-plan-popup__preview-figure{
+    .tg-plan-popup__preview-content{
       min-height:260px;
+    }
+
+    .tg-plan-popup__preview-title{
+      font-size:32px;
     }
 
     .tg-plan-popup__mini-map{
@@ -4033,8 +4081,23 @@ const planDeliveryPopupAssets = `<style>
       display:none;
     }
 
-    .tg-plan-popup__preview-figure{
+    .tg-plan-popup__preview-content{
       min-height:150px;
+    }
+
+    .tg-plan-popup__preview-title{
+      max-width:8.2ch;
+      font-size:28px;
+    }
+
+    .tg-plan-popup__preview-list{
+      gap:6px;
+      margin-top:14px;
+    }
+
+    .tg-plan-popup__preview-list li{
+      font-size:12px;
+      line-height:1.18;
     }
 
     .tg-plan-popup__link{
@@ -4366,9 +4429,14 @@ const planDeliveryPopupMarkup = `<div id="plan-delivery-popup" class="tg-plan-po
         </div>
       </div>
       <div class="tg-plan-popup__preview" aria-hidden="true">
-        <figure class="tg-plan-popup__preview-figure">
-          <img class="tg-plan-popup__preview-image" src="${planPopupScenarioPreviewUrl}" alt="" loading="lazy" decoding="async" />
-        </figure>
+        <div class="tg-plan-popup__preview-content">
+          <p class="tg-plan-popup__preview-title">Свадебный сценарий</p>
+          <ul class="tg-plan-popup__preview-list">
+            <li>логика движения вечера</li>
+            <li>ключевые блоки и риски</li>
+            <li>план для спокойной подготовки</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
