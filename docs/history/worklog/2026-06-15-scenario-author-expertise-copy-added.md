@@ -14,4 +14,4 @@
 
 - `npm run build`
 - `git diff --check`
-- Pending: production marker check on `https://timurgromov.ru/scenario/`
+- production marker check on `https://timurgromov.ru/scenario/`
