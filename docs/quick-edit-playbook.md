@@ -45,7 +45,7 @@
 
 - `npm run verify:contacts` запускать сразу с escalated permissions, потому что он всегда поднимает `astro preview` и headless Chrome.
 - `ps aux | egrep ...` для cleanup тоже запускать с escalated permissions, если обычный запуск запрещён.
-- `npm run verify:pages` / `git ls-remote` / live `curl`, если падают на DNS/network в sandbox, повторять с escalated permissions.
+- `npm run verify:pages` / `git ls-remote` / live `curl` к `timurgromov.ru`, `timurgromov.github.io`, `github.com` запускать сразу с escalated permissions, когда это финальная production/live-проверка после push. Не делай сначала заведомо падающий sandbox-прогон.
 - Не тратить время на повтор одного и того же sandbox-запуска после `EPERM`; это ожидаемый отказ среды, а не диагностический сигнал по сайту.
 
 ## Visual Proof Rule

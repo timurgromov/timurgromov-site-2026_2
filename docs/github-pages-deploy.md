@@ -52,6 +52,8 @@ git push origin HEAD:main
 npm run verify:pages -- --contains "новый текст" --absent "старый текст"
 ```
 
+Важно для Codex managed sandbox: `npm run verify:pages`, direct live `curl` к `timurgromov.ru` / `github.io` и network-проверки GitHub запускать сразу с escalated permissions. Эти команды ходят во внешнюю сеть, и обычный sandbox часто даёт `Could not resolve host`; это не полезная проверка сайта и её не нужно делать первым шагом.
+
 Для правок только в документации или служебных скриптах `gh-pages` может остаться на предыдущем deploy-коммите, если итоговый `dist/` не изменился. Это нормально: важна live-проверка production-домена для задач, которые меняют сайт.
 
 ## 3. Один раз: положить workflow в репозиторий
