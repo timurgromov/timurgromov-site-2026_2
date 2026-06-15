@@ -19,6 +19,11 @@ const eveningSteps = [
   "Танцы",
 ];
 
+const eveningStepRows = Array.from(
+  { length: Math.ceil(eveningSteps.length / 2) },
+  (_, rowIndex) => eveningSteps.slice(rowIndex * 2, rowIndex * 2 + 2),
+);
+
 const mistakes = [
   {
     title: "Плохо организованные тосты",
@@ -160,10 +165,18 @@ const contactLinks = [
           </p>
         </div>
         <ol class="scenario-step-grid">
-          {eveningSteps.map((step, index) => (
-            <li>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <strong>{step}</strong>
+          {eveningStepRows.map((row, rowIndex) => (
+            <li class="scenario-step-row">
+              {row.map((step, cellIndex) => {
+                const stepNumber = rowIndex * 2 + cellIndex + 1;
+
+                return (
+                  <div class="scenario-step-cell">
+                    <span>{String(stepNumber).padStart(2, "0")}</span>
+                    <strong>{step}</strong>
+                  </div>
+                );
+              })}
             </li>
           ))}
         </ol>
@@ -1007,28 +1020,36 @@ const contactLinks = [
 
   .scenario-step-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px 24px;
+    gap: 14px;
     margin: 30px 0 0;
     padding: 0;
     list-style: none;
   }
 
-  .scenario-step-grid li {
-    display: flex;
-    gap: 14px;
+  .scenario-step-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    align-items: start;
     padding-bottom: 10px;
     border-bottom: 1px solid rgba(36, 29, 25, 0.08);
   }
 
-  .scenario-step-grid span {
+  .scenario-step-cell {
+    display: flex;
+    gap: 14px;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .scenario-step-cell span {
     color: var(--accent);
     font-family: "Cormorant Garamond", Georgia, serif;
     font-size: 18px;
     font-weight: 600;
   }
 
-  .scenario-step-grid strong {
+  .scenario-step-cell strong {
     font-family: "Instrument Serif", Georgia, serif;
     font-size: 26px;
     font-style: italic;
@@ -1595,12 +1616,12 @@ const contactLinks = [
       font-size: 22px;
     }
 
-    .scenario-step-grid {
+    .scenario-step-row {
       grid-template-columns: 1fr;
       gap: 12px;
     }
 
-    .scenario-step-grid strong {
+    .scenario-step-cell strong {
       font-size: 22px;
     }
 
