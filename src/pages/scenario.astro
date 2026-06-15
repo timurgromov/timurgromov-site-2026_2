@@ -614,9 +614,9 @@ const contactLinks = [
     <section class="scenario-cta">
       <div class="scenario-shell scenario-cta__shell">
         <div class="scenario-cta__copy">
-          <div class="scenario-eyebrow">Бесплатная встреча-знакомство</div>
+          <div class="scenario-eyebrow">Встреча-знакомство</div>
           <h2>
-            Если вы уже выбираете ведущего — <em>предлагаю короткую встречу</em>
+            Если уже выбираете ведущего — <em>давайте познакомимся</em>
           </h2>
           <p class="scenario-cta__lead">На встрече разберём:</p>
           <ul class="scenario-cta__topic-list">
@@ -630,10 +630,10 @@ const contactLinks = [
             Записаться на встречу
           </a>
           <ul class="scenario-cta__proof-list">
-            <li>30–50 минут</li>
             <li>без обязательств</li>
             <li>именно про вашу свадьбу</li>
           </ul>
+          <p class="scenario-cta__mini-note">30–50 минут. Обсудим формат, площадку и тайминг вашего вечера.</p>
           <div class="scenario-cta__secondary">
             <a href={telegramMeetingUrl} target="_blank" rel="noopener noreferrer">Написать в Telegram</a>
             <a href={maxContactUrl} target="_blank" rel="noopener noreferrer">Написать в MAX</a>
@@ -1382,6 +1382,17 @@ const contactLinks = [
     grid-column: 1 / -1;
   }
 
+  .scenario-cta__mini-note {
+    width: 100%;
+    margin: -2px 0 0;
+    color: rgba(36, 29, 25, 0.86);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
   .scenario-footer__shell {
     padding-top: 42px;
     padding-bottom: 42px;
@@ -1672,6 +1683,10 @@ const contactLinks = [
     .scenario-cta__proof-list {
       gap: 8px;
       padding-top: 16px;
+    }
+
+    .scenario-cta__mini-note {
+      font-size: 12px;
     }
 
     .scenario-cta__proof-list li,
