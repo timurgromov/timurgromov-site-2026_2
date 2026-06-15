@@ -14,3 +14,4 @@
 
 - `npm run build`
 - `git diff --check`
+- production marker check on `https://timurgromov.ru/scenario/`
