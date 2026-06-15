@@ -20,7 +20,10 @@ const {
 } = Astro.props;
 
 const basePath = import.meta.env.BASE_URL.replace(/\/?$/, "/");
-const faviconHref = `${basePath}images/tildafavicon.ico`;
+const faviconPngLightHref = `${basePath}images/tild3935-3938-4462-b437-303431663663__photo.png`;
+const faviconPngDarkHref = `${basePath}images/tild3364-3334-4130-b264-376239643734__photo.png`;
+const faviconSvgHref = `${basePath}images/tild3537-3632-4463-b561-386135313939__photo.svg`;
+const appleTouchIconHref = `${basePath}images/tild3333-3638-4033-b463-313433373838__photo.png`;
 ---
 
 <!doctype html>
@@ -30,8 +33,11 @@ const faviconHref = `${basePath}images/tildafavicon.ico`;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="icon" href={faviconHref} sizes="any" />
-    <link rel="shortcut icon" href={faviconHref} />
+    <link rel="icon" type="image/png" sizes="32x32" href={faviconPngLightHref} media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/png" sizes="32x32" href={faviconPngDarkHref} media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href={faviconSvgHref} />
+    <link rel="apple-touch-icon" type="image/png" href={appleTouchIconHref} />
+    <link rel="icon" type="image/png" sizes="192x192" href={appleTouchIconHref} />
     {canonical && <link rel="canonical" href={canonical} />}
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:title" content={title} />
