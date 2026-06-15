@@ -412,6 +412,24 @@ const contactLinks = [
         </div>
       </section>
 
+      <section class="scenario-inline-cta" aria-label="Обсудить вашу свадьбу">
+        <div class="scenario-inline-cta__copy">
+          <div class="scenario-inline-cta__eyebrow">Короткая встреча</div>
+          <h3>Если уже хотите применить эту логику к своей свадьбе</h3>
+          <p>
+            Можно коротко обсудить формат, гостей, площадку и тайминг именно
+            вашего вечера. Вы поймёте, где могут быть точки риска и как собрать
+            всё надёжнее.
+          </p>
+        </div>
+        <div class="scenario-inline-cta__actions">
+          <a class="scenario-inline-cta__button" href={telegramMeetingUrl} target="_blank" rel="noopener noreferrer">
+            Обсудить вашу свадьбу
+          </a>
+          <p class="scenario-inline-cta__note">20–30 минут, только про вашу свадьбу.</p>
+        </div>
+      </section>
+
       <section class="scenario-timeblock">
         <div class="scenario-timeblock__meta">
           <div class="scenario-timeblock__time">19:50 — 20:30</div>
@@ -1152,6 +1170,83 @@ const contactLinks = [
     margin-top: 16px;
   }
 
+  .scenario-inline-cta {
+    display: grid;
+    gap: 22px 28px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    margin: 42px 0 8px;
+    padding: 24px 26px;
+    border: 1px solid rgba(250, 70, 4, 0.16);
+    border-radius: 28px;
+    background: linear-gradient(180deg, rgba(255, 253, 249, 0.98) 0%, rgba(248, 239, 228, 0.94) 100%);
+    box-shadow: 0 18px 36px rgba(36, 29, 25, 0.05);
+  }
+
+  .scenario-inline-cta__copy {
+    max-width: 640px;
+  }
+
+  .scenario-inline-cta__eyebrow {
+    margin-bottom: 10px;
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .scenario-inline-cta h3 {
+    margin: 0;
+    color: var(--ink);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: clamp(30px, 3vw, 38px);
+    font-weight: 600;
+    line-height: 0.98;
+    letter-spacing: 0;
+  }
+
+  .scenario-inline-cta p {
+    margin: 12px 0 0;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.55;
+  }
+
+  .scenario-inline-cta__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    min-width: 270px;
+  }
+
+  .scenario-inline-cta__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 0 28px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fffaf4;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .scenario-inline-cta__note {
+    margin: 0 !important;
+    color: var(--accent) !important;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px !important;
+    font-style: normal !important;
+    font-weight: 600;
+    line-height: 1.45 !important;
+  }
+
   .scenario-cta__shell {
     display: grid;
     gap: 24px 44px;
@@ -1448,6 +1543,15 @@ const contactLinks = [
       width: min(100%, 520px);
     }
 
+    .scenario-inline-cta {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    .scenario-inline-cta__actions {
+      min-width: 0;
+    }
+
     .scenario-timeblock__meta {
       position: static;
     }
@@ -1587,6 +1691,48 @@ const contactLinks = [
 
     .scenario-card__title {
       font-size: 28px;
+    }
+
+    .scenario-inline-cta {
+      gap: 16px;
+      margin: 34px 0 4px;
+      padding: 20px 18px;
+      border-radius: 22px;
+    }
+
+    .scenario-inline-cta__eyebrow {
+      margin-bottom: 8px;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+    }
+
+    .scenario-inline-cta h3 {
+      font-size: 27px;
+      line-height: 1;
+    }
+
+    .scenario-inline-cta p {
+      margin-top: 10px;
+      font-size: 17px;
+      line-height: 1.5;
+    }
+
+    .scenario-inline-cta__actions {
+      gap: 8px;
+      width: 100%;
+    }
+
+    .scenario-inline-cta__button {
+      width: 100%;
+      min-height: 50px;
+      padding: 0 20px;
+      font-size: 22px;
+      text-align: center;
+      white-space: normal;
+    }
+
+    .scenario-inline-cta__note {
+      font-size: 13px !important;
     }
 
     .scenario-cta__shell {
