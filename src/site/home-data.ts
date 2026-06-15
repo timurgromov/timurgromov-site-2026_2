@@ -226,12 +226,7 @@ export const priceFineprintMarkup = ``;
 
 export const priceConsultationMarkup =
   `<div class="tg-price-consultation">
-    <p class="tg-price-consultation__lead">Если вы уже выбираете ведущего, предлагаю <span>короткую встречу</span>.</p>
-    <ul class="tg-price-consultation__list">
-      <li>формат свадьбы и состав гостей;</li>
-      <li>площадку, логистику и тайминг;</li>
-      <li>подхожу ли я вам как ведущий.</li>
-    </ul>
+    <p class="tg-price-consultation__lead">Если вы уже выбираете ведущего, предлагаю <span>короткую встречу</span>: там вы поймете формат свадьбы, состав гостей, площадку, логистику и тайминг, а еще — подхожу ли я вам как ведущий.</p>
     <p class="tg-price-consultation__note">30–50 минут, без обязательств, только про вашу свадьбу.</p>
   </div>`;
 
