@@ -1709,10 +1709,19 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     }
   }
 </style><style>
+  :root{
+    --tg-home-section-pad-desktop:80px;
+    --tg-home-section-pad-tablet:70px;
+    --tg-home-section-pad-mobile:56px;
+    --tg-home-section-pad-desktop-x:64px;
+    --tg-home-section-pad-tablet-x:40px;
+    --tg-home-section-pad-mobile-x:20px;
+  }
+
   .tg-plan-cta{
     background:#fffefa;
     color:#1c1b1a;
-    padding:88px 64px 74px;
+    padding:var(--tg-home-section-pad-desktop) var(--tg-home-section-pad-desktop-x);
   }
 
   .tg-plan-cta__inner{
@@ -2017,7 +2026,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
 
   @media screen and (max-width:1199px){
     .tg-plan-cta{
-      padding:74px 40px 72px;
+      padding:var(--tg-home-section-pad-tablet) var(--tg-home-section-pad-tablet-x);
     }
 
     .tg-plan-cta__inner{
@@ -2045,7 +2054,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
 
   @media screen and (max-width:639px){
     .tg-plan-cta{
-      padding:58px 20px 56px;
+      padding:var(--tg-home-section-pad-mobile) var(--tg-home-section-pad-mobile-x);
     }
 
     .tg-plan-cta__inner{
@@ -2105,7 +2114,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   .tg-consultation-cta{
     background:#fffefa;
     color:#1c1b1a;
-    padding:82px 64px 86px;
+    padding:var(--tg-home-section-pad-desktop) var(--tg-home-section-pad-desktop-x);
   }
 
   .tg-consultation-cta__inner{
@@ -2233,7 +2242,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
 
   @media screen and (max-width:1199px){
     .tg-consultation-cta{
-      padding:68px 40px 70px;
+      padding:var(--tg-home-section-pad-tablet) var(--tg-home-section-pad-tablet-x);
     }
 
     .tg-consultation-cta__inner{
@@ -2259,7 +2268,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
 
   @media screen and (max-width:639px){
     .tg-consultation-cta{
-      padding:54px 20px 58px;
+      padding:var(--tg-home-section-pad-mobile) var(--tg-home-section-pad-mobile-x);
     }
 
     .tg-consultation-cta__eyebrow{
