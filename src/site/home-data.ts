@@ -225,7 +225,15 @@ export const priceValueMarkup = `<ul class="tg-price-value-list">
 export const priceFineprintMarkup = ``;
 
 export const priceConsultationMarkup =
-  `На встрече разберем формат свадьбы, гостей, площадку и тайминг. Вы поймете, подхожу ли я для вашей свадьбы и как может быть устроен именно ваш вечер. Встреча бесплатная и ни к чему не обязывает.`;
+  `<div class="tg-price-consultation">
+    <p class="tg-price-consultation__lead">Если вы уже выбираете ведущего, предлагаю <span>короткую встречу</span>.</p>
+    <ul class="tg-price-consultation__list">
+      <li>формат свадьбы и состав гостей;</li>
+      <li>площадку, логистику и тайминг;</li>
+      <li>подхожу ли я вам как ведущий.</li>
+    </ul>
+    <p class="tg-price-consultation__note">30–50 минут, без обязательств, только про вашу свадьбу.</p>
+  </div>`;
 
 const priceConsultationMaxLinkMarkup =
   `<a href="${maxContactUrl}" rel="nofollow" target="_blank" style="color: inherit">Написать в MAX</a>`;
