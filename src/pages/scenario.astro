@@ -90,7 +90,9 @@ const contactLinks = [
       <div class="scenario-shell scenario-hero__shell">
         <div class="scenario-hero__kicker">
           <a class="scenario-hero__back" href={homeHref}>timurgromov.ru</a>
-          <div class="scenario-hero__eyebrow">Авторский материал — Тимур Громов</div>
+          <div class="scenario-hero__eyebrow">
+            Авторский материал — <span class="scenario-hero__eyebrow-name">Тимур Громов</span>
+          </div>
         </div>
         <h1>
           Свадебный <em>сценарий</em>
@@ -780,6 +782,10 @@ const contactLinks = [
 
   .scenario-hero__eyebrow {
     margin: 0;
+  }
+
+  .scenario-hero__eyebrow-name {
+    white-space: nowrap;
   }
 
   .scenario-eyebrow--light {
