@@ -575,18 +575,22 @@ const contactLinks = [
     <section class="scenario-cta">
       <div class="scenario-shell scenario-cta__shell">
         <div class="scenario-cta__copy">
-          <div class="scenario-eyebrow scenario-eyebrow--light">Встреча-знакомство</div>
+          <div class="scenario-eyebrow">Бесплатная встреча-знакомство</div>
           <h2>
-            Если вы уже выбираете ведущего — <em>давайте познакомимся</em>
+            Если вы уже выбираете ведущего — <em>предлагаю короткую встречу</em>
           </h2>
-          <p class="scenario-cta__lead">
-            На короткой встрече разберём формат свадьбы, гостей, площадку,
-            тайминг и важные вопросы по программе. Вы поймёте, подхожу ли я вам
-            как ведущий и как лучше выстроить именно ваш вечер.
+          <p class="scenario-cta__lead">На встрече разберём:</p>
+          <ul class="scenario-cta__topic-list">
+            <li>формат свадьбы и состав гостей;</li>
+            <li>площадку, логистику и тайминг;</li>
+            <li>важные вопросы по программе и ходу вечера.</li>
+          </ul>
+          <p class="scenario-cta__result">
+            Вы поймёте мой подход, подхожу ли я вам как ведущий и как может быть
+            устроен именно ваш вечер.
           </p>
           <p class="scenario-cta__note">
-            Встреча бесплатная, ни к чему не обязывает и помогает спокойно
-            принять решение.
+            Встреча бесплатная и ни к чему не обязывает.
           </p>
         </div>
         <div class="scenario-cta__actions">
@@ -595,8 +599,8 @@ const contactLinks = [
           </a>
           <ul class="scenario-cta__proof-list">
             <li>20–30 минут</li>
-            <li>без навязывания</li>
-            <li>по вашей свадьбе, а не в общем</li>
+            <li>без обязательств</li>
+            <li>именно по вашей свадьбе</li>
           </ul>
           <div class="scenario-cta__secondary">
             <a href={telegramMeetingUrl} target="_blank" rel="noopener noreferrer">Написать в Telegram</a>
@@ -1098,7 +1102,6 @@ const contactLinks = [
   }
 
   .scenario-thesis,
-  .scenario-cta,
   .scenario-footer {
     background: var(--accent);
     color: #fffaf4;
@@ -1154,8 +1157,13 @@ const contactLinks = [
     gap: 44px;
     grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
     align-items: start;
-    padding-top: 68px;
-    padding-bottom: 86px;
+    margin-top: 62px;
+    margin-bottom: 34px;
+    padding: 46px 42px 48px;
+    border: 1px solid rgba(36, 29, 25, 0.08);
+    border-radius: 34px;
+    background: linear-gradient(180deg, #fffaf4 0%, #f8efe4 100%);
+    box-shadow: 0 26px 70px rgba(36, 29, 25, 0.08);
   }
 
   .scenario-cta__copy {
@@ -1168,13 +1176,14 @@ const contactLinks = [
   }
 
   .scenario-cta h2 {
+    color: var(--ink);
     font-size: clamp(32px, 3.8vw, 50px);
-    line-height: 0.98;
+    line-height: 1.02;
   }
 
   .scenario-cta p {
     margin-top: 18px;
-    color: rgba(255, 250, 244, 0.76);
+    color: var(--muted);
     font-family: "Instrument Serif", Georgia, serif;
     font-size: 22px;
     font-style: italic;
@@ -1182,15 +1191,58 @@ const contactLinks = [
   }
 
   .scenario-cta__lead {
-    max-width: 540px;
+    margin-top: 24px;
+    color: var(--ink) !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 18px !important;
+    font-style: normal !important;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .scenario-cta__topic-list {
+    display: grid;
+    gap: 10px;
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .scenario-cta__topic-list li {
+    position: relative;
+    padding-left: 20px;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.48;
+  }
+
+  .scenario-cta__topic-list li::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: var(--accent);
+  }
+
+  .scenario-cta__result {
+    max-width: 560px;
+    margin-top: 22px !important;
+    color: var(--ink) !important;
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: 24px !important;
+    font-style: italic;
+    line-height: 1.34;
   }
 
   .scenario-cta__note {
     max-width: 480px;
-    margin-top: 22px;
-    color: rgba(255, 250, 244, 0.88);
+    margin-top: 24px;
+    color: rgba(36, 29, 25, 0.76);
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
+    font-size: 17px;
     font-style: normal;
     line-height: 1.42;
   }
@@ -1203,11 +1255,10 @@ const contactLinks = [
     justify-self: end;
     width: min(100%, 432px);
     padding: 30px 30px 28px;
-    border: 1px solid rgba(255, 250, 244, 0.24);
+    border: 1px solid rgba(250, 70, 4, 0.16);
     border-radius: 30px;
-    background:
-      linear-gradient(180deg, rgba(255, 250, 244, 0.12) 0%, rgba(255, 250, 244, 0.08) 100%);
-    box-shadow: 0 24px 60px rgba(27, 19, 15, 0.12);
+    background: #fffdf9;
+    box-shadow: 0 20px 40px rgba(36, 29, 25, 0.08);
   }
 
   .scenario-cta__button {
@@ -1218,8 +1269,8 @@ const contactLinks = [
     min-height: 58px;
     padding: 0 30px;
     border-radius: 999px;
-    background: #fffaf4;
-    color: var(--accent);
+    background: var(--accent);
+    color: #fffaf4;
     font-family: "Cormorant Garamond", Georgia, serif;
     font-size: 26px;
     font-weight: 600;
@@ -1232,14 +1283,16 @@ const contactLinks = [
     width: 100%;
     margin: 0;
     padding: 18px 0 0;
-    border-top: 1px solid rgba(255, 250, 244, 0.18);
+    border-top: 1px solid rgba(36, 29, 25, 0.1);
     list-style: none;
   }
 
   .scenario-cta__proof-list li {
-    position: relative;
-    padding-left: 18px;
-    color: rgba(255, 250, 244, 0.84);
+    display: grid;
+    grid-template-columns: 10px 1fr;
+    align-items: center;
+    column-gap: 14px;
+    color: var(--ink);
     font-size: 14px;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -1247,36 +1300,36 @@ const contactLinks = [
 
   .scenario-cta__proof-list li::before {
     content: "";
-    position: absolute;
-    top: 8px;
-    left: 0;
     width: 6px;
     height: 6px;
     border-radius: 999px;
-    background: rgba(255, 250, 244, 0.82);
+    background: var(--accent);
   }
 
   .scenario-cta__secondary {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 16px;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 18px;
+    align-items: start;
     width: 100%;
-    padding-top: 2px;
+    padding-top: 6px;
   }
 
   .scenario-cta__secondary a {
-    color: rgba(255, 250, 244, 0.82);
+    color: rgba(36, 29, 25, 0.88);
     font-size: 15px;
     text-decoration: underline;
-    text-decoration-color: rgba(255, 250, 244, 0.28);
+    text-decoration-color: rgba(36, 29, 25, 0.18);
     text-underline-offset: 4px;
   }
 
+  .scenario-cta__secondary a:last-child {
+    grid-column: 1 / -1;
+  }
+
   .scenario-footer__shell {
-    padding-top: 52px;
+    padding-top: 42px;
     padding-bottom: 42px;
-    border-top: 1px solid rgba(255, 250, 244, 0.14);
   }
 
   .scenario-footer h2 {
@@ -1518,12 +1571,23 @@ const contactLinks = [
 
     .scenario-cta__shell {
       gap: 24px;
-      padding-top: 44px;
-      padding-bottom: 52px;
+      margin-top: 42px;
+      margin-bottom: 22px;
+      padding: 28px 22px 30px;
     }
 
     .scenario-cta p {
       font-size: 19px;
+    }
+
+    .scenario-cta__lead,
+    .scenario-cta__topic-list li,
+    .scenario-cta__note {
+      font-size: 16px !important;
+    }
+
+    .scenario-cta__result {
+      font-size: 21px !important;
     }
 
     .scenario-cta__note {
@@ -1548,6 +1612,11 @@ const contactLinks = [
       font-size: 13px;
     }
 
+    .scenario-cta__secondary {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
     .scenario-cta__button {
       width: 100%;
       min-height: 52px;
@@ -1557,7 +1626,7 @@ const contactLinks = [
     }
 
     .scenario-footer__shell {
-      padding-top: 32px;
+      padding-top: 26px;
       padding-bottom: 28px;
     }
 
