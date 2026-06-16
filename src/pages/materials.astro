@@ -60,6 +60,20 @@ const materialRecordIds = [
 ];
 const headerRecordId = "rec862699342";
 const footerRecordId = "rec862623921";
+const materialsAdvicePopupRecordIds = [
+  "rec893268511",
+  "rec893268655",
+  "rec893271079",
+  "rec893271232",
+  "rec893273557",
+  "rec893273581",
+  "rec893275111",
+  "rec893275240",
+  "rec893277967",
+  "rec893278048",
+  "rec893280313",
+  "rec893281054",
+];
 const materialsFooterMenuIds = [
   "1738908769393",
   "1738908801867",
@@ -340,6 +354,13 @@ function wrapMobileWebinarCardStrip(recordHtml: string, groupIds: string[]) {
   );
 }
 
+function enablePopupVideoAutoplay(recordHtml: string) {
+  return recordHtml.replace(
+    /data-elem-type='video'/,
+    `data-elem-type='video' data-field-autoplay-value="y" data-field-mute-value="y"`,
+  );
+}
+
 const webinarCtaMarkup = `<section id="materials-followup-cta" class="tg-plan-cta" aria-labelledby="materials-followup-cta-title">
   <div class="tg-plan-cta__inner">
     <div>
@@ -396,6 +417,12 @@ const materialRecordsHtml = materialRecordIds
   })
   .join(" ");
 const headerRecordHtml = extractTildaRecord(bodySource, headerRecordId);
+const materialsAdvicePopupRecordsHtml = materialsAdvicePopupRecordIds
+  .map((recordId) => {
+    const recordHtml = extractTildaRecord(bodySource, recordId);
+    return enablePopupVideoAutoplay(recordHtml);
+  })
+  .join(" ");
 const footerContactShortcutMarkup = ` <div class='t396__elem tn-elem tn-elem__8626239211746200000002' data-elem-id='1746200000002' data-elem-type='text' data-field-top-value="928" data-field-left-value="1285" data-field-height-value="24" data-field-width-value="320" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-textfit-value="autoheight" data-field-fontsize-value="20" data-field-top-res-320-value="532" data-field-left-res-320-value="25" data-field-width-res-320-value="220" data-field-fontsize-res-320-value="12" data-field-top-res-640-value="566" data-field-left-res-640-value="311" data-field-width-res-640-value="230" data-field-fontsize-res-640-value="13" data-field-top-res-1200-value="584" data-field-left-res-1200-value="800" data-field-width-res-1200-value="260" data-field-fontsize-res-1200-value="13"> <div class='tn-atom'><span class="contact-shortcut-inline__content"><span class="contact-shortcut-inline__label">Написать мне</span><a class="contact-shortcut-inline__link" href="${telegramContactUrl}" target="_blank" rel="nofollow">Telegram</a><a class="contact-shortcut-inline__link" href="${maxContactUrl}" target="_blank" rel="nofollow">MAX</a></span></div> </div>`;
 const footerRecordHtml = injectBeforeTildaRecordScript(
   extractTildaRecord(bodySource, footerRecordId),
@@ -445,6 +472,45 @@ const headHtml = withBasePath(
           window.addEventListener("resize", syncMaterialsHeader);
           window.addEventListener("pageshow", syncMaterialsHeader);
           document.addEventListener("DOMContentLoaded", syncMaterialsHeader);
+        })();
+      </script>`,
+    )
+    .concat(
+      `<script>
+        (function() {
+          const advicePopupSelector = '.t1093 .t-popup[data-tooltip-hook^="#popup:video-soveti-"]';
+
+          function playAdvicePopupVideo(attemptsLeft) {
+            const popup = document.querySelector(advicePopupSelector + '.t-popup_show');
+
+            if (!popup) {
+              return;
+            }
+
+            const video = popup.querySelector("video");
+
+            if (video) {
+              const playResult = video.play();
+
+              if (playResult && typeof playResult.catch === "function") {
+                playResult.catch(function() {
+                  return;
+                });
+              }
+
+              return;
+            }
+
+            if (attemptsLeft > 0) {
+              window.setTimeout(function() {
+                playAdvicePopupVideo(attemptsLeft - 1);
+              }, 120);
+            }
+          }
+
+          document.body.addEventListener("popupShowed", function() {
+            playAdvicePopupVideo(12);
+          });
         })();
       </script>`,
     )
@@ -1293,7 +1359,7 @@ const headHtml = withBasePath(
 );
 
 const bodyHtml = withBasePath(
-  `<div class="materials-header-shell">${headerRecordHtml}</div><!--allrecords--> <div id="allrecords"${allRecordsAttrs}>${materialRecordsHtml} ${footerRecordHtml}</div> <!--/allrecords--> <style id="materials-video-play-restore">#rec861962232 .tn-atom__video-play-link,#rec862050095 .tn-atom__video-play-link{display:flex !important;align-items:center;justify-content:center;opacity:1 !important;visibility:visible !important;pointer-events:auto;}#rec861962232 .tn-atom__video-play-icon,#rec862050095 .tn-atom__video-play-icon{display:block !important;}</style>`,
+  `<div class="materials-header-shell">${headerRecordHtml}</div><!--allrecords--> <div id="allrecords"${allRecordsAttrs}>${materialRecordsHtml} ${materialsAdvicePopupRecordsHtml} ${footerRecordHtml}</div> <!--/allrecords--> <style id="materials-video-play-restore">#rec861962232 .tn-atom__video-play-link,#rec862050095 .tn-atom__video-play-link{display:flex !important;align-items:center;justify-content:center;opacity:1 !important;visibility:visible !important;pointer-events:auto;}#rec861962232 .tn-atom__video-play-icon,#rec862050095 .tn-atom__video-play-icon{display:block !important;}</style>`,
 );
 ---
 
