@@ -51,6 +51,17 @@ Current `/materials/` webinar media mapping:
   - `public/images/materials-poster-20.jpg`
 - Before changing the webinar source again, confirm the file exists on the media VPS and then update `docs/video-link-registry.md`.
 
+Current `/materials/` webinar motion fallback:
+
+- The webinar play icon is forcibly restored in `src/pages/materials.astro` because the original Tilda block CSS later hides `.tn-atom__video-play-link`.
+- The webinar desktop/tablet scroll motion is also re-applied in `src/pages/materials.astro` with a small manual controller, because the Tilda `data-animate-sbs` / `data-animate-fix` behavior is not reliable inside the Astro shell after extraction.
+- Keep these IDs in sync with the controller:
+  - desktop video `1739078296052`
+  - desktop cards `173883092613938130`, `173883093344499820`, `173883093983445640`
+  - mobile video `1739078914882`
+  - mobile cards `173883092613938130`, `173883093344499820`, `173883205939691230`
+- Do not remove the original Tilda `data-animate-*` attributes from the records. The manual fallback reads those values and preserves the same trigger offsets and movement distances.
+
 ## Current Safe State
 
 - Last confirmed working hero poster fix: `44a92b5 Restore single hero poster layer`.
