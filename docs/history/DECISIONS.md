@@ -426,7 +426,7 @@ Why:
 
 Do:
 
-- использовать helper `tildaCtaLink` / `tildaCtaButton` в `src/pages/index.astro`
+- использовать helper `tildaCtaLink` / `tildaCtaButton` из `src/site/tilda-cta.ts`
 - сохранять отдельные скругления у `tg-tilda-cta__plate` и `tg-tilda-cta__arrow-box`
 - сохранять `1px` overlap между левой плашкой и квадратом, как в export
 - использовать реальный export asset `images/tild3536-3939-4363-b163-323761323432__vector_8.svg`

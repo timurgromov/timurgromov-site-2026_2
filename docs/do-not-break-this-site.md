@@ -283,7 +283,7 @@ Problem:
 
 Current rule:
 
-- New custom CTA buttons must use the shared `tg-tilda-cta` helper in `src/pages/index.astro`, not a freshly drawn generic button.
+- New custom CTA buttons must use the shared `tg-tilda-cta` helper in `src/site/tilda-cta.ts`, not a freshly drawn generic button.
 - When reusing this pattern on another page, copy the full working set, not just class names: `tildaCtaInner`, `tildaCtaLink` / `tildaCtaButton`, `.tg-tilda-cta`, `.tg-plan-cta__button`, CSS variables, media queries, SVG mask URL, loading state, and hover rules.
 - Keep the visual structure as two joined elements: a rounded left plate plus a rounded right square.
 - Keep `--tg-cta-overlap:1px`, matching the export where the right square overlaps the left plate by one pixel.

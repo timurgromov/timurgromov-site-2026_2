@@ -1,13 +1,16 @@
 ---
 import { readFileSync } from "node:fs";
+import {
+  getTildaCtaArrowIconUrl,
+  tildaCtaLink,
+} from "../site/tilda-cta";
 
 const basePath = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const pageUrl = new URL(`${basePath}materials/`, "https://timurgromov.ru").toString();
 const telegramContactUrl = "https://t.me/timurgromovv";
 const maxContactUrl =
   "https://max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM?clckid=c487e7dc";
-const ctaArrowIconUrl =
-  `${basePath}images/tild3536-3939-4363-b163-323761323432__vector_8.svg`;
+const ctaArrowIconUrl = getTildaCtaArrowIconUrl(basePath);
 
 const pageHtml = readFileSync(
   new URL("../../page62008353.html", import.meta.url),
@@ -243,20 +246,75 @@ function patchWebinarArtboardHeights(
     );
 }
 
-const tildaCtaInner = (label: string) => `<span class="tg-tilda-cta__plate" aria-hidden="true"></span>
-  <span class="tg-tilda-cta__arrow-box" aria-hidden="true"></span>
-  <span class="tg-tilda-cta__label" data-tilda-cta-label>${label}</span>
-  <span class="tg-tilda-cta__icon" aria-hidden="true"></span>`;
+function findDivElementBounds(html: string, openTagStart: number) {
+  const divTagPattern = /<\/?div\b[^>]*>/gi;
+  divTagPattern.lastIndex = openTagStart;
+  let depth = 0;
+  let match: RegExpExecArray | null;
 
-const tildaCtaLink = (
-  className: string,
-  href: string,
-  label: string,
-  attrs = "",
-) =>
-  `<a class="tg-tilda-cta ${className}" href="${href}"${
-    attrs ? ` ${attrs}` : ""
-  }>${tildaCtaInner(label)}</a>`;
+  while ((match = divTagPattern.exec(html))) {
+    const tag = match[0];
+    depth += tag.startsWith("</") ? -1 : 1;
+
+    if (depth === 0) {
+      return {
+        start: openTagStart,
+        end: divTagPattern.lastIndex,
+      };
+    }
+  }
+
+  return null;
+}
+
+function extractGroupElement(html: string, groupId: string) {
+  const groupOpenPattern = new RegExp(
+    `<div\\b[^>]*\\bdata-group-id=(["'])${groupId}\\1[^>]*>`,
+  );
+  const groupMatch = html.match(groupOpenPattern);
+
+  if (!groupMatch || groupMatch.index === undefined) {
+    return null;
+  }
+
+  const bounds = findDivElementBounds(html, groupMatch.index);
+
+  if (!bounds) {
+    return null;
+  }
+
+  return {
+    markup: html.slice(bounds.start, bounds.end),
+    start: bounds.start,
+    end: bounds.end,
+  };
+}
+
+function wrapMobileWebinarCardStrip(recordHtml: string, groupIds: string[]) {
+  let html = recordHtml;
+  const groupMarkup: string[] = [];
+
+  groupIds.forEach((groupId) => {
+    const group = extractGroupElement(html, groupId);
+
+    if (!group) {
+      return;
+    }
+
+    groupMarkup.push(group.markup);
+    html = `${html.slice(0, group.start)}${html.slice(group.end)}`;
+  });
+
+  if (groupMarkup.length !== groupIds.length) {
+    return recordHtml;
+  }
+
+  return injectBeforeTildaRecordScript(
+    html,
+    mobileWebinarRecordId.replace("rec", ""),
+    ` <div class="tg-mobile-card-strip" aria-label="Карточки вебинара">${groupMarkup.join(" ")}</div>`,
+  );
+}
 
 const webinarCtaMarkup = `<section id="materials-followup-cta" class="tg-plan-cta" aria-labelledby="materials-followup-cta-title">
   <div class="tg-plan-cta__inner">
@@ -297,6 +355,13 @@ const materialRecordsHtml = materialRecordIds
         res640: 1110,
         res320: 800,
       });
+
+      if (recordId === mobileWebinarRecordId) {
+        recordHtml = wrapMobileWebinarCardStrip(recordHtml, [
+          "173883092613938130",
+          "173883093344499820",
+        ]);
+      }
     }
 
     if (recordId === webinarCtaInsertionRecordId) {
@@ -938,6 +1003,33 @@ const headHtml = withBasePath(
           }
           html.materials-header-hidden .materials-header-shell{
             transform:translateY(-100%);
+          }
+          #rec862050095 .tg-mobile-card-strip{
+            position:absolute;
+            z-index:30;
+            top:625px;
+            left:0;
+            width:100%;
+            height:300px;
+            overflow-x:auto !important;
+            overflow-y:hidden !important;
+            -webkit-overflow-scrolling:touch;
+            scrollbar-width:none;
+            touch-action:pan-x;
+          }
+          #rec862050095 .tg-mobile-card-strip::-webkit-scrollbar{
+            display:none;
+          }
+          #rec862050095 .tg-mobile-card-strip .tn-group[data-group-id="173883092613938130"],
+          #rec862050095 .tg-mobile-card-strip .tn-group[data-group-id="173883093344499820"]{
+            top:0 !important;
+            zoom:1.219 !important;
+          }
+          #rec862050095 .tg-mobile-card-strip .tn-group[data-group-id="173883092613938130"]{
+            left:10px !important;
+          }
+          #rec862050095 .tg-mobile-card-strip .tn-group[data-group-id="173883093344499820"]{
+            left:220px !important;
           }
           .tg-plan-cta{
             padding:var(--tg-home-section-pad-mobile) var(--tg-home-section-pad-mobile-x);

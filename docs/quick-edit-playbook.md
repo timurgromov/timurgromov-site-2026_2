@@ -146,13 +146,13 @@
 
 ## CTA Button Style Rule
 
-Если владелец просит добавить или поправить CTA-кнопки в новых кастомных блоках или popup, использовать общий split-button pattern `tg-tilda-cta` из `src/pages/index.astro`.
+Если владелец просит добавить или поправить CTA-кнопки в новых кастомных блоках или popup, использовать общий split-button pattern `tg-tilda-cta` из `src/site/tilda-cta.ts`.
 
 Эталон из Tilda export: `rec862529266`, кнопка `смотреть больше`. Это не один прямоугольник: слева отдельная скругленная плашка, справа отдельный скругленный квадрат со стрелкой, поверх них общий кликабельный слой.
 
 Не рисовать заново generic rounded button с псевдо-стрелкой. Не обнулять внутренние скругления между левой частью и квадратом. Детальное правило и ID слоев лежат в `docs/do-not-break-this-site.md` в разделе `CTA Split Button Rule`.
 
-Для CTA из `src/pages/index.astro` копировать не только class names, а весь рабочий комплект: `tildaCtaInner`, `tildaCtaLink` / `tildaCtaButton`, `.tg-tilda-cta`, `.tg-plan-cta__button`, CSS variables, media queries, SVG mask URL и hover rules. После сборки проверить, что compiled CSS не сломан и браузер реально видит правила `.tg-plan-cta__button` / `.tg-plan-cta__item`, а не только базовый `.tg-tilda-cta`.
+Для CTA копировать не только class names, а весь рабочий комплект: `tildaCtaInner`, `tildaCtaLink` / `tildaCtaButton` из `src/site/tilda-cta.ts`, `.tg-tilda-cta`, `.tg-plan-cta__button`, CSS variables, media queries, SVG mask URL и hover rules. После сборки проверить, что compiled CSS не сломан и браузер реально видит правила `.tg-plan-cta__button` / `.tg-plan-cta__item`, а не только базовый `.tg-tilda-cta`.
 
 ## Price Block Fast Map
 
