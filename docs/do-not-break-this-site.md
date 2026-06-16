@@ -11,32 +11,6 @@ Exact active VPS video URLs and historical Boomstream/Cloud.ru URLs live in `doc
 Current public production site is `https://timurgromov.ru/`.
 GitHub Pages fallback stays at `https://timurgromov.github.io/timurgromov-site-2026_2/`.
 
-## Copywriting Ban: `спокойно`
-
-User-facing site copy must not use the word `спокойно` or same-root variants such as `спокойный`, `спокойная`, `спокойное`, `спокойные`, `спокойнее`, `спокойного`, `спокойной`.
-
-Do not write phrases like:
-
-- `спокойно обсудим`
-- `спокойно познакомимся`
-- `спокойная подготовка`
-- `спокойный план`
-- `спокойнее для чтения`
-
-Reason:
-
-- The user explicitly rejects this wording as unnatural and weak for Russian marketing copy.
-- It makes the voice sound generic and inaccurate for the brand.
-
-Use direct alternatives based on meaning:
-
-- `по делу`
-- `понятно`
-- `без лишнего напряжения`
-- `без давления`
-- `структурно`
-- `разберём формат, гостей, площадку и тайминг`
-
 ## Materials Page As-Is Baseline
 
 The current safe `/materials/` implementation is an Astro route that preserves the old Tilda visual design by extracting records from:
