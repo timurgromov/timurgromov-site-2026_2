@@ -28,6 +28,261 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
           window.addEventListener("pageshow", syncMaterialsHeader);
           document.addEventListener("DOMContentLoaded", syncMaterialsHeader);
         })();
+      </script><script>
+        (function() {
+          const webinarConfigs = [
+            {
+              recordId: 'rec861962232',
+              items: [
+                { type: 'video', id: '1739078296052', zIndex: '14' },
+                { type: 'group', id: '173883092613938130', zIndex: '15' },
+                { type: 'group', id: '173883093344499820', zIndex: '15' },
+                { type: 'group', id: '173883093983445640', zIndex: '15' },
+              ],
+            },
+            {
+              recordId: 'rec862050095',
+              items: [
+                { type: 'video', id: '1739078914882', zIndex: '14' },
+                { type: 'group', id: '173883092613938130', zIndex: '15' },
+                { type: 'group', id: '173883093344499820', zIndex: '15' },
+                { type: 'group', id: '173883205939691230', zIndex: '15' },
+              ],
+            },
+          ];
+          const originalStyles = new WeakMap();
+          let scheduled = false;
+
+          function getBreakpointSuffix() {
+            const width = window.innerWidth || document.documentElement.clientWidth || 1920;
+
+            if (width <= 639) return '-res-320';
+            if (width <= 1199) return '-res-640';
+            if (width <= 1919) return '-res-1200';
+            return '';
+          }
+
+          function readNumberValueAttr(element, prefix, suffix) {
+            const exactName = suffix ? prefix + suffix + '-value' : prefix + '-value';
+            const fallbackName = prefix + '-value';
+            const raw = element.getAttribute(exactName) || element.getAttribute(fallbackName);
+
+            if (!raw) return null;
+
+            const parsed = parseFloat(raw);
+            return Number.isFinite(parsed) ? parsed : null;
+          }
+
+          function readNumberPlainAttr(element, prefix, suffix) {
+            const exactName = suffix ? prefix + suffix : prefix;
+            const raw = element.getAttribute(exactName) || element.getAttribute(prefix);
+
+            if (!raw) return null;
+
+            const parsed = parseFloat(raw);
+            return Number.isFinite(parsed) ? parsed : null;
+          }
+
+          function readRawAttr(element, prefix, suffix) {
+            const exactName = suffix ? prefix + suffix : prefix;
+            return element.getAttribute(exactName) || element.getAttribute(prefix);
+          }
+
+          function parseAnimationStep(raw) {
+            if (!raw) return null;
+
+            try {
+              const steps = JSON.parse(raw.replace(/'/g, '"'));
+              return Array.isArray(steps) && steps.length > 1 ? steps[1] : null;
+            } catch (error) {
+              return null;
+            }
+          }
+
+          function rememberStyle(element) {
+            if (!originalStyles.has(element)) {
+              originalStyles.set(element, element.getAttribute('style') || '');
+            }
+          }
+
+          function resetStyle(element) {
+            const originalStyle = originalStyles.get(element);
+
+            if (originalStyle === undefined) return;
+
+            if (originalStyle) {
+              element.setAttribute('style', originalStyle);
+            } else {
+              element.removeAttribute('style');
+            }
+          }
+
+          function applyPinnedStyle(element, top, left, width, height, translateX, translateY, zIndex) {
+            rememberStyle(element);
+            element.style.position = 'fixed';
+            element.style.top = top + 'px';
+            element.style.left = left + 'px';
+            element.style.width = width + 'px';
+            element.style.height = height + 'px';
+            element.style.transform = 'translate(' + translateX + 'px,' + translateY + 'px)';
+            element.style.transformOrigin = 'top left';
+            element.style.willChange = 'transform, top, left';
+            element.style.zIndex = zIndex;
+          }
+
+          function applyReleasedStyle(element, top, left, width, height, translateX, translateY, zIndex) {
+            rememberStyle(element);
+            element.style.position = 'absolute';
+            element.style.top = top + 'px';
+            element.style.left = left + 'px';
+            element.style.width = width + 'px';
+            element.style.height = height + 'px';
+            element.style.transform = 'translate(' + translateX + 'px,' + translateY + 'px)';
+            element.style.transformOrigin = 'top left';
+            element.style.willChange = 'transform, top, left';
+            element.style.zIndex = zIndex;
+          }
+
+          function getItemMetrics(element, itemType, suffix) {
+            const axisPrefix = itemType === 'group' ? 'data-group' : 'data-field';
+            const top = readNumberValueAttr(element, axisPrefix + '-top', suffix);
+            const left = readNumberValueAttr(element, axisPrefix + '-left', suffix);
+            const width = readNumberValueAttr(element, axisPrefix + '-width', suffix);
+            const height = readNumberValueAttr(element, axisPrefix + '-height', suffix);
+
+            if (top === null || left === null || width === null || height === null) {
+              return null;
+            }
+
+            if (itemType === 'video') {
+              const trigger = readNumberPlainAttr(element, 'data-animate-fix-trgofst', suffix);
+              const distance = readNumberPlainAttr(element, 'data-animate-fix-dist', suffix) ?? 500;
+
+              if (trigger === null) return null;
+
+              return {
+                top,
+                left,
+                width,
+                height,
+                trigger,
+                distance,
+                translateX: 0,
+                translateY: 0,
+                fixed: true,
+              };
+            }
+
+            const trigger = readNumberPlainAttr(element, 'data-animate-sbs-trgofst', suffix);
+            const animationStep = parseAnimationStep(readRawAttr(element, 'data-animate-sbs-opts', suffix));
+
+            if (trigger === null || !animationStep) return null;
+
+            const distance = Number(animationStep.di || 0);
+            const translateX = Number(animationStep.mx || 0);
+            const translateY = Number(animationStep.my || 0);
+            const fixed = String(animationStep.fi || '') === 'fixed';
+
+            if (!distance || !fixed) return null;
+
+            return {
+              top,
+              left,
+              width,
+              height,
+              trigger,
+              distance,
+              translateX,
+              translateY,
+              fixed,
+            };
+          }
+
+          function updateWebinarScrollState() {
+            scheduled = false;
+            const suffix = getBreakpointSuffix();
+            const scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+
+            webinarConfigs.forEach((config) => {
+              const record = document.getElementById(config.recordId);
+
+              if (!record || window.getComputedStyle(record).display === 'none') {
+                return;
+              }
+
+              const artboard = record.querySelector('.t396__artboard');
+
+              if (!artboard) return;
+
+              const artboardRect = artboard.getBoundingClientRect();
+              const artboardTop = scrollY + artboardRect.top;
+
+              config.items.forEach((item) => {
+                const selector =
+                  item.type === 'group'
+                    ? '[data-group-id="' + item.id + '"]'
+                    : '[data-elem-id="' + item.id + '"]';
+                const element = record.querySelector(selector);
+
+                if (!element) return;
+
+                const metrics = getItemMetrics(element, item.type, suffix);
+
+                if (!metrics) {
+                  resetStyle(element);
+                  return;
+                }
+
+                const start = artboardTop + metrics.trigger;
+                const end = start + metrics.distance;
+
+                if (scrollY <= start) {
+                  resetStyle(element);
+                  return;
+                }
+
+                if (scrollY >= end) {
+                  applyReleasedStyle(
+                    element,
+                    metrics.top + metrics.distance,
+                    metrics.left,
+                    metrics.width,
+                    metrics.height,
+                    metrics.translateX,
+                    metrics.translateY,
+                    item.zIndex,
+                  );
+                  return;
+                }
+
+                const progress = (scrollY - start) / metrics.distance;
+
+                applyPinnedStyle(
+                  element,
+                  metrics.top - metrics.trigger,
+                  artboardRect.left + metrics.left,
+                  metrics.width,
+                  metrics.height,
+                  metrics.translateX * progress,
+                  metrics.translateY * progress,
+                  item.zIndex,
+                );
+              });
+            });
+          }
+
+          function scheduleWebinarScrollState() {
+            if (scheduled) return;
+            scheduled = true;
+            window.requestAnimationFrame(updateWebinarScrollState);
+          }
+
+          window.addEventListener('scroll', scheduleWebinarScrollState, { passive: true });
+          window.addEventListener('resize', scheduleWebinarScrollState);
+          window.addEventListener('load', scheduleWebinarScrollState);
+          document.addEventListener('DOMContentLoaded', scheduleWebinarScrollState);
+          window.setInterval(scheduleWebinarScrollState, 150);
+        })();
       </script><style>
         body.t-body{background:#fffefa !important;}
         #rec862623921 .tn-elem[data-elem-id="1738908324214"],
@@ -157,6 +412,19 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
         #rec861962232,
         #rec862050095{
           margin-top:-96px;
+        }
+        #rec861962232 .tn-atom__video-play-link,
+        #rec862050095 .tn-atom__video-play-link{
+          display:flex !important;
+          align-items:center;
+          justify-content:center;
+          opacity:1 !important;
+          visibility:visible !important;
+          pointer-events:auto;
+        }
+        #rec861962232 .tn-atom__video-play-icon,
+        #rec862050095 .tn-atom__video-play-icon{
+          display:block !important;
         }
         .materials-header-copy{
           position:absolute;
@@ -639,4 +907,4 @@ alt='' imgfield='tn_img_1738908324214'
 /> </a> </div> <div class='t396__elem tn-elem tn-elem__8626239211738908342859 ' data-elem-id='1738908342859' data-elem-type='image' data-field-top-value="941" data-field-left-value="1683" data-field-height-value="51" data-field-width-value="51" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-animate-mobile="y" data-animate-sbs-event="hover" data-animate-sbs-opts="[{'mx':0,'my':0,'sx':1,'sy':1,'op':1,'ro':0,'ti':0,'ea':'0','dt':0},{'mx':0,'my':0,'sx':1,'sy':1,'op':0.6,'ro':0,'ti':200,'ea':'0','dt':0}]" data-field-filewidth-value="32" data-field-fileheight-value="32" data-field-widthmode-value="fixed" data-field-heightmode-value="hug" data-field-top-res-320-value="536" data-field-left-res-320-value="185" data-field-height-res-320-value="28" data-field-width-res-320-value="28" data-field-widthmode-res-320-value="fixed" data-field-top-res-640-value="573" data-field-left-res-640-value="561" data-field-height-res-640-value="32" data-field-top-res-1200-value="594" data-field-left-res-1200-value="1050" data-field-height-res-1200-value="32" data-field-width-res-1200-value="32" data-field-widthmode-res-1200-value="fixed"> <a class='tn-atom' href="https://vk.com/timurgromovvv" rel="nofollow" target="_blank"> <img class='tn-atom__img t-img' data-original='/images/tild6565-6133-4536-b931-353333313933__vk.svg'
 src='/images/tild6565-6133-4536-b931-353333313933__vk.svg'
 alt='' imgfield='tn_img_1738908342859'
-/> </a> </div> <div class='t396__elem tn-elem tn-elem__8626239211738909098665 ' data-elem-id='1738909098665' data-elem-type='text' data-field-top-value="1121" data-field-left-value="1285" data-field-height-value="24" data-field-width-value="184" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-animate-sbs-event="hover" data-animate-sbs-opts="[{'mx':0,'my':0,'sx':1,'sy':1,'op':1,'ro':0,'ti':0,'ea':'0','dt':0}]" data-field-textfit-value="autoheight" data-field-fontsize-value="20" data-field-top-res-320-value="885" data-field-left-res-320-value="25" data-field-width-res-320-value="110" data-field-fontsize-res-320-value="12" data-field-top-res-640-value="788" data-field-left-res-640-value="311" data-field-top-res-1200-value="708" data-field-left-res-1200-value="803" data-field-fontsize-res-1200-value="13"> <div class='tn-atom'><a href="https://komarovaeee.com/"target="_blank"style="color: inherit">Создание сайта:</a></div> </div> <div class='t396__elem tn-elem tn-elem__8626239211739077659698 ' data-elem-id='1739077659698' data-elem-type='text' data-field-top-value="1121" data-field-left-value="1449" data-field-height-value="24" data-field-width-value="265" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-animate-sbs-event="hover" data-animate-sbs-opts="[{'mx':0,'my':0,'sx':1,'sy':1,'op':1,'ro':0,'ti':0,'ea':'0','dt':0},{'mx':0,'my':0,'sx':1,'sy':1,'op':0.5,'ro':0,'ti':200,'ea':'0','dt':0}]" data-field-textfit-value="autoheight" data-field-fontsize-value="20" data-field-top-res-320-value="885" data-field-left-res-320-value="125" data-field-fontsize-res-320-value="12" data-field-top-res-640-value="788" data-field-left-res-640-value="421" data-field-top-res-1200-value="708" data-field-left-res-1200-value="908" data-field-fontsize-res-1200-value="13"> <div class='tn-atom'><a href="https://komarovaeee.com/"target="_blank"style="color: inherit">komarovaeee</a></div> </div>  <div class='t396__elem tn-elem tn-elem__8626239211746200000002' data-elem-id='1746200000002' data-elem-type='text' data-field-top-value="928" data-field-left-value="1285" data-field-height-value="24" data-field-width-value="320" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-textfit-value="autoheight" data-field-fontsize-value="20" data-field-top-res-320-value="532" data-field-left-res-320-value="25" data-field-width-res-320-value="220" data-field-fontsize-res-320-value="12" data-field-top-res-640-value="566" data-field-left-res-640-value="311" data-field-width-res-640-value="230" data-field-fontsize-res-640-value="13" data-field-top-res-1200-value="584" data-field-left-res-1200-value="800" data-field-width-res-1200-value="260" data-field-fontsize-res-1200-value="13"> <div class='tn-atom'><span class="contact-shortcut-inline__content"><span class="contact-shortcut-inline__label">Написать мне</span><a class="contact-shortcut-inline__link" href="https://t.me/timurgromovv" target="_blank" rel="nofollow">Telegram</a><a class="contact-shortcut-inline__link" href="https://max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM?clckid=c487e7dc" target="_blank" rel="nofollow">MAX</a></span></div> </div></div> </div> <script>t_onFuncLoad('t396_initialScale',function() {t396_initialScale('862623921');});t_onReady(function() {t_onFuncLoad('t396_init',function() {t396_init('862623921');});});</script> <!-- /T396 --> </div></div> <!--/allrecords--></body></html>
+/> </a> </div> <div class='t396__elem tn-elem tn-elem__8626239211738909098665 ' data-elem-id='1738909098665' data-elem-type='text' data-field-top-value="1121" data-field-left-value="1285" data-field-height-value="24" data-field-width-value="184" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-animate-sbs-event="hover" data-animate-sbs-opts="[{'mx':0,'my':0,'sx':1,'sy':1,'op':1,'ro':0,'ti':0,'ea':'0','dt':0}]" data-field-textfit-value="autoheight" data-field-fontsize-value="20" data-field-top-res-320-value="885" data-field-left-res-320-value="25" data-field-width-res-320-value="110" data-field-fontsize-res-320-value="12" data-field-top-res-640-value="788" data-field-left-res-640-value="311" data-field-top-res-1200-value="708" data-field-left-res-1200-value="803" data-field-fontsize-res-1200-value="13"> <div class='tn-atom'><a href="https://komarovaeee.com/"target="_blank"style="color: inherit">Создание сайта:</a></div> </div> <div class='t396__elem tn-elem tn-elem__8626239211739077659698 ' data-elem-id='1739077659698' data-elem-type='text' data-field-top-value="1121" data-field-left-value="1449" data-field-height-value="24" data-field-width-value="265" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-animate-sbs-event="hover" data-animate-sbs-opts="[{'mx':0,'my':0,'sx':1,'sy':1,'op':1,'ro':0,'ti':0,'ea':'0','dt':0},{'mx':0,'my':0,'sx':1,'sy':1,'op':0.5,'ro':0,'ti':200,'ea':'0','dt':0}]" data-field-textfit-value="autoheight" data-field-fontsize-value="20" data-field-top-res-320-value="885" data-field-left-res-320-value="125" data-field-fontsize-res-320-value="12" data-field-top-res-640-value="788" data-field-left-res-640-value="421" data-field-top-res-1200-value="708" data-field-left-res-1200-value="908" data-field-fontsize-res-1200-value="13"> <div class='tn-atom'><a href="https://komarovaeee.com/"target="_blank"style="color: inherit">komarovaeee</a></div> </div>  <div class='t396__elem tn-elem tn-elem__8626239211746200000002' data-elem-id='1746200000002' data-elem-type='text' data-field-top-value="928" data-field-left-value="1285" data-field-height-value="24" data-field-width-value="320" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-textfit-value="autoheight" data-field-fontsize-value="20" data-field-top-res-320-value="532" data-field-left-res-320-value="25" data-field-width-res-320-value="220" data-field-fontsize-res-320-value="12" data-field-top-res-640-value="566" data-field-left-res-640-value="311" data-field-width-res-640-value="230" data-field-fontsize-res-640-value="13" data-field-top-res-1200-value="584" data-field-left-res-1200-value="800" data-field-width-res-1200-value="260" data-field-fontsize-res-1200-value="13"> <div class='tn-atom'><span class="contact-shortcut-inline__content"><span class="contact-shortcut-inline__label">Написать мне</span><a class="contact-shortcut-inline__link" href="https://t.me/timurgromovv" target="_blank" rel="nofollow">Telegram</a><a class="contact-shortcut-inline__link" href="https://max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM?clckid=c487e7dc" target="_blank" rel="nofollow">MAX</a></span></div> </div></div> </div> <script>t_onFuncLoad('t396_initialScale',function() {t396_initialScale('862623921');});t_onReady(function() {t_onFuncLoad('t396_init',function() {t396_init('862623921');});});</script> <!-- /T396 --> </div></div> <!--/allrecords--> <style id="materials-video-play-restore">#rec861962232 .tn-atom__video-play-link,#rec862050095 .tn-atom__video-play-link{display:flex !important;align-items:center;justify-content:center;opacity:1 !important;visibility:visible !important;pointer-events:auto;}#rec861962232 .tn-atom__video-play-icon,#rec862050095 .tn-atom__video-play-icon{display:block !important;}</style></body></html>
