@@ -339,10 +339,10 @@ const materialRecordsHtml = materialRecordIds
     if (recordId === webinarDesktopRecordId || recordId === mobileWebinarRecordId) {
       recordHtml = stripWebinarAnimations(recordHtml);
       recordHtml = patchWebinarArtboardHeights(recordHtml, {
-        default: recordId === webinarDesktopRecordId ? 1140 : 900,
-        res1200: 760,
-        res640: 1110,
-        res320: 800,
+        default: recordId === webinarDesktopRecordId ? 1080 : 860,
+        res1200: 680,
+        res640: 1060,
+        res320: 784,
       });
 
       if (recordId === mobileWebinarRecordId) {
@@ -580,7 +580,7 @@ const headHtml = withBasePath(
         .tg-plan-cta{
           background:#fffefa;
           color:#1c1b1a;
-          padding:var(--tg-home-section-pad-desktop) var(--tg-home-section-pad-desktop-x);
+          padding:40px var(--tg-home-section-pad-desktop-x) var(--tg-home-section-pad-desktop);
         }
         .tg-plan-cta__inner{
           display:grid;
@@ -908,7 +908,7 @@ const headHtml = withBasePath(
             left:calc(50% - 320px + 519px) !important;
           }
           .tg-plan-cta{
-            padding:var(--tg-home-section-pad-tablet) var(--tg-home-section-pad-tablet-x);
+            padding:36px var(--tg-home-section-pad-tablet-x) var(--tg-home-section-pad-tablet);
           }
           .tg-plan-cta__inner{
             grid-template-columns:1fr;
@@ -1021,7 +1021,7 @@ const headHtml = withBasePath(
             left:220px !important;
           }
           .tg-plan-cta{
-            padding:40px var(--tg-home-section-pad-mobile-x) 24px;
+            padding:24px var(--tg-home-section-pad-mobile-x) 24px;
           }
           .tg-plan-cta__inner{
             gap:26px;
