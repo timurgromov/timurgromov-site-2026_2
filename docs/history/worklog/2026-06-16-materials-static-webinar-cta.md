@@ -11,7 +11,7 @@
   - stripped `data-animate-*`, `t-animate`, and hidden-animation classes from the desktop/mobile webinar records;
   - hid the old webinar review/proof groups inside `rec861962232` and `rec862050095`;
   - removed the header helper copy `Тут вы узнаете много полезностей`;
-  - inserted a new custom CTA section under the webinar with Telegram/MAX actions in the main-site visual language;
+  - inserted a follow-up CTA section under the webinar and then normalized it to the same `tg-plan-cta` / `tg-tilda-cta` structure used on the main page, instead of a custom button/card variant;
   - kept the page as `Tilda records inside Astro`, without a native page rewrite.
 - In `scripts/verify-materials-baseline.mjs`:
   - updated the baseline markers so the new CTA is expected and the removed helper copy is forbidden.

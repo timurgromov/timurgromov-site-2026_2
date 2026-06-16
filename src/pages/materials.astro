@@ -182,10 +182,10 @@ function stripWebinarAnimations(recordHtml: string) {
     .replace(/\s{2,}/g, " ");
 }
 
-const tildaCtaInner = (label: string) => `<span class="materials-followup-cta__button-plate" aria-hidden="true"></span>
-  <span class="materials-followup-cta__button-arrow-box" aria-hidden="true"></span>
-  <span class="materials-followup-cta__button-label">${label}</span>
-  <span class="materials-followup-cta__button-icon" aria-hidden="true"></span>`;
+const tildaCtaInner = (label: string) => `<span class="tg-tilda-cta__plate" aria-hidden="true"></span>
+  <span class="tg-tilda-cta__arrow-box" aria-hidden="true"></span>
+  <span class="tg-tilda-cta__label" data-tilda-cta-label>${label}</span>
+  <span class="tg-tilda-cta__icon" aria-hidden="true"></span>`;
 
 const tildaCtaLink = (
   className: string,
@@ -193,29 +193,28 @@ const tildaCtaLink = (
   label: string,
   attrs = "",
 ) =>
-  `<a class="materials-followup-cta__button ${className}" href="${href}"${
+  `<a class="tg-tilda-cta ${className}" href="${href}"${
     attrs ? ` ${attrs}` : ""
   }>${tildaCtaInner(label)}</a>`;
 
 const webinarCtaMarkup = `<section class="materials-followup-cta-record" aria-labelledby="materials-followup-cta-title">
-  <div class="materials-followup-cta">
-    <div class="materials-followup-cta__inner">
-      <div class="materials-followup-cta__content">
-        <p class="materials-followup-cta__kicker">Дополнительный материал</p>
-        <h2 id="materials-followup-cta-title">Получить расширенный конспект подготовки к свадьбе</h2>
-        <p class="materials-followup-cta__lead">После вебинара напишите мне в личку. В сообщении укажите, кто вы, когда у вас свадьба и что вы посмотрели вебинар.</p>
-        <p class="materials-followup-cta__text">В ответ я лично отправлю пошаговый план подготовки к свадьбе и расширенный конспект этого вебинара.</p>
+  <div class="tg-plan-cta materials-followup-cta">
+    <div class="tg-plan-cta__inner">
+      <div>
+        <p class="tg-plan-cta__kicker">После вебинара</p>
+        <h2 id="materials-followup-cta-title">Получить конспект подготовки к свадьбе</h2>
+        <p class="tg-plan-cta__text">После вебинара напишите мне в личку. В сообщении укажите, кто вы, когда у вас свадьба и что посмотрели вебинар.</p>
+        <p class="tg-plan-cta__text">В ответ я лично отправлю пошаговый план подготовки к свадьбе и расширенный конспект этого вебинара.</p>
+        <div class="tg-plan-cta__actions">
+          ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--primary", telegramContactUrl, "Написать в Telegram", 'target="_blank" rel="nofollow"')}
+          ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--secondary", maxContactUrl, "Написать в MAX", 'target="_blank" rel="nofollow"')}
+        </div>
       </div>
-      <div class="materials-followup-cta__aside">
-        <div class="materials-followup-cta__note-card">
-          <p class="materials-followup-cta__note-title">Что написать</p>
-          <p class="materials-followup-cta__note-text">Коротко: кто вы, дата свадьбы и что хотите получить конспект после вебинара.</p>
-        </div>
-        <div class="materials-followup-cta__actions">
-          ${tildaCtaLink("materials-followup-cta__button--primary", telegramContactUrl, "Написать в Telegram", 'target="_blank" rel="nofollow"')}
-          ${tildaCtaLink("materials-followup-cta__button--secondary", maxContactUrl, "Написать в MAX", 'target="_blank" rel="nofollow"')}
-        </div>
-        <p class="materials-followup-cta__mini-note">Материал отправляется лично после сообщения.</p>
+      <div class="tg-plan-cta__side" aria-label="Что делать дальше">
+        <div class="tg-plan-cta__item"><strong>01</strong><span>Напишите, кто вы и когда у вас свадьба.</span></div>
+        <div class="tg-plan-cta__item"><strong>02</strong><span>Укажите, что посмотрели вебинар и хотите получить расширенный конспект.</span></div>
+        <div class="tg-plan-cta__item"><strong>03</strong><span>В ответ я лично отправлю конспект и пошаговый план подготовки к свадьбе.</span></div>
+        <p class="tg-plan-cta__note">Материал отправляется лично после сообщения.</p>
       </div>
     </div>
   </div>
@@ -456,147 +455,117 @@ const headHtml = withBasePath(
         .materials-followup-cta-record{
           background:#fffefa;
         }
-        .materials-followup-cta{
-          width:min(1680px, calc(100vw - 130px));
-          margin:0 auto;
-          padding:72px 0 110px;
-        }
-        .materials-followup-cta__inner{
-          display:grid;
-          grid-template-columns:minmax(0, 1.08fr) minmax(340px, 0.72fr);
-          gap:56px;
-          align-items:start;
-          padding:0;
-          border-top:1px solid rgba(28,27,26,.1);
-        }
-        .materials-followup-cta__content{
-          padding-top:42px;
-        }
-        .materials-followup-cta__kicker{
-          margin:0 0 18px;
-          color:#fa4604;
-          font-family:'Manrope',Arial,sans-serif;
-          font-size:20px;
-          line-height:1.1;
-          font-weight:400;
-        }
-        .materials-followup-cta__content h2{
-          margin:0;
-          max-width:860px;
-          color:#1c1b1a;
-          font-family:'Coolvetica',Arial,sans-serif;
-          font-size:88px;
-          line-height:.92;
-          font-weight:500;
-          letter-spacing:-0.02em;
-        }
-        .materials-followup-cta__lead,
-        .materials-followup-cta__text,
-        .materials-followup-cta__note-text,
-        .materials-followup-cta__mini-note{
-          color:rgba(28,27,26,.8);
-          font-family:'Manrope',Arial,sans-serif;
-          font-size:20px;
-          line-height:1.45;
-          font-weight:400;
-        }
-        .materials-followup-cta__lead{
-          margin:28px 0 0;
-          max-width:780px;
-        }
-        .materials-followup-cta__text{
-          margin:18px 0 0;
-          max-width:760px;
-        }
-        .materials-followup-cta__aside{
-          display:grid;
-          gap:20px;
-          padding-top:56px;
-        }
-        .materials-followup-cta__note-card{
-          padding:34px 36px 32px;
-          border:1px solid rgba(28,27,26,.18);
-          border-radius:18px;
+        .tg-plan-cta{
           background:#fffefa;
-        }
-        .materials-followup-cta__note-title{
-          margin:0 0 14px;
           color:#1c1b1a;
-          font-family:'Coolvetica',Arial,sans-serif;
-          font-size:40px;
-          line-height:.95;
-          font-weight:500;
+          padding:72px 65px 110px;
         }
-        .materials-followup-cta__note-text{
-          margin:0;
-        }
-        .materials-followup-cta__actions{
+        .tg-plan-cta__inner{
           display:grid;
-          gap:14px;
+          grid-template-columns:minmax(0, .9fr) minmax(360px, .7fr);
+          gap:58px;
+          width:min(1680px, 100%);
+          margin:0 auto;
+          align-items:center;
+          border-top:1px solid rgba(28,27,26,.12);
+          padding-top:48px;
         }
-        .materials-followup-cta__mini-note{
+        .tg-plan-cta__kicker,
+        .tg-plan-cta__text,
+        .tg-plan-cta__note,
+        .tg-plan-cta__item span{
           margin:0;
-          font-size:16px;
-          line-height:1.4;
+          font-family:var(--t-text-font, Arial);
+          font-weight:400;
+          letter-spacing:0;
         }
-        .materials-followup-cta__button{
-          --materials-cta-height:48px;
-          --materials-cta-arrow-box:48px;
-          --materials-cta-overlap:1px;
-          --materials-cta-pad-left:30px;
-          --materials-cta-pad-right:24px;
-          --materials-cta-radius:8px;
-          --materials-cta-fill:#fffefa;
-          --materials-cta-border:#fa4604;
-          --materials-cta-color:#1c1b1a;
-          --materials-cta-arrow-fill:#fffefa;
-          --materials-cta-arrow-color:#1c1b1a;
-          --materials-cta-icon-size:16px;
-          --materials-cta-font-size:19px;
+        .tg-plan-cta__kicker{
+          margin-bottom:22px;
+          color:#fa4604;
+          font-size:18px;
+          line-height:1.1;
+        }
+        .tg-plan-cta h2{
+          max-width:1000px;
+          margin:0 0 22px;
+          color:#1c1b1a;
+          font-family:var(--t-headline-font, Arial);
+          font-size:clamp(48px, 3.1vw, 60px);
+          font-weight:500;
+          line-height:1;
+          text-transform:uppercase;
+          letter-spacing:0;
+        }
+        .tg-plan-cta__text{
+          max-width:760px;
+          color:rgba(28,27,26,.78);
+          font-size:20px;
+          line-height:1.28;
+        }
+        .tg-plan-cta__actions{
+          display:flex;
+          flex-wrap:wrap;
+          gap:10px;
+          margin-top:26px;
+        }
+        .tg-tilda-cta{
+          --tg-cta-height:30px;
+          --tg-cta-arrow-box:30px;
+          --tg-cta-overlap:1px;
+          --tg-cta-pad-left:20px;
+          --tg-cta-pad-right:18px;
+          --tg-cta-radius:5px;
+          --tg-cta-fill:#fffefa;
+          --tg-cta-border:#fa4604;
+          --tg-cta-color:#1c1b1a;
+          --tg-cta-arrow-fill:#fffefa;
+          --tg-cta-arrow-color:#1c1b1a;
+          --tg-cta-icon-size:10px;
+          --tg-cta-font-size:12px;
           position:relative;
           display:inline-grid;
-          grid-template-columns:minmax(0, auto) calc(var(--materials-cta-arrow-box) - var(--materials-cta-overlap));
+          grid-template-columns:minmax(0, auto) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
           align-items:stretch;
-          width:max-content;
-          max-width:100%;
           min-height:0 !important;
-          height:var(--materials-cta-height) !important;
+          height:var(--tg-cta-height) !important;
           padding:0 !important;
           border:0 !important;
           border-radius:0 !important;
           box-sizing:border-box;
           background:transparent !important;
-          color:var(--materials-cta-color) !important;
-          font-family:'Manrope',Arial,sans-serif;
-          font-size:var(--materials-cta-font-size) !important;
+          color:var(--tg-cta-color) !important;
+          font-family:var(--t-text-font, Arial);
+          font-size:var(--tg-cta-font-size) !important;
           font-weight:400;
           line-height:1;
           text-decoration:none !important;
           background-image:none !important;
+          transition:background-color .18s ease,color .18s ease,border-color .18s ease,box-shadow .18s ease,transform .18s ease;
           appearance:none;
           -webkit-appearance:none;
+          cursor:pointer;
         }
-        .materials-followup-cta__button-plate,
-        .materials-followup-cta__button-arrow-box{
+        .tg-tilda-cta__plate,
+        .tg-tilda-cta__arrow-box{
           grid-row:1;
-          border:1px solid var(--materials-cta-border);
+          border:1px solid var(--tg-cta-border);
           box-sizing:border-box;
-          background:var(--materials-cta-fill);
+          background:var(--tg-cta-fill);
           transition:background-color .18s ease,border-color .18s ease;
         }
-        .materials-followup-cta__button-plate{
+        .tg-tilda-cta__plate{
           grid-column:1;
           min-width:0;
-          border-radius:var(--materials-cta-radius);
+          border-radius:var(--tg-cta-radius);
         }
-        .materials-followup-cta__button-arrow-box{
+        .tg-tilda-cta__arrow-box{
           grid-column:2;
-          width:var(--materials-cta-arrow-box);
-          margin-left:calc(-1 * var(--materials-cta-overlap));
-          border-radius:var(--materials-cta-radius);
-          background:var(--materials-cta-arrow-fill);
+          width:var(--tg-cta-arrow-box);
+          margin-left:calc(-1 * var(--tg-cta-overlap));
+          border-radius:var(--tg-cta-radius);
+          background:var(--tg-cta-arrow-fill);
         }
-        .materials-followup-cta__button-label{
+        .tg-tilda-cta__label{
           grid-column:1;
           grid-row:1;
           z-index:1;
@@ -604,42 +573,146 @@ const headHtml = withBasePath(
           align-items:center;
           justify-content:center;
           min-width:0;
-          padding:0 var(--materials-cta-pad-right) 0 var(--materials-cta-pad-left);
-          color:var(--materials-cta-color);
+          padding:0 var(--tg-cta-pad-right) 0 var(--tg-cta-pad-left);
+          color:var(--tg-cta-color);
           font:inherit;
           line-height:1;
           white-space:nowrap;
           pointer-events:none;
         }
-        .materials-followup-cta__button-icon{
+        .tg-tilda-cta__icon{
           grid-column:2;
           grid-row:1;
           z-index:1;
           display:grid;
           place-items:center;
-          width:var(--materials-cta-arrow-box);
-          margin-left:calc(-1 * var(--materials-cta-overlap));
+          width:var(--tg-cta-arrow-box);
+          margin-left:calc(-1 * var(--tg-cta-overlap));
           pointer-events:none;
         }
-        .materials-followup-cta__button-icon::before{
+        .tg-tilda-cta__icon::before{
           content:"";
-          width:var(--materials-cta-icon-size);
-          height:var(--materials-cta-icon-size);
-          background:var(--materials-cta-arrow-color);
+          width:var(--tg-cta-icon-size);
+          height:var(--tg-cta-icon-size);
+          background:var(--tg-cta-arrow-color);
           -webkit-mask:url("${ctaArrowIconUrl}") center / contain no-repeat;
           mask:url("${ctaArrowIconUrl}") center / contain no-repeat;
+          transform:rotate(0deg);
+          transform-origin:center;
           transition:transform .2s ease,background-color .18s ease;
         }
-        .materials-followup-cta__button--primary{
-          --materials-cta-fill:#fa4604;
-          --materials-cta-color:#fffefa;
-          --materials-cta-arrow-fill:#fa4604;
-          --materials-cta-arrow-color:#fffefa;
-        }
         @media (hover:hover){
-          .materials-followup-cta__button:hover .materials-followup-cta__button-icon::before{
+          .tg-tilda-cta:hover .tg-tilda-cta__icon::before{
             transform:rotate(45deg);
           }
+        }
+        @keyframes tgCtaSpin{
+          to{ transform:translateY(-50%) rotate(360deg); }
+        }
+        @media (min-width:1200px){
+          .tg-tilda-cta{
+            --tg-cta-height:clamp(30px, 2.5vw, 48px);
+            --tg-cta-arrow-box:clamp(30px, 2.5vw, 48px);
+            --tg-cta-pad-left:clamp(20px, 1.6667vw, 34px);
+            --tg-cta-pad-right:clamp(18px, 1.5vw, 26px);
+            --tg-cta-radius:clamp(5px, .4167vw, 8px);
+            --tg-cta-icon-size:clamp(10px, .8333vw, 16px);
+            --tg-cta-font-size:clamp(12px, 1vw, 19px);
+          }
+        }
+        @media (min-width:1920px){
+          .tg-tilda-cta{
+            --tg-cta-height:48px;
+            --tg-cta-arrow-box:48px;
+            --tg-cta-pad-left:34px;
+            --tg-cta-pad-right:26px;
+            --tg-cta-radius:8px;
+            --tg-cta-icon-size:16px;
+            --tg-cta-font-size:19px;
+          }
+        }
+        @media (max-width:1199px){
+          .tg-tilda-cta{
+            --tg-cta-height:35px;
+            --tg-cta-arrow-box:35px;
+            --tg-cta-pad-left:18px;
+            --tg-cta-pad-right:16px;
+            --tg-cta-radius:5px;
+            --tg-cta-icon-size:13px;
+            --tg-cta-font-size:13px;
+          }
+        }
+        .tg-plan-cta__button{
+          min-width:clamp(200px, 16.6667vw, 320px);
+          --tg-cta-fill:#fffefa;
+          --tg-cta-color:#1c1b1a;
+          --tg-cta-arrow-fill:#fffefa;
+          --tg-cta-arrow-color:#1c1b1a;
+        }
+        .tg-plan-cta__button--primary{
+          --tg-cta-fill:#fa4604;
+          --tg-cta-color:#fffefa;
+          --tg-cta-arrow-fill:#fa4604;
+          --tg-cta-arrow-color:#fffefa;
+        }
+        .tg-plan-cta__button--secondary{
+          --tg-cta-fill:#fffefa;
+          --tg-cta-color:#1c1b1a;
+          --tg-cta-arrow-fill:#fffefa;
+          --tg-cta-arrow-color:#1c1b1a;
+        }
+        @media (hover:hover){
+          .tg-plan-cta__button:hover{
+            --tg-cta-fill:#fa4604;
+            --tg-cta-color:#fffefa;
+            --tg-cta-arrow-fill:#fa4604;
+            --tg-cta-arrow-color:#fffefa;
+            box-shadow:0 14px 28px rgba(250,70,4,.16);
+            transform:translateY(-1px);
+          }
+          .tg-plan-cta__button--primary:hover{
+            --tg-cta-fill:#fa4604;
+            --tg-cta-color:#fffefa;
+            --tg-cta-arrow-fill:#fa4604;
+            --tg-cta-arrow-color:#fffefa;
+          }
+        }
+        .tg-plan-cta__side{
+          display:grid;
+          gap:14px;
+          padding-top:0;
+          padding-bottom:0;
+        }
+        .tg-plan-cta__item{
+          display:grid;
+          grid-template-columns:52px minmax(0, 1fr);
+          gap:16px;
+          align-items:start;
+          padding-top:16px;
+          border-top:1px solid rgba(28,27,26,.12);
+        }
+        .tg-plan-cta__item:first-child{
+          padding-top:0;
+        }
+        .tg-plan-cta__item strong{
+          color:#fa4604;
+          font-family:var(--t-headline-font, Arial);
+          font-size:44px;
+          font-weight:500;
+          line-height:1;
+          letter-spacing:0;
+        }
+        .tg-plan-cta__item span{
+          color:rgba(28,27,26,.8);
+          font-size:17px;
+          line-height:1.22;
+        }
+        .tg-plan-cta__note{
+          max-width:520px;
+          margin-top:8px;
+          color:rgba(28,27,26,.54);
+          font-size:15px;
+          line-height:1.25;
         }
         @media screen and (max-width:1919px){
           #allrecords{
@@ -674,43 +747,32 @@ const headHtml = withBasePath(
           #rec862623921 .tn-elem[data-elem-id="1738908505292"]{
             top:676px !important;
           }
-          .materials-followup-cta{
-            width:min(1040px, calc(100vw - 80px));
-            padding:56px 0 92px;
+          .tg-plan-cta{
+            padding:56px 40px 92px;
           }
-          .materials-followup-cta__inner{
+          .tg-plan-cta__inner{
+            width:min(1040px, 100%);
             grid-template-columns:minmax(0, 1fr) minmax(300px, 0.7fr);
             gap:38px;
           }
-          .materials-followup-cta__content{
-            padding-top:32px;
-          }
-          .materials-followup-cta__content h2{
+          .tg-plan-cta h2{
             max-width:610px;
             font-size:54px;
           }
-          .materials-followup-cta__lead,
-          .materials-followup-cta__text,
-          .materials-followup-cta__note-text{
-            font-size:13px;
+          .tg-plan-cta__text{
+            max-width:620px;
+            font-size:18px;
           }
-          .materials-followup-cta__aside{
-            gap:16px;
-            padding-top:40px;
+          .tg-plan-cta__side{
+            max-width:420px;
           }
-          .materials-followup-cta__kicker{
-            margin-bottom:12px;
-            font-size:13px;
+          .tg-plan-cta__item strong{
+            font-size:36px;
           }
-          .materials-followup-cta__note-card{
-            padding:22px 24px 20px;
-            border-radius:10px;
+          .tg-plan-cta__item span{
+            font-size:15px;
           }
-          .materials-followup-cta__note-title{
-            margin-bottom:10px;
-            font-size:27px;
-          }
-          .materials-followup-cta__mini-note{
+          .tg-plan-cta__note{
             font-size:12px;
           }
         }
@@ -736,43 +798,26 @@ const headHtml = withBasePath(
           #rec862623921 .tn-elem[data-elem-id="1738908342859"]{
             left:calc(50% - 320px + 519px) !important;
           }
-          .materials-followup-cta{
-            width:min(600px, calc(100vw - 40px));
-            padding:44px 0 74px;
+          .tg-plan-cta{
+            padding:44px 20px 74px;
           }
-          .materials-followup-cta__inner{
-            grid-template-columns:minmax(0, 1fr);
-            gap:26px;
+          .tg-plan-cta__inner{
+            width:min(600px, 100%);
+            grid-template-columns:1fr;
+            gap:46px;
+            align-items:start;
           }
-          .materials-followup-cta__content{
-            padding-top:26px;
+          .tg-plan-cta h2{
+            max-width:700px;
+            font-size:52px;
           }
-          .materials-followup-cta__content h2{
-            max-width:100%;
-            font-size:42px;
+          .tg-plan-cta__text{
+            max-width:660px;
+            font-size:19px;
           }
-          .materials-followup-cta__lead,
-          .materials-followup-cta__text,
-          .materials-followup-cta__note-text{
-            font-size:16px;
-          }
-          .materials-followup-cta__aside{
+          .tg-plan-cta__side{
+            max-width:700px;
             padding-top:0;
-          }
-          .materials-followup-cta__note-card{
-            padding:24px;
-          }
-          .materials-followup-cta__note-title{
-            font-size:30px;
-          }
-          .materials-followup-cta__button{
-            --materials-cta-height:35px;
-            --materials-cta-arrow-box:35px;
-            --materials-cta-pad-left:18px;
-            --materials-cta-pad-right:16px;
-            --materials-cta-radius:5px;
-            --materials-cta-icon-size:13px;
-            --materials-cta-font-size:13px;
           }
         }
         @media screen and (max-width:639px){
@@ -840,60 +885,53 @@ const headHtml = withBasePath(
           html.materials-header-hidden .materials-header-shell{
             transform:translateY(-100%);
           }
-          .materials-followup-cta{
-            width:calc(100vw - 20px);
-            padding:34px 0 56px;
+          .tg-plan-cta{
+            padding:34px 10px 56px;
           }
-          .materials-followup-cta__inner{
-            gap:20px;
-          }
-          .materials-followup-cta__content{
-            padding-top:20px;
-          }
-          .materials-followup-cta__kicker{
-            margin-bottom:10px;
-            font-size:12px;
-          }
-          .materials-followup-cta__content h2{
-            font-size:32px;
-            line-height:.95;
-          }
-          .materials-followup-cta__lead,
-          .materials-followup-cta__text,
-          .materials-followup-cta__note-text{
-            font-size:12px;
-            line-height:1.45;
-          }
-          .materials-followup-cta__lead{
-            margin-top:18px;
-          }
-          .materials-followup-cta__text{
-            margin-top:12px;
-          }
-          .materials-followup-cta__note-card{
-            padding:18px 16px;
-            border-radius:10px;
-          }
-          .materials-followup-cta__note-title{
-            margin-bottom:8px;
-            font-size:20px;
-          }
-          .materials-followup-cta__actions{
-            gap:10px;
-          }
-          .materials-followup-cta__button{
-            --materials-cta-height:35px;
-            --materials-cta-arrow-box:35px;
-            --materials-cta-pad-left:18px;
-            --materials-cta-pad-right:16px;
-            --materials-cta-radius:5px;
-            --materials-cta-icon-size:13px;
-            --materials-cta-font-size:13px;
+          .tg-plan-cta__inner{
             width:100%;
+            gap:32px;
+            padding-top:28px;
           }
-          .materials-followup-cta__button-label{
-            white-space:normal;
-            text-align:center;
+          .tg-plan-cta__kicker{
+            margin-bottom:18px;
+            font-size:15px;
+          }
+          .tg-plan-cta h2{
+            margin-bottom:18px;
+            font-size:38px;
+            line-height:1;
+          }
+          .tg-plan-cta__text{
+            font-size:17px;
+            line-height:1.25;
+          }
+          .tg-plan-cta__actions{
+            display:grid;
+            gap:9px;
+            margin-top:24px;
+          }
+          .tg-plan-cta__button{
+            width:100%;
+            min-width:0;
+            grid-template-columns:minmax(0, 1fr) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
+            --tg-cta-pad-left:16px;
+            --tg-cta-pad-right:14px;
+          }
+          .tg-plan-cta__item{
+            grid-template-columns:48px minmax(0, 1fr);
+            gap:14px;
+            padding-top:18px;
+          }
+          .tg-plan-cta__item strong{
+            font-size:34px;
+          }
+          .tg-plan-cta__item span{
+            font-size:16px;
+            line-height:1.24;
+          }
+          .tg-plan-cta__note{
+            font-size:14px;
           }
         }
         ${materialsFooterMenuIds
