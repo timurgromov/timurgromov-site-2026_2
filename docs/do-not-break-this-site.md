@@ -11,6 +11,32 @@ Exact active VPS video URLs and historical Boomstream/Cloud.ru URLs live in `doc
 Current public production site is `https://timurgromov.ru/`.
 GitHub Pages fallback stays at `https://timurgromov.github.io/timurgromov-site-2026_2/`.
 
+## Copywriting Ban: `спокойно`
+
+User-facing site copy must not use the word `спокойно` or same-root variants such as `спокойный`, `спокойная`, `спокойное`, `спокойные`, `спокойнее`, `спокойного`, `спокойной`.
+
+Do not write phrases like:
+
+- `спокойно обсудим`
+- `спокойно познакомимся`
+- `спокойная подготовка`
+- `спокойный план`
+- `спокойнее для чтения`
+
+Reason:
+
+- The user explicitly rejects this wording as unnatural and weak for Russian marketing copy.
+- It makes the voice sound generic and inaccurate for the brand.
+
+Use direct alternatives based on meaning:
+
+- `по делу`
+- `понятно`
+- `без лишнего напряжения`
+- `без давления`
+- `структурно`
+- `разберём формат, гостей, площадку и тайминг`
+
 ## Current Safe State
 
 - Last confirmed working hero poster fix: `44a92b5 Restore single hero poster layer`.
