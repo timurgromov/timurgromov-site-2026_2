@@ -80,6 +80,12 @@ const contactLinks = [
 >
   <Fragment slot="head">
     <link rel="preconnect" href="https://cdnv.boomstream.com" crossorigin />
+    <link rel="preconnect" href="https://static.tildacdn.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&subset=latin,cyrillic&display=swap"
+      rel="stylesheet"
+    />
   </Fragment>
 
   <main class="materials-page">
@@ -205,6 +211,24 @@ const contactLinks = [
 </BaseLayout>
 
 <style>
+  @font-face {
+    font-family: "Coolvetica";
+    src: url("https://static.tildacdn.com/tild3362-3637-4465-a331-633661393835/AnyConvcom__denistin.woff")
+      format("woff");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Coolvetica";
+    src: url("https://static.tildacdn.com/tild6636-6134-4531-a265-333565666232/AnyConvcom__coolveti.woff")
+      format("woff");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
   :global(html) {
     background: #fffefa;
   }
@@ -220,6 +244,8 @@ const contactLinks = [
     --materials-muted: rgba(28, 27, 26, 0.66);
     --materials-line: rgba(28, 27, 26, 0.14);
     --materials-accent: #fa4604;
+    --t-headline-font: "Coolvetica", Arial, sans-serif;
+    --t-text-font: "Manrope", Arial, sans-serif;
     min-height: 100vh;
     width: 100%;
     overflow-x: hidden;
@@ -227,7 +253,7 @@ const contactLinks = [
       radial-gradient(circle at 8% 8%, rgba(250, 70, 4, 0.08), transparent 28rem),
       linear-gradient(180deg, #fffefa 0%, #fff8ec 48%, #fffefa 100%);
     color: var(--materials-ink);
-    font-family: Manrope, Arial, Helvetica, sans-serif;
+    font-family: var(--t-text-font);
   }
 
   .materials-shell {
@@ -267,8 +293,8 @@ const contactLinks = [
   .materials-hero h1,
   .materials-section h2,
   .materials-cta h2 {
-    font-family: Impact, "Arial Narrow", Arial, Helvetica, sans-serif;
-    font-weight: 400;
+    font-family: var(--t-headline-font);
+    font-weight: 500;
     letter-spacing: 0;
     text-transform: uppercase;
   }
@@ -381,7 +407,8 @@ const contactLinks = [
 
   .materials-benefits__label {
     margin: 0;
-    font-family: Impact, "Arial Narrow", Arial, Helvetica, sans-serif;
+    font-family: var(--t-headline-font);
+    font-weight: 500;
     font-size: clamp(28px, 3vw, 44px);
     line-height: 0.95;
     text-transform: uppercase;
