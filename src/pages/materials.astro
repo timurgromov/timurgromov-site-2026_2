@@ -6,6 +6,7 @@ const pageUrl = new URL(`${basePath}materials/`, "https://timurgromov.ru").toStr
 const telegramContactUrl = "https://t.me/timurgromovv";
 const maxContactUrl =
   "https://max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM?clckid=c487e7dc";
+const ctaArrowIconUrl = `${basePath}images/tild3536-3939-4363-b163-323761323432__vector_8.svg`;
 
 const pageHtml = readFileSync(
   new URL("../../page62008353.html", import.meta.url),
@@ -129,6 +130,18 @@ function withBasePath(html: string) {
     .replace(/url\(['"]?(?!https?:|data:|\/{2})(\/?)(?!\/)/g, `url('${basePath}`);
 }
 
+const tildaCtaInner = (label: string) => `<span class="tg-tilda-cta__plate" aria-hidden="true"></span>
+  <span class="tg-tilda-cta__arrow-box" aria-hidden="true"></span>
+  <span class="tg-tilda-cta__label">${label}</span>
+  <span class="tg-tilda-cta__icon" aria-hidden="true"></span>`;
+
+const tildaCtaLink = (
+  className: string,
+  href: string,
+  label: string,
+  attrs = "",
+) => `<a class="tg-tilda-cta ${className}" href="${href}"${attrs ? ` ${attrs}` : ""}>${tildaCtaInner(label)}</a>`;
+
 function patchMobileWebinarBadgeTriggers(
   recordHtml: string,
   triggerOffsets: Record<string, string>,
@@ -165,18 +178,38 @@ function patchMobileWebinarCardTriggers(
   }, recordHtml);
 }
 
+const materialsBonusCtaMarkup = `<section class="materials-bonus-cta" aria-labelledby="materials-bonus-cta-title">
+  <div class="materials-bonus-cta__inner">
+    <div class="materials-bonus-cta__content">
+      <p class="materials-bonus-cta__eyebrow">Дополнительный материал</p>
+      <h2 class="materials-bonus-cta__title" id="materials-bonus-cta-title">Получить расширенный конспект подготовки к свадьбе</h2>
+      <p class="materials-bonus-cta__lead">После вебинара напишите мне в личку. В сообщении укажите, кто вы, когда у вас свадьба и что вы посмотрели вебинар.</p>
+      <p class="materials-bonus-cta__note">В ответ я лично отправлю вам пошаговый план подготовки к свадьбе и расширенный конспект этого вебинара.</p>
+    </div>
+    <div class="materials-bonus-cta__actions">
+      ${tildaCtaLink("materials-bonus-cta__button", telegramContactUrl, "Написать в Telegram", 'target="_blank" rel="nofollow"')}
+      ${tildaCtaLink("materials-bonus-cta__button", maxContactUrl, "Написать в MAX", 'target="_blank" rel="nofollow"')}
+      <p class="materials-bonus-cta__hint">Это тот материал, который я отправляю лично после просмотра вебинара.</p>
+    </div>
+  </div>
+</section>`;
+
 const materialRecordsHtml = materialRecordIds
   .map((recordId) => {
     const recordHtml = extractTildaRecord(bodySource, recordId);
+    const normalizedRecordHtml =
+      recordId !== mobileWebinarRecordId
+        ? recordHtml
+        : patchMobileWebinarCardTriggers(
+            patchMobileWebinarBadgeTriggers(recordHtml, mobileWebinarBadgeTriggerOffsets),
+            mobileWebinarCardTriggerOffsets,
+          );
 
-    if (recordId !== mobileWebinarRecordId) {
-      return recordHtml;
+    if (recordId === "rec862643109") {
+      return `${normalizedRecordHtml} ${materialsBonusCtaMarkup}`;
     }
 
-    return patchMobileWebinarCardTriggers(
-      patchMobileWebinarBadgeTriggers(recordHtml, mobileWebinarBadgeTriggerOffsets),
-      mobileWebinarCardTriggerOffsets,
-    );
+    return normalizedRecordHtml;
   })
   .join(" ");
 const headerRecordHtml = extractTildaRecord(bodySource, headerRecordId);
@@ -377,6 +410,183 @@ const headHtml = withBasePath(
         #rec862050095 .tn-atom__video-play-icon{
           display:block !important;
         }
+        .materials-bonus-cta{
+          position:relative;
+          z-index:3;
+          width:min(1790px, calc(100% - 120px));
+          margin:-560px auto 90px;
+          border-radius:26px;
+          background:#fa4604;
+          color:#fffefa;
+          box-sizing:border-box;
+          overflow:hidden;
+        }
+        .materials-bonus-cta__inner{
+          display:grid;
+          grid-template-columns:minmax(0, 1.35fr) minmax(320px, .95fr);
+          gap:54px;
+          align-items:start;
+          padding:44px 48px 42px;
+        }
+        .materials-bonus-cta__eyebrow{
+          margin:0 0 18px;
+          color:rgba(255,254,250,.9);
+          font-family:var(--t-text-font, Arial);
+          font-size:20px;
+          line-height:1.1;
+          font-weight:400;
+        }
+        .materials-bonus-cta__title{
+          margin:0;
+          color:#fffefa;
+          font-family:'Coolvetica',Arial,sans-serif;
+          font-size:76px;
+          line-height:.92;
+          font-weight:500;
+          letter-spacing:0;
+          text-transform:none;
+        }
+        .materials-bonus-cta__lead,
+        .materials-bonus-cta__note,
+        .materials-bonus-cta__hint{
+          margin:0;
+          font-family:var(--t-text-font, Arial);
+          font-weight:400;
+        }
+        .materials-bonus-cta__lead{
+          margin-top:26px;
+          font-size:28px;
+          line-height:1.18;
+          color:#fffefa;
+          max-width:900px;
+        }
+        .materials-bonus-cta__note{
+          margin-top:16px;
+          font-size:22px;
+          line-height:1.24;
+          color:rgba(255,254,250,.88);
+          max-width:860px;
+        }
+        .materials-bonus-cta__actions{
+          display:flex;
+          flex-direction:column;
+          gap:18px;
+          align-self:center;
+          justify-self:end;
+          width:min(100%, 470px);
+        }
+        .tg-tilda-cta{
+          --tg-cta-height:48px;
+          --tg-cta-arrow-box:48px;
+          --tg-cta-overlap:1px;
+          --tg-cta-pad-left:34px;
+          --tg-cta-pad-right:26px;
+          --tg-cta-radius:8px;
+          --tg-cta-fill:#fffefa;
+          --tg-cta-border:#fa4604;
+          --tg-cta-color:#1c1b1a;
+          --tg-cta-arrow-fill:#fffefa;
+          --tg-cta-arrow-color:#1c1b1a;
+          --tg-cta-icon-size:16px;
+          --tg-cta-font-size:19px;
+          position:relative;
+          display:inline-grid;
+          grid-template-columns:minmax(0, auto) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
+          align-items:stretch;
+          min-height:0 !important;
+          height:var(--tg-cta-height) !important;
+          padding:0 !important;
+          border:0 !important;
+          border-radius:0 !important;
+          box-sizing:border-box;
+          background:transparent !important;
+          color:var(--tg-cta-color) !important;
+          font-family:var(--t-text-font, Arial);
+          font-size:var(--tg-cta-font-size) !important;
+          font-weight:400;
+          line-height:1;
+          text-decoration:none !important;
+          background-image:none !important;
+          transition:background-color .18s ease,color .18s ease,border-color .18s ease,box-shadow .18s ease,transform .18s ease;
+          appearance:none;
+          -webkit-appearance:none;
+          cursor:pointer;
+        }
+        .tg-tilda-cta__plate,
+        .tg-tilda-cta__arrow-box{
+          grid-row:1;
+          border:1px solid var(--tg-cta-border);
+          box-sizing:border-box;
+          background:var(--tg-cta-fill);
+          transition:background-color .18s ease,border-color .18s ease;
+        }
+        .tg-tilda-cta__plate{
+          grid-column:1;
+          min-width:0;
+          border-radius:var(--tg-cta-radius);
+        }
+        .tg-tilda-cta__arrow-box{
+          grid-column:2;
+          width:var(--tg-cta-arrow-box);
+          margin-left:calc(-1 * var(--tg-cta-overlap));
+          border-radius:var(--tg-cta-radius);
+          background:var(--tg-cta-arrow-fill);
+        }
+        .tg-tilda-cta__label{
+          grid-column:1;
+          grid-row:1;
+          z-index:1;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          min-width:0;
+          padding:0 var(--tg-cta-pad-right) 0 var(--tg-cta-pad-left);
+          color:var(--tg-cta-color);
+          font:inherit;
+          line-height:1;
+          white-space:nowrap;
+          pointer-events:none;
+        }
+        .tg-tilda-cta__icon{
+          grid-column:2;
+          grid-row:1;
+          z-index:1;
+          display:grid;
+          place-items:center;
+          width:var(--tg-cta-arrow-box);
+          margin-left:calc(-1 * var(--tg-cta-overlap));
+          pointer-events:none;
+        }
+        .tg-tilda-cta__icon::before{
+          content:"";
+          width:var(--tg-cta-icon-size);
+          height:var(--tg-cta-icon-size);
+          background:var(--tg-cta-arrow-color);
+          -webkit-mask:url("${ctaArrowIconUrl}") center / contain no-repeat;
+          mask:url("${ctaArrowIconUrl}") center / contain no-repeat;
+          transform:rotate(0deg);
+          transform-origin:center;
+          transition:transform .2s ease,background-color .18s ease;
+        }
+        @media (hover:hover){
+          .tg-tilda-cta:hover .tg-tilda-cta__icon::before{
+            transform:rotate(45deg);
+          }
+        }
+        .materials-bonus-cta__button{
+          --tg-cta-fill:#fffefa;
+          --tg-cta-border:#fffefa;
+          --tg-cta-color:#fa4604;
+          --tg-cta-arrow-fill:#fffefa;
+          --tg-cta-arrow-color:#fa4604;
+          width:100%;
+        }
+        .materials-bonus-cta__hint{
+          margin-top:2px;
+          font-size:18px;
+          line-height:1.22;
+          color:rgba(255,254,250,.8);
+        }
         .materials-header-copy{
           position:absolute;
           top:0;
@@ -435,6 +645,47 @@ const headHtml = withBasePath(
             height:55px;
             font-size:26px;
           }
+          .materials-bonus-cta{
+            width:min(1120px, calc(100% - 80px));
+            margin:-430px auto 72px;
+            border-radius:20px;
+          }
+          .materials-bonus-cta__inner{
+            grid-template-columns:minmax(0, 1fr) minmax(280px, 340px);
+            gap:34px;
+            padding:34px 34px 32px;
+          }
+          .materials-bonus-cta__eyebrow{
+            margin-bottom:14px;
+            font-size:13px;
+          }
+          .materials-bonus-cta__title{
+            font-size:48px;
+          }
+          .materials-bonus-cta__lead{
+            margin-top:18px;
+            font-size:18px;
+          }
+          .materials-bonus-cta__note{
+            margin-top:12px;
+            font-size:15px;
+          }
+          .materials-bonus-cta__actions{
+            gap:12px;
+            width:100%;
+          }
+          .materials-bonus-cta__hint{
+            font-size:13px;
+          }
+          .tg-tilda-cta{
+            --tg-cta-height:35px;
+            --tg-cta-arrow-box:35px;
+            --tg-cta-pad-left:18px;
+            --tg-cta-pad-right:16px;
+            --tg-cta-radius:5px;
+            --tg-cta-icon-size:13px;
+            --tg-cta-font-size:13px;
+          }
         }
         @media screen and (max-width:1199px){
           #allrecords{
@@ -462,6 +713,39 @@ const headHtml = withBasePath(
             width:min(360px, calc(100vw - 210px));
             height:53px;
             font-size:17px;
+          }
+          .materials-bonus-cta{
+            width:min(600px, calc(100% - 40px));
+            margin:-360px auto 56px;
+            border-radius:16px;
+          }
+          .materials-bonus-cta__inner{
+            grid-template-columns:1fr;
+            gap:22px;
+            padding:28px 24px 24px;
+          }
+          .materials-bonus-cta__eyebrow{
+            margin-bottom:12px;
+            font-size:13px;
+          }
+          .materials-bonus-cta__title{
+            font-size:38px;
+          }
+          .materials-bonus-cta__lead{
+            margin-top:16px;
+            font-size:20px;
+          }
+          .materials-bonus-cta__note{
+            margin-top:12px;
+            font-size:15px;
+          }
+          .materials-bonus-cta__actions{
+            justify-self:start;
+            align-self:start;
+            width:min(100%, 340px);
+          }
+          .materials-bonus-cta__hint{
+            font-size:13px;
           }
         }
         @media screen and (max-width:639px){
@@ -541,6 +825,49 @@ const headHtml = withBasePath(
             line-height:0.82;
             white-space:nowrap;
             text-align:left;
+          }
+          .materials-bonus-cta{
+            width:calc(100% - 20px);
+            margin:-720px auto 36px;
+            border-radius:14px;
+          }
+          .materials-bonus-cta__inner{
+            gap:18px;
+            padding:22px 16px 18px;
+          }
+          .materials-bonus-cta__eyebrow{
+            margin-bottom:10px;
+            font-size:12px;
+          }
+          .materials-bonus-cta__title{
+            font-size:31px;
+            line-height:.94;
+          }
+          .materials-bonus-cta__lead{
+            margin-top:14px;
+            font-size:17px;
+            line-height:1.2;
+          }
+          .materials-bonus-cta__note{
+            margin-top:10px;
+            font-size:13px;
+            line-height:1.25;
+          }
+          .materials-bonus-cta__actions{
+            gap:10px;
+            width:100%;
+          }
+          .materials-bonus-cta__hint{
+            font-size:12px;
+          }
+          .tg-tilda-cta{
+            --tg-cta-height:42px;
+            --tg-cta-arrow-box:42px;
+            --tg-cta-pad-left:16px;
+            --tg-cta-pad-right:14px;
+            --tg-cta-radius:5px;
+            --tg-cta-icon-size:12px;
+            --tg-cta-font-size:12px;
           }
         }
         ${materialsFooterMenuIds
