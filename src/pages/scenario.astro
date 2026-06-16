@@ -452,6 +452,24 @@ const contactLinks = [
         </div>
       </section>
 
+      <section class="scenario-inline-cta" aria-label="Обсудить вашу свадьбу">
+        <div class="scenario-inline-cta__copy">
+          <div class="scenario-inline-cta__eyebrow">Короткая встреча</div>
+          <h3>Если уже хотите применить эту логику к своей свадьбе</h3>
+          <p>
+            Можно коротко обсудить формат, гостей, площадку и тайминг именно
+            вашего вечера. Вы поймёте, где могут быть точки риска и как собрать
+            всё надёжнее.
+          </p>
+        </div>
+        <div class="scenario-inline-cta__actions">
+          <a class="scenario-inline-cta__button" href={telegramMeetingUrl} target="_blank" rel="noopener noreferrer">
+            Обсудить вашу свадьбу
+          </a>
+          <p class="scenario-inline-cta__note">30–50 минут, только про вашу свадьбу.</p>
+        </div>
+      </section>
+
       <section class="scenario-timeblock">
         <div class="scenario-timeblock__meta">
           <div class="scenario-timeblock__time">19:40 — 20:40</div>
@@ -573,54 +591,6 @@ const contactLinks = [
           Именно это я и собираю на подготовке: не набор развлечений, а понятный
           ритм, в котором людям легко быть внутри праздника.
         </p>
-      </section>
-
-      <section class="scenario-section">
-        <h2>Разобрать свою свадьбу</h2>
-        <div class="scenario-prose">
-          <p>Каждая свадьба отличается:</p>
-          <ul>
-            <li>количеством гостей;</li>
-            <li>площадкой;</li>
-            <li>форматом церемонии;</li>
-            <li>семейными традициями;</li>
-            <li>возрастом гостей;</li>
-            <li>таймингом дня.</li>
-          </ul>
-          <p>
-            Поэтому один и тот же план может отлично работать на одной свадьбе и
-            совершенно не подойти для другой.
-          </p>
-          <p>
-            На встрече я смотрю не только на расписание. Важно понять, кто ваши
-            гости, как устроена площадка, где могут появиться паузы, кому будет
-            тревожно выступать, когда лучше поставить эмоциональные моменты и
-            как сделать так, чтобы вечер не развалился по ощущениям.
-          </p>
-          <p>
-            После прочтения этого материала многие пары понимают, что главный
-            вопрос не в том, какие будут активности. Главный вопрос — <strong>куда
-            поставить каждое событие именно на их свадьбе</strong>.
-          </p>
-        </div>
-        <div class="scenario-card">
-          <p class="scenario-card__lead">
-            Если хотите спокойно понять, как эта логика может работать именно
-            на вашей свадьбе, напишите мне:
-          </p>
-          <p class="scenario-card__title">«Хочу разобрать план свадьбы»</p>
-          <div class="scenario-prose scenario-card__list">
-            <p>На встрече мы обычно разбираем:</p>
-            <ul>
-              <li>оптимальное время начала вечера;</li>
-              <li>Welcome и церемонию;</li>
-              <li>организацию подарков и тостов;</li>
-              <li>первый танец;</li>
-              <li>торт и финал;</li>
-              <li>возможные риски именно на вашей свадьбе.</li>
-            </ul>
-          </div>
-        </div>
       </section>
     </article>
 
@@ -831,7 +801,6 @@ const contactLinks = [
   .scenario-cta h2,
   .scenario-footer h2,
   .scenario-footer h3,
-  .scenario-card__title,
   .scenario-mistakes h3 {
     margin: 0;
     font-family: "Cormorant Garamond", Georgia, serif;
@@ -953,7 +922,6 @@ const contactLinks = [
   .scenario-prose p,
   .scenario-prose li,
   .scenario-mistakes p,
-  .scenario-card__lead,
   .scenario-cta p,
   .scenario-footer__bottom,
   .scenario-contact-list strong {
@@ -963,14 +931,12 @@ const contactLinks = [
 
   .scenario-prose p,
   .scenario-mistakes p,
-  .scenario-card__lead,
   .scenario-cta p {
     margin: 0 0 18px;
   }
 
   .scenario-prose p:last-child,
   .scenario-mistakes p:last-child,
-  .scenario-card__lead:last-child,
   .scenario-cta p:last-child {
     margin-bottom: 0;
   }
@@ -1174,6 +1140,7 @@ const contactLinks = [
   .scenario-thesis {
     margin: 56px 0;
     padding: 38px 34px 42px;
+    border-radius: 28px;
   }
 
   .scenario-thesis p {
@@ -1192,28 +1159,81 @@ const contactLinks = [
     line-height: 1.42 !important;
   }
 
-  .scenario-card {
-    margin-top: 34px;
-    padding: 28px;
-    border: 1px solid rgba(207, 100, 56, 0.28);
-    background: var(--accent-soft);
+  .scenario-inline-cta {
+    display: grid;
+    gap: 22px 28px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    margin: 42px 0 8px;
+    padding: 24px 26px;
+    border: 1px solid rgba(250, 70, 4, 0.16);
+    border-radius: 28px;
+    background: linear-gradient(180deg, rgba(255, 253, 249, 0.98) 0%, rgba(248, 239, 228, 0.94) 100%);
+    box-shadow: 0 18px 36px rgba(36, 29, 25, 0.05);
   }
 
-  .scenario-card__lead {
-    font-family: "Instrument Serif", Georgia, serif;
-    font-size: 24px;
-    font-style: italic;
-    line-height: 1.35;
+  .scenario-inline-cta__copy {
+    max-width: 640px;
   }
 
-  .scenario-card__title {
+  .scenario-inline-cta__eyebrow {
+    margin-bottom: 10px;
     color: var(--accent);
-    font-size: 33px;
-    line-height: 1;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
   }
 
-  .scenario-card__list {
-    margin-top: 16px;
+  .scenario-inline-cta h3 {
+    margin: 0;
+    color: var(--ink);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: clamp(30px, 3vw, 38px);
+    font-weight: 600;
+    line-height: 0.98;
+    letter-spacing: 0;
+  }
+
+  .scenario-inline-cta p {
+    margin: 12px 0 0;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.55;
+  }
+
+  .scenario-inline-cta__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    min-width: 270px;
+  }
+
+  .scenario-inline-cta__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 0 28px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fffaf4;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .scenario-inline-cta__note {
+    margin: 0 !important;
+    color: var(--accent) !important;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px !important;
+    font-style: normal !important;
+    font-weight: 600;
+    line-height: 1.45 !important;
   }
 
   .scenario-cta__shell {
@@ -1510,6 +1530,10 @@ const contactLinks = [
       grid-template-columns: 1fr;
     }
 
+    .scenario-inline-cta {
+      grid-template-columns: 1fr;
+    }
+
     .scenario-cta__shell {
       grid-template-areas:
         "copy"
@@ -1593,7 +1617,6 @@ const contactLinks = [
     .scenario-prose p,
     .scenario-prose li,
     .scenario-mistakes p,
-    .scenario-card__lead,
     .scenario-cta p,
     .scenario-footer__bottom,
     .scenario-contact-list strong {
@@ -1652,16 +1675,46 @@ const contactLinks = [
       font-size: 20px !important;
     }
 
-    .scenario-card {
+    .scenario-inline-cta {
+      gap: 16px;
+      margin: 34px 0 4px;
       padding: 20px 18px;
+      border-radius: 22px;
     }
 
-    .scenario-card__lead {
-      font-size: 21px;
+    .scenario-inline-cta__eyebrow {
+      margin-bottom: 8px;
+      font-size: 10px;
+      letter-spacing: 0.2em;
     }
 
-    .scenario-card__title {
-      font-size: 28px;
+    .scenario-inline-cta h3 {
+      font-size: 27px;
+      line-height: 1;
+    }
+
+    .scenario-inline-cta p {
+      margin-top: 10px;
+      font-size: 17px;
+      line-height: 1.5;
+    }
+
+    .scenario-inline-cta__actions {
+      gap: 8px;
+      width: 100%;
+    }
+
+    .scenario-inline-cta__button {
+      width: 100%;
+      min-height: 50px;
+      padding: 0 20px;
+      font-size: 22px;
+      text-align: center;
+      white-space: normal;
+    }
+
+    .scenario-inline-cta__note {
+      font-size: 13px !important;
     }
 
     .scenario-cta__shell {
