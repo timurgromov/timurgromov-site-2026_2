@@ -506,3 +506,42 @@ Verification:
 
 - правило зафиксировано в `AGENTS.md`
 - будущие ответы по site-task разделяют локальный, git и production-статусы
+
+## DEC-2026-06-16-COPY-FIRST-CUSTOM-BLOCKS
+
+Status: active
+Area: process, UX, frontend, design-system
+Decision date: 2026-06-16
+Evidence: repeated regressions when new CTA/buttons were rebuilt as similar-looking HTML/CSS instead of copying the existing working main-site pattern
+Commits: none
+Supersedes: softer wording in `Existing Design Reuse Rule`
+
+Decision:
+Когда владелец просит добавить или поправить CTA, карточку, popup, колонку, врезку, кнопку или другой кастомный блок `как на сайте`, `в том же стиле`, `такая же верстка`, `такие же кнопки`, `возьми готовое`, `скопируй паттерн` или `не заново`, агент обязан работать в режиме literal copy-first.
+
+Это значит: сначала найти готовый работающий паттерн в коде/export, скопировать его полный markup/CSS/classes/helper/assets/breakpoints/hover mechanics, и только потом заменить copy, ссылки, IDs и минимально необходимую геометрию.
+
+Why:
+На этом сайте визуальные детали уже дорого отлажены: Tilda-like split buttons, SVG arrow mask, hover rotation, breakpoint variables, typography rhythm, Tilda cascade and Astro transforms. Когда агент копирует только цвета или имена классов и заново собирает похожую кнопку/сетку, результат выглядит иначе и часто ломается из-за CSS cascade/parser issues.
+
+Do:
+
+- найти и зафиксировать источник копирования: file, `rec...`, helper function, const, CSS block or class pattern
+- копировать полный рабочий комплект паттерна, включая helpers, CSS variables, media queries, assets, state classes and hover rules
+- менять только content, hrefs, IDs and minimal geometry required by the new context
+- если копия не применилась из-за Tilda cascade, `withBasePath`, CSS parser issue or style order, чинить эту причину
+- при визуально рискованной правке сравнивать computed styles/source metrics с оригиналом, а не только смотреть на colors/fonts
+
+Do not:
+
+- не собирать похожий блок с нуля, если есть готовый паттерн
+- не рисовать generic rounded CTA вместо `tg-tilda-cta`
+- не менять split-button composition, arrow square, hover rotation, font system, radii or spacing rhythm без прямого запроса
+- не выдавать reinterpretation за reuse
+
+Verification:
+
+- source pattern named or obvious in diff
+- copied block preserves original helper/classes/CSS mechanics
+- compiled CSS parses correctly and expected component rules are visible in computed styles
+- если аналога нет, агент остановился и запросил согласование нового визуального языка

@@ -11,6 +11,26 @@ Exact active VPS video URLs and historical Boomstream/Cloud.ru URLs live in `doc
 Current public production site is `https://timurgromov.ru/`.
 GitHub Pages fallback stays at `https://timurgromov.github.io/timurgromov-site-2026_2/`.
 
+## Copy Existing Pattern First
+
+This site must preserve existing design patterns by copying them, not by recreating similar-looking approximations.
+
+Owner phrases such as `сделай как на сайте`, `в том же стиле`, `такие же кнопки`, `такая же верстка`, `возьми готовое`, `скопируй паттерн`, and `не заново` mean:
+
+1. Find the existing source pattern first: file, `rec...`, helper function, const, CSS block, or class set.
+2. Copy the full working pattern: markup, classes, helper functions, CSS variables, breakpoints, assets, state classes, and hover/interaction mechanics.
+3. Change only copy, links, IDs, and the smallest geometry required by the new content.
+4. If the copied pattern fails because of Tilda cascade, CSS parser errors, asset URL rewriting, or style order, fix that technical cause. Do not replace the copied pattern with a newly drawn "similar" component.
+
+Forbidden:
+
+- copying only colors/fonts and rebuilding a new CTA/card/grid/button from memory;
+- redrawing `tg-tilda-cta` as a generic one-piece rounded button;
+- changing split-button inner radii, arrow box mechanics, hover rotation, typography system, or spacing rhythm without an explicit owner request;
+- saying the block is "in the same style" when the original source pattern exists but was not copied.
+
+If there is no existing source pattern, stop and ask for approval before introducing a new visual language.
+
 ## Materials Page As-Is Baseline
 
 The current safe `/materials/` implementation is an Astro route that preserves the old Tilda visual design by extracting records from:
@@ -264,10 +284,12 @@ Problem:
 Current rule:
 
 - New custom CTA buttons must use the shared `tg-tilda-cta` helper in `src/pages/index.astro`, not a freshly drawn generic button.
+- When reusing this pattern on another page, copy the full working set, not just class names: `tildaCtaInner`, `tildaCtaLink` / `tildaCtaButton`, `.tg-tilda-cta`, `.tg-plan-cta__button`, CSS variables, media queries, SVG mask URL, loading state, and hover rules.
 - Keep the visual structure as two joined elements: a rounded left plate plus a rounded right square.
 - Keep `--tg-cta-overlap:1px`, matching the export where the right square overlaps the left plate by one pixel.
 - Do not set the inner join to `border-radius:0` and do not remove the right square's left border. That makes the CTA look like one solid rectangle and loses the Tilda style.
 - Keep the whole wrapper clickable and keep the arrow hover rotation.
+- If copied CTA CSS does not visually apply, inspect the compiled CSS and computed styles first. Fix parser/cascade/basePath/style-order problems instead of rebuilding a similar button.
 
 Do not reintroduce:
 
