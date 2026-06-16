@@ -6,6 +6,8 @@ const pageUrl = new URL(`${basePath}materials/`, "https://timurgromov.ru").toStr
 const telegramContactUrl = "https://t.me/timurgromovv";
 const maxContactUrl =
   "https://max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM?clckid=c487e7dc";
+const ctaArrowIconUrl =
+  `${basePath}images/tild3536-3939-4363-b163-323761323432__vector_8.svg`;
 
 const pageHtml = readFileSync(
   new URL("../../page62008353.html", import.meta.url),
@@ -76,7 +78,14 @@ const materialsFooterMenuIds = [
   "1738908883710",
 ];
 
+const webinarDesktopRecordId = "rec861962232";
 const mobileWebinarRecordId = "rec862050095";
+const webinarCtaInsertionRecordId = "rec862643109";
+const webinarDesktopReviewGroupId = "173883093983445640";
+const webinarMobileReviewGroupIds = [
+  "173883205939691230",
+  "173883220474225570",
+];
 const mobileWebinarBadgeTriggerOffsets: Record<string, string> = {
   "1738828748021": "211",
   "1738828827988": "211",
@@ -165,18 +174,73 @@ function patchMobileWebinarCardTriggers(
   }, recordHtml);
 }
 
+function stripWebinarAnimations(recordHtml: string) {
+  return recordHtml
+    .replace(/\sdata-animate-[^=]+=(["']).*?\1/g, "")
+    .replace(/\bt-animate\b/g, "")
+    .replace(/\bt396__elem--anim-hidden\b/g, "")
+    .replace(/\s{2,}/g, " ");
+}
+
+const tildaCtaInner = (label: string) => `<span class="materials-followup-cta__button-plate" aria-hidden="true"></span>
+  <span class="materials-followup-cta__button-arrow-box" aria-hidden="true"></span>
+  <span class="materials-followup-cta__button-label">${label}</span>
+  <span class="materials-followup-cta__button-icon" aria-hidden="true"></span>`;
+
+const tildaCtaLink = (
+  className: string,
+  href: string,
+  label: string,
+  attrs = "",
+) =>
+  `<a class="materials-followup-cta__button ${className}" href="${href}"${
+    attrs ? ` ${attrs}` : ""
+  }>${tildaCtaInner(label)}</a>`;
+
+const webinarCtaMarkup = `<section class="materials-followup-cta-record" aria-labelledby="materials-followup-cta-title">
+  <div class="materials-followup-cta">
+    <div class="materials-followup-cta__inner">
+      <div class="materials-followup-cta__content">
+        <p class="materials-followup-cta__kicker">Дополнительный материал</p>
+        <h2 id="materials-followup-cta-title">Получить расширенный конспект подготовки к свадьбе</h2>
+        <p class="materials-followup-cta__lead">После вебинара напишите мне в личку. В сообщении укажите, кто вы, когда у вас свадьба и что вы посмотрели вебинар.</p>
+        <p class="materials-followup-cta__text">В ответ я лично отправлю пошаговый план подготовки к свадьбе и расширенный конспект этого вебинара.</p>
+      </div>
+      <div class="materials-followup-cta__aside">
+        <div class="materials-followup-cta__note-card">
+          <p class="materials-followup-cta__note-title">Что написать</p>
+          <p class="materials-followup-cta__note-text">Коротко: кто вы, дата свадьбы и что хотите получить конспект после вебинара.</p>
+        </div>
+        <div class="materials-followup-cta__actions">
+          ${tildaCtaLink("materials-followup-cta__button--primary", telegramContactUrl, "Написать в Telegram", 'target="_blank" rel="nofollow"')}
+          ${tildaCtaLink("materials-followup-cta__button--secondary", maxContactUrl, "Написать в MAX", 'target="_blank" rel="nofollow"')}
+        </div>
+        <p class="materials-followup-cta__mini-note">Материал отправляется лично после сообщения.</p>
+      </div>
+    </div>
+  </div>
+</section>`;
+
 const materialRecordsHtml = materialRecordIds
   .map((recordId) => {
-    const recordHtml = extractTildaRecord(bodySource, recordId);
+    let recordHtml = extractTildaRecord(bodySource, recordId);
 
-    if (recordId !== mobileWebinarRecordId) {
-      return recordHtml;
+    if (recordId === mobileWebinarRecordId) {
+      recordHtml = patchMobileWebinarCardTriggers(
+        patchMobileWebinarBadgeTriggers(recordHtml, mobileWebinarBadgeTriggerOffsets),
+        mobileWebinarCardTriggerOffsets,
+      );
     }
 
-    return patchMobileWebinarCardTriggers(
-      patchMobileWebinarBadgeTriggers(recordHtml, mobileWebinarBadgeTriggerOffsets),
-      mobileWebinarCardTriggerOffsets,
-    );
+    if (recordId === webinarDesktopRecordId || recordId === mobileWebinarRecordId) {
+      recordHtml = stripWebinarAnimations(recordHtml);
+    }
+
+    if (recordId === webinarCtaInsertionRecordId) {
+      return `${recordHtml} ${webinarCtaMarkup}`;
+    }
+
+    return recordHtml;
   })
   .join(" ");
 const headerRecordHtml = extractTildaRecord(bodySource, headerRecordId);
@@ -377,25 +441,205 @@ const headHtml = withBasePath(
         #rec862050095 .tn-atom__video-play-icon{
           display:block !important;
         }
-        .materials-header-copy{
-          position:absolute;
-          top:0;
-          left:50%;
-          z-index:2;
-          width:min(860px, calc(100vw - 420px));
-          height:81px;
+        #rec861962232 .tn-group[data-group-id="${webinarDesktopReviewGroupId}"],
+        ${webinarMobileReviewGroupIds
+          .map(
+            (groupId) =>
+              `#rec862050095 .tn-group[data-group-id="${groupId}"]`,
+          )
+          .join(",\n        ")}{
+          display:none !important;
+          opacity:0 !important;
+          visibility:hidden !important;
+          pointer-events:none !important;
+        }
+        .materials-followup-cta-record{
+          background:#fffefa;
+        }
+        .materials-followup-cta{
+          width:min(1680px, calc(100vw - 130px));
+          margin:0 auto;
+          padding:72px 0 110px;
+        }
+        .materials-followup-cta__inner{
+          display:grid;
+          grid-template-columns:minmax(0, 1.08fr) minmax(340px, 0.72fr);
+          gap:56px;
+          align-items:start;
+          padding:0;
+          border-top:1px solid rgba(28,27,26,.1);
+        }
+        .materials-followup-cta__content{
+          padding-top:42px;
+        }
+        .materials-followup-cta__kicker{
+          margin:0 0 18px;
+          color:#fa4604;
+          font-family:'Manrope',Arial,sans-serif;
+          font-size:20px;
+          line-height:1.1;
+          font-weight:400;
+        }
+        .materials-followup-cta__content h2{
+          margin:0;
+          max-width:860px;
+          color:#1c1b1a;
+          font-family:'Coolvetica',Arial,sans-serif;
+          font-size:88px;
+          line-height:.92;
+          font-weight:500;
+          letter-spacing:-0.02em;
+        }
+        .materials-followup-cta__lead,
+        .materials-followup-cta__text,
+        .materials-followup-cta__note-text,
+        .materials-followup-cta__mini-note{
+          color:rgba(28,27,26,.8);
+          font-family:'Manrope',Arial,sans-serif;
+          font-size:20px;
+          line-height:1.45;
+          font-weight:400;
+        }
+        .materials-followup-cta__lead{
+          margin:28px 0 0;
+          max-width:780px;
+        }
+        .materials-followup-cta__text{
+          margin:18px 0 0;
+          max-width:760px;
+        }
+        .materials-followup-cta__aside{
+          display:grid;
+          gap:20px;
+          padding-top:56px;
+        }
+        .materials-followup-cta__note-card{
+          padding:34px 36px 32px;
+          border:1px solid rgba(28,27,26,.18);
+          border-radius:18px;
+          background:#fffefa;
+        }
+        .materials-followup-cta__note-title{
+          margin:0 0 14px;
+          color:#1c1b1a;
+          font-family:'Coolvetica',Arial,sans-serif;
+          font-size:40px;
+          line-height:.95;
+          font-weight:500;
+        }
+        .materials-followup-cta__note-text{
+          margin:0;
+        }
+        .materials-followup-cta__actions{
+          display:grid;
+          gap:14px;
+        }
+        .materials-followup-cta__mini-note{
+          margin:0;
+          font-size:16px;
+          line-height:1.4;
+        }
+        .materials-followup-cta__button{
+          --materials-cta-height:48px;
+          --materials-cta-arrow-box:48px;
+          --materials-cta-overlap:1px;
+          --materials-cta-pad-left:30px;
+          --materials-cta-pad-right:24px;
+          --materials-cta-radius:8px;
+          --materials-cta-fill:#fffefa;
+          --materials-cta-border:#fa4604;
+          --materials-cta-color:#1c1b1a;
+          --materials-cta-arrow-fill:#fffefa;
+          --materials-cta-arrow-color:#1c1b1a;
+          --materials-cta-icon-size:16px;
+          --materials-cta-font-size:19px;
+          position:relative;
+          display:inline-grid;
+          grid-template-columns:minmax(0, auto) calc(var(--materials-cta-arrow-box) - var(--materials-cta-overlap));
+          align-items:stretch;
+          width:max-content;
+          max-width:100%;
+          min-height:0 !important;
+          height:var(--materials-cta-height) !important;
+          padding:0 !important;
+          border:0 !important;
+          border-radius:0 !important;
+          box-sizing:border-box;
+          background:transparent !important;
+          color:var(--materials-cta-color) !important;
+          font-family:'Manrope',Arial,sans-serif;
+          font-size:var(--materials-cta-font-size) !important;
+          font-weight:400;
+          line-height:1;
+          text-decoration:none !important;
+          background-image:none !important;
+          appearance:none;
+          -webkit-appearance:none;
+        }
+        .materials-followup-cta__button-plate,
+        .materials-followup-cta__button-arrow-box{
+          grid-row:1;
+          border:1px solid var(--materials-cta-border);
+          box-sizing:border-box;
+          background:var(--materials-cta-fill);
+          transition:background-color .18s ease,border-color .18s ease;
+        }
+        .materials-followup-cta__button-plate{
+          grid-column:1;
+          min-width:0;
+          border-radius:var(--materials-cta-radius);
+        }
+        .materials-followup-cta__button-arrow-box{
+          grid-column:2;
+          width:var(--materials-cta-arrow-box);
+          margin-left:calc(-1 * var(--materials-cta-overlap));
+          border-radius:var(--materials-cta-radius);
+          background:var(--materials-cta-arrow-fill);
+        }
+        .materials-followup-cta__button-label{
+          grid-column:1;
+          grid-row:1;
+          z-index:1;
           display:flex;
           align-items:center;
           justify-content:center;
-          transform:translateX(-50%);
-          pointer-events:none;
-          color:#fffefa;
-          text-align:center;
-          font-family:'Coolvetica',Arial,sans-serif;
-          font-size:34px;
-          line-height:0.74;
-          font-weight:300;
+          min-width:0;
+          padding:0 var(--materials-cta-pad-right) 0 var(--materials-cta-pad-left);
+          color:var(--materials-cta-color);
+          font:inherit;
+          line-height:1;
           white-space:nowrap;
+          pointer-events:none;
+        }
+        .materials-followup-cta__button-icon{
+          grid-column:2;
+          grid-row:1;
+          z-index:1;
+          display:grid;
+          place-items:center;
+          width:var(--materials-cta-arrow-box);
+          margin-left:calc(-1 * var(--materials-cta-overlap));
+          pointer-events:none;
+        }
+        .materials-followup-cta__button-icon::before{
+          content:"";
+          width:var(--materials-cta-icon-size);
+          height:var(--materials-cta-icon-size);
+          background:var(--materials-cta-arrow-color);
+          -webkit-mask:url("${ctaArrowIconUrl}") center / contain no-repeat;
+          mask:url("${ctaArrowIconUrl}") center / contain no-repeat;
+          transition:transform .2s ease,background-color .18s ease;
+        }
+        .materials-followup-cta__button--primary{
+          --materials-cta-fill:#fa4604;
+          --materials-cta-color:#fffefa;
+          --materials-cta-arrow-fill:#fa4604;
+          --materials-cta-arrow-color:#fffefa;
+        }
+        @media (hover:hover){
+          .materials-followup-cta__button:hover .materials-followup-cta__button-icon::before{
+            transform:rotate(45deg);
+          }
         }
         @media screen and (max-width:1919px){
           #allrecords{
@@ -430,10 +674,44 @@ const headHtml = withBasePath(
           #rec862623921 .tn-elem[data-elem-id="1738908505292"]{
             top:676px !important;
           }
-          .materials-header-copy{
-            width:min(640px, calc(100vw - 290px));
-            height:55px;
-            font-size:26px;
+          .materials-followup-cta{
+            width:min(1040px, calc(100vw - 80px));
+            padding:56px 0 92px;
+          }
+          .materials-followup-cta__inner{
+            grid-template-columns:minmax(0, 1fr) minmax(300px, 0.7fr);
+            gap:38px;
+          }
+          .materials-followup-cta__content{
+            padding-top:32px;
+          }
+          .materials-followup-cta__content h2{
+            max-width:610px;
+            font-size:54px;
+          }
+          .materials-followup-cta__lead,
+          .materials-followup-cta__text,
+          .materials-followup-cta__note-text{
+            font-size:13px;
+          }
+          .materials-followup-cta__aside{
+            gap:16px;
+            padding-top:40px;
+          }
+          .materials-followup-cta__kicker{
+            margin-bottom:12px;
+            font-size:13px;
+          }
+          .materials-followup-cta__note-card{
+            padding:22px 24px 20px;
+            border-radius:10px;
+          }
+          .materials-followup-cta__note-title{
+            margin-bottom:10px;
+            font-size:27px;
+          }
+          .materials-followup-cta__mini-note{
+            font-size:12px;
           }
         }
         @media screen and (max-width:1199px){
@@ -458,10 +736,43 @@ const headHtml = withBasePath(
           #rec862623921 .tn-elem[data-elem-id="1738908342859"]{
             left:calc(50% - 320px + 519px) !important;
           }
-          .materials-header-copy{
-            width:min(360px, calc(100vw - 210px));
-            height:53px;
-            font-size:17px;
+          .materials-followup-cta{
+            width:min(600px, calc(100vw - 40px));
+            padding:44px 0 74px;
+          }
+          .materials-followup-cta__inner{
+            grid-template-columns:minmax(0, 1fr);
+            gap:26px;
+          }
+          .materials-followup-cta__content{
+            padding-top:26px;
+          }
+          .materials-followup-cta__content h2{
+            max-width:100%;
+            font-size:42px;
+          }
+          .materials-followup-cta__lead,
+          .materials-followup-cta__text,
+          .materials-followup-cta__note-text{
+            font-size:16px;
+          }
+          .materials-followup-cta__aside{
+            padding-top:0;
+          }
+          .materials-followup-cta__note-card{
+            padding:24px;
+          }
+          .materials-followup-cta__note-title{
+            font-size:30px;
+          }
+          .materials-followup-cta__button{
+            --materials-cta-height:35px;
+            --materials-cta-arrow-box:35px;
+            --materials-cta-pad-left:18px;
+            --materials-cta-pad-right:16px;
+            --materials-cta-radius:5px;
+            --materials-cta-icon-size:13px;
+            --materials-cta-font-size:13px;
           }
         }
         @media screen and (max-width:639px){
@@ -529,18 +840,60 @@ const headHtml = withBasePath(
           html.materials-header-hidden .materials-header-shell{
             transform:translateY(-100%);
           }
-          .materials-header-copy{
-            width:248px;
-            top:41px;
-            left:42px;
-            right:auto;
-            height:auto;
-            transform:none;
-            justify-content:flex-start;
+          .materials-followup-cta{
+            width:calc(100vw - 20px);
+            padding:34px 0 56px;
+          }
+          .materials-followup-cta__inner{
+            gap:20px;
+          }
+          .materials-followup-cta__content{
+            padding-top:20px;
+          }
+          .materials-followup-cta__kicker{
+            margin-bottom:10px;
+            font-size:12px;
+          }
+          .materials-followup-cta__content h2{
+            font-size:32px;
+            line-height:.95;
+          }
+          .materials-followup-cta__lead,
+          .materials-followup-cta__text,
+          .materials-followup-cta__note-text{
+            font-size:12px;
+            line-height:1.45;
+          }
+          .materials-followup-cta__lead{
+            margin-top:18px;
+          }
+          .materials-followup-cta__text{
+            margin-top:12px;
+          }
+          .materials-followup-cta__note-card{
+            padding:18px 16px;
+            border-radius:10px;
+          }
+          .materials-followup-cta__note-title{
+            margin-bottom:8px;
             font-size:20px;
-            line-height:0.82;
-            white-space:nowrap;
-            text-align:left;
+          }
+          .materials-followup-cta__actions{
+            gap:10px;
+          }
+          .materials-followup-cta__button{
+            --materials-cta-height:35px;
+            --materials-cta-arrow-box:35px;
+            --materials-cta-pad-left:18px;
+            --materials-cta-pad-right:16px;
+            --materials-cta-radius:5px;
+            --materials-cta-icon-size:13px;
+            --materials-cta-font-size:13px;
+            width:100%;
+          }
+          .materials-followup-cta__button-label{
+            white-space:normal;
+            text-align:center;
           }
         }
         ${materialsFooterMenuIds
@@ -642,7 +995,7 @@ const headHtml = withBasePath(
 );
 
 const bodyHtml = withBasePath(
-  `<div class="materials-header-shell">${headerRecordHtml}<div class="materials-header-copy" aria-hidden="true">Тут вы узнаете много полезностей</div></div><!--allrecords--> <div id="allrecords"${allRecordsAttrs}>${materialRecordsHtml} ${footerRecordHtml}</div> <!--/allrecords--> <style id="materials-video-play-restore">#rec861962232 .tn-atom__video-play-link,#rec862050095 .tn-atom__video-play-link{display:flex !important;align-items:center;justify-content:center;opacity:1 !important;visibility:visible !important;pointer-events:auto;}#rec861962232 .tn-atom__video-play-icon,#rec862050095 .tn-atom__video-play-icon{display:block !important;}</style>`,
+  `<div class="materials-header-shell">${headerRecordHtml}</div><!--allrecords--> <div id="allrecords"${allRecordsAttrs}>${materialRecordsHtml} ${footerRecordHtml}</div> <!--/allrecords--> <style id="materials-video-play-restore">#rec861962232 .tn-atom__video-play-link,#rec862050095 .tn-atom__video-play-link{display:flex !important;align-items:center;justify-content:center;opacity:1 !important;visibility:visible !important;pointer-events:auto;}#rec861962232 .tn-atom__video-play-icon,#rec862050095 .tn-atom__video-play-icon{display:block !important;}</style>`,
 );
 ---
 

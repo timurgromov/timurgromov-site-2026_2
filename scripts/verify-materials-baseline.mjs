@@ -55,13 +55,14 @@ assertContains(distPath, dist, [
   "rec862070380",
   "t396",
   "8 секретов успешной",
-  "Тут вы узнаете много полезностей",
+  "Получить расширенный конспект подготовки к свадьбе",
 ]);
 
 assertAbsent(distPath, dist, [
   "materials-hero",
   "materials-webinar",
   "materials-video-grid",
+  "Тут вы узнаете много полезностей",
 ]);
 
 console.log("Materials baseline verified: /materials/ is still Tilda-records inside Astro.");

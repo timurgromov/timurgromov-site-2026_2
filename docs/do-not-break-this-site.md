@@ -56,6 +56,8 @@ Current `/materials/` webinar play overlay fallback:
 - The webinar play icon is forcibly restored in `src/pages/materials.astro` because the original Tilda block CSS later hides `.tn-atom__video-play-link`.
 - Do not add new runtime scroll controllers for the webinar Zero Block. If `/materials/` motion breaks again, investigate the extracted Tilda records first instead of pinning/repositioning elements with custom JS after load.
 - Do not pull custom Astro sections upward into the webinar area with large negative margins. The webinar records still reserve and animate their own geometry, so negative-margin sections can overlap the video, proof cards, and review button on production.
+- If you add a custom follow-up CTA below the webinar, do not wrap it in Tilda record classes like `r t-rec`. Tilda runtime can mark custom siblings as `r_hidden r_anim`, which hides the CTA on some viewports. Keep that CTA as a plain custom section below the webinar records.
+- When simplifying the webinar scene, prefer disabling the original webinar record animations and hiding the review/proof groups inside the extracted Tilda records instead of adding new runtime repositioning.
 
 ## Current Safe State
 
