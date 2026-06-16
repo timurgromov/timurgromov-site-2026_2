@@ -58,20 +58,6 @@ const materialRecordIds = [
   "rec862301619",
   "rec862070380",
 ];
-const materialPopupRecordIds = [
-  "rec893268511",
-  "rec893268655",
-  "rec893271079",
-  "rec893271232",
-  "rec893273557",
-  "rec893273581",
-  "rec893275111",
-  "rec893275240",
-  "rec893277967",
-  "rec893278048",
-  "rec893280313",
-  "rec893281054",
-];
 const headerRecordId = "rec862699342";
 const footerRecordId = "rec862623921";
 const materialsFooterMenuIds = [
@@ -408,9 +394,6 @@ const materialRecordsHtml = materialRecordIds
 
     return recordHtml;
   })
-  .join(" ");
-const materialPopupRecordsHtml = materialPopupRecordIds
-  .map((recordId) => extractTildaRecord(pageHtml, recordId))
   .join(" ");
 const headerRecordHtml = extractTildaRecord(bodySource, headerRecordId);
 const footerContactShortcutMarkup = ` <div class='t396__elem tn-elem tn-elem__8626239211746200000002' data-elem-id='1746200000002' data-elem-type='text' data-field-top-value="928" data-field-left-value="1285" data-field-height-value="24" data-field-width-value="320" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-textfit-value="autoheight" data-field-fontsize-value="20" data-field-top-res-320-value="532" data-field-left-res-320-value="25" data-field-width-res-320-value="220" data-field-fontsize-res-320-value="12" data-field-top-res-640-value="566" data-field-left-res-640-value="311" data-field-width-res-640-value="230" data-field-fontsize-res-640-value="13" data-field-top-res-1200-value="584" data-field-left-res-1200-value="800" data-field-width-res-1200-value="260" data-field-fontsize-res-1200-value="13"> <div class='tn-atom'><span class="contact-shortcut-inline__content"><span class="contact-shortcut-inline__label">Написать мне</span><a class="contact-shortcut-inline__link" href="${telegramContactUrl}" target="_blank" rel="nofollow">Telegram</a><a class="contact-shortcut-inline__link" href="${maxContactUrl}" target="_blank" rel="nofollow">MAX</a></span></div> </div>`;
@@ -1310,7 +1293,7 @@ const headHtml = withBasePath(
 );
 
 const bodyHtml = withBasePath(
-  `<div class="materials-header-shell">${headerRecordHtml}</div><!--allrecords--> <div id="allrecords"${allRecordsAttrs}>${materialRecordsHtml} ${materialPopupRecordsHtml} ${footerRecordHtml}</div> <!--/allrecords--> <style id="materials-video-play-restore">#rec861962232 .tn-atom__video-play-link,#rec862050095 .tn-atom__video-play-link{display:flex !important;align-items:center;justify-content:center;opacity:1 !important;visibility:visible !important;pointer-events:auto;}#rec861962232 .tn-atom__video-play-icon,#rec862050095 .tn-atom__video-play-icon{display:block !important;}</style>`,
+  `<div class="materials-header-shell">${headerRecordHtml}</div><!--allrecords--> <div id="allrecords"${allRecordsAttrs}>${materialRecordsHtml} ${footerRecordHtml}</div> <!--/allrecords--> <style id="materials-video-play-restore">#rec861962232 .tn-atom__video-play-link,#rec862050095 .tn-atom__video-play-link{display:flex !important;align-items:center;justify-content:center;opacity:1 !important;visibility:visible !important;pointer-events:auto;}#rec861962232 .tn-atom__video-play-icon,#rec862050095 .tn-atom__video-play-icon{display:block !important;}</style>`,
 );
 ---
 
