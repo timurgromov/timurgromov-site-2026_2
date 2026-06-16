@@ -15,7 +15,10 @@
 
 - `npm run build`
 - `git diff --check`
-- Production verification pending after rollback commit and push.
+- Production verification passed for `https://timurgromov.ru/materials/`.
+- Live marker check confirmed the restored Tilda page contains `rec862050095`, `tilda-blocks-page62008353`, `8 секретов успешной`, and `t396`.
+- Live marker check confirmed the rejected native Astro classes `materials-hero` and `materials-video-grid` are absent.
+- Headless Chrome production screenshot saved to `/tmp/materials-rollback-live.png` and visually confirmed the old Tilda composition is back.
 
 ## Follow-Up Rule
 
