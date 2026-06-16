@@ -37,6 +37,34 @@ Use direct alternatives based on meaning:
 - `структурно`
 - `разберём формат, гостей, площадку и тайминг`
 
+## Materials Page As-Is Baseline
+
+The current safe `/materials/` implementation is an Astro route that preserves the old Tilda visual design by extracting records from:
+
+- `page62008353.html`
+- `files/page62008353body.html`
+
+Current rule:
+
+- Phase 1 for `/materials/` is `Tilda records inside Astro`, not a native Astro redesign.
+- Keep the original Tilda composition, fonts, layout, video/poster assets, proportions, and record geometry.
+- Do not replace the page with custom classes such as `materials-hero`, `materials-webinar`, or `materials-video-grid`.
+- Do not invent poster images or substitute random site images for video covers.
+- Do not resize videos or cards by eye.
+- Optimize only after the same-design baseline is verified.
+
+Required baseline check after any `/materials/` edit:
+
+```bash
+npm run verify:materials-baseline
+```
+
+The check must confirm:
+
+- source still reads `page62008353.html` and `files/page62008353body.html`;
+- built `/materials/` still contains Tilda markers such as `tilda-blocks-page62008353`, `rec862050095`, `rec862070380`, and `t396`;
+- rejected native-redesign markers such as `materials-hero`, `materials-webinar`, and `materials-video-grid` are absent.
+
 ## Current Safe State
 
 - Last confirmed working hero poster fix: `44a92b5 Restore single hero poster layer`.

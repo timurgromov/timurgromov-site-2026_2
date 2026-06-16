@@ -35,6 +35,40 @@ Verification:
 
 - `rg -n "спокойн" src docs/telegram-funnel-roadmap.md` не показывает активный пользовательский copy с этим корнем
 
+## DEC-2026-06-16-MATERIALS-TILDA-FIRST
+
+Status: active
+Area: frontend, ux, architecture
+Decision date: 2026-06-16
+Evidence: неудачная native Astro rewrite `/materials/`, rollback `f1b3264`, прямое указание пользователя переносить сначала в том виде, в котором есть
+Commits: pending
+Supersedes: none
+
+Decision:
+Страница `/materials/` сначала должна существовать как Tilda-records inside Astro с сохранением текущего визуального дизайна. Native Astro-переписывание блоков допустимо только после зафиксированного same-design baseline и только точечными изменениями.
+
+Why:
+Предыдущая попытка native Astro rewrite сломала композицию, шрифты, размеры видео и poster-изображения. Для этой страницы важнее сохранить текущую Tilda-визуальность, чем сразу упростить DOM/CSS.
+
+Do:
+
+- держать `/materials/` на `src/pages/materials.astro`, который читает `page62008353.html` и `files/page62008353body.html`
+- сохранять Tilda records, геометрию, fonts, posters, видео и карточки как source of truth
+- любые будущие изменения делать точечно и проверять до/после
+- запускать `npm run verify:materials-baseline` после любых правок `/materials/`
+
+Do not:
+
+- не заменять `/materials/` на самодельный native Astro layout одним большим rewrite
+- не вводить классы `materials-hero`, `materials-webinar`, `materials-video-grid` как новую композицию страницы
+- не подставлять случайные изображения из `public/images` вместо исходных Tilda video covers
+- не менять размеры видео/карточек без сверки с исходной Tilda-композицией
+
+Verification:
+
+- `npm run verify:materials-baseline`
+- production `/materials/` содержит Tilda markers и не содержит rejected native-redesign markers
+
 ## DEC-2026-06-08-SITE-CTA-PLAN-EVENING
 
 Status: active
