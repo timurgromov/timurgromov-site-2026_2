@@ -521,6 +521,13 @@ Decision:
 
 Это значит: сначала найти готовый работающий паттерн в коде/export, скопировать его полный markup/CSS/classes/helper/assets/breakpoints/hover mechanics, и только потом заменить copy, ссылки, IDs и минимально необходимую геометрию.
 
+Дополнение:
+
+- Правило распространяется не только на внешний вид, но и на поведение.
+- Если на сайте уже есть готовая механика `mobile horizontal scroll`, slider/swipe row, split CTA, sticky behavior, popup behavior или hover behavior, агент обязан переиспользовать именно её, а не собирать новую механику с тем же эффектом.
+- Перед реализацией агент обязан назвать canonical source в первом рабочем апдейте: файл/record/helper/class/mechanic, откуда копируется решение.
+- Если source найден, запрещено переходить на fallback `быстрее собрать с нуля`. Нужно чинить причину, почему копия не применяется.
+
 Why:
 На этом сайте визуальные детали уже дорого отлажены: Tilda-like split buttons, SVG arrow mask, hover rotation, breakpoint variables, typography rhythm, Tilda cascade and Astro transforms. Когда агент копирует только цвета или имена классов и заново собирает похожую кнопку/сетку, результат выглядит иначе и часто ломается из-за CSS cascade/parser issues.
 
@@ -531,6 +538,8 @@ Do:
 - менять только content, hrefs, IDs and minimal geometry required by the new context
 - если копия не применилась из-за Tilda cascade, `withBasePath`, CSS parser issue or style order, чинить эту причину
 - при визуально рискованной правке сравнивать computed styles/source metrics с оригиналом, а не только смотреть на colors/fonts
+- в первом рабочем апдейте явно указывать `Источник: ...`
+- для mobile/scroll/slider задач сначала искать уже существующую механику на главной
 
 Do not:
 
