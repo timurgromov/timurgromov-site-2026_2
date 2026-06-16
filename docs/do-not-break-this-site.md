@@ -39,6 +39,18 @@ The check must confirm:
 - built `/materials/` still contains Tilda markers such as `tilda-blocks-page62008353`, `rec862050095`, `rec862070380`, and `t396`;
 - rejected native-redesign markers such as `materials-hero`, `materials-webinar`, and `materials-video-grid` are absent.
 
+Current `/materials/` webinar media mapping:
+
+- The active webinar video is still defined directly inside `files/page62008353body.html`, not in a separate Astro constant.
+- Update both webinar records together:
+  - desktop record `rec861962232`
+  - mobile record `rec862050095`
+- Current active webinar source: `https://media.89-22-227-133.sslip.io/materials_webinar_online_razbor_20260616.mp4`
+- Current poster files:
+  - `public/images/materials-poster.jpg`
+  - `public/images/materials-poster-20.jpg`
+- Before changing the webinar source again, confirm the file exists on the media VPS and then update `docs/video-link-registry.md`.
+
 ## Current Safe State
 
 - Last confirmed working hero poster fix: `44a92b5 Restore single hero poster layer`.

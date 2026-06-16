@@ -1,8 +1,8 @@
 # Video Link Registry
 
-Last checked: 2026-05-08.
+Last checked: 2026-06-16.
 
-This file is the canonical list of video sources for the production site. Keep it in sync when changing video URLs in `src/pages/index.astro`.
+This file is the canonical list of video sources for the production site. Keep it in sync when changing video URLs in `src/pages/index.astro` or `/materials/` video records in `files/page62008353body.html`.
 
 Current public site: `https://timurgromov.ru/`
 
@@ -36,10 +36,13 @@ The current files are already heavily compressed RF files. Do not re-encode agai
 | Advice popup: wedding laughter | VPS media | `https://media.89-22-227-133.sslip.io/tg26_advice_wedding_laughter_20260602.mp4` |
 | Advice popup: awkward toasts | VPS media | `https://media.89-22-227-133.sslip.io/tg26_advice_awkward_toasts_20260602.mp4` |
 | Advice popup: wedding chaos | VPS media | `https://media.89-22-227-133.sslip.io/tg26_advice_wedding_chaos_20260602.mp4` |
+| Materials webinar | VPS media | `https://media.89-22-227-133.sslip.io/materials_webinar_online_razbor_20260616.mp4` |
 
 ## VPS Media Host
 
 This is a migration, not a proxy/stream relay. The MP4 files were copied from previous storage to the VPS and are served directly from the VPS media directory.
+
+This host now contains the active public-site videos for both the homepage and the `/materials/` webinar page.
 
 - Host/IP: `89.22.227.133`
 - SSH user: `root`
@@ -65,6 +68,13 @@ curl -I -H "Range: bytes=0-1" https://media.89-22-227-133.sslip.io/hero_desc_RF2
 ssh root@89.22.227.133 "docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'"
 ssh root@89.22.227.133 "ls -lh /srv/tg26-video/public"
 ```
+
+`/materials/` webinar source of truth:
+
+- HTML records: `rec861962232` and `rec862050095` inside `files/page62008353body.html`
+- Current VPS file: `materials_webinar_online_razbor_20260616.mp4`
+- Current poster files: `public/images/materials-poster.jpg` and `public/images/materials-poster-20.jpg`
+- If the webinar file changes, replace both `data-mp4video` values in those two records and keep this registry in sync.
 
 ## Emergency VPS Migration Runbook
 
