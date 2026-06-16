@@ -1,719 +1,642 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import { readFileSync } from "node:fs";
 
 const basePath = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const pageUrl = new URL(`${basePath}materials/`, "https://timurgromov.ru").toString();
-const socialImageUrl = new URL(
-  `${basePath}images/tild3137-3330-4364-b639-393637636430___2.jpg`,
-  "https://timurgromov.ru",
-).toString();
-
 const telegramContactUrl = "https://t.me/timurgromovv";
 const maxContactUrl =
   "https://max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM?clckid=c487e7dc";
 
-const webinar = {
-  source: "https://cdnv.boomstream.com/balancer/wl0fWsUN-EuQeQgfF.mp4",
-  poster: `${basePath}images/tild3137-3330-4364-b639-393637636430___2.jpg`,
+const pageHtml = readFileSync(
+  new URL("../../page62008353.html", import.meta.url),
+  "utf-8",
+);
+const bodySource = readFileSync(
+  new URL("../../files/page62008353body.html", import.meta.url),
+  "utf-8",
+);
+
+const headMatch = pageHtml.match(/<head>([\s\S]*?)<\/head>/i);
+const bodyTagMatch = pageHtml.match(/<body([^>]*)>/i);
+const allRecordsMatch = bodySource.match(/<div id="allrecords"([^>]*)>/i);
+
+if (!headMatch) {
+  throw new Error("Не удалось извлечь <head> из page62008353.html");
+}
+
+if (!bodyTagMatch) {
+  throw new Error("Не удалось извлечь <body> из page62008353.html");
+}
+
+if (!allRecordsMatch) {
+  throw new Error("Не удалось извлечь #allrecords из files/page62008353body.html");
+}
+
+const bodyAttrs = bodyTagMatch[1];
+const bodyClass = bodyAttrs.match(/\bclass=(['"])(.*?)\1/i)?.[2];
+const bodyStyle = bodyAttrs.match(/\bstyle=(['"])(.*?)\1/i)?.[2];
+const allRecordsAttrs = allRecordsMatch[1];
+
+const materialRecordIds = [
+  // Webinar.
+  "rec862714733",
+  "rec905176327",
+  "rec861962232",
+  "rec862050095",
+  "rec863346882",
+  "rec862643056",
+  "rec862643109",
+  // Advice video carousel.
+  "rec862713715",
+  "rec862055949",
+  "rec862301619",
+  "rec862070380",
+  "rec893268511",
+  "rec893268655",
+  "rec893271079",
+  "rec893271232",
+  "rec893273557",
+  "rec893273581",
+  "rec893275111",
+  "rec893275240",
+  "rec893277967",
+  "rec893278048",
+  "rec893280313",
+  "rec893281054",
+];
+const headerRecordId = "rec862699342";
+const footerRecordId = "rec862623921";
+const materialsFooterMenuIds = [
+  "1738908769393",
+  "1738908801867",
+  "1738908837275",
+  "1738908848846",
+  "1738908861448",
+  "1738908872836",
+  "1738908883710",
+];
+
+const mobileWebinarRecordId = "rec862050095";
+const mobileWebinarBadgeTriggerOffsets: Record<string, string> = {
+  "1738828748021": "211",
+  "1738828827988": "211",
+  "1738828912673": "217",
+};
+const mobileWebinarCardTriggerOffsets: Record<string, string> = {
+  "173883092613938130": "262",
+  "173883093344499820": "262",
+  "173883205939691230": "262",
 };
 
-const webinarTitleLines = [
-  "8 секретов успешной",
-  "свадьбы в Москве,",
-  "о которых вам",
-  "не расскажут",
-  "организаторы",
-];
+function extractTildaRecord(html: string, recordId: string) {
+  const startMarker = `<div id="${recordId}"`;
+  const startIndex = html.indexOf(startMarker);
 
-const benefits = [
-  "Сколько реально стоит свадьба и где бюджет чаще всего уезжает незаметно.",
-  "Как экономить без ощущения, что вы режете качество вечера.",
-  "В каком порядке принимать решения, чтобы не переделывать подготовку несколько раз.",
-  "Какие ошибки на старте потом ломают тайминг, атмосферу и спокойствие пары.",
-];
+  if (startIndex === -1) {
+    throw new Error(`Не найдена Tilda-запись ${recordId}`);
+  }
 
-const shortVideos = [
-  {
-    title: "Почему свадьба превращается в хаос",
-    source: "https://cdnv.boomstream.com/balancer/pCq9x3Jn-SxJPiQup.mp4",
-    poster: `${basePath}images/tild3932-3931-4735-a161-326538646532__frame_23_4.jpg`,
-  },
-  {
-    title: "Как не перегрузить вечер тостами",
-    source: "https://cdnv.boomstream.com/balancer/rSg5jRyU-SxJPiQup.mp4",
-    poster: `${basePath}images/tild3830-3066-4262-b839-303266343163__frame_24_3.jpg`,
-  },
-  {
-    title: "Что важно обсудить с площадкой",
-    source: "https://cdnv.boomstream.com/balancer/r9seULNi-SxJPiQup.mp4",
-    poster: `${basePath}images/tild3031-3935-4233-a233-343364666435__frame_25_3.jpg`,
-  },
-  {
-    title: "Как выбрать комфортный темп свадьбы",
-    source: "https://cdnv.boomstream.com/balancer/RNUDagDY-SxJPiQup.mp4",
-    poster: `${basePath}images/tild6238-3761-4433-b738-633932653234__group_49_1_1.jpg`,
-  },
-  {
-    title: "Где гостям чаще всего становится неудобно",
-    source: "https://cdnv.boomstream.com/balancer/ytQQEk4L-SxJPiQup.mp4",
-    poster: `${basePath}images/tild6361-3931-4238-b430-313839383833__img_3595_1.jpg`,
-  },
-  {
-    title: "Что делает ведущий до первого конкурса",
-    source: "https://cdnv.boomstream.com/balancer/y8riDaTB-SxJPiQup.mp4",
-    poster: `${basePath}images/tild3265-6666-4432-a665-323731393064__x_a0d91dd1_1.jpg`,
-  },
-];
+  const nextRecordIndex = html.indexOf(' <div id="rec', startIndex + startMarker.length);
+  const endIndex = nextRecordIndex === -1 ? html.length : nextRecordIndex;
 
-const contactLinks = [
-  { label: "Telegram", href: telegramContactUrl },
-  { label: "MAX", href: maxContactUrl },
-];
+  return html.slice(startIndex, endIndex);
+}
+
+function injectBeforeTildaRecordScript(
+  html: string,
+  recordNumericId: string,
+  markup: string,
+) {
+  const marker =
+    `</div> </div> <scr` +
+    `ipt>t_onFuncLoad('t396_initialScale',function() {t396_initialScale('${recordNumericId}');});`;
+
+  if (!html.includes(marker)) {
+    return html;
+  }
+
+  return html.replace(marker, `${markup}${marker}`);
+}
+
+function withBasePath(html: string) {
+  return html
+    .replace(/href=(['"])(?!https?:|mailto:|tel:|#|\/{2})(\/?)(?!\/)/g, `href=$1${basePath}`)
+    .replace(/src=(['"])(?!https?:|data:|\/{2})(\/?)(?!\/)/g, `src=$1${basePath}`)
+    .replace(/action=(['"])(?!https?:|mailto:|tel:|#|\/{2})(\/?)(?!\/)/g, `action=$1${basePath}`)
+    .replace(/content=(['"])images\//g, `content=$1${basePath}images/`)
+    .replace(/data-original=(['"])(?!https?:|data:|\/{2})(\/?)(?!\/)/g, `data-original=$1${basePath}`)
+    .replace(/&quot;images\//g, `&quot;${basePath}images/`)
+    .replace(/url\(['"]?(?!https?:|data:|\/{2})(\/?)(?!\/)/g, `url('${basePath}`);
+}
+
+function patchMobileWebinarBadgeTriggers(
+  recordHtml: string,
+  triggerOffsets: Record<string, string>,
+) {
+  return Object.entries(triggerOffsets).reduce((html, [elementId, triggerOffset]) => {
+    const elementPattern = new RegExp(
+      `(<div\\b[^>]*data-elem-id=(["'])${elementId}\\2[^>]*?)\\sdata-animate-fix-trgofst-res-320=(["'])[^"']*\\3`,
+      "g",
+    );
+
+    return html.replace(
+      elementPattern,
+      `$1 data-animate-fix-trgofst-res-320="${
+        triggerOffset
+      }"`,
+    );
+  }, recordHtml);
+}
+
+function patchMobileWebinarCardTriggers(
+  recordHtml: string,
+  triggerOffsets: Record<string, string>,
+) {
+  return Object.entries(triggerOffsets).reduce((html, [groupId, triggerOffset]) => {
+    const groupPattern = new RegExp(
+      `(<div\\b[^>]*data-group-id=(["'])${groupId}\\2[^>]*?)\\sdata-animate-sbs-trgofst-res-320=(["'])[^"']*\\3`,
+      "g",
+    );
+
+    return html.replace(
+      groupPattern,
+      `$1 data-animate-sbs-trgofst-res-320="${triggerOffset}"`,
+    );
+  }, recordHtml);
+}
+
+const materialRecordsHtml = materialRecordIds
+  .map((recordId) => {
+    const recordHtml = extractTildaRecord(bodySource, recordId);
+
+    if (recordId !== mobileWebinarRecordId) {
+      return recordHtml;
+    }
+
+    return patchMobileWebinarCardTriggers(
+      patchMobileWebinarBadgeTriggers(recordHtml, mobileWebinarBadgeTriggerOffsets),
+      mobileWebinarCardTriggerOffsets,
+    );
+  })
+  .join(" ");
+const headerRecordHtml = extractTildaRecord(bodySource, headerRecordId);
+const footerContactShortcutMarkup = ` <div class='t396__elem tn-elem tn-elem__8626239211746200000002' data-elem-id='1746200000002' data-elem-type='text' data-field-top-value="928" data-field-left-value="1285" data-field-height-value="24" data-field-width-value="320" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-textfit-value="autoheight" data-field-fontsize-value="20" data-field-top-res-320-value="532" data-field-left-res-320-value="25" data-field-width-res-320-value="220" data-field-fontsize-res-320-value="12" data-field-top-res-640-value="566" data-field-left-res-640-value="311" data-field-width-res-640-value="230" data-field-fontsize-res-640-value="13" data-field-top-res-1200-value="584" data-field-left-res-1200-value="800" data-field-width-res-1200-value="260" data-field-fontsize-res-1200-value="13"> <div class='tn-atom'><span class="contact-shortcut-inline__content"><span class="contact-shortcut-inline__label">Написать мне</span><a class="contact-shortcut-inline__link" href="${telegramContactUrl}" target="_blank" rel="nofollow">Telegram</a><a class="contact-shortcut-inline__link" href="${maxContactUrl}" target="_blank" rel="nofollow">MAX</a></span></div> </div>`;
+const footerRecordHtml = injectBeforeTildaRecordScript(
+  extractTildaRecord(bodySource, footerRecordId),
+  "862623921",
+  footerContactShortcutMarkup,
+);
+
+const headHtml = withBasePath(
+  headMatch[1]
+    .replace(/<title>[\s\S]*?<\/title>/i, "<title>Полезные материалы подготовки к свадьбе</title>")
+    .replace(
+      /<meta name="description" content="[^"]*"\s*\/?>/i,
+      '<meta name="description" content="Вебинар и короткие видео с советами по подготовке к свадьбе" />',
+    )
+    .replace(
+      /<meta property="og:url" content="[^"]*"\s*\/?>/i,
+      `<meta property="og:url" content="${pageUrl}" />`,
+    )
+    .replace(/<link rel="canonical" href="[^"]*"\s*\/?>/i, `<link rel="canonical" href="${pageUrl}" />`)
+    .concat(
+      `<script>window.t396_elem_fixLineHeight=window.t396_elem_fixLineHeight||function(){return;};</script>`,
+    )
+    .concat(
+      `<script>
+        (function() {
+          function syncMaterialsHeader() {
+            const isMobile = window.matchMedia("(max-width: 639px)").matches;
+            const root = document.documentElement;
+            const currentY = window.scrollY || 0;
+            const previousY = Number(root.dataset.materialsHeaderY || "0");
+
+            if (!isMobile) {
+              root.classList.remove("materials-header-hidden");
+              root.dataset.materialsHeaderY = String(currentY);
+              return;
+            }
+
+            if (currentY <= 12 || currentY < previousY - 6) {
+              root.classList.remove("materials-header-hidden");
+            } else if (currentY > previousY + 6) {
+              root.classList.add("materials-header-hidden");
+            }
+
+            root.dataset.materialsHeaderY = String(currentY);
+          }
+
+          window.addEventListener("scroll", syncMaterialsHeader, { passive: true });
+          window.addEventListener("resize", syncMaterialsHeader);
+          window.addEventListener("pageshow", syncMaterialsHeader);
+          document.addEventListener("DOMContentLoaded", syncMaterialsHeader);
+        })();
+      </script>`,
+    )
+    .concat(
+      `<style>
+        body.t-body{background:#fffefa !important;}
+        #rec862623921 .tn-elem[data-elem-id="1738908324214"],
+        #rec862623921 .tn-elem[data-elem-id="1738908324214"] .tn-atom{
+          display:none !important;
+          opacity:0 !important;
+          visibility:hidden !important;
+          pointer-events:none !important;
+        }
+        .contact-shortcut-inline__content{
+          display:inline-flex;
+          align-items:center;
+          gap:18px;
+          flex-wrap:nowrap;
+          white-space:nowrap;
+          pointer-events:auto !important;
+        }
+        .contact-shortcut-inline__label{
+          color:#fffefa;
+          opacity:1;
+          pointer-events:none;
+        }
+        .contact-shortcut-inline__link{
+          color:#fffefa !important;
+          -webkit-text-fill-color:#fffefa;
+          text-decoration:none;
+          font-weight:400;
+          opacity:1 !important;
+          border-bottom:1px solid #fffefa;
+          transition:opacity .2s ease, border-color .2s ease, color .2s ease;
+          pointer-events:auto !important;
+        }
+        .contact-shortcut-inline__link:visited{
+          color:#fffefa !important;
+          -webkit-text-fill-color:#fffefa;
+          opacity:1 !important;
+        }
+        .contact-shortcut-inline__link:hover{
+          opacity:.5 !important;
+          border-color:rgba(255,254,250,.5);
+          color:#fffefa !important;
+          -webkit-text-fill-color:#fffefa;
+        }
+        #rec862623921 .tn-elem[data-elem-id="1746200000002"]{
+          color:#fffefa;
+          z-index:17;
+          height:auto;
+          top:928px;
+          left:calc(50% - 960px + 1285px);
+          width:320px;
+        }
+        #rec862623921 .tn-elem[data-elem-id="1746200000002"] .tn-atom{
+          vertical-align:middle;
+          color:#fffefa;
+          font-size:20px;
+          font-family:var(--t-text-font, Arial);
+          line-height:1.2;
+          font-weight:400;
+          background-position:center center;
+          border-width:var(--t396-borderwidth,0);
+          border-style:var(--t396-borderstyle,solid);
+          border-color:var(--t396-bordercolor,transparent);
+          transition:background-color var(--t396-speedhover,0s) ease-in-out,color var(--t396-speedhover,0s) ease-in-out,border-color var(--t396-speedhover,0s) ease-in-out,box-shadow var(--t396-shadowshoverspeed,0.2s) ease-in-out;
+          --t396-shadow-text-opacity:100%;
+          text-shadow:var(--t396-shadow-text-x,0px) var(--t396-shadow-text-y,0px) var(--t396-shadow-text-blur,0px) rgba(var(--t396-shadow-text-color),var(--t396-shadow-text-opacity,100%));
+        }
+        #rec862623921 .tn-elem[data-elem-id="1738908201655"]{
+          top:1000px !important;
+        }
+        #rec862623921 .tn-elem[data-elem-id="1738908250516"],
+        #rec862623921 .tn-elem[data-elem-id="1738908294009"],
+        #rec862623921 .tn-elem[data-elem-id="1738908342859"]{
+          top:999px !important;
+        }
+        #rec862623921 .tn-elem[data-elem-id="1738908250516"]{
+          top:1014px !important;
+          left:calc(50% - 960px + 1443px) !important;
+        }
+        #rec862623921 .tn-elem[data-elem-id="1738908294009"]{
+          left:calc(50% - 960px + 1492px) !important;
+        }
+        #rec862623921 .tn-elem[data-elem-id="1738908342859"]{
+          left:calc(50% - 960px + 1559px) !important;
+        }
+        #rec862623921 .tn-elem[data-elem-id="1738908505292"]{
+          top:1072px !important;
+        }
+        .materials-header-shell{
+          position:fixed;
+          top:0;
+          left:0;
+          width:100%;
+          z-index:9997;
+          transition:transform .35s ease;
+        }
+        #allrecords{
+          padding-top:81px;
+        }
+        #rec862699342{
+          position:relative !important;
+          top:auto !important;
+          left:auto !important;
+          width:100%;
+          z-index:auto;
+        }
+        #rec862699342 .t396__artboard,
+        #rec862699342 .t396__carrier,
+        #rec862699342 .t396__filter,
+        #rec862699342 .tn-elem[data-elem-id="1738923690320"] .tn-atom{
+          background:#fa4604 !important;
+          background-color:#fa4604 !important;
+        }
+        #rec862699342 .t396__artboard{
+          overflow:hidden;
+          border-radius:0 0 10px 10px;
+        }
+        #rec862699342 .tn-elem{
+          pointer-events:auto;
+        }
+        #rec862699342 .tn-elem[data-elem-id="1738923639676"],
+        #rec862699342 .tn-elem[data-elem-id="1738923639676"] .tn-atom{
+          display:none !important;
+          opacity:0 !important;
+          visibility:hidden !important;
+          pointer-events:none !important;
+        }
+        #rec861962232,
+        #rec862050095{
+          margin-top:-96px;
+        }
+        .materials-header-copy{
+          position:absolute;
+          top:0;
+          left:50%;
+          z-index:2;
+          width:min(860px, calc(100vw - 420px));
+          height:81px;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          transform:translateX(-50%);
+          pointer-events:none;
+          color:#fffefa;
+          text-align:center;
+          font-family:'Coolvetica',Arial,sans-serif;
+          font-size:34px;
+          line-height:0.74;
+          font-weight:300;
+          white-space:nowrap;
+        }
+        @media screen and (max-width:1919px){
+          #allrecords{
+            padding-top:55px;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1746200000002"]{
+            top:584px;
+            left:calc(50% - 600px + 800px);
+            width:260px;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1746200000002"] .tn-atom{
+            font-size:13px;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908201655"]{
+            top:626px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908250516"],
+          #rec862623921 .tn-elem[data-elem-id="1738908294009"],
+          #rec862623921 .tn-elem[data-elem-id="1738908342859"]{
+            top:625px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908250516"]{
+            top:635px !important;
+            left:calc(50% - 600px + 902px) !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908294009"]{
+            left:calc(50% - 600px + 930px) !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908342859"]{
+            left:calc(50% - 600px + 972px) !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908505292"]{
+            top:676px !important;
+          }
+          .materials-header-copy{
+            width:min(640px, calc(100vw - 290px));
+            height:55px;
+            font-size:26px;
+          }
+        }
+        @media screen and (max-width:1199px){
+          #allrecords{
+            padding-top:53px;
+          }
+          #rec861962232,
+          #rec862050095{
+            margin-top:-72px;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1746200000002"]{
+            top:566px;
+            left:calc(50% - 320px + 311px);
+            width:230px;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1746200000002"] .tn-atom{
+            font-size:13px;
+          }
+          .contact-shortcut-inline__content{
+            gap:12px;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908342859"]{
+            left:calc(50% - 320px + 519px) !important;
+          }
+          .materials-header-copy{
+            width:min(360px, calc(100vw - 210px));
+            height:53px;
+            font-size:17px;
+          }
+        }
+        @media screen and (max-width:639px){
+          #allrecords{
+            padding-top:76px;
+          }
+          #rec861962232,
+          #rec862050095{
+            margin-top:0;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1746200000002"]{
+            top:487px !important;
+            left:calc(50% - 160px + 25px) !important;
+            width:220px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1746200000002"] .tn-atom{
+            font-size:12px;
+          }
+          .contact-shortcut-inline__content{
+            gap:10px;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908098051"]{
+            top:407px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908167577"]{
+            top:436px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908201655"]{
+            top:517px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908250516"],
+          #rec862623921 .tn-elem[data-elem-id="1738908294009"],
+          #rec862623921 .tn-elem[data-elem-id="1738908342859"]{
+            top:517px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908250516"]{
+            top:527px !important;
+            left:calc(50% - 160px + 110px) !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908294009"]{
+            left:calc(50% - 160px + 133px) !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908342859"]{
+            left:calc(50% - 160px + 175px) !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738908505292"]{
+            top:565px !important;
+            left:calc(50% - 160px + 25px) !important;
+            width:285px !important;
+          }
+          #rec862699342 .t396__artboard,
+          #rec862699342 .t396__carrier,
+          #rec862699342 .t396__filter{
+            height:76px !important;
+            border-radius:0 !important;
+          }
+          #rec862699342 .tn-elem[data-elem-id="1738923690320"]{
+            height:76px !important;
+            width:100% !important;
+          }
+          #rec862699342 .tn-elem[data-elem-id="1738923690320"] .tn-atom{
+            height:76px !important;
+            border-radius:0 !important;
+          }
+          html.materials-header-hidden .materials-header-shell{
+            transform:translateY(-100%);
+          }
+          .materials-header-copy{
+            width:248px;
+            top:41px;
+            left:42px;
+            right:auto;
+            height:auto;
+            transform:none;
+            justify-content:flex-start;
+            font-size:20px;
+            line-height:0.82;
+            white-space:nowrap;
+            text-align:left;
+          }
+        }
+        ${materialsFooterMenuIds
+          .map(
+            (elementId) => `
+        #rec862623921 .tn-elem[data-elem-id="${elementId}"],
+        #rec862623921 .tn-elem[data-elem-id="${elementId}"] .tn-atom{
+          display:none !important;
+          opacity:0 !important;
+          visibility:hidden !important;
+          pointer-events:none !important;
+        }`,
+          )
+          .join("")}
+        #rec862070380 .tn-elem a[href^="#popup:video-soveti-"]{
+          position:relative;
+          display:block;
+          width:100%;
+          height:100%;
+          overflow:hidden;
+        }
+        #rec862070380 .tn-elem a[href^="#popup:video-soveti-"]::before{
+          content:"";
+          position:absolute;
+          left:50%;
+          top:50%;
+          width:38px;
+          height:38px;
+          border-radius:999px;
+          background:rgba(255,255,255,.28);
+          border:1.5px solid rgba(255,255,255,.56);
+          box-shadow:0 6px 14px rgba(28,27,26,.12);
+          backdrop-filter:blur(1.5px);
+          transform:translate(-50%,-50%);
+          pointer-events:none;
+        }
+        #rec862070380 .tn-elem a[href^="#popup:video-soveti-"]::after{
+          content:"";
+          position:absolute;
+          left:calc(50% + 2px);
+          top:50%;
+          width:0;
+          height:0;
+          border-top:7px solid transparent;
+          border-bottom:7px solid transparent;
+          border-left:11px solid rgba(250,70,4,.78);
+          transform:translate(-50%,-50%);
+          pointer-events:none;
+        }
+        @media screen and (max-width:1199px){
+          #rec862070380 .tn-elem a[href^="#popup:video-soveti-"]::before{
+            width:34px;
+            height:34px;
+          }
+          #rec862070380 .tn-elem a[href^="#popup:video-soveti-"]::after{
+            left:calc(50% + 2px);
+            border-top-width:6px;
+            border-bottom-width:6px;
+            border-left-width:10px;
+          }
+        }
+        @media screen and (max-width:639px){
+          #rec862623921 .tn-elem[data-elem-id="1738906924130"],
+          #rec862623921 .tn-elem[data-elem-id="1738906924130"] .tn-atom{
+            height:620px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738907719899"]{
+            top:374px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738907755994"]{
+            top:388px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738909017957"]{
+            top:766px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738909098665"],
+          #rec862623921 .tn-elem[data-elem-id="1739077659698"]{
+            top:840px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738909152475"]{
+            top:882px !important;
+          }
+          #rec862623921 .tn-elem[data-elem-id="1738909098668"]{
+            top:901px !important;
+          }
+          #rec862070380 .tn-elem a[href^="#popup:video-soveti-"]::before{
+            width:30px;
+            height:30px;
+          }
+          #rec862070380 .tn-elem a[href^="#popup:video-soveti-"]::after{
+            left:calc(50% + 2px);
+            border-top-width:5px;
+            border-bottom-width:5px;
+            border-left-width:8px;
+          }
+        }
+      </style>`,
+    ),
+);
+
+const bodyHtml = withBasePath(
+  `<div class="materials-header-shell">${headerRecordHtml}<div class="materials-header-copy" aria-hidden="true">Тут вы узнаете много полезностей</div></div><!--allrecords--> <div id="allrecords"${allRecordsAttrs}>${materialRecordsHtml} ${footerRecordHtml}</div> <!--/allrecords-->`,
+);
 ---
 
-<BaseLayout
-  title="Полезные материалы подготовки к свадьбе | Тимур Громов"
-  description="Авторский вебинар и короткие видео Тимура Громова о подготовке к свадьбе, бюджете, тайминге и ошибках, которые лучше предусмотреть заранее."
-  canonical={pageUrl}
-  ogImage={socialImageUrl}
-  ogImageAlt="Тимур Громов и свадебная пара"
->
-  <Fragment slot="head">
-    <link rel="preconnect" href="https://cdnv.boomstream.com" crossorigin />
-    <link rel="preconnect" href="https://static.tildacdn.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&subset=latin,cyrillic&display=swap"
-      rel="stylesheet"
-    />
-  </Fragment>
-
-  <main class="materials-page">
-    <header class="materials-header">
-      <a class="materials-brand" href={basePath} aria-label="На главную timurgromov.ru">
-        <span>Свадебный ведущий</span>
-        <strong>Тимур Громов</strong>
-      </a>
-      <nav class="materials-nav" aria-label="Навигация по материалам">
-        <a href="#webinar">Вебинар</a>
-        <a href="#short-videos">Короткие видео</a>
-        <a href="#contacts">Материалы</a>
-      </nav>
-    </header>
-
-    <section class="materials-hero" id="webinar">
-      <div class="materials-shell materials-hero__shell">
-        <div class="materials-hero__copy">
-          <p class="materials-kicker">Авторский вебинар</p>
-          <h1>
-            {webinarTitleLines.map((line) => <span>{line}</span>)}
-          </h1>
-          <p class="materials-hero__lead">
-            Спокойный разбор подготовки к свадьбе: где чаще всего возникают
-            ошибки, как не потерять бюджет и в каком порядке принимать решения.
-          </p>
-        </div>
-
-        <div class="materials-hero__layout">
-          <div class="materials-webinar">
-            <video
-              class="materials-webinar__video"
-              controls
-              playsinline
-              preload="metadata"
-              poster={webinar.poster}
-            >
-              <source src={webinar.source} type="video/mp4" />
-              Ваш браузер не поддерживает встроенное видео. Откройте материал в
-              современном браузере или напишите мне в Telegram.
-            </video>
-          </div>
-
-          <aside class="materials-benefits" aria-label="Что вы узнаете на вебинаре">
-            <p class="materials-benefits__label">Вы узнаете</p>
-            <ul>
-              {benefits.map((item) => <li>{item}</li>)}
-            </ul>
-            <div class="materials-contact-inline">
-              <span>За дополнительными материалами</span>
-              {contactLinks.map((link) => (
-                <a href={link.href} target="_blank" rel="nofollow noreferrer">
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <section class="materials-section materials-section--light">
-      <div class="materials-shell materials-intro">
-        <div>
-          <p class="materials-kicker">После просмотра</p>
-          <h2>Если хотите конспект и дополнительные материалы, напишите мне лично</h2>
-        </div>
-        <p>
-          Эта страница оставляет старую вебинарную механику: вы смотрите разбор,
-          понимаете, насколько тема вам актуальна, а затем пишете мне в удобный
-          мессенджер. Я уточню пару вводных по вашей свадьбе и отправлю подходящие
-          материалы.
-        </p>
-      </div>
-    </section>
-
-    <section class="materials-section" id="short-videos">
-      <div class="materials-shell">
-        <div class="materials-section__head">
-          <p class="materials-kicker">Быстрые разборы</p>
-          <h2>Короткие полезные видео</h2>
-          <p>
-            Небольшие ролики на отдельные темы подготовки. Они не заменяют
-            вебинар, а помогают быстро подсветить частые ошибки.
-          </p>
-        </div>
-
-        <div class="materials-video-grid">
-          {shortVideos.map((video) => (
-            <article class="materials-video-card">
-              <video controls playsinline preload="none" poster={video.poster}>
-                <source src={video.source} type="video/mp4" />
-                Видео не поддерживается вашим браузером.
-              </video>
-              <h3>{video.title}</h3>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="materials-cta" id="contacts">
-      <div class="materials-shell materials-cta__inner">
-        <div>
-          <p class="materials-kicker">Следующий шаг</p>
-          <h2>Получить дополнительные материалы</h2>
-          <p>
-            Напишите, кто вы и когда планируется свадьба. Я отправлю конспект и
-            полезные материалы, которые подходят под вашу ситуацию.
-          </p>
-        </div>
-        <div class="materials-cta__links" aria-label="Связаться с Тимуром">
-          {contactLinks.map((link) => (
-            <a class="materials-button" href={link.href} target="_blank" rel="nofollow noreferrer">
-              <span>{link.label}</span>
-              <span aria-hidden="true">↗</span>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  </main>
-</BaseLayout>
-
-<style>
-  @font-face {
-    font-family: "Coolvetica";
-    src: url("https://static.tildacdn.com/tild3362-3637-4465-a331-633661393835/AnyConvcom__denistin.woff")
-      format("woff");
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: "Coolvetica";
-    src: url("https://static.tildacdn.com/tild6636-6134-4531-a265-333565666232/AnyConvcom__coolveti.woff")
-      format("woff");
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  :global(html) {
-    background: #fffefa;
-  }
-
-  :global(body) {
-    background: #fffefa;
-    color: #1c1b1a;
-  }
-
-  .materials-page {
-    --materials-bg: #fffefa;
-    --materials-ink: #1c1b1a;
-    --materials-muted: rgba(28, 27, 26, 0.66);
-    --materials-line: rgba(28, 27, 26, 0.14);
-    --materials-accent: #fa4604;
-    --t-headline-font: "Coolvetica", Arial, sans-serif;
-    --t-text-font: "Manrope", Arial, sans-serif;
-    min-height: 100vh;
-    width: 100%;
-    overflow-x: hidden;
-    background:
-      radial-gradient(circle at 8% 8%, rgba(250, 70, 4, 0.08), transparent 28rem),
-      linear-gradient(180deg, #fffefa 0%, #fff8ec 48%, #fffefa 100%);
-    color: var(--materials-ink);
-    font-family: var(--t-text-font);
-  }
-
-  .materials-shell {
-    width: min(100%, 1280px);
-    margin: 0 auto;
-    padding-inline: clamp(20px, 4vw, 56px);
-  }
-
-  .materials-header {
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    display: flex;
-    min-height: 64px;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    padding: 12px clamp(20px, 4vw, 56px);
-    background: var(--materials-accent);
-    color: #fffefa;
-  }
-
-  .materials-brand {
-    display: inline-flex;
-    flex-direction: column;
-    gap: 1px;
-    line-height: 1;
-    text-transform: uppercase;
-  }
-
-  .materials-brand span {
-    font-size: 10px;
-    opacity: 0.78;
-  }
-
-  .materials-brand strong,
-  .materials-hero h1,
-  .materials-section h2,
-  .materials-cta h2 {
-    font-family: var(--t-headline-font);
-    font-weight: 500;
-    letter-spacing: 0;
-    text-transform: uppercase;
-  }
-
-  .materials-brand strong {
-    font-size: clamp(20px, 2.1vw, 32px);
-  }
-
-  .materials-nav {
-    display: flex;
-    align-items: center;
-    gap: clamp(14px, 2vw, 32px);
-    font-size: 14px;
-  }
-
-  .materials-nav a {
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.2s ease, opacity 0.2s ease;
-  }
-
-  .materials-nav a:hover {
-    border-color: currentColor;
-    opacity: 0.75;
-  }
-
-  .materials-hero {
-    padding: clamp(40px, 6vw, 76px) 0 clamp(48px, 7vw, 92px);
-  }
-
-  .materials-hero__shell {
-    display: grid;
-    gap: clamp(32px, 4vw, 56px);
-  }
-
-  .materials-hero__copy {
-    display: grid;
-    grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.42fr);
-    gap: 28px;
-    align-items: end;
-  }
-
-  .materials-kicker {
-    margin: 0 0 14px;
-    color: var(--materials-accent);
-    font-size: 13px;
-    font-weight: 700;
-    line-height: 1;
-    text-transform: uppercase;
-    grid-column: 1 / -1;
-  }
-
-  .materials-hero h1 {
-    margin: 0;
-    min-width: 0;
-    max-width: 760px;
-    font-size: clamp(42px, 4.9vw, 70px);
-    line-height: 0.94;
-  }
-
-  .materials-hero h1 span {
-    display: block;
-  }
-
-  .materials-hero__lead {
-    margin: 0;
-    color: var(--materials-muted);
-    font-size: clamp(17px, 1.6vw, 22px);
-    line-height: 1.35;
-  }
-
-  .materials-hero__layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1.38fr) minmax(300px, 0.62fr);
-    gap: clamp(18px, 2vw, 28px);
-    align-items: stretch;
-  }
-
-  .materials-webinar,
-  .materials-benefits,
-  .materials-video-card,
-  .materials-cta {
-    border: 1px solid var(--materials-line);
-  }
-
-  .materials-webinar {
-    overflow: hidden;
-    border-radius: 10px;
-    background: #111;
-    box-shadow: 0 28px 70px rgba(28, 27, 26, 0.16);
-  }
-
-  .materials-webinar__video {
-    display: block;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    background: #111;
-  }
-
-  .materials-benefits {
-    display: flex;
-    min-height: 100%;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 28px;
-    padding: clamp(22px, 3vw, 34px);
-    border-radius: 10px;
-    background: rgba(255, 254, 250, 0.74);
-    backdrop-filter: blur(18px);
-  }
-
-  .materials-benefits__label {
-    margin: 0;
-    font-family: var(--t-headline-font);
-    font-weight: 500;
-    font-size: clamp(28px, 3vw, 44px);
-    line-height: 0.95;
-    text-transform: uppercase;
-  }
-
-  .materials-benefits ul {
-    display: grid;
-    gap: 18px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .materials-benefits li {
-    position: relative;
-    padding-left: 28px;
-    color: var(--materials-muted);
-    font-size: 16px;
-    line-height: 1.35;
-  }
-
-  .materials-benefits li::before {
-    content: "";
-    position: absolute;
-    top: 0.48em;
-    left: 0;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: var(--materials-accent);
-  }
-
-  .materials-contact-inline {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 14px;
-    align-items: center;
-    color: var(--materials-muted);
-    font-size: 14px;
-  }
-
-  .materials-contact-inline a {
-    color: var(--materials-accent);
-    font-weight: 700;
-    border-bottom: 1px solid currentColor;
-  }
-
-  .materials-section {
-    padding: clamp(58px, 8vw, 112px) 0;
-    background: #fffefa;
-  }
-
-  .materials-section--light {
-    border-block: 1px solid var(--materials-line);
-    background: #1c1b1a;
-    color: #fffefa;
-  }
-
-  .materials-section--light .materials-kicker {
-    color: #fa4604;
-  }
-
-  .materials-intro {
-    display: grid;
-    grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.75fr);
-    gap: clamp(28px, 6vw, 96px);
-    align-items: start;
-  }
-
-  .materials-section h2,
-  .materials-cta h2 {
-    margin: 0;
-    font-size: clamp(42px, 6vw, 90px);
-    line-height: 0.92;
-  }
-
-  .materials-intro p,
-  .materials-section__head p,
-  .materials-cta p {
-    margin: 0;
-    color: currentColor;
-    font-size: clamp(16px, 1.4vw, 20px);
-    line-height: 1.45;
-    opacity: 0.74;
-  }
-
-  .materials-section__head {
-    display: grid;
-    max-width: 900px;
-    gap: 18px;
-    margin-bottom: clamp(28px, 4vw, 48px);
-  }
-
-  .materials-video-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
-  }
-
-  .materials-video-card {
-    overflow: hidden;
-    border-radius: 10px;
-    background: rgba(28, 27, 26, 0.04);
-  }
-
-  .materials-video-card video {
-    display: block;
-    width: 100%;
-    aspect-ratio: 9 / 16;
-    background: #111;
-    object-fit: cover;
-  }
-
-  .materials-video-card h3 {
-    margin: 0;
-    padding: 18px;
-    font-size: 18px;
-    line-height: 1.15;
-  }
-
-  .materials-cta {
-    margin: 0 clamp(20px, 4vw, 56px) clamp(36px, 5vw, 72px);
-    border-radius: 10px;
-    background: var(--materials-accent);
-    color: #fffefa;
-  }
-
-  .materials-cta__inner {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
-    gap: clamp(28px, 5vw, 72px);
-    align-items: end;
-    padding-block: clamp(36px, 6vw, 76px);
-  }
-
-  .materials-cta .materials-kicker,
-  .materials-cta p {
-    color: #fffefa;
-  }
-
-  .materials-cta p {
-    max-width: 640px;
-    margin-top: 22px;
-  }
-
-  .materials-cta__links {
-    display: grid;
-    gap: 12px;
-  }
-
-  .materials-button {
-    display: grid;
-    min-height: 58px;
-    grid-template-columns: minmax(0, 1fr) 58px;
-    align-items: stretch;
-    color: #1c1b1a;
-    font-weight: 700;
-  }
-
-  .materials-button span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fffefa;
-  }
-
-  .materials-button span:first-child {
-    justify-content: flex-start;
-    padding: 0 20px;
-    border-radius: 6px;
-  }
-
-  .materials-button span:last-child {
-    margin-left: -1px;
-    border-radius: 6px;
-    transition: transform 0.2s ease;
-  }
-
-  .materials-button:hover span:last-child {
-    transform: rotate(12deg);
-  }
-
-  @media (max-width: 1040px) {
-    .materials-hero__copy,
-    .materials-hero__layout,
-    .materials-intro,
-    .materials-cta__inner {
-      grid-template-columns: 1fr;
-    }
-
-    .materials-video-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .materials-hero h1 {
-      max-width: 100%;
-    }
-  }
-
-  @media (max-width: 680px) {
-    .materials-page,
-    .materials-shell,
-    .materials-hero__copy,
-    .materials-hero__layout,
-    .materials-intro,
-    .materials-video-grid,
-    .materials-cta__inner {
-      width: 100%;
-      max-width: 100vw;
-      min-width: 0;
-    }
-
-    .materials-webinar,
-    .materials-benefits,
-    .materials-video-card {
-      width: 100%;
-      max-width: 100%;
-      min-width: 0;
-    }
-
-    .materials-webinar__video,
-    .materials-video-card video {
-      width: 100%;
-      max-width: 100%;
-    }
-
-    .materials-header {
-      position: relative;
-      align-items: flex-start;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .materials-nav {
-      width: 100%;
-      justify-content: flex-start;
-      flex-wrap: wrap;
-      gap: 10px 18px;
-      font-size: 11px;
-    }
-
-    .materials-hero {
-      padding-top: 32px;
-    }
-
-    .materials-hero h1 {
-      max-width: calc(100vw - 40px);
-      font-size: clamp(30px, 8.4vw, 36px);
-      line-height: 0.96;
-      overflow-wrap: anywhere;
-    }
-
-    .materials-hero__lead {
-      max-width: calc(100vw - 40px);
-      font-size: 16px;
-      overflow-wrap: anywhere;
-    }
-
-    .materials-section h2,
-    .materials-cta h2 {
-      max-width: calc(100vw - 40px);
-      font-size: clamp(30px, 8.4vw, 36px);
-      line-height: 0.96;
-    }
-
-    .materials-intro p,
-    .materials-section__head p,
-    .materials-cta p {
-      max-width: calc(100vw - 40px);
-    }
-
-    .materials-benefits li {
-      max-width: calc(100vw - 112px);
-    }
-
-    .materials-benefits li,
-    .materials-intro p,
-    .materials-section__head p,
-    .materials-cta p {
-      overflow-wrap: anywhere;
-    }
-
-    .materials-benefits {
-      padding: 20px;
-    }
-
-    .materials-contact-inline {
-      align-items: flex-start;
-      flex-direction: column;
-    }
-
-    .materials-video-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .materials-video-card video {
-      aspect-ratio: 4 / 5;
-    }
-
-    .materials-cta {
-      margin-inline: 16px;
-    }
-
-    .materials-cta__inner {
-      padding-inline: 16px;
-    }
-  }
-</style>
+<!doctype html>
+<html lang="ru">
+  <head>
+    <Fragment set:html={headHtml} />
+  </head>
+  <body class={bodyClass} style={bodyStyle} set:html={bodyHtml}></body>
+</html>

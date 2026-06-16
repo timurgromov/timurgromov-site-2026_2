@@ -17,7 +17,6 @@
 
 - На сайте добавлен CTA-блок `План-сценарий свадебного вечера` перед секцией цен.
 - На сайте есть отдельная production-страница `https://timurgromov.ru/scenario/` с материалом про логику свадебного вечера.
-- Страница `https://timurgromov.ru/materials/` пересобрана как лёгкая Astro-страница вебинара: главный объект — вебинар, короткие ролики ниже, CTA ведёт в личную связь Telegram/MAX.
 - На сайте добавлена отдельная CTA-плашка `Бесплатная консультация` после секции цен.
 - В hero-кнопке текст `получить сценарий` ведёт напрямую в Telegram-бота по deep link `site_plan`.
 - Кнопка `Получить сценарий` в CTA-блоке тоже ведёт напрямую в Telegram-бота по deep link `site_plan`.
@@ -71,7 +70,6 @@
 - Worklog: `docs/history/worklog/`
 - Main implementation: `src/pages/index.astro`, `src/site/home-data.ts`
 - Scenario article implementation: `src/pages/scenario.astro`, `public/images/scenario-hero.jpg`
-- Materials webinar implementation: `src/pages/materials.astro`
 
 ## Last Known Good State
 
