@@ -19,3 +19,4 @@
 - `npm run verify:materials-baseline` passed.
 - Local mobile browser check at `390x844`: `bodyWidth=390`, mobile artboard `overflow-x=hidden`, card strip `overflow-x=auto`, video stays at `x=12..378`.
 - Local horizontal gesture check on the visible card strip: `stripScrollLeft=120`, second card moves into view at `x=148..392`, while the video keeps `x=12..378`.
+- Follow-up mobile spacing fix: CTA height reduced from `704px` to `645px`, gap from CTA note to the next record is `24px`, and the first CTA step has no top border in mobile (`border-top:0`).
