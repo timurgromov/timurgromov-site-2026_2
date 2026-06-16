@@ -135,7 +135,10 @@ function withBasePath(html: string) {
     .replace(/content=(['"])images\//g, `content=$1${basePath}images/`)
     .replace(/data-original=(['"])(?!https?:|data:|\/{2})(\/?)(?!\/)/g, `data-original=$1${basePath}`)
     .replace(/&quot;images\//g, `&quot;${basePath}images/`)
-    .replace(/url\(['"]?(?!https?:|data:|\/{2})(\/?)(?!\/)/g, `url('${basePath}`);
+    .replace(
+      /url\((['"]?)(?!https?:|data:|\/{2})(\/?)(?!\/)/g,
+      (_match, quote: string) => `url(${quote}${basePath}`,
+    );
 }
 
 function patchMobileWebinarBadgeTriggers(
@@ -255,24 +258,22 @@ const tildaCtaLink = (
     attrs ? ` ${attrs}` : ""
   }>${tildaCtaInner(label)}</a>`;
 
-const webinarCtaMarkup = `<section class="materials-followup-cta-record" aria-labelledby="materials-followup-cta-title">
-  <div class="tg-plan-cta materials-followup-cta">
-    <div class="tg-plan-cta__inner">
-      <div>
-        <p class="tg-plan-cta__kicker">После вебинара</p>
-        <h2 id="materials-followup-cta-title">Получить расширенный конспект вебинара</h2>
-        <p class="tg-plan-cta__text">Напишите мне в личку: кто вы, когда у вас свадьба и что посмотрели вебинар. В ответ лично отправлю расширенный конспект и пошаговый план подготовки.</p>
-        <div class="tg-plan-cta__actions">
-          ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--primary", telegramContactUrl, "Написать в Telegram", 'target="_blank" rel="nofollow"')}
-          ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--secondary", maxContactUrl, "Написать в MAX", 'target="_blank" rel="nofollow"')}
-        </div>
+const webinarCtaMarkup = `<section id="materials-followup-cta" class="tg-plan-cta" aria-labelledby="materials-followup-cta-title">
+  <div class="tg-plan-cta__inner">
+    <div>
+      <p class="tg-plan-cta__kicker">После вебинара</p>
+      <h2 id="materials-followup-cta-title">Получить расширенный конспект вебинара</h2>
+      <p class="tg-plan-cta__text">Напишите мне в личку: кто вы, когда у вас свадьба и что посмотрели вебинар. В ответ лично отправлю расширенный конспект и пошаговый план подготовки.</p>
+      <div class="tg-plan-cta__actions">
+        ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--primary", telegramContactUrl, "Написать в Telegram", 'target="_blank" rel="nofollow"')}
+        ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--secondary", maxContactUrl, "Написать в MAX", 'target="_blank" rel="nofollow"')}
       </div>
-      <div class="tg-plan-cta__side" aria-label="Что делать дальше">
-        <div class="tg-plan-cta__item"><strong>01</strong><span>Напишите, кто вы и когда у вас свадьба.</span></div>
-        <div class="tg-plan-cta__item"><strong>02</strong><span>Укажите, что посмотрели вебинар и хотите конспект.</span></div>
-        <div class="tg-plan-cta__item"><strong>03</strong><span>Я отправлю конспект и план подготовки к свадьбе.</span></div>
-        <p class="tg-plan-cta__note">Материал отправляется лично в ответ на сообщение.</p>
-      </div>
+    </div>
+    <div class="tg-plan-cta__side" aria-label="Что делать дальше">
+      <div class="tg-plan-cta__item"><strong>01</strong><span>Напишите, кто вы и когда у вас свадьба.</span></div>
+      <div class="tg-plan-cta__item"><strong>02</strong><span>Укажите, что посмотрели вебинар и хотите конспект.</span></div>
+      <div class="tg-plan-cta__item"><strong>03</strong><span>Я отправлю конспект и план подготовки к свадьбе.</span></div>
+      <p class="tg-plan-cta__note">Материал отправляется лично в ответ на сообщение.</p>
     </div>
   </div>
 </section>`;
@@ -312,117 +313,6 @@ const footerRecordHtml = injectBeforeTildaRecordScript(
   "862623921",
   footerContactShortcutMarkup,
 );
-const followupCtaResponsiveStyle = `<style id="materials-followup-cta-responsive">
-  .materials-followup-cta-record .tg-plan-cta__side{
-    display:grid !important;
-    gap:14px !important;
-    padding-top:0 !important;
-    padding-bottom:0 !important;
-  }
-  .materials-followup-cta-record .tg-plan-cta__item{
-    display:grid !important;
-    grid-template-columns:52px minmax(0, 1fr) !important;
-    gap:16px !important;
-    align-items:start !important;
-    padding-top:16px !important;
-    border-top:1px solid rgba(28,27,26,.12) !important;
-  }
-  .materials-followup-cta-record .tg-plan-cta__item:first-child{
-    padding-top:0 !important;
-  }
-  .materials-followup-cta-record .tg-plan-cta__item strong{
-    display:block !important;
-    color:#fa4604 !important;
-    font-family:var(--t-headline-font, Arial) !important;
-    font-size:44px !important;
-    font-weight:500 !important;
-    line-height:1 !important;
-    letter-spacing:0 !important;
-  }
-  .materials-followup-cta-record .tg-plan-cta__item span{
-    display:block !important;
-    margin:0 !important;
-    color:rgba(28,27,26,.8) !important;
-    font-family:var(--t-text-font, Arial) !important;
-    font-size:17px !important;
-    font-weight:400 !important;
-    line-height:1.22 !important;
-    letter-spacing:0 !important;
-  }
-  .materials-followup-cta-record .tg-plan-cta__note{
-    max-width:520px !important;
-    margin-top:8px !important;
-    color:rgba(28,27,26,.54) !important;
-    font-family:var(--t-text-font, Arial) !important;
-    font-size:15px !important;
-    font-weight:400 !important;
-    line-height:1.25 !important;
-    letter-spacing:0 !important;
-  }
-  @media screen and (max-width:1919px){
-    .materials-followup-cta-record .tg-plan-cta__item strong{
-      font-size:36px !important;
-    }
-    .materials-followup-cta-record .tg-plan-cta__item span{
-      font-size:15px !important;
-    }
-    .materials-followup-cta-record .tg-plan-cta__note{
-      font-size:12px !important;
-    }
-  }
-  @media screen and (max-width:1199px){
-    .materials-followup-cta-record{
-      overflow:hidden;
-    }
-    .materials-followup-cta-record .tg-plan-cta__inner{
-      width:min(600px, calc(100vw - 40px)) !important;
-      grid-template-columns:minmax(0, 1fr) !important;
-      gap:46px !important;
-      align-items:start !important;
-    }
-    .materials-followup-cta-record .tg-plan-cta__inner > div,
-    .materials-followup-cta-record .tg-plan-cta__side{
-      min-width:0 !important;
-      max-width:100% !important;
-    }
-  }
-  @media screen and (max-width:639px){
-    .materials-followup-cta-record .tg-plan-cta{
-      padding:28px 10px 46px !important;
-    }
-    .materials-followup-cta-record .tg-plan-cta__inner{
-      width:min(100%, calc(100vw - 20px)) !important;
-      gap:32px !important;
-      padding-top:22px !important;
-    }
-    .materials-followup-cta-record .tg-plan-cta h2{
-      max-width:100% !important;
-      font-size:38px !important;
-      line-height:1 !important;
-    }
-    .materials-followup-cta-record .tg-plan-cta__text{
-      max-width:100% !important;
-      font-size:17px !important;
-      line-height:1.25 !important;
-    }
-    .materials-followup-cta-record .tg-plan-cta__item{
-      grid-template-columns:48px minmax(0, 1fr) !important;
-      gap:14px !important;
-      padding-top:18px !important;
-    }
-    .materials-followup-cta-record .tg-plan-cta__item strong{
-      font-size:34px !important;
-    }
-    .materials-followup-cta-record .tg-plan-cta__item span{
-      font-size:16px !important;
-      line-height:1.24 !important;
-    }
-    .materials-followup-cta-record .tg-plan-cta__note{
-      font-size:14px !important;
-    }
-  }
-</style>`;
-
 const headHtml = withBasePath(
   headMatch[1]
     .replace(/<title>[\s\S]*?<\/title>/i, "<title>Полезные материалы подготовки к свадьбе</title>")
@@ -625,13 +515,18 @@ const headHtml = withBasePath(
           visibility:hidden !important;
           pointer-events:none !important;
         }
-        .materials-followup-cta-record{
-          background:#fffefa;
+        :root{
+          --tg-home-section-pad-desktop:80px;
+          --tg-home-section-pad-tablet:70px;
+          --tg-home-section-pad-mobile:56px;
+          --tg-home-section-pad-desktop-x:64px;
+          --tg-home-section-pad-tablet-x:40px;
+          --tg-home-section-pad-mobile-x:20px;
         }
         .tg-plan-cta{
           background:#fffefa;
           color:#1c1b1a;
-          padding:32px 65px 86px;
+          padding:var(--tg-home-section-pad-desktop) var(--tg-home-section-pad-desktop-x);
         }
         .tg-plan-cta__inner{
           display:grid;
@@ -640,8 +535,6 @@ const headHtml = withBasePath(
           width:min(1680px, 100%);
           margin:0 auto;
           align-items:center;
-          border-top:1px solid rgba(28,27,26,.12);
-          padding-top:28px;
         }
         .tg-plan-cta__kicker,
         .tg-plan-cta__text,
@@ -670,7 +563,7 @@ const headHtml = withBasePath(
           letter-spacing:0;
         }
         .tg-plan-cta__text{
-          max-width:760px;
+          max-width:620px;
           color:rgba(28,27,26,.78);
           font-size:20px;
           line-height:1.28;
@@ -778,6 +671,23 @@ const headHtml = withBasePath(
           .tg-tilda-cta:hover .tg-tilda-cta__icon::before{
             transform:rotate(45deg);
           }
+        }
+        .tg-tilda-cta.is-loading .tg-tilda-cta__icon{
+          opacity:0;
+        }
+        .tg-tilda-cta.is-loading::before{
+          content:"";
+          position:absolute;
+          z-index:3;
+          top:50%;
+          right:calc(var(--tg-cta-arrow-box) + 12px);
+          width:15px;
+          height:15px;
+          border:2px solid rgba(255,254,250,.45);
+          border-top-color:#fffefa;
+          border-radius:50%;
+          transform:translateY(-50%);
+          animation:tgCtaSpin .8s linear infinite;
         }
         @keyframes tgCtaSpin{
           to{ transform:translateY(-50%) rotate(360deg); }
@@ -920,34 +830,6 @@ const headHtml = withBasePath(
           #rec862623921 .tn-elem[data-elem-id="1738908505292"]{
             top:676px !important;
           }
-          .tg-plan-cta{
-            padding:28px 40px 78px;
-          }
-          .tg-plan-cta__inner{
-            width:min(1040px, 100%);
-            grid-template-columns:minmax(0, 1fr) minmax(300px, 0.7fr);
-            gap:38px;
-          }
-          .tg-plan-cta h2{
-            max-width:610px;
-            font-size:54px;
-          }
-          .tg-plan-cta__text{
-            max-width:620px;
-            font-size:18px;
-          }
-          .tg-plan-cta__side{
-            max-width:420px;
-          }
-          .tg-plan-cta__item strong{
-            font-size:36px;
-          }
-          .tg-plan-cta__item span{
-            font-size:15px;
-          }
-          .tg-plan-cta__note{
-            font-size:12px;
-          }
         }
         @media screen and (max-width:1199px){
           #allrecords{
@@ -972,10 +854,9 @@ const headHtml = withBasePath(
             left:calc(50% - 320px + 519px) !important;
           }
           .tg-plan-cta{
-            padding:36px 20px 64px;
+            padding:var(--tg-home-section-pad-tablet) var(--tg-home-section-pad-tablet-x);
           }
           .tg-plan-cta__inner{
-            width:min(600px, 100%);
             grid-template-columns:1fr;
             gap:46px;
             align-items:start;
@@ -1059,12 +940,10 @@ const headHtml = withBasePath(
             transform:translateY(-100%);
           }
           .tg-plan-cta{
-            padding:28px 10px 46px;
+            padding:var(--tg-home-section-pad-mobile) var(--tg-home-section-pad-mobile-x);
           }
           .tg-plan-cta__inner{
-            width:100%;
             gap:32px;
-            padding-top:22px;
           }
           .tg-plan-cta__kicker{
             margin-bottom:18px;
@@ -1206,7 +1085,7 @@ const headHtml = withBasePath(
 );
 
 const bodyHtml = withBasePath(
-  `<div class="materials-header-shell">${headerRecordHtml}</div><!--allrecords--> <div id="allrecords"${allRecordsAttrs}>${materialRecordsHtml} ${footerRecordHtml}</div> <!--/allrecords--> <style id="materials-video-play-restore">#rec861962232 .tn-atom__video-play-link,#rec862050095 .tn-atom__video-play-link{display:flex !important;align-items:center;justify-content:center;opacity:1 !important;visibility:visible !important;pointer-events:auto;}#rec861962232 .tn-atom__video-play-icon,#rec862050095 .tn-atom__video-play-icon{display:block !important;}</style>${followupCtaResponsiveStyle}`,
+  `<div class="materials-header-shell">${headerRecordHtml}</div><!--allrecords--> <div id="allrecords"${allRecordsAttrs}>${materialRecordsHtml} ${footerRecordHtml}</div> <!--/allrecords--> <style id="materials-video-play-restore">#rec861962232 .tn-atom__video-play-link,#rec862050095 .tn-atom__video-play-link{display:flex !important;align-items:center;justify-content:center;opacity:1 !important;visibility:visible !important;pointer-events:auto;}#rec861962232 .tn-atom__video-play-icon,#rec862050095 .tn-atom__video-play-icon{display:block !important;}</style>`,
 );
 ---
 
