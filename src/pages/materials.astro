@@ -4,12 +4,13 @@ import {
   getTildaCtaArrowIconUrl,
   tildaCtaLink,
 } from "../site/tilda-cta";
+import {
+  maxContactUrl,
+  telegramContactUrl,
+} from "../site/home-data";
 
 const basePath = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const pageUrl = new URL(`${basePath}materials/`, "https://timurgromov.ru").toString();
-const telegramContactUrl = "https://t.me/timurgromovv";
-const maxContactUrl =
-  "https://max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM?clckid=c487e7dc";
 const ctaArrowIconUrl = getTildaCtaArrowIconUrl(basePath);
 
 const pageHtml = readFileSync(
