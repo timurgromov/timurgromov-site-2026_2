@@ -2,6 +2,50 @@
 
 Этот файл фиксирует решения, которые важно помнить и не откатывать случайно.
 
+## DEC-2026-06-17-NO-CASCADE-COMPENSATION-WORKFLOW
+
+Status: active
+Area: frontend, ux, workflow, qa
+Decision date: 2026-06-17
+Evidence: цепочка regressions на `/materials/`, где один и тот же CTA/footer/spacing фиксились несколькими компенсирующими CSS-слоями: fallback button rendering, negative margins, footer height overrides, mobile-only/desktop-only patching
+Commits: pending
+Supersedes: none
+
+Decision:
+Для этого проекта запрещено лечить визуальные симптомы новыми компенсирующими каскадами, пока не зафиксирован source-layer и точная причина поломки.
+
+Why:
+Основная потеря времени возникла не из-за "сложной Tilda", а из-за накопления вторичных правок поверх уже неверной базы:
+
+- кнопки лечились fallback-геометрией, хотя эталонный split-button pattern уже существовал;
+- большие отступы лечились отрицательными margin между records, что вызвало overlap и белый хвост footer;
+- desktop/mobile проверялись в разных состояниях и поздно ловили, что предыдущий фикс породил новый дефект.
+
+Такие правки быстро дают локально "похожий" результат, но делают систему хрупкой: каждый следующий проход начинает компенсировать предыдущую компенсацию.
+
+Do:
+
+- перед заметной UX-правкой явно фиксировать: `Источник`, `Меняю слой`, `Не трогаю`.
+- сначала определять canonical source pattern и источник геометрии: helper, record, class set, Tilda element, neighboring filter/overlay.
+- сначала диагностировать тип поломки: `markup missing`, `style not applied`, `overlap`, `wrong stacking`, `wrong record height`, `wrong viewport state`.
+- править самый ранний причинный слой: source pattern, z-index/overlap, record height, canonical CSS rule.
+- после каждого фикса проверять именно тот дефект, который исправлялся, прежде чем двигаться дальше.
+- если приходится писать `!important`, negative margin, forced height, display fallback или visibility hardening, коротко зафиксировать в worklog, почему без этого нельзя.
+
+Do not:
+
+- не добавлять новый fallback style, если уже существует рабочий canonical pattern и он просто не применился;
+- не поджимать межсекционные gaps отрицательными margin, пока не измерен реальный gap и не проверено, что соседние records не перекрываются;
+- не смешивать в одном проходе несколько разных задач: copy, geometry, buttons, footer cleanup, popup behavior;
+- не считать DOM/CSS-присутствие достаточным доказательством визуального результата;
+- не делать второй компенсирующий фикс, пока первый не проверен на live в том же состоянии viewport.
+
+Verification:
+
+- первый рабочий апдейт для рискованной правки содержит `Источник: ...`;
+- worklog объясняет не только `что изменено`, но и `какая первичная причина устранена`;
+- после правки не остаётся каскада из взаимоисключающих fallback-слоёв, если canonical source уже восстановлен.
+
 ## DEC-2026-06-17-UX-VERIFY-IN-CODEX-BROWSER
 
 Status: active
