@@ -698,17 +698,21 @@ const headHtml = withBasePath(
           pointer-events:none !important;
         }
         :root{
-          --tg-home-section-pad-desktop:80px;
-          --tg-home-section-pad-tablet:70px;
-          --tg-home-section-pad-mobile:56px;
-          --tg-home-section-pad-desktop-x:64px;
-          --tg-home-section-pad-tablet-x:40px;
-          --tg-home-section-pad-mobile-x:20px;
+          --tg-home-section-pad-desktop:72px;
+          --tg-home-section-pad-tablet:62px;
+          --tg-home-section-pad-mobile:48px;
+          --tg-home-content-max-desktop:1790px;
+          --tg-home-content-max-tablet:1120px;
+          --tg-home-content-max-mobile:999px;
+          --tg-home-content-gutter-desktop:49px;
+          --tg-home-content-gutter-tablet:40px;
+          --tg-home-content-gutter-mobile:25px;
         }
         .tg-plan-cta{
           background:#fffefa;
           color:#1c1b1a;
-          padding:24px var(--tg-home-section-pad-desktop-x) 40px;
+          padding:var(--tg-home-section-pad-desktop) 0 56px;
+          margin-bottom:-20px;
           position:relative;
           z-index:20;
           isolation:isolate;
@@ -716,8 +720,8 @@ const headHtml = withBasePath(
         .tg-plan-cta__inner{
           display:grid;
           grid-template-columns:minmax(0, .9fr) minmax(360px, .7fr);
-          gap:38px;
-          width:min(1680px, 100%);
+          gap:52px;
+          width:min(var(--tg-home-content-max-desktop), calc(100% - (var(--tg-home-content-gutter-desktop) * 2)));
           margin:0 auto;
           align-items:center;
           position:relative;
@@ -797,21 +801,14 @@ const headHtml = withBasePath(
           appearance:none;
           -webkit-appearance:none;
           cursor:pointer;
-          isolation:isolate;
-          overflow:visible !important;
         }
         .tg-tilda-cta__plate,
         .tg-tilda-cta__arrow-box{
           grid-row:1;
-          display:block !important;
-          height:100% !important;
-          min-height:var(--tg-cta-height) !important;
-          border:1px solid var(--tg-cta-border) !important;
+          border:1px solid var(--tg-cta-border);
           box-sizing:border-box;
-          background:var(--tg-cta-fill) !important;
+          background:var(--tg-cta-fill);
           transition:background-color .18s ease,border-color .18s ease;
-          visibility:visible !important;
-          opacity:1 !important;
         }
         .tg-tilda-cta__plate{
           grid-column:1;
@@ -823,7 +820,7 @@ const headHtml = withBasePath(
           width:var(--tg-cta-arrow-box);
           margin-left:calc(-1 * var(--tg-cta-overlap));
           border-radius:var(--tg-cta-radius);
-          background:var(--tg-cta-arrow-fill) !important;
+          background:var(--tg-cta-arrow-fill);
         }
         .tg-tilda-cta__label{
           grid-column:1;
@@ -887,34 +884,6 @@ const headHtml = withBasePath(
           to{ transform:translateY(-50%) rotate(360deg); }
         }
         @media (min-width:1200px){
-          #materials-followup-cta .tg-plan-cta__actions{
-            display:flex !important;
-            align-items:flex-start;
-            gap:10px;
-            margin-top:26px;
-          }
-          #materials-followup-cta .tg-plan-cta__button{
-            display:inline-grid !important;
-            flex:0 0 auto;
-            width:auto !important;
-            min-width:clamp(200px, 16.6667vw, 320px) !important;
-            visibility:visible !important;
-            opacity:1 !important;
-          }
-          #materials-followup-cta .tg-plan-cta__button .tg-tilda-cta__plate,
-          #materials-followup-cta .tg-plan-cta__button .tg-tilda-cta__arrow-box,
-          #materials-followup-cta .tg-plan-cta__button .tg-tilda-cta__label,
-          #materials-followup-cta .tg-plan-cta__button .tg-tilda-cta__icon{
-            display:block !important;
-            visibility:visible !important;
-            opacity:1 !important;
-          }
-          #materials-followup-cta .tg-plan-cta__button .tg-tilda-cta__label{
-            display:flex !important;
-          }
-          #materials-followup-cta .tg-plan-cta__button .tg-tilda-cta__icon{
-            display:grid !important;
-          }
           .tg-tilda-cta{
             --tg-cta-height:clamp(30px, 2.5vw, 48px);
             --tg-cta-arrow-box:clamp(30px, 2.5vw, 48px);
@@ -953,17 +922,12 @@ const headHtml = withBasePath(
           --tg-cta-color:#1c1b1a;
           --tg-cta-arrow-fill:#fffefa;
           --tg-cta-arrow-color:#1c1b1a;
-          background:#fffefa !important;
-          border-radius:var(--tg-cta-radius) !important;
-          box-shadow:inset 0 0 0 1px var(--tg-cta-border);
         }
         .tg-plan-cta__button--primary{
           --tg-cta-fill:#fa4604;
           --tg-cta-color:#fffefa;
           --tg-cta-arrow-fill:#fa4604;
           --tg-cta-arrow-color:#fffefa;
-          background:#fa4604 !important;
-          box-shadow:none;
         }
         .tg-plan-cta__button--secondary{
           --tg-cta-fill:#fffefa;
@@ -1125,11 +1089,13 @@ const headHtml = withBasePath(
             left:calc(50% - 320px + 519px) !important;
           }
           .tg-plan-cta{
-            padding:20px var(--tg-home-section-pad-tablet-x) 32px;
+            padding:var(--tg-home-section-pad-tablet) 0 48px;
+            margin-bottom:-18px;
           }
           .tg-plan-cta__inner{
             grid-template-columns:1fr;
-            gap:28px;
+            gap:40px;
+            width:min(var(--tg-home-content-max-tablet), calc(100% - (var(--tg-home-content-gutter-tablet) * 2)));
             align-items:start;
           }
           .tg-plan-cta h2{
@@ -1264,10 +1230,12 @@ const headHtml = withBasePath(
             left:220px !important;
           }
           .tg-plan-cta{
-            padding:12px var(--tg-home-section-pad-mobile-x) 12px;
+            padding:var(--tg-home-section-pad-mobile) 0 38px;
+            margin-bottom:0;
           }
           .tg-plan-cta__inner{
-            gap:16px;
+            width:min(var(--tg-home-content-max-mobile), calc(100% - (var(--tg-home-content-gutter-mobile) * 2)));
+            gap:32px;
           }
           .tg-plan-cta__kicker{
             margin-bottom:18px;
@@ -1297,7 +1265,7 @@ const headHtml = withBasePath(
           .tg-plan-cta__item{
             grid-template-columns:48px minmax(0, 1fr);
             gap:14px;
-            padding-top:16px;
+            padding-top:18px;
           }
           .tg-plan-cta__item:first-child{
             border-top:none;
