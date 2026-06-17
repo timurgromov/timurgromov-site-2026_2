@@ -73,7 +73,12 @@ Current `/materials/` webinar media mapping:
 
 Current `/materials/` webinar play overlay fallback:
 
-- The webinar play icon is forcibly restored in `src/pages/materials.astro` because the original Tilda block CSS later hides `.tn-atom__video-play-link`.
+- The webinar play icon is restored in `src/pages/materials.astro` because the original Tilda block CSS later hides `.tn-atom__video-play-link`, but it must be state-based:
+  - visible before playback and when video is paused;
+  - hidden while the video is playing or starting.
+- Do not reintroduce an unconditional `display:flex !important` overlay for `.tn-atom__video-play-link`. That leaves the play button over an already playing webinar.
+- The scoped webinar toggle is tied only to desktop record `rec861962232` element `1739078296052` and mobile record `rec862050095` element `1739078914882`.
+- Native video controls are disabled for this inline webinar so taps land on the Tilda video container and can toggle play/pause reliably.
 - Do not add new runtime scroll controllers for the webinar Zero Block. If `/materials/` motion breaks again, investigate the extracted Tilda records first instead of pinning/repositioning elements with custom JS after load.
 - Do not pull custom Astro sections upward into the webinar area with large negative margins. The webinar records still reserve and animate their own geometry, so negative-margin sections can overlap the video, proof cards, and review button on production.
 - If you add a custom follow-up CTA below the webinar, do not wrap it in Tilda record classes like `r t-rec`. Tilda runtime can mark custom siblings as `r_hidden r_anim`, which hides the CTA on some viewports. Keep that CTA as a plain custom section below the webinar records.
