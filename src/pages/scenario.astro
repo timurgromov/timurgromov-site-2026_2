@@ -19,11 +19,6 @@ const eveningSteps = [
   "Танцы",
 ];
 
-const eveningStepRows = Array.from(
-  { length: Math.ceil(eveningSteps.length / 2) },
-  (_, rowIndex) => eveningSteps.slice(rowIndex * 2, rowIndex * 2 + 2),
-);
-
 const mistakes = [
   {
     title: "Плохо организованные тосты",
@@ -165,18 +160,10 @@ const contactLinks = [
           </p>
         </div>
         <ol class="scenario-step-grid">
-          {eveningStepRows.map((row, rowIndex) => (
-            <li class="scenario-step-row">
-              {row.map((step, cellIndex) => {
-                const stepNumber = rowIndex * 2 + cellIndex + 1;
-
-                return (
-                  <div class="scenario-step-cell">
-                    <span>{String(stepNumber).padStart(2, "0")}</span>
-                    <strong>{step}</strong>
-                  </div>
-                );
-              })}
+          {eveningSteps.map((step, index) => (
+            <li class="scenario-step-cell">
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <strong>{step}</strong>
             </li>
           ))}
         </ol>
@@ -986,26 +973,22 @@ const contactLinks = [
 
   .scenario-step-grid {
     display: grid;
-    gap: 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(4, auto);
+    grid-auto-flow: column;
+    gap: 0 24px;
     margin: 30px 0 0;
     padding: 0;
     list-style: none;
   }
 
-  .scenario-step-row {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
-    align-items: start;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(36, 29, 25, 0.08);
-  }
-
   .scenario-step-cell {
     display: flex;
+    align-items: flex-start;
     gap: 14px;
-    flex: 1 1 0;
     min-width: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(36, 29, 25, 0.08);
   }
 
   .scenario-step-cell span {
@@ -1639,8 +1622,10 @@ const contactLinks = [
       font-size: 22px;
     }
 
-    .scenario-step-row {
+    .scenario-step-grid {
       grid-template-columns: 1fr;
+      grid-template-rows: none;
+      grid-auto-flow: row;
       gap: 12px;
     }
 
