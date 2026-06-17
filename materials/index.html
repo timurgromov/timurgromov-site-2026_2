@@ -349,6 +349,9 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
           background:#fffefa;
           color:#1c1b1a;
           padding:24px var(--tg-home-section-pad-desktop-x) 40px;
+          position:relative;
+          z-index:20;
+          isolation:isolate;
         }
         .tg-plan-cta__inner{
           display:grid;
@@ -357,6 +360,8 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
           width:min(1680px, 100%);
           margin:0 auto;
           align-items:center;
+          position:relative;
+          z-index:1;
         }
         .tg-plan-cta__kicker,
         .tg-plan-cta__text,
@@ -432,14 +437,21 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
           appearance:none;
           -webkit-appearance:none;
           cursor:pointer;
+          isolation:isolate;
+          overflow:visible !important;
         }
         .tg-tilda-cta__plate,
         .tg-tilda-cta__arrow-box{
           grid-row:1;
-          border:1px solid var(--tg-cta-border);
+          display:block !important;
+          height:100% !important;
+          min-height:var(--tg-cta-height) !important;
+          border:1px solid var(--tg-cta-border) !important;
           box-sizing:border-box;
-          background:var(--tg-cta-fill);
+          background:var(--tg-cta-fill) !important;
           transition:background-color .18s ease,border-color .18s ease;
+          visibility:visible !important;
+          opacity:1 !important;
         }
         .tg-tilda-cta__plate{
           grid-column:1;
@@ -451,7 +463,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
           width:var(--tg-cta-arrow-box);
           margin-left:calc(-1 * var(--tg-cta-overlap));
           border-radius:var(--tg-cta-radius);
-          background:var(--tg-cta-arrow-fill);
+          background:var(--tg-cta-arrow-fill) !important;
         }
         .tg-tilda-cta__label{
           grid-column:1;
@@ -581,12 +593,17 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><scrip
           --tg-cta-color:#1c1b1a;
           --tg-cta-arrow-fill:#fffefa;
           --tg-cta-arrow-color:#1c1b1a;
+          background:#fffefa !important;
+          border-radius:var(--tg-cta-radius) !important;
+          box-shadow:inset 0 0 0 1px var(--tg-cta-border);
         }
         .tg-plan-cta__button--primary{
           --tg-cta-fill:#fa4604;
           --tg-cta-color:#fffefa;
           --tg-cta-arrow-fill:#fa4604;
           --tg-cta-arrow-color:#fffefa;
+          background:#fa4604 !important;
+          box-shadow:none;
         }
         .tg-plan-cta__button--secondary{
           --tg-cta-fill:#fffefa;
