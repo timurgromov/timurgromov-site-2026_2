@@ -6,7 +6,7 @@ The follow-up CTA on `/materials/` still had a grey divider directly above the f
 
 ## What changed
 
-- Added `border-top:none` to the base `.tg-plan-cta__item:first-child` rule.
+- Added `border-top:0 !important` to the base `.tg-plan-cta__item:first-child` rule so the desktop Tilda/runtime cascade cannot restore the first divider.
 - Kept the separators before steps `02` and `03`.
 - Did not change CTA markup, buttons, links, spacing, or typography.
 
