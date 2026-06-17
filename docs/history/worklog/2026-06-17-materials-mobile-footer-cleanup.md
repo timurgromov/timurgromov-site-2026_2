@@ -20,6 +20,7 @@ After the recent `/materials/` footer shifts, the mobile footer showed three iss
     - extended the orange footer block to `650px`;
     - moved the email line up slightly;
     - pulled `ИП / ОГРНИП / ИНН`, `Создание сайта`, and `©2025` much closer to the email block to remove the oversized empty gap.
+  - added a desktop-only CTA hardening layer for `#materials-followup-cta`, reusing the existing `tg-tilda-cta` pattern but forcing both desktop buttons to stay visible as split-buttons (`display:inline-grid`, visible plate, visible arrow box) even if later cascade/viewport rules try to collapse them.
 
 ## Why
 
@@ -38,3 +39,7 @@ This keeps the shared Tilda footer record as the source of truth and fixes only 
   - orange block height became `650px`;
   - gap between email and legal block reduced to `113px`;
   - bottom gap under `©2025` reduced to `34px`.
+- Local in-app browser check on `http://127.0.0.1:4324/materials/` at `1911x1064`:
+  - both desktop CTA buttons present;
+  - each button width `318.5px`;
+  - primary/secondary split-button layers (`plate` + `arrow box`) visible on both buttons.

@@ -875,6 +875,34 @@ const headHtml = withBasePath(
           to{ transform:translateY(-50%) rotate(360deg); }
         }
         @media (min-width:1200px){
+          #materials-followup-cta .tg-plan-cta__actions{
+            display:flex !important;
+            align-items:flex-start;
+            gap:10px;
+            margin-top:26px;
+          }
+          #materials-followup-cta .tg-plan-cta__button{
+            display:inline-grid !important;
+            flex:0 0 auto;
+            width:auto !important;
+            min-width:clamp(200px, 16.6667vw, 320px) !important;
+            visibility:visible !important;
+            opacity:1 !important;
+          }
+          #materials-followup-cta .tg-plan-cta__button .tg-tilda-cta__plate,
+          #materials-followup-cta .tg-plan-cta__button .tg-tilda-cta__arrow-box,
+          #materials-followup-cta .tg-plan-cta__button .tg-tilda-cta__label,
+          #materials-followup-cta .tg-plan-cta__button .tg-tilda-cta__icon{
+            display:block !important;
+            visibility:visible !important;
+            opacity:1 !important;
+          }
+          #materials-followup-cta .tg-plan-cta__button .tg-tilda-cta__label{
+            display:flex !important;
+          }
+          #materials-followup-cta .tg-plan-cta__button .tg-tilda-cta__icon{
+            display:grid !important;
+          }
           .tg-tilda-cta{
             --tg-cta-height:clamp(30px, 2.5vw, 48px);
             --tg-cta-arrow-box:clamp(30px, 2.5vw, 48px);
