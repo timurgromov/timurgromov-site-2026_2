@@ -11,8 +11,10 @@
     "docker:down": "docker compose down",
     "docker:logs": "docker compose logs -f site",
     "check:contacts": "node scripts/check-contact-layout.mjs",
+    "check:materials-layout": "node scripts/check-materials-layout.mjs",
     "verify:contacts": "npm run build && node scripts/verify-contact-layout.mjs",
     "verify:materials-baseline": "npm run build && node scripts/verify-materials-baseline.mjs",
+    "verify:materials-layout": "npm run build && node scripts/verify-materials-layout.mjs",
     "verify:pages": "node scripts/verify-pages-deploy.mjs",
     "preview": "astro preview",
     "deploy:pages": "ASTRO_TELEMETRY_DISABLED=1 npm run verify:contacts && npx --yes gh-pages -d dist -b gh-pages"

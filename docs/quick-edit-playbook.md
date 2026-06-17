@@ -25,6 +25,7 @@
 5. Править минимально в `src/pages/index.astro`, в CSS override или Tilda-like injected markup.
 6. Для обычной правки текста, цены, CSS-состояния, вкладки или небольшого блока не запускать тяжелые проверки автоматически. Быстрый минимум: `npm run build` и текстовый grep/`verify:pages` по нужным маркерам после push.
 7. Если это контакты, popup, меню, телефон, Telegram/MAX, Instagram/VK или footer - выполнить профильную проверку, но не расширять ее до дополнительных browser/MCP сценариев без прямой просьбы владельца.
+   - Для `/materials/`, если правка касается footer, CTA, межсекционных отступов, record height, overlap или breakpoint geometry, выполнить `npm run verify:materials-layout`.
 8. Commit, push именно в `main`, дождаться автодеплоя `gh-pages`, проверить опубликованный HTML маркерами и отдать владельцу на визуальную проверку.
 9. Если запускались browser/headless/preview проверки, закрыть тестовые процессы.
 10. Если push был только в рабочую ветку, сайт не обновлён. Для live-задач это незавершённая работа.
@@ -50,6 +51,7 @@
 Правило:
 
 - `npm run verify:contacts` запускать сразу с escalated permissions, потому что он всегда поднимает `astro preview` и headless Chrome.
+- `npm run verify:materials-layout` также запускать сразу с escalated permissions, потому что он поднимает `astro preview` и Playwright/Chromium для проверки `/materials/` на нескольких viewport.
 - `ps aux | egrep ...` для cleanup тоже запускать с escalated permissions, если обычный запуск запрещён.
 - `npm run verify:pages` / `git ls-remote` / live `curl` к `timurgromov.ru`, `timurgromov.github.io`, `github.com` запускать сразу с escalated permissions, когда это финальная production/live-проверка после push. Не делай сначала заведомо падающий sandbox-прогон.
 - Не тратить время на повтор одного и того же sandbox-запуска после `EPERM`; это ожидаемый отказ среды, а не диагностический сигнал по сайту.

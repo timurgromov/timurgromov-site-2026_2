@@ -59,6 +59,20 @@ The check must confirm:
 - built `/materials/` still contains Tilda markers such as `tilda-blocks-page62008353`, `rec862050095`, `rec862070380`, and `t396`;
 - rejected native-redesign markers such as `materials-hero`, `materials-webinar`, and `materials-video-grid` are absent.
 
+Required layout check after any `/materials/` edit that touches footer, CTA, section spacing, record heights, record overlap, or breakpoint geometry:
+
+```bash
+npm run verify:materials-layout
+```
+
+The layout check starts a local Astro preview and verifies the fragile `/materials/` zones at `1200x900`, `1440x900`, `1911x1064`, and `390x844`:
+
+- footer bottom pixels stay orange;
+- desktop footer record ends with the orange footer shape instead of white artboard tail;
+- mobile footer keeps its orange artboard fallback;
+- follow-up CTA buttons are not covered by the next Tilda record/filter;
+- the next Tilda record does not overlap the CTA.
+
 Current `/materials/` webinar media mapping:
 
 - The active webinar video is still defined directly inside `files/page62008353body.html`, not in a separate Astro constant.
