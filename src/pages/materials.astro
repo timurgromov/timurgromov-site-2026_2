@@ -1527,14 +1527,20 @@ const headHtml = withBasePath(
           }
         }
         @media screen and (min-width:1200px) and (max-width:1919px){
+          :root{
+            --materials-footer-tail-height:clamp(531px, 44.25vw, 846px);
+          }
           html body #allrecords #rec862623921.t-rec,
           html body #allrecords #rec862623921.t-rec .t396__artboard,
           html body #allrecords #rec862623921.t-rec .t396__filter,
           html body #allrecords #rec862623921.t-rec .t396__carrier{
-            height:846px !important;
-            min-height:846px !important;
-            max-height:846px !important;
+            height:var(--materials-footer-tail-height) !important;
+            min-height:var(--materials-footer-tail-height) !important;
+            max-height:var(--materials-footer-tail-height) !important;
             overflow:hidden !important;
+          }
+          html body #allrecords #rec862623921 .tn-elem[data-elem-id="1738906924130"] .tn-atom{
+            height:calc(100% + 8px) !important;
           }
         }
       </style>`,
