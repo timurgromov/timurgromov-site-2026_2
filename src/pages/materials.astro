@@ -712,7 +712,7 @@ const headHtml = withBasePath(
           background:#fffefa;
           color:#1c1b1a;
           padding:var(--tg-home-section-pad-desktop) 0 56px;
-          margin-bottom:-20px;
+          margin-bottom:0;
           position:relative;
           z-index:20;
           isolation:isolate;
@@ -989,14 +989,14 @@ const headHtml = withBasePath(
           line-height:1.25;
         }
         #rec862055949{
-          margin-top:-120px;
+          margin-top:0;
         }
         #rec862623921{
           margin-top:-90px;
         }
         @media screen and (max-width:1919px){
           #rec862055949{
-            margin-top:-90px;
+            margin-top:0;
           }
           #rec862623921{
             margin-top:-64px;
@@ -1049,7 +1049,7 @@ const headHtml = withBasePath(
         }
         @media screen and (max-width:1199px){
           #rec862055949{
-            margin-top:-72px;
+            margin-top:0;
           }
           #rec862623921{
             margin-top:-48px;
@@ -1090,7 +1090,7 @@ const headHtml = withBasePath(
           }
           .tg-plan-cta{
             padding:var(--tg-home-section-pad-tablet) 0 48px;
-            margin-bottom:-18px;
+            margin-bottom:0;
           }
           .tg-plan-cta__inner{
             grid-template-columns:1fr;
@@ -1113,7 +1113,7 @@ const headHtml = withBasePath(
         }
         @media screen and (max-width:639px){
           #rec862055949{
-            margin-top:-48px;
+            margin-top:0;
           }
           #rec862623921{
             margin-top:-32px;
@@ -1371,6 +1371,17 @@ const headHtml = withBasePath(
             border-top-width:5px;
             border-bottom-width:5px;
             border-left-width:8px;
+          }
+        }
+        @media screen and (min-width:1200px) and (max-width:1919px){
+          html body #allrecords #rec862623921.t-rec,
+          html body #allrecords #rec862623921.t-rec .t396__artboard,
+          html body #allrecords #rec862623921.t-rec .t396__filter,
+          html body #allrecords #rec862623921.t-rec .t396__carrier{
+            height:638px !important;
+            min-height:638px !important;
+            max-height:638px !important;
+            overflow:hidden !important;
           }
         }
       </style>`,
