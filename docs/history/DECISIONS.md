@@ -554,3 +554,37 @@ Verification:
 - copied block preserves original helper/classes/CSS mechanics
 - compiled CSS parses correctly and expected component rules are visible in computed styles
 - если аналога нет, агент остановился и запросил согласование нового визуального языка
+
+## DEC-2026-06-17-CODEX-BROWSER-FIRST-FOR-UX
+
+Status: active
+Area: process, UX, QA
+Decision date: 2026-06-17
+Evidence: repeated wasted time on indirect screenshot/headless workflows for subjective layout checks that could be judged faster in the Codex in-app browser
+Commits: pending
+Supersedes: narrower wording in visual-check guidance
+
+Decision:
+Когда задача про UX, дизайн, визуальный ритм, адаптив, “ровно / криво / слишком большой / слишком тесно / ближе к старому”, default surface для живой проверки — Browser / in-app browser Codex.
+
+Автоматические проверки (`verify:*`, headless Chrome, Playwright scripts, внешние screenshots) остаются полезными, но по умолчанию считаются secondary proof или fallback, а не первой линией проверки субъективного визуального результата.
+
+Why:
+Для этого сайта спорные визуальные правки обычно требуют именно человеческой оценки композиции и ритма, а не только HTML-маркеров или headless-картинок. In-app browser Codex позволяет быстрее проверить реальную страницу на нужных брейкпоинтах и не тратить лишние итерации на обходные цепочки.
+
+Do:
+
+- если правка про UX/дизайн, сначала открыть страницу в браузере Codex
+- проверять минимум нужные брейкпоинты прямо там, если пользователь просит `посмотри сам` или `проверь на экранах`
+- использовать automation/headless как fallback или как дополнительное доказательство
+- в финале честно писать, делался ли live visual-check в браузере Codex
+
+Do not:
+
+- не начинать субъективную UX-проверку с тяжёлой скриншотной цепочки, если ту же задачу можно быстрее решить через browser Codex
+- не подменять живую визуальную проверку только `build`/`curl`/`verify:pages`, когда вопрос именно про композицию
+
+Verification:
+
+- правило зафиксировано в `AGENTS.md` и `docs/quick-edit-playbook.md`
+- будущие UX-задачи по умолчанию используют in-app browser Codex как first check
