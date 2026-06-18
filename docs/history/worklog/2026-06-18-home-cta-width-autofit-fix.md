@@ -15,13 +15,17 @@
 
 ## Change
 
-- Убрана фиксированная одинаковая ширина у:
+- Убрана жёсткая одинаковая ширина как `width` у:
   - `.tg-plan-cta__button`
   - `.tg-consultation-cta__button`
   - `.tg-contact-popup__link`
   - `.tg-contact-popup__form button`
   - `.tg-plan-popup__telegram`
-- Вместо этого кнопки снова используют `width: auto` + `max-width: 100%`, сохраняя существующий split-button pattern, высоту, padding и arrow-box.
+- Возвращена прежняя базовая логика ширины:
+  - старая Tilda-like база сохранена как `min-width`
+  - сама ширина задана как `width: max-content`
+  - `max-width: 100%` сохранен как страховка от выхода за контейнер
+- Итог: короткие CTA не схлопываются меньше привычной базы, а длинные CTA могут расширяться сверх неё и не режут label.
 - Страница `/scenario/` не менялась.
 
 ## Verification
@@ -29,6 +33,6 @@
 - `npm run build`
 - Local Playwright check against `http://127.0.0.1:4321/`
 - Проверка CTA консультации на `1440x900`:
-  - `Записаться на бесплатную встречу`: `clipped:false`, `buttonWidth:325`, `labelScrollWidth:290`
-  - `Позвонить`: `clipped:false`
-- Проверка видимых `tg-tilda-cta` на главной и в consultation popup: все проверенные кнопки `clipped:false`
+  - `Записаться на бесплатную встречу`: `buttonWidth:325`, `labelScrollWidth:290`, `clipped:false`
+  - `Позвонить`: `buttonWidth:240`, `labelScrollWidth:205`, `clipped:false`
+- Проверка подтверждает нужную механику: короткая кнопка не схлопывается до текста, длинная расширяется сверх базовой ширины.
