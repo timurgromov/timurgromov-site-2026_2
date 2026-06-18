@@ -265,6 +265,7 @@ Current revealed-state logic:
 - The native hero video is not marked `autoplay` in static HTML. JS adds autoplay and starts muted playback from `currentTime = 0` when it is ready to reveal, so the video does not advance invisibly behind the poster.
 - `heroRevealDelayMs = 60`
 - `heroMinimumPosterMs = 1600`
+- `heroPosterStartedAt` is set when `bindHeroPosterState()` actually finds the hero record, not when the head script first executes.
 - `heroLoopStartSeconds = 0`
 - `heroLoopEndPaddingSeconds = 0.18`
 - `requestVideoFrameCallback` is used when available so the poster fades only after a real painted video frame.

@@ -11,7 +11,7 @@ The homepage hero video worked as the main atmospheric first screen, but the fir
   - `public/images/hero-portrait-poster-mobile.jpg`
 - Switched the active hero poster URLs in `src/pages/index.astro` to the new portrait assets with cache version `20260618a`.
 - Kept the existing single visible poster layer: `#hero-preload-overlay`.
-- Added `heroMinimumPosterMs = 1600`, so the portrait poster remains visible briefly before the video can reveal.
+- Added `heroMinimumPosterMs = 1600`, counted from the moment the hero record is actually bound, so the portrait poster remains visible briefly before the video can reveal.
 - Added `scheduleHeroPosterBind()` on `DOMContentLoaded`, short retries, and `load`, so the native hero video binds reliably even when external media preload delays `load`.
 - Updated `docs/do-not-break-this-site.md` to document the active portrait poster files, minimum poster timing, and bind hardening.
 
