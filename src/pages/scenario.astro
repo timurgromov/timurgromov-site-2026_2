@@ -1,8 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { maxContactUrl, telegramMeetingUrl } from "../site/home-data";
+import { getTildaCtaArrowIconUrl, tildaCtaLink } from "../site/tilda-cta";
 
 const homeHref = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const ctaArrowIconUrl = getTildaCtaArrowIconUrl(homeHref);
+const ctaArrowIconMask = `url("${ctaArrowIconUrl}")`;
 const pageUrl = new URL(`${homeHref}scenario/`, "https://timurgromov.ru").toString();
 const socialImageUrl = new URL(
   `${homeHref}images/scenario-hero-host-bw-source.jpg`,
@@ -450,9 +453,7 @@ const contactLinks = [
           </p>
         </div>
         <div class="scenario-inline-cta__actions">
-          <a class="scenario-inline-cta__button" href={telegramMeetingUrl} target="_blank" rel="noopener noreferrer">
-            Обсудить вашу свадьбу
-          </a>
+          <Fragment set:html={tildaCtaLink("scenario-inline-cta__button", telegramMeetingUrl, "Обсудить вашу свадьбу", 'target="_blank" rel="noopener noreferrer"')} />
           <p class="scenario-inline-cta__note">30–50 минут, только про вашу свадьбу.</p>
         </div>
       </section>
@@ -596,9 +597,7 @@ const contactLinks = [
           </ul>
         </div>
         <div class="scenario-cta__actions">
-          <a class="scenario-cta__button" href={telegramMeetingUrl} target="_blank" rel="noopener noreferrer">
-            Записаться на встречу
-          </a>
+          <Fragment set:html={tildaCtaLink("scenario-cta__button", telegramMeetingUrl, "Записаться на встречу", 'target="_blank" rel="noopener noreferrer"')} />
           <ul class="scenario-cta__proof-list">
             <li>без обязательств</li>
             <li>именно про вашу свадьбу</li>
@@ -674,7 +673,7 @@ const contactLinks = [
   </main>
 </BaseLayout>
 
-<style>
+<style define:vars={{ ctaArrowIconMask }}>
   @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Instrument+Serif:ital@0;1&display=swap");
 
   :global(html),
@@ -699,6 +698,138 @@ const contactLinks = [
     background: var(--bg);
     color: var(--ink);
     font-family: Arial, Helvetica, sans-serif;
+  }
+
+  :global(.scenario-page .tg-tilda-cta) {
+    --tg-cta-height: 35px;
+    --tg-cta-arrow-box: 35px;
+    --tg-cta-overlap: 1px;
+    --tg-cta-pad-left: 18px;
+    --tg-cta-pad-right: 16px;
+    --tg-cta-radius: 5px;
+    --tg-cta-fill: var(--accent);
+    --tg-cta-border: var(--accent);
+    --tg-cta-color: #fffaf4;
+    --tg-cta-arrow-fill: var(--accent);
+    --tg-cta-arrow-color: #fffaf4;
+    --tg-cta-icon-size: 13px;
+    --tg-cta-font-size: 13px;
+    position: relative;
+    display: inline-grid;
+    grid-template-columns: minmax(0, 1fr) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
+    align-items: stretch;
+    width: min(300px, 100%);
+    min-width: 0;
+    height: var(--tg-cta-height) !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-sizing: border-box;
+    background: transparent !important;
+    color: var(--tg-cta-color) !important;
+    font-family: var(--t-text-font, Arial);
+    font-size: var(--tg-cta-font-size) !important;
+    font-weight: 400;
+    line-height: 1;
+    text-decoration: none !important;
+    background-image: none !important;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+
+  :global(.scenario-page .tg-tilda-cta__plate),
+  :global(.scenario-page .tg-tilda-cta__arrow-box) {
+    grid-row: 1;
+    border: 1px solid var(--tg-cta-border);
+    box-sizing: border-box;
+    background: var(--tg-cta-fill);
+    transition: background-color 0.18s ease, border-color 0.18s ease;
+  }
+
+  :global(.scenario-page .tg-tilda-cta__plate) {
+    grid-column: 1;
+    min-width: 0;
+    border-radius: var(--tg-cta-radius);
+  }
+
+  :global(.scenario-page .tg-tilda-cta__arrow-box) {
+    grid-column: 2;
+    width: var(--tg-cta-arrow-box);
+    margin-left: calc(-1 * var(--tg-cta-overlap));
+    border-radius: var(--tg-cta-radius);
+    background: var(--tg-cta-arrow-fill);
+  }
+
+  :global(.scenario-page .tg-tilda-cta__label) {
+    grid-column: 1;
+    grid-row: 1;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    padding: 0 var(--tg-cta-pad-right) 0 var(--tg-cta-pad-left);
+    color: var(--tg-cta-color);
+    font: inherit;
+    line-height: 1;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  :global(.scenario-page .tg-tilda-cta__icon) {
+    grid-column: 2;
+    grid-row: 1;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: var(--tg-cta-arrow-box);
+    margin-left: calc(-1 * var(--tg-cta-overlap));
+    pointer-events: none;
+  }
+
+  :global(.scenario-page .tg-tilda-cta__icon)::before {
+    content: "";
+    width: var(--tg-cta-icon-size);
+    height: var(--tg-cta-icon-size);
+    background: var(--tg-cta-arrow-color);
+    -webkit-mask: var(--ctaArrowIconMask) center / contain no-repeat;
+    mask: var(--ctaArrowIconMask) center / contain no-repeat;
+    transform: rotate(0deg);
+    transform-origin: center;
+    transition: transform 0.2s ease, background-color 0.18s ease;
+  }
+
+  @media (hover: hover) {
+    :global(.scenario-page .tg-tilda-cta:hover .tg-tilda-cta__icon::before) {
+      transform: rotate(45deg);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    :global(.scenario-page .tg-tilda-cta) {
+      --tg-cta-height: clamp(30px, 2.5vw, 48px);
+      --tg-cta-arrow-box: clamp(30px, 2.5vw, 48px);
+      --tg-cta-pad-left: clamp(20px, 1.6667vw, 34px);
+      --tg-cta-pad-right: clamp(18px, 1.5vw, 26px);
+      --tg-cta-radius: clamp(5px, 0.4167vw, 8px);
+      --tg-cta-icon-size: clamp(10px, 0.8333vw, 16px);
+      --tg-cta-font-size: clamp(12px, 1vw, 19px);
+      width: clamp(200px, 16.6667vw, 320px);
+    }
+  }
+
+  @media (min-width: 1920px) {
+    :global(.scenario-page .tg-tilda-cta) {
+      --tg-cta-height: 48px;
+      --tg-cta-arrow-box: 48px;
+      --tg-cta-pad-left: 34px;
+      --tg-cta-pad-right: 26px;
+      --tg-cta-radius: 8px;
+      --tg-cta-icon-size: 16px;
+      --tg-cta-font-size: 19px;
+    }
   }
 
   .scenario-shell {
