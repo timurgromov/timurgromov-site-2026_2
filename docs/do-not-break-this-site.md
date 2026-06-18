@@ -305,13 +305,20 @@ Problem:
 
 Current rule:
 
-- New custom CTA buttons must use the shared `tg-tilda-cta` helper in `src/site/tilda-cta.ts`, not a freshly drawn generic button.
+- New custom CTA buttons must use the shared `tg-tilda-cta` helper in `src/site/tilda-cta.ts`, not a freshly drawn generic button. This helper is the canonical saved CTA component for this site, not a loose reference.
 - When reusing this pattern on another page, copy the full working set, not just class names: `tildaCtaInner`, `tildaCtaLink` / `tildaCtaButton`, `.tg-tilda-cta`, `.tg-plan-cta__button`, CSS variables, media queries, SVG mask URL, loading state, and hover rules.
 - Keep the visual structure as two joined elements: a rounded left plate plus a rounded right square.
 - Keep `--tg-cta-overlap:1px`, matching the export where the right square overlaps the left plate by one pixel.
 - Do not set the inner join to `border-radius:0` and do not remove the right square's left border. That makes the CTA look like one solid rectangle and loses the Tilda style.
 - Keep the whole wrapper clickable and keep the arrow hover rotation.
 - If copied CTA CSS does not visually apply, inspect the compiled CSS and computed styles first. Fix parser/cascade/basePath/style-order problems instead of rebuilding a similar button.
+
+Homepage hero exception:
+
+- The homepage hero CTA is still a Tilda Zero button inside `rec861352716`, not a custom `tg-tilda-cta` helper instance.
+- Do not replace it with new markup.
+- Preserve the same split geometry from desktop on mobile by adjusting only the existing Tilda layers: left plate `1738733020218`, right square `1738733061526`, text `1738733079599`, full click target `1738735136250`, and arrow `1738733186214`.
+- Verification for hero CTA fixes must prove the mobile button is still split: the left plate ends where the right square starts, the text ends before the square, the arrow is inside the square, and the click target covers both parts.
 
 Do not reintroduce:
 

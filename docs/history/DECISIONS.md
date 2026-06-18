@@ -2,6 +2,42 @@
 
 Этот файл фиксирует решения, которые важно помнить и не откатывать случайно.
 
+## DEC-2026-06-18-CANONICAL-CTA-SPLIT-BUTTON
+
+Status: active
+Area: frontend, ux, design-system, workflow
+Decision date: 2026-06-18
+Evidence: mobile hero CTA regression where the arrow was first offscreen, then fixed into a one-piece orange button instead of preserving the existing desktop split-button pattern
+Commits: pending
+Supersedes: none
+
+Decision:
+CTA-кнопки на сайте нельзя пересобирать заново как похожие rounded buttons. Для custom CTA canonical source - `src/site/tilda-cta.ts` (`tildaCtaInner`, `tildaCtaLink`, `tildaCtaButton`) плюс полный CSS-комплект `.tg-tilda-cta` и page-specific wrapper variables. Для Tilda Zero hero CTA на главной canonical source - существующие слои `rec861352716`; их можно двигать, но нельзя заменять новой самодельной кнопкой.
+
+Why:
+Даже небольшое отклонение от исходного паттерна ломает визуальный язык сайта: один сплошной оранжевый прямоугольник со стрелкой внутри выглядит не как родная Tilda-кнопка. На desktop hero already had the correct button, so mobile should have matched that geometry instead of being reconstructed.
+
+Do:
+
+- перед любой CTA-правкой явно указать source: `src/site/tilda-cta.ts` для custom CTA или `rec861352716` layer IDs для hero;
+- копировать helper markup, CSS variables, media queries, SVG mask, hover behavior and click layer as a set;
+- сохранять split structure: left rounded plate + separate rounded right square + arrow inside square + full click target;
+- для hero mobile сверять с desktop geometry: plate end, square start, text boundary, arrow boundary, click coverage;
+- если CSS/координаты не применились, чинить cascade/Tilda geometry, not a new fallback button.
+
+Do not:
+
+- не рисовать CTA с нуля по цвету/размеру/примерной стрелке;
+- не превращать split-button в один цельный rounded rectangle;
+- не обнулять внутренние радиусы и не убирать механику отдельного square;
+- не использовать screenshots/DOM presence как достаточное доказательство, если visible button pattern differs from desktop.
+
+Verification:
+
+- custom CTA uses `src/site/tilda-cta.ts` helper and copied CSS set;
+- hero CTA uses existing `rec861352716` layers;
+- browser or Playwright proof checks that left plate and right square remain visually separate and clickable.
+
 ## DEC-2026-06-17-NO-CASCADE-COMPENSATION-WORKFLOW
 
 Status: active
