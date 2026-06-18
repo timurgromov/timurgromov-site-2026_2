@@ -2094,7 +2094,8 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   }
 
   .tg-plan-cta__button{
-    min-width:clamp(200px, 16.6667vw, 320px);
+    width:clamp(200px, 16.6667vw, 320px);
+    min-width:0;
     --tg-cta-fill:#fffefa;
     --tg-cta-color:#1c1b1a;
     --tg-cta-arrow-fill:#fffefa;
@@ -2241,8 +2242,9 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     }
 
     .tg-plan-cta__button{
-      width:100%;
+      width:min(300px, 100%);
       min-width:0;
+      justify-self:start;
       grid-template-columns:minmax(0, 1fr) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
       --tg-cta-pad-left:16px;
       --tg-cta-pad-right:14px;
@@ -2328,7 +2330,8 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   }
 
   .tg-consultation-cta__button{
-    min-width:200px;
+    width:clamp(200px, 16.6667vw, 320px);
+    min-width:0;
     --tg-cta-fill:#fffefa;
     --tg-cta-color:#1c1b1a;
     --tg-cta-arrow-fill:#fffefa;
@@ -2459,8 +2462,9 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     }
 
     .tg-consultation-cta__button{
-      width:100%;
+      width:min(300px, 100%);
       min-width:0;
+      justify-self:start;
       grid-template-columns:minmax(0, 1fr) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
       --tg-cta-pad-left:16px;
       --tg-cta-pad-right:14px;
