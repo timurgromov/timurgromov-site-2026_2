@@ -2,7 +2,7 @@
 
 ## Context
 
-On the homepage mobile hero, the first-screen CTA showed only the orange text plate. The separate Tilda arrow-square layer was positioned offscreen, so Safari/mobile users saw an empty left plate without the expected arrow block.
+On the homepage mobile hero, the first-screen CTA must match the existing desktop Tilda split-button pattern: one text plate plus a separate square arrow block. The first mobile fix brought the arrow on screen, but overlapped the square too far into the plate, making the CTA read as one solid button.
 
 ## Change
 
@@ -10,10 +10,11 @@ On the homepage mobile hero, the first-screen CTA showed only the orange text pl
 - Repositioned the mobile-only Tilda layers:
   - arrow square: `1738733061526`
   - arrow image: `1738733186214`
+- Adjusted the mobile text layer and transparent click layer so the label stays clear of the square and the full split button is clickable.
 - Kept the scenario article CTA untouched.
 
 ## Verification
 
 - `npm run build`
 - Local Playwright mobile geometry check at `375`, `390`, `393`, and `414` CSS px.
-- Local screenshot: `/tmp/hero-cta-local-final.png`.
+- Local screenshot: `/tmp/hero-cta-mobile-split-local.png`.
