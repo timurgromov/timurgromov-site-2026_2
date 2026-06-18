@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     var heroShapeSelector = '.tn-elem__8613527161738731141089';
     var heroRevealDelayMs = 60;
     var heroMinimumPosterMs = 1600;
-    var heroPosterStartedAt = Date.now();
+    var heroPosterStartedAt = 0;
     var heroRevealPending = false;
     var heroLoopStartSeconds = 0;
     var heroLoopEndPaddingSeconds = 0.18;
@@ -398,6 +398,10 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
       var video = shape && shape.querySelector('video');
 
       if (!record) return;
+
+      if (!heroPosterStartedAt) {
+        heroPosterStartedAt = Date.now();
+      }
 
       if (video) {
         prepareHeroVideo(video);
