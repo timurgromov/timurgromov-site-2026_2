@@ -5,7 +5,6 @@ import {
   cleanVideoPopupItems,
   heroCloudDesktopVideoUrl,
   heroCloudMobileVideoUrl,
-  heroPosterVersion,
   hiddenMarketingVideoAdviceElementIds,
   hiddenMarketingVideoAdviceRecordIds,
   maxContactUrl,
@@ -75,8 +74,9 @@ const bodyClass = bodyAttrs.match(/\bclass=(['"])(.*?)\1/i)?.[2];
 const bodyStyle = bodyAttrs.match(/\bstyle=(['"])(.*?)\1/i)?.[2];
 const casePreviewVideoConfig = JSON.stringify(casePreviewVideoItems);
 const cleanVideoPopupConfig = JSON.stringify(cleanVideoPopupItems);
-const heroPosterDesktopUrl = `${basePath}images/hero-poster-desktop.jpg?v=${heroPosterVersion}`;
-const heroPosterMobileUrl = `${basePath}images/hero-poster-mobile.jpg?v=${heroPosterVersion}`;
+const heroFirstFrameVersion = "20260618a";
+const heroPosterDesktopUrl = `${basePath}images/hero-portrait-poster-desktop.jpg?v=${heroFirstFrameVersion}`;
+const heroPosterMobileUrl = `${basePath}images/hero-portrait-poster-mobile.jpg?v=${heroFirstFrameVersion}`;
 const footerMenuElementIds = [
   "1738908769393",
   "1738908801867",
@@ -391,6 +391,9 @@ const fastFirstPaint = `<link rel="preconnect" href="${videoMediaBaseUrl}" cross
     var heroRecordId = 'rec861352716';
     var heroShapeSelector = '.tn-elem__8613527161738731141089';
     var heroRevealDelayMs = 60;
+    var heroMinimumPosterMs = 1600;
+    var heroPosterStartedAt = Date.now();
+    var heroRevealPending = false;
     var heroLoopStartSeconds = 0;
     var heroLoopEndPaddingSeconds = 0.18;
 
@@ -404,14 +407,30 @@ const fastFirstPaint = `<link rel="preconnect" href="${videoMediaBaseUrl}" cross
       return video && !video.paused && !video.ended && video.readyState >= 2;
     }
 
-    function markHeroVideoStarted(video) {
-      if (!isHeroVideoReadyToReveal(video)) return;
-
+    function applyHeroVideoStarted() {
       var record = document.getElementById(heroRecordId);
       if (!record) return;
 
       record.classList.add('hero-video-started');
       record.classList.add('hero-preload-hidden');
+    }
+
+    function markHeroVideoStarted(video) {
+      if (!isHeroVideoReadyToReveal(video)) return;
+
+      var remainingPosterMs = heroMinimumPosterMs - (Date.now() - heroPosterStartedAt);
+      if (remainingPosterMs > 0) {
+        if (!heroRevealPending) {
+          heroRevealPending = true;
+          window.setTimeout(function() {
+            heroRevealPending = false;
+            markHeroVideoStarted(video);
+          }, remainingPosterMs);
+        }
+        return;
+      }
+
+      applyHeroVideoStarted();
     }
 
     function revealHeroOnPaintedFrame(video) {
@@ -512,7 +531,17 @@ const fastFirstPaint = `<link rel="preconnect" href="${videoMediaBaseUrl}" cross
       document.documentElement.classList.toggle('hero-header-solid', window.scrollY > 520);
     }
 
-    bindHeroPosterState();
+    function scheduleHeroPosterBind() {
+      bindHeroPosterState();
+      window.setTimeout(bindHeroPosterState, 250);
+      window.setTimeout(bindHeroPosterState, 1200);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', scheduleHeroPosterBind, { once: true });
+    } else {
+      scheduleHeroPosterBind();
+    }
     syncHeroHeaderState();
     document.addEventListener('click', function() {
       var record = document.getElementById(heroRecordId);
@@ -530,7 +559,7 @@ const fastFirstPaint = `<link rel="preconnect" href="${videoMediaBaseUrl}" cross
       bindHeroPosterState();
     });
     window.addEventListener('pageshow', syncHeroHeaderState);
-    window.addEventListener('load', bindHeroPosterState);
+    window.addEventListener('load', scheduleHeroPosterBind);
   })();
 </script>`;
 const casePreviewVideoAssets = `<style>

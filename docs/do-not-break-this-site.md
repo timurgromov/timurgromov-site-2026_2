@@ -128,10 +128,10 @@ Current rule:
 Exact current setup:
 
 ```ts
-const heroPosterVersion = "2306bab";
-const heroPosterDesktopUrl = `${basePath}images/hero-poster-desktop.jpg?v=${heroPosterVersion}`;
-const heroPosterMobileUrl = `${basePath}images/hero-poster-mobile.jpg?v=${heroPosterVersion}`;
-const heroNativeVideoMarkup = `<video class="hero-native-video" muted playsinline webkit-playsinline preload="auto" poster="${heroPosterDesktopUrl}" src="${heroCloudDesktopVideoUrl}" aria-hidden="true"></video>`;
+const heroFirstFrameVersion = "20260618a";
+const heroPosterDesktopUrl = `${basePath}images/hero-portrait-poster-desktop.jpg?v=${heroFirstFrameVersion}`;
+const heroPosterMobileUrl = `${basePath}images/hero-portrait-poster-mobile.jpg?v=${heroFirstFrameVersion}`;
+const heroNativeVideoMarkup = `<video class="hero-native-video" muted playsinline webkit-playsinline preload="auto" poster="${heroPosterDesktopUrl}" data-desktop-src="${heroCloudDesktopVideoUrl}" data-mobile-src="${heroCloudMobileVideoUrl}" aria-hidden="true"></video>`;
 const heroPreloadOverlay = `<div id="hero-preload-overlay" aria-hidden="true"></div>`;
 ```
 
@@ -260,13 +260,15 @@ VPS media source checks from 2026-05-08:
 
 Current revealed-state logic:
 
-- The desktop hero video URL is present directly in the native video `src`, so the browser can start fetching it before the setup script runs.
+- The static native video keeps `data-desktop-src` and `data-mobile-src`; JS chooses the real `src` after the hero record exists.
 - Desktop/mobile hero videos are also preloaded in `fastFirstPaint`.
 - The native hero video is not marked `autoplay` in static HTML. JS adds autoplay and starts muted playback from `currentTime = 0` when it is ready to reveal, so the video does not advance invisibly behind the poster.
 - `heroRevealDelayMs = 60`
+- `heroMinimumPosterMs = 1600`
 - `heroLoopStartSeconds = 0`
 - `heroLoopEndPaddingSeconds = 0.18`
 - `requestVideoFrameCallback` is used when available so the poster fades only after a real painted video frame.
+- `scheduleHeroPosterBind()` runs on `DOMContentLoaded`, with short retries, and again on `load`; do not remove this because media preloads can delay `load` and leave the hero video unbound in some browsers/tests.
 - `markHeroVideoStarted(video)` adds:
   - `hero-video-started`
   - `hero-preload-hidden`
