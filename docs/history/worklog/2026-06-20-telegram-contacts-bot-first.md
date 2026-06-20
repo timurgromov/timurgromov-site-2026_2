@@ -21,4 +21,5 @@ All public Telegram contact CTA on the site should enter the bot through `site_m
 - `npm run verify:contacts` passed; footer and popup Telegram links resolve to `https://t.me/gromov_wedding_bot?start=site_meeting` on desktop and mobile viewports.
 - Static absent-check passed: `dist/index.html` and `dist/scenario/index.html` do not contain `t.me/timurgromovv` or `@timurgromovv`.
 - Local `dist/index.html` keeps `site_plan` for the scenario tripwire and uses `site_meeting` for contact CTA.
-- Deploy and production link check pending.
+- Git push deployed to GitHub Pages from `0a03e62`.
+- Production check passed on `https://timurgromov.ru/`: contains `gromov_wedding_bot?start=site_meeting` and `gromov_wedding_bot?start=site_plan`, absent `t.me/timurgromovv`.

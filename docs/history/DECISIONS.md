@@ -7,8 +7,8 @@
 Status: active
 Area: funnel, analytics, crm, telegram
 Decision date: 2026-06-20
-Evidence: audit of live homepage CTA links and production EventBudjet notification routing
-Commits: pending
+Evidence: audit of live homepage CTA links, production EventBudjet notification routing, and live check on `https://timurgromov.ru/`
+Commits: site `0a03e62`, EventBudjet `a0f0ceb`
 Supersedes: none
 
 Decision:
