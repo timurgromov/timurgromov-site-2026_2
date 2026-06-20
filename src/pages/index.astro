@@ -5511,6 +5511,8 @@ const transformedBodyHtml = priceBodySource
   .replace(/href=(['"])\/(?!\/)/g, `href=$1${basePath}`)
   .replace(/src=(['"])\/(?!\/)/g, `src=$1${basePath}`)
   .replace(/action=(['"])\/(?!\/)/g, `action=$1${basePath}`)
+  .replaceAll('href="https://t.me/timurgromovv"', `href="${telegramMeetingUrl}"`)
+  .replaceAll('href="http://t.me/timurgromovv"', `href="${telegramMeetingUrl}"`)
   .replace(
     /(<div id="rec861352716" class="r t-rec"[^>]*>)/,
     `$1${heroPreloadOverlay}`,

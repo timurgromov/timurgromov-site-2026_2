@@ -2,6 +2,34 @@
 
 Этот файл фиксирует решения, которые важно помнить и не откатывать случайно.
 
+## DEC-2026-06-20-TELEGRAM-CONTACTS-BOT-FIRST
+
+Status: active
+Area: funnel, analytics, crm, telegram
+Decision date: 2026-06-20
+Evidence: audit of live homepage CTA links and production EventBudjet notification routing
+Commits: pending
+Supersedes: none
+
+Decision:
+Все публичные Telegram CTA сайта, которые означают "написать Тимуру" или "обсудить свадьбу", ведут через `https://t.me/gromov_wedding_bot?start=site_meeting`, а не в личный `@timurgromovv`. Tripwire "Получить сценарий" остаётся отдельным bot payload `site_plan`.
+
+Why:
+Запуск бота даёт измеримый контакт, Telegram identity и единый маршрут в `EventBudjet` / `CRM заявки`. Прямой личный Telegram создаёт шумную неучтённую конверсию и не попадает в рабочую очередь заявок.
+
+Do:
+
+- использовать `site_plan` только для получения сценария и квалификации 3 вопроса;
+- использовать `site_meeting` для Telegram-контакта, встречи и прямого сообщения;
+- оставлять MAX, телефон и WhatsApp как fallback-каналы;
+- считать primary рекламными конверсиями bot starts / CRM form submits, а не клики по fallback-каналам.
+
+Do not:
+
+- не возвращать публичные CTA "Telegram", "Tg", "Написать" на `t.me/timurgromovv`;
+- не вести сценарий напрямую на `/scenario/` без bot-flow;
+- не смешивать CRM-заявки с калькуляторной telemetry.
+
 ## DEC-2026-06-18-CANONICAL-CTA-SPLIT-BUTTON
 
 Status: active
