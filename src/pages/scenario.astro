@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { maxContactUrl, telegramMeetingUrl, telegramPlanUrl } from "../site/home-data";
+import { maxContactUrl, telegramMeetingUrl } from "../site/home-data";
 
 const homeHref = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const pageUrl = new URL(`${homeHref}scenario/`, "https://timurgromov.ru").toString();
@@ -57,9 +57,9 @@ const portfolioLinks = [
 
 const materialLinks = [
   {
-    label: "Сценарий и материалы",
-    value: "После 3 коротких вопросов в Telegram",
-    href: telegramPlanUrl,
+    label: "Запись разбора",
+    value: "Пошаговый план подготовки к свадьбе",
+    href: "https://clck.ru/3RX8Nw",
   },
   {
     label: "Telegram-бот",
