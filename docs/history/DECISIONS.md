@@ -2,6 +2,43 @@
 
 Этот файл фиксирует решения, которые важно помнить и не откатывать случайно.
 
+## DEC-2026-06-23-TELEGRAM-MATERIALS-QUALIFICATION-FIRST
+
+Status: active
+Area: funnel, telegram, crm, copy
+Decision date: 2026-06-23
+Evidence: owner reported that `Получить сценарий` and direct Telegram contact felt like the same bot chain on production; audit showed site hrefs already differ (`site_plan` vs `site_meeting`), so the contract must be explicit in bot copy/runtime and docs
+Commits: pending
+Supersedes: none
+
+Decision:
+Все полезные материалы внутри Telegram-бота, кроме свадебного калькулятора, должны открываться через qualification-first flow `site_plan`: 3 коротких вопроса, затем сценарий и материалы. Прямой Telegram-контакт `site_meeting` не должен проходить материальную квалификацию и должен просить пользователя написать Тимуру сообщение прямо в чате.
+
+Why:
+Кнопки сайта имеют разные намерения. `Получить сценарий` продаёт полезный материал и должен собрать минимальную квалификацию до выдачи ценности. `Написать в Telegram` означает прямой контакт с Тимуром, а не тот же сценарный путь. Если оба входа звучат одинаково, ломается воронка и владелец теряет понимание, зачем человек пришёл.
+
+Do:
+
+- держать `site_plan` отдельным стартом для сценария и материалов;
+- в `site_plan` первым сообщением прямо говорить про 3 вопроса до выдачи сценария;
+- держать `site_meeting` отдельным стартом для прямого сообщения Тимуру;
+- кнопку `Полезные материалы` внутри `site_meeting` вести в `site_plan` qualification flow;
+- оставлять свадебный калькулятор прямым исключением, потому что его квалификация происходит внутри калькулятора;
+- использовать имя `Тимур Громов` в публичном bot/site copy.
+
+Do not:
+
+- не отдавать сценарий, чеклисты, вебинарные материалы или корзину материалов до `site_plan` qualification;
+- не писать, что `site_plan` отдаёт материал `без анкеты`;
+- не делать `site_meeting` копией сценарной цепочки;
+- не возвращать прямые публичные Telegram CTA на личный `@timurgromovv`.
+
+Verification:
+
+- production HTML содержит оба payload: `start=site_plan` и `start=site_meeting`;
+- bot tests or static assertions prove `site_plan` and `site_meeting` use different start messages;
+- live smoke in Telegram confirms `site_plan` starts qualification and `site_meeting` asks for direct message.
+
 ## DEC-2026-06-20-TELEGRAM-CONTACTS-BOT-FIRST
 
 Status: active
