@@ -8,7 +8,7 @@ Status: active
 Area: funnel, telegram, crm, copy
 Decision date: 2026-06-23
 Evidence: owner reported that `Получить сценарий` and direct Telegram contact felt like the same bot chain on production; audit showed site hrefs already differ (`site_plan` vs `site_meeting`), so the contract must be explicit in bot copy/runtime and docs
-Commits: pending
+Commits: site `5d2fad8`, EventBudjet `dc479d0`
 Supersedes: none
 
 Decision:
