@@ -5490,13 +5490,13 @@ const priceBodySource = transformTildaRecord(
           recordHtml
             .replaceAll('href="https://clck.ru/3RRXHX"', `href="${maxContactUrl}"`)
             .replaceAll('href="https://t.me/timurgromovv"', `href="${telegramMeetingUrl}"`),
+    ),
+    "rec861352716",
+    (recordHtml) =>
+      recordHtml.replace(
+        /(<div class='t396__elem tn-elem tn-elem__8613527161738735136250'[\s\S]*?<a class='tn-atom' href=")([^"]+)(" rel="nofollow" target="_blank"> <\/a>)/,
+        `$1${telegramPlanUrl}$3`,
       ),
-      "rec861352716",
-      (recordHtml) =>
-        recordHtml.replace(
-          `<a class='tn-atom' href="http://t.me/timurgromovv" rel="nofollow" target="_blank"> </a>`,
-          `<a class='tn-atom' href="#plan-delivery-popup" rel="nofollow" data-plan-popup-open> </a>`,
-        ),
     ),
     "rec862317152",
     (recordHtml) =>

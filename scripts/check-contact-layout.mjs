@@ -164,6 +164,33 @@ async function assertAnchorHistoryIsDisabled(cdp) {
   if (!state.historyDisabled) fail("Tilda anchor history is not disabled", state);
 }
 
+async function getHeroScenarioCta(cdp) {
+  return evaluate(
+    cdp,
+    `(() => {
+      const text = document.querySelector('#rec861352716 .tn-elem[data-elem-id="1738733079599"] .tn-atom');
+      const link = document.querySelector('#rec861352716 .tn-elem[data-elem-id="1738735136250"] a.tn-atom');
+      return {
+        text: text?.textContent.replace(/\\s+/g, ' ').trim() || '',
+        href: link?.href || '',
+      };
+    })()`,
+  );
+}
+
+function assertHeroScenarioCta(cta, viewport) {
+  if (!cta?.text || !cta?.href) fail("hero: scenario CTA is missing", { cta, viewport });
+  if (!cta.text.toLowerCase().includes("сценар")) {
+    fail("hero: scenario CTA text lost the scenario intent", { cta, viewport });
+  }
+  if (!cta.href.includes("start=site_plan")) {
+    fail("hero: scenario CTA does not point to site_plan", { cta, viewport });
+  }
+  if (cta.href.includes("start=site_meeting")) {
+    fail("hero: scenario CTA regressed to site_meeting", { cta, viewport });
+  }
+}
+
 async function getLayout(cdp, mode) {
   return evaluate(
     cdp,
@@ -406,6 +433,8 @@ async function main() {
   for (const viewport of viewports) {
     await loadPage(cdp, viewport.width, viewport.height);
     await assertAnchorHistoryIsDisabled(cdp);
+    const heroScenarioCta = await getHeroScenarioCta(cdp);
+    assertHeroScenarioCta(heroScenarioCta, viewport);
 
     const footer = await getLayout(cdp, "footer");
     assertLayout(footer);

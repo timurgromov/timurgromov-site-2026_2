@@ -2,6 +2,40 @@
 
 Этот файл фиксирует решения, которые важно помнить и не откатывать случайно.
 
+## DEC-2026-06-24-HERO-SCENARIO-CTA-INTENT-CONTRACT
+
+Status: active
+Area: funnel, telegram, ux, copy
+Decision date: 2026-06-24
+Evidence: owner found a live regression where the hero CTA text still promised `Получить сценарий свадьбы`, but the click-layer opened `site_meeting` and therefore showed the direct-contact intro instead of the qualification-first scenario flow
+Commits: pending
+Supersedes: none
+
+Decision:
+Каждый публичный Telegram CTA на сайте закрепляется по намерению. Hero-кнопка `получить сценарий свадьбы` и любые другие CTA, которые обещают сценарий или материалы, обязаны вести только в `site_plan`. Прямой contact intro `Напишите сообщение прямо здесь — я увижу его как прямое обращение...` разрешён только для `site_meeting`.
+
+Why:
+Эта воронка ломается не только от неверного href, но и от подмены первого bot-сообщения. Если сценарная кнопка показывает direct-contact intro, пользователь не понимает, где обещанный сценарий, а владелец теряет смысл разделения CTA по намерению.
+
+Do:
+
+- держать hero click-layer `rec861352716` / `1738735136250` на `site_plan`;
+- держать `site_plan` отдельным сценарием с qualification-first copy;
+- держать `site_meeting` отдельным direct-contact сценарием с нейтральным сообщением про ответ в Telegram;
+- проверять этот контракт через `npm run verify:contacts`, а не только через общий поиск `site_plan` / `site_meeting` в HTML.
+
+Do not:
+
+- не отправлять hero CTA `Получить сценарий свадьбы` в `site_meeting`;
+- не вставлять direct-contact copy в `site_plan` старт;
+- не считать достаточной проверкой только наличие обоих deep links где-то на странице без проверки конкретного CTA.
+
+Verification:
+
+- hero CTA text-layer остаётся сценарным;
+- hero click-layer ведёт в `https://t.me/gromov_wedding_bot?start=site_plan`;
+- `npm run verify:contacts` падает, если hero CTA откатывается на `site_meeting`.
+
 ## DEC-2026-06-23-TELEGRAM-MATERIALS-QUALIFICATION-FIRST
 
 Status: active
