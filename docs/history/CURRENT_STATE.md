@@ -17,6 +17,7 @@
 
 - На сайте добавлен CTA-блок `План-сценарий свадебного вечера` перед секцией цен.
 - На сайте есть отдельная production-страница `https://timurgromov.ru/scenario/` с материалом про логику свадебного вечера.
+- На сайте появился отдельный hub `https://timurgromov.ru/articles/` для SEO-материалов и безопасного наращивания органического слоя вне главной страницы.
 - На сайте добавлена отдельная CTA-плашка `Бесплатная консультация` после секции цен.
 - В hero-кнопке текст `получить сценарий` ведёт напрямую в Telegram-бота по deep link `site_plan`.
 - Кнопка `Получить сценарий` в CTA-блоке тоже ведёт напрямую в Telegram-бота по deep link `site_plan`.
@@ -35,6 +36,7 @@
 - Разовые локальные preview через `npm run preview` дают временные порты и не должны использоваться как постоянная точка входа.
 - Для стабильного локального просмотра используется docker-compose сценарий на `http://127.0.0.1:4323/`.
 - Сборка `npm run build` проходит.
+- `public/sitemap.xml` теперь должен включать как минимум `/`, `/materials/`, `/scenario/` и `/articles/`.
 
 ## Known Blockers
 
@@ -76,6 +78,7 @@
 - Worklog: `docs/history/worklog/`
 - Main implementation: `src/pages/index.astro`, `src/site/home-data.ts`
 - Scenario article implementation: `src/pages/scenario.astro`, `public/images/scenario-hero.jpg`
+- SEO hub implementation: `src/pages/articles/index.astro`
 
 ## Last Known Good State
 

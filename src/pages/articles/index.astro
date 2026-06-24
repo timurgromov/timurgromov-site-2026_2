@@ -1,0 +1,426 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { telegramMeetingUrl, telegramPlanUrl } from "../../site/home-data";
+
+const homeHref = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const pageUrl = new URL(`${homeHref}articles/`, "https://timurgromov.ru").toString();
+const socialImageUrl = new URL(
+  `${homeHref}images/scenario-hero-host-bw-source.jpg`,
+  "https://timurgromov.ru",
+).toString();
+
+const publishedArticles = [
+  {
+    href: `${homeHref}scenario/`,
+    eyebrow: "Опубликовано",
+    title: "Сценарий свадебного вечера",
+    description:
+      "Разбор логики современного свадебного вечера: тайминг, ключевые блоки и ошибки, которые чаще всего ломают атмосферу.",
+    tag: "5 минут чтения",
+  },
+];
+
+const plannedTopics = [
+  "Тайминг свадьбы: как не перегрузить вечер и не потерять важные моменты",
+  "Как выбрать ведущего на свадьбу и что спросить на первой встрече",
+  "Свадьба без неловких конкурсов: как держать внимание гостей по-другому",
+  "Сколько стоит ведущий на свадьбу и из чего складывается цена",
+];
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Главная",
+      item: "https://timurgromov.ru/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Статьи",
+      item: pageUrl,
+    },
+  ],
+};
+
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Статьи о свадебном вечере | Тимур Громов",
+  description:
+    "Подборка материалов Тимура Громова о сценарии свадьбы, тайминге вечера, выборе ведущего и атмосфере без неловких конкурсов.",
+  url: pageUrl,
+  about: {
+    "@type": "Thing",
+    name: "Свадебный вечер",
+  },
+  hasPart: publishedArticles.map((article) => ({
+    "@type": "Article",
+    headline: article.title,
+    description: article.description,
+    url: new URL(article.href, "https://timurgromov.ru").toString(),
+  })),
+};
+---
+
+<BaseLayout
+  title="Статьи о свадебном вечере | Тимур Громов"
+  description="Материалы о сценарии свадьбы, тайминге вечера, выборе ведущего и атмосфере, которую гости запоминают с теплом."
+  canonical={pageUrl}
+  ogImage={socialImageUrl}
+  ogImageAlt="Тимур Громов"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)}></script>
+  </Fragment>
+
+  <main class="articles-page">
+    <section class="articles-hero">
+      <div class="articles-shell">
+        <a class="articles-back" href={homeHref}>timurgromov.ru</a>
+        <p class="articles-kicker">Экспертные материалы</p>
+        <h1>Статьи о том, как устроен сильный свадебный вечер</h1>
+        <p class="articles-lead">
+          Здесь я собираю материалы про сценарий, тайминг, состояние гостей и
+          вопросы, которые действительно стоит обсудить с ведущим до договора.
+        </p>
+      </div>
+    </section>
+
+    <section class="articles-shell articles-grid">
+      <div class="articles-column">
+        <div class="articles-section-head">
+          <p>Что уже опубликовано</p>
+          <h2>Первый открытый материал</h2>
+        </div>
+        <div class="articles-cards">
+          {publishedArticles.map((article) => (
+            <article class="articles-card">
+              <span class="articles-card__eyebrow">{article.eyebrow}</span>
+              <h3>{article.title}</h3>
+              <p>{article.description}</p>
+              <div class="articles-card__footer">
+                <span>{article.tag}</span>
+                <a href={article.href}>Читать материал</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <aside class="articles-column articles-column--side">
+        <div class="articles-section-head">
+          <p>Следующие темы</p>
+          <h2>Что будем раскрывать дальше</h2>
+        </div>
+        <ul class="articles-topic-list">
+          {plannedTopics.map((topic) => (
+            <li>{topic}</li>
+          ))}
+        </ul>
+      </aside>
+    </section>
+
+    <section class="articles-shell articles-cta">
+      <div class="articles-cta__copy">
+        <p class="articles-kicker">Если уже выбираете ведущего</p>
+        <h2>Можно сразу перейти к знакомству или получить сценарий через Telegram</h2>
+        <p>
+          Если вам ближе сначала понять логику вечера, откройте сценарный вход.
+          Если хотите обсудить вашу свадьбу напрямую, напишите мне в Telegram.
+        </p>
+      </div>
+      <div class="articles-cta__actions">
+        <a class="articles-button articles-button--primary" href={telegramPlanUrl} target="_blank" rel="noopener noreferrer">
+          Получить сценарий
+        </a>
+        <a class="articles-button articles-button--secondary" href={telegramMeetingUrl} target="_blank" rel="noopener noreferrer">
+          Написать в Telegram
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .articles-page {
+    min-height: 100vh;
+    color: #1c1b1a;
+    background:
+      radial-gradient(circle at top right, rgba(207, 146, 88, 0.18), transparent 28%),
+      linear-gradient(180deg, #fcf6ef 0%, #f6efe6 42%, #fdfaf6 100%);
+  }
+
+  .articles-shell {
+    width: min(1120px, calc(100vw - 40px));
+    margin: 0 auto;
+  }
+
+  .articles-hero {
+    padding: 40px 0 28px;
+  }
+
+  .articles-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+    color: #6f5844;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .articles-kicker {
+    margin: 0 0 14px;
+    color: #9f5f2b;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .articles-hero h1,
+  .articles-section-head h2,
+  .articles-cta h2,
+  .articles-card h3 {
+    margin: 0;
+    font-family: "Georgia", "Times New Roman", serif;
+    letter-spacing: 0;
+  }
+
+  .articles-hero h1 {
+    max-width: 820px;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 0.96;
+  }
+
+  .articles-lead {
+    max-width: 760px;
+    margin: 22px 0 0;
+    color: #54463a;
+    font-size: 20px;
+    line-height: 1.55;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+    gap: 28px;
+    padding: 16px 0 24px;
+  }
+
+  .articles-column {
+    min-width: 0;
+  }
+
+  .articles-section-head p {
+    margin: 0 0 12px;
+    color: #7a6450;
+    font-size: 14px;
+  }
+
+  .articles-section-head h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 1.02;
+  }
+
+  .articles-cards {
+    margin-top: 18px;
+  }
+
+  .articles-card,
+  .articles-topic-list {
+    border: 1px solid rgba(28, 27, 26, 0.1);
+    background: rgba(255, 252, 248, 0.84);
+    box-shadow: 0 24px 54px rgba(38, 27, 15, 0.08);
+    backdrop-filter: blur(12px);
+  }
+
+  .articles-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 28px;
+    border-radius: 22px;
+  }
+
+  .articles-card__eyebrow {
+    color: #9f5f2b;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .articles-card h3 {
+    font-size: 32px;
+    line-height: 1;
+  }
+
+  .articles-card p {
+    margin: 0;
+    color: #4c4035;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .articles-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 4px;
+  }
+
+  .articles-card__footer span {
+    color: #7a6450;
+    font-size: 14px;
+  }
+
+  .articles-card__footer a {
+    color: #1c1b1a;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .articles-column--side .articles-section-head {
+    margin-bottom: 18px;
+  }
+
+  .articles-topic-list {
+    margin: 0;
+    padding: 24px 24px 24px 44px;
+    border-radius: 22px;
+  }
+
+  .articles-topic-list li {
+    color: #43362b;
+    font-size: 17px;
+    line-height: 1.55;
+  }
+
+  .articles-topic-list li + li {
+    margin-top: 14px;
+  }
+
+  .articles-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) auto;
+    gap: 28px;
+    align-items: center;
+    margin-top: 8px;
+    padding: 30px;
+    border-top: 1px solid rgba(28, 27, 26, 0.08);
+  }
+
+  .articles-cta h2 {
+    font-size: clamp(28px, 4vw, 42px);
+    line-height: 1.02;
+  }
+
+  .articles-cta p:last-child {
+    margin: 16px 0 0;
+    color: #54463a;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .articles-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: flex-end;
+  }
+
+  .articles-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 0 22px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .articles-button:hover {
+    transform: translateY(-1px);
+  }
+
+  .articles-button--primary {
+    color: #fffaf5;
+    background: #1c1b1a;
+  }
+
+  .articles-button--secondary {
+    color: #1c1b1a;
+    background: rgba(255, 251, 246, 0.72);
+    border: 1px solid rgba(28, 27, 26, 0.12);
+  }
+
+  @media (max-width: 900px) {
+    .articles-grid,
+    .articles-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .articles-cta__actions {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .articles-shell {
+      width: min(100vw - 32px, 1120px);
+    }
+
+    .articles-hero {
+      padding: 28px 0 18px;
+    }
+
+    .articles-back {
+      margin-bottom: 20px;
+      font-size: 12px;
+    }
+
+    .articles-lead,
+    .articles-card p,
+    .articles-cta p:last-child,
+    .articles-topic-list li {
+      font-size: 16px;
+    }
+
+    .articles-card,
+    .articles-topic-list,
+    .articles-cta {
+      border-radius: 18px;
+    }
+
+    .articles-card,
+    .articles-cta {
+      padding: 22px;
+    }
+
+    .articles-card h3 {
+      font-size: 28px;
+    }
+
+    .articles-card__footer {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .articles-button {
+      width: 100%;
+    }
+  }
+</style>
