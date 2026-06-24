@@ -4,6 +4,7 @@ import { maxContactUrl, telegramMeetingUrl } from "../site/home-data";
 
 const homeHref = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const pageUrl = new URL(`${homeHref}scenario/`, "https://timurgromov.ru").toString();
+const materialsPageUrl = new URL(`${homeHref}materials/`, "https://timurgromov.ru").toString();
 const socialImageUrl = new URL(
   `${homeHref}images/scenario-hero-host-bw-source.jpg`,
   "https://timurgromov.ru",
@@ -59,7 +60,7 @@ const materialLinks = [
   {
     label: "Запись разбора",
     value: "Пошаговый план подготовки к свадьбе",
-    href: pageUrl,
+    href: materialsPageUrl,
   },
   {
     label: "Telegram-бот",
