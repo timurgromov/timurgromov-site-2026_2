@@ -3462,6 +3462,17 @@ const consultationContactPopupAssets = `<style>
       }
     }
 
+    function normalizePhoneForSubmit(value){
+      var raw = String(value || '').trim();
+      if (!raw) return '';
+      var digits = raw.replace(/\D/g, '');
+      if (!digits) return raw;
+      if (digits.length === 11 && digits.charAt(0) === '8') {
+        digits = '7' + digits.slice(1);
+      }
+      return '+' + digits;
+    }
+
     document.addEventListener('click', function(event){
       var opener = event.target && event.target.closest && event.target.closest(openSelector);
       if (opener) {
@@ -3489,7 +3500,7 @@ const consultationContactPopupAssets = `<style>
       var formData = new FormData(form);
       var payload = {
         name: String(formData.get('name') || '').trim(),
-        phone: String(formData.get('phone') || '').trim(),
+        phone: normalizePhoneForSubmit(formData.get('phone')),
         comment: String(formData.get('comment') || '').trim(),
         form_source: String(formData.get('form_source') || 'site_consultation_popup').trim(),
         page_url: window.location.href
@@ -4657,7 +4668,7 @@ const consultationContactPopupMarkup = `<div id="consultation-contact-popup" cla
             <input name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" required />
           </label>
           <label>Ваш телефон *
-            <input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7" required />
+            <input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 999 123-45-67" required />
           </label>
           <label>Комментарий
             <textarea name="comment" placeholder="Дата свадьбы, площадка или любой вопрос"></textarea>
