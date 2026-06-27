@@ -2954,7 +2954,7 @@ const consultationCtaSectionMarkup = `<section id="free-consultation" class="tg-
       <p class="tg-consultation-cta__text">Если вы уже выбираете ведущего, давайте познакомимся. На короткой встрече обсудим вашу свадьбу и поймем, есть ли ощущение: да, я вам подхожу.</p>
       <div class="tg-consultation-cta__actions">
         ${tildaCtaLink("tg-consultation-cta__button tg-consultation-cta__button--primary", "#consultation-contact", "Записаться на бесплатную встречу", "data-consultation-popup-open")}
-        ${tildaCtaLink("tg-consultation-cta__button", "tel:+79253900772", "Позвонить", 'rel="nofollow" data-consultation-popup-open data-contact-phone-focus')}
+        ${tildaCtaLink("tg-consultation-cta__button", "tel:+79253900772", "Позвонить", 'rel="nofollow" data-phone-popup-open')}
       </div>
       <p class="tg-consultation-cta__note">Встреча ни к чему не обязывает: вы просто знакомитесь, задаете вопросы и смотрите, комфортно ли вам идти дальше именно со мной.</p>
     </div>
@@ -3539,7 +3539,7 @@ const consultationContactPopupAssets = `<style>
       }
     }
 
-    function openPopup(event, options){
+    function openPopup(event){
       if (event) event.preventDefault();
       var popup = getPopup();
       if (!popup) return;
@@ -3548,9 +3548,6 @@ const consultationContactPopupAssets = `<style>
       popup.classList.add('is-open');
       popup.setAttribute('aria-hidden', 'false');
       document.body.classList.add('tg-contact-popup-open');
-      if (options && options.phoneFocus) {
-        revealPhoneCard(popup);
-      }
     }
 
     function closePopup(){
@@ -3590,9 +3587,7 @@ const consultationContactPopupAssets = `<style>
     document.addEventListener('click', function(event){
       var opener = event.target && event.target.closest && event.target.closest(openSelector);
       if (opener) {
-        var phoneFocus = opener.hasAttribute('data-contact-phone-focus');
-        if (phoneFocus && !isDesktopPhoneMode()) return;
-        openPopup(event, { phoneFocus: phoneFocus });
+        openPopup(event);
         return;
       }
 
@@ -3687,6 +3682,228 @@ const consultationContactPopupAssets = `<style>
             setTildaCtaLabel(button, 'Отправить');
           }
         });
+    });
+  }());
+</script>`;
+
+const desktopPhonePopupAssets = `<style>
+  .tg-phone-popup{
+    position:fixed;
+    inset:0;
+    z-index:10030;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    box-sizing:border-box;
+    color:#1c1b1a;
+  }
+
+  .tg-phone-popup.is-open{
+    display:flex;
+  }
+
+  .tg-phone-popup__backdrop{
+    position:absolute;
+    inset:0;
+    background:rgba(28,27,26,.38);
+    backdrop-filter:blur(10px);
+  }
+
+  .tg-phone-popup__panel{
+    position:relative;
+    z-index:1;
+    width:min(430px, 100%);
+    padding:30px;
+    border-radius:12px;
+    box-sizing:border-box;
+    background:#fffefa;
+    box-shadow:0 24px 80px rgba(28,27,26,.22);
+  }
+
+  .tg-phone-popup__close{
+    position:absolute;
+    top:14px;
+    right:14px;
+    width:38px;
+    height:38px;
+    border:1px solid rgba(28,27,26,.14);
+    border-radius:50%;
+    background:#fffefa;
+    cursor:pointer;
+  }
+
+  .tg-phone-popup__close::before,
+  .tg-phone-popup__close::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:16px;
+    height:2px;
+    background:#1c1b1a;
+    transform-origin:center;
+  }
+
+  .tg-phone-popup__close::before{
+    transform:translate(-50%, -50%) rotate(45deg);
+  }
+
+  .tg-phone-popup__close::after{
+    transform:translate(-50%, -50%) rotate(-45deg);
+  }
+
+  .tg-phone-popup__eyebrow,
+  .tg-phone-popup__text,
+  .tg-phone-popup__copy,
+  .tg-phone-popup__status{
+    font-family:var(--t-text-font, Arial);
+    letter-spacing:0;
+  }
+
+  .tg-phone-popup__eyebrow{
+    margin:0 48px 14px 0;
+    color:#fa4604;
+    font-size:16px;
+    line-height:1.1;
+  }
+
+  .tg-phone-popup h2{
+    margin:0 48px 18px 0;
+    color:#1c1b1a;
+    font-family:var(--t-headline-font, Arial);
+    font-size:42px;
+    font-weight:500;
+    line-height:1;
+    text-transform:uppercase;
+    letter-spacing:0;
+  }
+
+  .tg-phone-popup__number{
+    display:block;
+    width:max-content;
+    max-width:100%;
+    margin:0 0 14px;
+    color:#fa4604;
+    font-family:var(--t-headline-font, Arial);
+    font-size:40px;
+    font-weight:500;
+    line-height:1;
+    letter-spacing:0;
+    text-decoration:none;
+    white-space:nowrap;
+  }
+
+  .tg-phone-popup__text{
+    max-width:330px;
+    margin:0 0 18px;
+    color:rgba(28,27,26,.64);
+    font-size:16px;
+    line-height:1.28;
+  }
+
+  .tg-phone-popup__copy{
+    min-height:42px;
+    padding:0 16px;
+    border:1px solid rgba(28,27,26,.16);
+    border-radius:8px;
+    background:#fffefa;
+    color:#1c1b1a;
+    font-size:15px;
+    line-height:1;
+    cursor:pointer;
+  }
+
+  .tg-phone-popup__status{
+    min-height:16px;
+    margin:10px 0 0;
+    color:rgba(28,27,26,.54);
+    font-size:12px;
+    line-height:1.25;
+  }
+
+  body.tg-phone-popup-open{
+    overflow:hidden !important;
+  }
+
+  @media screen and (max-width:639px){
+    .tg-phone-popup{
+      display:none !important;
+    }
+  }
+</style>
+<script>
+  (function(){
+    var popupId = 'desktop-phone-popup';
+    var openSelector = '[data-phone-popup-open]';
+    var desktopPhoneQuery = window.matchMedia
+      ? window.matchMedia('(min-width: 1024px) and (pointer: fine)')
+      : null;
+
+    function isDesktopPhoneMode(){
+      return !!(desktopPhoneQuery && desktopPhoneQuery.matches);
+    }
+
+    function getPopup(){
+      return document.getElementById(popupId);
+    }
+
+    function setStatus(text){
+      var popup = getPopup();
+      var status = popup ? popup.querySelector('[data-phone-popup-status]') : null;
+      if (status) status.textContent = text || '';
+    }
+
+    function openPopup(event){
+      if (!isDesktopPhoneMode()) return;
+      if (event) event.preventDefault();
+      var popup = getPopup();
+      if (!popup) return;
+      setStatus('');
+      popup.classList.add('is-open');
+      popup.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('tg-phone-popup-open');
+    }
+
+    function closePopup(){
+      var popup = getPopup();
+      if (!popup) return;
+      popup.classList.remove('is-open');
+      popup.setAttribute('aria-hidden', 'true');
+      setStatus('');
+      document.body.classList.remove('tg-phone-popup-open');
+    }
+
+    document.addEventListener('click', function(event){
+      var opener = event.target && event.target.closest && event.target.closest(openSelector);
+      if (opener) {
+        openPopup(event);
+        return;
+      }
+
+      var closer = event.target && event.target.closest && event.target.closest('[data-phone-popup-close]');
+      if (closer) {
+        event.preventDefault();
+        closePopup();
+        return;
+      }
+
+      var copy = event.target && event.target.closest && event.target.closest('[data-phone-popup-copy]');
+      if (copy) {
+        event.preventDefault();
+        var phoneText = '+7 925 390 07 72';
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(phoneText)
+            .then(function(){ setStatus('Номер скопирован.'); })
+            .catch(function(){ setStatus(phoneText); });
+        } else {
+          setStatus(phoneText);
+        }
+      }
+    });
+
+    document.addEventListener('keydown', function(event){
+      if (event.key === 'Escape') closePopup();
     });
   }());
 </script>`;
@@ -4834,6 +5051,19 @@ const consultationContactPopupMarkup = `<div id="consultation-contact-popup" cla
   </div>
 </div>`;
 
+const desktopPhonePopupMarkup = `<div id="desktop-phone-popup" class="tg-phone-popup" aria-hidden="true">
+  <div class="tg-phone-popup__backdrop" data-phone-popup-close></div>
+  <div class="tg-phone-popup__panel" role="dialog" aria-modal="true" aria-labelledby="desktop-phone-title">
+    <button class="tg-phone-popup__close" type="button" aria-label="Закрыть" data-phone-popup-close></button>
+    <p class="tg-phone-popup__eyebrow">Телефон для звонка</p>
+    <h2 id="desktop-phone-title">Позвонить Тимуру</h2>
+    <a class="tg-phone-popup__number" href="tel:+79253900772">+7 925 390 07 72</a>
+    <p class="tg-phone-popup__text">На компьютере номер удобнее скопировать и набрать вручную.</p>
+    <button class="tg-phone-popup__copy" type="button" data-phone-popup-copy>Скопировать номер</button>
+    <p class="tg-phone-popup__status" data-phone-popup-status aria-live="polite"></p>
+  </div>
+</div>`;
+
 const priceTabsController = `<script>
   (function(){
     var tabs = [
@@ -5521,6 +5751,9 @@ const headHtml = dedupeHeadAssetReferences(
     consultationContactPopupAssets,
   )
   .concat(
+    desktopPhonePopupAssets,
+  )
+  .concat(
     planDeliveryPopupAssets,
   )
   .concat(
@@ -5711,7 +5944,7 @@ const bodyHtml = injectBeforeTildaRecordScript(
   ),
   "862623921",
   footerContactShortcutMarkup,
-) + planDeliveryPopupMarkup + consultationContactPopupMarkup + standaloneShowreelPopupMarkup;
+) + planDeliveryPopupMarkup + consultationContactPopupMarkup + desktopPhonePopupMarkup + standaloneShowreelPopupMarkup;
 ---
 
 <!doctype html>
