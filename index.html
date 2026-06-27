@@ -2654,17 +2654,30 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   .tg-contact-popup__phone-card{
     display:none;
     width:min(420px, 100%);
-    margin-top:18px;
-    padding:18px;
-    border:1px solid rgba(28,27,26,.12);
-    border-radius:8px;
-    box-sizing:border-box;
-    background:rgba(250,70,4,.07);
+    margin:14px 0 0;
+  }
+
+  @media screen and (min-width:1024px) and (pointer:fine){
+    .tg-contact-popup__phone-card{
+      display:grid;
+      gap:0;
+    }
+
+    .tg-contact-popup__link[data-contact-channel="phone"]{
+      display:none;
+    }
+
+    .tg-contact-popup__phone-label,
+    .tg-contact-popup__phone-note,
+    .tg-contact-popup__phone-copy,
+    .tg-contact-popup__phone-status{
+      display:none;
+    }
   }
 
   .tg-contact-popup.is-phone-visible .tg-contact-popup__phone-card{
     display:grid;
-    gap:8px;
+    gap:4px;
   }
 
   .tg-contact-popup__phone-label,
@@ -2696,13 +2709,14 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   }
 
   .tg-contact-popup__phone-note{
-    margin:2px 0 4px;
+    margin:4px 0 0;
     color:rgba(28,27,26,.64);
     font-size:14px;
     line-height:1.28;
   }
 
   .tg-contact-popup__phone-copy{
+    display:none;
     justify-self:start;
     min-height:38px;
     padding:0 14px;
@@ -2716,6 +2730,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
   }
 
   .tg-contact-popup__phone-status{
+    display:none;
     min-height:16px;
     margin:0;
     color:rgba(28,27,26,.54);
@@ -2986,7 +3001,6 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     .tg-contact-popup__phone-card{
       width:100%;
       margin-top:14px;
-      padding:14px;
     }
 
     .tg-contact-popup__phone-number{
@@ -3050,7 +3064,7 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
       if (!popup) return;
       popup.classList.remove('is-phone-visible');
       var card = popup.querySelector('[data-contact-phone-card]');
-      if (card) card.setAttribute('aria-hidden', 'true');
+      if (card) card.setAttribute('aria-hidden', isDesktopPhoneMode() ? 'false' : 'true');
       setPhoneStatus(popup, '');
     }
 
@@ -3130,7 +3144,6 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
       if (phoneRevealer) {
         if (!isDesktopPhoneMode()) return;
         event.preventDefault();
-        revealPhoneCard(getPopup());
         return;
       }
 
@@ -6020,10 +6033,10 @@ setTimeout(function() {var curPath=window.location.pathname;var curFullPath=wind
   <span class="tg-tilda-cta__label" data-tilda-cta-label>Позвонить</span>
   <span class="tg-tilda-cta__icon" aria-hidden="true"></span></a>
         </div>
-        <div class="tg-contact-popup__phone-card" data-contact-phone-card aria-hidden="true">
-          <p class="tg-contact-popup__phone-label">Телефон для звонка</p>
+        <div class="tg-contact-popup__phone-card" data-contact-phone-card aria-hidden="false">
+          <p class="tg-contact-popup__phone-label">Позвонить</p>
           <a class="tg-contact-popup__phone-number" href="tel:+79253900772">+7 925 390 07 72</a>
-          <p class="tg-contact-popup__phone-note">На компьютере номер удобнее скопировать и набрать вручную.</p>
+          <p class="tg-contact-popup__phone-note">На компьютере номер можно скопировать и набрать вручную.</p>
           <button class="tg-contact-popup__phone-copy" type="button" data-contact-phone-copy>Скопировать номер</button>
           <p class="tg-contact-popup__phone-status" data-contact-phone-status aria-live="polite"></p>
         </div>
