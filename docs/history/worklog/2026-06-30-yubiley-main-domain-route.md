@@ -33,10 +33,16 @@ yubiley.timurgromov.ru
 - `npm run build` passed.
 - Astro generated `/yubiley/index.html` and `/yubiley/contact/index.html`.
 - Built HTML contains canonical `https://timurgromov.ru/yubiley/`.
+- Local static smoke check returned 200 for `/yubiley/` and `/yubiley/contact/`.
+- Commit `ba2a3fb` was pushed to `main`.
+- GitHub Actions deploy run `28403965428` completed successfully.
+- Production `https://timurgromov.ru/yubiley/` returned 200.
+- Production `https://timurgromov.ru/yubiley/contact/` returned 200.
+- Production HTML contains canonical `https://timurgromov.ru/yubiley/`.
+- Production sitemap contains `https://timurgromov.ru/yubiley/`.
+- Production CSS and hero image under `/yubiley-assets/` returned 200.
 
-## Remaining
+## Follow-up
 
-- Commit and push to `main`.
-- Wait for GitHub Actions `deploy-gh-pages`.
-- Live-check `https://timurgromov.ru/yubiley/`.
 - Disable/remove any accidental custom-domain configuration for `yubiley.timurgromov.ru` in the standalone repo if it was saved in GitHub UI.
+- Replace or explicitly approve inherited B2B photos, videos, and thank-you letters before paid traffic.
