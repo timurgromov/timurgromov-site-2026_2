@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../../yubiley/layouts/JubileeLayout.astro";
+import Benefits from "../../yubiley/components/Benefits.astro";
+import CTA from "../../yubiley/components/CTA.astro";
+import Footer from "../../yubiley/components/Footer.astro";
+import Gallery from "../../yubiley/components/Gallery.astro";
+import Header from "../../yubiley/components/Header.astro";
+import Hero from "../../yubiley/components/Hero.astro";
+import Letters from "../../yubiley/components/Letters.astro";
+import Modals from "../../yubiley/components/Modals.astro";
+import VideoCases from "../../yubiley/components/VideoCases.astro";
+import WhatsAppFab from "../../yubiley/components/WhatsAppFab.astro";
+import Workflow from "../../yubiley/components/Workflow.astro";
+import { siteMeta, structuredData } from "../../yubiley/data/jubilee";
+---
+<BaseLayout
+  title={siteMeta.title}
+  description={siteMeta.description}
+  canonical={siteMeta.url}
+  ogImage={siteMeta.ogImage}
+  includeMainAssets
+  structuredData={structuredData}
+>
+  <Header />
+  <main class="page">
+    <Hero />
+    <VideoCases />
+    <Benefits />
+    <Workflow />
+    <Gallery />
+    <Letters />
+    <CTA />
+  </main>
+  <Footer />
+  <Modals />
+  <WhatsAppFab />
+</BaseLayout>

@@ -1,0 +1,15 @@
+---
+import ContactCard from "../../../yubiley/components/ContactCard.astro";
+import BaseLayout from "../../../yubiley/layouts/JubileeLayout.astro";
+import { contactPage, siteMeta } from "../../../yubiley/data/jubilee";
+---
+<BaseLayout
+  title={contactPage.title}
+  description={contactPage.description}
+  canonical={contactPage.url}
+  ogImage={siteMeta.ogImage}
+  pageCss="/yubiley-assets/contact/style.css?v=astro_1"
+  pageScript="/yubiley-assets/contact/script.js?v=astro_1"
+>
+  <ContactCard />
+</BaseLayout>

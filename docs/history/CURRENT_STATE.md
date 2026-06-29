@@ -18,6 +18,7 @@
 - На сайте добавлен CTA-блок `План-сценарий свадебного вечера` перед секцией цен.
 - На сайте есть отдельная production-страница `https://timurgromov.ru/scenario/` с материалом про логику свадебного вечера.
 - На сайте появился отдельный hub `https://timurgromov.ru/articles/` для SEO-материалов и безопасного наращивания органического слоя вне главной страницы.
+- В основном сайте добавлен юбилейный SEO-раздел `https://timurgromov.ru/yubiley/` на базе подготовленного `TG_yubiley_landing`; отдельный поддомен для юбилеев не используется как production.
 - На сайте добавлена отдельная CTA-плашка `Бесплатная консультация` после секции цен.
 - В hero-кнопке текст `получить сценарий` ведёт напрямую в Telegram-бота по deep link `site_plan`.
 - Кнопка `Получить сценарий` в CTA-блоке тоже ведёт напрямую в Telegram-бота по deep link `site_plan`.
@@ -36,7 +37,7 @@
 - Разовые локальные preview через `npm run preview` дают временные порты и не должны использоваться как постоянная точка входа.
 - Для стабильного локального просмотра используется docker-compose сценарий на `http://127.0.0.1:4323/`.
 - Сборка `npm run build` проходит.
-- `public/sitemap.xml` теперь должен включать как минимум `/`, `/materials/`, `/scenario/` и `/articles/`.
+- `public/sitemap.xml` теперь должен включать как минимум `/`, `/materials/`, `/scenario/`, `/articles/` и `/yubiley/`.
 
 ## Known Blockers
 
@@ -63,6 +64,7 @@
 - Калькулятор бюджета не является главным CTA на сайте.
 - Полезные материалы, смета и чеклисты - второй уровень, уже внутри Telegram-бота, а не отдельные равные офферы на лендинге.
 - Для live-правок сайта после commit/push в `main` дождаться автодеплоя GitHub Pages и проверить `https://timurgromov.ru/`.
+- Юбилейный лендинг для SEO публикуется внутри этого же сайта на `/yubiley/`; не переносить production на `yubiley.timurgromov.ru` без нового явного решения.
 
 ## Do Not Accidentally Revert
 
@@ -79,6 +81,7 @@
 - Main implementation: `src/pages/index.astro`, `src/site/home-data.ts`
 - Scenario article implementation: `src/pages/scenario.astro`, `public/images/scenario-hero.jpg`
 - SEO hub implementation: `src/pages/articles/index.astro`
+- Jubilee landing implementation: `src/pages/yubiley/index.astro`, `src/yubiley/`, `public/yubiley-assets/`
 
 ## Last Known Good State
 

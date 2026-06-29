@@ -2,6 +2,41 @@
 
 Этот файл фиксирует решения, которые важно помнить и не откатывать случайно.
 
+## DEC-2026-06-30-JUBILEE-SEO-PATH
+
+Status: active
+Area: seo, routing, deploy, architecture
+Decision date: 2026-06-30
+Evidence: owner clarified that the original SEO agreement was to publish the jubilee offer on the main domain path, not as a separate subdomain
+Commits: pending
+Supersedes: none
+
+Decision:
+Юбилейный лендинг для SEO и Profi.ru должен публиковаться внутри основного сайта на `https://timurgromov.ru/yubiley/`. Отдельный репозиторий `TG_yubiley_landing` может оставаться технической заготовкой/источником шаблона, но production URL для SEO — только основной домен и путь `/yubiley/`.
+
+Why:
+Для SEO важнее усиливать основной домен `timurgromov.ru`, а не дробить посадочные страницы по поддоменам. Поддомен `yubiley.timurgromov.ru` технически возможен, но для этой задачи он создаёт лишнюю DNS/Pages-конфигурацию и противоречит согласованной цели.
+
+Do:
+
+- держать canonical/OG/structured data юбилейной страницы на `https://timurgromov.ru/yubiley/`;
+- хранить route в основном репозитории сайта: `src/pages/yubiley/index.astro`;
+- хранить scoped ассеты в `public/yubiley-assets/`, чтобы они не конфликтовали с главной свадебной страницей;
+- включать `/yubiley/` в `public/sitemap.xml`;
+- deploy делать через основной сайт: commit -> push `main` -> `gh-pages` -> live-check `timurgromov.ru/yubiley/`.
+
+Do not:
+
+- не включать production custom domain `yubiley.timurgromov.ru` для этой SEO-посадки;
+- не считать отдельный repo `TG_yubiley_landing` отдельным production-сайтом для SEO;
+- не менять основной домен/путь на поддомен без нового явного решения владельца.
+
+Verification:
+
+- `npm run build` генерирует `/yubiley/index.html`;
+- production HTML содержит canonical `https://timurgromov.ru/yubiley/`;
+- sitemap содержит `https://timurgromov.ru/yubiley/`.
+
 ## DEC-2026-06-24-HERO-SCENARIO-CTA-INTENT-CONTRACT
 
 Status: active
