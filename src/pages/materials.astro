@@ -8,6 +8,7 @@ import {
   maxContactUrl,
   telegramContactUrl,
 } from "../site/home-data";
+import { yandexMetrikaHead } from "../site/metrika";
 
 const basePath = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const pageUrl = new URL(`${basePath}materials/`, "https://timurgromov.ru").toString();
@@ -443,6 +444,9 @@ const headHtml = withBasePath(
     .replace(/<link rel="canonical" href="[^"]*"\s*\/?>/i, `<link rel="canonical" href="${pageUrl}" />`)
     .concat(
       `<script>window.t396_elem_fixLineHeight=window.t396_elem_fixLineHeight||function(){return;};</script>`,
+    )
+    .concat(
+      yandexMetrikaHead,
     )
     .concat(
       `<script>

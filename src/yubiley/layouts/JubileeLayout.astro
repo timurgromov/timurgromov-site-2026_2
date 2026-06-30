@@ -1,5 +1,6 @@
 ---
 import { siteMeta } from "../data/jubilee";
+import { yandexMetrikaHead } from "../../site/metrika";
 
 interface Props {
   title?: string;
@@ -55,29 +56,7 @@ const {
     {includeMainAssets && <link rel="stylesheet" href="/yubiley-assets/mobile.css?v=astro_1" media="(max-width: 768px)" />}
     {pageCss && <link rel="stylesheet" href={pageCss} />}
 
-    <script type="text/javascript" is:inline>
-      (function(m,e,t,r,i,k,a){
-          m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-          m[i].l=1*new Date();
-          for (var j = 0; j < document.scripts.length; j++) {
-              if (document.scripts[j].src === r) return;
-          }
-          k=e.createElement(t),a=e.getElementsByTagName(t)[0],
-          k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-      })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=104468814', 'ym');
-
-      ym(104468814, 'init', {
-          ssr:true,
-          webvisor:true,
-          clickmap:true,
-          ecommerce:"dataLayer",
-          accurateTrackBounce:true,
-          trackLinks:true
-      });
-    </script>
-    <noscript>
-      <div><img src="https://mc.yandex.ru/watch/104468814" style="position:absolute; left:-9999px;" alt="" /></div>
-    </noscript>
+    <Fragment set:html={yandexMetrikaHead} />
 
     {includeMainAssets && <script src="https://play.boomstream.com/assets/javascripts/biframesdk.js" async is:inline></script>}
 

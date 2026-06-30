@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 // ===== Настройки Метрики =====
-const COUNTER_ID = 104468814;
+const COUNTER_ID = Number(window.TG_METRIKA_ID || window.mainMetrikaId || 100295805);
 
 // ===== Логирование CTA кликов =====
 (function(){
@@ -848,7 +848,7 @@ async function sendLeadToTelegram(name, phone, source = 'popup') {
 // =======================
 //  METRIKA GOALS — bundle
 // =======================
-const METRIKA_ID = 104468814;
+const METRIKA_ID = Number(window.TG_METRIKA_ID || window.mainMetrikaId || 100295805);
 
 // Безопасная отправка: не упадёт, если ym() нет
 function sendGoal(name){
@@ -860,7 +860,7 @@ setTimeout(()=>sendGoal('engaged_30s'), 30000);
 
 // 1) Конверсии: WhatsApp И телефон — чётко и раздельно
 (function trackContacts(){
-  const YM_ID = 104468814;
+  const YM_ID = Number(window.TG_METRIKA_ID || window.mainMetrikaId || 100295805);
   const send = name => {
     try{
       if (typeof ym==='function') ym(YM_ID,'reachGoal',name);
@@ -985,7 +985,7 @@ setTimeout(()=>sendGoal('engaged_30s'), 30000);
 
 // ======= BOOMSTREAM цели для Метрики =======
 (function(){
-  const YM_ID = 104468814; // твой ID счётчика
+  const YM_ID = Number(window.TG_METRIKA_ID || window.mainMetrikaId || 100295805);
 
   function sendGoal(name){
     try {
@@ -1092,7 +1092,7 @@ setTimeout(()=>sendGoal('engaged_30s'), 30000);
 
       // Отправляем цель в Метрику
       if (typeof ym === 'function') {
-        ym(104468814, 'reachGoal', 'article_popup_shown');
+        ym(METRIKA_ID, 'reachGoal', 'article_popup_shown');
       }
     }
 
@@ -1167,7 +1167,7 @@ setTimeout(()=>sendGoal('engaged_30s'), 30000);
 
       // Отправляем цель в Метрику
       if (typeof ym === 'function') {
-        ym(104468814, 'reachGoal', 'article_popup_submit');
+        ym(METRIKA_ID, 'reachGoal', 'article_popup_submit');
       }
     });
 
@@ -1279,7 +1279,7 @@ setTimeout(()=>sendGoal('engaged_30s'), 30000);
       }, 2000);
 
       if (typeof ym === 'function') {
-        ym(104468814, 'reachGoal', 'contact_popup_submit');
+        ym(METRIKA_ID, 'reachGoal', 'contact_popup_submit');
       }
     });
   }
@@ -1395,12 +1395,12 @@ setTimeout(()=>sendGoal('engaged_30s'), 30000);
 
       // PATCH BEGIN: VIDEO_MODAL_SOURCES
       if (typeof ym === 'function') {
-        ym(104468814, 'reachGoal', 'video_consult_submit');
+        ym(METRIKA_ID, 'reachGoal', 'video_consult_submit');
         if (currentVideoSource === 'workflow_popup') {
-          ym(104468814, 'reachGoal', 'workflow_popup_submit');
+          ym(METRIKA_ID, 'reachGoal', 'workflow_popup_submit');
         }
         if (currentVideoSource === 'cta_popup') {
-          ym(104468814, 'reachGoal', 'cta_popup_submit');
+          ym(METRIKA_ID, 'reachGoal', 'cta_popup_submit');
         }
       }
       // PATCH END: VIDEO_MODAL_SOURCES

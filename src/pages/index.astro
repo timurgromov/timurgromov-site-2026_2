@@ -23,6 +23,7 @@ import {
   tildaCtaButton,
   tildaCtaLink,
 } from "../site/tilda-cta";
+import { yandexMetrikaHead } from "../site/metrika";
 import {
   dedupeHeadAssetReferences,
   injectBeforeTildaRecordScript,
@@ -5740,6 +5741,9 @@ const headHtml = dedupeHeadAssetReferences(
   )
   .concat(
     `<meta name="twitter:card" content="summary_large_image" /><meta name="twitter:image" content="${socialImageUrl}" />`,
+  )
+  .concat(
+    yandexMetrikaHead,
   )
   // В экспорт не попала вспомогательная Tilda-функция, которая иногда вызывается inline-скриптами.
   .concat(

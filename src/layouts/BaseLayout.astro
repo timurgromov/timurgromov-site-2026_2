@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { yandexMetrikaHead } from "../site/metrika";
 
 interface Props {
   title?: string;
@@ -50,6 +51,7 @@ const appleTouchIconHref = `${basePath}images/tild3333-3638-4033-b463-3134333738
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     {ogImage && <meta name="twitter:image" content={ogImage} />}
+    <Fragment set:html={yandexMetrikaHead} />
     <slot name="head" />
   </head>
   <body>

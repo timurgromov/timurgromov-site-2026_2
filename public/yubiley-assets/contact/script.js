@@ -1,6 +1,6 @@
 // ===== АНАЛИТИКА: ОТСЛЕЖИВАНИЕ КЛИКОВ ПО КНОПКАМ =====
 (function trackContactButtons() {
-  const METRIKA_ID = 104468814;
+  const METRIKA_ID = Number(window.TG_METRIKA_ID || window.mainMetrikaId || 100295805);
 
   function sendGoal(name) {
     try {
