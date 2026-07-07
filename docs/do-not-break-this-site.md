@@ -79,7 +79,7 @@ Current `/materials/` webinar media mapping:
 - Update both webinar records together:
   - desktop record `rec861962232`
   - mobile record `rec862050095`
-- Current active webinar source: `https://media.89-22-227-133.sslip.io/materials_webinar_online_razbor_20260616.mp4`
+- Current active webinar source: `https://media.89-22-227-133.sslip.io/materials_webinar_online_razbor_20260707_browser.mp4`
 - Current poster files:
   - `public/images/materials-poster.jpg`
   - `public/images/materials-poster-20.jpg`
@@ -89,8 +89,9 @@ Current `/materials/` webinar play overlay fallback:
 
 - The webinar play icon is restored in `src/pages/materials.astro` because the original Tilda block CSS later hides `.tn-atom__video-play-link`, but it must be state-based:
   - visible before playback and when video is paused;
-  - hidden while the video is playing or starting.
+  - hidden only after the browser has an actual decoded frame and the video is playing.
 - Do not reintroduce an unconditional `display:flex !important` overlay for `.tn-atom__video-play-link`. That leaves the play button over an already playing webinar.
+- Do not reveal the inline `<video>` immediately on click. Keep it hidden until `readyState >= 2` with non-zero `videoWidth`/`videoHeight`, otherwise a stalled media load can replace the poster with a black rectangle.
 - The scoped webinar toggle is tied only to desktop record `rec861962232` element `1739078296052` and mobile record `rec862050095` element `1739078914882`.
 - Native video controls are disabled for this inline webinar so taps land on the Tilda video container and can toggle play/pause reliably.
 - Do not add new runtime scroll controllers for the webinar Zero Block. If `/materials/` motion breaks again, investigate the extracted Tilda records first instead of pinning/repositioning elements with custom JS after load.

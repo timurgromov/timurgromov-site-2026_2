@@ -36,7 +36,7 @@ The current files are already heavily compressed RF files. Do not re-encode agai
 | Advice popup: wedding laughter | VPS media | `https://media.89-22-227-133.sslip.io/tg26_advice_wedding_laughter_20260602.mp4` |
 | Advice popup: awkward toasts | VPS media | `https://media.89-22-227-133.sslip.io/tg26_advice_awkward_toasts_20260602.mp4` |
 | Advice popup: wedding chaos | VPS media | `https://media.89-22-227-133.sslip.io/tg26_advice_wedding_chaos_20260602.mp4` |
-| Materials webinar | VPS media | `https://media.89-22-227-133.sslip.io/materials_webinar_online_razbor_20260616.mp4` |
+| Materials webinar | VPS media | `https://media.89-22-227-133.sslip.io/materials_webinar_online_razbor_20260707_browser.mp4` |
 
 ## VPS Media Host
 
@@ -51,7 +51,7 @@ This host now contains the active public-site videos for both the homepage and t
 - Server path: `/srv/tg26-video/public`
 - Container: `tg26-video-caddy`
 - Web server: Caddy in a separate Docker container
-- Password/private access: do not commit to this repo. Get it from the owner/password manager when needed.
+- Password/private access: do not commit to this repo. On Ruslan's Mac, the current root password is stored in macOS Keychain as an internet password with server `89.22.227.133`, account `root`, protocol `ssh`. Use Keychain Access or an approved local credential helper; never paste this password into docs, git commits, `.env`, shell history, or chat logs.
 
 The VPS is separate from the existing proxy setup. Do not mix media files into proxy containers or change unrelated services.
 
@@ -72,7 +72,8 @@ ssh root@89.22.227.133 "ls -lh /srv/tg26-video/public"
 `/materials/` webinar source of truth:
 
 - HTML records: `rec861962232` and `rec862050095` inside `files/page62008353body.html`
-- Current VPS file: `materials_webinar_online_razbor_20260616.mp4`
+- Current VPS file: `materials_webinar_online_razbor_20260707_browser.mp4`
+- Current file parameters: H.264 Main + AAC LC, 1280x720, SAR 1:1 / DAR 16:9, 25 fps, `faststart`, about 54 MB.
 - Current poster files: `public/images/materials-poster.jpg` and `public/images/materials-poster-20.jpg`
 - If the webinar file changes, replace both `data-mp4video` values in those two records and keep this registry in sync.
 

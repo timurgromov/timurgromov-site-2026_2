@@ -538,13 +538,20 @@ const headHtml = withBasePath(
 
           function syncState(shape) {
             const video = getVideo(shape);
-            const isPlaying = Boolean(video && !video.paused && !video.ended);
+            const isReady = Boolean(
+              video && video.readyState >= 2 && video.videoWidth > 0 && video.videoHeight > 0,
+            );
+            const isPlaying = Boolean(video && isReady && !video.paused && !video.ended);
 
+            shape.classList.toggle("tg-webinar-video-ready", isReady);
             shape.classList.toggle("tg-webinar-video-playing", isPlaying);
             shape.classList.toggle("tg-webinar-video-paused", Boolean(video && !isPlaying));
           }
 
           function playVideo(video) {
+            video.preload = "auto";
+            video.load();
+
             const playResult = video.play();
 
             if (playResult && typeof playResult.catch === "function") {
@@ -568,7 +575,7 @@ const headHtml = withBasePath(
               video.removeAttribute("controls");
               video.style.pointerEvents = "none";
 
-              ["play", "playing", "pause", "ended", "loadeddata", "canplay"].forEach(function(eventName) {
+              ["loadstart", "loadedmetadata", "loadeddata", "canplay", "play", "playing", "timeupdate", "pause", "ended", "error", "stalled", "waiting"].forEach(function(eventName) {
                 video.addEventListener(eventName, function() {
                   syncState(shape);
                 });
@@ -593,7 +600,7 @@ const headHtml = withBasePath(
 
             if (video.paused || video.ended) {
               playVideo(video);
-              [80, 250, 700].forEach(function(delay) {
+              [80, 250, 700, 1300, 2500].forEach(function(delay) {
                 window.setTimeout(function() {
                   syncState(shape);
                 }, delay);
@@ -820,6 +827,16 @@ const headHtml = withBasePath(
         #rec861962232,
         #rec862050095{
           margin-top:-96px;
+        }
+        #rec861962232 .tn-elem[data-elem-id="1739078296052"]:not(.tg-webinar-video-ready) .tn-atom__videoiframe video,
+        #rec862050095 .tn-elem[data-elem-id="1739078914882"]:not(.tg-webinar-video-ready) .tn-atom__videoiframe video{
+          opacity:0 !important;
+          visibility:hidden !important;
+        }
+        #rec861962232 .tn-elem[data-elem-id="1739078296052"].tg-webinar-video-ready .tn-atom__videoiframe video,
+        #rec862050095 .tn-elem[data-elem-id="1739078914882"].tg-webinar-video-ready .tn-atom__videoiframe video{
+          opacity:1 !important;
+          visibility:visible !important;
         }
         #rec861962232 .tn-elem[data-elem-id="1739078296052"]:not(.tg-webinar-video-playing) .tn-atom__video-play-link,
         #rec862050095 .tn-elem[data-elem-id="1739078914882"]:not(.tg-webinar-video-playing) .tn-atom__video-play-link{
