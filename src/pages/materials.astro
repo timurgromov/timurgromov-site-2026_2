@@ -75,6 +75,14 @@ const materialsAdvicePopupRecordIds = [
   "rec893280313",
   "rec893281054",
 ];
+const materialsAdvicePopupVideoUrls: Record<string, string> = {
+  rec893268655: "https://media.89-22-227-133.sslip.io/materials_popup_1_20260617.mp4",
+  rec893271232: "https://media.89-22-227-133.sslip.io/materials_popup_2_20260617.mp4",
+  rec893273581: "https://media.89-22-227-133.sslip.io/materials_popup_3_20260617.mp4",
+  rec893275240: "https://media.89-22-227-133.sslip.io/materials_popup_4_20260617.mp4",
+  rec893278048: "https://media.89-22-227-133.sslip.io/materials_popup_5_20260617.mp4",
+  rec893281054: "https://media.89-22-227-133.sslip.io/materials_popup_6_20260617.mp4",
+};
 const materialsFooterMenuIds = [
   "1738908769393",
   "1738908801867",
@@ -355,11 +363,17 @@ function wrapMobileWebinarCardStrip(recordHtml: string, groupIds: string[]) {
   );
 }
 
-function enablePopupVideoAutoplay(recordHtml: string) {
-  return recordHtml.replace(
+function patchPopupVideo(recordHtml: string, videoUrl?: string) {
+  let html = recordHtml.replace(
     /data-elem-type='video'/,
     `data-elem-type='video' data-field-autoplay-value="y" data-field-mute-value="y"`,
   );
+
+  if (videoUrl) {
+    html = html.replace(/data-mp4video="[^"]+"/, `data-mp4video="${videoUrl}"`);
+  }
+
+  return html;
 }
 
 const webinarCtaMarkup = `<section id="materials-followup-cta" class="tg-plan-cta" aria-labelledby="materials-followup-cta-title">
@@ -421,7 +435,7 @@ const headerRecordHtml = extractTildaRecord(bodySource, headerRecordId);
 const materialsAdvicePopupRecordsHtml = materialsAdvicePopupRecordIds
   .map((recordId) => {
     const recordHtml = extractTildaRecord(bodySource, recordId);
-    return enablePopupVideoAutoplay(recordHtml);
+    return patchPopupVideo(recordHtml, materialsAdvicePopupVideoUrls[recordId]);
   })
   .join(" ");
 const footerContactShortcutMarkup = ` <div class='t396__elem tn-elem tn-elem__8626239211746200000002' data-elem-id='1746200000002' data-elem-type='text' data-field-top-value="928" data-field-left-value="1285" data-field-height-value="24" data-field-width-value="320" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-textfit-value="autoheight" data-field-fontsize-value="20" data-field-top-res-320-value="532" data-field-left-res-320-value="25" data-field-width-res-320-value="220" data-field-fontsize-res-320-value="12" data-field-top-res-640-value="566" data-field-left-res-640-value="311" data-field-width-res-640-value="230" data-field-fontsize-res-640-value="13" data-field-top-res-1200-value="584" data-field-left-res-1200-value="800" data-field-width-res-1200-value="260" data-field-fontsize-res-1200-value="13"> <div class='tn-atom'><span class="contact-shortcut-inline__content"><span class="contact-shortcut-inline__label">Написать мне</span><a class="contact-shortcut-inline__link" href="${telegramContactUrl}" target="_blank" rel="nofollow">Telegram</a><a class="contact-shortcut-inline__link" href="${maxContactUrl}" target="_blank" rel="nofollow">MAX</a></span></div> </div>`;

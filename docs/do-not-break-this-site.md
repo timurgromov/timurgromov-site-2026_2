@@ -85,6 +85,19 @@ Current `/materials/` webinar media mapping:
   - `public/images/materials-poster-20.jpg`
 - Before changing the webinar source again, confirm the file exists on the media VPS and then update `docs/video-link-registry.md`.
 
+Current `/materials/` lower popup media mapping:
+
+- The six lower popup videos are old Tilda popup records with hooks `#popup:video-soveti-1` ... `#popup:video-soveti-6`.
+- The Tilda export still contains legacy Boomstream URLs inside the video records. Production must not use those URLs.
+- `src/pages/materials.astro` patches the active video record IDs through `materialsAdvicePopupVideoUrls`:
+  - `rec893268655` -> `materials_popup_1_20260617.mp4`
+  - `rec893271232` -> `materials_popup_2_20260617.mp4`
+  - `rec893273581` -> `materials_popup_3_20260617.mp4`
+  - `rec893275240` -> `materials_popup_4_20260617.mp4`
+  - `rec893278048` -> `materials_popup_5_20260617.mp4`
+  - `rec893281054` -> `materials_popup_6_20260617.mp4`
+- Before changing these links, confirm the target files exist on the media VPS and answer byte-range requests with `206 Partial Content`.
+
 Current `/materials/` webinar play overlay fallback:
 
 - The webinar play icon is restored in `src/pages/materials.astro` because the original Tilda block CSS later hides `.tn-atom__video-play-link`, but it must be state-based:

@@ -1,6 +1,6 @@
 # Video Link Registry
 
-Last checked: 2026-06-16.
+Last checked: 2026-07-07.
 
 This file is the canonical list of video sources for the production site. Keep it in sync when changing video URLs in `src/pages/index.astro` or `/materials/` video records in `files/page62008353body.html`.
 
@@ -37,12 +37,18 @@ The current files are already heavily compressed RF files. Do not re-encode agai
 | Advice popup: awkward toasts | VPS media | `https://media.89-22-227-133.sslip.io/tg26_advice_awkward_toasts_20260602.mp4` |
 | Advice popup: wedding chaos | VPS media | `https://media.89-22-227-133.sslip.io/tg26_advice_wedding_chaos_20260602.mp4` |
 | Materials webinar | VPS media | `https://media.89-22-227-133.sslip.io/materials_webinar_online_razbor_20260707_browser.mp4` |
+| Materials popup 1: wedding budget plan | VPS media | `https://media.89-22-227-133.sslip.io/materials_popup_1_20260617.mp4` |
+| Materials popup 2: guest fears | VPS media | `https://media.89-22-227-133.sslip.io/materials_popup_2_20260617.mp4` |
+| Materials popup 3: host tasks | VPS media | `https://media.89-22-227-133.sslip.io/materials_popup_3_20260617.mp4` |
+| Materials popup 4: restaurant choice | VPS media | `https://media.89-22-227-133.sslip.io/materials_popup_4_20260617.mp4` |
+| Materials popup 5: 20 guests wedding | VPS media | `https://media.89-22-227-133.sslip.io/materials_popup_5_20260617.mp4` |
+| Materials popup 6: international weddings | VPS media | `https://media.89-22-227-133.sslip.io/materials_popup_6_20260617.mp4` |
 
 ## VPS Media Host
 
 This is a migration, not a proxy/stream relay. The MP4 files were copied from previous storage to the VPS and are served directly from the VPS media directory.
 
-This host now contains the active public-site videos for both the homepage and the `/materials/` webinar page.
+This host now contains the active public-site videos for both the homepage and the `/materials/` webinar and popup videos.
 
 - Host/IP: `89.22.227.133`
 - SSH user: `root`
@@ -76,6 +82,14 @@ ssh root@89.22.227.133 "ls -lh /srv/tg26-video/public"
 - Current file parameters: H.264 Main + AAC LC, 1280x720, SAR 1:1 / DAR 16:9, 25 fps, `faststart`, about 54 MB.
 - Current poster files: `public/images/materials-poster.jpg` and `public/images/materials-poster-20.jpg`
 - If the webinar file changes, replace both `data-mp4video` values in those two records and keep this registry in sync.
+
+`/materials/` lower popup source of truth:
+
+- Popup shell records: `rec893268511`, `rec893271079`, `rec893273557`, `rec893275111`, `rec893277967`, `rec893280313`
+- Popup video records: `rec893268655`, `rec893271232`, `rec893273581`, `rec893275240`, `rec893278048`, `rec893281054`
+- Published links are patched in `src/pages/materials.astro` via `materialsAdvicePopupVideoUrls`.
+- The original Tilda export still contains old Boomstream `data-mp4video` values for these six records; do not rely on those export values for production.
+- If any lower popup video changes, update `materialsAdvicePopupVideoUrls` and keep this registry in sync.
 
 ## Emergency VPS Migration Runbook
 
@@ -272,6 +286,12 @@ Legacy Tilda review-video popup records `rec862674603`, `rec862674662`, `rec8626
 | Advice: wedding laughter | `https://cdnv.boomstream.com/balancer/roHksxqq-SxJPiQup.mp4` | `https://media.89-22-227-133.sslip.io/tg26_advice_wedding_laughter_20260602.mp4` |
 | Advice: awkward toasts | `https://cdnv.boomstream.com/balancer/aszKpzRZ-SxJPiQup.mp4` | `https://media.89-22-227-133.sslip.io/tg26_advice_awkward_toasts_20260602.mp4` |
 | Advice: wedding chaos | `https://cdnv.boomstream.com/balancer/qzinNGjh-SxJPiQup.mp4` | `https://media.89-22-227-133.sslip.io/tg26_advice_wedding_chaos_20260602.mp4` |
+| Materials popup 1: wedding budget plan | `https://cdnv.boomstream.com/balancer/pCq9x3Jn-SxJPiQup.mp4` | `https://media.89-22-227-133.sslip.io/materials_popup_1_20260617.mp4` |
+| Materials popup 2: guest fears | `https://cdnv.boomstream.com/balancer/rSg5jRyU-SxJPiQup.mp4` | `https://media.89-22-227-133.sslip.io/materials_popup_2_20260617.mp4` |
+| Materials popup 3: host tasks | `https://cdnv.boomstream.com/balancer/r9seULNi-SxJPiQup.mp4` | `https://media.89-22-227-133.sslip.io/materials_popup_3_20260617.mp4` |
+| Materials popup 4: restaurant choice | `https://cdnv.boomstream.com/balancer/RNUDagDY-SxJPiQup.mp4` | `https://media.89-22-227-133.sslip.io/materials_popup_4_20260617.mp4` |
+| Materials popup 5: 20 guests wedding | `https://cdnv.boomstream.com/balancer/ytQQEk4L-SxJPiQup.mp4` | `https://media.89-22-227-133.sslip.io/materials_popup_5_20260617.mp4` |
+| Materials popup 6: international weddings | `https://cdnv.boomstream.com/balancer/y8riDaTB-SxJPiQup.mp4` | `https://media.89-22-227-133.sslip.io/materials_popup_6_20260617.mp4` |
 
 ## Other Boomstream Links Found In Export
 
