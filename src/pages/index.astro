@@ -8,6 +8,7 @@ import {
   hiddenMarketingVideoAdviceElementIds,
   hiddenMarketingVideoAdviceRecordIds,
   maxContactUrl,
+  maxPlanUrl,
   priceLegacyElementRemovals,
   pricePhotoContactUrl,
   pricePhotoPrimaryUrl,
@@ -2699,19 +2700,21 @@ const tripwireFormMarkup = (variant: 'popup' | 'inline') => `<form class="tg-tri
   <div class="tg-tripwire-form__success" data-tripwire-success aria-live="polite">
     <span class="tg-tripwire-form__success-icon" aria-hidden="true"></span>
     <p class="tg-tripwire-form__success-title">Ответы сохранены</p>
-    <p class="tg-tripwire-form__success-text">Откройте Telegram: после коротких вопросов там будет сценарий, калькулятор и полезные материалы.</p>
+    <p class="tg-tripwire-form__success-text">Откройте Telegram или MAX: после коротких вопросов там будет сценарий, калькулятор и полезные материалы.</p>
     ${tildaCtaLink("tg-tripwire-form__telegram", telegramPlanUrl, "Открыть Telegram", 'target="_blank" rel="nofollow"')}
+    ${tildaCtaLink("tg-tripwire-form__telegram", maxPlanUrl, "Открыть MAX", 'target="_blank" rel="nofollow"')}
   </div>
 </form>`;
 
 const planCtaSectionMarkup = `<section id="plan-evening" class="tg-plan-cta" data-local-only="telegram-funnel-prototype">
   <div class="tg-plan-cta__inner">
     <div>
-      <p class="tg-plan-cta__kicker">Бесплатно в Telegram</p>
+      <p class="tg-plan-cta__kicker">Бесплатно в Telegram или MAX</p>
       <h2>Получить сценарий свадьбы</h2>
-      <p class="tg-plan-cta__text">Короткая структура вечера: основные блоки, точки риска и вопросы, которые стоит обсудить с ведущим до договора. В Telegram-боте ответьте на 3 коротких вопроса — и получите сценарий и материалы сразу в чате.</p>
+      <p class="tg-plan-cta__text">Короткая структура вечера: основные блоки, точки риска и вопросы, которые стоит обсудить с ведущим до договора. В боте ответьте на 3 коротких вопроса — и получите сценарий и материалы сразу в чате.</p>
       <div class="tg-plan-cta__actions">
-        ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--primary", telegramPlanUrl, "Получить сценарий", 'target="_blank" rel="nofollow"')}
+        ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--primary", telegramPlanUrl, "Получить в Telegram", 'target="_blank" rel="nofollow"')}
+        ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--secondary", maxPlanUrl, "Получить в MAX", 'target="_blank" rel="nofollow"')}
         ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--secondary", "#consultation-contact", "Обсудить свадьбу", "data-consultation-popup-open")}
       </div>
     </div>
@@ -4988,16 +4991,17 @@ const planDeliveryPopupMarkup = `<div id="plan-delivery-popup" class="tg-plan-po
     <button class="tg-plan-popup__close" type="button" aria-label="Закрыть" data-plan-popup-close></button>
     <div class="tg-plan-popup__body">
       <div class="tg-plan-popup__intro">
-        <p class="tg-plan-popup__eyebrow">Бесплатно в Telegram</p>
+        <p class="tg-plan-popup__eyebrow">Бесплатно в Telegram или MAX</p>
         <h2 id="plan-delivery-title">Получить сценарий</h2>
-        <p class="tg-plan-popup__text">Откройте Telegram-бота, ответьте на 3 коротких вопроса и получите сценарий вечера: тайминг, ключевые блоки, калькулятор и полезные материалы.</p>
+        <p class="tg-plan-popup__text">Откройте бота в Telegram или MAX, ответьте на 3 коротких вопроса и получите сценарий вечера: тайминг, ключевые блоки, калькулятор и полезные материалы.</p>
         <div class="tg-plan-popup__mini-map" aria-label="Что внутри сценария">
           <span>Сбор гостей, церемония, банкет и финал в одном тайминге.</span>
           <span>Места, где чаще всего появляются паузы и хаос.</span>
           <span>Что обсудить с ведущим до договора.</span>
         </div>
         <div class="tg-plan-popup__actions">
-          ${tildaCtaLink("tg-plan-popup__telegram", telegramPlanUrl, "Получить сценарий", 'target="_blank" rel="nofollow"')}
+          ${tildaCtaLink("tg-plan-popup__telegram", telegramPlanUrl, "Telegram", 'target="_blank" rel="nofollow"')}
+          ${tildaCtaLink("tg-plan-popup__telegram", maxPlanUrl, "MAX", 'target="_blank" rel="nofollow"')}
         </div>
       </div>
       <div class="tg-plan-popup__preview" aria-hidden="true">

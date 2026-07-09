@@ -102,8 +102,11 @@ export const telegramBotUsername = "gromov_wedding_bot";
 export const telegramPlanUrl = `https://t.me/${telegramBotUsername}?start=site_plan`;
 export const telegramMeetingUrl = `https://t.me/${telegramBotUsername}?start=site_meeting`;
 export const telegramContactUrl = telegramMeetingUrl;
-export const maxContactUrl =
-  "https://max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM?clckid=c487e7dc";
+export const maxBotUsername = "id615491029963_bot";
+export const maxPlanUrl = `https://max.ru/${maxBotUsername}?start=site_plan`;
+export const maxMeetingUrl = `https://max.ru/${maxBotUsername}?start=site_meeting`;
+export const maxCalculatorUrl = `https://max.ru/${maxBotUsername}?startapp=direct_personal`;
+export const maxContactUrl = maxMeetingUrl;
 
 export const pricePhotoPrimaryUrl =
   "images/tild3134-3130-4739-b462-666632633730______3iiwa_mnwni_1_2_.png";
