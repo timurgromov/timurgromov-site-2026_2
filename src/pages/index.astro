@@ -24,7 +24,7 @@ import {
   tildaCtaButton,
   tildaCtaLink,
 } from "../site/tilda-cta";
-import { yandexMetrikaHead } from "../site/metrika";
+import { yandexMetrikaHead, yandexMetrikaId } from "../site/metrika";
 import {
   dedupeHeadAssetReferences,
   injectBeforeTildaRecordScript,
@@ -2713,8 +2713,8 @@ const planCtaSectionMarkup = `<section id="plan-evening" class="tg-plan-cta" dat
       <h2>Получить сценарий свадьбы</h2>
       <p class="tg-plan-cta__text">Короткая структура вечера: основные блоки, точки риска и вопросы, которые стоит обсудить с ведущим до договора. В боте ответьте на 3 коротких вопроса — и получите сценарий и материалы сразу в чате.</p>
       <div class="tg-plan-cta__actions">
-        ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--primary", telegramPlanUrl, "Получить в Telegram", 'target="_blank" rel="nofollow"')}
-        ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--secondary", maxPlanUrl, "Получить в MAX", 'target="_blank" rel="nofollow"')}
+        ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--primary", telegramPlanUrl, "Получить в Telegram", 'target="_blank" rel="nofollow" data-plan-channel="telegram" data-plan-source="plan_cta_block"')}
+        ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--secondary", maxPlanUrl, "Получить в MAX", 'target="_blank" rel="nofollow" data-plan-channel="max" data-plan-source="plan_cta_block"')}
         ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--secondary", "#consultation-contact", "Обсудить свадьбу", "data-consultation-popup-open")}
       </div>
     </div>
@@ -4847,9 +4847,25 @@ const planDeliveryPopupAssets = `<style>
     var popupId = 'plan-delivery-popup';
     var openSelector = '[data-plan-popup-open]';
     var telegramPlanUrl = ${JSON.stringify(telegramPlanUrl)};
+    var fallbackMetrikaId = ${JSON.stringify(yandexMetrikaId)};
+    var lastPlanPopupSource = 'unknown';
     var endpoint = /^(localhost|127\\.0\\.0\\.1)$/.test(window.location.hostname)
       ? 'http://127.0.0.1:8000/api/v1/site/tripwire-request'
       : 'https://calcul.timurgromov.ru/api/v1/site/tripwire-request';
+
+    function trackPlanGoal(goal, params){
+      try {
+        if (typeof window.ym !== 'function') return;
+        var metrikaId = window.TG_METRIKA_ID || window.mainMetrikaId || fallbackMetrikaId;
+        if (!metrikaId) return;
+        window.ym(metrikaId, 'reachGoal', goal, Object.assign({
+          funnel: 'site_plan',
+          page_url: window.location.href
+        }, params || {}));
+      } catch (_error) {
+        // Analytics must never block the messenger handoff.
+      }
+    }
 
     function getPopup(){
       return document.getElementById(popupId);
@@ -4894,10 +4910,22 @@ const planDeliveryPopupAssets = `<style>
       if (event) event.preventDefault();
       var popup = getPopup();
       if (!popup) return;
+      var opener = event && event.currentTarget && event.currentTarget.closest
+        ? event.currentTarget.closest(openSelector)
+        : event && event.target && event.target.closest
+          ? event.target.closest(openSelector)
+          : null;
+      lastPlanPopupSource = opener && opener.getAttribute('data-plan-popup-source')
+        ? opener.getAttribute('data-plan-popup-source')
+        : 'hero';
       resetPopupForms(popup);
       popup.classList.add('is-open');
       popup.setAttribute('aria-hidden', 'false');
       document.body.classList.add('tg-plan-popup-open');
+      trackPlanGoal('site_plan_popup_open', {
+        source: 'site',
+        placement: lastPlanPopupSource
+      });
     }
 
     function closePopup(){
@@ -4913,6 +4941,23 @@ const planDeliveryPopupAssets = `<style>
       if (opener) {
         openPopup(event);
         return;
+      }
+
+      var messengerLink = event.target && event.target.closest && event.target.closest('[data-plan-channel]');
+      if (messengerLink) {
+        var channel = messengerLink.getAttribute('data-plan-channel') || 'unknown';
+        var placement = messengerLink.getAttribute('data-plan-source') || 'unknown';
+        var payload = {
+          source: 'site',
+          placement: placement,
+          channel: channel,
+          href: messengerLink.href || ''
+        };
+        if (placement === 'plan_popup') {
+          payload.popup_source = lastPlanPopupSource;
+        }
+        trackPlanGoal('site_plan_messenger_click', payload);
+        trackPlanGoal(channel === 'max' ? 'site_plan_max_click' : 'site_plan_telegram_click', payload);
       }
 
       var closer = event.target && event.target.closest && event.target.closest('[data-plan-popup-close]');
@@ -5000,8 +5045,8 @@ const planDeliveryPopupMarkup = `<div id="plan-delivery-popup" class="tg-plan-po
           <span>Что обсудить с ведущим до договора.</span>
         </div>
         <div class="tg-plan-popup__actions">
-          ${tildaCtaLink("tg-plan-popup__telegram", telegramPlanUrl, "Получить в Telegram", 'target="_blank" rel="nofollow"')}
-          ${tildaCtaLink("tg-plan-popup__telegram", maxPlanUrl, "Получить в MAX", 'target="_blank" rel="nofollow"')}
+          ${tildaCtaLink("tg-plan-popup__telegram", telegramPlanUrl, "Получить в Telegram", 'target="_blank" rel="nofollow" data-plan-channel="telegram" data-plan-source="plan_popup"')}
+          ${tildaCtaLink("tg-plan-popup__telegram", maxPlanUrl, "Получить в MAX", 'target="_blank" rel="nofollow" data-plan-channel="max" data-plan-source="plan_popup"')}
         </div>
       </div>
       <div class="tg-plan-popup__preview" aria-hidden="true">
@@ -5895,7 +5940,7 @@ const priceBodySource = transformTildaRecord(
     (recordHtml) =>
       recordHtml.replace(
         /(<div class='t396__elem tn-elem tn-elem__8613527161738735136250'[\s\S]*?<a class='tn-atom' href=")([^"]+)("[^>]*> <\/a>)/,
-        `$1#plan-delivery-popup" rel="nofollow" data-plan-popup-open> </a>`,
+        `$1#plan-delivery-popup" rel="nofollow" data-plan-popup-open data-plan-popup-source="hero"> </a>`,
       ),
     ),
     "rec862317152",

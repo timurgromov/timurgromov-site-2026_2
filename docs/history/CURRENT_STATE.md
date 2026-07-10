@@ -22,7 +22,8 @@
 - На сайте добавлена отдельная CTA-плашка `Бесплатная консультация` после секции цен.
 - В hero-кнопке текст `получить сценарий` открывает popup с выбором Telegram или MAX; оба маршрута ведут в бота с payload `site_plan`.
 - Кнопки `Получить сценарий` в CTA-блоке дают выбор Telegram или MAX; оба маршрута ведут в бота с payload `site_plan`.
-- Локальная проверка `npm run verify:contacts` теперь дополнительно валидирует, что hero click-layer `rec861352716` / `1738735136250` открывает `#plan-delivery-popup`, а Telegram/MAX ссылки внутри popup ведут именно в `site_plan`, а не в `site_meeting`.
+- Сценарные клики сайта отправляют JS-цели Яндекс.Метрики `site_plan_popup_open`, `site_plan_messenger_click`, `site_plan_telegram_click`, `site_plan_max_click`; канал фиксируется через `data-plan-channel="telegram|max"`, а место клика через `data-plan-source="plan_popup|plan_cta_block"`.
+- Локальная проверка `npm run verify:contacts` теперь дополнительно валидирует, что hero click-layer `rec861352716` / `1738735136250` открывает `#plan-delivery-popup`, Telegram/MAX ссылки внутри popup и CTA-блока ведут именно в `site_plan`, а не в `site_meeting`, и не теряют Metrika/analytics атрибуты.
 - Сам CTA-блок сценария построен без открытой inline-формы: слева оффер и кнопки, справа краткое содержание материала.
 - Текст CTA-блока объясняет, что в боте нужно ответить на 3 коротких вопроса, после чего пользователь получает сценарий, тайминг, ключевые блоки и полезные материалы.
 - Hero popup `Получить сценарий` показывает компактное preview материала с отдельным чёрно-белым портретом Тимура из site assets, но не даёт прямую ссылку на `/scenario/`; CTA в popup ведут в Telegram-бота или MAX-бота.
@@ -43,6 +44,7 @@
 
 - Telegram deep links зафиксированы: `site_plan` для получения сценария и полезных материалов через квалификацию, `site_meeting` для прямого Telegram-контакта и встречи.
 - MAX bot deep links зафиксированы: `site_plan` для сценария, `site_meeting` для встречи, `direct_personal` для калькулятора.
+- Для сайта `site_plan` остаётся единым source/intent, а Telegram/MAX различаются каналом: на сайте через Metrika goal params и `data-plan-channel`, в EventBudjet через provider/account/event payload после старта бота.
 - Сам бот и админская логика источников находятся в `EventBudjet`; сайт только хранит ссылки на готовые bot payload.
 - Production backend уже принимает site consultation requests с `timurgromov.ru`, создаёт карточки в `Все заявки` и отправляет мгновенные Telegram-уведомления в канал CRM-заявок. Legacy endpoint `/api/v1/site/tripwire-request` остаётся в backend и может использоваться снова, если сайт вернёт popup-квалификацию.
 

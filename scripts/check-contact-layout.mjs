@@ -174,14 +174,31 @@ async function getHeroScenarioCta(cdp) {
       const popupLinks = Array.from(document.querySelectorAll('#plan-delivery-popup a')).map((popupLink) => ({
         text: popupLink.textContent.replace(/\\s+/g, ' ').trim(),
         href: popupLink.href || '',
+        channel: popupLink.getAttribute('data-plan-channel') || '',
+        source: popupLink.getAttribute('data-plan-source') || '',
       }));
+      const planCtaLinks = Array.from(document.querySelectorAll('.tg-plan-cta a[data-plan-channel]')).map((ctaLink) => ({
+        text: ctaLink.textContent.replace(/\\s+/g, ' ').trim(),
+        href: ctaLink.href || '',
+        channel: ctaLink.getAttribute('data-plan-channel') || '',
+        source: ctaLink.getAttribute('data-plan-source') || '',
+      }));
+      const scripts = Array.from(document.scripts).map((script) => script.textContent || '').join('\\n');
       return {
         text: text?.textContent.replace(/\\s+/g, ' ').trim() || '',
         href: link?.href || '',
         target: link?.getAttribute('target') || '',
         opensPlanPopup: link?.hasAttribute('data-plan-popup-open') || false,
+        popupSource: link?.getAttribute('data-plan-popup-source') || '',
         popupExists: !!popup,
         popupLinks,
+        planCtaLinks,
+        metrikaGoals: {
+          popupOpen: scripts.includes('site_plan_popup_open'),
+          messengerClick: scripts.includes('site_plan_messenger_click'),
+          telegramClick: scripts.includes('site_plan_telegram_click'),
+          maxClick: scripts.includes('site_plan_max_click'),
+        },
       };
     })()`,
   );
@@ -194,6 +211,9 @@ function assertHeroScenarioCta(cta, viewport) {
   }
   if (!cta.opensPlanPopup) {
     fail("hero: scenario CTA does not open the plan delivery popup", { cta, viewport });
+  }
+  if (cta.popupSource !== "hero") {
+    fail("hero: scenario CTA popup source is not tracked", { cta, viewport });
   }
   if (cta.target === "_blank") {
     fail("hero: scenario CTA still opens a direct external tab", { cta, viewport });
@@ -213,6 +233,34 @@ function assertHeroScenarioCta(cta, viewport) {
     if (link.href.includes("start=site_meeting")) {
       fail("hero: popup scenario link regressed to site_meeting", { link, cta, viewport });
     }
+  }
+  if (telegram.channel !== "telegram" || telegram.source !== "plan_popup") {
+    fail("hero: popup Telegram link lost analytics attribution", { telegram, cta, viewport });
+  }
+  if (max.channel !== "max" || max.source !== "plan_popup") {
+    fail("hero: popup MAX link lost analytics attribution", { max, cta, viewport });
+  }
+  const planTelegram = cta.planCtaLinks.find((link) => link.text.includes("Telegram"));
+  const planMax = cta.planCtaLinks.find((link) => link.text.includes("MAX"));
+  if (!planTelegram || !planMax) {
+    fail("plan CTA: Telegram/MAX analytics links are missing", { cta, viewport });
+  }
+  if (planTelegram.channel !== "telegram" || planTelegram.source !== "plan_cta_block") {
+    fail("plan CTA: Telegram link lost analytics attribution", { planTelegram, cta, viewport });
+  }
+  if (planMax.channel !== "max" || planMax.source !== "plan_cta_block") {
+    fail("plan CTA: MAX link lost analytics attribution", { planMax, cta, viewport });
+  }
+  for (const link of [planTelegram, planMax]) {
+    if (!link.href.includes("start=site_plan")) {
+      fail("plan CTA: scenario link does not point to site_plan", { link, cta, viewport });
+    }
+    if (link.href.includes("start=site_meeting")) {
+      fail("plan CTA: scenario link regressed to site_meeting", { link, cta, viewport });
+    }
+  }
+  if (!cta.metrikaGoals?.popupOpen || !cta.metrikaGoals?.messengerClick || !cta.metrikaGoals?.telegramClick || !cta.metrikaGoals?.maxClick) {
+    fail("site_plan: Metrika goal contract is missing", { cta, viewport });
   }
   if (cta.href.includes("start=site_meeting")) {
     fail("hero: scenario CTA regressed to site_meeting", { cta, viewport });

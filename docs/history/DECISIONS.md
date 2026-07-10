@@ -92,6 +92,8 @@ Do:
 - keep popup buttons as `Получить в Telegram` and `Получить в MAX`;
 - keep both popup links on `site_plan`;
 - keep the lower scenario CTA block as direct Telegram/MAX choices.
+- track the site-side handoff with Metrika goals `site_plan_popup_open`, `site_plan_messenger_click`, `site_plan_telegram_click`, and `site_plan_max_click`;
+- keep `site_plan` as the shared scenario intent/source and keep Telegram/MAX as channel/provider attribution, not separate competing source names.
 
 Do not:
 
@@ -103,6 +105,7 @@ Do not:
 Verification:
 
 - `npm run verify:contacts` checks hero popup opener and popup Telegram/MAX `site_plan` links;
+- `npm run verify:contacts` checks scenario Metrika goal strings plus `data-plan-channel` / `data-plan-source` on the popup and lower CTA buttons;
 - browser verification covers desktop, wide desktop, compact desktop, and mobile popup fit.
 
 ## DEC-2026-06-23-TELEGRAM-MATERIALS-QUALIFICATION-FIRST

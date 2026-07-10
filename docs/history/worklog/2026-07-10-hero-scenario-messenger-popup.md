@@ -10,6 +10,9 @@ The site already had `#plan-delivery-popup` with Telegram and MAX scenario links
 - Removed direct external `_blank` behavior from the hero overlay.
 - Kept popup buttons as canonical split-buttons and changed their labels to `Получить в Telegram` and `Получить в MAX`.
 - Updated `verify:contacts` so it checks the popup opener contract and both popup `site_plan` links.
+- Added site-side Metrika handoff goals for the scenario funnel: `site_plan_popup_open`, `site_plan_messenger_click`, `site_plan_telegram_click`, and `site_plan_max_click`.
+- Added analytics data attributes to the existing popup and lower CTA split-buttons: `data-plan-channel="telegram|max"` and `data-plan-source="plan_popup|plan_cta_block"`.
+- Extended `verify:contacts` to fail if scenario Telegram/MAX buttons lose the Metrika goal strings, channel attribution, source placement, or regress from `site_plan` to `site_meeting`.
 - Added a new active decision for the Telegram/MAX hero choice and marked the old direct-Telegram hero rule as superseded.
 
 ## Verification
