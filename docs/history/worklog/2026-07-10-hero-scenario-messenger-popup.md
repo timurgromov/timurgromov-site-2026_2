@@ -22,4 +22,7 @@ The site already had `#plan-delivery-popup` with Telegram and MAX scenario links
   - `1984x1046`: popup stays centered; buttons visible and unclipped.
   - `390x844`: popup fits viewport, preview image is hidden, `scrollWidth` equals viewport width, buttons visible and unclipped.
 - Browser console still shows the known Tilda resize/runtime errors from `tilda-zero-1.1.min.js`; they did not block the scenario popup flow.
-- Production live-check after push to `main` is still required.
+- Production marker-check passed on `https://timurgromov.ru/`: live HTML contains `data-plan-popup-open`, `Получить в MAX`, and `Получить сценарий свадьбы`.
+- Production in-app browser smoke passed:
+  - `1440x900`: hero opens popup; Telegram/MAX buttons point to `site_plan`.
+  - `390x844`: popup fits viewport, `scrollWidth` equals `390`, preview image is hidden, Telegram/MAX buttons point to `site_plan`.
