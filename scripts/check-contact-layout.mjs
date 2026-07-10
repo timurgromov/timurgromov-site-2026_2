@@ -170,9 +170,18 @@ async function getHeroScenarioCta(cdp) {
     `(() => {
       const text = document.querySelector('#rec861352716 .tn-elem[data-elem-id="1738733079599"] .tn-atom');
       const link = document.querySelector('#rec861352716 .tn-elem[data-elem-id="1738735136250"] a.tn-atom');
+      const popup = document.querySelector('#plan-delivery-popup');
+      const popupLinks = Array.from(document.querySelectorAll('#plan-delivery-popup a')).map((popupLink) => ({
+        text: popupLink.textContent.replace(/\\s+/g, ' ').trim(),
+        href: popupLink.href || '',
+      }));
       return {
         text: text?.textContent.replace(/\\s+/g, ' ').trim() || '',
         href: link?.href || '',
+        target: link?.getAttribute('target') || '',
+        opensPlanPopup: link?.hasAttribute('data-plan-popup-open') || false,
+        popupExists: !!popup,
+        popupLinks,
       };
     })()`,
   );
@@ -183,8 +192,27 @@ function assertHeroScenarioCta(cta, viewport) {
   if (!cta.text.toLowerCase().includes("сценар")) {
     fail("hero: scenario CTA text lost the scenario intent", { cta, viewport });
   }
-  if (!cta.href.includes("start=site_plan")) {
-    fail("hero: scenario CTA does not point to site_plan", { cta, viewport });
+  if (!cta.opensPlanPopup) {
+    fail("hero: scenario CTA does not open the plan delivery popup", { cta, viewport });
+  }
+  if (cta.target === "_blank") {
+    fail("hero: scenario CTA still opens a direct external tab", { cta, viewport });
+  }
+  if (!cta.popupExists) {
+    fail("hero: plan delivery popup is missing", { cta, viewport });
+  }
+  const telegram = cta.popupLinks.find((link) => link.text.includes("Telegram"));
+  const max = cta.popupLinks.find((link) => link.text.includes("MAX"));
+  if (!telegram || !max) {
+    fail("hero: popup Telegram/MAX links are missing", { cta, viewport });
+  }
+  for (const link of [telegram, max]) {
+    if (!link.href.includes("start=site_plan")) {
+      fail("hero: popup scenario link does not point to site_plan", { link, cta, viewport });
+    }
+    if (link.href.includes("start=site_meeting")) {
+      fail("hero: popup scenario link regressed to site_meeting", { link, cta, viewport });
+    }
   }
   if (cta.href.includes("start=site_meeting")) {
     fail("hero: scenario CTA regressed to site_meeting", { cta, viewport });

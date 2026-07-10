@@ -4992,7 +4992,7 @@ const planDeliveryPopupMarkup = `<div id="plan-delivery-popup" class="tg-plan-po
     <div class="tg-plan-popup__body">
       <div class="tg-plan-popup__intro">
         <p class="tg-plan-popup__eyebrow">Бесплатно в Telegram или MAX</p>
-        <h2 id="plan-delivery-title">Получить сценарий</h2>
+        <h2 id="plan-delivery-title">Получить сценарий свадьбы</h2>
         <p class="tg-plan-popup__text">Откройте бота в Telegram или MAX, ответьте на 3 коротких вопроса и получите сценарий вечера: тайминг, ключевые блоки, калькулятор и полезные материалы.</p>
         <div class="tg-plan-popup__mini-map" aria-label="Что внутри сценария">
           <span>Сбор гостей, церемония, банкет и финал в одном тайминге.</span>
@@ -5000,8 +5000,8 @@ const planDeliveryPopupMarkup = `<div id="plan-delivery-popup" class="tg-plan-po
           <span>Что обсудить с ведущим до договора.</span>
         </div>
         <div class="tg-plan-popup__actions">
-          ${tildaCtaLink("tg-plan-popup__telegram", telegramPlanUrl, "Telegram", 'target="_blank" rel="nofollow"')}
-          ${tildaCtaLink("tg-plan-popup__telegram", maxPlanUrl, "MAX", 'target="_blank" rel="nofollow"')}
+          ${tildaCtaLink("tg-plan-popup__telegram", telegramPlanUrl, "Получить в Telegram", 'target="_blank" rel="nofollow"')}
+          ${tildaCtaLink("tg-plan-popup__telegram", maxPlanUrl, "Получить в MAX", 'target="_blank" rel="nofollow"')}
         </div>
       </div>
       <div class="tg-plan-popup__preview" aria-hidden="true">
@@ -5894,8 +5894,8 @@ const priceBodySource = transformTildaRecord(
     "rec861352716",
     (recordHtml) =>
       recordHtml.replace(
-        /(<div class='t396__elem tn-elem tn-elem__8613527161738735136250'[\s\S]*?<a class='tn-atom' href=")([^"]+)(" rel="nofollow" target="_blank"> <\/a>)/,
-        `$1${telegramPlanUrl}$3`,
+        /(<div class='t396__elem tn-elem tn-elem__8613527161738735136250'[\s\S]*?<a class='tn-atom' href=")([^"]+)("[^>]*> <\/a>)/,
+        `$1#plan-delivery-popup" rel="nofollow" data-plan-popup-open> </a>`,
       ),
     ),
     "rec862317152",

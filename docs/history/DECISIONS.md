@@ -54,7 +54,7 @@ Why:
 
 Do:
 
-- держать hero click-layer `rec861352716` / `1738735136250` на `site_plan`;
+- держать hero click-layer `rec861352716` / `1738735136250` на сценарном намерении: он может открывать messenger choice popup, но Telegram/MAX ссылки внутри этого popup обязаны вести в `site_plan`;
 - держать `site_plan` отдельным сценарием с qualification-first copy;
 - держать `site_meeting` отдельным direct-contact сценарием с нейтральным сообщением про ответ в Telegram;
 - проверять этот контракт через `npm run verify:contacts`, а не только через общий поиск `site_plan` / `site_meeting` в HTML.
@@ -68,8 +68,42 @@ Do not:
 Verification:
 
 - hero CTA text-layer остаётся сценарным;
-- hero click-layer ведёт в `https://t.me/gromov_wedding_bot?start=site_plan`;
+- hero click-layer открывает `#plan-delivery-popup`, а Telegram/MAX ссылки внутри popup ведут в `site_plan`;
 - `npm run verify:contacts` падает, если hero CTA откатывается на `site_meeting`.
+
+## DEC-2026-07-10-HERO-SCENARIO-MESSENGER-CHOICE
+
+Status: active
+Area: funnel, ux, frontend, telegram, max
+Decision date: 2026-07-10
+Evidence: owner requested that the homepage hero CTA `Получить сценарий` no longer jump straight to Telegram now that MAX bot is available; existing popup pattern should be reused instead of designing a new block
+Commits: pending
+Supersedes: DEC-2026-06-14-SCENARIO-BOT-FIRST direct hero link rule
+
+Decision:
+Hero CTA `получить сценарий свадьбы` opens the existing compact `#plan-delivery-popup`, where the visitor chooses Telegram or MAX. Both messenger routes keep the same bot intent `site_plan`; the popup must not link directly to `/scenario/` and must not ask the old site-side tripwire questions.
+
+Why:
+The site now has two bot channels for the same scenario flow. A small messenger-choice popup preserves the bot-first qualification while avoiding a forced Telegram-only path. Reusing the existing popup and split-button pattern keeps the site design consistent.
+
+Do:
+
+- reuse `planDeliveryPopupAssets`, `planDeliveryPopupMarkup`, and canonical `tildaCtaLink` split-buttons;
+- keep popup buttons as `Получить в Telegram` and `Получить в MAX`;
+- keep both popup links on `site_plan`;
+- keep the lower scenario CTA block as direct Telegram/MAX choices.
+
+Do not:
+
+- do not add messenger logos or a new visual block;
+- do not restore the old tripwire select form as the active hero path;
+- do not send scenario CTA traffic to `site_meeting`;
+- do not add a direct `/scenario/` CTA on the homepage.
+
+Verification:
+
+- `npm run verify:contacts` checks hero popup opener and popup Telegram/MAX `site_plan` links;
+- browser verification covers desktop, wide desktop, compact desktop, and mobile popup fit.
 
 ## DEC-2026-06-23-TELEGRAM-MATERIALS-QUALIFICATION-FIRST
 
@@ -552,12 +586,15 @@ Verification:
 
 ## DEC-2026-06-14-SCENARIO-BOT-FIRST
 
-Status: active
+Status: superseded by DEC-2026-07-10-HERO-SCENARIO-MESSENGER-CHOICE
 Area: product, ux, frontend, analytics
 Decision date: 2026-06-14
 Evidence: обсуждение с пользователем о лишнем шаге перед Telegram и ценности `bot_start` как главного входа в систему
 Commits: none
 Supersedes: DEC-2026-06-12-PLAN-TRIPWIRE-POPUP-FIRST
+
+Superseded note:
+На 2026-07-10 hero CTA больше не ведёт напрямую в Telegram: он открывает короткий popup выбора Telegram или MAX. Bot-first логика сохранена, потому что обе ссылки ведут в `site_plan`, а сайт по-прежнему не отдаёт прямую ссылку на `/scenario/` с главной.
 
 Decision:
 Для главного оффера `Получить сценарий` сайт должен вести пользователя напрямую в Telegram-бота по `site_plan`. Квалификация (`кто`, `когда`, `где`) проходит уже внутри бота после старта.
