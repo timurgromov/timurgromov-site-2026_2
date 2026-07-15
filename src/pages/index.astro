@@ -5770,6 +5770,12 @@ const unusedTildaHeadAssets = [
 const headHtml = dedupeHeadAssetReferences(
   removeHeadAssetReferences(headMatch[1], unusedTildaHeadAssets),
 )
+  // Inline NLM slider scripts can run after 100 ms, so the T396 core must be
+  // available before body parsing instead of racing an async download.
+  .replace(
+    /(<script[^>]+src="js\/tilda-zero-1\.1\.min\.js"[^>]*)\sasync(\s[^>]*>)/i,
+    "$1$2",
+  )
   .replace(
     /<meta property="og:url" content="[^"]*"\s*\/?>/i,
     `<meta property="og:url" content="${previewUrl}" />`,

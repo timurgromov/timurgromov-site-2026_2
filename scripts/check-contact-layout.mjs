@@ -109,6 +109,11 @@ function createCdpClient(webSocketUrl) {
         events.get(method).add(listener);
       });
     },
+    on(method, listener) {
+      if (!events.has(method)) events.set(method, new Set());
+      events.get(method).add(listener);
+      return () => events.get(method)?.delete(listener);
+    },
     close() {
       socket.close();
     },
@@ -505,9 +510,23 @@ async function main() {
   await cdp.send("Page.enable");
   await cdp.send("Runtime.enable");
   const results = [];
+  const runtimeExceptions = [];
+
+  cdp.on("Runtime.exceptionThrown", ({ exceptionDetails = {} }) => {
+    runtimeExceptions.push({
+      text: exceptionDetails.exception?.description || exceptionDetails.text || "Unknown page error",
+      url: exceptionDetails.url || "",
+      lineNumber: exceptionDetails.lineNumber,
+      columnNumber: exceptionDetails.columnNumber,
+    });
+  });
 
   for (const viewport of viewports) {
+    runtimeExceptions.length = 0;
     await loadPage(cdp, viewport.width, viewport.height);
+    if (runtimeExceptions.length) {
+      fail("Page raised uncaught runtime exceptions", { viewport, runtimeExceptions });
+    }
     await assertAnchorHistoryIsDisabled(cdp);
     const heroScenarioCta = await getHeroScenarioCta(cdp);
     assertHeroScenarioCta(heroScenarioCta, viewport);
