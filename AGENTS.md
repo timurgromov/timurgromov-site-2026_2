@@ -105,6 +105,7 @@ ps aux | egrep "headless|remote-debugging-port|astro preview|npm run preview" | 
 - Для визуальных задач про “меньше / аккуратнее / как раньше / ближе к старому дизайну” live-деплой не равен визуальному подтверждению. Если агент сам не делал visual-check, это нужно прямо проговорить в финале, а не выдавать за полностью подтвержденный результат.
 - Пуш в рабочую ветку (`pushable-scaffold` и любые другие) не считается публикацией сайта. Если задача про живой сайт, финальный шаг обязан обновить `origin/main`.
 - Автодеплой уже настроен: `.github/workflows/deploy-gh-pages.yml` собирает Astro и пушит `dist/` в `gh-pages` после каждого push в `main`.
+- Отдельный `.github/workflows/code-health.yml` запускает `npm ci` и `npm run build` на pull request и runtime-relevant push в `main`; он read-only, не деплоит сайт и не использует production secrets.
 - После push в `main` проверять публикацию командой `npm run verify:pages -- --contains "ожидаемый текст" --absent "старый текст"` или эквивалентной live-проверкой URL.
 
 ## Existing Design Reuse Rule

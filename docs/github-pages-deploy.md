@@ -12,6 +12,17 @@
 
 Ручной деплой — только запасной вариант (CI упал, Actions отключены, форс-обновить без коммита): см. §6.
 
+### Проверка pull request без публикации
+
+Отдельный workflow **`.github/workflows/code-health.yml`** выполняет только
+`npm ci` и production-сборку Astro. Он запускается на pull request и на
+runtime-relevant push в `main`, пропускает docs-only изменения, имеет read-only
+permissions и не публикует сайт.
+
+Workflow `.github/workflows/deploy.yml` не используется. GitHub Pages настроен
+как **Deploy from a branch → `gh-pages` → `/`**, поэтому канонический deploy-path
+только один: `.github/workflows/deploy-gh-pages.yml` обновляет ветку `gh-pages`.
+
 ## 1. Что где лежит
 
 | Что | Где в GitHub | Зачем |
@@ -58,7 +69,7 @@ npm run verify:pages -- --contains "новый текст" --absent "стары�
 
 ## 3. Один раз: положить workflow в репозиторий
 
-Автодеплой работает только если в **`main`** есть **`.github/workflows/deploy-gh-pages.yml`**.
+Автодеплой работает только если в **`main`** есть **`.github/workflows/deploy-gh-pages.yml`**. Не добавляй параллельный workflow через `actions/deploy-pages`: текущий Pages source — ветка `gh-pages`, а не GitHub Actions artifact.
 
 GitHub **отклоняет** push этого файла с PAT **без** scope **`workflow`** (ошибка: *refusing … workflow … without `workflow` scope*).
 

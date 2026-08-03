@@ -1,4 +1,4 @@
-# Current State - 2026-06-24
+# Current State - 2026-08-03
 
 ## Project
 
@@ -39,6 +39,7 @@
 - Разовые локальные preview через `npm run preview` дают временные порты и не должны использоваться как постоянная точка входа.
 - Для стабильного локального просмотра используется docker-compose сценарий на `http://127.0.0.1:4323/`.
 - Сборка `npm run build` проходит.
+- GitHub Actions использует один deploy-path: `deploy-gh-pages.yml` собирает `main` и обновляет ветку `gh-pages`; отдельный `code-health.yml` проверяет Astro build на PR/main без deploy и production secrets.
 - `public/sitemap.xml` теперь должен включать как минимум `/`, `/materials/`, `/scenario/`, `/articles/` и `/yubiley/`.
 
 ## Known Blockers
@@ -93,4 +94,4 @@
 - Branch: `main`
 - Local verification: `npm run verify:contacts` (desktop `1911x1064`, desktop `1440x900`, mobile `390x844`, включая uncaught runtime exceptions), stable local docker preview `http://127.0.0.1:4323/`.
 - Последнее правленное состояние: CTA-блок сценария очищен от нижних proof-карточек и прямой ссылки на `/scenario/`; hero popup оставлен компактным bot-first preview с выбором Telegram или MAX.
-- Production deploy: выполняется через push в `main` и GitHub Actions `deploy-gh-pages`.
+- Production deploy: выполняется через push в `main` и GitHub Actions `deploy-gh-pages`; GitHub Pages source — ветка `gh-pages` (`/`).

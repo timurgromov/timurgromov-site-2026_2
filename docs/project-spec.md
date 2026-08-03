@@ -59,7 +59,7 @@
 12. forms
 
 ## 7. Current Phase
-Сделано: Astro-каркас, GitHub Pages, автодеплой через Actions, полный Tilda export в репозитории.
+Сделано: Astro-каркас, GitHub Pages с каноническим deploy через ветку `gh-pages`, отдельный read-only code-health workflow для PR/main, полный Tilda export в репозитории.
 
 Текущий режим работы: главная страница собирается из `files/page62008353body.html` через `src/pages/index.astro`, поверх export добавлены точечные правки для hero, cases, contacts, popup hooks и видео.
 

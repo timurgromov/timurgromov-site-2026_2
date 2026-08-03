@@ -2,6 +2,41 @@
 
 Этот файл фиксирует решения, которые важно помнить и не откатывать случайно.
 
+## DEC-2026-08-03-SINGLE-GH-PAGES-DEPLOY-AND-CODE-HEALTH
+
+Status: active
+Area: deploy, ci, workflow
+Decision date: 2026-08-03
+Evidence: GitHub Pages API reports `build_type=legacy` with source `gh-pages` `/`; GitHub Actions history showed both deploy workflows running on every push to `main`
+Commits: pending
+Supersedes: none
+
+Decision:
+Публичный сайт использует один deploy-path: `.github/workflows/deploy-gh-pages.yml` собирает Astro из `main` и обновляет ветку `gh-pages`. Отдельный `.github/workflows/code-health.yml` проверяет production build на pull request и runtime-relevant push, но ничего не публикует. Artifact-based `.github/workflows/deploy.yml` удалён как параллельный и не соответствующий текущему Pages source.
+
+Why:
+Два deploy workflow одновременно запускались на одном push и создавали две независимые публикации. Текущая настройка Pages читает ветку `gh-pages`, поэтому branch-based workflow уже является каноническим и описан во всей project documentation.
+
+Do:
+
+- держать Pages source `gh-pages` `/`, пока не принято отдельное решение о миграции;
+- использовать `deploy-gh-pages.yml` для публикации после push в `main`;
+- использовать `code-health.yml` как read-only build gate без secrets, providers и deploy;
+- после runtime deploy проверять `timurgromov.ru` и при необходимости fallback `github.io`.
+
+Do not:
+
+- не добавлять второй deploy workflow через `actions/deploy-pages` при branch-based Pages source;
+- не превращать code-health в deploy job;
+- не запускать production providers или mutation из PR workflow.
+
+Verification:
+
+- в `.github/workflows/` остаются `deploy-gh-pages.yml` и `code-health.yml`;
+- GitHub Pages API показывает source `gh-pages` `/`;
+- `npm run build` проходит локально и в Code health;
+- после push workflow `Deploy to gh-pages` успешен, production URL отвечает.
+
 ## DEC-2026-06-30-JUBILEE-SEO-PATH
 
 Status: active
