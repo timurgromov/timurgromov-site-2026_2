@@ -1,9 +1,9 @@
 export const videoMediaBaseUrl = "https://media.89-22-227-133.sslip.io";
 
 export const heroCloudDesktopVideoUrl =
-  `${videoMediaBaseUrl}/hero_desc_RF28.mp4`;
+  "https://bs.boomstream.dev/balancer/RCIJ56KS-EuQeQgfF.mp4";
 export const heroCloudMobileVideoUrl =
-  `${videoMediaBaseUrl}/hero_mob_RF28.mp4`;
+  "https://bs.boomstream.dev/balancer/0VGkkqV8-EuQeQgfF.mp4";
 
 const showreelPopupCloudVideoUrl =
   `${videoMediaBaseUrl}/morozovkaRF24.mp4`;

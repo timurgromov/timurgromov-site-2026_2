@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-08-20-hero-emergency-boomstream-failover",
+  "change_kind": "hero-video-source",
+  "status": "passed",
+  "requested_visible_change": "Restore the public homepage Hero video while the primary Aeza media VPS is offline",
+  "expected_visible_delta": "The Hero changes from an unavailable Aeza MP4 to the approved Boomstream fallback and visibly plays on desktop and mobile",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "08b8ffb792beab2a2fcb686c057bebb9a830c6846504e98bf0aadf9096a16eac",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/",
+    "source_ref": "staged working tree after npm run build",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/",
+    "state": "public unauthenticated homepage Hero",
+    "selector_or_slide_id": "native Hero video using heroCloudDesktopVideoUrl or heroCloudMobileVideoUrl",
+    "action": "open the homepage, wait for the poster-to-video transition, and inspect the active native Hero video"
+  },
+  "must_remain_unchanged": [
+    "Hero layout and posters",
+    "Hero copy and primary CTA",
+    "all non-Hero media mappings"
+  ],
+  "required_viewports": [
+    "390x844",
+    "1440x900"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "Chrome viewport override; innerWidth=390; innerHeight=844",
+      "before_signature": "src=media.89-22-227-133.sslip.io/hero_mob_RF28.mp4; readyState=0; unavailable",
+      "after_signature": "src=bs.boomstream.dev/balancer/0VGkkqV8-EuQeQgfF.mp4; readyState=4; paused=false; video=406x720",
+      "observed_visible_result": "The mobile Hero decoded and played the approved portrait fallback without horizontal overflow",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "viewport_source": "Chrome viewport override; innerWidth=1440; innerHeight=900",
+      "before_signature": "src=media.89-22-227-133.sslip.io/hero_desc_RF28.mp4; readyState=0; unavailable",
+      "after_signature": "src=bs.boomstream.dev/balancer/RCIJ56KS-EuQeQgfF.mp4; readyState=4; paused=false; video=1280x720",
+      "observed_visible_result": "The desktop Hero decoded and played the approved landscape fallback while preserving the Hero composition",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 0,
+    "selected_variant": "",
+    "owner_approval_reference": ""
+  }
+}
