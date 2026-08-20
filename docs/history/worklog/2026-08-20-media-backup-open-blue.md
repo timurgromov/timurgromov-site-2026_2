@@ -16,7 +16,11 @@ Aeza VPS `#1777264 outstanding-blue` boots but resets incoming SSH, HTTP and HTT
 
 - Container internal Hero request returns `206 Partial Content`.
 - Public HTTP and HTTPS Hero desktop/mobile requests return `206 Partial Content`, `Content-Type: video/mp4`, CORS and cache headers.
-- Run `npm run build`, focused verification and live desktop/mobile playback checks before considering the recovery complete.
+- `npm run build` and `npm run verify:materials-baseline` pass.
+- GitHub Pages deploy for commit `45af6bf` completed successfully.
+- Live desktop `1440x900`: Hero uses the backup desktop MP4, `readyState=4`, `paused=false`, decoded size `1280x720`.
+- Live mobile `390x844`: Hero uses the backup mobile MP4, `readyState=4`, `paused=false`, decoded size `406x720`.
+- Live `/materials/`: the webinar starts from the backup host with `readyState=4`, `paused=false`, decoded size `1280x720`; all six lower popup records contain backup-host URLs.
 
 ## Known gap and rollback
 

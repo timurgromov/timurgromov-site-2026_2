@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-08-20-hero-backup-vps",
+  "change_kind": "hero-video-source",
+  "status": "passed",
+  "requested_visible_change": "Restore the public homepage video from an isolated container on the second VPS",
+  "expected_visible_delta": "Desktop and mobile Hero video visibly plays from the temporary first-party media hostname instead of direct Boomstream",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "b9dbef070394b5c8ae24d06e050454ee3a0ead8aa432b9cfc64901d92e8bc01b",
+  "served_candidate": {
+    "url": "https://timurgromov.ru/",
+    "source_ref": "production commit 45af6bf",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/",
+    "state": "public unauthenticated homepage Hero",
+    "selector_or_slide_id": "video.hero-native-video",
+    "action": "open the deployed homepage, wait for autoplay, and inspect the selected source and decoded video state"
+  },
+  "must_remain_unchanged": [
+    "Hero layout and posters",
+    "Hero copy and primary CTA",
+    "desktop and mobile source selection"
+  ],
+  "required_viewports": [
+    "390x844",
+    "1440x900"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "Playwright viewport; innerWidth=390; innerHeight=844",
+      "before_signature": "src=bs.boomstream.dev/balancer/0VGkkqV8-EuQeQgfF.mp4; direct provider fallback",
+      "after_signature": "src=media.213-176-94-245.sslip.io/hero_mob_RF28.mp4; readyState=4; paused=false; video=406x720",
+      "observed_visible_result": "The mobile Hero decoded and played the portrait MP4 from the backup VPS",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "viewport_source": "Playwright viewport; innerWidth=1440; innerHeight=900",
+      "before_signature": "src=bs.boomstream.dev/balancer/RCIJ56KS-EuQeQgfF.mp4; direct provider fallback",
+      "after_signature": "src=media.213-176-94-245.sslip.io/hero_desc_RF28.mp4; readyState=4; paused=false; video=1280x720",
+      "observed_visible_result": "The desktop Hero decoded and played the landscape MP4 from the backup VPS",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 0,
+    "selected_variant": "",
+    "owner_approval_reference": "explicit production recovery request in current task"
+  }
+}
