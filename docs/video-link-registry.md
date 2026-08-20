@@ -1,6 +1,6 @@
 # Video Link Registry
 
-Last checked: 2026-07-07.
+Last checked: 2026-08-20.
 
 This file is the canonical list of video sources for the production site. Keep it in sync when changing video URLs in `src/pages/index.astro` or `/materials/` video records in `files/page62008353body.html`.
 
@@ -10,41 +10,52 @@ GitHub Pages fallback: `https://timurgromov.github.io/timurgromov-site-2026_2/`
 
 ## Current Active Sources
 
-All active videos are served from the separate VPS media host:
+During the Aeza incident, available active videos are served from the isolated backup container on `open-blue`:
 
-`https://media.89-22-227-133.sslip.io`
+`https://media.213-176-94-245.sslip.io`
 
 The current files are already heavily compressed RF files. Do not re-encode again "just to optimize". Only create new variants after a concrete visual/performance reason and Safari testing.
 
 | Place | Active provider | Active URL |
 | --- | --- | --- |
-| Hero desktop | VPS media | `https://media.89-22-227-133.sslip.io/hero_desc_RF28.mp4` |
-| Hero mobile | VPS media | `https://media.89-22-227-133.sslip.io/hero_mob_RF28.mp4` |
-| Case preview: Komo | VPS media | `https://media.89-22-227-133.sslip.io/demo_komoRF28.mp4` |
-| Case preview: Morozovka | VPS media | `https://media.89-22-227-133.sslip.io/demo_morozRF28_576.mp4` |
-| Case preview: Toscana | VPS media | `https://media.89-22-227-133.sslip.io/demo_toscanaRF28.mp4` |
-| Case preview: Nemchinovka / Kolizei | VPS media | `https://media.89-22-227-133.sslip.io/demo_nemchRF28_576.mp4` |
-| Popup: showreel | VPS media | `https://media.89-22-227-133.sslip.io/morozovkaRF24.mp4` |
-| Popup: Komo | VPS media | `https://media.89-22-227-133.sslip.io/KomoRF26.mp4` |
-| Popup: Morozovka | VPS media | `https://media.89-22-227-133.sslip.io/morozovkaRF24.mp4` |
-| Popup: Toscana | VPS media | `https://media.89-22-227-133.sslip.io/ToscanaRF26.mp4` |
-| Popup: Nemchinovka / Kolizei | VPS media | `https://media.89-22-227-133.sslip.io/NemchinovkaRF28.mp4` |
-| Review popup: Anton and Kristina | VPS media | `https://media.89-22-227-133.sslip.io/review_anton_kristina_RF.mp4` |
-| Review popup: Temur and Yana | VPS media | `https://media.89-22-227-133.sslip.io/review_temur_margo_RF.mp4` |
-| Review popup: Katya and Zhenya | VPS media | `https://media.89-22-227-133.sslip.io/review_katya_zhenya_RF.mp4` |
-| Review popup: Anton and Leia | VPS media | `https://media.89-22-227-133.sslip.io/review_russian_cuban_RF.mp4` |
-| Advice popup: wedding laughter | VPS media | `https://media.89-22-227-133.sslip.io/tg26_advice_wedding_laughter_20260602.mp4` |
-| Advice popup: awkward toasts | VPS media | `https://media.89-22-227-133.sslip.io/tg26_advice_awkward_toasts_20260602.mp4` |
-| Advice popup: wedding chaos | VPS media | `https://media.89-22-227-133.sslip.io/tg26_advice_wedding_chaos_20260602.mp4` |
-| Materials webinar | VPS media | `https://media.89-22-227-133.sslip.io/materials_webinar_online_razbor_20260707_browser.mp4` |
-| Materials popup 1: wedding budget plan | VPS media | `https://media.89-22-227-133.sslip.io/materials_popup_1_20260617.mp4` |
-| Materials popup 2: guest fears | VPS media | `https://media.89-22-227-133.sslip.io/materials_popup_2_20260617.mp4` |
-| Materials popup 3: host tasks | VPS media | `https://media.89-22-227-133.sslip.io/materials_popup_3_20260617.mp4` |
-| Materials popup 4: restaurant choice | VPS media | `https://media.89-22-227-133.sslip.io/materials_popup_4_20260617.mp4` |
-| Materials popup 5: 20 guests wedding | VPS media | `https://media.89-22-227-133.sslip.io/materials_popup_5_20260617.mp4` |
-| Materials popup 6: international weddings | VPS media | `https://media.89-22-227-133.sslip.io/materials_popup_6_20260617.mp4` |
+| Hero desktop | Backup VPS media | `https://media.213-176-94-245.sslip.io/hero_desc_RF28.mp4` |
+| Hero mobile | Backup VPS media | `https://media.213-176-94-245.sslip.io/hero_mob_RF28.mp4` |
+| Case preview: Komo | Backup VPS media | `https://media.213-176-94-245.sslip.io/demo_komoRF28.mp4` |
+| Case preview: Morozovka | Backup VPS media | `https://media.213-176-94-245.sslip.io/demo_morozRF28_576.mp4` |
+| Case preview: Toscana | Backup VPS media | `https://media.213-176-94-245.sslip.io/demo_toscanaRF28.mp4` |
+| Case preview: Nemchinovka / Kolizei | Backup VPS media | `https://media.213-176-94-245.sslip.io/demo_nemchRF28_576.mp4` |
+| Popup: showreel | Backup VPS media | `https://media.213-176-94-245.sslip.io/morozovkaRF24.mp4` |
+| Popup: Komo | Backup VPS media | `https://media.213-176-94-245.sslip.io/KomoRF26.mp4` |
+| Popup: Morozovka | Backup VPS media | `https://media.213-176-94-245.sslip.io/morozovkaRF24.mp4` |
+| Popup: Toscana | Backup VPS media | `https://media.213-176-94-245.sslip.io/ToscanaRF26.mp4` |
+| Popup: Nemchinovka / Kolizei | Backup VPS media | `https://media.213-176-94-245.sslip.io/NemchinovkaRF28.mp4` |
+| Review popup: Anton and Kristina | Backup VPS media | `https://media.213-176-94-245.sslip.io/review_anton_kristina_RF.mp4` |
+| Review popup: Temur and Yana | Primary VPS unavailable | pending source recovery |
+| Review popup: Katya and Zhenya | Primary VPS unavailable | pending source recovery |
+| Review popup: Anton and Leia | Primary VPS unavailable | pending source recovery |
+| Advice popup: wedding laughter | Backup VPS media | `https://media.213-176-94-245.sslip.io/tg26_advice_wedding_laughter_20260602.mp4` |
+| Advice popup: awkward toasts | Backup VPS media | `https://media.213-176-94-245.sslip.io/tg26_advice_awkward_toasts_20260602.mp4` |
+| Advice popup: wedding chaos | Backup VPS media | `https://media.213-176-94-245.sslip.io/tg26_advice_wedding_chaos_20260602.mp4` |
+| Materials webinar | Backup VPS media | `https://media.213-176-94-245.sslip.io/materials_webinar_online_razbor_20260707_browser.mp4` |
+| Materials popup 1: wedding budget plan | Backup VPS media | `https://media.213-176-94-245.sslip.io/materials_popup_1_20260617.mp4` |
+| Materials popup 2: guest fears | Backup VPS media | `https://media.213-176-94-245.sslip.io/materials_popup_2_20260617.mp4` |
+| Materials popup 3: host tasks | Backup VPS media | `https://media.213-176-94-245.sslip.io/materials_popup_3_20260617.mp4` |
+| Materials popup 4: restaurant choice | Backup VPS media | `https://media.213-176-94-245.sslip.io/materials_popup_4_20260617.mp4` |
+| Materials popup 5: 20 guests wedding | Backup VPS media | `https://media.213-176-94-245.sslip.io/materials_popup_5_20260617.mp4` |
+| Materials popup 6: international weddings | Backup VPS media | `https://media.213-176-94-245.sslip.io/materials_popup_6_20260617.mp4` |
 
 ## VPS Media Host
+
+Temporary incident host (active from 2026-08-20):
+
+- Host/IP: `213.176.94.245` (`open-blue`)
+- Media URL: `https://media.213-176-94-245.sslip.io`
+- Server path: `/srv/tg26-media-backup/public`
+- Container: `tg26-media-backup`, bound to `127.0.0.1:8092`
+- Public edge: separate host-nginx vhost with Let's Encrypt; PastLife vhost and containers are unchanged
+- Provisioning: `scripts/setup-media-backup-open-blue.sh` and `scripts/configure-media-backup-open-blue.sh`
+
+Primary media host below remains the source of truth to recover after Aeza repairs its network.
 
 This is a migration, not a proxy/stream relay. The MP4 files were copied from previous storage to the VPS and are served directly from the VPS media directory.
 

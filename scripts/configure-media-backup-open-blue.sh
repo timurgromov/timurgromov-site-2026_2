@@ -30,8 +30,10 @@ ln -sfn "$AVAILABLE" "$ENABLED"
 nginx -t
 systemctl reload nginx
 
-curl -fsSI -H 'Range: bytes=0-1' \
-  "http://$DOMAIN/hero_desc_RF28.mp4"
+curl -fsSI \
+  -H "Host: $DOMAIN" \
+  -H 'Range: bytes=0-1' \
+  http://127.0.0.1/hero_desc_RF28.mp4
 
 certbot --nginx \
   --domain "$DOMAIN" \

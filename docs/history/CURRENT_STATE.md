@@ -15,7 +15,7 @@
 
 ## What Works Now
 
-- Из-за сетевого сбоя Aeza VPS `#1777264 outstanding-blue` после техработ 20 августа Hero временно переключён на ранее одобренные Boomstream MP4: отдельные desktop и mobile источники. Остальные VPS-видео пока остаются на `media.89-22-227-133.sslip.io` и зависят от восстановления VPS.
+- Из-за сетевого сбоя Aeza VPS `#1777264 outstanding-blue` после техработ 20 августа публичные видео временно обслуживает изолированный контейнер `tg26-media-backup` на втором VPS `open-blue` через `https://media.213-176-94-245.sslip.io`. PastLife-контейнеры и база не изменялись.
 - На сайте добавлен CTA-блок `План-сценарий свадебного вечера` перед секцией цен.
 - На сайте есть отдельная production-страница `https://timurgromov.ru/scenario/` с материалом про логику свадебного вечера.
 - На сайте появился отдельный hub `https://timurgromov.ru/articles/` для SEO-материалов и безопасного наращивания органического слоя вне главной страницы.
@@ -46,6 +46,7 @@
 ## Known Blockers
 
 - Aeza VPS `#1777264 outstanding-blue` загружается, но сбрасывает входящие SSH/HTTP/HTTPS даже в Rescue; Rescue VNC возвращает `Internal Server Error`. Это блокирует основной media host и размещённый на том же VPS SOCKS5 proxy до ремонта сети со стороны Aeza.
+- На резервном media host пока нет трёх локальных review-файлов (`review_temur_margo_RF.mp4`, `review_katya_zhenya_RF.mp4`, `review_russian_cuban_RF.mp4`): исходники были только на недоступном VPS. Hero, кейсы, showreel, Антон/Кристина, советы и шесть материалов восстановлены; webinar временно восстановлен из его исходного Boomstream MP4 через собственный VPS.
 - Telegram deep links зафиксированы: `site_plan` для получения сценария и полезных материалов через квалификацию, `site_meeting` для прямого Telegram-контакта и встречи.
 - MAX bot deep links зафиксированы: `site_plan` для сценария, `site_meeting` для встречи, `direct_personal` для калькулятора.
 - Для сайта `site_plan` остаётся единым source/intent, а Telegram/MAX различаются каналом: на сайте через Metrika goal params и `data-plan-channel`, в EventBudjet через provider/account/event payload после старта бота.

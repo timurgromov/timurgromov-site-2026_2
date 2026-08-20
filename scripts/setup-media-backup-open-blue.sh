@@ -56,6 +56,7 @@ download materials_popup_3_20260617.mp4 https://cdnv.boomstream.com/balancer/r9s
 download materials_popup_4_20260617.mp4 https://cdnv.boomstream.com/balancer/RNUDagDY-SxJPiQup.mp4
 download materials_popup_5_20260617.mp4 https://cdnv.boomstream.com/balancer/ytQQEk4L-SxJPiQup.mp4
 download materials_popup_6_20260617.mp4 https://cdnv.boomstream.com/balancer/y8riDaTB-SxJPiQup.mp4
+download materials_webinar_online_razbor_20260707_browser.mp4 https://cdnv.boomstream.com/balancer/wl0fWsUN-EuQeQgfF.mp4
 
 docker rm -f "$CONTAINER_NAME" >/dev/null 2>&1 || true
 docker run -d \

@@ -43,6 +43,9 @@ const bodyAttrs = bodyTagMatch[1];
 const bodyClass = bodyAttrs.match(/\bclass=(['"])(.*?)\1/i)?.[2];
 const bodyStyle = bodyAttrs.match(/\bstyle=(['"])(.*?)\1/i)?.[2];
 const allRecordsAttrs = allRecordsMatch[1];
+const mediaBackupBaseUrl = "https://media.213-176-94-245.sslip.io";
+const materialsWebinarVideoUrl =
+  `${mediaBackupBaseUrl}/materials_webinar_online_razbor_20260707_browser.mp4`;
 
 const materialRecordIds = [
   // Webinar.
@@ -76,12 +79,12 @@ const materialsAdvicePopupRecordIds = [
   "rec893281054",
 ];
 const materialsAdvicePopupVideoUrls: Record<string, string> = {
-  rec893268655: "https://media.89-22-227-133.sslip.io/materials_popup_1_20260617.mp4",
-  rec893271232: "https://media.89-22-227-133.sslip.io/materials_popup_2_20260617.mp4",
-  rec893273581: "https://media.89-22-227-133.sslip.io/materials_popup_3_20260617.mp4",
-  rec893275240: "https://media.89-22-227-133.sslip.io/materials_popup_4_20260617.mp4",
-  rec893278048: "https://media.89-22-227-133.sslip.io/materials_popup_5_20260617.mp4",
-  rec893281054: "https://media.89-22-227-133.sslip.io/materials_popup_6_20260617.mp4",
+  rec893268655: `${mediaBackupBaseUrl}/materials_popup_1_20260617.mp4`,
+  rec893271232: `${mediaBackupBaseUrl}/materials_popup_2_20260617.mp4`,
+  rec893273581: `${mediaBackupBaseUrl}/materials_popup_3_20260617.mp4`,
+  rec893275240: `${mediaBackupBaseUrl}/materials_popup_4_20260617.mp4`,
+  rec893278048: `${mediaBackupBaseUrl}/materials_popup_5_20260617.mp4`,
+  rec893281054: `${mediaBackupBaseUrl}/materials_popup_6_20260617.mp4`,
 };
 const materialsFooterMenuIds = [
   "1738908769393",
@@ -408,6 +411,10 @@ const materialRecordsHtml = materialRecordIds
     }
 
     if (recordId === webinarDesktopRecordId || recordId === mobileWebinarRecordId) {
+      recordHtml = recordHtml.replace(
+        /data-mp4video="[^"]+"/,
+        `data-mp4video="${materialsWebinarVideoUrl}"`,
+      );
       recordHtml = stripWebinarAnimations(recordHtml);
       recordHtml = patchWebinarArtboardHeights(recordHtml, {
         default: recordId === webinarDesktopRecordId ? 1080 : 860,
