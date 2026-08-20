@@ -30,9 +30,9 @@ The current files are already heavily compressed RF files. Do not re-encode agai
 | Popup: Toscana | Backup VPS media | `https://media.213-176-94-245.sslip.io/ToscanaRF26.mp4` |
 | Popup: Nemchinovka / Kolizei | Backup VPS media | `https://media.213-176-94-245.sslip.io/NemchinovkaRF28.mp4` |
 | Review popup: Anton and Kristina | Backup VPS media | `https://media.213-176-94-245.sslip.io/review_anton_kristina_RF.mp4` |
-| Review popup: Temur and Yana | Primary VPS unavailable | pending source recovery |
-| Review popup: Katya and Zhenya | Primary VPS unavailable | pending source recovery |
-| Review popup: Anton and Leia | Primary VPS unavailable | pending source recovery |
+| Review popup: Temur and Yana | Backup VPS media | `https://media.213-176-94-245.sslip.io/review_temur_margo_RF.mp4` |
+| Review popup: Katya and Zhenya | Backup VPS media | `https://media.213-176-94-245.sslip.io/review_katya_zhenya_RF.mp4` |
+| Review popup: Anton and Leia | Backup VPS media | `https://media.213-176-94-245.sslip.io/review_russian_cuban_RF.mp4` |
 | Advice popup: wedding laughter | Backup VPS media | `https://media.213-176-94-245.sslip.io/tg26_advice_wedding_laughter_20260602.mp4` |
 | Advice popup: awkward toasts | Backup VPS media | `https://media.213-176-94-245.sslip.io/tg26_advice_awkward_toasts_20260602.mp4` |
 | Advice popup: wedding chaos | Backup VPS media | `https://media.213-176-94-245.sslip.io/tg26_advice_wedding_chaos_20260602.mp4` |
@@ -55,7 +55,7 @@ Temporary incident host (active from 2026-08-20):
 - Public edge: separate host-nginx vhost with Let's Encrypt; PastLife vhost and containers are unchanged
 - Provisioning: `scripts/setup-media-backup-open-blue.sh` and `scripts/configure-media-backup-open-blue.sh`
 
-Primary media host below remains the source of truth to recover after Aeza repairs its network.
+The primary media host below remains the original copy to retain after Aeza repairs its IPv4 network. The active backup host now contains every production MP4, including all four review files.
 
 This is a migration, not a proxy/stream relay. The MP4 files were copied from previous storage to the VPS and are served directly from the VPS media directory.
 
