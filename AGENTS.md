@@ -110,28 +110,9 @@ ps aux | egrep "headless|remote-debugging-port|astro preview|npm run preview" | 
 
 ## Existing Design Reuse Rule
 
-- Для этого сайта новый блок не нужно "дизайнить заново" и не нужно делать "похожий" вариант.
-- Если владелец просит добавить новый CTA, карточку, popup, колонку, врезку или любой другой кастомный блок, сначала найти такой же или максимально близкий паттерн в уже существующем коде сайта и переиспользовать именно его markup/CSS/classes.
-- Для CTA-кнопок canonical source уже существует: `src/site/tilda-cta.ts` (`tildaCtaInner`, `tildaCtaLink`, `tildaCtaButton`) плюс CSS-комплект `.tg-tilda-cta` / `.tg-plan-cta__button` / `.tg-consultation-cta__button` в `src/pages/index.astro` и `src/pages/materials.astro`. Когда владелец просит "кнопку", агент обязан начать с этого helper/pattern, а не писать новый HTML/CSS.
-- CTA сайта - это split-button: левая скругленная плашка + отдельный правый скругленный квадрат со стрелкой + общий кликовый слой. Одна сплошная rounded-кнопка со стрелкой внутри считается неправильной, даже если цвет, текст и размер похожи.
-- Для Tilda Zero hero CTA на главной не создавать replacement-кнопку и не рисовать новый компонент. Нужно двигать только существующие слои `rec861352716`: плашку, правый квадрат, текст, кликовый слой и стрелку, сверяя mobile с desktop split-геометрией.
-- Формулировки `сделай как на сайте`, `в том же стиле`, `такая же верстка`, `такие же кнопки`, `возьми готовое`, `скопируй паттерн`, `не заново` означают literal copy-first: сначала скопировать готовый блок/паттерн целиком, потом менять только copy, ссылки, IDs и минимально необходимую геометрию.
-- Для механик это правило ещё жёстче: если на сайте уже есть готовый `horizontal scroll`, slider, swipe row, CTA behavior, popup behavior, hover state, sticky/header behavior или mobile overflow pattern, агент обязан сначала искать и переносить именно эту существующую механику, а не собирать новую реализацию с тем же эффектом.
-- Предпочтительный порядок:
-  1. найти существующий блок или паттерн в `src/pages/index.astro` или уже используемых Astro/Tilda override;
-  2. зафиксировать источник паттерна: файл/record/function/classes, откуда копируется;
-  3. скопировать этот паттерн полностью: markup, classes, CSS variables, breakpoints, assets, hover-механику, helper-функции и state-классы;
-  4. поменять только контент, ссылки, IDs и минимально необходимую геометрию;
-  5. если скопированный паттерн не применился из-за cascade/Tilda/basePath/parser issue, чинить причину, почему копия не применяется, а не рисовать похожий блок заново;
-  6. не менять шрифтовую систему, композиционный принцип кнопок, тип скруглений, hover-механику и визуальный ритм без прямого запроса.
-- Для любой заметной визуальной задачи агент обязан в первом рабочем апдейте явно назвать source, который будет копироваться:
-  `Источник: <файл/record/helper/class/mechanic>`.
-- Если после поиска найден рабочий аналог, запрещено переключаться на fallback `сделаю быстрее с нуля`. Это считается нарушением workflow, даже если результат внешне похож.
-- Если найдено два близких аналога, агент обязан выбрать один canonical source и копировать только его, а не смешивать несколько похожих решений по памяти.
-- Если задача про mobile spacing/scroll/overflow/stacking, сначала нужно проверить, нет ли на главной уже готового mobile-паттерна с таким поведением. Только после этого можно трогать геометрию нового блока.
-- Формулировка владельца `сделай как на сайте`, `оставить дизайн`, `в том же дизайне`, `не ломай стиль` означает exact reuse existing design, а не reinterpretation.
-- Запрещено: брать только цвета/шрифты и заново собирать похожую кнопку, карточку, сетку или CTA. Это считается редизайном, даже если визуально "похоже".
-- Если готового паттерна в коде нет, нельзя молча изобретать новый визуальный язык. Нужно остановиться и коротко написать, что на сайте нет точного аналога и требуется отдельное согласование.
+Для любого заметного UI-изменения сначала прочитай
+`docs/EXISTING_DESIGN_REUSE_RULE.md`: правило copy-first, canonical CTA и
+обязательный source паттерна сохраняются там целиком.
 
 ## Model Routing
 
@@ -150,27 +131,13 @@ production/deploy/database не основание; при экономии вы
 Root `AGENTS.md` хранит global policy/router; scoped `AGENTS.md` наследуют его и
 содержат только domain rules. Используй только релевантные
 `ruslan-project-workflows:<skill-name>`; без plugin — `skills/<skill-name>/SKILL.md`.
-UI: `web-ui-verify`; responsive: `frontend-responsive-layout-audit` (actual CSS
-viewport + Playwright breakpoint sweep); изменение
-видимого Hero/slider/crop/layout: `ui-change-proof` (exact target, rendered
-before/after, exact-diff evidence); redesign/audit: `frontend-design` /
-`web-interface-guidelines`; parallel writers: `parallel-project-lanes`.
-Если проект имеет пользовательский интерфейс (site, landing, app, dashboard,
-TMA или funnel), до первого значимого user flow используй `product-design-ux` и
-зафиксируй в `PROJECT_SPEC.md`/`UX.md`: P0-пользователя и задачу, primary flow,
-CTA, success metric, loading/error/success states и mobile/desktop constraints.
-Это не блокирует docs-only, backend-only или срочный узкий incident repair; UX
-contract для них обновляется вместе с последующей user-flow работой.
-React/Next performance issue с воспроизводимым baseline: `react-next-performance`,
-не speculative refactor. Предоставленная YouTube-ссылка:
-`youtube-research-intake`, только доступные captions, URL и таймкоды, без
-загрузки media/обхода доступа. `sentry-incident-triage` — только если проект
-уже отправляет ошибки в Sentry: scoped read-only triage, без OAuth setup и без
-изменения Sentry.
-`context-engineering` — для длинной, неоднозначной или многошаговой задачи,
-большого repo либо handoff: компактная карта цели, подтверждённых фактов,
-ограничений и следующего проверяемого шага; не раздувай `AGENTS.md` и не меняй
-platform context settings.
+Новые optional skills остаются в plugin-каталоге, не копируются в каждый root.
+UI: `product-design-ux` до первого flow (P0 user/job, flow, CTA, states и
+viewport constraints в `PROJECT_SPEC.md`/`UX.md`), затем по риску
+`frontend-design`/`web-interface-guidelines`; visible delta — `ui-change-proof`
+with rendered exact-diff evidence; responsive — `frontend-responsive-layout-audit`;
+acceptance — `web-ui-verify`.
+Это не блокирует docs-only, backend-only или узкий incident repair.
 
 Перед добавлением site photo/video используй `media-asset-optimization`: original
 не клади в public, публикуй AVIF/WebP derivative и responsive sizes. Warn: image
