@@ -22,15 +22,184 @@
 </script>
 <noscript>
   <div><img src="https://mc.yandex.ru/watch/100295805" style="position:absolute; left:-9999px;" alt="" /></div>
-</noscript> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://timurgromov.ru/"},{"@type":"ListItem","position":2,"name":"Статьи","item":"https://timurgromov.ru/articles/"}]}</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Статьи о свадебном вечере | Тимур Громов","description":"Подборка материалов Тимура Громова о сценарии свадьбы, тайминге вечера, выборе ведущего и атмосфере без неловких конкурсов.","url":"https://timurgromov.ru/articles/","about":{"@type":"Thing","name":"Свадебный вечер"},"hasPart":[{"@type":"Article","headline":"Сценарий свадебного вечера","description":"Разбор логики современного свадебного вечера: тайминг, ключевые блоки и ошибки, которые чаще всего ломают атмосферу.","url":"https://timurgromov.ru/scenario/"}]}</script> <link rel="stylesheet" href="/_astro/index.Dxuvml77.css">
+</noscript>
+<script>
+  (function(){
+    var allowedSources = {
+      site_plan_home: true,
+      site_meeting_home: true,
+      site_meeting_scenario: true,
+      site_meeting_materials: true
+    };
+    var endpoint = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname)
+      ? 'http://127.0.0.1:8000/api/v1/site/metrika-attribution'
+      : 'https://calcul.timurgromov.ru/api/v1/site/metrika-attribution';
+    var promiseBySource = Object.create(null);
+    var clientIdPromise = null;
+    var trackingParams = null;
+
+    function randomVisitKey(){
+      var bytes = new Uint8Array(24);
+      if (window.crypto && window.crypto.getRandomValues) {
+        window.crypto.getRandomValues(bytes);
+      } else {
+        for (var index = 0; index < bytes.length; index += 1) bytes[index] = Math.floor(Math.random() * 256);
+      }
+      return Array.prototype.map.call(bytes, function(value){
+        return value.toString(16).padStart(2, '0');
+      }).join('');
+    }
+
+    function getVisitKey(){
+      try {
+        var existing = window.sessionStorage.getItem('tg_metrika_visit_key');
+        if (existing && /^[A-Za-z0-9_-]{20,80}$/.test(existing)) return existing;
+        var created = randomVisitKey();
+        window.sessionStorage.setItem('tg_metrika_visit_key', created);
+        return created;
+      } catch (_error) {
+        return randomVisitKey();
+      }
+    }
+
+    function getClientId(){
+      if (clientIdPromise) return clientIdPromise;
+      clientIdPromise = new Promise(function(resolve){
+        var settled = false;
+        var finish = function(value){
+          if (settled) return;
+          settled = true;
+          resolve(String(value || '').trim());
+        };
+        try {
+          if (typeof window.ym === 'function') {
+            window.ym(100295805, 'getClientID', finish);
+          }
+        } catch (_error) {
+          finish('');
+        }
+        window.setTimeout(function(){ finish(''); }, 2500);
+      });
+      return clientIdPromise;
+    }
+
+    function getTrackingParams(){
+      if (trackingParams) return trackingParams;
+      var params = new URLSearchParams(window.location.search);
+      var result = { yclid: String(params.get('yclid') || '').trim(), campaign: {} };
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function(key){
+        var value = params.get(key);
+        if (value) result.campaign[key] = value.slice(0, 500);
+      });
+      try {
+        var stored = JSON.parse(window.sessionStorage.getItem('tg_metrika_campaign') || '{}');
+        if (!result.yclid && stored.yclid) result.yclid = String(stored.yclid).slice(0, 255);
+        if (!Object.keys(result.campaign).length && stored.campaign && typeof stored.campaign === 'object') {
+          result.campaign = stored.campaign;
+        }
+        window.sessionStorage.setItem('tg_metrika_campaign', JSON.stringify(result));
+      } catch (_error) {
+        // ClientID still provides exact attribution when storage is unavailable.
+      }
+      trackingParams = result;
+      return trackingParams;
+    }
+
+    function messengerLinkData(anchor){
+      try {
+        var url = new URL(anchor.href, window.location.href);
+        var host = url.hostname.toLowerCase();
+        var provider = host === 'max.ru' || host.endsWith('.max.ru') ? 'max'
+          : host === 't.me' || host.endsWith('.t.me') ? 'telegram'
+          : null;
+        var source = url.searchParams.get('start') || '';
+        if (!provider || !allowedSources[source]) return null;
+        return { provider: provider, source: source, url: url };
+      } catch (_error) {
+        return null;
+      }
+    }
+
+    function attributedUrl(anchor, data){
+      if (!promiseBySource[data.source]) {
+        promiseBySource[data.source] = getClientId().then(function(clientId){
+          var tracking = getTrackingParams();
+          var yclid = tracking.yclid;
+          if (!clientId && !yclid) throw new Error('Metrika identifier is unavailable');
+          return fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+              visit_key: getVisitKey(),
+              source_code: data.source,
+              provider: data.provider,
+              client_id: clientId || null,
+              yclid: yclid || null,
+              campaign_params: tracking.campaign,
+              landing_url: window.location.href,
+              cta_code: anchor.getAttribute('data-plan-source') || data.source
+            }),
+            credentials: 'omit'
+          });
+        }).then(function(response){
+          if (!response.ok) throw new Error('Attribution request failed');
+          return response.json();
+        }).then(function(payload){
+          if (!payload || !/^yd_[A-Za-z0-9_-]{20,40}$/.test(payload.start_payload || '')) {
+            throw new Error('Invalid attribution payload');
+          }
+          return payload.start_payload;
+        });
+      }
+      return promiseBySource[data.source].then(function(startPayload){
+        var result = new URL(data.url.toString());
+        result.searchParams.set('start', startPayload);
+        return result.toString();
+      });
+    }
+
+    function bindAnchor(anchor){
+      if (!anchor || anchor.dataset.metrikaAttributionBound === 'true') return;
+      var data = messengerLinkData(anchor);
+      if (!data) return;
+      anchor.dataset.metrikaAttributionBound = 'true';
+      var fallbackUrl = anchor.href;
+      var pendingUrl = attributedUrl(anchor, data);
+      pendingUrl.then(function(url){
+        anchor.href = url;
+        anchor.dataset.metrikaAttributionReady = 'true';
+      }).catch(function(){
+        anchor.dataset.metrikaAttributionReady = 'false';
+      });
+      anchor.addEventListener('click', function(event){
+        if (anchor.dataset.metrikaAttributionReady === 'true') return;
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button > 0) return;
+        event.preventDefault();
+        var popup = anchor.target === '_blank' ? window.open('about:blank', '_blank') : null;
+        pendingUrl.catch(function(){ return fallbackUrl; }).then(function(url){
+          if (popup) popup.location.href = url;
+          else window.location.href = url;
+        });
+      });
+    }
+
+    function bindMessengerLinks(){
+      Array.prototype.forEach.call(document.querySelectorAll('a[href]'), bindAnchor);
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindMessengerLinks);
+    else bindMessengerLinks();
+    window.addEventListener('load', bindMessengerLinks);
+  }());
+</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://timurgromov.ru/"},{"@type":"ListItem","position":2,"name":"Статьи","item":"https://timurgromov.ru/articles/"}]}</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Статьи о свадебном вечере | Тимур Громов","description":"Подборка материалов Тимура Громова о сценарии свадьбы, тайминге вечера, выборе ведущего и атмосфере без неловких конкурсов.","url":"https://timurgromov.ru/articles/","about":{"@type":"Thing","name":"Свадебный вечер"},"hasPart":[{"@type":"Article","headline":"Сценарий свадебного вечера","description":"Разбор логики современного свадебного вечера: тайминг, ключевые блоки и ошибки, которые чаще всего ломают атмосферу.","url":"https://timurgromov.ru/scenario/"}]}</script> <link rel="stylesheet" href="/_astro/index.Dxuvml77.css">
 <link rel="stylesheet" href="/_astro/index.DH0G4T3k.css"></head> <body>   <main class="articles-page" data-astro-cid-h5q2y2v6> <section class="articles-hero" data-astro-cid-h5q2y2v6> <div class="articles-shell" data-astro-cid-h5q2y2v6> <a class="articles-back" href="/" data-astro-cid-h5q2y2v6>timurgromov.ru</a> <p class="articles-kicker" data-astro-cid-h5q2y2v6>Экспертные материалы</p> <h1 data-astro-cid-h5q2y2v6>Статьи о том, как устроен сильный свадебный вечер</h1> <p class="articles-lead" data-astro-cid-h5q2y2v6>
 Здесь я собираю материалы про сценарий, тайминг, состояние гостей и
           вопросы, которые действительно стоит обсудить с ведущим до договора.
 </p> </div> </section> <section class="articles-shell articles-grid" data-astro-cid-h5q2y2v6> <div class="articles-column" data-astro-cid-h5q2y2v6> <div class="articles-section-head" data-astro-cid-h5q2y2v6> <p data-astro-cid-h5q2y2v6>Что уже опубликовано</p> <h2 data-astro-cid-h5q2y2v6>Первый открытый материал</h2> </div> <div class="articles-cards" data-astro-cid-h5q2y2v6> <article class="articles-card" data-astro-cid-h5q2y2v6> <span class="articles-card__eyebrow" data-astro-cid-h5q2y2v6>Опубликовано</span> <h3 data-astro-cid-h5q2y2v6>Сценарий свадебного вечера</h3> <p data-astro-cid-h5q2y2v6>Разбор логики современного свадебного вечера: тайминг, ключевые блоки и ошибки, которые чаще всего ломают атмосферу.</p> <div class="articles-card__footer" data-astro-cid-h5q2y2v6> <span data-astro-cid-h5q2y2v6>5 минут чтения</span> <a href="/scenario/" data-astro-cid-h5q2y2v6>Читать материал</a> </div> </article> </div> </div> <aside class="articles-column articles-column--side" data-astro-cid-h5q2y2v6> <div class="articles-section-head" data-astro-cid-h5q2y2v6> <p data-astro-cid-h5q2y2v6>Следующие темы</p> <h2 data-astro-cid-h5q2y2v6>Что будем раскрывать дальше</h2> </div> <ul class="articles-topic-list" data-astro-cid-h5q2y2v6> <li data-astro-cid-h5q2y2v6>Тайминг свадьбы: как не перегрузить вечер и не потерять важные моменты</li><li data-astro-cid-h5q2y2v6>Как выбрать ведущего на свадьбу и что спросить на первой встрече</li><li data-astro-cid-h5q2y2v6>Свадьба без неловких конкурсов: как держать внимание гостей по-другому</li><li data-astro-cid-h5q2y2v6>Сколько стоит ведущий на свадьбу и из чего складывается цена</li> </ul> </aside> </section> <section class="articles-shell articles-cta" data-astro-cid-h5q2y2v6> <div class="articles-cta__copy" data-astro-cid-h5q2y2v6> <p class="articles-kicker" data-astro-cid-h5q2y2v6>Если уже выбираете ведущего</p> <h2 data-astro-cid-h5q2y2v6>Можно сразу перейти к знакомству или получить сценарий через Telegram</h2> <p data-astro-cid-h5q2y2v6>
 Если вам ближе сначала понять логику вечера, откройте сценарный вход.
           Если хотите обсудить вашу свадьбу напрямую, напишите мне в Telegram.
-</p> </div> <div class="articles-cta__actions" data-astro-cid-h5q2y2v6> <a class="articles-button articles-button--primary" href="https://t.me/gromov_wedding_bot?start=site_plan" target="_blank" rel="noopener noreferrer" data-astro-cid-h5q2y2v6>
+</p> </div> <div class="articles-cta__actions" data-astro-cid-h5q2y2v6> <a class="articles-button articles-button--primary" href="https://t.me/gromov_wedding_bot?start=site_plan_home" target="_blank" rel="noopener noreferrer" data-astro-cid-h5q2y2v6>
 Получить сценарий
-</a> <a class="articles-button articles-button--secondary" href="https://t.me/gromov_wedding_bot?start=site_meeting" target="_blank" rel="noopener noreferrer" data-astro-cid-h5q2y2v6>
+</a> <a class="articles-button articles-button--secondary" href="https://t.me/gromov_wedding_bot?start=site_meeting_home" target="_blank" rel="noopener noreferrer" data-astro-cid-h5q2y2v6>
 Написать в Telegram
 </a> </div> </section> </main>  </body></html> 

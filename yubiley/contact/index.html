@@ -22,4 +22,173 @@
 </script>
 <noscript>
   <div><img src="https://mc.yandex.ru/watch/100295805" style="position:absolute; left:-9999px;" alt="" /></div>
-</noscript></head> <body>  <main class="contact-page"> <div class="contact-container"> <div class="wave-decoration wave-top"> <svg viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"> <path d="M0,60 Q300,20 600,60 T1200,60 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.03)"></path> </svg> </div> <div class="contact-content"> <h1 class="contact-title">ВЫБЕРИТЕ УДОБНЫЙ МЕССЕНДЖЕР</h1> <p class="contact-subtitle">Я ПРИШЛЮ МАТЕРИАЛЫ ПО ПОДГОТОВКЕ К ЮБИЛЕЮ</p> <div class="contact-buttons"> <a href="https://t.me/timurgromovv" class="contact-btn contact-btn--telegram" target="_blank" rel="noopener" data-cta="contact_telegram"> <span class="contact-btn__icon"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"> <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.13-.31-1.09-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.45.08-.02.15-.02.22-.02.23.01.33.06.45.18.1.1.13.23.15.33.01.05.01.16-.01.27z"></path> </svg> </span> <span class="contact-btn__text">Написать в Telegram</span> </a> <a href="https://max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM?clckid=c487e7dc" class="contact-btn contact-btn--max" target="_blank" rel="noopener" data-cta="contact_max"> <span class="contact-btn__icon"> <img class="contact-btn__max-logo" src="/yubiley-assets/contact/Логотип_MAX.svg.png" alt="MAX" width="24" height="24"> </span> <span class="contact-btn__text">Написать в MAX</span> </a> <a href="tel:+79253900772" class="contact-btn contact-btn--phone" data-cta="contact_phone"> <span class="contact-btn__icon"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"> <path d="M22 16.92V21a2 2 0 0 1-2.18 2A19.73 19.73 0 0 1 3 4.18 2 2 0 0 1 5 2h4.09a1 1 0 0 1 1 .75l1 4a1 1 0 0 1-.27.95l-2.2 2.2a16 16 0 0 0 6.34 6.34l2.2-2.2a1 1 0 0 1 .95-.27l4 1a1 1 0 0 1 .75 1z"></path> </svg> </span> <span class="contact-btn__text">Позвонить</span> </a> </div> <div class="wave-decoration wave-bottom"> <svg viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"> <path d="M0,60 Q300,100 600,60 T1200,60 L1200,0 L0,0 Z" fill="rgba(255,255,255,0.03)"></path> </svg> </div> <p class="contact-footer">ОТВЕЧУ ЛИЧНО И ПОМОГУ С ФОРМАТОМ</p> </div> </div> </main>   <script src="/yubiley-assets/contact/script.js?v=astro_1"></script> </body> </html>
+</noscript>
+<script>
+  (function(){
+    var allowedSources = {
+      site_plan_home: true,
+      site_meeting_home: true,
+      site_meeting_scenario: true,
+      site_meeting_materials: true
+    };
+    var endpoint = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname)
+      ? 'http://127.0.0.1:8000/api/v1/site/metrika-attribution'
+      : 'https://calcul.timurgromov.ru/api/v1/site/metrika-attribution';
+    var promiseBySource = Object.create(null);
+    var clientIdPromise = null;
+    var trackingParams = null;
+
+    function randomVisitKey(){
+      var bytes = new Uint8Array(24);
+      if (window.crypto && window.crypto.getRandomValues) {
+        window.crypto.getRandomValues(bytes);
+      } else {
+        for (var index = 0; index < bytes.length; index += 1) bytes[index] = Math.floor(Math.random() * 256);
+      }
+      return Array.prototype.map.call(bytes, function(value){
+        return value.toString(16).padStart(2, '0');
+      }).join('');
+    }
+
+    function getVisitKey(){
+      try {
+        var existing = window.sessionStorage.getItem('tg_metrika_visit_key');
+        if (existing && /^[A-Za-z0-9_-]{20,80}$/.test(existing)) return existing;
+        var created = randomVisitKey();
+        window.sessionStorage.setItem('tg_metrika_visit_key', created);
+        return created;
+      } catch (_error) {
+        return randomVisitKey();
+      }
+    }
+
+    function getClientId(){
+      if (clientIdPromise) return clientIdPromise;
+      clientIdPromise = new Promise(function(resolve){
+        var settled = false;
+        var finish = function(value){
+          if (settled) return;
+          settled = true;
+          resolve(String(value || '').trim());
+        };
+        try {
+          if (typeof window.ym === 'function') {
+            window.ym(100295805, 'getClientID', finish);
+          }
+        } catch (_error) {
+          finish('');
+        }
+        window.setTimeout(function(){ finish(''); }, 2500);
+      });
+      return clientIdPromise;
+    }
+
+    function getTrackingParams(){
+      if (trackingParams) return trackingParams;
+      var params = new URLSearchParams(window.location.search);
+      var result = { yclid: String(params.get('yclid') || '').trim(), campaign: {} };
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function(key){
+        var value = params.get(key);
+        if (value) result.campaign[key] = value.slice(0, 500);
+      });
+      try {
+        var stored = JSON.parse(window.sessionStorage.getItem('tg_metrika_campaign') || '{}');
+        if (!result.yclid && stored.yclid) result.yclid = String(stored.yclid).slice(0, 255);
+        if (!Object.keys(result.campaign).length && stored.campaign && typeof stored.campaign === 'object') {
+          result.campaign = stored.campaign;
+        }
+        window.sessionStorage.setItem('tg_metrika_campaign', JSON.stringify(result));
+      } catch (_error) {
+        // ClientID still provides exact attribution when storage is unavailable.
+      }
+      trackingParams = result;
+      return trackingParams;
+    }
+
+    function messengerLinkData(anchor){
+      try {
+        var url = new URL(anchor.href, window.location.href);
+        var host = url.hostname.toLowerCase();
+        var provider = host === 'max.ru' || host.endsWith('.max.ru') ? 'max'
+          : host === 't.me' || host.endsWith('.t.me') ? 'telegram'
+          : null;
+        var source = url.searchParams.get('start') || '';
+        if (!provider || !allowedSources[source]) return null;
+        return { provider: provider, source: source, url: url };
+      } catch (_error) {
+        return null;
+      }
+    }
+
+    function attributedUrl(anchor, data){
+      if (!promiseBySource[data.source]) {
+        promiseBySource[data.source] = getClientId().then(function(clientId){
+          var tracking = getTrackingParams();
+          var yclid = tracking.yclid;
+          if (!clientId && !yclid) throw new Error('Metrika identifier is unavailable');
+          return fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+              visit_key: getVisitKey(),
+              source_code: data.source,
+              provider: data.provider,
+              client_id: clientId || null,
+              yclid: yclid || null,
+              campaign_params: tracking.campaign,
+              landing_url: window.location.href,
+              cta_code: anchor.getAttribute('data-plan-source') || data.source
+            }),
+            credentials: 'omit'
+          });
+        }).then(function(response){
+          if (!response.ok) throw new Error('Attribution request failed');
+          return response.json();
+        }).then(function(payload){
+          if (!payload || !/^yd_[A-Za-z0-9_-]{20,40}$/.test(payload.start_payload || '')) {
+            throw new Error('Invalid attribution payload');
+          }
+          return payload.start_payload;
+        });
+      }
+      return promiseBySource[data.source].then(function(startPayload){
+        var result = new URL(data.url.toString());
+        result.searchParams.set('start', startPayload);
+        return result.toString();
+      });
+    }
+
+    function bindAnchor(anchor){
+      if (!anchor || anchor.dataset.metrikaAttributionBound === 'true') return;
+      var data = messengerLinkData(anchor);
+      if (!data) return;
+      anchor.dataset.metrikaAttributionBound = 'true';
+      var fallbackUrl = anchor.href;
+      var pendingUrl = attributedUrl(anchor, data);
+      pendingUrl.then(function(url){
+        anchor.href = url;
+        anchor.dataset.metrikaAttributionReady = 'true';
+      }).catch(function(){
+        anchor.dataset.metrikaAttributionReady = 'false';
+      });
+      anchor.addEventListener('click', function(event){
+        if (anchor.dataset.metrikaAttributionReady === 'true') return;
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button > 0) return;
+        event.preventDefault();
+        var popup = anchor.target === '_blank' ? window.open('about:blank', '_blank') : null;
+        pendingUrl.catch(function(){ return fallbackUrl; }).then(function(url){
+          if (popup) popup.location.href = url;
+          else window.location.href = url;
+        });
+      });
+    }
+
+    function bindMessengerLinks(){
+      Array.prototype.forEach.call(document.querySelectorAll('a[href]'), bindAnchor);
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindMessengerLinks);
+    else bindMessengerLinks();
+    window.addEventListener('load', bindMessengerLinks);
+  }());
+</script></head> <body>  <main class="contact-page"> <div class="contact-container"> <div class="wave-decoration wave-top"> <svg viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"> <path d="M0,60 Q300,20 600,60 T1200,60 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.03)"></path> </svg> </div> <div class="contact-content"> <h1 class="contact-title">ВЫБЕРИТЕ УДОБНЫЙ МЕССЕНДЖЕР</h1> <p class="contact-subtitle">Я ПРИШЛЮ МАТЕРИАЛЫ ПО ПОДГОТОВКЕ К ЮБИЛЕЮ</p> <div class="contact-buttons"> <a href="https://t.me/timurgromovv" class="contact-btn contact-btn--telegram" target="_blank" rel="noopener" data-cta="contact_telegram"> <span class="contact-btn__icon"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"> <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.13-.31-1.09-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.45.08-.02.15-.02.22-.02.23.01.33.06.45.18.1.1.13.23.15.33.01.05.01.16-.01.27z"></path> </svg> </span> <span class="contact-btn__text">Написать в Telegram</span> </a> <a href="https://max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM?clckid=c487e7dc" class="contact-btn contact-btn--max" target="_blank" rel="noopener" data-cta="contact_max"> <span class="contact-btn__icon"> <img class="contact-btn__max-logo" src="/yubiley-assets/contact/Логотип_MAX.svg.png" alt="MAX" width="24" height="24"> </span> <span class="contact-btn__text">Написать в MAX</span> </a> <a href="tel:+79253900772" class="contact-btn contact-btn--phone" data-cta="contact_phone"> <span class="contact-btn__icon"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"> <path d="M22 16.92V21a2 2 0 0 1-2.18 2A19.73 19.73 0 0 1 3 4.18 2 2 0 0 1 5 2h4.09a1 1 0 0 1 1 .75l1 4a1 1 0 0 1-.27.95l-2.2 2.2a16 16 0 0 0 6.34 6.34l2.2-2.2a1 1 0 0 1 .95-.27l4 1a1 1 0 0 1 .75 1z"></path> </svg> </span> <span class="contact-btn__text">Позвонить</span> </a> </div> <div class="wave-decoration wave-bottom"> <svg viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"> <path d="M0,60 Q300,100 600,60 T1200,60 L1200,0 L0,0 Z" fill="rgba(255,255,255,0.03)"></path> </svg> </div> <p class="contact-footer">ОТВЕЧУ ЛИЧНО И ПОМОГУ С ФОРМАТОМ</p> </div> </div> </main>   <script src="/yubiley-assets/contact/script.js?v=astro_1"></script> </body> </html>
