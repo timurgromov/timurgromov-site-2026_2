@@ -1,10 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { maxContactUrl, telegramMeetingUrl } from "../site/home-data";
+import { maxMeetingUrlFor, telegramMeetingUrlFor } from "../site/home-data";
 
 const homeHref = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const pageUrl = new URL(`${homeHref}scenario/`, "https://timurgromov.ru").toString();
 const materialsPageUrl = new URL(`${homeHref}materials/`, "https://timurgromov.ru").toString();
+const telegramScenarioMeetingUrl = telegramMeetingUrlFor("scenario");
+const maxScenarioMeetingUrl = maxMeetingUrlFor("scenario");
 const socialImageUrl = new URL(
   `${homeHref}images/scenario-hero-host-bw-source.jpg`,
   "https://timurgromov.ru",
@@ -70,8 +72,8 @@ const materialLinks = [
 ];
 
 const contactLinks = [
-  { label: "Telegram", value: "@gromov_wedding_bot", href: "https://t.me/gromov_wedding_bot?start=site_meeting" },
-  { label: "MAX", value: "id615491029963_bot", href: maxContactUrl },
+  { label: "Telegram", value: "@gromov_wedding_bot", href: telegramScenarioMeetingUrl },
+  { label: "MAX", value: "id615491029963_bot", href: maxScenarioMeetingUrl },
   { label: "Телефон", value: "+7 (925) 390-07-72", href: "tel:+79253900772" },
 ];
 ---
@@ -451,7 +453,7 @@ const contactLinks = [
           </p>
         </div>
         <div class="scenario-inline-cta__actions">
-          <a class="scenario-inline-cta__button" href={telegramMeetingUrl} target="_blank" rel="noopener noreferrer">
+          <a class="scenario-inline-cta__button" href={telegramScenarioMeetingUrl} target="_blank" rel="noopener noreferrer">
             Обсудить вашу свадьбу
           </a>
           <p class="scenario-inline-cta__note">30–50 минут, только про вашу свадьбу.</p>
@@ -596,7 +598,7 @@ const contactLinks = [
           </ul>
         </div>
         <div class="scenario-cta__actions">
-          <a class="scenario-cta__button" href={telegramMeetingUrl} target="_blank" rel="noopener noreferrer">
+          <a class="scenario-cta__button" href={telegramScenarioMeetingUrl} target="_blank" rel="noopener noreferrer">
             Записаться на встречу
           </a>
           <ul class="scenario-cta__proof-list">
@@ -605,8 +607,8 @@ const contactLinks = [
           </ul>
           <p class="scenario-cta__mini-note">30–50 минут. Обсудим формат, площадку и тайминг вашего вечера.</p>
           <div class="scenario-cta__secondary">
-            <a href={telegramMeetingUrl} target="_blank" rel="noopener noreferrer">Написать в Telegram</a>
-            <a href={maxContactUrl} target="_blank" rel="noopener noreferrer">Написать в MAX</a>
+            <a href={telegramScenarioMeetingUrl} target="_blank" rel="noopener noreferrer">Написать в Telegram</a>
+            <a href={maxScenarioMeetingUrl} target="_blank" rel="noopener noreferrer">Написать в MAX</a>
             <a href="tel:+79253900772">+7 925 390 07 72</a>
           </div>
         </div>

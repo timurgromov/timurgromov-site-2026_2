@@ -99,12 +99,23 @@ export const cleanVideoPopupItems = [
 export const heroPosterVersion = "2306bab";
 
 export const telegramBotUsername = "gromov_wedding_bot";
-export const telegramPlanUrl = `https://t.me/${telegramBotUsername}?start=site_plan`;
-export const telegramMeetingUrl = `https://t.me/${telegramBotUsername}?start=site_meeting`;
-export const telegramContactUrl = telegramMeetingUrl;
+export type PublicSiteEntrypoint = "home" | "scenario" | "materials";
 export const maxBotUsername = "id615491029963_bot";
-export const maxPlanUrl = `https://max.ru/${maxBotUsername}?start=site_plan`;
-export const maxMeetingUrl = `https://max.ru/${maxBotUsername}?start=site_meeting`;
+
+const telegramStartUrl = (payload: string) =>
+  `https://t.me/${telegramBotUsername}?start=${payload}`;
+const maxStartUrl = (payload: string) =>
+  `https://max.ru/${maxBotUsername}?start=${payload}`;
+
+export const telegramPlanUrl = telegramStartUrl("site_plan_home");
+export const telegramMeetingUrl = telegramStartUrl("site_meeting_home");
+export const telegramMeetingUrlFor = (entrypoint: Exclude<PublicSiteEntrypoint, "home">) =>
+  telegramStartUrl(`site_meeting_${entrypoint}`);
+export const telegramContactUrl = telegramMeetingUrl;
+export const maxPlanUrl = maxStartUrl("site_plan_home");
+export const maxMeetingUrl = maxStartUrl("site_meeting_home");
+export const maxMeetingUrlFor = (entrypoint: Exclude<PublicSiteEntrypoint, "home">) =>
+  maxStartUrl(`site_meeting_${entrypoint}`);
 export const maxCalculatorUrl = `https://max.ru/${maxBotUsername}?startapp=direct_personal`;
 export const maxContactUrl = maxMeetingUrl;
 

@@ -1,5 +1,10 @@
 # Current State - 2026-08-20
 
+## Public-site page attribution (2026-08-24)
+
+- Public Telegram/MAX CTA sources preserve the exact main-site page: homepage scenario `site_plan_home`, homepage contact `site_meeting_home`, Scenario contact `site_meeting_scenario`, Materials contact `site_meeting_materials`.
+- `site_plan` and `site_meeting` are legacy-compatible starts only. New SEO pages require their own source code, EventBudjet label/migration and CRM verification before release; the shared SEO rule is in `../../../SEO/WEBMASTER_METRIKA_RUNBOOK.md`.
+
 ## Project
 
 Сайт свадебного ведущего Тимура Громова на Astro поверх Tilda export. Текущий этап: production-входная воронка сайта подключена к EventBudjet CRM, главный tripwire `Получить сценарий` открывает выбор Telegram или MAX, оба канала ведут в bot qualification-first flow `site_plan`, а сам материал теперь живёт на отдельной production-странице `/scenario/` внутри этого же сайта.
@@ -21,8 +26,8 @@
 - На сайте появился отдельный hub `https://timurgromov.ru/articles/` для SEO-материалов и безопасного наращивания органического слоя вне главной страницы.
 - В основном сайте добавлен юбилейный SEO-раздел `https://timurgromov.ru/yubiley/` на базе подготовленного `TG_yubiley_landing`; отдельный поддомен для юбилеев не используется как production.
 - На сайте добавлена отдельная CTA-плашка `Бесплатная консультация` после секции цен.
-- В hero-кнопке текст `получить сценарий` открывает popup с выбором Telegram или MAX; оба маршрута ведут в бота с payload `site_plan`.
-- Кнопки `Получить сценарий` в CTA-блоке дают выбор Telegram или MAX; оба маршрута ведут в бота с payload `site_plan`.
+- В hero-кнопке текст `получить сценарий` открывает popup с выбором Telegram или MAX; оба маршрута ведут в бота с payload `site_plan_home`.
+- Кнопки `Получить сценарий` в CTA-блоке дают выбор Telegram или MAX; оба маршрута ведут в бота с payload `site_plan_home`.
 - Сценарные клики сайта отправляют JS-цели Яндекс.Метрики `site_plan_popup_open`, `site_plan_messenger_click`, `site_plan_telegram_click`, `site_plan_max_click`; канал фиксируется через `data-plan-channel="telegram|max"`, а место клика через `data-plan-source="plan_popup|plan_cta_block"`.
 - Локальная проверка `npm run verify:contacts` теперь дополнительно валидирует, что hero click-layer `rec861352716` / `1738735136250` открывает `#plan-delivery-popup`, Telegram/MAX ссылки внутри popup и CTA-блока ведут именно в `site_plan`, а не в `site_meeting`, и не теряют Metrika/analytics атрибуты.
 - Та же проверка падает при любом необработанном JavaScript-исключении страницы; `tilda-zero-1.1.min.js` загружается до body, чтобы экспортированные NLM-слайдеры не опережали T396 core на медленной сети.
@@ -31,8 +36,8 @@
 - Hero popup `Получить сценарий` показывает компактное preview материала с отдельным чёрно-белым портретом Тимура из site assets, но не даёт прямую ссылку на `/scenario/`; CTA в popup ведут в Telegram-бота или MAX-бота.
 - Старый tripwire popup с формой оставлен в коде как скрытая заготовка, но активные кнопки его больше не открывают.
 - Кнопки `Обсудить свадьбу` и `Записаться на бесплатную встречу` открывают единый contact pop-up, а не ведут напрямую в личку.
-- В contact pop-up есть три маршрута: Telegram, MAX и форма телефона. Telegram и MAX указывают на bot deep link `site_meeting`.
-- Видимые Telegram-контакты главной страницы и страницы `/scenario/` больше не ведут в личный `@timurgromovv`; все такие CTA ведут в бот `gromov_wedding_bot` с payload `site_meeting`.
+- В contact pop-up есть три маршрута: Telegram, MAX и форма телефона. Telegram и MAX главной указывают на bot deep link `site_meeting_home`.
+- Видимые Telegram-контакты больше не ведут в личный `@timurgromovv`; главная использует `site_meeting_home`, `/scenario/` — `site_meeting_scenario`, `/materials/` — `site_meeting_materials`.
 - Форма консультации в pop-up подключена к `EventBudjet`: обязательные поля `Имя` и `Телефон`, необязательный `Комментарий`, отправка в `Все заявки` и мгновенное Telegram-уведомление в канал CRM-заявок.
 - После успешной отправки формы pop-up показывает отдельное success-состояние: поля скрываются, появляется оранжевая галочка, заголовок `Заявка отправлена`, пояснение и ссылка `Написать в Telegram`.
 - Под формой телефона добавлены legal-ссылки на политику конфиденциальности и согласие на обработку персональных данных.

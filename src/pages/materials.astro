@@ -5,13 +5,17 @@ import {
   tildaCtaLink,
 } from "../site/tilda-cta";
 import {
-  maxContactUrl,
-  telegramContactUrl,
+  maxMeetingUrlFor,
+  telegramMeetingUrlFor,
 } from "../site/home-data";
 import { yandexMetrikaHead } from "../site/metrika";
 
 const basePath = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const pageUrl = new URL(`${basePath}materials/`, "https://timurgromov.ru").toString();
+const telegramMaterialsMeetingUrl = telegramMeetingUrlFor("materials");
+const maxMaterialsMeetingUrl = maxMeetingUrlFor("materials");
+const telegramContactUrl = telegramMaterialsMeetingUrl;
+const maxContactUrl = maxMaterialsMeetingUrl;
 const ctaArrowIconUrl = getTildaCtaArrowIconUrl(basePath);
 
 const pageHtml = readFileSync(
@@ -386,8 +390,8 @@ const webinarCtaMarkup = `<section id="materials-followup-cta" class="tg-plan-ct
       <h2 id="materials-followup-cta-title">Получить расширенный конспект вебинара</h2>
       <p class="tg-plan-cta__text">Напишите мне в личку: кто вы, когда у вас свадьба и что посмотрели вебинар. В ответ лично отправлю расширенный конспект и пошаговый план подготовки.</p>
       <div class="tg-plan-cta__actions">
-        ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--primary", telegramContactUrl, "Написать в Telegram", 'target="_blank" rel="nofollow"')}
-        ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--secondary", maxContactUrl, "Написать в MAX", 'target="_blank" rel="nofollow"')}
+        ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--primary", telegramMaterialsMeetingUrl, "Написать в Telegram", 'target="_blank" rel="nofollow"')}
+        ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--secondary", maxMaterialsMeetingUrl, "Написать в MAX", 'target="_blank" rel="nofollow"')}
       </div>
     </div>
     <div class="tg-plan-cta__side" aria-label="Что делать дальше">
