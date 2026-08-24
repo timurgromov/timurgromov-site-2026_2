@@ -3680,6 +3680,9 @@ const consultationContactPopupAssets = `<style>
       })
         .then(function(response){
           if (!response.ok) throw new Error('consultation request failed');
+          if (typeof window.ym === 'function' && window.mainMetrikaId) {
+            window.ym(window.mainMetrikaId, 'reachGoal', 'site_consultation_submit_success');
+          }
           form.reset();
           setStatus(form, '');
           form.classList.add('is-sent');
