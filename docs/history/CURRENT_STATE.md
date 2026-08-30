@@ -1,5 +1,22 @@
 # Current State - 2026-08-20
 
+## Direct tracking bundle retained in production (2026-08-30)
+
+- Release `e08c299` is pushed to `main`; Deploy to gh-pages, Code health and
+  Pages build/deployment Actions completed successfully.
+- The shared tracking helper keeps the five UTM fields plus `yclid`,
+  `direct_campaign_id`, `direct_source_type` and `direct_region_id` in one
+  session bundle used by Telegram/MAX attribution, consultation and tripwire
+  requests. Existing clients remain compatible because new form fields are
+  optional in EventBudjet.
+- Live headless-browser verification opened the marked production URL, then
+  navigated to clean `https://timurgromov.ru/` in the same session. The bundle
+  retained campaign `713822709`, source type `search`, region `213`, `yclid`
+  and the UTM values. No form was submitted and no production test lead was
+  created.
+- Local attribution contract and Astro production build passed. This release
+  changes no advertisement, Direct link, visible UI or user flow.
+
 ## Public-site page attribution (2026-08-24)
 
 - Public Telegram/MAX CTA sources preserve the exact main-site page: homepage scenario `site_plan_home`, homepage contact `site_meeting_home`, Scenario contact `site_meeting_scenario`, Materials contact `site_meeting_materials`.
