@@ -95,15 +95,23 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
       if (trackingParams) return trackingParams;
       var params = new URLSearchParams(window.location.search);
       var result = { yclid: String(params.get('yclid') || '').trim(), campaign: {} };
-      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function(key){
+      var campaignKeys = [
+        'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
+        'direct_campaign_id', 'direct_source_type', 'direct_region_id'
+      ];
+      campaignKeys.forEach(function(key){
         var value = params.get(key);
         if (value) result.campaign[key] = value.slice(0, 500);
       });
       try {
         var stored = JSON.parse(window.sessionStorage.getItem('tg_metrika_campaign') || '{}');
         if (!result.yclid && stored.yclid) result.yclid = String(stored.yclid).slice(0, 255);
-        if (!Object.keys(result.campaign).length && stored.campaign && typeof stored.campaign === 'object') {
-          result.campaign = stored.campaign;
+        if (stored.campaign && typeof stored.campaign === 'object') {
+          campaignKeys.forEach(function(key){
+            if (!result.campaign[key] && stored.campaign[key]) {
+              result.campaign[key] = String(stored.campaign[key]).slice(0, 500);
+            }
+          });
         }
         window.sessionStorage.setItem('tg_metrika_campaign', JSON.stringify(result));
       } catch (_error) {
@@ -112,6 +120,14 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
       trackingParams = result;
       return trackingParams;
     }
+
+    window.tgGetTrackingBundle = function(){
+      var tracking = getTrackingParams();
+      return {
+        yclid: tracking.yclid || null,
+        campaign_params: Object.assign({}, tracking.campaign)
+      };
+    };
 
     function messengerLinkData(anchor){
       try {
@@ -3373,12 +3389,17 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
       event.preventDefault();
       var button = form.querySelector('[data-contact-submit]');
       var formData = new FormData(form);
+      var tracking = typeof window.tgGetTrackingBundle === 'function'
+        ? window.tgGetTrackingBundle()
+        : { yclid: null, campaign_params: {} };
       var payload = {
         name: String(formData.get('name') || '').trim(),
         phone: normalizePhoneForSubmit(formData.get('phone')),
         comment: String(formData.get('comment') || '').trim(),
         form_source: String(formData.get('form_source') || 'site_consultation_popup').trim(),
-        page_url: window.location.href
+        page_url: window.location.href,
+        yclid: tracking.yclid,
+        campaign_params: tracking.campaign_params
       };
 
       if (!payload.name || !payload.phone) {
@@ -4700,13 +4721,18 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
 
       event.preventDefault();
       var formData = new FormData(form);
+      var tracking = typeof window.tgGetTrackingBundle === 'function'
+        ? window.tgGetTrackingBundle()
+        : { yclid: null, campaign_params: {} };
       var payload = {
         role: String(formData.get('role') || '').trim(),
         wedding_timing: String(formData.get('wedding_timing') || '').trim(),
         wedding_location: String(formData.get('wedding_location') || '').trim(),
         details: String(formData.get('details') || '').trim(),
         form_source: String(formData.get('form_source') || 'site_plan_tripwire').trim(),
-        page_url: window.location.href
+        page_url: window.location.href,
+        yclid: tracking.yclid,
+        campaign_params: tracking.campaign_params
       };
 
       if (!payload.role || !payload.wedding_timing || !payload.wedding_location) {
