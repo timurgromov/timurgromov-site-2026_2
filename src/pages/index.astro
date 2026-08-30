@@ -3649,12 +3649,17 @@ const consultationContactPopupAssets = `<style>
       event.preventDefault();
       var button = form.querySelector('[data-contact-submit]');
       var formData = new FormData(form);
+      var tracking = typeof window.tgGetTrackingBundle === 'function'
+        ? window.tgGetTrackingBundle()
+        : { yclid: null, campaign_params: {} };
       var payload = {
         name: String(formData.get('name') || '').trim(),
         phone: normalizePhoneForSubmit(formData.get('phone')),
         comment: String(formData.get('comment') || '').trim(),
         form_source: String(formData.get('form_source') || 'site_consultation_popup').trim(),
-        page_url: window.location.href
+        page_url: window.location.href,
+        yclid: tracking.yclid,
+        campaign_params: tracking.campaign_params
       };
 
       if (!payload.name || !payload.phone) {
@@ -4980,13 +4985,18 @@ const planDeliveryPopupAssets = `<style>
 
       event.preventDefault();
       var formData = new FormData(form);
+      var tracking = typeof window.tgGetTrackingBundle === 'function'
+        ? window.tgGetTrackingBundle()
+        : { yclid: null, campaign_params: {} };
       var payload = {
         role: String(formData.get('role') || '').trim(),
         wedding_timing: String(formData.get('wedding_timing') || '').trim(),
         wedding_location: String(formData.get('wedding_location') || '').trim(),
         details: String(formData.get('details') || '').trim(),
         form_source: String(formData.get('form_source') || 'site_plan_tripwire').trim(),
-        page_url: window.location.href
+        page_url: window.location.href,
+        yclid: tracking.yclid,
+        campaign_params: tracking.campaign_params
       };
 
       if (!payload.role || !payload.wedding_timing || !payload.wedding_location) {

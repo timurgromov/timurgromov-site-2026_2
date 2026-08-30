@@ -90,15 +90,23 @@ export const yandexMetrikaHead = `<meta name="yandex-verification" content="${ya
       if (trackingParams) return trackingParams;
       var params = new URLSearchParams(window.location.search);
       var result = { yclid: String(params.get('yclid') || '').trim(), campaign: {} };
-      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function(key){
+      var campaignKeys = [
+        'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
+        'direct_campaign_id', 'direct_source_type', 'direct_region_id'
+      ];
+      campaignKeys.forEach(function(key){
         var value = params.get(key);
         if (value) result.campaign[key] = value.slice(0, 500);
       });
       try {
         var stored = JSON.parse(window.sessionStorage.getItem('tg_metrika_campaign') || '{}');
         if (!result.yclid && stored.yclid) result.yclid = String(stored.yclid).slice(0, 255);
-        if (!Object.keys(result.campaign).length && stored.campaign && typeof stored.campaign === 'object') {
-          result.campaign = stored.campaign;
+        if (stored.campaign && typeof stored.campaign === 'object') {
+          campaignKeys.forEach(function(key){
+            if (!result.campaign[key] && stored.campaign[key]) {
+              result.campaign[key] = String(stored.campaign[key]).slice(0, 500);
+            }
+          });
         }
         window.sessionStorage.setItem('tg_metrika_campaign', JSON.stringify(result));
       } catch (_error) {
@@ -107,6 +115,14 @@ export const yandexMetrikaHead = `<meta name="yandex-verification" content="${ya
       trackingParams = result;
       return trackingParams;
     }
+
+    window.tgGetTrackingBundle = function(){
+      var tracking = getTrackingParams();
+      return {
+        yclid: tracking.yclid || null,
+        campaign_params: Object.assign({}, tracking.campaign)
+      };
+    };
 
     function messengerLinkData(anchor){
       try {

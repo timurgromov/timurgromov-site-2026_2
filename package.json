@@ -12,6 +12,7 @@
     "docker:logs": "docker compose logs -f site",
     "check:contacts": "node scripts/check-contact-layout.mjs",
     "check:materials-layout": "node scripts/check-materials-layout.mjs",
+    "check:direct-attribution": "node scripts/check-direct-attribution-contract.mjs",
     "verify:contacts": "npm run build && node scripts/verify-contact-layout.mjs",
     "verify:materials-baseline": "npm run build && node scripts/verify-materials-baseline.mjs",
     "verify:materials-layout": "npm run build && node scripts/verify-materials-layout.mjs",
