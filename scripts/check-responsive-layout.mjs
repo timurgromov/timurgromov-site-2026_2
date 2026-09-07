@@ -4,6 +4,7 @@ import { chromium } from "playwright";
 
 const pagesRoot = join(process.cwd(), "src", "pages");
 const targetOrigin = (process.env.RESPONSIVE_LAYOUT_URL || process.argv[2] || "http://127.0.0.1:4321").replace(/\/$/, "");
+const targetOriginUrl = new URL(targetOrigin).origin;
 const defaultViewports = [
   "390x844",
   "479x900",
@@ -64,6 +65,10 @@ const viewports = parseViewports(
 );
 
 function assertGenericLayout(result) {
+  if (result.runtimeErrors.length) {
+    fail("Unexpected browser runtime errors", result);
+  }
+
   if (result.documentWidth > result.viewport.width + 1) {
     fail("Horizontal document overflow", result);
   }
@@ -209,9 +214,15 @@ try {
       isMobile: false,
     });
     const runtimeErrors = [];
-    page.on("pageerror", (error) => runtimeErrors.push(error.message));
+    page.on("pageerror", (error) => runtimeErrors.push({
+      message: error.message,
+      stack: error.stack,
+    }));
     await page.route("**/*", async (requestRoute) => {
-      if (requestRoute.request().resourceType() === "media") await requestRoute.abort();
+      const request = requestRoute.request();
+      const isLocalAsset = new URL(request.url()).origin === targetOriginUrl;
+
+      if (request.resourceType() === "media" || !isLocalAsset) await requestRoute.abort();
       else await requestRoute.continue();
     });
 
@@ -246,7 +257,3 @@ try {
 console.log(`Responsive layout check passed: ${routes.length} routes x ${viewports.length} viewports = ${results.length} cases`);
 console.log(`Routes: ${routes.join(", ")}`);
 console.log(`Viewports: ${viewports.map(({ name }) => name).join(", ")}`);
-const runtimeErrorCases = results.filter(({ runtimeErrors }) => runtimeErrors.length);
-if (runtimeErrorCases.length) {
-  console.warn(`Non-blocking legacy runtime errors observed in ${runtimeErrorCases.length} responsive cases; layout assertions still passed.`);
-}

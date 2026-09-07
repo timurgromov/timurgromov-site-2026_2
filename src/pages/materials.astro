@@ -184,6 +184,25 @@ function injectBeforeTildaRecordScript(
   return html.replace(marker, `${markup}${marker}`);
 }
 
+function guardTildaResizeUntilInitialized(recordHtml: string, recordNumericId: string) {
+  const resizeCall = `t396_doResize('${recordNumericId}');`;
+  const guardedResize =
+    `if (typeof t396_doResize === "function" && window.tn && window.tn["ab${recordNumericId}"]) { ` +
+    `t396_doResize('${recordNumericId}'); }`;
+
+  return recordHtml
+    .replaceAll(
+      "t396_allgroups__renderView(blockScroll);",
+      "if (typeof t396_allgroups__renderView === \"function\") { t396_allgroups__renderView(blockScroll); }",
+    )
+    .replaceAll(
+      "t396_allelems__renderView(blockScroll);",
+      "if (typeof t396_allelems__renderView === \"function\") { t396_allelems__renderView(blockScroll); }",
+    )
+    .split(resizeCall)
+    .join(guardedResize);
+}
+
 function withBasePath(html: string) {
   return html
     .replace(/href=(['"])(?!https?:|mailto:|tel:|#|\/{2})(\/?)(?!\/)/g, `href=$1${basePath}`)
@@ -435,6 +454,13 @@ const materialRecordsHtml = materialRecordIds
       }
     }
 
+    if (recordId === "rec862301619") {
+      // The exported ScrollBooster helper can run before t396_init has created
+      // window.tn.ab862070380 on narrow screens. Keep its cosmetic resize only
+      // after Tilda has registered the block.
+      recordHtml = guardTildaResizeUntilInitialized(recordHtml, "862070380");
+    }
+
     if (recordId === webinarCtaInsertionRecordId) {
       return `${recordHtml} ${webinarCtaMarkup}`;
     }
@@ -537,9 +563,18 @@ const headHtml = withBasePath(
             }
           }
 
-          document.body.addEventListener("popupShowed", function() {
-            playAdvicePopupVideo(12);
-          });
+          function bindAdvicePopupPlayback() {
+            if (!document.body) {
+              document.addEventListener("DOMContentLoaded", bindAdvicePopupPlayback, { once: true });
+              return;
+            }
+
+            document.body.addEventListener("popupShowed", function() {
+              playAdvicePopupVideo(12);
+            });
+          }
+
+          bindAdvicePopupPlayback();
         })();
       </script>`,
     )
@@ -818,7 +853,17 @@ const headHtml = withBasePath(
           z-index:9997;
           transition:transform .35s ease;
         }
+        html,
+        body{
+          width:100%;
+          max-width:100%;
+          overflow-x:clip;
+        }
         #allrecords{
+          width:100%;
+          max-width:100vw;
+          overflow-x:clip;
+          overflow-y:visible;
           padding-top:81px;
         }
         #rec862699342{
@@ -1595,7 +1640,7 @@ const headHtml = withBasePath(
 );
 
 const bodyHtml = withBasePath(
-  `<div class="materials-header-shell">${headerRecordHtml}</div><!--allrecords--> <div id="allrecords"${allRecordsAttrs}>${materialRecordsHtml} ${materialsAdvicePopupRecordsHtml} ${footerRecordHtml}</div> <!--/allrecords-->`,
+  `<!--allrecords--> <div id="allrecords"${allRecordsAttrs}><div class="materials-header-shell">${headerRecordHtml}</div>${materialRecordsHtml} ${materialsAdvicePopupRecordsHtml} ${footerRecordHtml}</div> <!--/allrecords-->`,
 );
 ---
 

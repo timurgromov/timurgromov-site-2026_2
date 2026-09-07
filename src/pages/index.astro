@@ -6252,6 +6252,21 @@ const stripTildaHoverAttrs = (html: string, elementIds: string[]) =>
     html,
   );
 
+const guardScrollBoosterTildaCalls = (recordHtml: string, recordNumericId: string) =>
+  recordHtml
+    .replaceAll(
+      "t396_allgroups__renderView(blockScroll);",
+      "if (typeof t396_allgroups__renderView === \"function\") { t396_allgroups__renderView(blockScroll); }",
+    )
+    .replaceAll(
+      "t396_allelems__renderView(blockScroll);",
+      "if (typeof t396_allelems__renderView === \"function\") { t396_allelems__renderView(blockScroll); }",
+    )
+    .replaceAll(
+      `t396_doResize('${recordNumericId}');`,
+      `if (typeof t396_doResize === "function" && window.tn && window.tn["ab${recordNumericId}"]) { t396_doResize('${recordNumericId}'); }`,
+    );
+
 const filteredBodySource = hiddenMarketingVideoAdviceElementIds
   .reduce(
     removeTildaElement,
@@ -6324,7 +6339,17 @@ const priceBodySource = transformTildaRecord(
       .replace('data-artboard-height-res-320="468"', 'data-artboard-height-res-320="760"'),
 );
 
-const transformedBodyHtml = priceBodySource
+const runtimeSafePriceBodySource = transformTildaRecord(
+  transformTildaRecord(
+    priceBodySource,
+    "rec861479090",
+    (recordHtml) => guardScrollBoosterTildaCalls(recordHtml, "861475481"),
+  ),
+  "rec862425381",
+  (recordHtml) => guardScrollBoosterTildaCalls(recordHtml, "862405056"),
+);
+
+const transformedBodyHtml = runtimeSafePriceBodySource
   // Tilda t270 by default writes section hashes into history, so the browser can reopen /#about.
   // Keep anchor scrolling, but do not persist those hashes in the address bar.
   .replace(

@@ -1,5 +1,22 @@
 # Current State - 2026-08-20
 
+## Tilda runtime races closed (2026-09-07)
+
+- `/materials/` no longer starts its popup listener before `body`, keeps the
+  exported header inside `#allrecords`, and waits for the matching Tilda Zero
+  Block before a legacy ScrollBooster callback asks it to resize. The same
+  callback guard covers the two legacy homepage price-scroll blocks.
+- The materials carousel's intentionally off-canvas cards are clipped at the
+  records boundary, preventing their async positioning from widening a
+  tablet-width document.
+- `check-responsive-layout.mjs` now fails on every uncaught browser runtime
+  error rather than reporting Tilda errors as non-blocking warnings. It blocks
+  third-party/media requests during local geometry QA so the matrix is stable;
+  the real popup/video action is verified separately in a browser.
+- Local verification passed: 9 routes × 18 viewport cases, materials CTA and
+  popup/video, and the contact layout checks. Release status is recorded in
+  `docs/history/worklog/2026-09-07-tilda-runtime-guard.md`.
+
 ## Paid landing health contract added (2026-09-07)
 
 - The reusable check contract is `docs/paid-landing-health.md`: a bounded daily
