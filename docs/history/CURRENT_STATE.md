@@ -1,5 +1,20 @@
 # Current State - 2026-08-20
 
+## Paid landing health contract added (2026-09-07)
+
+- The reusable check contract is `docs/paid-landing-health.md`: a bounded daily
+  live smoke checks landing markers, CRM health and every configured video
+  response without submitting a form; Monday additionally proves actual hero
+  playback at desktop and mobile viewports.
+- The first local run against production passed: page `200`, CRM `200/status:
+  ok`, all 17 registered videos `206 video/mp4`, and both hero variants decoded
+  and advanced in a temporary headless browser. The history record is
+  `docs/history/worklog/2026-09-07-paid-landing-health-automation.md`.
+- The schedule is owned by the existing Direct daily analysis heartbeat rather
+  than a second site cron. A result of `failed` or `unknown` is a landing
+  quality blocker for interpretation/proposals, never an automatic Direct
+  pause or a fake CRM-lead test.
+
 ## Direct tracking bundle retained in production (2026-08-30)
 
 - Release `e08c299` is pushed to `main`; Deploy to gh-pages, Code health and
@@ -68,7 +83,10 @@
 ## Known Blockers
 
 - Aeza VPS `#1777264 outstanding-blue` загружается, но сбрасывает входящие SSH/HTTP/HTTPS даже в Rescue; Rescue VNC возвращает `Internal Server Error`. Это блокирует основной media host и размещённый на том же VPS SOCKS5 proxy до ремонта сети со стороны Aeza.
-- На резервном media host пока нет трёх локальных review-файлов (`review_temur_margo_RF.mp4`, `review_katya_zhenya_RF.mp4`, `review_russian_cuban_RF.mp4`): исходники были только на недоступном VPS. Hero, кейсы, showreel, Антон/Кристина, советы и шесть материалов восстановлены; webinar временно восстановлен из его исходного Boomstream MP4 через собственный VPS.
+- Предыдущий blocker о трёх review-файлах на резервном host superseded: 7
+  сентября все три и остальные 14 зарегистрированных MP4 ответили `206
+  video/mp4` в live range-check. Причина восстановления носителя отдельно не
+  расследовалась.
 - Telegram deep links зафиксированы: `site_plan` для получения сценария и полезных материалов через квалификацию, `site_meeting` для прямого Telegram-контакта и встречи.
 - MAX bot deep links зафиксированы: `site_plan` для сценария, `site_meeting` для встречи, `direct_personal` для калькулятора.
 - Для сайта `site_plan` остаётся единым source/intent, а Telegram/MAX различаются каналом: на сайте через Metrika goal params и `data-plan-channel`, в EventBudjet через provider/account/event payload после старта бота.

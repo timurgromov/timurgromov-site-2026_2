@@ -13,6 +13,8 @@
     "check:contacts": "node scripts/check-contact-layout.mjs",
     "check:materials-layout": "node scripts/check-materials-layout.mjs",
     "check:direct-attribution": "node scripts/check-direct-attribution-contract.mjs",
+    "check:paid-landing": "node scripts/check-paid-landing-live.mjs",
+    "check:paid-landing:playback": "node scripts/check-paid-landing-playback.mjs",
     "verify:contacts": "npm run build && node scripts/verify-contact-layout.mjs",
     "verify:materials-baseline": "npm run build && node scripts/verify-materials-baseline.mjs",
     "verify:materials-layout": "npm run build && node scripts/verify-materials-layout.mjs",
