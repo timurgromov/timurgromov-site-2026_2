@@ -22,4 +22,4 @@ The homepage Tilda export has native Zero Block canvases at 320, 640 and 1200 px
 - Independent `responsive-qa-gate`: PASS, 20 points including interval representatives and `B-1/B/B+1` around 480/640/1024/1200; no horizontal overflow, Hero and CTA present.
 - Live in-app browser: visually checked every route at 1199x650; additionally checked the homepage at 768x1024, 1024x768, 1199x650 and 639x900, and `/privacy/` at 390x844.
 - CTA action: PASS; the Hero scenario CTA opens `#plan-delivery-popup` as a full-viewport dialog.
-- Local console note: the independent local sweep reports only the expected unavailable attribution request to `127.0.0.1:8000`; this is local-environment noise, not a rendered-layout or interaction failure.
+- Console classification: the independent local sweep reports the expected unavailable attribution request to `127.0.0.1:8000`; the repository gate also reports three pre-existing Tilda initialization errors on `/materials/` as non-blocking warnings in all 18 tested sizes. The fresh homepage run at 1199x650 has `runtimeErrors=[]`; neither warning class changes the verified rendered geometry or CTA interaction.
