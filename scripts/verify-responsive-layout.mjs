@@ -66,7 +66,7 @@ try {
   preview.stdout.on("data", (chunk) => output.push(chunk.toString()));
   preview.stderr.on("data", (chunk) => output.push(chunk.toString()));
   await waitForPreview(preview, output);
-  await run(process.execPath, ["scripts/check-responsive-layout.mjs"], {
+  await run(process.execPath, ["scripts/check-responsive-layout.mjs", ...process.argv.slice(2)], {
     env: { ...process.env, RESPONSIVE_LAYOUT_URL: url },
   });
 } finally {

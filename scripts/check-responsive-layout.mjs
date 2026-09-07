@@ -3,7 +3,39 @@ import { join, relative, sep } from "node:path";
 import { chromium } from "playwright";
 
 const pagesRoot = join(process.cwd(), "src", "pages");
-const targetOrigin = (process.env.RESPONSIVE_LAYOUT_URL || process.argv[2] || "http://127.0.0.1:4321").replace(/\/$/, "");
+function parseRunnerArgs(argv) {
+  const options = { targetOrigin: null, watchTextSelectors: [] };
+  for (let index = 0; index < argv.length; index += 1) {
+    const argument = argv[index];
+    if (argument === "--watch-text-selector") {
+      const selector = argv[index + 1];
+      if (!selector || selector.startsWith("--")) {
+        fail("--watch-text-selector requires a CSS selector");
+      }
+      options.watchTextSelectors.push(selector);
+      index += 1;
+      continue;
+    }
+    if (argument === "--url") {
+      const url = argv[index + 1];
+      if (!url || url.startsWith("--")) fail("--url requires a URL");
+      options.targetOrigin = url;
+      index += 1;
+      continue;
+    }
+    if (argument.startsWith("--")) fail("Unknown responsive layout option", { argument });
+    if (options.targetOrigin) fail("Only one responsive layout URL is allowed", { argument });
+    options.targetOrigin = argument;
+  }
+  return options;
+}
+
+const runnerOptions = parseRunnerArgs(process.argv.slice(2));
+const watchTextSelectors = [...new Set([
+  ...(process.env.RESPONSIVE_LAYOUT_WATCH_TEXT_SELECTORS || "").split(",").filter(Boolean),
+  ...runnerOptions.watchTextSelectors,
+])];
+const targetOrigin = (process.env.RESPONSIVE_LAYOUT_URL || runnerOptions.targetOrigin || "http://127.0.0.1:4321").replace(/\/$/, "");
 const targetOriginUrl = new URL(targetOrigin).origin;
 const defaultViewports = [
   "390x844",
@@ -125,8 +157,8 @@ function assertHomeHero(result) {
   }
 }
 
-async function measure(page, route, viewport) {
-  return page.evaluate(({ route, viewport }) => {
+async function measure(page, route, viewport, watchedTextSelectors) {
+  return page.evaluate(({ route, viewport, watchedTextSelectors }) => {
     const box = (selector) => {
       const element = document.querySelector(selector);
       if (!element) return null;
@@ -229,6 +261,10 @@ async function measure(page, route, viewport) {
       heroZoom: heroElement
         ? getComputedStyle(document.querySelector("#rec861352716")).getPropertyValue("--zoom").trim()
         : null,
+      watchedText: watchedTextSelectors.map((selector) => {
+        const metrics = textMetrics(selector);
+        return metrics ? { selector, found: true, ...metrics } : { selector, found: false };
+      }),
       homeAnchors: route === "/" ? {
         headline1: textBox('#rec861352716 [data-elem-id="1738731786845"] .tn-atom'),
         headline2: textBox('#rec861352716 [data-elem-id="1738731869931"] .tn-atom'),
@@ -238,7 +274,7 @@ async function measure(page, route, viewport) {
         ctaText: textMetrics('#rec861352716 [data-elem-id="1738733079599"] .tn-atom'),
       } : {},
     };
-  }, { route, viewport });
+  }, { route, viewport, watchedTextSelectors });
 }
 
 const localChromePath = process.env.CHROME_PATH || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
@@ -276,7 +312,7 @@ try {
         });
         await page.waitForTimeout(route === "/" ? 900 : 250);
         const result = {
-          ...(await measure(page, route, viewport)),
+          ...(await measure(page, route, viewport, watchTextSelectors)),
           runtimeErrors: [...runtimeErrors],
         };
         assertGenericLayout(result);
@@ -285,6 +321,7 @@ try {
           route,
           viewport: viewport.name,
           runtimeErrors: result.runtimeErrors,
+          watchedText: result.watchedText,
         });
       }
     } finally {
@@ -298,3 +335,6 @@ try {
 console.log(`Responsive layout check passed: ${routes.length} routes x ${viewports.length} viewports = ${results.length} cases`);
 console.log(`Routes: ${routes.join(", ")}`);
 console.log(`Viewports: ${viewports.map(({ name }) => name).join(", ")}`);
+if (watchTextSelectors.length) {
+  console.log(`Watched text metrics:\n${JSON.stringify(results.map(({ route, viewport, watchedText }) => ({ route, viewport, watchedText })), null, 2)}`);
+}
