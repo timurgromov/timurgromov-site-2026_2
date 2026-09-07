@@ -23,6 +23,8 @@ const defaultViewports = [
   "1201x650",
   "1366x768",
   "1440x900",
+  "1504x900",
+  "1728x900",
   "1984x1046",
 ];
 
@@ -83,6 +85,15 @@ function assertGenericLayout(result) {
 function assertHomeHero(result) {
   if (result.route !== "/") return;
   if (!result.hero) fail("Homepage hero is missing", result);
+
+  const ctaText = result.homeAnchors.ctaText;
+  if (!ctaText) fail("Homepage CTA label is missing", result);
+  if (Math.abs(ctaText.effectiveFontPx - 14) > 0.5) {
+    fail("Homepage CTA label has inconsistent rendered typography", result);
+  }
+  if (ctaText.lineCount !== 1 || ctaText.renderedWidth < 170 || ctaText.renderedWidth > 200) {
+    fail("Homepage CTA label wraps or is visually scaled", result);
+  }
 
   const expectedHeight = Math.max(result.viewport.height, 560);
   if (Math.abs(result.hero.height - expectedHeight) > 2) {
@@ -176,6 +187,35 @@ async function measure(page, route, viewport) {
         parentInlineStyle: element.closest(".tn-elem")?.getAttribute("style") || null,
       };
     };
+    const transformScale = (transform) => {
+      if (!transform || transform === "none") return 1;
+      const matrix = new DOMMatrixReadOnly(transform);
+      return Math.hypot(matrix.a, matrix.b);
+    };
+    const textMetrics = (selector) => {
+      const element = document.querySelector(selector);
+      if (!element) return null;
+      const style = getComputedStyle(element);
+      const range = document.createRange();
+      range.selectNodeContents(element);
+      const rect = range.getBoundingClientRect();
+      let effectiveScale = 1;
+      for (let current = element; current instanceof Element; current = current.parentElement) {
+        const currentStyle = getComputedStyle(current);
+        const zoom = Number.parseFloat(currentStyle.zoom);
+        if (Number.isFinite(zoom)) effectiveScale *= zoom;
+        effectiveScale *= transformScale(currentStyle.transform);
+      }
+      const computedFontPx = Number.parseFloat(style.fontSize);
+      return {
+        computedFontPx: Number(computedFontPx.toFixed(2)),
+        effectiveFontPx: Number((computedFontPx * effectiveScale).toFixed(2)),
+        renderedWidth: Number(rect.width.toFixed(2)),
+        renderedHeight: Number(rect.height.toFixed(2)),
+        lineCount: range.getClientRects().length,
+        whiteSpace: style.whiteSpace,
+      };
+    };
 
     return {
       route,
@@ -195,6 +235,7 @@ async function measure(page, route, viewport) {
         headline3: textBox('#rec861352716 [data-elem-id="1738731897790"] .tn-atom'),
         description: box('#rec861352716 [data-elem-id="1738732845597"]'),
         cta: box('#rec861352716 [data-elem-id="1738735136250"]'),
+        ctaText: textMetrics('#rec861352716 [data-elem-id="1738733079599"] .tn-atom'),
       } : {},
     };
   }, { route, viewport });

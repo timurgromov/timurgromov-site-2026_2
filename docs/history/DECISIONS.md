@@ -2,6 +2,46 @@
 
 Этот файл фиксирует решения, которые важно помнить и не откатывать случайно.
 
+## DEC-2026-09-07-HERO-CTA-EFFECTIVE-TYPOGRAPHY
+
+Status: active
+Area: responsive QA, Hero, typography
+Decision date: 2026-09-07
+Evidence: owner-reported windowed desktop screenshots and local rendered metrics
+Supersedes: the assumption that CTA box geometry plus computed `font-size` proves typography
+
+Decision:
+For text inside a Tilda-scaled Hero or Zero Block, responsive acceptance uses
+effective rendered font size (computed font multiplied by ancestor `zoom` and
+transforms), rendered text bounds and line count. The homepage scenario CTA is
+fixed to a 14px effective, single-line label while its pre-existing split-button
+geometry remains responsive.
+
+Why:
+Tilda scaled the `1200px` artboard across windowed desktop widths. The label
+still reported `12px` in computed CSS while its visible size grew from about
+14px to 17.28px; at the 1024px boundary it instead fell to 11px. Overflow and
+control-presence checks could not see that defect.
+
+Do:
+
+- add a selector-specific effective-typography assertion for a reported Hero or
+  CTA typography defect;
+- check each affected breakpoint, `B-1/B/B+1`, and reported window widths;
+- record computed and effective sizes, rendered width and line count in UI evidence.
+
+Do not:
+
+- accept an unchanged computed `font-size` as visual proof under Tilda `zoom`;
+- change button shape, CTA copy, arrow layer or click intent while fixing only
+  its typography.
+
+Verification:
+
+- `npm run verify:responsive-layout` fails when the Hero CTA effective font
+  leaves `14px ±0.5`, wraps, or changes rendered width materially;
+- live browser review confirms the centered label and preserved popup action.
+
 ## DEC-2026-08-03-SINGLE-GH-PAGES-DEPLOY-AND-CODE-HEALTH
 
 Status: active

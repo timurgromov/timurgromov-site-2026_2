@@ -745,6 +745,15 @@ const fastFirstPaint = `<link rel="preconnect" href="${videoMediaBaseUrl}" cross
       pointer-events:none !important;
     }
   }
+  /* Tilda scales each Zero Block element via zoom. Counter-scale only the
+   * CTA label so its rendered type remains one deliberate size, while the
+   * existing button geometry and click layer keep their native behavior. */
+  html body #allrecords #rec861352716 [data-elem-id="1738733079599"] .tn-atom{
+    font-size:14px !important;
+    line-height:1.1 !important;
+    transform:scale(calc(1 / var(--zoom))) !important;
+    transform-origin:center center !important;
+  }
 </style>
 <script>
   (function() {

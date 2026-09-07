@@ -1,5 +1,18 @@
 # Current State - 2026-08-20
 
+## Hero CTA typography is scale-safe (2026-09-07)
+
+- The homepage scenario CTA label now counter-scales Tilda's ancestor `zoom`.
+  Its effective rendered size is 14px, one line and about 184px wide from
+  mobile through wide desktop; only the existing split-button geometry changes
+  between the established Hero modes.
+- `check-responsive-layout.mjs` measures effective text size after ancestor
+  zoom/transforms, rendered width and line count, and fails when the Hero CTA
+  typography leaves its contract. The default release matrix now includes
+  `1504x900` and `1728x900` windowed-desktop probes.
+- Contract and current evidence: `docs/ui-evidence/2026-09-07-home-hero-cta-typography-contract.md`
+  and `docs/ui-evidence/2026-09-07-home-hero-cta-typography-evidence.json`.
+
 ## Tilda runtime races closed (2026-09-07)
 
 - `/materials/` no longer starts its popup listener before `body`, keeps the

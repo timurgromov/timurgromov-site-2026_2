@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-07-home-hero-cta-typography",
+  "change_kind": "responsive-typography",
+  "status": "passed",
+  "requested_visible_change": "Keep the homepage Hero scenario CTA label at one consistent rendered size across the reported windowed widths.",
+  "expected_visible_delta": "The existing label is one line, about 184px wide and 14px effective after Tilda ancestor zoom/transform at every required viewport.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "9597bd35a0130f9e39817225cd6db98c7641ae8cae6b5d72dbf9f6ce420fac76",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4323/",
+    "source_ref": "staged working-tree candidate",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/",
+    "state": "public homepage at scrollY=0 with the native Hero video/poster",
+    "selector_or_slide_id": "#rec861352716 [data-elem-id=\"1738733079599\"] .tn-atom",
+    "action": "fresh-load the Hero; click its existing scenario CTA and confirm #plan-delivery-popup"
+  },
+  "must_remain_unchanged": [
+    "split-button geometry and arrow layer",
+    "CTA copy and #plan-delivery-popup behavior",
+    "Hero media lifecycle and post-Hero content"
+  ],
+  "required_viewports": [
+    "390x844",
+    "959x900",
+    "1024x768",
+    "1200x650",
+    "1728x900",
+    "1984x1046"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "fresh local Playwright page; innerWidth=390; innerHeight=844",
+      "before_signature": "Tilda mobile ancestor zoom=1.219 and no effective-typography assertion existed.",
+      "after_signature": "effectiveFontPx=14; renderedWidth=183.98; lineCount=1.",
+      "observed_visible_result": "The label remains one centered line inside the existing mobile split CTA.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "959x900",
+      "viewport_source": "fresh in-app browser and local Playwright page; innerWidth=959; innerHeight=900",
+      "before_signature": "effectiveFontPx=14 but only geometry/overflow was accepted.",
+      "after_signature": "effectiveFontPx=14; renderedWidth=184.03; lineCount=1; existing CTA opened the scenario popup.",
+      "observed_visible_result": "The wide-tablet label remains a single centered line and the CTA opens the preserved popup.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1024x768",
+      "viewport_source": "fresh local Playwright page; innerWidth=1024; innerHeight=768",
+      "before_signature": "effectiveFontPx=11 at the breakpoint boundary.",
+      "after_signature": "effectiveFontPx=14; renderedWidth=184.03; lineCount=1.",
+      "observed_visible_result": "The boundary no longer makes the CTA label visibly smaller.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1200x650",
+      "viewport_source": "fresh local Playwright page; innerWidth=1200; innerHeight=650",
+      "before_signature": "effectiveFontPx=12 at the desktop boundary.",
+      "after_signature": "effectiveFontPx=14; renderedWidth=184.03; lineCount=1.",
+      "observed_visible_result": "Desktop begins with the same deliberate CTA type scale.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1728x900",
+      "viewport_source": "fresh in-app browser and local Playwright page; innerWidth=1728; innerHeight=900",
+      "before_signature": "computedFontPx=12 but Tilda zoom=1.44 produced effectiveFontPx=17.28.",
+      "after_signature": "computedFontPx=14 with inverse transform; effectiveFontPx=14; renderedWidth=184.04; lineCount=1.",
+      "observed_visible_result": "The reported windowed-desktop mode keeps the same label scale without altering the existing button or Hero layout.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1984x1046",
+      "viewport_source": "fresh local Playwright page; innerWidth=1984; innerHeight=1046",
+      "before_signature": "native wide artboard scaling produced a different rendered label size.",
+      "after_signature": "effectiveFontPx=14; renderedWidth=184.01; lineCount=1.",
+      "observed_visible_result": "Wide desktop preserves the same readable label without wrapping.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 0,
+    "selected_variant": "",
+    "owner_approval_reference": ""
+  }
+}
