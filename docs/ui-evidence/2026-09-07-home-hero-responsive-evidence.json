@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-07-home-hero-windowed-tablet",
+  "change_kind": "responsive-layout",
+  "status": "passed",
+  "requested_visible_change": "Keep the homepage Hero coherent in a narrowed Mac browser window and remove equivalent responsive failures across every site page.",
+  "expected_visible_delta": "The Hero remains one viewport-high composition with its headline, description and split CTA inside the screen from 480 through 1199 px; the privacy heading no longer creates horizontal overflow.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "862fb987cca990dbe255abcaf4fbce11c32be9baa70a6248136fb45a68fb6e4e",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/",
+    "source_ref": "staged working-tree candidate",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/ and /privacy/",
+    "state": "public pages at scrollY=0 with native Hero video/poster and default privacy content",
+    "selector_or_slide_id": "#rec861352716 and .privacy-page h1",
+    "action": "fresh-load each exact viewport; click the Hero scenario CTA and confirm #plan-delivery-popup"
+  },
+  "must_remain_unchanged": [
+    "narrow mobile composition below 480 px",
+    "native desktop composition from 1200 px",
+    "Hero video and poster lifecycle",
+    "Hero scenario CTA copy and popup behavior",
+    "all content after the Hero"
+  ],
+  "required_viewports": [
+    "390x844",
+    "639x900",
+    "768x1024",
+    "1024x768",
+    "1199x650",
+    "1200x650"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "in-app browser and fresh Playwright page; innerWidth=390; innerHeight=844",
+      "before_signature": "/privacy/ documentScrollWidth=446 with the confidentiality heading clipped beyond the right edge",
+      "after_signature": "/privacy/ documentScrollWidth=390 and the complete heading wraps inside the 354 px content column",
+      "observed_visible_result": "Privacy title and every section remain readable without horizontal panning.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "639x900",
+      "viewport_source": "in-app browser and fresh Playwright page; innerWidth=639; innerHeight=900",
+      "before_signature": "Hero height=1098px; --zoom=1.997; CTA y=998..1068 outside the first screen",
+      "after_signature": "Hero height=900px; --zoom=1; CTA x=24 y=840 width=591 height=44 inside the first screen",
+      "observed_visible_result": "Wide-mobile Hero is a single readable stack with logo, burger, headline, description and split CTA visible.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "768x1024",
+      "viewport_source": "in-app browser and fresh Playwright page; innerWidth=768; innerHeight=1024",
+      "before_signature": "Tilda scaled the 640 px canvas; Hero height was about 1229px and the lower composition escaped the viewport",
+      "after_signature": "Hero height=1024px; --zoom=1; portrait-tablet headline, description and split CTA are contained",
+      "observed_visible_result": "Portrait tablet shows the complete first-screen hierarchy without overlap or horizontal overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1024x768",
+      "viewport_source": "in-app browser and fresh Playwright page; innerWidth=1024; innerHeight=768",
+      "before_signature": "Hero height=1248px with headline/CTA below the visible first screen",
+      "after_signature": "Hero height=768px; headline x=34 y=585; description x=694 y=647; CTA x=722 y=719",
+      "observed_visible_result": "Landscape tablet keeps the desktop two-column hierarchy inside one viewport.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1199x650",
+      "viewport_source": "exact deterministic reproduction in the in-app browser; innerWidth=1199; innerHeight=650",
+      "before_signature": "Hero height=1461px; --zoom=1.873; headline y=933; CTA 481x66 at x=622 y=560; contact nav x=1508",
+      "after_signature": "Hero height=650px; --zoom=1; headline x=40 y=435; description x=812 y=509; CTA x=845 y=593 width=257 height=30",
+      "observed_visible_result": "The exact reported blind-zone width now shows one coherent Hero instead of oversized unrelated fragments.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1200x650",
+      "viewport_source": "in-app browser and fresh Playwright page; innerWidth=1200; innerHeight=650",
+      "before_signature": "Native desktop Hero at the 1200 px boundary was the preserved reference composition",
+      "after_signature": "Native desktop Hero remains 1200x650 with navigation, headline, description and CTA in their original geometry",
+      "observed_visible_result": "The first native desktop breakpoint is unchanged and the transition from 1199 px is coherent.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 0,
+    "selected_variant": "",
+    "owner_approval_reference": ""
+  }
+}

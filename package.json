@@ -12,15 +12,17 @@
     "docker:logs": "docker compose logs -f site",
     "check:contacts": "node scripts/check-contact-layout.mjs",
     "check:materials-layout": "node scripts/check-materials-layout.mjs",
+    "check:responsive-layout": "node scripts/check-responsive-layout.mjs",
     "check:direct-attribution": "node scripts/check-direct-attribution-contract.mjs",
     "check:paid-landing": "node scripts/check-paid-landing-live.mjs",
     "check:paid-landing:playback": "node scripts/check-paid-landing-playback.mjs",
     "verify:contacts": "npm run build && node scripts/verify-contact-layout.mjs",
     "verify:materials-baseline": "npm run build && node scripts/verify-materials-baseline.mjs",
     "verify:materials-layout": "npm run build && node scripts/verify-materials-layout.mjs",
+    "verify:responsive-layout": "npm run build && node scripts/verify-responsive-layout.mjs",
     "verify:pages": "node scripts/verify-pages-deploy.mjs",
     "preview": "astro preview",
-    "deploy:pages": "ASTRO_TELEMETRY_DISABLED=1 npm run verify:contacts && npx --yes gh-pages -d dist -b gh-pages"
+    "deploy:pages": "ASTRO_TELEMETRY_DISABLED=1 npm run verify:contacts && node scripts/verify-responsive-layout.mjs && npx --yes gh-pages -d dist -b gh-pages"
   },
   "devDependencies": {
     "astro": "^5.7.10",

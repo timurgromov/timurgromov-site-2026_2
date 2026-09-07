@@ -80,7 +80,8 @@
 - Разовые локальные preview через `npm run preview` дают временные порты и не должны использоваться как постоянная точка входа.
 - Для стабильного локального просмотра используется docker-compose сценарий на `http://127.0.0.1:4323/`.
 - Сборка `npm run build` проходит.
-- GitHub Actions использует один deploy-path: `deploy-gh-pages.yml` собирает `main` и обновляет ветку `gh-pages`; отдельный `code-health.yml` проверяет Astro build на PR/main без deploy и production secrets.
+- Responsive release gate `npm run verify:responsive-layout` автоматически проверяет все `src/pages/**/*.astro`: 9 текущих маршрутов на 18 viewport-точках (`162` случая), включая `B-1/B/B+1` вокруг `480/640/1024/1200`; главная дополнительно проверяется по высоте Hero, физическому `--zoom:1`, ключевым блокам и CTA. Новые статические страницы входят в gate автоматически.
+- GitHub Actions использует один deploy-path: `deploy-gh-pages.yml` собирает `main`, ставит Chromium, запускает responsive gate и только затем обновляет ветку `gh-pages`; отдельный `code-health.yml` повторяет Astro build и responsive gate на PR/main без deploy и production secrets.
 - `public/sitemap.xml` теперь должен включать как минимум `/`, `/materials/`, `/scenario/`, `/articles/` и `/yubiley/`.
 
 ## Known Blockers
@@ -138,6 +139,6 @@
 ## Last Known Good State
 
 - Branch: `main`
-- Local verification: `npm run verify:contacts` (desktop `1911x1064`, desktop `1440x900`, mobile `390x844`, включая uncaught runtime exceptions), stable local docker preview `http://127.0.0.1:4323/`.
+- Local verification: `npm run verify:contacts` (desktop `1911x1064`, desktop `1440x900`, mobile `390x844`, включая uncaught runtime exceptions) и `npm run verify:responsive-layout` (все 9 маршрутов × 18 viewport-точек), stable local docker preview `http://127.0.0.1:4323/`.
 - Последнее правленное состояние: CTA-блок сценария очищен от нижних proof-карточек и прямой ссылки на `/scenario/`; hero popup оставлен компактным bot-first preview с выбором Telegram или MAX.
 - Production deploy: выполняется через push в `main` и GitHub Actions `deploy-gh-pages`; GitHub Pages source — ветка `gh-pages` (`/`).

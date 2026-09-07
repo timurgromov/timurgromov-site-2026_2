@@ -141,6 +141,13 @@ const homeHref = import.meta.env.BASE_URL.replace(/\/?$/, "/");
     text-underline-offset:3px;
   }
 
+  @media screen and (max-width:899px){
+    .privacy-page h1{
+      font-size:clamp(28px, 7.2vw, 56px);
+      overflow-wrap:anywhere;
+    }
+  }
+
   @media screen and (max-width:639px){
     .privacy-page{
       padding:34px 18px 48px;
@@ -148,10 +155,6 @@ const homeHref = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 
     .privacy-page__eyebrow{
       font-size:15px;
-    }
-
-    .privacy-page h1{
-      font-size:34px;
     }
 
     .privacy-page__lead,

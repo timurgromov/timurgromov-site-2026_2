@@ -31,6 +31,12 @@ jobs:
       - name: Build
         run: ASTRO_TELEMETRY_DISABLED=1 npm run build
 
+      - name: Install Chromium for responsive QA
+        run: npx playwright install --with-deps chromium
+
+      - name: Check every page across responsive breakpoints
+        run: node scripts/verify-responsive-layout.mjs
+
       - name: Push dist to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:

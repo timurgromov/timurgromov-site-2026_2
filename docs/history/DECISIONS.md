@@ -911,3 +911,37 @@ Verification:
 
 - правило зафиксировано в `AGENTS.md` и `docs/quick-edit-playbook.md`
 - будущие UX-задачи по умолчанию используют in-app browser Codex как first check
+
+## DEC-2026-09-07-RESPONSIVE-MATRIX-BLOCKS-DEPLOY
+
+Status: active
+Area: frontend, responsive QA, CI, deploy
+Decision date: 2026-09-07
+Evidence: production Hero regression at a windowed Mac width below 1200 px; the old checks covered only 390, 1440 and 1911 px and missed Tilda scaling gaps between its 320/640/1200 canvases
+Commits: pending
+Supersedes: the three-viewport-only responsive guidance in `AGENTS.md`
+
+Decision:
+Любая новая статическая Astro-страница и любое изменение адаптива должны проходить `npm run verify:responsive-layout` до deploy. Gate автоматически обнаруживает `src/pages/**/*.astro`, проверяет общую матрицу размеров и `B-1/B/B+1` вокруг фактических границ 480/640/1024/1200. Dynamic route без явного fixture должна падать fail-closed. GitHub Pages deploy не публикует `dist`, пока gate не прошёл.
+
+Why:
+Проверка только на типовых device labels не покрывает непрерывный диапазон ширин. На главной Tilda растягивала 640 px canvas до 1199 px с `--zoom:1.873`, а 320 px canvas до 639 px с `--zoom:1.997`; из-за этого Hero становился выше viewport, блоки перекрывались и уходили за экран. Та же матрица нашла независимый overflow длинного заголовка на `/privacy/`.
+
+Do:
+
+- запускать репозиторный gate и независимый `responsive-qa-gate` при изменении Hero или breakpoint-контракта
+- проверять точный размер репортера и соседние границы, а не только названия устройств
+- оставлять live browser review обязательным для композиции и CTA после механического прохода
+- добавлять новый breakpoint в общую матрицу, если он меняет layout-контракт
+
+Do not:
+
+- не считать 390/1440/1911 достаточным responsive-покрытием
+- не маскировать проблему только `overflow-x:hidden`
+- не обходить gate удалением страницы из discovery
+
+Verification:
+
+- локально: 9 маршрутов × 18 viewport-точек = 162 случая
+- независимо: responsive skill matrix из 20 точек с interval representatives и `B-1/B/B+1`
+- CI: `code-health.yml` и `deploy-gh-pages.yml` запускают тот же репозиторный gate
