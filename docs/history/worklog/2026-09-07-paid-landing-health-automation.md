@@ -27,6 +27,8 @@ or creates a synthetic CRM request.
 
 ## Publish status
 
-Pending commit/push and GitHub Pages verification at the time this entry was
-created. The later Direct-workspace scheduling record is authoritative for
-heartbeat activation.
+Published in commit `b7c77ee` (`main` pushed). GitHub Pages live-marker
+verification passed at `https://timurgromov.ru/`; the generated public output
+did not change, so GitHub Pages correctly retained the earlier identical
+`gh-pages` artifact. The Direct heartbeat activation record is in the
+Direct-workspace scheduling worklog.

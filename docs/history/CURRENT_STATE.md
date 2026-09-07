@@ -14,6 +14,9 @@
   than a second site cron. A result of `failed` or `unknown` is a landing
   quality blocker for interpretation/proposals, never an automatic Direct
   pause or a fake CRM-lead test.
+- Site tools/docs are published in `b7c77ee`; the live page was re-verified
+  after push. The static website output is intentionally unchanged because the
+  scripts run from the scheduled analysis checkout.
 
 ## Direct tracking bundle retained in production (2026-08-30)
 
