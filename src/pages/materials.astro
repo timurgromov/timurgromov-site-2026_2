@@ -5,6 +5,7 @@ import {
   tildaCtaLink,
 } from "../site/tilda-cta";
 import { renderExpertConversionContour } from "../site/expert-conversion";
+import { renderConsultationContactPopup } from "../site/consultation-contact-popup";
 import {
   maxMeetingUrlFor,
   maxPlanUrlFor,
@@ -23,10 +24,13 @@ const ctaArrowIconUrl = getTildaCtaArrowIconUrl(basePath);
 const expertConversionMarkup = renderExpertConversionContour({
   basePath,
   entrypoint: "materials",
-  usefulHeading: "Получите материал для следующего шага в подготовке",
-  usefulText: "Полезные материалы и личная встреча — разные пути. Выберите только тот, который нужен сейчас.",
   telegramPlanUrl: telegramMaterialsPlanUrl,
   maxPlanUrl: maxMaterialsPlanUrl,
+  telegramMeetingUrl: telegramMaterialsMeetingUrl,
+  maxMeetingUrl: maxMaterialsMeetingUrl,
+});
+const consultationPopupMarkup = renderConsultationContactPopup({
+  basePath,
   telegramMeetingUrl: telegramMaterialsMeetingUrl,
   maxMeetingUrl: maxMaterialsMeetingUrl,
 });
@@ -1653,7 +1657,7 @@ const headHtml = withBasePath(
 );
 
 const bodyHtml = withBasePath(
-  `<!--allrecords--> <div id="allrecords"${allRecordsAttrs}><div class="materials-header-shell">${headerRecordHtml}</div>${materialRecordsHtml} ${materialsAdvicePopupRecordsHtml} ${expertConversionMarkup}</div> <!--/allrecords-->`,
+  `<!--allrecords--> <div id="allrecords"${allRecordsAttrs}><div class="materials-header-shell">${headerRecordHtml}</div>${materialRecordsHtml} ${materialsAdvicePopupRecordsHtml} ${expertConversionMarkup}${consultationPopupMarkup}</div> <!--/allrecords-->`,
 );
 ---
 

@@ -25,22 +25,21 @@ Updated: 2026-09-08
 
 - Public state only: no lead is created until a person actually opens a
   messenger deep link. No production test leads are created during QA.
-- `/scenario/` renders one shared `expert-conversion` module as one visual
-  card, not two stacked CTA cards: calculator copy and actions on the left,
-  the supplied black-and-white Timur portrait on the right. The portrait uses
-  centred, symmetric `3:4` cropping and is part of the same card, not a
-  separate author block.
-- `/materials/` and `/articles/plan-podgotovki-k-svadbe/` retain their current
-  shared contour until this scenario prototype is explicitly approved.
-- Desktop/wide: the scenario card is two columns; tablet at `900px` and below
-  becomes one column; mobile at `640px` and below puts the portrait first and
-  has 16px gutters. CTA controls use a compact `2×2` grid from `480px` through
-  `640px` and become full-width only below `480px`. Footer switches from four
-  columns to two, then one.
-- The author portrait is a compact horizontal `16:9` crop in the CTA, never a
-  tall column: keep the face and upper body in frame with `object-fit: cover`
-  and a centred vertical crop. This is the required media geometry whenever
-  the shared CTA is inserted on another expert page.
+- `/scenario/`, `/materials/` and `/articles/plan-podgotovki-k-svadbe/` render
+  the same home-site CTA island: the literal `tg-plan-cta` split-button
+  pattern, home fonts and home hover state. There are no page-specific button
+  redraws or stacked material/meeting cards.
+- The CTA starts directly after the useful content with a controlled gap:
+  `32px` desktop and `20px` mobile. Its own bottom spacing separates the island
+  from the common footer; neither a large empty tail nor a glued footer is
+  acceptable.
+- Desktop/wide: copy and supplied black-and-white Timur portrait are two
+  columns; mobile at `640px` and below puts the portrait first and has 16px
+  gutters. Four controls use a compact `2×2` grid until `479px`, then one
+  column. Footer switches from four columns to two, then one.
+- The portrait is not a global aspect-ratio rule: Scenario uses `4:3`,
+  Materials uses `1:1`, and the preparation guide uses `3:2`; all preserve
+  Timur's face and upper body with centred cover cropping.
 - Required checks: `390x844`, `640/641`, `900/901`, `1180x820`, `1366x768`,
   `1440x900`, `1984x1046`; no horizontal overflow and no clipped button text.
 - Preserved invariants: homepage, Direct CTA/protection and the useful page
@@ -48,7 +47,7 @@ Updated: 2026-09-08
 
 ## Visible release target
 
-The scenario contour is visible after the useful page content. It contains four
+Each shared contour is visible after its useful page content. It contains four
 equal, explicit controls: Telegram, MAX, «Обсудить свадьбу» and «Сайт
-ведущего». The author portrait and the text phone number remain inside the same
-card; the contact pop-up opens over the page rather than creating a fifth CTA.
+ведущего». The author portrait and the text phone number remain in the island;
+the contact pop-up opens over the page rather than creating a fifth CTA.

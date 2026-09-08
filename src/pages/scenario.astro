@@ -16,13 +16,10 @@ const consultationPopupMarkup = renderConsultationContactPopup({
 const expertConversionMarkup = renderExpertConversionContour({
   basePath: homeHref,
   entrypoint: "scenario",
-  usefulHeading: "",
-  usefulText: "",
   telegramPlanUrl: telegramPlanUrlFor("scenario"),
   maxPlanUrl: maxPlanUrlFor("scenario"),
   telegramMeetingUrl: telegramScenarioMeetingUrl,
   maxMeetingUrl: maxScenarioMeetingUrl,
-  variant: "scenario_calculator",
 });
 const socialImageUrl = new URL(
   `${homeHref}images/scenario-hero-host-bw-source.jpg`,

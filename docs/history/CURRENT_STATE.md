@@ -2,10 +2,11 @@
 
 ## Expert-page conversion contour (2026-09-08)
 
-- `/scenario/` is the approval prototype for a compact calculator/contact
-  contour: one card with the calculator, contact choice and host-site link.
-  `/materials/` and `/articles/plan-podgotovki-k-svadbe/` retain the existing
-  shared `expert-conversion` contour until the prototype is approved.
+- `/scenario/`, `/materials/` and `/articles/plan-podgotovki-k-svadbe/` share
+  one home-site CTA island: four canonical split-buttons, phone text link,
+  author portrait and the existing contact pop-up. Copy and portrait crop vary
+  by page; button markup, font and interaction are intentionally identical to
+  the homepage pattern.
 - Each expert page now owns exact source codes: `site_plan_scenario`,
   `site_meeting_scenario`, `site_plan_materials`, `site_meeting_materials`,
   `site_plan_preparation_plan` and `site_meeting_preparation_plan`. The
