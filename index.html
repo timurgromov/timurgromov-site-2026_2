@@ -121,11 +121,43 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
       return trackingParams;
     }
 
+    function getAcquisitionContext(){
+      var tracking = getTrackingParams();
+      var context = { channel: 'unknown', landing_path: window.location.pathname || '/' };
+      var hasDirectMarker = Boolean(tracking.yclid) || Boolean(tracking.campaign.direct_campaign_id);
+      if (hasDirectMarker) {
+        context.channel = 'paid';
+        return context;
+      }
+      if (tracking.campaign.utm_source || tracking.campaign.utm_medium || tracking.campaign.utm_campaign) {
+        context.channel = 'campaign';
+        return context;
+      }
+      if (!document.referrer) return context;
+      try {
+        var referrerHost = new URL(document.referrer).hostname.toLowerCase();
+        context.referrer_host = referrerHost;
+        if (/(^|\.)yandex\./.test(referrerHost)) {
+          context.channel = 'organic';
+          context.engine = 'yandex';
+        } else if (/(^|\.)google\./.test(referrerHost)) {
+          context.channel = 'organic';
+          context.engine = 'google';
+        } else {
+          context.channel = 'referral';
+        }
+      } catch (_error) {
+        // Referrer metadata is optional and must not block a CTA.
+      }
+      return context;
+    }
+
     window.tgGetTrackingBundle = function(){
       var tracking = getTrackingParams();
       return {
         yclid: tracking.yclid || null,
-        campaign_params: Object.assign({}, tracking.campaign)
+        campaign_params: Object.assign({}, tracking.campaign),
+        attribution_context: getAcquisitionContext()
       };
     };
 
@@ -159,7 +191,12 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
               provider: data.provider,
               client_id: clientId || null,
               yclid: yclid || null,
-              campaign_params: tracking.campaign,
+              campaign_params: Object.assign({}, tracking.campaign, {
+                entry_channel: getAcquisitionContext().channel || 'unknown',
+                entry_engine: getAcquisitionContext().engine || '',
+                entry_referrer_host: getAcquisitionContext().referrer_host || '',
+                entry_landing_path: getAcquisitionContext().landing_path || '/'
+              }),
               landing_url: window.location.href,
               cta_code: anchor.getAttribute('data-plan-source') || data.source
             }),
@@ -3757,7 +3794,8 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
         form_source: String(formData.get('form_source') || 'site_consultation_popup').trim(),
         page_url: window.location.href,
         yclid: tracking.yclid,
-        campaign_params: tracking.campaign_params
+        campaign_params: tracking.campaign_params,
+        attribution_context: tracking.attribution_context
       };
 
       if (!payload.name || !payload.phone) {
@@ -5090,7 +5128,8 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
         form_source: String(formData.get('form_source') || 'site_plan_tripwire').trim(),
         page_url: window.location.href,
         yclid: tracking.yclid,
-        campaign_params: tracking.campaign_params
+        campaign_params: tracking.campaign_params,
+        attribution_context: tracking.attribution_context
       };
 
       if (!payload.role || !payload.wedding_timing || !payload.wedding_location) {
