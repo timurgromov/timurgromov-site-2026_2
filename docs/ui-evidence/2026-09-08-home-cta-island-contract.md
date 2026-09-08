@@ -12,12 +12,16 @@ shared main-site CTA island, not a separately designed expert-page card.
 - Four actions in this order: Telegram materials, MAX materials, «Обсудить
   свадьбу», «Сайт ведущего». The third action opens the existing contact popup;
   the phone remains a text link.
-- The same home font, orange/white color switch and hover lift apply on every
-  SEO route.
+- The same home font, orange/white color switch, hover lift and arrow
+  pseudo-element apply on every SEO route. On hover, the arrow turns 45
+  degrees; it is not a static background image.
 - The gap between useful content and CTA is 32px desktop/20px mobile. The CTA
   controls its own lower breathing room before the common footer.
-- Route-specific photo crops are Scenario `4:3`, Materials `1:1`, preparation
-  guide `3:2`; mobile uses compact `3:2`.
+- The supplied Timur portrait is clipped through the existing transparent
+  stencil from the homepage «Честно о ценах» media (`1760:960`), not through a
+  new rounded rectangle or a fixed `16:9` rule. It is compact beside copy on
+  desktop/tablet and moves above it on mobile. Routes may vary only the crop
+  position inside that same stencil.
 
 ## Required viewport check
 

@@ -3,11 +3,11 @@
   "change_id": "2026-09-08-home-cta-island-on-seo-pages",
   "change_kind": "shared-home-cta-island",
   "status": "passed",
-  "requested_visible_change": "Replace the bespoke expert-page CTA with a reusable main-site CTA island, remove its oversized empty gap, and tune the author crop for each SEO page.",
-  "expected_visible_delta": "All three SEO routes render the same four home-style split buttons, a text phone link and contextual portrait crop directly after useful content.",
-  "attempt_number": 1,
+  "requested_visible_change": "Replace the custom rounded portrait and static arrow in the SEO CTA with the literal home-page photo stencil and the home-page arrow motion.",
+  "expected_visible_delta": "All three SEO routes show Timur's portrait through the existing home-page «Честно о ценах» stencil; the four split buttons retain the home arrow that turns 45 degrees on hover.",
+  "attempt_number": 2,
   "checked_after_last_edit": true,
-  "candidate_diff_sha256": "617492ab5034dd8aaec3346eb06c0639e8b0a6deae64d407db6df6a31cb54606",
+  "candidate_diff_sha256": "9edb0df9c6edce0a5be46c711d1150e6d729844336db5c8d2dfff5aa02ca32cf",
   "served_candidate_url": "http://127.0.0.1:4322/scenario/",
   "target": {
     "surface": "/scenario/, /materials/, /articles/plan-podgotovki-k-svadbe/",
@@ -36,9 +36,9 @@
     {
       "viewport": "1440x900",
       "viewport_source": "local Playwright rendered candidate",
-      "before_signature": "The Scenario CTA was a rounded bespoke card with a 16:9 portrait and a 72px top contour gap.",
-      "after_signature": "The CTA uses home-site split buttons in a two-by-two grid, then the text phone and compact route-specific portrait.",
-      "observed_visible_result": "Scenario photo 330x248 (4:3), Materials 330x330 (1:1), preparation guide 330x220 (3:2); each route has a 32px gap after its content and four unclipped controls.",
+      "before_signature": "The author portrait was a bespoke rounded rectangle and the arrow graphic was a static masked background.",
+      "after_signature": "The portrait is clipped by the transparent 1760:960 home-price stencil; the arrow is a pseudo-element whose hover transform is rotate(45deg).",
+      "observed_visible_result": "Scenario, Materials and preparation guide render the same compact home-price stencil beside copy and four unclipped split controls. In the freshly opened local browser, Scenario visibly showed Timur's face and upper body inside the stencil.",
       "delta_visible": true,
       "target_visible": true,
       "runtime_errors": []
@@ -46,16 +46,18 @@
     {
       "viewport": "390x844",
       "viewport_source": "local Playwright rendered candidate",
-      "before_signature": "A tall image/card treatment could dominate the end of the page.",
-      "after_signature": "The author image is compact 358x239 (3:2) above the text; buttons stack only below 480px.",
-      "observed_visible_result": "All three routes have no horizontal overflow, four visible 48px actions, a 20px content-to-island gap, and a non-clipped footer transition.",
+      "before_signature": "The photo treatment had no shared visual relation to the homepage media and could occupy a mismatched rectangle.",
+      "after_signature": "The 358x195 mobile photo keeps the same home-price stencil above the copy, with object-position 62% 23% so Timur's face is visible.",
+      "observed_visible_result": "The mobile candidate loaded the author AVIF (natural width 900), has no horizontal overflow and preserves all four 48px actions with a non-clipped footer transition.",
       "delta_visible": true,
       "target_visible": true,
       "runtime_errors": []
     }
   ],
   "verification": {
-    "manual_render_matrix": "3 routes x 9 viewports; no overflow, exactly four actions, no clipped button labels",
+    "manual_render_matrix": "responsive gate plus 3 routes x desktop/mobile rendered checks; no overflow, exactly four actions, no clipped button labels",
+    "arrow_hover": "Local browser computed transform changed from matrix(1, 0, 0, 1, 0, 0) to matrix(0.707107, 0.707107, -0.707107, 0.707107, 0, 0) after hover and 250ms.",
+    "live_browser": "Fresh Codex in-app-browser load of local /scenario/ with the CTA text fragment visibly showed the home-price stencil, four buttons and author portrait.",
     "contact_popup": "The Discuss wedding control opened #consultation-contact-popup on all three routes in the local browser.",
     "messenger_scope": "Deep-link hrefs were inspected only; no Telegram/MAX session or bot journey was opened."
   }
