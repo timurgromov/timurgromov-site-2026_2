@@ -1,19 +1,25 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { renderExpertConversionContour } from "../site/expert-conversion";
-import { maxCalculatorUrl, maxMeetingUrlFor, telegramMeetingUrlFor, telegramPlanUrlFor } from "../site/home-data";
+import { renderConsultationContactPopup } from "../site/consultation-contact-popup";
+import { maxMeetingUrlFor, maxPlanUrlFor, telegramMeetingUrlFor, telegramPlanUrlFor } from "../site/home-data";
 
 const homeHref = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const pageUrl = new URL(`${homeHref}scenario/`, "https://timurgromov.ru").toString();
 const telegramScenarioMeetingUrl = telegramMeetingUrlFor("scenario");
 const maxScenarioMeetingUrl = maxMeetingUrlFor("scenario");
+const consultationPopupMarkup = renderConsultationContactPopup({
+  basePath: homeHref,
+  telegramMeetingUrl: telegramScenarioMeetingUrl,
+  maxMeetingUrl: maxScenarioMeetingUrl,
+});
 const expertConversionMarkup = renderExpertConversionContour({
   basePath: homeHref,
   entrypoint: "scenario",
   usefulHeading: "",
   usefulText: "",
   telegramPlanUrl: telegramPlanUrlFor("scenario"),
-  maxPlanUrl: maxCalculatorUrl,
+  maxPlanUrl: maxPlanUrlFor("scenario"),
   telegramMeetingUrl: telegramScenarioMeetingUrl,
   maxMeetingUrl: maxScenarioMeetingUrl,
   variant: "scenario_calculator",
@@ -569,6 +575,7 @@ const mistakes = [
     </article>
 
     <Fragment set:html={expertConversionMarkup} />
+    <Fragment set:html={consultationPopupMarkup} />
   </main>
 </BaseLayout>
 

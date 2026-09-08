@@ -7,13 +7,16 @@ Updated: 2026-09-08
 - Product type: expert-content landing inside the public wedding-host site.
 - Primary user: пара на этапе подготовки или выбора ведущего, пришедшая на
   экспертную страницу из поиска или по прямой ссылке.
-- Primary job: после прочтения сценария открыть свадебный калькулятор или
-  начать личный разговор о своей свадьбе.
-- Scenario flow: экспертный ответ → один компактный калькуляторный блок →
-  Telegram/MAX → калькулятор; при необходимости в том же блоке раскрывается
-  контакт с Тимуром (`site_meeting_scenario`).
-- The two calculator options (Telegram and MAX) are visually equal. Phone is
-  available only after the user opens the compact contact choice.
+- Primary job: после прочтения сценария выбрать один из четырёх понятных путей:
+  получить материалы в боте, обсудить свадьбу в уже готовом pop-up, увидеть
+  телефон или перейти на сайт ведущего.
+- Scenario flow: экспертный ответ → один компактный бренд-навигационный блок →
+  Telegram-бот или MAX-бот (калькулятор, полезные материалы, порядок вечера,
+  пример сценария и план подготовки) **или** «Обсудить свадьбу» (готовый
+  `consultation-contact-popup`) **или** главная страница ведущего.
+- В карточке всегда виден номер `+7 925 390 07 72` как текстовая ссылка, без
+  отдельной CTA-кнопки. Кнопка «Обсудить свадьбу» открывает тот же pop-up, что
+  на главной: Telegram, MAX, телефон и форма заявки.
 - Shared routes: `/scenario/`, `/materials/`,
   `/articles/plan-podgotovki-k-svadbe/`. The homepage and its Direct flow are
   outside this contour.
@@ -31,7 +34,8 @@ Updated: 2026-09-08
   shared contour until this scenario prototype is explicitly approved.
 - Desktop/wide: the scenario card is two columns; tablet at `900px` and below
   becomes one column; mobile at `640px` and below puts the portrait first and
-  has 16px gutters and full-width split buttons. Footer switches from four
+  has 16px gutters. CTA controls use a compact `2×2` grid from `480px` through
+  `640px` and become full-width only below `480px`. Footer switches from four
   columns to two, then one.
 - Required checks: `390x844`, `640/641`, `900/901`, `1180x820`, `1366x768`,
   `1440x900`, `1984x1046`; no horizontal overflow and no clipped button text.
@@ -40,7 +44,7 @@ Updated: 2026-09-08
 
 ## Visible release target
 
-The scenario contour is visible after the useful page content. It makes two
-outcomes explicit without competing panels: open the wedding calculator, or
-open the small contact choice to discuss the wedding. The scenario portrait and
-footer remain visible in the same reading flow.
+The scenario contour is visible after the useful page content. It contains four
+equal, explicit controls: Telegram, MAX, «Обсудить свадьбу» and «Сайт
+ведущего». The author portrait and the text phone number remain inside the same
+card; the contact pop-up opens over the page rather than creating a fifth CTA.

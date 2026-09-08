@@ -1,4 +1,4 @@
-import { getTildaCtaArrowIconUrl, tildaCtaInner, tildaCtaLink } from "./tilda-cta";
+import { getTildaCtaArrowIconUrl, tildaCtaLink } from "./tilda-cta";
 
 export type ExpertConversionEntrypoint = "scenario" | "materials" | "preparation_plan";
 export type ExpertConversionVariant = "default" | "scenario_calculator";
@@ -38,24 +38,18 @@ export const renderExpertConversionContour = ({
   const contourMarkup = isScenarioCalculator
     ? `<section class="expert-conversion__calculator-card" aria-label="Свадебный калькулятор и контакт с Тимуром">
       <div class="expert-conversion__calculator-copy">
-        <p class="expert-conversion__eyebrow">Свадебный калькулятор</p>
-        <h2>Рассчитать свадьбу и понять, что делать дальше</h2>
-        <p>Откройте Telegram или MAX — внутри бота можно собрать ориентировочную смету свадьбы.</p>
-        <div class="expert-conversion__calculator-actions" aria-label="Открыть свадебный калькулятор">
-          ${tildaCtaLink("expert-conversion__button expert-conversion__button--primary", telegramPlanUrl, "Открыть в Telegram", `${safeAttrs} data-plan-source="site_plan_${entrypoint}" data-expert-cta="calculator-telegram"`)}
-          ${tildaCtaLink("expert-conversion__button expert-conversion__button--secondary", maxPlanUrl, "Открыть в MAX", `${safeAttrs} data-plan-source="site_plan_${entrypoint}" data-expert-cta="calculator-max"`)}
+        <p class="expert-conversion__eyebrow">Всё для подготовки к свадьбе</p>
+        <h2>Получить больше, чем сценарий</h2>
+        <p class="expert-conversion__bot-note">В Telegram- и MAX-боте вы получите свадебный калькулятор, полезные материалы, порядок вечера, пример сценария и пошаговый план подготовки к свадьбе. Можно обсудить свою свадьбу с Тимуром или посмотреть сайт ведущего.</p>
+        <div class="expert-conversion__calculator-actions" aria-label="Открыть бота для подготовки к свадьбе">
+          ${tildaCtaLink("expert-conversion__button expert-conversion__button--primary", telegramPlanUrl, "Получить в Telegram", `${safeAttrs} data-plan-source="site_plan_${entrypoint}" data-expert-cta="plan-telegram"`)}
+          ${tildaCtaLink("expert-conversion__button expert-conversion__button--secondary", maxPlanUrl, "Получить в MAX", `${safeAttrs} data-plan-source="site_plan_${entrypoint}" data-expert-cta="plan-max"`)}
         </div>
         <div class="expert-conversion__secondary-actions">
-          <details class="expert-conversion__contact-choice">
-            <summary class="tg-tilda-cta expert-conversion__button expert-conversion__button--contact">${tildaCtaInner("Обсудить свадьбу")}</summary>
-            <div class="expert-conversion__contact-options" aria-label="Выберите способ связи с Тимуром">
-              ${tildaCtaLink("expert-conversion__contact-link", telegramMeetingUrl, "Telegram", `${safeAttrs} data-plan-source="site_meeting_${entrypoint}" data-expert-cta="meeting-telegram"`)}
-              ${tildaCtaLink("expert-conversion__contact-link", maxMeetingUrl, "MAX", `${safeAttrs} data-plan-source="site_meeting_${entrypoint}" data-expert-cta="meeting-max"`)}
-              <a class="expert-conversion__phone" href="tel:+79253900772" data-expert-cta="meeting-phone">Позвонить</a>
-            </div>
-          </details>
-          ${tildaCtaLink("expert-conversion__button expert-conversion__button--secondary expert-conversion__host-link", basePath, "Тимур Громов — ведущий", 'data-expert-cta="host-home"')}
+          ${tildaCtaLink("expert-conversion__button expert-conversion__button--secondary", "#consultation-contact", "Обсудить свадьбу", 'data-consultation-popup-open data-expert-cta="meeting-popup"')}
+          ${tildaCtaLink("expert-conversion__button expert-conversion__button--secondary expert-conversion__host-link", basePath, "Сайт ведущего", 'data-expert-cta="host-home"')}
         </div>
+        <a class="expert-conversion__scenario-phone" href="tel:+79253900772">+7 925 390 07 72</a>
       </div>
       <picture class="expert-conversion__calculator-photo">
         <source srcset="${calculatorPortraitAvifUrl}" type="image/avif" />
@@ -117,19 +111,15 @@ export const renderExpertConversionContour = ({
     .expert-conversion--scenario-calculator .expert-conversion__calculator-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,320px);gap:38px;align-items:stretch;padding:34px 36px;border:1px solid var(--expert-line);border-radius:30px;background:linear-gradient(135deg,#fffefa 0%,#f8efe4 100%);box-shadow:0 22px 54px rgba(36,29,25,.07)}
     .expert-conversion--scenario-calculator .expert-conversion__calculator-copy{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;max-width:620px}
     .expert-conversion--scenario-calculator .expert-conversion__calculator-copy>p:not(.expert-conversion__eyebrow){margin:16px 0 0;color:var(--expert-muted);font-size:18px;line-height:1.5}
+    .expert-conversion--scenario-calculator .expert-conversion__bot-note{margin-top:16px!important;color:var(--expert-ink)!important;font-size:16px!important;line-height:1.46!important}
     .expert-conversion--scenario-calculator .expert-conversion__calculator-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:100%;margin-top:26px}
     .expert-conversion--scenario-calculator .expert-conversion__secondary-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:100%;margin-top:10px;align-items:start}
-    .expert-conversion--scenario-calculator .expert-conversion__button--contact{width:100%;cursor:pointer;list-style:none;border:0;background:transparent;padding:0;appearance:none}
-    .expert-conversion--scenario-calculator .expert-conversion__button--contact::-webkit-details-marker{display:none}
-    .expert-conversion--scenario-calculator .expert-conversion__button--contact{--tg-cta-fill:#fffefa;--tg-cta-arrow-fill:#fffefa;--tg-cta-color:var(--expert-ink);--tg-cta-arrow-color:var(--expert-ink)}
-    .expert-conversion--scenario-calculator .expert-conversion__contact-choice{width:100%}
-    .expert-conversion--scenario-calculator .expert-conversion__contact-options{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:15px 2px 0;color:var(--expert-muted);font-size:15px;line-height:1.3}
-    .expert-conversion--scenario-calculator .expert-conversion__contact-link{color:var(--expert-ink);font-weight:600;text-decoration:underline;text-decoration-color:rgba(36,29,25,.28);text-underline-offset:4px}
-    .expert-conversion--scenario-calculator .expert-conversion__contact-options .expert-conversion__phone{font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:600;text-align:left}
+    .expert-conversion--scenario-calculator .expert-conversion__scenario-phone{margin-top:18px;color:var(--expert-accent);font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;font-weight:600;line-height:1;text-decoration:none}
     .expert-conversion--scenario-calculator .expert-conversion__calculator-photo{display:block;overflow:hidden;min-height:400px;border-radius:18px;background:#d8d0c8}
     .expert-conversion--scenario-calculator .expert-conversion__calculator-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
     @media(max-width:900px){.expert-conversion--scenario-calculator .expert-conversion__calculator-card{grid-template-columns:minmax(0,1fr) minmax(220px,280px);gap:28px;padding:28px}.expert-conversion--scenario-calculator .expert-conversion__calculator-photo{min-height:360px}}
-    @media(max-width:640px){.expert-conversion--scenario-calculator .expert-conversion__calculator-card{grid-template-columns:1fr;gap:24px;padding:20px;border-radius:22px}.expert-conversion--scenario-calculator .expert-conversion__calculator-photo{order:-1;min-height:360px;border-radius:14px}.expert-conversion--scenario-calculator .expert-conversion__calculator-actions,.expert-conversion--scenario-calculator .expert-conversion__secondary-actions{grid-template-columns:1fr;margin-top:22px}.expert-conversion--scenario-calculator .expert-conversion__secondary-actions{margin-top:9px}.expert-conversion--scenario-calculator .expert-conversion__contact-options{gap:12px;padding-top:13px}}
+    @media(max-width:640px){.expert-conversion--scenario-calculator .expert-conversion__calculator-card{grid-template-columns:1fr;gap:24px;padding:20px;border-radius:22px}.expert-conversion--scenario-calculator .expert-conversion__calculator-photo{order:-1;min-height:360px;border-radius:14px}.expert-conversion--scenario-calculator .expert-conversion__calculator-actions,.expert-conversion--scenario-calculator .expert-conversion__secondary-actions{grid-template-columns:1fr;margin-top:22px}.expert-conversion--scenario-calculator .expert-conversion__secondary-actions{margin-top:9px}.expert-conversion--scenario-calculator .expert-conversion__scenario-phone{margin-top:20px;font-size:25px}}
+    @media(min-width:480px) and (max-width:640px){.expert-conversion--scenario-calculator .expert-conversion__calculator-actions,.expert-conversion--scenario-calculator .expert-conversion__secondary-actions{grid-template-columns:repeat(2,minmax(0,1fr))}}
   </style>
 </section>`;
 };

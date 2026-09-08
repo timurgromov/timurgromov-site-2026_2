@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "change_id": "2026-09-08-scenario-calculator-prototype",
-  "change_kind": "scenario-only-compact-calculator-contact-cta",
+  "change_kind": "scenario-only-brand-navigation-cta",
   "status": "passed",
-  "requested_visible_change": "Replace the two large conversion cards on the Scenario page with one compact calculator/contact card that includes the supplied portrait and a homepage offer link.",
-  "expected_visible_delta": "One card presents calculator delivery, an in-place wedding-discussion choice, a host-site link, and the portrait; no second meeting or author card remains on Scenario.",
+  "requested_visible_change": "Replace the two large conversion cards on the Scenario page with one compact brand-navigation card: Telegram and MAX materials, the existing consultation pop-up, the host site, a direct phone link and the supplied portrait.",
+  "expected_visible_delta": "One card presents four compact controls in a two-by-two grid on usable widths, the direct phone link and the portrait; no second meeting or author card remains on Scenario.",
   "attempt_number": 1,
   "checked_after_last_edit": true,
-  "candidate_diff_sha256": "ad3b2c448d2ccb4457914f1d0adbd2bf6cffdf242000c4e7e439581d4eee6b14",
+  "candidate_diff_sha256": "dc9b4652913b869060afe99b740fcc988380aabc7aa010fa02c8c9b5b6362b15",
   "served_candidate": {
     "url": "http://127.0.0.1:4321/scenario/",
     "source_ref": "local built working-tree candidate",
@@ -17,7 +17,7 @@
     "surface": "/scenario/",
     "state": "public anonymous visitor; messenger links inspected but not opened",
     "selector_or_slide_id": "[data-testid=expert-conversion-scenario]",
-    "action": "fresh load, inspect the closed card, then expand only the in-page contact choice"
+    "action": "fresh load, inspect the four controls, then open the existing contact pop-up from the discussion control"
   },
   "must_remain_unchanged": [
     "homepage surface",
@@ -27,6 +27,8 @@
   ],
   "required_viewports": [
     "390x844",
+    "480x844",
+    "640x844",
     "1440x900"
   ],
   "observations": [
@@ -34,7 +36,7 @@
       "viewport": "1440x900",
       "viewport_source": "repository responsive-layout gate",
       "before_signature": "Two stacked conversion cards and a separate author card occupied the Scenario continuation area.",
-      "after_signature": "One two-column card contains the calculator copy/actions and the portrait without a second CTA panel.",
+      "after_signature": "One two-column card contains the approved bot copy, a compact two-by-two control grid, the direct phone link and the portrait without a second CTA panel.",
       "observed_visible_result": "Responsive verification completed without overflow or clipped controls at this desktop viewport.",
       "delta_visible": true,
       "target_visible": true,
@@ -45,7 +47,7 @@
       "viewport": "390x844",
       "viewport_source": "Codex in-app browser",
       "before_signature": "Two stacked conversion cards and a separate author card.",
-      "after_signature": "A single card shows the centred-crop portrait first, then calculator actions, discussion control and host-site link in one column.",
+      "after_signature": "A single card shows the centred-crop portrait first, then the four controls and direct phone link in one column.",
       "observed_visible_result": "All closed-state CTA labels are fully visible with no horizontal overflow.",
       "delta_visible": true,
       "target_visible": true,
@@ -53,11 +55,33 @@
       "console_errors": []
     },
     {
-      "viewport": "390x844, contact expanded",
+      "viewport": "480x844",
+      "viewport_source": "local Playwright browser screenshot",
+      "before_signature": "The old Scenario conversion flow was two large full-width cards.",
+      "after_signature": "The single card keeps its four controls in a compact two-by-two grid while preserving the direct phone link.",
+      "observed_visible_result": "All four labels and arrow cells are visible inside the card; the footer begins directly beneath it with no horizontal overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "640x844",
+      "viewport_source": "repository responsive-layout gate",
+      "before_signature": "The old Scenario conversion flow was two stacked full-width cards.",
+      "after_signature": "The one-card CTA preserves the two-by-two compact control arrangement at the upper mobile breakpoint.",
+      "observed_visible_result": "The full responsive matrix passed with no horizontal overflow or clipped controls at the 640px breakpoint probe.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900, contact pop-up open",
       "viewport_source": "Codex in-app browser",
-      "before_signature": "No compact in-place contact chooser existed.",
-      "after_signature": "The same card reveals Telegram, MAX and a telephone action beneath the discussion control.",
-      "observed_visible_result": "No external messenger route was opened during verification.",
+      "before_signature": "No single-card discussion control opened the existing contact pattern from the Scenario CTA.",
+      "after_signature": "The discussion control opens the existing contact pop-up with Telegram, MAX, direct telephone and a consultation form.",
+      "observed_visible_result": "The pop-up opens without navigating away from Scenario. No external messenger route was opened during verification.",
       "delta_visible": true,
       "target_visible": true,
       "preserved_invariants_passed": true,
