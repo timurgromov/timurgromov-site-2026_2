@@ -4017,7 +4017,8 @@ const consultationContactPopupAssets = `<style>
         form_source: String(formData.get('form_source') || 'site_consultation_popup').trim(),
         page_url: window.location.href,
         yclid: tracking.yclid,
-        campaign_params: tracking.campaign_params
+        campaign_params: tracking.campaign_params,
+        attribution_context: tracking.attribution_context
       };
 
       if (!payload.name || !payload.phone) {
@@ -5354,7 +5355,8 @@ const planDeliveryPopupAssets = `<style>
         form_source: String(formData.get('form_source') || 'site_plan_tripwire').trim(),
         page_url: window.location.href,
         yclid: tracking.yclid,
-        campaign_params: tracking.campaign_params
+        campaign_params: tracking.campaign_params,
+        attribution_context: tracking.attribution_context
       };
 
       if (!payload.role || !payload.wedding_timing || !payload.wedding_location) {

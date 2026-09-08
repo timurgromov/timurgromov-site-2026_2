@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-08-preparation-plan-page",
+  "change_kind": "new-public-article-route",
+  "status": "passed",
+  "requested_visible_change": "Publish an open, readable preparation-plan article that the owner can inspect on desktop and mobile.",
+  "expected_visible_delta": "The formerly missing route displays the article H1, direct preparation answer, twelve stages, navigation and a voluntary continuation CTA; the article hub gains a second published card.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "f5ee2dcfead3ca95a87808dc69e3fa8407dc25113561e43dc589962e7984ebe1",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4810/articles/plan-podgotovki-k-svadbe/",
+    "source_ref": "local built working-tree candidate",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/articles/plan-podgotovki-k-svadbe/ and /articles/",
+    "state": "public anonymous visitor with no form, bot or account state",
+    "selector_or_slide_id": "[data-testid=preparation-plan-page], [data-testid=preparation-plan-article], [data-testid=preparation-plan-primary-cta]",
+    "action": "fresh-load the article route, inspect the hero and scroll through the article and continuation CTA"
+  },
+  "required_viewports": [
+    "390x844",
+    "480x900",
+    "768x900",
+    "899x900",
+    "900x900",
+    "901x900",
+    "1180x820",
+    "1440x900"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "before_signature": "The requested route did not exist before this change.",
+      "after_signature": "Article H1, lead and first-steps card render with document scrollWidth=390 and clientWidth=390.",
+      "observed_visible_result": "Mobile article hierarchy is readable without horizontal panning.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "480x900",
+      "before_signature": "The requested route did not exist before this change.",
+      "after_signature": "Article and primary CTA are present with document scrollWidth=480 and clientWidth=480.",
+      "observed_visible_result": "Wide-mobile layout remains a single readable column without overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "768x900",
+      "before_signature": "The requested route did not exist before this change.",
+      "after_signature": "Article and primary CTA are present with document scrollWidth=768 and clientWidth=768.",
+      "observed_visible_result": "Tablet layout keeps the article and navigation accessible without overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "899x900",
+      "before_signature": "The requested route did not exist before this change.",
+      "after_signature": "Article and primary CTA are present with document scrollWidth=899 and clientWidth=899.",
+      "observed_visible_result": "The one-column side-panel breakpoint is readable immediately below 900px.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "900x900",
+      "before_signature": "The requested route did not exist before this change.",
+      "after_signature": "Article and primary CTA are present with document scrollWidth=900 and clientWidth=900.",
+      "observed_visible_result": "The exact 900px boundary remains readable and has no horizontal overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "901x900",
+      "before_signature": "The requested route did not exist before this change.",
+      "after_signature": "Article and primary CTA are present with document scrollWidth=901 and clientWidth=901.",
+      "observed_visible_result": "The desktop two-column transition begins without overflow or a missing CTA.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1180x820",
+      "before_signature": "The requested route did not exist before this change.",
+      "after_signature": "Hero shell is 1120px inside the 1180px viewport and the page background spans the full viewport width.",
+      "observed_visible_result": "Desktop hero, reading column and side navigation use the intended spacious layout.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "before_signature": "The requested route did not exist before this change.",
+      "after_signature": "Article and primary CTA are present with document scrollWidth=1440 and clientWidth=1440.",
+      "observed_visible_result": "Wide desktop preserves the article hierarchy and has no horizontal overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ]
+}

@@ -1,0 +1,814 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import {
+  maxMeetingUrl,
+  telegramMeetingUrl,
+} from "../../site/home-data";
+
+const homeHref = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const articleHref = `${homeHref}articles/plan-podgotovki-k-svadbe/`;
+const articlesHref = `${homeHref}articles/`;
+const materialsHref = `${homeHref}materials/`;
+const scenarioHref = `${homeHref}scenario/`;
+const pageUrl = new URL(articleHref, "https://timurgromov.ru").toString();
+const socialImageUrl = new URL(
+  `${homeHref}images/scenario-hero-host-bw-source.jpg`,
+  "https://timurgromov.ru",
+).toString();
+
+const stages = [
+  {
+    number: "01",
+    title: "Определитесь с датой — и оставьте себе варианты",
+    body: [
+      "Дата влияет на площадку, команду, логистику гостей и темп подготовки. Поэтому полезнее выбрать сезон или месяц и держать две-три возможные даты, чем строить всё вокруг одной идеальной субботы.",
+      "Сначала решите, насколько важны конкретный день и время церемонии, возможны ли будний день или воскресенье, кто из близких должен точно быть рядом и нужен ли план Б на погоду. Если дата популярная, сначала уточняйте доступность ключевых вариантов — и только затем фиксируйте остальные детали.",
+    ],
+    list: [
+      "желаемый сезон или месяц;",
+      "две-три подходящие даты;",
+      "важные для гостей ограничения по маршруту и времени;",
+      "что в вашей дате действительно нельзя менять.",
+    ],
+  },
+  {
+    number: "02",
+    title: "Сформулируйте формат до поиска площадки",
+    body: [
+      "Площадка должна поддерживать ваш праздник, а не заставлять подстраивать под неё всё остальное. До просмотров договоритесь хотя бы о черновом формате: камерный или большой вечер, спокойный или динамичный темп, город или загород, церемония и прогулка в этот же день или отдельно.",
+      "Особенно важен диапазон гостей: минимум, комфортный ориентир и максимум. Он влияет на посадку, бюджет, площадку, программу и даже на то, сколько времени понадобится на поздравления.",
+    ],
+    list: [
+      "какой атмосферы вы хотите: семейной, вечеринки, спокойного общения;",
+      "есть ли разные поколения, дети или гости, которым нужна простая логистика;",
+      "нужна ли улица, выездная церемония, welcome или отдельная прогулка;",
+      "какие три критерия площадки важнее красивой картинки.",
+    ],
+  },
+  {
+    number: "03",
+    title: "Соберите бюджетный каркас и стоп-лист",
+    body: [
+      "Не обязательно сразу знать точную смету. Для начала разбейте свадьбу на крупные блоки: площадка и еда, команда, фото и видео, декор, музыка и техника, образы, логистика, торт и прочие детали.",
+      "Для каждой статьи отметьте: это ядро, которое вам важно сохранить; вещь, в которой возможны варианты; или идея, без которой праздник не потеряет смысла. Отдельно оставьте резерв на изменения — его размер зависит от вашей ситуации и не бывает универсальным процентом.",
+    ],
+    note: "На этой странице нет «средней стоимости свадьбы в Москве»: честный материал о ценах требует отдельных свежих источников и методики.",
+  },
+  {
+    number: "04",
+    title: "Отберите площадки через фильтр, а не через десятки поездок",
+    body: [
+      "Соберите варианты по своим критериям, коротко уточните условия звонком или письменно, а затем оставьте несколько площадок для просмотра. Это экономит время и делает сравнение честнее.",
+    ],
+    list: [
+      "что входит в аренду, меню, мебель, текстиль, свет и звук;",
+      "как считаются продление, сервисные сборы, клининг, охрана и другие доплаты;",
+      "можно ли привезти своих ведущего, DJ и подрядчиков;",
+      "ограничения по времени, шуму, свечам, дыму и конфетти;",
+      "достаточно ли места для посадки, танцпола, программы и нормального прохода;",
+      "подъезд, парковка, вентиляция, санузлы, разгрузка и план Б;",
+      "условия переноса, отмены, изменения числа гостей и форс-мажора.",
+    ],
+    note: "Перед оплатой внимательно прочитайте договор. При сложных или спорных условиях лучше получить профессиональную юридическую консультацию.",
+  },
+  {
+    number: "05",
+    title: "Соберите ключевую команду и фиксируйте договорённости",
+    body: [
+      "Когда дата, формат и площадка понятны, легче выбирать тех, кто будет собирать ваш день. Для каждого подрядчика важны не только портфолио и стоимость, но и ясность: что входит в услугу, кто за что отвечает, какие сроки и как команда будет взаимодействовать.",
+      "При выборе ведущего сначала посмотрите работы и выделите тех, чей стиль вам близок. Потом проведите короткие созвоны, а для личной встречи оставьте несколько кандидатов, с которыми есть ощущение доверия и понятный процесс подготовки.",
+    ],
+    list: [
+      "Какой формат вечера ведущий создаёт и чего принципиально не делает?",
+      "Как устроена подготовка: сколько созвонов и какие решения нужно принять вместе?",
+      "Как строится программа, чтобы у гостей оставалось время общаться?",
+      "Что входит в условия и какие изменения нужно обсудить заранее?",
+    ],
+  },
+  {
+    number: "06",
+    title: "Назначьте операционного человека на день свадьбы",
+    body: [
+      "В день свадьбы паре не стоит отвечать за пропуска, доставку торта, поиски зарядки или вопрос, где ставить оборудование. Нужен один понятный контакт: координатор или заранее согласованный близкий человек, который готов держать организационные мелочи.",
+      "Передайте этому человеку контакты команды, маршрут, финальный тайминг, важные вещи и границы его роли. Даже на камерной свадьбе лучше заранее понять, кто принимает решения на месте.",
+    ],
+  },
+  {
+    number: "07",
+    title: "Сначала соберите день блоками",
+    body: [
+      "Не пытайтесь сразу расписать каждую минуту. Сначала соберите крупные блоки: сборы и дорога, ЗАГС или церемония, прогулка, welcome, начало банкета, ключевые моменты вечера, паузы для общения и финал.",
+      "Так вы увидите, где нужна площадка, когда заняты фото и видео, где потребуется техника и кто встречает гостей. Только после этого имеет смысл превращать план в рабочий тайминг.",
+    ],
+    cta: {
+      label: "Открыть материал о сценарии и тайминге",
+      href: scenarioHref,
+      text: "Если вы уже продумываете сам вечер, разберите отдельно его логику: welcome, поздравления, общение гостей и важные паузы.",
+    },
+  },
+  {
+    number: "08",
+    title: "Сделайте одну рабочую таблицу тайминга",
+    body: [
+      "В таблице достаточно пяти колонок: время, событие, место, ответственный и то, что нужно подготовить заранее. В ней быстро становятся видны пересечения: когда нужна площадка, где должна быть техника, кто встречает доставку и в какой момент кухня занята.",
+      "Оставляйте между крупными блоками время на дорогу, сбор гостей, переодевание, задержку подачи и короткие разговоры. Это не потерянные минуты, а запас, который делает день спокойнее.",
+    ],
+  },
+  {
+    number: "09",
+    title: "Соберите список гостей и правила приглашения",
+    body: [
+      "Пока гости «плавают», плавают меню, бюджет, рассадка и тайминг. Сделайте одну таблицу со статусом приглашения и заранее договоритесь о правилах: плюс один, дети, гости из другого города и срок подтверждения.",
+    ],
+    list: [
+      "точно зовём / под вопросом / если останется место и бюджет;",
+      "кто приезжает издалека и что ему понадобится;",
+      "до какой даты нужен ответ;",
+      "какие детали важны для посадки, питания и маршрута.",
+    ],
+  },
+  {
+    number: "10",
+    title: "Согласуйте еду, сервис и важные детали с площадкой",
+    body: [
+      "Письменно зафиксируйте меню и подачу, особые диеты, напитки, хранение и вынос торта, а также то, кто и когда принимает доставки. Эти вопросы кажутся маленькими, но именно они часто влияют на тайминг и комфорт гостей.",
+      "Площадке, ведущему, координатору, фото и видео полезно видеть один и тот же актуальный план. Тогда программа не конфликтует с подачей, а важные моменты не приходится собирать на ходу.",
+    ],
+  },
+  {
+    number: "11",
+    title: "За несколько дней соберите финальный файл",
+    body: [
+      "Подготовьте одно финальное сообщение или файл для площадки, подрядчиков и операционного человека. Не нужно создавать общий чат, где теряются детали: лучше держать одну понятную актуальную версию.",
+    ],
+    list: [
+      "адрес, точка входа, парковка, пропуска и контакты на площадке;",
+      "время доступа, монтажа и саундчека, если они нужны;",
+      "финальный тайминг и ответственные по каждому блоку;",
+      "важные ограничения площадки, питание подрядчиков и план Б;",
+      "контакты всех участников в одном формате.",
+    ],
+  },
+  {
+    number: "12",
+    title: "Соберите «три коробки»",
+    body: [
+      "За сутки до свадьбы соберите в понятных местах деньги и оплаты, документы и контакты, а также вещи дня: кольца, документы, зарядки, аптечку, сменную обувь и то, что важно именно вам. Пусть операционный человек знает, где всё лежит.",
+      "Это простая подготовка, которая позволяет паре в день свадьбы быть участниками своего праздника, а не диспетчерами.",
+    ],
+  },
+];
+
+const checklist = [
+  ["Больше полугода", "Определите формат, диапазон гостей и несколько дат; затем отберите площадки."],
+  ["Несколько месяцев", "Зафиксируйте площадку и ключевую команду, соберите бюджетный каркас и черновой план дня."],
+  ["Меньше месяца", "Не добавляйте новые идеи без необходимости; соберите тайминг, роли, контакты и финальный файл."],
+];
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Главная", item: "https://timurgromov.ru/" },
+    { "@type": "ListItem", position: 2, name: "Статьи", item: new URL(articlesHref, "https://timurgromov.ru").toString() },
+    { "@type": "ListItem", position: 3, name: "Пошаговый план подготовки к свадьбе", item: pageUrl },
+  ],
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "Пошаговый план подготовки к свадьбе: что делать и в каком порядке",
+  description: "Спокойный план подготовки к свадьбе: дата, формат, бюджет, площадка, команда, тайминг и последние дни перед праздником.",
+  mainEntityOfPage: pageUrl,
+  author: { "@type": "Person", name: "Тимур Громов", url: "https://timurgromov.ru/" },
+  publisher: { "@type": "Person", name: "Тимур Громов" },
+  image: socialImageUrl,
+  inLanguage: "ru-RU",
+};
+---
+
+<BaseLayout
+  title="Пошаговый план подготовки к свадьбе | Тимур Громов"
+  description="Спокойный план подготовки к свадьбе: дата, формат, бюджет, площадка, команда, тайминг и последние дни перед праздником."
+  canonical={pageUrl}
+  ogImage={socialImageUrl}
+  ogImageAlt="Тимур Громов"
+  ogType="article"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)}></script>
+  </Fragment>
+
+  <main class="plan-page" data-testid="preparation-plan-page">
+    <header class="plan-hero">
+      <div class="plan-shell">
+        <a class="plan-back" href={articlesHref}>← Все статьи</a>
+        <p class="plan-kicker">Авторский свадебный гид</p>
+        <h1>Пошаговый план подготовки к свадьбе: что делать и в каком порядке</h1>
+        <p class="plan-lead">
+          Подготовка становится спокойнее, когда решения идут в правильной
+          последовательности. Начните с даты, формата, гостей и бюджета — и
+          только затем переходите к площадке, команде и таймингу.
+        </p>
+        <div class="plan-first-steps">
+          <span>Начните сегодня</span>
+          <ol>
+            <li>Запишите сезон и две-три возможные даты.</li>
+            <li>Опишите формат и диапазон гостей.</li>
+            <li>Зафиксируйте финансовую границу и приоритеты.</li>
+          </ol>
+        </div>
+      </div>
+    </header>
+
+    <div class="plan-shell plan-layout">
+      <article class="plan-article" data-testid="preparation-plan-article">
+        <section class="plan-intro">
+          <p>
+            Этот гид — не набор обязательных правил. У каждой пары свой срок,
+            город, состав гостей и представление о празднике. Но порядок ниже
+            помогает не переделывать уже принятые решения и не превращать
+            подготовку в бесконечный список задач.
+          </p>
+        </section>
+
+        {stages.map((stage) => (
+          <section class="plan-stage" id={`stage-${stage.number}`}>
+            <div class="plan-stage__number" aria-hidden="true">{stage.number}</div>
+            <div class="plan-stage__content">
+              <h2>{stage.title}</h2>
+              {stage.body.map((paragraph) => <p>{paragraph}</p>)}
+              {stage.list && (
+                <ul>
+                  {stage.list.map((item) => <li>{item}</li>)}
+                </ul>
+              )}
+              {stage.note && <aside class="plan-note">{stage.note}</aside>}
+              {stage.cta && (
+                <aside class="plan-inline-link">
+                  <p>{stage.cta.text}</p>
+                  <a href={stage.cta.href}>{stage.cta.label} →</a>
+                </aside>
+              )}
+            </div>
+          </section>
+        ))}
+
+        <section class="plan-checklist">
+          <p class="plan-kicker">Мини-чек-лист</p>
+          <h2>Что делать дальше</h2>
+          <div class="plan-checklist__grid">
+            {checklist.map(([term, text]) => (
+              <div>
+                <strong>{term}</strong>
+                <p>{text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section class="plan-faq">
+          <p class="plan-kicker">Частые вопросы</p>
+          <details open>
+            <summary>С чего начать подготовку к свадьбе?</summary>
+            <p>С даты с несколькими вариантами, формата, диапазона гостей и финансовых границ. Эти решения задают критерии для площадки и команды.</p>
+          </details>
+          <details>
+            <summary>Когда искать ведущего?</summary>
+            <p>Когда понятны дата, формат, число гостей и площадка или хотя бы её тип. Тогда разговор будет предметным: можно обсуждать стиль вечера, логистику и объём подготовки.</p>
+          </details>
+          <details>
+            <summary>Нужен ли координатор на небольшую свадьбу?</summary>
+            <p>Не всегда. Но в день праздника должен быть один понятный человек, который держит операционные вопросы, чтобы пара и близкие не превращались в диспетчеров.</p>
+          </details>
+          <details>
+            <summary>Нужно ли делать тайминг поминутно?</summary>
+            <p>Сначала достаточно крупных блоков. Затем рабочая таблица с ответственными и подготовкой помогает команде согласовать детали без лишней суеты.</p>
+          </details>
+        </section>
+      </article>
+
+      <aside class="plan-side" aria-label="Навигация по плану">
+        <div class="plan-side__card">
+          <p class="plan-kicker">Внутри гида</p>
+          <ol>
+            {stages.map((stage) => <li><a href={`#stage-${stage.number}`}>{stage.title}</a></li>)}
+          </ol>
+        </div>
+      </aside>
+    </div>
+
+    <section class="plan-shell plan-cta">
+      <div>
+        <p class="plan-kicker">Продолжить подготовку</p>
+        <h2>Соберите следующие полезные шаги без лишних поисков</h2>
+        <p>
+          На странице материалов есть видео и дополнительные инструменты
+          подготовки. А когда дата и формат уже понятны, можно отдельно
+          обсудить вашу свадьбу и ведущего.
+        </p>
+      </div>
+      <div class="plan-cta__actions">
+        <a
+          class="plan-button plan-button--primary"
+          href={materialsHref}
+          data-testid="preparation-plan-primary-cta"
+        >
+          Открыть материалы
+        </a>
+        <a
+          class="plan-button plan-button--secondary"
+          href={telegramMeetingUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-plan-source="article_preparation_plan_telegram"
+        >
+          Обсудить в Telegram
+        </a>
+        <a
+          class="plan-button plan-button--secondary"
+          href={maxMeetingUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-plan-source="article_preparation_plan_max"
+        >
+          Обсудить в MAX
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .plan-page {
+    min-height: 100vh;
+    color: #1c1b1a;
+    background:
+      radial-gradient(circle at top right, rgba(207, 146, 88, 0.18), transparent 29%),
+      linear-gradient(180deg, #fcf6ef 0%, #f6efe6 44%, #fdfaf6 100%);
+  }
+
+  .plan-shell {
+    width: min(1120px, calc(100vw - 40px));
+    margin: 0 auto;
+  }
+
+  .plan-hero {
+    padding: 40px 0 48px;
+    border-bottom: 1px solid rgba(28, 27, 26, 0.1);
+  }
+
+  .plan-back {
+    display: inline-flex;
+    margin-bottom: 30px;
+    color: #6f5844;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .plan-kicker {
+    margin: 0 0 14px;
+    color: #9f5f2b;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .plan-hero h1,
+  .plan-article h2,
+  .plan-checklist h2,
+  .plan-cta h2 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  .plan-hero h1 {
+    max-width: 920px;
+    font-size: clamp(42px, 6vw, 76px);
+    line-height: 0.96;
+  }
+
+  .plan-lead {
+    max-width: 760px;
+    margin: 24px 0 0;
+    color: #54463a;
+    font-size: 20px;
+    line-height: 1.55;
+  }
+
+  .plan-first-steps {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 20px;
+    max-width: 880px;
+    margin-top: 34px;
+    padding: 22px 24px;
+    border: 1px solid rgba(28, 27, 26, 0.12);
+    border-radius: 20px;
+    background: rgba(255, 252, 248, 0.74);
+  }
+
+  .plan-first-steps > span {
+    color: #9f5f2b;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .plan-first-steps ol {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  .plan-first-steps li {
+    color: #4c4035;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  .plan-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 760px) minmax(250px, 1fr);
+    align-items: start;
+    gap: 68px;
+    padding: 52px 0 32px;
+  }
+
+  .plan-article {
+    min-width: 0;
+  }
+
+  .plan-intro {
+    padding-bottom: 38px;
+    color: #382e26;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(24px, 3vw, 34px);
+    line-height: 1.2;
+  }
+
+  .plan-intro p {
+    margin: 0;
+  }
+
+  .plan-stage {
+    display: grid;
+    grid-template-columns: 58px minmax(0, 1fr);
+    gap: 20px;
+    padding: 38px 0;
+    border-top: 1px solid rgba(28, 27, 26, 0.12);
+    scroll-margin-top: 18px;
+  }
+
+  .plan-stage__number {
+    padding-top: 5px;
+    color: #a36430;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 22px;
+  }
+
+  .plan-stage h2,
+  .plan-checklist h2 {
+    font-size: clamp(30px, 4vw, 46px);
+    line-height: 1;
+  }
+
+  .plan-stage p,
+  .plan-checklist p,
+  .plan-faq p,
+  .plan-cta p {
+    color: #4c4035;
+    font-size: 18px;
+    line-height: 1.62;
+  }
+
+  .plan-stage p:first-of-type {
+    margin-top: 18px;
+  }
+
+  .plan-stage p + p {
+    margin-top: 14px;
+  }
+
+  .plan-stage ul {
+    display: grid;
+    gap: 9px;
+    margin: 22px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .plan-stage li {
+    position: relative;
+    padding-left: 20px;
+    color: #4c4035;
+    font-size: 18px;
+    line-height: 1.55;
+  }
+
+  .plan-stage li::before {
+    position: absolute;
+    top: 0.68em;
+    left: 0;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #b46e35;
+    content: "";
+  }
+
+  .plan-note,
+  .plan-inline-link {
+    margin-top: 24px;
+    padding: 18px 20px;
+    border-left: 3px solid #b46e35;
+    background: rgba(255, 252, 248, 0.7);
+    color: #54463a;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .plan-inline-link p {
+    margin: 0;
+    font-size: 16px;
+  }
+
+  .plan-inline-link a {
+    display: inline-flex;
+    margin-top: 10px;
+    color: #1c1b1a;
+    font-weight: 700;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+
+  .plan-side {
+    position: sticky;
+    top: 22px;
+  }
+
+  .plan-side__card {
+    padding: 24px;
+    border: 1px solid rgba(28, 27, 26, 0.1);
+    border-radius: 22px;
+    background: rgba(255, 252, 248, 0.84);
+    box-shadow: 0 24px 54px rgba(38, 27, 15, 0.08);
+    backdrop-filter: blur(12px);
+  }
+
+  .plan-side ol {
+    display: grid;
+    gap: 13px;
+    margin: 0;
+    padding-left: 22px;
+  }
+
+  .plan-side li {
+    padding-left: 2px;
+    color: #7a6450;
+    font-size: 14px;
+    line-height: 1.35;
+  }
+
+  .plan-side a {
+    color: #43362b;
+    text-decoration: none;
+  }
+
+  .plan-side a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .plan-checklist,
+  .plan-faq {
+    padding-top: 42px;
+    border-top: 1px solid rgba(28, 27, 26, 0.12);
+  }
+
+  .plan-checklist__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 24px;
+  }
+
+  .plan-checklist__grid > div {
+    padding: 20px;
+    border-radius: 18px;
+    background: rgba(255, 252, 248, 0.72);
+  }
+
+  .plan-checklist strong {
+    color: #9f5f2b;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+  }
+
+  .plan-checklist p {
+    margin: 10px 0 0;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .plan-faq {
+    margin-top: 42px;
+  }
+
+  .plan-faq details {
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(28, 27, 26, 0.12);
+  }
+
+  .plan-faq summary {
+    cursor: pointer;
+    color: #2f261f;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 24px;
+    line-height: 1.12;
+  }
+
+  .plan-faq p {
+    margin: 14px 0 0;
+    font-size: 17px;
+  }
+
+  .plan-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+    gap: 36px;
+    align-items: center;
+    margin-top: 20px;
+    padding: 38px;
+    border-radius: 28px 28px 0 0;
+    background: #1c1b1a;
+  }
+
+  .plan-cta h2 {
+    color: #fffaf4;
+    font-size: clamp(32px, 4vw, 50px);
+    line-height: 0.98;
+  }
+
+  .plan-cta p:last-child {
+    margin: 18px 0 0;
+    color: rgba(255, 250, 244, 0.76);
+  }
+
+  .plan-cta .plan-kicker {
+    color: #e7a269;
+  }
+
+  .plan-cta__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .plan-button {
+    display: inline-flex;
+    min-height: 54px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+
+  .plan-button:hover {
+    transform: translateY(-1px);
+  }
+
+  .plan-button--primary {
+    grid-column: 1 / -1;
+    color: #1c1b1a;
+    background: #fffaf4;
+  }
+
+  .plan-button--secondary {
+    color: #fffaf4;
+    border: 1px solid rgba(255, 250, 244, 0.34);
+  }
+
+  @media (max-width: 900px) {
+    .plan-layout,
+    .plan-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .plan-side {
+      position: static;
+      order: -1;
+    }
+
+    .plan-side__card ol {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 26px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .plan-shell {
+      width: min(100vw - 32px, 1120px);
+    }
+
+    .plan-hero {
+      padding: 28px 0 34px;
+    }
+
+    .plan-back {
+      margin-bottom: 22px;
+      font-size: 12px;
+    }
+
+    .plan-kicker,
+    .plan-first-steps > span {
+      font-size: 11px;
+    }
+
+    .plan-lead,
+    .plan-stage p,
+    .plan-stage li,
+    .plan-cta p,
+    .plan-faq p {
+      font-size: 17px;
+    }
+
+    .plan-first-steps {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      padding: 18px;
+      border-radius: 18px;
+    }
+
+    .plan-first-steps ol {
+      grid-template-columns: 1fr;
+      gap: 9px;
+    }
+
+    .plan-layout {
+      gap: 32px;
+      padding-top: 34px;
+    }
+
+    .plan-side__card {
+      padding: 20px;
+      border-radius: 18px;
+    }
+
+    .plan-side__card ol,
+    .plan-checklist__grid,
+    .plan-cta__actions {
+      grid-template-columns: 1fr;
+    }
+
+    .plan-stage {
+      grid-template-columns: 1fr;
+      gap: 10px;
+      padding: 30px 0;
+    }
+
+    .plan-stage__number {
+      padding-top: 0;
+      font-size: 18px;
+    }
+
+    .plan-stage h2,
+    .plan-checklist h2 {
+      font-size: 32px;
+    }
+
+    .plan-faq summary {
+      font-size: 22px;
+    }
+
+    .plan-cta {
+      gap: 28px;
+      margin-top: 8px;
+      padding: 30px 22px;
+      border-radius: 22px 22px 0 0;
+    }
+
+    .plan-button--primary {
+      grid-column: auto;
+    }
+
+    .plan-button {
+      width: 100%;
+    }
+  }
+</style>

@@ -11,6 +11,14 @@ const socialImageUrl = new URL(
 
 const publishedArticles = [
   {
+    href: `${homeHref}articles/plan-podgotovki-k-svadbe/`,
+    eyebrow: "Новый гид",
+    title: "Пошаговый план подготовки к свадьбе",
+    description:
+      "Что делать после предложения: как последовательно выбрать дату, формат, площадку, команду и собрать спокойный план дня.",
+    tag: "12 шагов подготовки",
+  },
+  {
     href: `${homeHref}scenario/`,
     eyebrow: "Опубликовано",
     title: "Сценарий свадебного вечера",
@@ -95,7 +103,7 @@ const collectionSchema = {
       <div class="articles-column">
         <div class="articles-section-head">
           <p>Что уже опубликовано</p>
-          <h2>Первый открытый материал</h2>
+          <h2>Открытые материалы</h2>
         </div>
         <div class="articles-cards">
           {publishedArticles.map((article) => (
