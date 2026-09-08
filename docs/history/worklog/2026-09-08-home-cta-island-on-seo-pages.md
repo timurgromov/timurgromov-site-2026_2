@@ -39,3 +39,11 @@ large empty tail between page content, CTA island and footer.
 - The source-specific Telegram/MAX parameters remain intact. The visual and
   interaction contract now includes the homepage font variables, close icon,
   phone card, split-button arrow animation, form and success state.
+
+## Scenario mid-article materials entry
+
+- Added one compact materials-only CTA after «Церемония, поздравления и
+  фотографии». It is deliberately before the existing personal-meeting CTA and
+  uses the homepage split-button source for Telegram/MAX only.
+- The full author CTA island remains once at the page bottom, avoiding a second
+  heavy portrait/contact block in the reading flow.

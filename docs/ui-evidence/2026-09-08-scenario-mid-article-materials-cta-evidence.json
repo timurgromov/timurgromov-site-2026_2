@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-08-scenario-mid-article-materials-cta",
+  "change_kind": "mid-article-materials-entry",
+  "status": "passed",
+  "requested_visible_change": "Add one short Telegram/MAX materials CTA between the article opening and the existing personal-discussion CTA, while retaining the full author island only at the bottom.",
+  "expected_visible_delta": "After the ceremony section, a light two-control materials entry is visible before the next reading section; the existing personal CTA and final four-path block remain separate.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "a2557c0256626f77abaa3942de3da84ec3ddfeede80ee7590f5736de53f3ebcc",
+  "served_candidate_url": "http://127.0.0.1:4322/scenario/",
+  "target": {
+    "surface": "/scenario/",
+    "state": "anonymous reader; Telegram/MAX deep links inspected but not opened",
+    "selector_or_slide_id": ".scenario-materials-cta",
+    "action": "scroll to the post-ceremony reading transition and inspect the compact CTA"
+  },
+  "must_remain_unchanged": [
+    "existing personal CTA «Если уже хотите применить эту логику к своей свадьбе» later in the article",
+    "bottom four-path author island with portrait and phone",
+    "Telegram/MAX destination URLs and no bot launch"
+  ],
+  "required_viewports": ["1280x720", "390x844"],
+  "observations": [
+    {
+      "viewport": "1280x720 local in-app browser",
+      "before_signature": "The ceremony section flowed immediately into «Знакомство гостей с вечером» with no materials entry.",
+      "after_signature": "A two-line editorial CTA with Telegram and MAX split-controls sits between those sections.",
+      "observed_visible_result": "The copy, two compact controls and their separate arrow boxes are visible; it does not repeat the portrait, phone or four-path layout.",
+      "delta_visible": true,
+      "target_visible": true,
+      "runtime_errors": []
+    },
+    {
+      "viewport": "390x844 local in-app browser",
+      "before_signature": "No inline materials CTA appeared in this reading transition.",
+      "after_signature": "Copy wraps naturally and Telegram/MAX occupy one two-column row.",
+      "observed_visible_result": "Both controls remain inside the 390px viewport; document scroll width equals viewport width.",
+      "delta_visible": true,
+      "target_visible": true,
+      "runtime_errors": []
+    }
+  ],
+  "verification": {
+    "live_browser": "In-app browser observed the local candidate at desktop and mobile; no console errors were present.",
+    "deep_links": "Telegram and MAX links retain the scenario plan source; they were not opened.",
+    "responsive_gate": "npm run verify:responsive-layout completed before release.",
+    "contact_gate": "npm run verify:contacts completed before release."
+  }
+}

@@ -66,3 +66,12 @@ literal homepage consultation-popup pattern: Coolvetica/Manrope typography,
 the compact split-button system with rotating arrow, phone card, form and
 success state. Only Telegram/MAX deep-link values vary by source route; this is
 not a separate SEO-page popup design.
+
+## Scenario article material entry
+
+After «Церемония, поздравления и фотографии» and before the personal meeting
+CTA, `/scenario/` has one light editorial entry to the materials funnel. Its
+copy describes the calculator, scenario example and preparation plan, and it
+contains only compact Telegram and MAX split-controls. The personal-discussion
+CTA remains later in the article; the full four-path author island remains once
+at the bottom.
