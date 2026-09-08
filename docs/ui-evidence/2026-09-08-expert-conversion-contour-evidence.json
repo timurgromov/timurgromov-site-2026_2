@@ -7,7 +7,7 @@
   "expected_visible_delta": "The three routes render one expert-conversion module with equal Telegram/MAX choices carrying page-specific sources, instead of route-specific mixed CTA/footer patterns.",
   "attempt_number": 1,
   "checked_after_last_edit": true,
-  "candidate_diff_sha256": "257db353694f534ac51213586efbde961df7fabaf3b95802e0710fc12bf960e8",
+  "candidate_diff_sha256": "0af0df0698903b3c8be04b4aac3a8b3da5cb862ed26739b87031ec09e2d087e2",
   "served_candidate": {
     "url": "http://127.0.0.1:4321/materials/",
     "source_ref": "local built working-tree candidate",
@@ -44,7 +44,7 @@
       "viewport": "1240x638",
       "viewport_source": "Codex browser; innerWidth=1240; innerHeight=582 browser content area",
       "before_signature": "Production Scenario baseline exposed only its meeting CTA and route-specific footer.",
-      "after_signature": "Fresh local Materials load exposes one common module; useful and meeting Telegram/MAX buttons render at equal 422px widths, source URLs are page-specific and the legacy Tilda footer is absent.",
+      "after_signature": "Fresh local Materials load exposes one common module; useful and meeting Telegram/MAX buttons render at equal 422px widths, all legacy material CTAs use site_plan_materials, and the legacy Tilda footer is absent.",
       "observed_visible_result": "Desktop card hierarchy clearly separates material receipt from a free meeting, followed by the author and common footer.",
       "delta_visible": true,
       "target_visible": true,

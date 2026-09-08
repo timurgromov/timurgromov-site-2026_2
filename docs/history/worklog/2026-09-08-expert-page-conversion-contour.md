@@ -20,6 +20,8 @@ separate page-specific source across both Telegram and MAX.
   footer.
 - Replaced the Materials export footer with the common footer rather than
   rendering two footers.
+- Repointed legacy Materials webinar/material links to `site_plan_materials`;
+  only the dedicated meeting card keeps `site_meeting_materials`.
 - Added the matching site and EventBudjet source-code contract for exact
   `site_plan_<page>` / `site_meeting_<page>` attribution.
 
