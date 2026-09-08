@@ -20,6 +20,9 @@ Only `/scenario/` is changed for owner review. Homepage, `/materials/`, and
   link, not a fifth CTA.
 - Created 900x1200 centred `3:4` AVIF and WebP derivatives from the supplied
   black-and-white portrait. The source image remains outside the repository.
+- The image is rendered as a compact horizontal `16:9` crop in the CTA rather
+  than a tall portrait column. This is a shared-CTA invariant for any later
+  rollout to Materials or the preparation-plan article.
 
 ## Verification
 
@@ -31,6 +34,9 @@ Only `/scenario/` is changed for owner review. Homepage, `/materials/`, and
   portrait on desktop, portrait-first mobile order and four controls. The
   `Обсудить свадьбу` action opened the contact pop-up without a messenger
   navigation. Messenger routes were inspected only and not opened.
+- Post-crop geometry on the local built candidate: `320×180` at `1440px`,
+  `566×318` at `640px`, `406×228` at `480px` and `316×178` at `390px`; no
+  horizontal overflow at any of these viewports.
 
 `npm run check:materials-layout` remains stale against the common footer that
 was intentionally introduced before this prototype; it fails looking for the

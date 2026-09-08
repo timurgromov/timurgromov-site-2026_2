@@ -3,13 +3,13 @@
   "change_id": "2026-09-08-scenario-calculator-prototype",
   "change_kind": "scenario-only-brand-navigation-cta",
   "status": "passed",
-  "requested_visible_change": "Replace the two large conversion cards on the Scenario page with one compact brand-navigation card: Telegram and MAX materials, the existing consultation pop-up, the host site, a direct phone link and the supplied portrait.",
-  "expected_visible_delta": "One card presents four compact controls in a two-by-two grid on usable widths, the direct phone link and the portrait; no second meeting or author card remains on Scenario.",
+  "requested_visible_change": "Keep the approved unified Scenario CTA, but replace its tall portrait column with a compact horizontal 16:9 author crop.",
+  "expected_visible_delta": "The same card preserves its four compact controls and direct phone link while the photo is a horizontal 16:9 crop, not a tall column.",
   "attempt_number": 1,
   "checked_after_last_edit": true,
-  "candidate_diff_sha256": "dc9b4652913b869060afe99b740fcc988380aabc7aa010fa02c8c9b5b6362b15",
+  "candidate_diff_sha256": "9e844de8052b22931d2326d8e0ff05c66b8283fa222482f79fd7893458e81538",
   "served_candidate": {
-    "url": "http://127.0.0.1:4321/scenario/",
+    "url": "http://127.0.0.1:4322/scenario/?compact-photo=proof",
     "source_ref": "local built working-tree candidate",
     "fresh_reload": true
   },
@@ -17,7 +17,7 @@
     "surface": "/scenario/",
     "state": "public anonymous visitor; messenger links inspected but not opened",
     "selector_or_slide_id": "[data-testid=expert-conversion-scenario]",
-    "action": "fresh load, inspect the four controls, then open the existing contact pop-up from the discussion control"
+    "action": "fresh load and inspect the horizontal photo crop, the four controls and the direct phone link"
   },
   "must_remain_unchanged": [
     "homepage surface",
@@ -35,9 +35,9 @@
     {
       "viewport": "1440x900",
       "viewport_source": "repository responsive-layout gate",
-      "before_signature": "Two stacked conversion cards and a separate author card occupied the Scenario continuation area.",
-      "after_signature": "One two-column card contains the approved bot copy, a compact two-by-two control grid, the direct phone link and the portrait without a second CTA panel.",
-      "observed_visible_result": "Responsive verification completed without overflow or clipped controls at this desktop viewport.",
+      "before_signature": "The right-side image used a tall portrait column that could match the full CTA height.",
+      "after_signature": "The right-side image is 320×180 (1.778 ratio) with object-position 50% 42%, so it is a horizontal 16:9 crop.",
+      "observed_visible_result": "The rendered desktop candidate has no horizontal overflow and keeps the face and upper body within the crop.",
       "delta_visible": true,
       "target_visible": true,
       "preserved_invariants_passed": true,
@@ -46,9 +46,9 @@
     {
       "viewport": "390x844",
       "viewport_source": "Codex in-app browser",
-      "before_signature": "Two stacked conversion cards and a separate author card.",
-      "after_signature": "A single card shows the centred-crop portrait first, then the four controls and direct phone link in one column.",
-      "observed_visible_result": "All closed-state CTA labels are fully visible with no horizontal overflow.",
+      "before_signature": "The mobile CTA could use a 360px-tall portrait before its controls.",
+      "after_signature": "The portrait-first mobile CTA image is 316×178 (1.778 ratio), followed by the unchanged controls and direct phone link.",
+      "observed_visible_result": "The rendered mobile candidate has no horizontal overflow and the crop stays compact above the CTA controls.",
       "delta_visible": true,
       "target_visible": true,
       "preserved_invariants_passed": true,
@@ -57,9 +57,9 @@
     {
       "viewport": "480x844",
       "viewport_source": "local Playwright browser screenshot",
-      "before_signature": "The old Scenario conversion flow was two large full-width cards.",
-      "after_signature": "The single card keeps its four controls in a compact two-by-two grid while preserving the direct phone link.",
-      "observed_visible_result": "All four labels and arrow cells are visible inside the card; the footer begins directly beneath it with no horizontal overflow.",
+      "before_signature": "The portrait could be vertically expanded by the CTA row height.",
+      "after_signature": "The photo is 406×228 (1.778 ratio) while the controls remain the approved two-by-two grid.",
+      "observed_visible_result": "The lower mobile-width candidate has no horizontal overflow and no clipped control labels.",
       "delta_visible": true,
       "target_visible": true,
       "preserved_invariants_passed": true,
@@ -68,8 +68,8 @@
     {
       "viewport": "640x844",
       "viewport_source": "repository responsive-layout gate",
-      "before_signature": "The old Scenario conversion flow was two stacked full-width cards.",
-      "after_signature": "The one-card CTA preserves the two-by-two compact control arrangement at the upper mobile breakpoint.",
+      "before_signature": "The portrait could consume a large vertical part of the CTA at the upper mobile breakpoint.",
+      "after_signature": "The photo is 566×318 (1.778 ratio) while the one-card CTA preserves the two-by-two controls.",
       "observed_visible_result": "The full responsive matrix passed with no horizontal overflow or clipped controls at the 640px breakpoint probe.",
       "delta_visible": true,
       "target_visible": true,

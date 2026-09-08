@@ -37,6 +37,10 @@ Updated: 2026-09-08
   has 16px gutters. CTA controls use a compact `2×2` grid from `480px` through
   `640px` and become full-width only below `480px`. Footer switches from four
   columns to two, then one.
+- The author portrait is a compact horizontal `16:9` crop in the CTA, never a
+  tall column: keep the face and upper body in frame with `object-fit: cover`
+  and a centred vertical crop. This is the required media geometry whenever
+  the shared CTA is inserted on another expert page.
 - Required checks: `390x844`, `640/641`, `900/901`, `1180x820`, `1366x768`,
   `1440x900`, `1984x1046`; no horizontal overflow and no clipped button text.
 - Preserved invariants: homepage, Direct CTA/protection and the useful page

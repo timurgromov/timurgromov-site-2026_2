@@ -29,8 +29,9 @@ Date: 2026-09-08
 
 - No horizontal overflow at `390x844`, `640/641`, `900/901`, `1180x820`,
   `1366x768`, `1440x900`, `1984x1046`.
-- At 900px and wider, copy and the `3:4` portrait are one two-column card.
-  At 640px and below, the portrait appears before the text. The four controls
+- At 900px and wider, copy and a compact horizontal `16:9` portrait are one
+  two-column card. At 640px and below, the portrait appears before the text.
+  The four controls
   use two compact columns from `480px` through `640px` and occupy full width
   only below `480px`.
 - The delivery image uses the committed 900x1200 AVIF with WebP fallback;
