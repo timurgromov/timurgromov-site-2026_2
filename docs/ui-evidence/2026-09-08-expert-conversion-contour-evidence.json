@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-08-expert-conversion-contour",
+  "change_kind": "shared-expert-page-conversion-module",
+  "status": "passed",
+  "requested_visible_change": "Every expert route visibly presents separate useful-material and free-meeting paths, an author card and one shared footer.",
+  "expected_visible_delta": "The three routes render one expert-conversion module with equal Telegram/MAX choices carrying page-specific sources, instead of route-specific mixed CTA/footer patterns.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "257db353694f534ac51213586efbde961df7fabaf3b95802e0710fc12bf960e8",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/materials/",
+    "source_ref": "local built working-tree candidate",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/scenario/, /materials/, /articles/plan-podgotovki-k-svadbe/",
+    "state": "public anonymous visitor; messenger links inspected but not opened",
+    "selector_or_slide_id": "[data-testid^=expert-conversion-]",
+    "action": "fresh-load each route and inspect CTA targets, author card and common footer"
+  },
+  "must_remain_unchanged": [
+    "homepage surface",
+    "Yandex Direct contracts",
+    "expert content before the shared module"
+  ],
+  "required_viewports": [
+    "390x844",
+    "1240x638"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "browser viewport override; rendered checks on Scenario, Materials and preparation-plan routes",
+      "before_signature": "Expert routes did not share a useful-material CTA, author card and common footer; Scenario lacked site_plan_scenario.",
+      "after_signature": "Each route has one matching expert-conversion module; all five CTA controls are visible in a 316px mobile column with no horizontal overflow.",
+      "observed_visible_result": "The two Telegram/MAX choices remain full-width, distinct material and meeting cards on mobile.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1240x638",
+      "viewport_source": "Codex browser; innerWidth=1240; innerHeight=582 browser content area",
+      "before_signature": "Production Scenario baseline exposed only its meeting CTA and route-specific footer.",
+      "after_signature": "Fresh local Materials load exposes one common module; useful and meeting Telegram/MAX buttons render at equal 422px widths, source URLs are page-specific and the legacy Tilda footer is absent.",
+      "observed_visible_result": "Desktop card hierarchy clearly separates material receipt from a free meeting, followed by the author and common footer.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ]
+}

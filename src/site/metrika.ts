@@ -30,9 +30,13 @@ export const yandexMetrikaHead = `<meta name="yandex-verification" content="${ya
   (function(){
     var allowedSources = {
       site_plan_home: true,
+      site_plan_scenario: true,
+      site_plan_materials: true,
+      site_plan_preparation_plan: true,
       site_meeting_home: true,
       site_meeting_scenario: true,
-      site_meeting_materials: true
+      site_meeting_materials: true,
+      site_meeting_preparation_plan: true
     };
     var endpoint = /^(localhost|127\\.0\\.0\\.1)$/.test(window.location.hostname)
       ? 'http://127.0.0.1:8000/api/v1/site/metrika-attribution'

@@ -2,6 +2,48 @@
 
 Этот файл фиксирует решения, которые важно помнить и не откатывать случайно.
 
+## DEC-2026-09-08-EXPERT-PAGE-SPLIT-CONVERSION
+
+Status: active
+Area: UX, SEO, CRM attribution, public site
+Decision date: 2026-09-08
+Evidence: approved conversion standard; shared rendered module and page-specific EventBudjet sources
+Supersedes: route-specific mixed material/contact CTAs on expert pages
+
+Decision:
+Every expert page uses the same conversion contour after its useful content:
+a relevant useful-material CTA with equal Telegram/MAX choices
+(`site_plan_<page>`), a distinct free-meeting CTA with Telegram/MAX/phone
+(`site_meeting_<page>`), Timur's author card and one shared footer. The two
+paths must never share a source code or imply that the material request books a
+meeting.
+
+Why:
+Search visitors arrive with different jobs. A clear material branch preserves
+the helpful intent and its acquisition context, while a separate contact branch
+keeps a consultation request attributable and does not force a conversation.
+
+Do:
+
+- add a page-specific source to the site tracking allowlist, both Telegram and
+  MAX EventBudjet handlers, CRM source-label migration and the source contract
+  before placing its deep link in public UI;
+- instantiate the common `expert-conversion` renderer for a new expert route;
+- verify the rendered URLs, equal channel choices and responsive geometry
+  without creating a production messenger lead.
+
+Do not:
+
+- use generic `site_plan` or `site_meeting` for a new expert page;
+- alter the homepage or Direct contracts as part of expert-content work;
+- click a live messenger deep link merely to prove page rendering.
+
+Verification:
+
+- build, contact, responsive and Direct-attribution contracts pass;
+- a browser review confirms the common module and exact link sources;
+- EventBudjet migration and bot/API tests verify both messenger channels.
+
 ## DEC-2026-09-07-HERO-CTA-EFFECTIVE-TYPOGRAPHY
 
 Status: active

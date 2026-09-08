@@ -4,9 +4,12 @@ import {
   getTildaCtaArrowIconUrl,
   tildaCtaLink,
 } from "../site/tilda-cta";
+import { renderExpertConversionContour } from "../site/expert-conversion";
 import {
   maxMeetingUrlFor,
+  maxPlanUrlFor,
   telegramMeetingUrlFor,
+  telegramPlanUrlFor,
 } from "../site/home-data";
 import { yandexMetrikaHead } from "../site/metrika";
 
@@ -14,9 +17,17 @@ const basePath = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const pageUrl = new URL(`${basePath}materials/`, "https://timurgromov.ru").toString();
 const telegramMaterialsMeetingUrl = telegramMeetingUrlFor("materials");
 const maxMaterialsMeetingUrl = maxMeetingUrlFor("materials");
-const telegramContactUrl = telegramMaterialsMeetingUrl;
-const maxContactUrl = maxMaterialsMeetingUrl;
 const ctaArrowIconUrl = getTildaCtaArrowIconUrl(basePath);
+const expertConversionMarkup = renderExpertConversionContour({
+  basePath,
+  entrypoint: "materials",
+  usefulHeading: "Получите материал для следующего шага в подготовке",
+  usefulText: "Полезные материалы и личная встреча — разные пути. Выберите только тот, который нужен сейчас.",
+  telegramPlanUrl: telegramPlanUrlFor("materials"),
+  maxPlanUrl: maxPlanUrlFor("materials"),
+  telegramMeetingUrl: telegramMaterialsMeetingUrl,
+  maxMeetingUrl: maxMaterialsMeetingUrl,
+});
 
 const pageHtml = readFileSync(
   new URL("../../page62008353.html", import.meta.url),
@@ -67,7 +78,6 @@ const materialRecordIds = [
   "rec862070380",
 ];
 const headerRecordId = "rec862699342";
-const footerRecordId = "rec862623921";
 const materialsAdvicePopupRecordIds = [
   "rec893268511",
   "rec893268655",
@@ -475,12 +485,6 @@ const materialsAdvicePopupRecordsHtml = materialsAdvicePopupRecordIds
     return patchPopupVideo(recordHtml, materialsAdvicePopupVideoUrls[recordId]);
   })
   .join(" ");
-const footerContactShortcutMarkup = ` <div class='t396__elem tn-elem tn-elem__8626239211746200000002' data-elem-id='1746200000002' data-elem-type='text' data-field-top-value="928" data-field-left-value="1285" data-field-height-value="24" data-field-width-value="320" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-textfit-value="autoheight" data-field-fontsize-value="20" data-field-top-res-320-value="532" data-field-left-res-320-value="25" data-field-width-res-320-value="220" data-field-fontsize-res-320-value="12" data-field-top-res-640-value="566" data-field-left-res-640-value="311" data-field-width-res-640-value="230" data-field-fontsize-res-640-value="13" data-field-top-res-1200-value="584" data-field-left-res-1200-value="800" data-field-width-res-1200-value="260" data-field-fontsize-res-1200-value="13"> <div class='tn-atom'><span class="contact-shortcut-inline__content"><span class="contact-shortcut-inline__label">Написать мне</span><a class="contact-shortcut-inline__link" href="${telegramContactUrl}" target="_blank" rel="nofollow">Telegram</a><a class="contact-shortcut-inline__link" href="${maxContactUrl}" target="_blank" rel="nofollow">MAX</a></span></div> </div>`;
-const footerRecordHtml = injectBeforeTildaRecordScript(
-  extractTildaRecord(bodySource, footerRecordId),
-  "862623921",
-  footerContactShortcutMarkup,
-);
 const headHtml = withBasePath(
   headMatch[1]
     .replace(/<title>[\s\S]*?<\/title>/i, "<title>Полезные материалы подготовки к свадьбе</title>")
@@ -1640,7 +1644,7 @@ const headHtml = withBasePath(
 );
 
 const bodyHtml = withBasePath(
-  `<!--allrecords--> <div id="allrecords"${allRecordsAttrs}><div class="materials-header-shell">${headerRecordHtml}</div>${materialRecordsHtml} ${materialsAdvicePopupRecordsHtml} ${footerRecordHtml}</div> <!--/allrecords-->`,
+  `<!--allrecords--> <div id="allrecords"${allRecordsAttrs}><div class="materials-header-shell">${headerRecordHtml}</div>${materialRecordsHtml} ${materialsAdvicePopupRecordsHtml} ${expertConversionMarkup}</div> <!--/allrecords-->`,
 );
 ---
 

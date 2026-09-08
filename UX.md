@@ -1,40 +1,40 @@
-# UX — SEO-гид «Пошаговый план подготовки к свадьбе»
+# UX — единый контур конверсии экспертных страниц
 
 Updated: 2026-09-08
 
 ## Job and flow
 
 - Product type: expert-content landing inside the public wedding-host site.
-- Primary user: пара в начале самостоятельной подготовки к свадьбе, которая
-  пока не понимает порядок решений.
-- Primary job: получить понятный порядок действий без обязательства заказать
-  ведущего или войти в бот.
-- Primary flow: organic/article-hub entry → direct useful answer → relevant
-  preparation sections → internal materials path → voluntary discussion with
-  Timur when the couple is already choosing a host.
-- Primary CTA: internal `/materials/` link, labelled as a continuation of
-  preparation rather than a disguised registration.
-- Secondary CTA: Telegram or MAX meeting route. It preserves the existing
-  safe source protocol, plus page path and CTA context; it is never presented
-  as required to read the guide.
+- Primary user: пара на этапе подготовки или выбора ведущего, пришедшая на
+  экспертную страницу из поиска или по прямой ссылке.
+- Primary job: получить полезный следующий шаг либо отдельно договориться о
+  бесплатной встрече без смешения этих намерений.
+- Primary flow: экспертный ответ → полезный CTA (`site_plan_<page>`) →
+  Telegram/MAX material flow **или** отдельный contact CTA
+  (`site_meeting_<page>`) → личная встреча.
+- The two Telegram/MAX options in each CTA are visually equal. Phone is an
+  additional contact option only in the meeting flow.
+- Shared routes: `/scenario/`, `/materials/`,
+  `/articles/plan-podgotovki-k-svadbe/`. The homepage and its Direct flow are
+  outside this contour.
 
 ## Page states and responsive contract
 
-- Public state only; there is no form, popup or hidden paywall on the page.
-- Desktop and wide desktop: 1120px reading shell; article prose is capped at
-  760px, while a compact contents panel may occupy the companion column.
-- Tablet at 900px and below: content and contents panel become one column.
-- Mobile at 640px and below: 16px side gutters, full-width CTA controls,
-  readable body text and no horizontal overflow.
-- Required manual checks after the final edit: `390x844`, `480x900`,
-  `768x1024`, `1180x820`, `1366x768`, `1440x900`, `1984x1046`; also `899/900/901`
-  and `639/640/641` breakpoint probes.
-- Preserved invariants: the existing homepage, its Direct CTA/protection,
-  scenario route and materials route remain structurally unchanged.
+- Public state only: no lead is created until a person actually opens a
+  messenger deep link. No production test leads are created during QA.
+- Each page renders one shared `expert-conversion` module: useful CTA, meeting
+  CTA, Timur author card with photo, then the unified footer (materials,
+  services, Dzen, reviews, contacts).
+- Desktop/wide: CTA cards are two columns; tablet at `900px` and below becomes
+  one column; mobile at `640px` and below has 16px gutters and full-width
+  split buttons. Footer switches from four columns to two, then one.
+- Required checks: `390x844`, `640/641`, `900/901`, `1180x820`, `1366x768`,
+  `1440x900`, `1984x1046`; no horizontal overflow and no clipped button text.
+- Preserved invariants: homepage, Direct CTA/protection and the useful page
+  content above the shared contour are untouched.
 
 ## Visible release target
 
-The former missing route becomes a calm, readable article with a direct first
-answer, twelve practical stages, a short final checklist, and two non-intrusive
-return paths. The primary action stays visible after useful content and is not
-required to access the guide.
+The contour is visible after the useful page content. It makes the two outcomes
+explicit: receive a material or book a meeting. The author card and footer
+remain consistent across all three expert pages.

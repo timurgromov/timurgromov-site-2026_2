@@ -1,5 +1,22 @@
 # Current State - 2026-08-20
 
+## Expert-page conversion contour (2026-09-08)
+
+- `/scenario/`, `/materials/` and `/articles/plan-podgotovki-k-svadbe/` share
+  one `expert-conversion` module. It presents a useful continuation first,
+  then a separate free-meeting path, an author card and a common footer.
+- Each expert page now owns exact source codes: `site_plan_scenario`,
+  `site_meeting_scenario`, `site_plan_materials`, `site_meeting_materials`,
+  `site_plan_preparation_plan` and `site_meeting_preparation_plan`. The
+  frontend source list and EventBudjet Telegram/MAX allowlists must ship
+  together; generic `site_plan` / `site_meeting` remain legacy compatibility
+  only.
+- The homepage and all Direct contracts remain outside the contour. Browser QA
+  reads rendered deep-link targets without opening them, so it creates no
+  production CRM record.
+- UI contract/evidence: `docs/ui-evidence/2026-09-08-expert-conversion-contour-contract.md`
+  and `docs/ui-evidence/2026-09-08-expert-conversion-contour-evidence.json`.
+
 ## Open SEO guide: preparation plan (2026-09-08)
 
 - `/articles/plan-podgotovki-k-svadbe/` is the first open long-form guide in

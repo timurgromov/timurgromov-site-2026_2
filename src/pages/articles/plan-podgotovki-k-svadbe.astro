@@ -1,20 +1,27 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import {
-  maxMeetingUrl,
-  telegramMeetingUrl,
-} from "../../site/home-data";
+import { renderExpertConversionContour } from "../../site/expert-conversion";
+import { maxMeetingUrlFor, maxPlanUrlFor, telegramMeetingUrlFor, telegramPlanUrlFor } from "../../site/home-data";
 
 const homeHref = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const articleHref = `${homeHref}articles/plan-podgotovki-k-svadbe/`;
 const articlesHref = `${homeHref}articles/`;
-const materialsHref = `${homeHref}materials/`;
 const scenarioHref = `${homeHref}scenario/`;
 const pageUrl = new URL(articleHref, "https://timurgromov.ru").toString();
 const socialImageUrl = new URL(
   `${homeHref}images/scenario-hero-host-bw-source.jpg`,
   "https://timurgromov.ru",
 ).toString();
+const expertConversionMarkup = renderExpertConversionContour({
+  basePath: homeHref,
+  entrypoint: "preparation_plan",
+  usefulHeading: "Получите следующий полезный материал по подготовке",
+  usefulText: "Это отдельный путь с полезным продолжением после гида — без подмены его бесплатной встречей.",
+  telegramPlanUrl: telegramPlanUrlFor("preparation_plan"),
+  maxPlanUrl: maxPlanUrlFor("preparation_plan"),
+  telegramMeetingUrl: telegramMeetingUrlFor("preparation_plan"),
+  maxMeetingUrl: maxMeetingUrlFor("preparation_plan"),
+});
 
 const stages = [
   {
@@ -300,44 +307,7 @@ const articleSchema = {
       </aside>
     </div>
 
-    <section class="plan-shell plan-cta">
-      <div>
-        <p class="plan-kicker">Продолжить подготовку</p>
-        <h2>Соберите следующие полезные шаги без лишних поисков</h2>
-        <p>
-          На странице материалов есть видео и дополнительные инструменты
-          подготовки. А когда дата и формат уже понятны, можно отдельно
-          обсудить вашу свадьбу и ведущего.
-        </p>
-      </div>
-      <div class="plan-cta__actions">
-        <a
-          class="plan-button plan-button--primary"
-          href={materialsHref}
-          data-testid="preparation-plan-primary-cta"
-        >
-          Открыть материалы
-        </a>
-        <a
-          class="plan-button plan-button--secondary"
-          href={telegramMeetingUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-plan-source="article_preparation_plan_telegram"
-        >
-          Обсудить в Telegram
-        </a>
-        <a
-          class="plan-button plan-button--secondary"
-          href={maxMeetingUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-plan-source="article_preparation_plan_max"
-        >
-          Обсудить в MAX
-        </a>
-      </div>
-    </section>
+    <Fragment set:html={expertConversionMarkup} />
   </main>
 </BaseLayout>
 
