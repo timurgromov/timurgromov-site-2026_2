@@ -24,6 +24,8 @@ corporate pages are unchanged.
   before the common footer.
 - Added the existing contact popup to Materials and the preparation guide, so
   «Обсудить свадьбу» has the same form/Telegram/MAX/phone journey everywhere.
+- Made «Всё для подготовки к свадьбе» the one large universal CTA headline in
+  the established homepage headline font; removed route-specific CTA headings.
 
 ## Verification target
 

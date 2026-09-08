@@ -15,6 +15,8 @@ shared main-site CTA island, not a separately designed expert-page card.
 - The same home font, orange/white color switch, hover lift and arrow
   pseudo-element apply on every SEO route. On hover, the arrow turns 45
   degrees; it is not a static background image.
+- The sole large CTA headline is «Всё для подготовки к свадьбе». No
+  route-specific headline appears inside the shared island.
 - The gap between useful content and CTA is 32px desktop/20px mobile. The CTA
   controls its own lower breathing room before the common footer.
 - The supplied Timur portrait is clipped through the existing transparent

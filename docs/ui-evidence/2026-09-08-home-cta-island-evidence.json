@@ -3,11 +3,11 @@
   "change_id": "2026-09-08-home-cta-island-on-seo-pages",
   "change_kind": "shared-home-cta-island",
   "status": "passed",
-  "requested_visible_change": "Replace the custom rounded portrait and static arrow in the SEO CTA with the literal home-page photo stencil and the home-page arrow motion.",
-  "expected_visible_delta": "All three SEO routes show Timur's portrait through the existing home-page «Честно о ценах» stencil; the four split buttons retain the home arrow that turns 45 degrees on hover.",
-  "attempt_number": 2,
+  "requested_visible_change": "Make «Всё для подготовки к свадьбе» the one universal large CTA headline and remove all route-specific CTA headings.",
+  "expected_visible_delta": "All three SEO routes show only «Всё для подготовки к свадьбе» in the established large homepage headline treatment; the former small kicker and route-specific headline are absent.",
+  "attempt_number": 3,
   "checked_after_last_edit": true,
-  "candidate_diff_sha256": "9edb0df9c6edce0a5be46c711d1150e6d729844336db5c8d2dfff5aa02ca32cf",
+  "candidate_diff_sha256": "19c70e86be616509b83ef1984b88e7b58cc434efbddf9a2cfac7305d6d1038f4",
   "served_candidate_url": "http://127.0.0.1:4322/scenario/",
   "target": {
     "surface": "/scenario/, /materials/, /articles/plan-podgotovki-k-svadbe/",
@@ -36,9 +36,9 @@
     {
       "viewport": "1440x900",
       "viewport_source": "local Playwright rendered candidate",
-      "before_signature": "The author portrait was a bespoke rounded rectangle and the arrow graphic was a static masked background.",
-      "after_signature": "The portrait is clipped by the transparent 1760:960 home-price stencil; the arrow is a pseudo-element whose hover transform is rotate(45deg).",
-      "observed_visible_result": "Scenario, Materials and preparation guide render the same compact home-price stencil beside copy and four unclipped split controls. In the freshly opened local browser, Scenario visibly showed Timur's face and upper body inside the stencil.",
+      "before_signature": "A small orange «Всё для подготовки к свадьбе» kicker sat above a page-specific large CTA heading.",
+      "after_signature": "Only the large Coolvetica-style CTA headline «Всё для подготовки к свадьбе» remains.",
+      "observed_visible_result": "Scenario visibly shows the universal headline beside the established home-price portrait stencil and four compact split controls; the prior scenario-specific heading is absent.",
       "delta_visible": true,
       "target_visible": true,
       "runtime_errors": []
@@ -46,18 +46,18 @@
     {
       "viewport": "390x844",
       "viewport_source": "local Playwright rendered candidate",
-      "before_signature": "The photo treatment had no shared visual relation to the homepage media and could occupy a mismatched rectangle.",
-      "after_signature": "The 358x195 mobile photo keeps the same home-price stencil above the copy, with object-position 62% 23% so Timur's face is visible.",
-      "observed_visible_result": "The mobile candidate loaded the author AVIF (natural width 900), has no horizontal overflow and preserves all four 48px actions with a non-clipped footer transition.",
+      "before_signature": "The CTA used a separate small kicker plus a route-specific title, consuming two hierarchy levels.",
+      "after_signature": "The mobile CTA has one headline hierarchy level: «Всё для подготовки к свадьбе» in the large headline treatment.",
+      "observed_visible_result": "All three routes at 390px have one universal CTA heading, no kicker, four actions and no horizontal overflow.",
       "delta_visible": true,
       "target_visible": true,
       "runtime_errors": []
     }
   ],
   "verification": {
-    "manual_render_matrix": "responsive gate plus 3 routes x desktop/mobile rendered checks; no overflow, exactly four actions, no clipped button labels",
-    "arrow_hover": "Local browser computed transform changed from matrix(1, 0, 0, 1, 0, 0) to matrix(0.707107, 0.707107, -0.707107, 0.707107, 0, 0) after hover and 250ms.",
-    "live_browser": "Fresh Codex in-app-browser load of local /scenario/ with the CTA text fragment visibly showed the home-price stencil, four buttons and author portrait.",
+    "manual_render_matrix": "3 routes x desktop/mobile rendered checks: exact universal h2, zero kicker elements, four actions and no horizontal overflow.",
+    "arrow_hover": "The existing home-page arrow motion remains unchanged by this headline-only update.",
+    "live_browser": "Fresh Codex in-app-browser load of local /scenario/ with the CTA text fragment visibly showed the sole large universal heading, home-price stencil, four buttons and author portrait.",
     "contact_popup": "The Discuss wedding control opened #consultation-contact-popup on all three routes in the local browser.",
     "messenger_scope": "Deep-link hrefs were inspected only; no Telegram/MAX session or bot journey was opened."
   }

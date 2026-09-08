@@ -31,6 +31,9 @@ Updated: 2026-09-08
   arrow by 45 degrees and switches the button to orange exactly as on the
   homepage. There are no page-specific button redraws or stacked
   material/meeting cards.
+- The sole CTA headline on every route is «Всё для подготовки к свадьбе» in
+  the large homepage headline treatment. Route-specific CTA headings are not
+  used.
 - The CTA starts directly after the useful content with a controlled gap:
   `32px` desktop and `20px` mobile. Its own bottom spacing separates the island
   from the common footer; neither a large empty tail nor a glued footer is
