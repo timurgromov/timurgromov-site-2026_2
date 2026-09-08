@@ -1027,3 +1027,39 @@ Verification:
 - локально: 9 маршрутов × 18 viewport-точек = 162 случая
 - независимо: responsive skill matrix из 20 точек с interval representatives и `B-1/B/B+1`
 - CI: `code-health.yml` и `deploy-gh-pages.yml` запускают тот же репозиторный gate
+
+## DEC-2026-09-08-SCENARIO-CALCULATOR-CONTACT-PROTOTYPE
+
+Status: active for `/scenario/` only
+Area: product, UX, frontend
+Decision date: 2026-09-08
+Evidence: owner direction and local browser review
+Commits: pending
+Supersedes: the two-large-card expert-conversion presentation on `/scenario/`
+
+Decision:
+На странице сценария оставить один компактный блок: свадебный калькулятор как
+первый путь, `Обсудить свадьбу` как раскрываемый выбор контакта, и
+`Посмотреть ведущего` как спокойный переход к основному офферу сайта.
+
+Why:
+Три пользовательских намерения должны быть видны сразу, но не должны выглядеть
+как две отдельные продающие плашки или как четыре одинаково сильных оффера.
+
+Do:
+
+- использовать существующие Tilda split-buttons и визуальный язык главной;
+- держать Telegram/MAX одинаковыми для калькулятора;
+- после открытия `Обсудить свадьбу` показать Telegram, MAX и телефон в том же
+  блоке;
+- показывать supplied black-and-white portrait in the same card, with centred
+  symmetric `3:4` crop;
+- сохранить этот вариант только на `/scenario/` до отдельного утверждения на
+  перенос в материалы и статьи.
+
+Do not:
+
+- не добавлять вторую крупную CTA-карточку для встречи;
+- не менять главную страницу, `/materials/` или статью подготовки в рамках
+  прототипа;
+- не открывать Telegram/MAX во время QA и не создавать тестовые лиды.

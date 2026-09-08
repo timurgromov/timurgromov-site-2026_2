@@ -2,9 +2,10 @@
 
 ## Expert-page conversion contour (2026-09-08)
 
-- `/scenario/`, `/materials/` and `/articles/plan-podgotovki-k-svadbe/` share
-  one `expert-conversion` module. It presents a useful continuation first,
-  then a separate free-meeting path, an author card and a common footer.
+- `/scenario/` is the approval prototype for a compact calculator/contact
+  contour: one card with the calculator, contact choice and host-site link.
+  `/materials/` and `/articles/plan-podgotovki-k-svadbe/` retain the existing
+  shared `expert-conversion` contour until the prototype is approved.
 - Each expert page now owns exact source codes: `site_plan_scenario`,
   `site_meeting_scenario`, `site_plan_materials`, `site_meeting_materials`,
   `site_plan_preparation_plan` and `site_meeting_preparation_plan`. The

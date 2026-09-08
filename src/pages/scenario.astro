@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { renderExpertConversionContour } from "../site/expert-conversion";
-import { maxMeetingUrlFor, maxPlanUrlFor, telegramMeetingUrlFor, telegramPlanUrlFor } from "../site/home-data";
+import { maxCalculatorUrl, maxMeetingUrlFor, telegramMeetingUrlFor, telegramPlanUrlFor } from "../site/home-data";
 
 const homeHref = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const pageUrl = new URL(`${homeHref}scenario/`, "https://timurgromov.ru").toString();
@@ -10,12 +10,13 @@ const maxScenarioMeetingUrl = maxMeetingUrlFor("scenario");
 const expertConversionMarkup = renderExpertConversionContour({
   basePath: homeHref,
   entrypoint: "scenario",
-  usefulHeading: "Получите сценарий и полезные шаги для своего вечера",
-  usefulText: "Отдельный материал поможет разложить тайминг, роли и ключевые моменты без смешения с личной встречей.",
+  usefulHeading: "",
+  usefulText: "",
   telegramPlanUrl: telegramPlanUrlFor("scenario"),
-  maxPlanUrl: maxPlanUrlFor("scenario"),
+  maxPlanUrl: maxCalculatorUrl,
   telegramMeetingUrl: telegramScenarioMeetingUrl,
   maxMeetingUrl: maxScenarioMeetingUrl,
+  variant: "scenario_calculator",
 });
 const socialImageUrl = new URL(
   `${homeHref}images/scenario-hero-host-bw-source.jpg`,

@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-08-scenario-calculator-prototype",
+  "change_kind": "scenario-only-compact-calculator-contact-cta",
+  "status": "passed",
+  "requested_visible_change": "Replace the two large conversion cards on the Scenario page with one compact calculator/contact card that includes the supplied portrait and a homepage offer link.",
+  "expected_visible_delta": "One card presents calculator delivery, an in-place wedding-discussion choice, a host-site link, and the portrait; no second meeting or author card remains on Scenario.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "ad3b2c448d2ccb4457914f1d0adbd2bf6cffdf242000c4e7e439581d4eee6b14",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/scenario/",
+    "source_ref": "local built working-tree candidate",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/scenario/",
+    "state": "public anonymous visitor; messenger links inspected but not opened",
+    "selector_or_slide_id": "[data-testid=expert-conversion-scenario]",
+    "action": "fresh load, inspect the closed card, then expand only the in-page contact choice"
+  },
+  "must_remain_unchanged": [
+    "homepage surface",
+    "Materials route",
+    "preparation-plan article",
+    "Yandex Direct contracts"
+  ],
+  "required_viewports": [
+    "390x844",
+    "1440x900"
+  ],
+  "observations": [
+    {
+      "viewport": "1440x900",
+      "viewport_source": "repository responsive-layout gate",
+      "before_signature": "Two stacked conversion cards and a separate author card occupied the Scenario continuation area.",
+      "after_signature": "One two-column card contains the calculator copy/actions and the portrait without a second CTA panel.",
+      "observed_visible_result": "Responsive verification completed without overflow or clipped controls at this desktop viewport.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "390x844",
+      "viewport_source": "Codex in-app browser",
+      "before_signature": "Two stacked conversion cards and a separate author card.",
+      "after_signature": "A single card shows the centred-crop portrait first, then calculator actions, discussion control and host-site link in one column.",
+      "observed_visible_result": "All closed-state CTA labels are fully visible with no horizontal overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "390x844, contact expanded",
+      "viewport_source": "Codex in-app browser",
+      "before_signature": "No compact in-place contact chooser existed.",
+      "after_signature": "The same card reveals Telegram, MAX and a telephone action beneath the discussion control.",
+      "observed_visible_result": "No external messenger route was opened during verification.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ]
+}

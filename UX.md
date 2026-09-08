@@ -1,4 +1,4 @@
-# UX — единый контур конверсии экспертных страниц
+# UX — контур конверсии экспертных страниц
 
 Updated: 2026-09-08
 
@@ -7,13 +7,13 @@ Updated: 2026-09-08
 - Product type: expert-content landing inside the public wedding-host site.
 - Primary user: пара на этапе подготовки или выбора ведущего, пришедшая на
   экспертную страницу из поиска или по прямой ссылке.
-- Primary job: получить полезный следующий шаг либо отдельно договориться о
-  бесплатной встрече без смешения этих намерений.
-- Primary flow: экспертный ответ → полезный CTA (`site_plan_<page>`) →
-  Telegram/MAX material flow **или** отдельный contact CTA
-  (`site_meeting_<page>`) → личная встреча.
-- The two Telegram/MAX options in each CTA are visually equal. Phone is an
-  additional contact option only in the meeting flow.
+- Primary job: после прочтения сценария открыть свадебный калькулятор или
+  начать личный разговор о своей свадьбе.
+- Scenario flow: экспертный ответ → один компактный калькуляторный блок →
+  Telegram/MAX → калькулятор; при необходимости в том же блоке раскрывается
+  контакт с Тимуром (`site_meeting_scenario`).
+- The two calculator options (Telegram and MAX) are visually equal. Phone is
+  available only after the user opens the compact contact choice.
 - Shared routes: `/scenario/`, `/materials/`,
   `/articles/plan-podgotovki-k-svadbe/`. The homepage and its Direct flow are
   outside this contour.
@@ -22,12 +22,17 @@ Updated: 2026-09-08
 
 - Public state only: no lead is created until a person actually opens a
   messenger deep link. No production test leads are created during QA.
-- Each page renders one shared `expert-conversion` module: useful CTA, meeting
-  CTA, Timur author card with photo, then the unified footer (materials,
-  services, Dzen, reviews, contacts).
-- Desktop/wide: CTA cards are two columns; tablet at `900px` and below becomes
-  one column; mobile at `640px` and below has 16px gutters and full-width
-  split buttons. Footer switches from four columns to two, then one.
+- `/scenario/` renders one shared `expert-conversion` module as one visual
+  card, not two stacked CTA cards: calculator copy and actions on the left,
+  the supplied black-and-white Timur portrait on the right. The portrait uses
+  centred, symmetric `3:4` cropping and is part of the same card, not a
+  separate author block.
+- `/materials/` and `/articles/plan-podgotovki-k-svadbe/` retain their current
+  shared contour until this scenario prototype is explicitly approved.
+- Desktop/wide: the scenario card is two columns; tablet at `900px` and below
+  becomes one column; mobile at `640px` and below puts the portrait first and
+  has 16px gutters and full-width split buttons. Footer switches from four
+  columns to two, then one.
 - Required checks: `390x844`, `640/641`, `900/901`, `1180x820`, `1366x768`,
   `1440x900`, `1984x1046`; no horizontal overflow and no clipped button text.
 - Preserved invariants: homepage, Direct CTA/protection and the useful page
@@ -35,6 +40,7 @@ Updated: 2026-09-08
 
 ## Visible release target
 
-The contour is visible after the useful page content. It makes the two outcomes
-explicit: receive a material or book a meeting. The author card and footer
-remain consistent across all three expert pages.
+The scenario contour is visible after the useful page content. It makes two
+outcomes explicit without competing panels: open the wedding calculator, or
+open the small contact choice to discuss the wedding. The scenario portrait and
+footer remain visible in the same reading flow.
