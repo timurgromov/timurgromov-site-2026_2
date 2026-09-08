@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-08-home-contact-popup-source-reuse",
+  "change_kind": "shared-home-contact-popup",
+  "status": "passed",
+  "requested_visible_change": "Replace the bespoke SEO-page contact popup with the literal popup pattern from the homepage.",
+  "expected_visible_delta": "The opened SEO popup uses the homepage typography, compact split controls with rotating arrow, phone treatment, close cross, form and success state.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "2d936d24570791d118b950ae8ef8d28326ce49f2bb2702b27d92c374e44b9449",
+  "served_candidate_url": "http://127.0.0.1:4322/scenario/",
+  "target": {
+    "surface": "/scenario/, /materials/, /articles/plan-podgotovki-k-svadbe/",
+    "state": "anonymous visitor; popup opened through «Обсудить свадьбу»; no lead submission or messenger launch",
+    "selector_or_slide_id": "#consultation-contact-popup",
+    "action": "open, inspect desktop and mobile presentation, then close"
+  },
+  "must_remain_unchanged": [
+    "route-specific Telegram and MAX deep-link values",
+    "homepage markup and contact form endpoint",
+    "bot session and real lead data"
+  ],
+  "required_viewports": ["1440x900", "390x844"],
+  "observations": [
+    {
+      "viewport": "desktop local in-app browser",
+      "before_signature": "SEO popup had Arial fallback, a text-glyph close control, 18px panel radius and a separately redrawn button system.",
+      "after_signature": "Computed dialog headline is Coolvetica / 64px / weight 500 and panel radius is 12px, matching the homepage source pattern.",
+      "observed_visible_result": "Two-line headline, pseudo-element close cross, split Telegram/MAX controls, direct desktop phone number and full form are visible.",
+      "delta_visible": true,
+      "target_visible": true,
+      "runtime_errors": []
+    },
+    {
+      "viewport": "390x844 local in-app browser",
+      "before_signature": "The previous mobile dialog was the compact redraw rather than the homepage component family.",
+      "after_signature": "Mobile shows the same headline family, compact split controls, phone action and full form inside the responsive panel.",
+      "observed_visible_result": "No horizontal overflow or clipped controls observed; the phone action is present on mobile.",
+      "delta_visible": true,
+      "target_visible": true,
+      "runtime_errors": []
+    }
+  ],
+  "verification": {
+    "local_build": "npm run build passed",
+    "contact_gate": "npm run verify:contacts passed",
+    "responsive_gate": "npm run verify:responsive-layout passed",
+    "live_browser": "Codex in-app browser opened local /scenario/ and captured desktop/mobile popup states",
+    "messenger_scope": "Deep-link values were preserved and inspected only; no Telegram/MAX bot session was opened."
+  }
+}

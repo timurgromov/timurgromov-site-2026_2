@@ -58,3 +58,11 @@ Each shared contour is visible after its useful page content. It contains four
 equal, explicit controls: Telegram, MAX, «Обсудить свадьбу» and «Сайт
 ведущего». The author portrait and the text phone number remain in the island;
 the contact pop-up opens over the page rather than creating a fifth CTA.
+
+## Shared consultation popup on SEO routes
+
+`/scenario/`, `/materials/` and `/articles/plan-podgotovki-k-svadbe/` use the
+literal homepage consultation-popup pattern: Coolvetica/Manrope typography,
+the compact split-button system with rotating arrow, phone card, form and
+success state. Only Telegram/MAX deep-link values vary by source route; this is
+not a separate SEO-page popup design.

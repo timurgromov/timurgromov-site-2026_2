@@ -32,3 +32,10 @@ corporate pages are unchanged.
 All three routes must have no horizontal overflow, four visible actions with
 canonical source-specific deep links, a functioning local contact popup and no
 large empty tail between page content, CTA island and footer.
+# Homepage contact popup source reuse
+
+- Replaced the reduced redraw used by the SEO routes with the complete homepage
+  consultation-popup structure and interaction model.
+- The source-specific Telegram/MAX parameters remain intact. The visual and
+  interaction contract now includes the homepage font variables, close icon,
+  phone card, split-button arrow animation, form and success state.
