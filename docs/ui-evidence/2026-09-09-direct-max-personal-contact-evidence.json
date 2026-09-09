@@ -1,0 +1,15 @@
+{
+  "change": "direct-max-personal-contact",
+  "canonical_source": "src/site/home-data.ts:maxPersonalProfileUrl",
+  "expected": {
+    "max_contact": "personal MAX page",
+    "forbidden": ["_bot?", "start=site_meeting"],
+    "telegram_contact": "unchanged bot flow",
+    "max_plan": "unchanged bot flow"
+  },
+  "verification": ["npm run verify:contacts", "production marker check"],
+  "side_effects": {
+    "production_message_sent": false,
+    "production_crm_lead_created": false
+  }
+}
