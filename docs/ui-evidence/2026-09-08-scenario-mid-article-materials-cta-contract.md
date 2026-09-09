@@ -10,10 +10,13 @@ existing personal meeting CTA.
 
 - Copy: «Хотите собрать свой вечер по этой логике? В Telegram или MAX можно
   получить калькулятор, пример сценария и план подготовки.»
-- Exactly two compact controls: Telegram and MAX, retaining the
+- The entry is one compact white island with a subtle border and rounded
+  corners, not a sequence of article-divider lines.
+- Exactly two compact controls: orange primary Telegram and light secondary MAX, retaining the
   `site_plan_scenario` deep-link source.
-- Control markup and hover arrow come literally from `tildaCtaLink` / homepage
-  `tg-tilda-cta`; no new rounded-button treatment.
+- This is the literal reusable `ExpertMaterialsInlineCta` template. Control
+  markup and hover arrow come literally from `tildaCtaLink` / homepage
+  `tg-tilda-cta`; no page-local rounded-button treatment.
 - Existing «Если уже хотите применить…» personal CTA stays later in the article.
 - The full four-path author block with portrait and phone remains once at the
   bottom; no duplicate heavy CTA is added to the reading flow.

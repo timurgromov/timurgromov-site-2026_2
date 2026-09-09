@@ -1,9 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ExpertMaterialsInlineCta from "../components/ExpertMaterialsInlineCta.astro";
 import { renderExpertConversionContour } from "../site/expert-conversion";
 import { renderConsultationContactPopup } from "../site/consultation-contact-popup";
 import { maxMeetingUrlFor, maxPlanUrlFor, telegramMeetingUrlFor, telegramPlanUrlFor } from "../site/home-data";
-import { tildaCtaLink } from "../site/tilda-cta";
 
 const homeHref = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const pageUrl = new URL(`${homeHref}scenario/`, "https://timurgromov.ru").toString();
@@ -275,13 +275,11 @@ const mistakes = [
         </div>
       </section>
 
-      <aside class="scenario-materials-cta" aria-label="Получить материалы для подготовки к свадьбе">
-        <p>Хотите собрать свой вечер по этой логике? В Telegram или MAX можно получить калькулятор, пример сценария и план подготовки.</p>
-        <div class="scenario-materials-cta__actions" aria-label="Получить материалы">
-          <Fragment set:html={tildaCtaLink("scenario-materials-cta__button", telegramPlanUrlFor("scenario"), "Telegram", 'target="_blank" rel="noopener noreferrer nofollow" data-plan-source="scenario_mid_article"')} />
-          <Fragment set:html={tildaCtaLink("scenario-materials-cta__button", maxPlanUrlFor("scenario"), "MAX", 'target="_blank" rel="noopener noreferrer nofollow" data-plan-source="scenario_mid_article"')} />
-        </div>
-      </aside>
+      <ExpertMaterialsInlineCta
+        entrypoint="scenario"
+        placement="scenario_mid_article"
+        copy="Хотите собрать свой вечер по этой логике? В Telegram или MAX можно получить калькулятор, пример сценария и план подготовки."
+      />
 
       <section class="scenario-timeblock">
         <div class="scenario-timeblock__meta">
@@ -1059,91 +1057,6 @@ const mistakes = [
     line-height: 1.42 !important;
   }
 
-  /* Source: the homepage tg-tilda-cta split-control system. This is deliberately
-     an editorial-sized entry point, not a second version of the bottom island. */
-  .scenario-materials-cta {
-    --t-text-font: "Manrope", Arial, sans-serif;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 18px 26px;
-    align-items: center;
-    margin: 38px 0 2px;
-    padding: 20px 0;
-    border-top: 1px solid rgba(250, 70, 4, 0.32);
-    border-bottom: 1px solid rgba(250, 70, 4, 0.16);
-  }
-
-  .scenario-materials-cta p {
-    max-width: 650px;
-    margin: 0;
-    color: var(--ink);
-    font-family: var(--t-text-font);
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 1.42;
-  }
-
-  .scenario-materials-cta__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: flex-end;
-  }
-
-  .scenario-materials-cta :global(.tg-tilda-cta) {
-    --tg-cta-height: 35px;
-    --tg-cta-arrow-box: 35px;
-    --tg-cta-overlap: 1px;
-    --tg-cta-pad-left: 18px;
-    --tg-cta-pad-right: 16px;
-    --tg-cta-radius: 5px;
-    --tg-cta-fill: #fffefa;
-    --tg-cta-border: #fa4604;
-    --tg-cta-color: #1c1b1a;
-    --tg-cta-arrow-fill: #fffefa;
-    --tg-cta-arrow-color: #1c1b1a;
-    --tg-cta-icon-size: 13px;
-    --tg-cta-font-size: 13px;
-    position: relative;
-    display: inline-grid;
-    grid-template-columns: minmax(0, auto) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
-    align-items: stretch;
-    height: var(--tg-cta-height) !important;
-    min-height: 0 !important;
-    padding: 0 !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-sizing: border-box;
-    background: transparent !important;
-    color: var(--tg-cta-color) !important;
-    font-family: var(--t-text-font);
-    font-size: var(--tg-cta-font-size) !important;
-    font-weight: 400;
-    line-height: 1;
-    text-decoration: none !important;
-    transition: background-color .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease, transform .18s ease;
-  }
-
-  .scenario-materials-cta :global(.tg-tilda-cta__plate),
-  .scenario-materials-cta :global(.tg-tilda-cta__arrow-box) {
-    grid-row: 1;
-    border: 1px solid var(--tg-cta-border);
-    box-sizing: border-box;
-    background: var(--tg-cta-fill);
-    transition: background-color .18s ease, border-color .18s ease;
-  }
-
-  .scenario-materials-cta :global(.tg-tilda-cta__plate) { grid-column: 1; min-width: 0; border-radius: var(--tg-cta-radius); }
-  .scenario-materials-cta :global(.tg-tilda-cta__arrow-box) { grid-column: 2; width: var(--tg-cta-arrow-box); margin-left: calc(-1 * var(--tg-cta-overlap)); border-radius: var(--tg-cta-radius); background: var(--tg-cta-arrow-fill); }
-  .scenario-materials-cta :global(.tg-tilda-cta__label) { grid-column: 1; grid-row: 1; z-index: 1; display: flex; align-items: center; justify-content: center; min-width: 0; padding: 0 var(--tg-cta-pad-right) 0 var(--tg-cta-pad-left); color: var(--tg-cta-color); font: inherit; line-height: 1; white-space: nowrap; pointer-events: none; }
-  .scenario-materials-cta :global(.tg-tilda-cta__icon) { grid-column: 2; grid-row: 1; z-index: 1; display: grid; place-items: center; width: var(--tg-cta-arrow-box); margin-left: calc(-1 * var(--tg-cta-overlap)); pointer-events: none; }
-  .scenario-materials-cta :global(.tg-tilda-cta__icon)::before { content: ""; width: var(--tg-cta-icon-size); height: var(--tg-cta-icon-size); background: var(--tg-cta-arrow-color); -webkit-mask: url("/images/tild3536-3939-4363-b163-323761323432__vector_8.svg") center / contain no-repeat; mask: url("/images/tild3536-3939-4363-b163-323761323432__vector_8.svg") center / contain no-repeat; transform: rotate(0deg); transform-origin: center; transition: transform .2s ease, background-color .18s ease; }
-
-  @media (hover: hover) {
-    .scenario-materials-cta :global(.tg-tilda-cta):hover { --tg-cta-fill: #fa4604; --tg-cta-color: #fffefa; --tg-cta-arrow-fill: #fa4604; --tg-cta-arrow-color: #fffefa; box-shadow: 0 14px 28px rgba(250, 70, 4, 0.14); transform: translateY(-1px); }
-    .scenario-materials-cta :global(.tg-tilda-cta):hover :global(.tg-tilda-cta__icon)::before { transform: rotate(45deg); }
-  }
-
   .scenario-inline-cta {
     display: grid;
     gap: 22px 28px;
@@ -1520,14 +1433,6 @@ const mistakes = [
       grid-template-columns: 1fr;
     }
 
-    .scenario-materials-cta {
-      grid-template-columns: 1fr;
-    }
-
-    .scenario-materials-cta__actions {
-      justify-content: flex-start;
-    }
-
     .scenario-cta__shell {
       grid-template-areas:
         "copy"
@@ -1677,28 +1582,6 @@ const mistakes = [
       margin: 34px 0 4px;
       padding: 20px 18px;
       border-radius: 22px;
-    }
-
-    .scenario-materials-cta {
-      gap: 14px;
-      margin: 32px 0 2px;
-      padding: 18px 0;
-    }
-
-    .scenario-materials-cta p {
-      font-size: 16px;
-      line-height: 1.4;
-    }
-
-    .scenario-materials-cta__actions {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      width: 100%;
-    }
-
-    .scenario-materials-cta :global(.tg-tilda-cta) {
-      display: grid;
-      width: 100%;
     }
 
     .scenario-inline-cta__eyebrow {

@@ -1,0 +1,154 @@
+---
+import {
+  maxPlanUrlFor,
+  telegramPlanUrlFor,
+  type PublicSiteEntrypoint,
+} from "../site/home-data";
+import { tildaCtaLink } from "../site/tilda-cta";
+
+type ExpertMaterialsEntrypoint = Exclude<PublicSiteEntrypoint, "home">;
+
+interface Props {
+  entrypoint: ExpertMaterialsEntrypoint;
+  placement: string;
+  copy: string;
+}
+
+const { entrypoint, placement, copy } = Astro.props;
+---
+
+<!--
+  Canonical small CTA. Its split controls come literally from the same
+  tildaCtaLink/home CTA source as the large expert conversion island.
+-->
+<aside class="expert-materials-inline-cta" aria-label="Получить материалы для подготовки к свадьбе">
+  <p>{copy}</p>
+  <div class="expert-materials-inline-cta__actions" aria-label="Получить материалы">
+    <Fragment set:html={tildaCtaLink("expert-materials-inline-cta__button expert-materials-inline-cta__button--primary", telegramPlanUrlFor(entrypoint), "Telegram", `target="_blank" rel="noopener noreferrer nofollow" data-plan-source="${placement}"`)} />
+    <Fragment set:html={tildaCtaLink("expert-materials-inline-cta__button expert-materials-inline-cta__button--secondary", maxPlanUrlFor(entrypoint), "MAX", `target="_blank" rel="noopener noreferrer nofollow" data-plan-source="${placement}"`)} />
+  </div>
+</aside>
+
+<style>
+  .expert-materials-inline-cta {
+    --t-text-font: "Manrope", Arial, sans-serif;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 18px 30px;
+    align-items: center;
+    margin: 42px 0 18px;
+    padding: 26px 30px;
+    border: 1px solid rgba(250, 70, 4, 0.16);
+    border-radius: 24px;
+    background: #fffefa;
+    box-shadow: 0 18px 36px rgba(36, 29, 25, 0.05);
+  }
+
+  .expert-materials-inline-cta p {
+    max-width: 650px;
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--t-text-font);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.42;
+  }
+
+  .expert-materials-inline-cta__actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(136px, 1fr));
+    gap: 10px;
+    width: min(100%, 340px);
+  }
+
+  .expert-materials-inline-cta :global(.tg-tilda-cta) {
+    --tg-cta-height: 35px;
+    --tg-cta-arrow-box: 35px;
+    --tg-cta-overlap: 1px;
+    --tg-cta-pad-left: 18px;
+    --tg-cta-pad-right: 16px;
+    --tg-cta-radius: 5px;
+    --tg-cta-fill: #fffefa;
+    --tg-cta-border: #fa4604;
+    --tg-cta-color: #1c1b1a;
+    --tg-cta-arrow-fill: #fffefa;
+    --tg-cta-arrow-color: #1c1b1a;
+    --tg-cta-icon-size: 13px;
+    --tg-cta-font-size: 13px;
+    position: relative;
+    display: inline-grid;
+    grid-template-columns: minmax(0, auto) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
+    align-items: stretch;
+    height: var(--tg-cta-height) !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-sizing: border-box;
+    background: transparent !important;
+    color: var(--tg-cta-color) !important;
+    font-family: var(--t-text-font);
+    font-size: var(--tg-cta-font-size) !important;
+    font-weight: 400;
+    line-height: 1;
+    text-decoration: none !important;
+    transition: background-color .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+  }
+
+  .expert-materials-inline-cta :global(.expert-materials-inline-cta__button) {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .expert-materials-inline-cta :global(.expert-materials-inline-cta__button--primary) {
+    --tg-cta-fill: #fa4604;
+    --tg-cta-color: #fffefa;
+    --tg-cta-arrow-fill: #fa4604;
+    --tg-cta-arrow-color: #fffefa;
+  }
+
+  .expert-materials-inline-cta :global(.tg-tilda-cta__plate),
+  .expert-materials-inline-cta :global(.tg-tilda-cta__arrow-box) {
+    grid-row: 1;
+    border: 1px solid var(--tg-cta-border);
+    box-sizing: border-box;
+    background: var(--tg-cta-fill);
+    transition: background-color .18s ease, border-color .18s ease;
+  }
+
+  .expert-materials-inline-cta :global(.tg-tilda-cta__plate) { grid-column: 1; min-width: 0; border-radius: var(--tg-cta-radius); }
+  .expert-materials-inline-cta :global(.tg-tilda-cta__arrow-box) { grid-column: 2; width: var(--tg-cta-arrow-box); margin-left: calc(-1 * var(--tg-cta-overlap)); border-radius: var(--tg-cta-radius); background: var(--tg-cta-arrow-fill); }
+  .expert-materials-inline-cta :global(.tg-tilda-cta__label) { grid-column: 1; grid-row: 1; z-index: 1; display: flex; align-items: center; justify-content: center; min-width: 0; padding: 0 var(--tg-cta-pad-right) 0 var(--tg-cta-pad-left); color: var(--tg-cta-color); font: inherit; line-height: 1; white-space: nowrap; pointer-events: none; }
+  .expert-materials-inline-cta :global(.tg-tilda-cta__icon) { grid-column: 2; grid-row: 1; z-index: 1; display: grid; place-items: center; width: var(--tg-cta-arrow-box); margin-left: calc(-1 * var(--tg-cta-overlap)); pointer-events: none; }
+  .expert-materials-inline-cta :global(.tg-tilda-cta__icon)::before { content: ""; width: var(--tg-cta-icon-size); height: var(--tg-cta-icon-size); background: var(--tg-cta-arrow-color); -webkit-mask: url("/images/tild3536-3939-4363-b163-323761323432__vector_8.svg") center / contain no-repeat; mask: url("/images/tild3536-3939-4363-b163-323761323432__vector_8.svg") center / contain no-repeat; transform: rotate(0deg); transform-origin: center; transition: transform .2s ease, background-color .18s ease; }
+
+  @media (hover: hover) {
+    .expert-materials-inline-cta :global(.tg-tilda-cta):hover { --tg-cta-fill: #fa4604; --tg-cta-color: #fffefa; --tg-cta-arrow-fill: #fa4604; --tg-cta-arrow-color: #fffefa; box-shadow: 0 14px 28px rgba(250, 70, 4, 0.14); transform: translateY(-1px); }
+    .expert-materials-inline-cta :global(.tg-tilda-cta):hover :global(.tg-tilda-cta__icon)::before { transform: rotate(45deg); }
+  }
+
+  @media screen and (max-width: 1099px) {
+    .expert-materials-inline-cta {
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin: 32px 0 16px;
+      padding: 22px 18px;
+      border-radius: 20px;
+    }
+
+    .expert-materials-inline-cta p {
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .expert-materials-inline-cta__actions {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      width: 100%;
+    }
+
+    .expert-materials-inline-cta :global(.tg-tilda-cta) {
+      display: grid;
+      width: 100%;
+    }
+  }
+</style>

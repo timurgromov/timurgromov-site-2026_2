@@ -121,6 +121,21 @@ ps aux | egrep "headless|remote-debugging-port|astro preview|npm run preview" | 
 `docs/EXISTING_DESIGN_REUSE_RULE.md`: правило copy-first, canonical CTA и
 обязательный source паттерна сохраняются там целиком.
 
+## CTA template commands
+
+The exact phrases below have fixed implementation meaning; read
+`docs/CTA_TEMPLATES.md` before using either.
+
+- «поставь большой CTA» means the literal
+  `renderExpertConversionContour` island, including its existing contact
+  pop-up, photo stencil, phone, four paths and source-specific deep links.
+- «поставь маленький CTA» means the literal
+  `ExpertMaterialsInlineCta.astro` white materials island: Telegram, MAX and
+  no portrait/phone/contact redraw.
+- Never recreate either template from scratch. A new page gets its own
+  `site_plan_<entrypoint>` and `site_meeting_<entrypoint>` codes in both the
+  public site and EventBudjet before release.
+
 ## Model Routing
 
 Перед существенной задачей: `Model note: <model>/<effort> — <причина>`.

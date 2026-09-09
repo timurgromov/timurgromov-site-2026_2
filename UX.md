@@ -70,8 +70,20 @@ not a separate SEO-page popup design.
 ## Scenario article material entry
 
 After «Церемония, поздравления и фотографии» and before the personal meeting
-CTA, `/scenario/` has one light editorial entry to the materials funnel. Its
-copy describes the calculator, scenario example and preparation plan, and it
-contains only compact Telegram and MAX split-controls. The personal-discussion
-CTA remains later in the article; the full four-path author island remains once
-at the bottom.
+CTA, `/scenario/` has one compact white materials island. Its copy describes
+the calculator, scenario example and preparation plan; Telegram is the orange
+primary split-control and MAX is the light secondary one. It has no article
+divider lines. The personal-discussion CTA remains later in the article; the
+full four-path author island remains once at the bottom.
+
+## Named CTA templates for future expert pages
+
+- «Большой CTA» is the literal `renderExpertConversionContour` home-site
+  island: four paths, the author photo stencil, text phone and the existing
+  contact pop-up. It appears once at the end of useful page content.
+- «Маленький CTA» is the literal `ExpertMaterialsInlineCta` white materials
+  island: one contextual copy line, orange Telegram and light MAX. It can be
+  placed during reading, but never replaces or duplicates the final big CTA.
+- The templates are defined in `docs/CTA_TEMPLATES.md`. New pages must use
+  their own plan/contact source pair; provider is recorded separately from
+  page identity in the CRM.

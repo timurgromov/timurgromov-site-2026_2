@@ -47,3 +47,20 @@ large empty tail between page content, CTA island and footer.
   uses the homepage split-button source for Telegram/MAX only.
 - The full author CTA island remains once at the page bottom, avoiding a second
   heavy portrait/contact block in the reading flow.
+- The initial divider-style presentation was replaced after visual review with
+  one compact white island: no parallel separator lines, orange primary
+  Telegram and light secondary MAX. It is the materials-only, smaller-scale
+  continuation of the bottom home-style island.
+
+## Durable CTA template contract (2026-09-09)
+
+- Extracted the small materials island from `/scenario/` into the literal
+  reusable `src/components/ExpertMaterialsInlineCta.astro`; its Tilda split
+  controls, arrow animation and white-card treatment now have one source.
+- Defined the two owner-facing commands in `docs/CTA_TEMPLATES.md` and
+  `AGENTS.md`: «Большой CTA» is `renderExpertConversionContour`, and
+  «Маленький CTA» is `ExpertMaterialsInlineCta`.
+- Recorded that plan/contact source codes identify the page while the CRM
+  stores the Telegram/MAX provider separately. Current three expert routes
+  already have individual codes; a future route must add its own pair and
+  EventBudjet labels before release.

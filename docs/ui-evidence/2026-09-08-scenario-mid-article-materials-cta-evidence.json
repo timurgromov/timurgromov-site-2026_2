@@ -3,16 +3,20 @@
   "change_id": "2026-09-08-scenario-mid-article-materials-cta",
   "change_kind": "mid-article-materials-entry",
   "status": "passed",
-  "requested_visible_change": "Add one short Telegram/MAX materials CTA between the article opening and the existing personal-discussion CTA, while retaining the full author island only at the bottom.",
-  "expected_visible_delta": "After the ceremony section, a light two-control materials entry is visible before the next reading section; the existing personal CTA and final four-path block remain separate.",
-  "attempt_number": 1,
+  "requested_visible_change": "Replace the divider-style materials entry with one compact white island: orange primary Telegram, light secondary MAX, no extra article-divider lines.",
+  "expected_visible_delta": "After the ceremony section, a white rounded materials island is visible before the next reading section; the existing personal CTA and final four-path block remain separate.",
+  "attempt_number": 2,
   "checked_after_last_edit": true,
-  "candidate_diff_sha256": "a2557c0256626f77abaa3942de3da84ec3ddfeede80ee7590f5736de53f3ebcc",
-  "served_candidate_url": "http://127.0.0.1:4322/scenario/",
+  "candidate_diff_sha256": "5721a7ce40df1a51ed3f8db4989f89535dd860d8d5414c99d53f8597a5a097aa",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4322/scenario/?mid-cta=white-card",
+    "source_ref": "staged reusable CTA-template candidate",
+    "fresh_reload": true
+  },
   "target": {
     "surface": "/scenario/",
     "state": "anonymous reader; Telegram/MAX deep links inspected but not opened",
-    "selector_or_slide_id": ".scenario-materials-cta",
+    "selector_or_slide_id": ".expert-materials-inline-cta",
     "action": "scroll to the post-ceremony reading transition and inspect the compact CTA"
   },
   "must_remain_unchanged": [
@@ -23,26 +27,30 @@
   "required_viewports": ["1280x720", "390x844"],
   "observations": [
     {
-      "viewport": "1280x720 local in-app browser",
-      "before_signature": "The ceremony section flowed immediately into «Знакомство гостей с вечером» with no materials entry.",
-      "after_signature": "A two-line editorial CTA with Telegram and MAX split-controls sits between those sections.",
-      "observed_visible_result": "The copy, two compact controls and their separate arrow boxes are visible; it does not repeat the portrait, phone or four-path layout.",
+      "viewport": "1280x720",
+      "viewport_source": "Codex in-app browser; innerWidth=1280; innerHeight=720",
+      "before_signature": "The materials entry was a text row framed by two orange-toned rules and a neighbouring article divider; both Telegram and MAX were light controls.",
+      "after_signature": "One #fffefa rounded island from ExpertMaterialsInlineCta with a subtle border and shadow contains the copy, orange Telegram primary split-control and light MAX secondary split-control.",
+      "observed_visible_result": "The card is visually distinct from the reading background without parallel separator rules; it does not repeat the portrait, phone or four-path layout. The rendered Telegram/MAX links both preserve site_plan_scenario.",
       "delta_visible": true,
       "target_visible": true,
-      "runtime_errors": []
+      "preserved_invariants_passed": true,
+      "console_errors": []
     },
     {
-      "viewport": "390x844 local in-app browser",
-      "before_signature": "No inline materials CTA appeared in this reading transition.",
-      "after_signature": "Copy wraps naturally and Telegram/MAX occupy one two-column row.",
+      "viewport": "390x844",
+      "viewport_source": "responsive QA matrix; innerWidth=390; innerHeight=844",
+      "before_signature": "The previous materials entry used full-width divider rules on the reading background.",
+      "after_signature": "The white island keeps natural copy wrapping and Telegram/MAX occupy one two-column row.",
       "observed_visible_result": "Both controls remain inside the 390px viewport; document scroll width equals viewport width.",
       "delta_visible": true,
       "target_visible": true,
-      "runtime_errors": []
+      "preserved_invariants_passed": true,
+      "console_errors": []
     }
   ],
   "verification": {
-    "live_browser": "In-app browser observed the local candidate at desktop and mobile; no console errors were present.",
+    "live_browser": "In-app browser observed the freshly loaded local candidate at 1280x720: the white card, orange Telegram and light MAX were visible; no console errors were present.",
     "deep_links": "Telegram and MAX links retain the scenario plan source; they were not opened.",
     "responsive_gate": "npm run verify:responsive-layout completed before release.",
     "contact_gate": "npm run verify:contacts completed before release."

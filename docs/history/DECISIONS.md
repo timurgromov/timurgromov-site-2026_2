@@ -1063,3 +1063,50 @@ Do not:
 - не менять главную страницу, `/materials/` или статью подготовки в рамках
   прототипа;
 - не открывать Telegram/MAX во время QA и не создавать тестовые лиды.
+
+## DEC-2026-09-09-NAMED-EXPERT-CTA-TEMPLATES
+
+Status: active
+Area: product, UX, attribution, frontend
+Decision date: 2026-09-09
+Evidence: owner direction and existing homepage CTA/pop-up implementation
+Commits: pending
+Supersedes: the page-local small-CTA implementation in
+`DEC-2026-09-08-SCENARIO-CALCULATOR-CONTACT-PROTOTYPE`
+
+Decision:
+
+Two named, literal templates are the only CTA primitives for future expert
+pages:
+
+- «Большой CTA» is `renderExpertConversionContour`: homepage island, four
+  paths, existing contact pop-up, portrait stencil and text phone.
+- «Маленький CTA» is `ExpertMaterialsInlineCta`: compact white materials
+  island with orange Telegram and light MAX split-controls.
+
+Every route has a distinct materials and contact source pair. Provider
+(Telegram/MAX) is retained separately from the route source. A new page cannot
+reuse another page’s source or be released until both codes and labels exist in
+the public-site and EventBudjet contracts.
+
+Why:
+
+The owner needs a durable short vocabulary for future content pages. A manual
+redraw or generic source code makes the brand contour inconsistent and removes
+the ability to understand in the admin which page created a lead.
+
+Do:
+
+- reuse the exact components, helpers, markup and hover state named in
+  `docs/CTA_TEMPLATES.md`;
+- keep one big CTA at the end and place a small CTA only where the reading
+  context makes its materials offer useful;
+- add source codes, Russian labels and Telegram/MAX validation together before
+  a future page release.
+
+Do not:
+
+- do not redraw either CTA, create a page-local clone or give all pages one
+  generic `site_plan`/`site_meeting` source;
+- do not claim an end-to-end bot/admin verification without an authorised real
+  test lead.

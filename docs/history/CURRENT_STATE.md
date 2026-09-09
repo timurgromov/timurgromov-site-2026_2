@@ -18,6 +18,10 @@
   production CRM record.
 - UI contract/evidence: `docs/ui-evidence/2026-09-08-expert-conversion-contour-contract.md`
   and `docs/ui-evidence/2026-09-08-expert-conversion-contour-evidence.json`.
+- Future-page CTA commands are fixed: «Большой CTA» means the literal
+  `renderExpertConversionContour` island, and «Маленький CTA» means the
+  literal `ExpertMaterialsInlineCta` materials island. Their source and
+  cross-project attribution checklist are owned by `docs/CTA_TEMPLATES.md`.
 
 ## Open SEO guide: preparation plan (2026-09-08)
 
