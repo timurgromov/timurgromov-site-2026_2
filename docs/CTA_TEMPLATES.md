@@ -12,7 +12,7 @@ card, buttons or pop-up.
   consultation pop-up as the homepage.
 - Required paths: Telegram materials, MAX materials, «Обсудить свадьбу»
   (opens the pop-up) and «Сайт ведущего».
-- Required input: page `entrypoint`, so Telegram/MAX receive
+- Required input: page `entrypoint`, so Telegram/MAX materials receive
   `site_plan_<entrypoint>` and the pop-up receives
   `site_meeting_<entrypoint>`.
 
