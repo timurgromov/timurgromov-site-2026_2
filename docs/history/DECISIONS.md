@@ -2,59 +2,6 @@
 
 Этот файл фиксирует решения, которые важно помнить и не откатывать случайно.
 
-## DEC-2026-09-09-DIRECT-MAX-PERSONAL-CONTACT
-
-Status: active
-Area: paid landing, MAX, Metrika, Direct measurement
-Decision date: 2026-09-09
-Evidence: owner approved the lower-friction MAX contact path; counter 100295805
-has auto-goal 366154729 for clicks to messenger links
-Supersedes: MAX `site_meeting_*` bot handoff for public `Написать в MAX` CTAs
-
-Decision:
-Public `Написать в MAX` CTAs open Timur's canonical personal MAX page directly.
-They never try to derive a personal URL from a MAX bot user ID. Telegram contact
-and all material/qualification CTAs retain their existing bot flows.
-
-The meaningful measurable action for this direct route is the existing Metrika
-auto-goal `366154729` (`переход в мессенджер`). It is a click
-micro-conversion only: it is not a message delivery receipt, reply, CRM lead,
-meeting or revenue.
-
-Why:
-The MAX bot is useful for material qualification but adds extra taps to a
-paid-search visitor who only wants to contact Timur. MAX does not give the
-site a reliable way to turn the bot user's numeric ID into a personal-chat URL.
-Using the owner-provided public page removes that unnecessary handoff.
-
-Do:
-
-- keep `maxPersonalProfileUrl` as the one explicit public MAX contact URL;
-- preserve the bot-first MAX `site_plan_*` material routes;
-- report the personal MAX route as a messenger-click micro-conversion.
-
-Do not:
-
-- do not represent that click as a CRM lead or a successful MAX message;
-- do not change Telegram's bot route as part of this decision;
-- do not use auto-goal `366154729` as the optimization target when moving to
-  an automatic Direct strategy.
-
-Before any future automatic strategy:
-
-1. choose the actual business conversion (for example, CRM-qualified contact
-   or a later commercial outcome), not a messenger click;
-2. verify its one-to-one attribution from Direct click to CRM/offline
-   conversion and enough volume for the strategy;
-3. only then separately approve the strategy and its goal.
-
-Verification:
-
-- rendered `Написать в MAX` links target the canonical personal MAX URL and
-  never a `_bot?start=site_meeting` URL;
-- the counter's auto-goal retains the click in Metrika;
-- no production test message or CRM lead is created to verify the link.
-
 ## DEC-2026-09-08-EXPERT-PAGE-SPLIT-CONVERSION
 
 Status: active

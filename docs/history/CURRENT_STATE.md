@@ -1,20 +1,5 @@
 # Current State - 2026-08-20
 
-## Direct MAX contact handoff (2026-09-09)
-
-- Every public `Написать в MAX` control now opens Timur's canonical personal
-  MAX page directly. It does not start the MAX bot and therefore does not
-  create a CRM lead by itself. Telegram's existing bot routes and every MAX
-  `Получить сценарий` / qualification route remain unchanged.
-- Counter `100295805` already has auto-goal `366154729` (`переход в
-  мессенджер`): it counts a click to either messenger, including the personal
-  MAX page. This is a click micro-conversion, not proof of a sent message,
-  reply, CRM lead, meeting or sale.
-- If this campaign ever changes from manual `HIGHEST_POSITION` to an automatic
-  strategy, do not optimize on `366154729`. First choose and verify a separate
-  CRM-qualified conversion (with reliable Yandex/CRM attribution), then make
-  that later decision independently.
-
 ## Expert-page conversion contour (2026-09-08)
 
 - `/scenario/`, `/materials/` and `/articles/plan-podgotovki-k-svadbe/` share
@@ -148,9 +133,7 @@
 - Hero popup `Получить сценарий` показывает компактное preview материала с отдельным чёрно-белым портретом Тимура из site assets, но не даёт прямую ссылку на `/scenario/`; CTA в popup ведут в Telegram-бота или MAX-бота.
 - Старый tripwire popup с формой оставлен в коде как скрытая заготовка, но активные кнопки его больше не открывают.
 - Кнопки `Обсудить свадьбу` и `Записаться на бесплатную встречу` открывают единый contact pop-up, а не ведут напрямую в личку.
-- В contact pop-up есть три маршрута: Telegram, MAX и форма телефона.
-  Telegram сохраняет bot deep link `site_meeting_home`; MAX открывает личную
-  публичную страницу Тимура напрямую.
+- В contact pop-up есть три маршрута: Telegram, MAX и форма телефона. Telegram и MAX главной указывают на bot deep link `site_meeting_home`.
 - Видимые Telegram-контакты больше не ведут в личный `@timurgromovv`; главная использует `site_meeting_home`, `/scenario/` — `site_meeting_scenario`, `/materials/` — `site_meeting_materials`.
 - Форма консультации в pop-up подключена к `EventBudjet`: обязательные поля `Имя` и `Телефон`, необязательный `Комментарий`, отправка в `Все заявки` и мгновенное Telegram-уведомление в канал CRM-заявок.
 - После успешной отправки формы pop-up показывает отдельное success-состояние: поля скрываются, появляется оранжевая галочка, заголовок `Заявка отправлена`, пояснение и ссылка `Написать в Telegram`.
@@ -183,10 +166,7 @@
   - Telegram: `https://t.me/gromov_wedding_bot?start=site_plan`
   - MAX: `https://max.ru/id615491029963_bot?start=site_plan`
 - Deep link встречи и прямого Telegram-контакта: `https://t.me/gromov_wedding_bot?start=site_meeting`.
-- `Написать в MAX` ведёт на сохранённую публичную страницу Тимура в MAX,
-  не на MAX bot. Не синтезировать личный MAX URL из MAX ID.
-- Direct-contact copy `Напишите сообщение прямо здесь...` относится только к
-  Telegram `site_meeting` и не должна появляться на `site_plan` входах.
+- Direct-contact copy `Напишите сообщение прямо здесь...` относится только к `site_meeting` и не должна появляться на `site_plan` входах.
 - Прямой личный Telegram `@timurgromovv` не использовать как public CTA на сайте; для Telegram-контакта вести через бота, чтобы заявка попадала в `CRM заявки`.
 - Для главного оффера сценария hero открывает короткий popup с выбором Telegram или MAX; квалификация из 3 вопросов проходит в выбранном боте до выдачи сценария и полезных материалов.
 - Все полезные материалы внутри бота, кроме свадебного калькулятора, должны вести через `site_plan` qualification-first flow.
@@ -195,9 +175,7 @@
 - Hero CTA обещает ценность (`получить сценарий`), а CTA-блок рядом уточняет каналы доставки (`Telegram` или `MAX`).
 - Конечный материал для bot-first воронки должен открываться на маршруте `/scenario/`, а не на главной странице сайта.
 - Бесплатная встреча - главная бизнес-цель сайта, поэтому она может быть вынесена отдельным вторым CTA-блоком, но не должна заменять первый холодный вход через план вечера.
-- UX консультации строится вокруг одного pop-up: Telegram и форма сохраняют
-  CRM-атрибуцию; MAX — намеренно прямой личный контакт с измерением только
-  клика в Метрике.
+- UX консультации строится вокруг одного pop-up: визуально разные способы связи, технически в будущем все должны попадать в бота/CRM с источником.
 - Калькулятор бюджета не является главным CTA на сайте.
 - Полезные материалы, смета и чеклисты - второй уровень, уже внутри Telegram-бота, а не отдельные равные офферы на лендинге.
 - Для live-правок сайта после commit/push в `main` дождаться автодеплоя GitHub Pages и проверить `https://timurgromov.ru/`.

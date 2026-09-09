@@ -387,12 +387,6 @@ function assertLayout(layout) {
 
   if (!phone || !shortcut || !orangeShape) fail(`${mode}: required elements missing`, layout);
   if (!telegram || !max) fail(`${mode}: Telegram/MAX links missing`, layout);
-  if (!max.href.includes("max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM")) {
-    fail(`${mode}: MAX contact link no longer opens Timur's personal MAX page`, layout);
-  }
-  if (max.href.includes("_bot?") || max.href.includes("start=site_meeting")) {
-    fail(`${mode}: MAX contact link regressed to a bot handoff`, layout);
-  }
   if (shortcut.display === "none" || shortcut.visibility === "hidden" || shortcut.opacity === 0) {
     fail(`${mode}: shortcut is not visible`, layout);
   }

@@ -117,17 +117,11 @@ export const telegramContactUrl = telegramMeetingUrl;
 export const maxPlanUrl = maxStartUrl("site_plan_home");
 export const maxPlanUrlFor = (entrypoint: Exclude<PublicSiteEntrypoint, "home">) =>
   maxStartUrl(`site_plan_${entrypoint}`);
-// MAX does not expose a stable public URL for a person from a bot user ID.
-// Keep the public profile invite supplied by MAX as the one canonical direct-contact URL.
-export const maxPersonalProfileUrl =
-  "https://max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM?clckid=c487e7dc";
-// "Написать в MAX" is a direct personal-contact action, not a bot start.
-// The qualification/material route above intentionally remains bot-first.
-export const maxContactUrl = maxPersonalProfileUrl;
-export const maxMeetingUrl = maxContactUrl;
-export const maxMeetingUrlFor = (_entrypoint: Exclude<PublicSiteEntrypoint, "home">) =>
-  maxContactUrl;
+export const maxMeetingUrl = maxStartUrl("site_meeting_home");
+export const maxMeetingUrlFor = (entrypoint: Exclude<PublicSiteEntrypoint, "home">) =>
+  maxStartUrl(`site_meeting_${entrypoint}`);
 export const maxCalculatorUrl = `https://max.ru/${maxBotUsername}?startapp=direct_personal`;
+export const maxContactUrl = maxMeetingUrl;
 
 export const pricePhotoPrimaryUrl =
   "images/tild3134-3130-4739-b462-666632633730______3iiwa_mnwni_1_2_.png";
