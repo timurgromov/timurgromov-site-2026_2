@@ -25,7 +25,7 @@
 </noscript>
 <script>
   (function(){
-    var allowedSources = {
+    var legacySources = {
       site_plan_home: true,
       site_plan_scenario: true,
       site_plan_materials: true,
@@ -165,7 +165,8 @@
           : host === 't.me' || host.endsWith('.t.me') ? 'telegram'
           : null;
         var source = url.searchParams.get('start') || '';
-        if (!provider || !allowedSources[source]) return null;
+        var structuredSource = /^site_(plan|meeting)_[a-z0-9_-]+__[a-z0-9_-]+__[a-z0-9_-]+$/.test(source) && source.length <= 64;
+        if (!provider || (!legacySources[source] && !structuredSource)) return null;
         return { provider: provider, source: source, url: url };
       } catch (_error) {
         return null;

@@ -25,7 +25,7 @@
 </noscript>
 <script>
   (function(){
-    var allowedSources = {
+    var legacySources = {
       site_plan_home: true,
       site_plan_scenario: true,
       site_plan_materials: true,
@@ -165,7 +165,8 @@
           : host === 't.me' || host.endsWith('.t.me') ? 'telegram'
           : null;
         var source = url.searchParams.get('start') || '';
-        if (!provider || !allowedSources[source]) return null;
+        var structuredSource = /^site_(plan|meeting)_[a-z0-9_-]+__[a-z0-9_-]+__[a-z0-9_-]+$/.test(source) && source.length <= 64;
+        if (!provider || (!legacySources[source] && !structuredSource)) return null;
         return { provider: provider, source: source, url: url };
       } catch (_error) {
         return null;
@@ -343,10 +344,10 @@ Welcome — это не просто время ожидания, а базов�
 </p> </div> </section> <!--
   Canonical small CTA. Its split controls come literally from the same
   tildaCtaLink/home CTA source as the large expert conversion island.
---><aside class="expert-materials-inline-cta" aria-label="Получить материалы для подготовки к свадьбе" data-astro-cid-wzucysma> <p data-astro-cid-wzucysma>Хотите собрать свой вечер по этой логике? В Telegram или MAX можно получить калькулятор, пример сценария и план подготовки.</p> <div class="expert-materials-inline-cta__actions" aria-label="Получить материалы" data-astro-cid-wzucysma> <a class="tg-tilda-cta expert-materials-inline-cta__button expert-materials-inline-cta__button--primary" href="https://t.me/gromov_wedding_bot?start=site_plan_scenario" target="_blank" rel="noopener noreferrer nofollow" data-plan-source="scenario_mid_article"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
+--><aside class="expert-materials-inline-cta" aria-label="Получить материалы для подготовки к свадьбе" data-astro-cid-wzucysma> <p data-astro-cid-wzucysma>Хотите собрать свой вечер по этой логике? В Telegram или MAX можно получить калькулятор, пример сценария и план подготовки.</p> <div class="expert-materials-inline-cta__actions" aria-label="Получить материалы" data-astro-cid-wzucysma> <a class="tg-tilda-cta expert-materials-inline-cta__button expert-materials-inline-cta__button--primary" href="https://t.me/gromov_wedding_bot?start=site_plan_timurgromov__scenario__mid_article" target="_blank" rel="noopener noreferrer nofollow" data-plan-source="site_plan_timurgromov__scenario__mid_article"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
   <span class="tg-tilda-cta__arrow-box" aria-hidden="true"></span>
   <span class="tg-tilda-cta__label" data-tilda-cta-label>Telegram</span>
-  <span class="tg-tilda-cta__icon" aria-hidden="true"></span></a> <a class="tg-tilda-cta expert-materials-inline-cta__button expert-materials-inline-cta__button--secondary" href="https://max.ru/id615491029963_bot?start=site_plan_scenario" target="_blank" rel="noopener noreferrer nofollow" data-plan-source="scenario_mid_article"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
+  <span class="tg-tilda-cta__icon" aria-hidden="true"></span></a> <a class="tg-tilda-cta expert-materials-inline-cta__button expert-materials-inline-cta__button--secondary" href="https://max.ru/id615491029963_bot?start=site_plan_timurgromov__scenario__mid_article" target="_blank" rel="noopener noreferrer nofollow" data-plan-source="site_plan_timurgromov__scenario__mid_article"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
   <span class="tg-tilda-cta__arrow-box" aria-hidden="true"></span>
   <span class="tg-tilda-cta__label" data-tilda-cta-label>MAX</span>
   <span class="tg-tilda-cta__icon" aria-hidden="true"></span></a> </div> </aside>  <section class="scenario-timeblock" data-astro-cid-jfa4gbdv> <div class="scenario-timeblock__meta" data-astro-cid-jfa4gbdv> <div class="scenario-timeblock__time" data-astro-cid-jfa4gbdv>17:20 — 18:20</div> <h2 data-astro-cid-jfa4gbdv>Знакомство гостей с вечером</h2> </div> <div class="scenario-prose" data-astro-cid-jfa4gbdv> <p data-astro-cid-jfa4gbdv>
@@ -433,7 +434,7 @@ Welcome — это не просто время ожидания, а базов�
 Можно коротко обсудить формат, гостей, площадку и тайминг именно
             вашего вечера. Вы поймёте, где могут быть точки риска и как собрать
             всё надёжнее.
-</p> </div> <div class="scenario-inline-cta__actions" data-astro-cid-jfa4gbdv> <a class="scenario-inline-cta__button" href="https://t.me/gromov_wedding_bot?start=site_meeting_scenario" target="_blank" rel="noopener noreferrer" data-astro-cid-jfa4gbdv>
+</p> </div> <div class="scenario-inline-cta__actions" data-astro-cid-jfa4gbdv> <a class="scenario-inline-cta__button" href="https://t.me/gromov_wedding_bot?start=site_meeting_timurgromov__scenario__inline_consultation" target="_blank" rel="noopener noreferrer" data-astro-cid-jfa4gbdv>
 Обсудить вашу свадьбу
 </a> <p class="scenario-inline-cta__note" data-astro-cid-jfa4gbdv>30–50 минут, только про вашу свадьбу.</p> </div> </section> <section class="scenario-timeblock" data-astro-cid-jfa4gbdv> <div class="scenario-timeblock__meta" data-astro-cid-jfa4gbdv> <div class="scenario-timeblock__time" data-astro-cid-jfa4gbdv>19:40 — 20:40</div> <h2 data-astro-cid-jfa4gbdv>Эмоциональный пик</h2> </div> <div class="scenario-prose" data-astro-cid-jfa4gbdv> <p data-astro-cid-jfa4gbdv>
 Многие пары хотят поставить первый танец как можно раньше. Это
@@ -489,11 +490,11 @@ Welcome — это не просто время ожидания, а базов�
         <h2>Всё для подготовки к свадьбе</h2>
         <p class="tg-plan-cta__text">В Telegram- и MAX-боте вы получите свадебный калькулятор, полезные материалы, порядок вечера, пример сценария и пошаговый план подготовки к свадьбе. Можно обсудить свою свадьбу с Тимуром или посмотреть сайт ведущего.</p>
         <div class="tg-plan-cta__actions" aria-label="Выбрать следующий шаг">
-          <a class="tg-tilda-cta tg-plan-cta__button tg-plan-cta__button--primary" href="https://t.me/gromov_wedding_bot?start=site_plan_scenario" target="_blank" rel="noopener noreferrer nofollow" data-plan-source="site_plan_scenario" data-expert-cta="plan-telegram"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
+          <a class="tg-tilda-cta tg-plan-cta__button tg-plan-cta__button--primary" href="https://t.me/gromov_wedding_bot?start=site_plan_timurgromov__scenario__final" target="_blank" rel="noopener noreferrer nofollow" data-plan-source="site_plan_timurgromov__scenario__final" data-expert-cta="plan-telegram"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
   <span class="tg-tilda-cta__arrow-box" aria-hidden="true"></span>
   <span class="tg-tilda-cta__label" data-tilda-cta-label>Получить в Telegram</span>
   <span class="tg-tilda-cta__icon" aria-hidden="true"></span></a>
-          <a class="tg-tilda-cta tg-plan-cta__button tg-plan-cta__button--secondary" href="https://max.ru/id615491029963_bot?start=site_plan_scenario" target="_blank" rel="noopener noreferrer nofollow" data-plan-source="site_plan_scenario" data-expert-cta="plan-max"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
+          <a class="tg-tilda-cta tg-plan-cta__button tg-plan-cta__button--secondary" href="https://max.ru/id615491029963_bot?start=site_plan_timurgromov__scenario__final" target="_blank" rel="noopener noreferrer nofollow" data-plan-source="site_plan_timurgromov__scenario__final" data-expert-cta="plan-max"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
   <span class="tg-tilda-cta__arrow-box" aria-hidden="true"></span>
   <span class="tg-tilda-cta__label" data-tilda-cta-label>Получить в MAX</span>
   <span class="tg-tilda-cta__icon" aria-hidden="true"></span></a>
@@ -520,7 +521,7 @@ Welcome — это не просто время ожидания, а базов�
       <section><h3>Материалы</h3><a href="/materials/">Все материалы</a><a href="/scenario/">Сценарий вечера</a></section>
       <section><h3>Услуги</h3><a href="/">Свадебный ведущий</a><a href="https://corp.timurgromov.ru" target="_blank" rel="noopener noreferrer">Корпоративы</a></section>
       <section><h3>Доверие</h3><a href="https://dzen.ru/timurgromov" target="_blank" rel="noopener noreferrer">Дзен</a><a href="https://clck.ru/TZjT6" target="_blank" rel="noopener noreferrer">Отзывы</a></section>
-      <section><h3>Контакты</h3><a href="https://t.me/gromov_wedding_bot?start=site_meeting_scenario" target="_blank" rel="noopener noreferrer nofollow">Telegram</a><a href="https://max.ru/id615491029963_bot?start=site_meeting_scenario" target="_blank" rel="noopener noreferrer nofollow">MAX</a><a href="tel:+79253900772">+7 925 390-07-72</a></section>
+      <section><h3>Контакты</h3><a href="https://t.me/gromov_wedding_bot?start=site_meeting_timurgromov__scenario__final" target="_blank" rel="noopener noreferrer nofollow">Telegram</a><a href="https://max.ru/id615491029963_bot?start=site_meeting_timurgromov__scenario__final" target="_blank" rel="noopener noreferrer nofollow">MAX</a><a href="tel:+79253900772">+7 925 390-07-72</a></section>
     </div>
   </footer>
 
@@ -566,11 +567,11 @@ Welcome — это не просто время ожидания, а базов�
         <h2 id="consultation-contact-title">Выберите удобный способ</h2>
         <p class="tg-contact-popup__text">Напишите в Telegram или MAX, позвоните либо оставьте телефон, и я свяжусь с вами.</p>
         <div class="tg-contact-popup__links">
-          <a class="tg-tilda-cta tg-contact-popup__link" href="https://t.me/gromov_wedding_bot?start=site_meeting_scenario" target="_blank" rel="nofollow" data-contact-channel="telegram"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
+          <a class="tg-tilda-cta tg-contact-popup__link" href="https://t.me/gromov_wedding_bot?start=site_meeting_timurgromov__scenario__final" target="_blank" rel="nofollow" data-contact-channel="telegram"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
   <span class="tg-tilda-cta__arrow-box" aria-hidden="true"></span>
   <span class="tg-tilda-cta__label" data-tilda-cta-label>Написать в Telegram</span>
   <span class="tg-tilda-cta__icon" aria-hidden="true"></span></a>
-          <a class="tg-tilda-cta tg-contact-popup__link" href="https://max.ru/id615491029963_bot?start=site_meeting_scenario" target="_blank" rel="nofollow" data-contact-channel="max"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
+          <a class="tg-tilda-cta tg-contact-popup__link" href="https://max.ru/id615491029963_bot?start=site_meeting_timurgromov__scenario__final" target="_blank" rel="nofollow" data-contact-channel="max"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
   <span class="tg-tilda-cta__arrow-box" aria-hidden="true"></span>
   <span class="tg-tilda-cta__label" data-tilda-cta-label>Написать в MAX</span>
   <span class="tg-tilda-cta__icon" aria-hidden="true"></span></a>
@@ -591,7 +592,7 @@ Welcome — это не просто время ожидания, а базов�
       <form class="tg-contact-popup__form" data-consultation-lead-form>
         <div class="tg-contact-popup__form-fields">
           <p class="tg-contact-popup__form-title">Оставить заявку</p>
-          <input type="hidden" name="form_source" value="site_consultation_popup" />
+          <input type="hidden" name="form_source" value="site_meeting_timurgromov__scenario__final" />
           <label>Ваше имя *<input name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" required /></label>
           <label>Ваш телефон *<input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 999 123-45-67" required /></label>
           <label>Комментарий<textarea name="comment" placeholder="Дата свадьбы, площадка или любой вопрос"></textarea></label>
@@ -606,7 +607,7 @@ Welcome — это не просто время ожидания, а базов�
           <span class="tg-contact-popup__success-icon" aria-hidden="true"></span>
           <p class="tg-contact-popup__success-title">Заявка отправлена</p>
           <p class="tg-contact-popup__success-text">Я свяжусь с вами в ближайшее время. Если хочется быстрее, можно написать сразу в Telegram.</p>
-          <a class="tg-tilda-cta tg-contact-popup__success-link" href="https://t.me/gromov_wedding_bot?start=site_meeting_scenario" target="_blank" rel="nofollow"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
+          <a class="tg-tilda-cta tg-contact-popup__success-link" href="https://t.me/gromov_wedding_bot?start=site_meeting_timurgromov__scenario__final" target="_blank" rel="nofollow"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
   <span class="tg-tilda-cta__arrow-box" aria-hidden="true"></span>
   <span class="tg-tilda-cta__label" data-tilda-cta-label>Написать в Telegram</span>
   <span class="tg-tilda-cta__icon" aria-hidden="true"></span></a>
