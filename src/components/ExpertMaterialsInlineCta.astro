@@ -1,5 +1,6 @@
 ---
 import {
+  expertCtaSource,
   maxPlanUrlFor,
   telegramPlanUrlFor,
   type PublicSiteEntrypoint,
@@ -10,11 +11,12 @@ type ExpertMaterialsEntrypoint = Exclude<PublicSiteEntrypoint, "home">;
 
 interface Props {
   entrypoint: ExpertMaterialsEntrypoint;
-  placement: string;
+  placement: "mid_article";
   copy: string;
 }
 
 const { entrypoint, placement, copy } = Astro.props;
+const source = expertCtaSource("plan", entrypoint, placement);
 ---
 
 <!--
@@ -24,8 +26,8 @@ const { entrypoint, placement, copy } = Astro.props;
 <aside class="expert-materials-inline-cta" aria-label="Получить материалы для подготовки к свадьбе">
   <p>{copy}</p>
   <div class="expert-materials-inline-cta__actions" aria-label="Получить материалы">
-    <Fragment set:html={tildaCtaLink("expert-materials-inline-cta__button expert-materials-inline-cta__button--primary", telegramPlanUrlFor(entrypoint), "Telegram", `target="_blank" rel="noopener noreferrer nofollow" data-plan-source="${placement}"`)} />
-    <Fragment set:html={tildaCtaLink("expert-materials-inline-cta__button expert-materials-inline-cta__button--secondary", maxPlanUrlFor(entrypoint), "MAX", `target="_blank" rel="noopener noreferrer nofollow" data-plan-source="${placement}"`)} />
+    <Fragment set:html={tildaCtaLink("expert-materials-inline-cta__button expert-materials-inline-cta__button--primary", telegramPlanUrlFor(entrypoint, placement), "Telegram", `target="_blank" rel="noopener noreferrer nofollow" data-plan-source="${source}"`)} />
+    <Fragment set:html={tildaCtaLink("expert-materials-inline-cta__button expert-materials-inline-cta__button--secondary", maxPlanUrlFor(entrypoint, placement), "MAX", `target="_blank" rel="noopener noreferrer nofollow" data-plan-source="${source}"`)} />
   </div>
 </aside>
 

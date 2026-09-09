@@ -100,6 +100,8 @@ export const heroPosterVersion = "2306bab";
 
 export const telegramBotUsername = "gromov_wedding_bot";
 export type PublicSiteEntrypoint = "home" | "scenario" | "materials" | "preparation_plan";
+export type ExpertCtaIntent = "plan" | "meeting";
+export type ExpertCtaPlacement = "hero" | "mid_article" | "inline_consultation" | "final" | "footer";
 export const maxBotUsername = "id615491029963_bot";
 
 const telegramStartUrl = (payload: string) =>
@@ -107,19 +109,35 @@ const telegramStartUrl = (payload: string) =>
 const maxStartUrl = (payload: string) =>
   `https://max.ru/${maxBotUsername}?start=${payload}`;
 
+// This format is the shared public-site/CRM contract. The double underscore
+// keeps site, page and CTA placement separately readable in the bot payload.
+export const expertCtaSource = (
+  intent: ExpertCtaIntent,
+  entrypoint: PublicSiteEntrypoint,
+  placement: ExpertCtaPlacement,
+) => `site_${intent}_timurgromov__${entrypoint}__${placement}`;
+
 export const telegramPlanUrl = telegramStartUrl("site_plan_home");
-export const telegramPlanUrlFor = (entrypoint: Exclude<PublicSiteEntrypoint, "home">) =>
-  telegramStartUrl(`site_plan_${entrypoint}`);
+export const telegramPlanUrlFor = (
+  entrypoint: Exclude<PublicSiteEntrypoint, "home">,
+  placement: ExpertCtaPlacement = "final",
+) => telegramStartUrl(expertCtaSource("plan", entrypoint, placement));
 export const telegramMeetingUrl = telegramStartUrl("site_meeting_home");
-export const telegramMeetingUrlFor = (entrypoint: Exclude<PublicSiteEntrypoint, "home">) =>
-  telegramStartUrl(`site_meeting_${entrypoint}`);
+export const telegramMeetingUrlFor = (
+  entrypoint: Exclude<PublicSiteEntrypoint, "home">,
+  placement: ExpertCtaPlacement = "final",
+) => telegramStartUrl(expertCtaSource("meeting", entrypoint, placement));
 export const telegramContactUrl = telegramMeetingUrl;
 export const maxPlanUrl = maxStartUrl("site_plan_home");
-export const maxPlanUrlFor = (entrypoint: Exclude<PublicSiteEntrypoint, "home">) =>
-  maxStartUrl(`site_plan_${entrypoint}`);
+export const maxPlanUrlFor = (
+  entrypoint: Exclude<PublicSiteEntrypoint, "home">,
+  placement: ExpertCtaPlacement = "final",
+) => maxStartUrl(expertCtaSource("plan", entrypoint, placement));
 export const maxMeetingUrl = maxStartUrl("site_meeting_home");
-export const maxMeetingUrlFor = (entrypoint: Exclude<PublicSiteEntrypoint, "home">) =>
-  maxStartUrl(`site_meeting_${entrypoint}`);
+export const maxMeetingUrlFor = (
+  entrypoint: Exclude<PublicSiteEntrypoint, "home">,
+  placement: ExpertCtaPlacement = "final",
+) => maxStartUrl(expertCtaSource("meeting", entrypoint, placement));
 export const maxCalculatorUrl = `https://max.ru/${maxBotUsername}?startapp=direct_personal`;
 export const maxContactUrl = maxMeetingUrl;
 

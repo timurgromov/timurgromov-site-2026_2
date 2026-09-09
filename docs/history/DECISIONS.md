@@ -1110,3 +1110,28 @@ Do not:
   generic `site_plan`/`site_meeting` source;
 - do not claim an end-to-end bot/admin verification without an authorised real
   test lead.
+
+## DEC-2026-09-10-STRUCTURED-CTA-ATTRIBUTION
+
+Status: active
+Area: attribution, CRM, Telegram, MAX, public site
+Decision date: 2026-09-10
+Evidence: owner direction and shared public-site/EventBudjet implementation
+Supersedes: page-only source-pair requirement in
+`DEC-2026-09-09-NAMED-EXPERT-CTA-TEMPLATES`
+
+Decision:
+
+Every named CTA carries one structured source code:
+`site_<plan|meeting>_<site>__<page>__<placement>`. It is preserved as
+`leads.source`; the CRM derives a readable label and keeps Telegram/MAX as a
+separate provider field. The same parser accepts the format in both bot
+runtimes, so future pages and public sites do not need duplicate allow-lists.
+
+Do:
+
+- use the source builders in `src/site/home-data.ts`, never hand-write a bot
+  payload;
+- use `mid_article` for the compact materials CTA and `final` for the one
+  universal author island; record a distinct placement for any other CTA;
+- keep legacy short page sources accepted for already-published links only.

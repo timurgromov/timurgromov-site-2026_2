@@ -84,6 +84,7 @@ full four-path author island remains once at the bottom.
 - «Маленький CTA» is the literal `ExpertMaterialsInlineCta` white materials
   island: one contextual copy line, orange Telegram and light MAX. It can be
   placed during reading, but never replaces or duplicates the final big CTA.
-- The templates are defined in `docs/CTA_TEMPLATES.md`. New pages must use
-  their own plan/contact source pair; provider is recorded separately from
-  page identity in the CRM.
+- The templates are defined in `docs/CTA_TEMPLATES.md`. They automatically
+  emit one structured source per intent and placement: `site`, `page`,
+  `placement`, then `plan` or `meeting`; provider is recorded separately in
+  the CRM. A new page must not reuse another page's entrypoint.

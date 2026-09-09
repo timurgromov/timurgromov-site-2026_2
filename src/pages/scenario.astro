@@ -3,16 +3,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ExpertMaterialsInlineCta from "../components/ExpertMaterialsInlineCta.astro";
 import { renderExpertConversionContour } from "../site/expert-conversion";
 import { renderConsultationContactPopup } from "../site/consultation-contact-popup";
-import { maxMeetingUrlFor, maxPlanUrlFor, telegramMeetingUrlFor, telegramPlanUrlFor } from "../site/home-data";
+import { expertCtaSource, maxMeetingUrlFor, maxPlanUrlFor, telegramMeetingUrlFor, telegramPlanUrlFor } from "../site/home-data";
 
 const homeHref = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const pageUrl = new URL(`${homeHref}scenario/`, "https://timurgromov.ru").toString();
+const telegramScenarioInlineMeetingUrl = telegramMeetingUrlFor("scenario", "inline_consultation");
 const telegramScenarioMeetingUrl = telegramMeetingUrlFor("scenario");
 const maxScenarioMeetingUrl = maxMeetingUrlFor("scenario");
 const consultationPopupMarkup = renderConsultationContactPopup({
   basePath: homeHref,
   telegramMeetingUrl: telegramScenarioMeetingUrl,
   maxMeetingUrl: maxScenarioMeetingUrl,
+  formSource: expertCtaSource("meeting", "scenario", "final"),
 });
 const expertConversionMarkup = renderExpertConversionContour({
   basePath: homeHref,
@@ -21,6 +23,7 @@ const expertConversionMarkup = renderExpertConversionContour({
   maxPlanUrl: maxPlanUrlFor("scenario"),
   telegramMeetingUrl: telegramScenarioMeetingUrl,
   maxMeetingUrl: maxScenarioMeetingUrl,
+  planSource: expertCtaSource("plan", "scenario", "final"),
 });
 const socialImageUrl = new URL(
   `${homeHref}images/scenario-hero-host-bw-source.jpg`,
@@ -277,7 +280,7 @@ const mistakes = [
 
       <ExpertMaterialsInlineCta
         entrypoint="scenario"
-        placement="scenario_mid_article"
+        placement="mid_article"
         copy="Хотите собрать свой вечер по этой логике? В Telegram или MAX можно получить калькулятор, пример сценария и план подготовки."
       />
 
@@ -448,7 +451,7 @@ const mistakes = [
           </p>
         </div>
         <div class="scenario-inline-cta__actions">
-          <a class="scenario-inline-cta__button" href={telegramScenarioMeetingUrl} target="_blank" rel="noopener noreferrer">
+          <a class="scenario-inline-cta__button" href={telegramScenarioInlineMeetingUrl} target="_blank" rel="noopener noreferrer">
             Обсудить вашу свадьбу
           </a>
           <p class="scenario-inline-cta__note">30–50 минут, только про вашу свадьбу.</p>

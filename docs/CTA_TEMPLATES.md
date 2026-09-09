@@ -12,9 +12,9 @@ card, buttons or pop-up.
   consultation pop-up as the homepage.
 - Required paths: Telegram materials, MAX materials, «Обсудить свадьбу»
   (opens the pop-up) and «Сайт ведущего».
-- Required input: page `entrypoint`, so Telegram/MAX materials receive
-  `site_plan_<entrypoint>` and the pop-up receives
-  `site_meeting_<entrypoint>`.
+- Required input: page `entrypoint`. The renderer emits the final-island
+  source automatically; Telegram/MAX materials and the contact pop-up receive
+  different, exact source codes.
 
 ## «Маленький CTA»
 
@@ -31,22 +31,33 @@ Example:
 ```astro
 <ExpertMaterialsInlineCta
   entrypoint="scenario"
-  placement="scenario_mid_article"
+  placement="mid_article"
   copy="Хотите собрать свой вечер по этой логике? В Telegram или MAX можно получить калькулятор, пример сценария и план подготовки."
 />
 ```
 
 ## Source attribution is mandatory
 
-The messenger provider and the page are different dimensions. Telegram/MAX
-identifies the provider; the `start` payload identifies the page and intent.
-Current routes use their own pairs:
+The messenger provider and the CTA identity are different dimensions.
+Telegram/MAX identifies the provider; the `start` payload identifies the
+site, page, intent and exact CTA placement. The source format is:
+
+```
+site_<plan|meeting>_<site>__<page>__<placement>
+```
+
+For example, the compact reading CTA on `/scenario/` sends
+`site_plan_timurgromov__scenario__mid_article`; the final conversion island
+sends `site_plan_timurgromov__scenario__final` or
+`site_meeting_timurgromov__scenario__final`.
+
+Current expert routes use these final-island pairs:
 
 | Route | Materials | Contact |
 | --- | --- | --- |
-| `/scenario/` | `site_plan_scenario` | `site_meeting_scenario` |
-| `/materials/` | `site_plan_materials` | `site_meeting_materials` |
-| `/articles/plan-podgotovki-k-svadbe/` | `site_plan_preparation_plan` | `site_meeting_preparation_plan` |
+| `/scenario/` | `site_plan_timurgromov__scenario__final` | `site_meeting_timurgromov__scenario__final` |
+| `/materials/` | `site_plan_timurgromov__materials__final` | `site_meeting_timurgromov__materials__final` |
+| `/articles/plan-podgotovki-k-svadbe/` | `site_plan_timurgromov__preparation_plan__final` | `site_meeting_timurgromov__preparation_plan__final` |
 
 EventBudjet writes the payload to `leads.source`; the admin response exposes
 both `source` and the human-readable `source_label`, while `entry_provider`
@@ -55,12 +66,15 @@ they must not be collapsed into one generic `site_plan` or `site_meeting`.
 
 ### Before publishing a new expert page
 
-1. Add its exact entrypoint to `PublicSiteEntrypoint` and use the two template
-   components with it; do not reuse another page’s code.
-2. Add `site_plan_<entrypoint>` and `site_meeting_<entrypoint>` to the public
-   site Metrika source map.
-3. Add both codes and Russian labels to EventBudjet `lead_sources`, then allow
-   them in the Telegram and MAX start-payload validation lists.
+1. Add its exact entrypoint to `PublicSiteEntrypoint` and use the literal
+   templates. Pass only a placement from the contract (`mid_article` for the
+   small CTA; the big CTA owns `final`). Do not type raw `start` payloads.
+2. The common Metrika helper accepts the structured source and forwards it to
+   EventBudjet. Telegram and MAX parse the same format; the admin derives a
+   Russian source label even before a separate source-directory record exists.
+3. For another public site, change the `site` token in the shared builder;
+   preserve the `site__page__placement` separators. That creates a distinct
+   CRM source without a new Telegram/MAX allow-list.
 4. Verify a real messenger start only when authorised to create a test lead;
    confirm the resulting admin request shows the expected `source`,
    `source_label` and provider.

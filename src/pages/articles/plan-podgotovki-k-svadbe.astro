@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { renderExpertConversionContour } from "../../site/expert-conversion";
 import { renderConsultationContactPopup } from "../../site/consultation-contact-popup";
-import { maxMeetingUrlFor, maxPlanUrlFor, telegramMeetingUrlFor, telegramPlanUrlFor } from "../../site/home-data";
+import { expertCtaSource, maxMeetingUrlFor, maxPlanUrlFor, telegramMeetingUrlFor, telegramPlanUrlFor } from "../../site/home-data";
 
 const homeHref = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const articleHref = `${homeHref}articles/plan-podgotovki-k-svadbe/`;
@@ -20,11 +20,13 @@ const expertConversionMarkup = renderExpertConversionContour({
   maxPlanUrl: maxPlanUrlFor("preparation_plan"),
   telegramMeetingUrl: telegramMeetingUrlFor("preparation_plan"),
   maxMeetingUrl: maxMeetingUrlFor("preparation_plan"),
+  planSource: expertCtaSource("plan", "preparation_plan", "final"),
 });
 const consultationPopupMarkup = renderConsultationContactPopup({
   basePath: homeHref,
   telegramMeetingUrl: telegramMeetingUrlFor("preparation_plan"),
   maxMeetingUrl: maxMeetingUrlFor("preparation_plan"),
+  formSource: expertCtaSource("meeting", "preparation_plan", "final"),
 });
 
 const stages = [

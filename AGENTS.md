@@ -132,9 +132,11 @@ The exact phrases below have fixed implementation meaning; read
 - «поставь маленький CTA» means the literal
   `ExpertMaterialsInlineCta.astro` white materials island: Telegram, MAX and
   no portrait/phone/contact redraw.
-- Never recreate either template from scratch. A new page gets its own
-  `site_plan_<entrypoint>` and `site_meeting_<entrypoint>` codes in both the
-  public site and EventBudjet before release.
+- Never recreate either template from scratch. The templates use the literal
+  structured contract `site_<plan|meeting>_<site>__<page>__<placement>`:
+  do not hand-write links or collapse placements to one page code. The shared
+  EventBudjet parser and the admin label make a new page/site routable without
+  separate Telegram/MAX allow-lists.
 
 ## Model Routing
 

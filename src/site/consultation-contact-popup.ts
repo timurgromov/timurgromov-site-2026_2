@@ -4,6 +4,7 @@ interface ConsultationContactPopupOptions {
   basePath: string;
   telegramMeetingUrl: string;
   maxMeetingUrl: string;
+  formSource: string;
 }
 
 // Canonical source: src/pages/index.astro → consultationContactPopupMarkup +
@@ -13,6 +14,7 @@ export const renderConsultationContactPopup = ({
   basePath,
   telegramMeetingUrl,
   maxMeetingUrl,
+  formSource,
 }: ConsultationContactPopupOptions) => {
   const privacyPolicyUrl = `${basePath}privacy/`;
   const privacyConsentUrl = `${basePath}privacy/#consent`;
@@ -44,7 +46,7 @@ export const renderConsultationContactPopup = ({
       <form class="tg-contact-popup__form" data-consultation-lead-form>
         <div class="tg-contact-popup__form-fields">
           <p class="tg-contact-popup__form-title">Оставить заявку</p>
-          <input type="hidden" name="form_source" value="site_consultation_popup" />
+          <input type="hidden" name="form_source" value="${formSource}" />
           <label>Ваше имя *<input name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" required /></label>
           <label>Ваш телефон *<input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 999 123-45-67" required /></label>
           <label>Комментарий<textarea name="comment" placeholder="Дата свадьбы, площадка или любой вопрос"></textarea></label>
