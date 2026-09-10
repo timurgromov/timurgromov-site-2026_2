@@ -25,4 +25,9 @@ Two independent variables were incorrectly treated as one visual fix:
 - Rendered `/articles/` and `/scenario/` at `1911x839`; both use matching top
   and bottom anchors with visible space above the portrait.
 - Rendered `/articles/` at `390x844`; the mobile composition remains intact.
-- Commit, push and production verification are pending.
+- Runtime commit `65a3910` was pushed to `origin/main`; Code health and Deploy
+  to gh-pages completed successfully.
+- `npm run verify:pages` confirmed production is deployed from the exact commit.
+- Fresh production renders of `/articles/` and `/scenario/` at `1911x839`
+  confirmed matching service-line and author-row anchors plus clear portrait
+  headroom.

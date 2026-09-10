@@ -13,7 +13,9 @@
 - `/articles/` and `/scenario/` were rendered side by side at `1911x839`: top
   and bottom anchors align, the portrait crop matches, and mobile `390x844`
   remains intact. Responsive coverage is now 230 cases.
-- Commit, push and production verification are pending this correction.
+- Runtime commit `65a3910` is pushed and live. Code health, Deploy to gh-pages,
+  exact-commit verification and fresh production comparison of `/articles/`
+  and `/scenario/` at `1911x839` all passed.
 
 ## Articles hub restored to a catalogue and wide-short portrait fixed (2026-09-11)
 
