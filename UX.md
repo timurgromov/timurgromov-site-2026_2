@@ -82,6 +82,30 @@ name `/scenario/` as its canonical visual source and define only the content
 structure that differs. A generic SEO template or a separate page-local brand
 system is a release blocker unless the owner explicitly approves it.
 
+## Wedding-budget Hero typography correction
+
+- Change ID: `2026-09-10-budget-hero-title-and-copy`.
+- Surface: `/articles/byudzhet-svadby-v-moskve/`, public state, Hero at the top
+  and the middle calculator CTA after section 05.
+- Reported production viewport: `1232x638` CSS px at DPR 2. Before the change,
+  the Hero H1 rendered at `82.544px` with a `452px` text box and occupied most
+  of the short first screen.
+- Expected visible delta: keep the approved H1 text and type roles, but reduce
+  the desktop font to at most `70px`, widen its readable measure slightly and
+  keep the text box under `340px` at `1232x638`. Mobile uses a separate compact
+  size; the H1 must stay legible without dominating the first screen.
+- Editorial correction: replace the unnatural middle CTA «Отметьте нужные
+  статьи — без чужой “средней свадьбы”» with the direct promise «Выберите
+  нужные расходы и соберите свою смету» and remove similarly artificial
+  constructions throughout the article without changing its SEO intent.
+- Preserved invariants: exact H1 semantics, portrait crop, dark Hero, orange
+  italic accent, lead, all six Telegram/MAX CTA links and their source codes,
+  calculator screenshots, metadata/schema and the rest of the corporate style.
+- Required viewports after the last edit: `390x844`, `639x900`, `640x900`,
+  `641x900`, `1180x820`, reported `1232x638`, `1366x768`, `1440x900` and
+  `1984x1046`; no horizontal overflow or JavaScript errors. `/scenario/` and
+  `/` remain regression controls.
+
 ## Visible release target
 
 Each shared contour is visible after its useful page content. It contains four

@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-10-budget-hero-title-and-copy",
+  "change_kind": "hero-typography-and-copy",
+  "status": "passed",
+  "requested_visible_change": "Reduce the wedding-budget Hero title and replace unnatural article copy with direct Russian.",
+  "expected_visible_delta": "The H1 no longer occupies most of a short desktop screen, and the middle CTA reads `Выберите нужные расходы и соберите свою смету`.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "58a2cc65860f8eec613e7427c3882818474c23317ef48c388abd36b18d09ad14",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4324/articles/byudzhet-svadby-v-moskve/",
+    "source_ref": "local Astro preview from the working tree after the final successful build",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/articles/byudzhet-svadby-v-moskve/",
+    "state": "public anonymous visitor, Hero at scroll position 0 and middle CTA in document text",
+    "selector_or_slide_id": ".budget-hero h1 and #mid-cta-title",
+    "action": "Open the article directly, inspect the Hero and verify the middle CTA text."
+  },
+  "must_remain_unchanged": [
+    "Corporate portrait and dark Hero treatment",
+    "Exact H1 wording and heading level",
+    "Orange italic accent",
+    "All Telegram and MAX calculator links and source codes",
+    "Article schema, breadcrumbs and canonical",
+    "Calculator screenshots"
+  ],
+  "required_viewports": [
+    "390x844",
+    "639x900",
+    "640x900",
+    "641x900",
+    "1180x820",
+    "1232x638",
+    "1366x768",
+    "1440x900",
+    "1984x1046"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "before_signature": "mobile H1 clamp(42px, 12.4vw, 58px)",
+      "after_signature": "40.95px font; 234.906px text box",
+      "observed_visible_result": "The compact H1 remains readable and the approved middle CTA is present.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "required_signature_present": true,
+      "forbidden_signature_absent": true,
+      "unchanged_checks": ["scrollWidth equals clientWidth", "calculator CTA sources preserved"],
+      "console_errors": []
+    },
+    {
+      "viewport": "639x900",
+      "before_signature": "mobile H1 clamp(42px, 12.4vw, 58px)",
+      "after_signature": "48px font; 278.656px text box",
+      "observed_visible_result": "The H1 uses the compact mobile cap with no horizontal overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "required_signature_present": true,
+      "forbidden_signature_absent": true,
+      "unchanged_checks": ["scrollWidth equals clientWidth", "old CTA absent"],
+      "console_errors": []
+    },
+    {
+      "viewport": "640x900",
+      "before_signature": "mobile H1 clamp(42px, 12.4vw, 58px)",
+      "after_signature": "48px font; 278.656px text box",
+      "observed_visible_result": "The 640px boundary keeps the compact H1 and natural CTA wording.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "required_signature_present": true,
+      "forbidden_signature_absent": true,
+      "unchanged_checks": ["scrollWidth equals clientWidth", "old CTA absent"],
+      "console_errors": []
+    },
+    {
+      "viewport": "641x900",
+      "before_signature": "desktop H1 clamp(50px, 6.7vw, 92px)",
+      "after_signature": "46px font; 219.172px text box",
+      "observed_visible_result": "The desktop rule begins without a size jump or horizontal overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "required_signature_present": true,
+      "forbidden_signature_absent": true,
+      "unchanged_checks": ["scrollWidth equals clientWidth", "Hero photo preserved"],
+      "console_errors": []
+    },
+    {
+      "viewport": "1180x820",
+      "before_signature": "desktop H1 clamp(50px, 6.7vw, 92px)",
+      "after_signature": "60.18px font; 285.813px text box",
+      "observed_visible_result": "The title is visibly smaller while retaining the corporate type treatment.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "required_signature_present": true,
+      "forbidden_signature_absent": true,
+      "unchanged_checks": ["scrollWidth equals clientWidth", "H1 wording preserved"],
+      "console_errors": []
+    },
+    {
+      "viewport": "1232x638",
+      "before_signature": "82.544px font; 452px text box",
+      "after_signature": "62.832px font; 301.234px text box",
+      "observed_visible_result": "At the reported desktop width the H1 text box is 150.766px shorter and no longer occupies most of the screen.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "required_signature_present": true,
+      "forbidden_signature_absent": true,
+      "unchanged_checks": ["scrollWidth 1232 equals clientWidth 1232", "new CTA present", "old CTA absent"],
+      "console_errors": []
+    },
+    {
+      "viewport": "1366x768",
+      "before_signature": "desktop H1 clamp(50px, 6.7vw, 92px)",
+      "after_signature": "69.666px font; 333.422px text box",
+      "observed_visible_result": "The H1 stays below the 70px desktop cap and remains balanced with the portrait.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "required_signature_present": true,
+      "forbidden_signature_absent": true,
+      "unchanged_checks": ["scrollWidth equals clientWidth", "portrait crop preserved"],
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "before_signature": "desktop H1 clamp(50px, 6.7vw, 92px)",
+      "after_signature": "70px font; 331.984px text box",
+      "observed_visible_result": "The H1 reaches the intended 70px cap without dominating the Hero.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "required_signature_present": true,
+      "forbidden_signature_absent": true,
+      "unchanged_checks": ["scrollWidth equals clientWidth", "orange italic accent preserved"],
+      "console_errors": []
+    },
+    {
+      "viewport": "1984x1046",
+      "before_signature": "desktop H1 clamp(50px, 6.7vw, 92px)",
+      "after_signature": "70px font; 331.984px text box",
+      "observed_visible_result": "The desktop cap holds on a wide screen and keeps the title measure controlled.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "required_signature_present": true,
+      "forbidden_signature_absent": true,
+      "unchanged_checks": ["scrollWidth equals clientWidth", "calculator screenshots preserved"],
+      "console_errors": []
+    }
+  ]
+}

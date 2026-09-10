@@ -20,3 +20,10 @@
   Telegram Web proved Mini App open, estimate restoration and copy, while exact
   Telegram article-source retention remains pending because that client reduced
   the tested `startapp` link to generic `/start`.
+- After owner review, reduced the Hero H1 so it no longer dominates a short
+  desktop viewport and replaced the unclear middle CTA with «Выберите нужные
+  расходы и соберите свою смету». A full copy pass removed similarly artificial
+  constructions from the article, FAQ and calculator captions.
+- Exact local proof at `1232x638`: H1 `62.832px`, text box `301.234px`, no
+  horizontal overflow, new CTA present and old CTA absent. The responsive gate
+  passed all 11 routes across 20 viewports after the final edit.

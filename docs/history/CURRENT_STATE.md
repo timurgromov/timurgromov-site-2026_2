@@ -245,3 +245,9 @@
   opened the production Mini App, restored the estimate and confirmed copy,
   but converted the tested exact `startapp` deep link to generic `/start`;
   exact Telegram article-source retention remains an open live proof gate.
+- Follow-up UI correction `2026-09-10-budget-hero-title-and-copy` reduces the
+  article H1 from the reported `82.544px` / `452px` text box to
+  `62.832px` / `301.234px` at `1232x638`. The middle CTA now says
+  «Выберите нужные расходы и соберите свою смету», and the article copy was
+  edited for direct, natural Russian without changing the page intent, schema,
+  links or calculator attribution.
