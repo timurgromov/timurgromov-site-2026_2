@@ -6,7 +6,6 @@ interface Props {
   meta: string;
   testId?: string;
   mediaTestId?: string;
-  titleSize?: "standard" | "compact";
 }
 
 const {
@@ -14,7 +13,6 @@ const {
   meta,
   testId,
   mediaTestId,
-  titleSize = "standard",
 } = Astro.props;
 const hasActions = Astro.slots.has("actions");
 ---
@@ -22,7 +20,6 @@ const hasActions = Astro.slots.has("actions");
 <header
   class:list={[
     "tg-article-hero",
-    `tg-article-hero--${titleSize}`,
     { "tg-article-hero--with-actions": hasActions },
   ]}
   data-testid={testId}
@@ -34,15 +31,17 @@ const hasActions = Astro.slots.has("actions");
       <a class="tg-article-hero__back" href={homeHref}>timurgromov.ru</a>
       <p class="tg-article-eyebrow">Авторский материал — <span>Тимур Громов</span></p>
     </div>
-    <div class="tg-article-hero__title"><slot name="title" /></div>
-    <p class="tg-article-hero__lead" data-first-screen-lead={hasActions ? true : undefined}>
-      <slot name="lead" />
-    </p>
-    {hasActions && (
-      <div class="tg-article-hero__actions" data-first-screen-primary-actions>
-        <slot name="actions" />
-      </div>
-    )}
+    <div class="tg-article-hero__content">
+      <div class="tg-article-hero__title"><slot name="title" /></div>
+      <p class="tg-article-hero__lead" data-first-screen-lead={hasActions ? true : undefined}>
+        <slot name="lead" />
+      </p>
+      {hasActions && (
+        <div class="tg-article-hero__actions" data-first-screen-primary-actions>
+          <slot name="actions" />
+        </div>
+      )}
+    </div>
     <div class="tg-article-hero__meta">
       <div class="tg-article-hero__badge">Т</div>
       <div>

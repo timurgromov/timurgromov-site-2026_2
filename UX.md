@@ -88,6 +88,12 @@ The implementation source of truth is `docs/ARTICLE_UI_KIT.md`:
 Existing and new wedding articles must use these primitives. Page-local Hero
 or introduction CSS is not an allowed way to customize an article.
 
+The Hero is one layout system, not a set of article exceptions: `/articles/`,
+`/scenario/`, the preparation guide and the budget article share the same
+type scale, service-line anchor, byline anchor and portrait focal point at the
+same viewport. CTA presence and title length may change only the content inside
+the shared slots. They must not select another Hero mode, font size or height.
+
 ### Permanent typography and CTA rule
 
 - Typography follows the role of the surface, not a requirement to make every
@@ -131,9 +137,10 @@ or introduction CSS is not an allowed way to customize an article.
 
 This is the default for every new wedding expert or SEO route, not a one-off
 decision for the preparation guide. Before implementation, each new route must
-name `/scenario/` as its canonical visual source and define only the content
-structure that differs. A generic SEO template or a separate page-local brand
-system is a release blocker unless the owner explicitly approves it.
+name the shared wedding Article UI Kit as its canonical source and define only
+the content structure that differs. A generic SEO template, a page-local brand
+system or a per-page Hero mode is a release blocker unless the owner explicitly
+approves it.
 
 ## Wedding-budget Hero typography correction
 

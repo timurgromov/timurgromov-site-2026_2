@@ -228,7 +228,10 @@ function assertWeddingArticleUi(result) {
   if (!weddingArticleRoutes.has(result.route)) return;
   if (!result.weddingArticleUi) fail("Wedding article UI kit is missing", result);
 
-  const expectedKickerGap = result.viewport.width <= 640 ? 20 : 34;
+  const isMobile = result.viewport.width <= 640;
+  const isShortDesktop = !isMobile && result.viewport.height <= 780;
+  const isVeryShortDesktop = !isMobile && result.viewport.height <= 650;
+  const expectedKickerGap = isMobile ? 20 : isVeryShortDesktop ? 24 : isShortDesktop ? 34 : 62;
   if (Math.abs(result.weddingArticleUi.kickerToHeadingGap - expectedKickerGap) > 1) {
     fail("Wedding article Hero kicker spacing drifted", {
       expectedKickerGap,
@@ -238,11 +241,7 @@ function assertWeddingArticleUi(result) {
   if (result.weddingArticleUi.mediaTransform !== "none") {
     fail("Wedding article portrait must not be decoratively scaled", result);
   }
-  const expectedMediaPosition = result.viewport.width <= 640
-    ? "72% 38%"
-    : result.viewport.width >= 1600 && result.viewport.width / result.viewport.height >= 2
-      ? "74% 10%"
-      : "74% 38%";
+  const expectedMediaPosition = isMobile ? "72% 0%" : "74% 0%";
   if (result.weddingArticleUi.mediaBackgroundPosition !== expectedMediaPosition) {
     fail("Wedding article portrait focal point drifted", result);
   }
@@ -264,9 +263,7 @@ function assertWeddingArticleUi(result) {
     fail("Wedding article introduction line measure is too wide", result);
   }
 
-  const isMobile = result.viewport.width <= 640;
-  const isShortDesktop = !isMobile && result.viewport.height <= 700;
-  const minimumHeadingToLeadGap = isMobile ? 18 : 24;
+  const minimumHeadingToLeadGap = isMobile ? 18 : isShortDesktop ? 20 : 24;
   if (result.weddingArticleUi.headingToLeadGap < minimumHeadingToLeadGap - 1) {
     fail("Wedding article Hero heading and lead are visually compressed", {
       minimumHeadingToLeadGap,
@@ -274,14 +271,16 @@ function assertWeddingArticleUi(result) {
     });
   }
 
-  if (result.route === "/articles/" && result.weddingArticleUi.heroBottom > result.viewport.height + 1) {
-    fail("Article hub Hero is taller than the initial viewport", result);
-  }
-  if (!result.weddingArticleUi.hasActions && !isMobile) {
-    if (Math.abs(result.weddingArticleUi.kickerTop - 74) > 1) {
+  if (!isMobile) {
+    if (result.weddingArticleUi.heroBottom > result.viewport.height + 1) {
+      fail("Wedding article Hero exceeds the initial desktop viewport", result);
+    }
+    const expectedKickerTop = isShortDesktop ? 40 : 72;
+    const expectedMetaBottomGap = isShortDesktop ? 40 : 76;
+    if (Math.abs(result.weddingArticleUi.kickerTop - expectedKickerTop) > 1) {
       fail("Wedding article service line must keep the shared top anchor", result);
     }
-    if (Math.abs(result.weddingArticleUi.metaBottomGap - 88) > 1) {
+    if (Math.abs(result.weddingArticleUi.metaBottomGap - expectedMetaBottomGap) > 1) {
       fail("Wedding article author row must keep the shared bottom anchor", result);
     }
   }
@@ -301,8 +300,8 @@ function assertWeddingArticleUi(result) {
   }
 
   if (result.weddingArticleUi.hasActions) {
-    const minimumLeadToActionsGap = isMobile ? 22 : isShortDesktop ? 28 : 26;
-    const minimumActionsToMetaGap = isMobile ? 24 : isShortDesktop ? 32 : 28;
+    const minimumLeadToActionsGap = isMobile || isVeryShortDesktop ? 20 : isShortDesktop ? 24 : 32;
+    const minimumActionsToMetaGap = isMobile || isVeryShortDesktop ? 20 : isShortDesktop ? 24 : 32;
     if (result.weddingArticleUi.leadToActionsGap < minimumLeadToActionsGap - 1) {
       fail("Wedding article Hero lead and actions are visually compressed", {
         minimumLeadToActionsGap,
@@ -317,6 +316,52 @@ function assertWeddingArticleUi(result) {
     }
     if (result.weddingArticleUi.actionControlHeight < 41) {
       fail("Wedding article primary action controls are visually undersized", result);
+    }
+  }
+}
+
+function assertWeddingArticleCrossRouteConsistency(results) {
+  const canonicalRoutes = [
+    "/articles/",
+    "/scenario/",
+    "/articles/plan-podgotovki-k-svadbe/",
+    "/articles/byudzhet-svadby-v-moskve/",
+  ];
+  const byViewport = new Map();
+  for (const result of results) {
+    if (!canonicalRoutes.includes(result.route)) continue;
+    const group = byViewport.get(result.viewport.name) || [];
+    group.push(result);
+    byViewport.set(result.viewport.name, group);
+  }
+
+  for (const [viewport, group] of byViewport) {
+    if (group.length !== canonicalRoutes.length) continue;
+    const ui = group.map(({ weddingArticleUi }) => weddingArticleUi);
+    const reference = ui[0];
+    for (const candidate of ui.slice(1)) {
+      for (const [metric, tolerance] of [
+        ["kickerTop", 1],
+        ["headingFontPx", 0.5],
+        ["leadFontPx", 0.5],
+        ["metaBottomGap", 1],
+      ]) {
+        if (Math.abs(candidate[metric] - reference[metric]) > tolerance) {
+          fail("Wedding article routes drifted from the shared Hero system", {
+            viewport,
+            metric,
+            reference,
+            candidate,
+          });
+        }
+      }
+      if (candidate.mediaBackgroundPosition !== reference.mediaBackgroundPosition) {
+        fail("Wedding article routes drifted from the shared portrait focal point", {
+          viewport,
+          reference,
+          candidate,
+        });
+      }
     }
   }
 }
@@ -429,6 +474,8 @@ async function measure(page, route, viewport, watchedTextSelectors) {
       ? {
           kickerToHeadingGap: Number((weddingArticleHeading.getBoundingClientRect().top - weddingArticleKicker.getBoundingClientRect().bottom).toFixed(2)),
           kickerTop: Number(weddingArticleKicker.getBoundingClientRect().top.toFixed(2)),
+          headingFontPx: Number.parseFloat(getComputedStyle(weddingArticleHeading).fontSize),
+          leadFontPx: Number.parseFloat(getComputedStyle(weddingArticleLead).fontSize),
           headingToLeadGap: weddingArticleLead
             ? Number((weddingArticleLead.getBoundingClientRect().top - weddingArticleHeading.getBoundingClientRect().bottom).toFixed(2))
             : null,
@@ -507,6 +554,7 @@ const browser = await chromium.launch({
   ...(existsSync(localChromePath) ? { executablePath: localChromePath } : {}),
 });
 const results = [];
+const weddingArticleResults = [];
 
 try {
   for (const { viewport, routes: caseRoutes } of caseGroups) {
@@ -548,6 +596,7 @@ try {
         assertHomeHero(result);
         assertFirstScreenPrimaryActions(result);
         assertWeddingArticleUi(result);
+        if (result.weddingArticleUi) weddingArticleResults.push(result);
         results.push({
           route,
           viewport: viewport.name,
@@ -559,6 +608,7 @@ try {
       await page.close();
     }
   }
+  assertWeddingArticleCrossRouteConsistency(weddingArticleResults);
 } finally {
   await browser.close();
 }

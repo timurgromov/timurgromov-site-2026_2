@@ -24,18 +24,24 @@ system.
 - CTA controls use their existing shared components. Article pages must not
   redraw split buttons locally.
 
-## Allowed Hero variants
+## One Hero composition
 
-- `standard`: editorial titles such as «Свадебный сценарий» and the preparation
-  guide.
-- `compact`: long SEO titles that need a smaller maximum display size.
-- The library hub also uses `compact` with a concise collection H1; it must not
-  recreate a separate oversized Hero around a long promotional sentence.
-- `withActions`: only when primary controls are inside the Hero. This variant
-  adds the first-screen markers and height-aware compact desktop layout.
+There are no page-level `standard`, `compact` or CTA-height variants. Every
+wedding-editorial route uses one `WeddingArticleHero` composition. A page may
+add its conversion controls in the action slot, but that must not change the
+Hero's font scale, top anchor, bottom anchor, portrait crop or vertical grid.
 
-Variants change only measure and fit. They do not create another font family,
-palette, service line, author block or photo treatment.
+The only adaptive modes are global viewport modes applied to every route:
+
+- desktop: shared `72px` top anchor, `76px` author bottom anchor;
+- short desktop (`<=780px` high): shared `40px` top/bottom anchors and one
+  smaller type scale for all routes;
+- very short desktop (`<=650px` high): the same global grid tightens its
+  content spacing so the longest published Hero still keeps its author and
+  controls in the initial viewport;
+- mobile: one dedicated mobile scale and crop for all routes.
+
+This is an adaptive system, not permission to tune one article separately.
 
 ## Fixed roles
 
@@ -44,31 +50,33 @@ palette, service line, author block or photo treatment.
 - Paragraphs, service lines, metadata and controls: shared sans-serif role.
 - Desktop introduction H2: at most `38px`.
 - Desktop body: `19px / 1.68`; mobile body: `17px / 1.55`.
-- Desktop service-line-to-H1 gap: `34px`; mobile: `20px`.
-- Heroes without primary actions use the same vertical anchors regardless of
-  copy length: the service block starts `74px` from the top and the author row
-  ends `88px` above the bottom on desktop. Remaining height becomes deliberate
-  breathing room between the lead and author row; it must not push the service
-  block down.
-- A short desktop Hero with CTA keeps at least `24px` from H1 to lead,
-  `28px` from lead to actions and `32px` from actions to author metadata.
-  These are semantic group gaps, not spare pixels to remove merely to make the
-  content fit.
+- One desktop H1 scale: `48–58px`; one desktop lead scale: `21–22px`.
+  Title length changes wrapping only, never the selected type role.
+- Desktop service-line-to-H1 gap: `62px`; short desktop: `34px`; very short
+  desktop: `24px`; mobile: `20px`.
+- Every desktop Hero starts its service block at the shared top anchor and ends
+  the author row at the shared bottom anchor, regardless of CTA presence or
+  copy length. Free space belongs between the content group and author row,
+  not below an accidentally short page or above a shifted service line.
+- Semantic group gaps are never below `24px` on regular desktop, `20px` on
+  short desktop and `18px` on mobile. Primary controls remain at least `42px`
+  high.
 - Primary split controls are at least `42px` high on desktop; short viewport
   mode must not turn them into miniature controls.
 - Introduction prose measure: at most `660px`.
-- Portrait: shared black-and-white asset, upper focal point, no decorative
-  scaling that can crop the head. At wide-short desktop windows (`>=1600px`
-  wide with an aspect ratio of at least `2:1`), use the proven `74% 10%` focal
-  position. Both `1911x764` and the owner-observed `1911x839` viewport are
+- Portrait: shared black-and-white asset, no decorative scaling and one upper
+  focal point (`74% 0%` desktop; `72% 0%` mobile). The head must remain fully
+  visible. Both `1911x764` and the owner-observed `1911x839` viewport are
   mandatory for all four wedding-editorial routes.
 
 ## New article rule
 
-Start from these primitives. Do not copy page-local Hero or introduction CSS
-from an older article. Content sections may use their own layout only after the
-shared introduction, and must continue the same heading/body roles. Every new
-or changed route runs the repository responsive matrix before release. Passing
-overflow and first-screen bounds is necessary but not sufficient: the rendered
-candidate must also preserve the semantic gaps above and receive a visual
-composition check at the shortest required desktop viewport.
+Start from these primitives. Do not add props, classes or CSS branches that
+change Hero composition by route, title length or action presence. Content
+sections may use their own layout only after the shared introduction, and must
+continue the same heading/body roles. Every new or changed route runs the
+repository responsive matrix before release. The runner compares all four
+routes at the same viewport and fails if their anchors, H1/lead font sizes,
+byline anchor or portrait focal point diverge. Passing overflow and
+first-screen bounds is necessary but not sufficient: visually inspect the
+rendered candidate at the shortest required desktop viewport.

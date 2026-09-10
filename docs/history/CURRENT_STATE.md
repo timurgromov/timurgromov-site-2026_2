@@ -1,5 +1,23 @@
 # Current State - 2026-09-11
 
+## Unified wedding Hero system pending release (2026-09-11)
+
+- The previous shared component still permitted `standard`, `compact` and
+  CTA-height variants; the owner review correctly showed four visibly different
+  first screens. Those page-level modes are removed.
+- `/articles/`, `/scenario/`, the preparation guide and the budget article now
+  share one H1/lead type scale, portrait focal point, service-line top anchor
+  and author-row bottom anchor. The calculator action slot no longer changes
+  the Hero grid.
+- Global short-height modes now apply to every route at `<=780px` and
+  `<=650px`, keeping the longest budget Hero fully inside the initial desktop
+  viewport without shrinking only that page. Portrait focal positions are
+  `74% 0%` desktop and `72% 0%` mobile, keeping the full head visible.
+- The responsive gate now compares the four routes at the same viewport and
+  fails on differences in anchors, H1/lead scale, byline anchor or portrait
+  focal point. Local rendered checks are complete; commit, push, deploy and
+  production verification are still pending.
+
 ## Wedding Hero vertical anchors and real wide-short viewport (2026-09-11)
 
 - The earlier `max-height: 820px` portrait condition did not cover the owner's

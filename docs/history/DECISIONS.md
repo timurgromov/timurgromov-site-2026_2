@@ -1308,3 +1308,43 @@ Do not:
 - do not route this article through `site_plan` or `site_meeting`;
 - do not claim native estimate sharing from the Mini App;
 - do not create year variants, average-price claims or sibling budget pages.
+# DEC-2026-09-11-ONE-WEDDING-HERO-NO-PAGE-VARIANTS
+
+Status: active
+Area: frontend, editorial UX, responsive QA
+Decision date: 2026-09-11
+Evidence: owner comparison of all four live wedding routes and local rendered
+comparison against the approved `/scenario/` hierarchy
+Supersedes: page-level `standard`, `compact`, CTA-height and wide-short focal
+variants in the wedding Article UI Kit
+
+Decision:
+
+`/articles/`, `/scenario/`, `/articles/plan-podgotovki-k-svadbe/` and
+`/articles/byudzhet-svadby-v-moskve/` are instances of one Hero, not four
+layouts that happen to reuse some colors. `WeddingArticleHero.astro` owns one
+DOM structure and `wedding-article-ui.css` owns one type scale and vertical
+grid. An action slot may appear on the budget article, but may not activate a
+different Hero height, portrait position, title scale, service-line anchor or
+byline placement.
+
+Do:
+
+- keep one desktop H1/lead scale and one portrait focal point across the four
+  routes at a shared viewport;
+- use only global short-height modes, triggered by viewport height and applied
+  uniformly to every Hero;
+- keep the service block anchored at the top and author row anchored at the
+  bottom on desktop, then put available air between content and byline;
+- test the four routes as a comparison group at `1911x764` and `1911x839`, not
+  merely as independent no-overflow pages;
+- retain the short `1232x582` budget case so its title, two calculator controls
+  and author row remain in the first screen.
+
+Do not:
+
+- reintroduce `titleSize`, `compact`, a CTA-specific Hero height or a page-local
+  media focal override;
+- use title length as a reason to change a route's type role;
+- accept a numerical overflow pass without checking whether space is allocated
+  between semantic groups rather than stranded below the Hero.
