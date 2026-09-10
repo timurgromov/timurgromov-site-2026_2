@@ -53,6 +53,16 @@
   padding-bottom: 64px;
 }
 
+.tg-article-hero:not(.tg-article-hero--with-actions) .tg-article-hero__shell {
+  justify-content: flex-start;
+  padding-top: 74px;
+}
+
+.tg-article-hero:not(.tg-article-hero--with-actions) .tg-article-hero__meta {
+  margin-top: auto;
+  padding-top: 42px;
+}
+
 .tg-article-hero__kicker {
   display: flex;
   flex-direction: column;
@@ -289,7 +299,7 @@
   }
 }
 
-@media (min-width: 1600px) and (max-height: 820px) {
+@media (min-width: 1600px) and (min-aspect-ratio: 2/1) {
   .tg-article-hero__media {
     background-position: 74% 10%;
   }
@@ -353,8 +363,10 @@
   }
 
   .tg-article-hero__meta,
-  .tg-article-hero--with-actions .tg-article-hero__meta {
+  .tg-article-hero--with-actions .tg-article-hero__meta,
+  .tg-article-hero:not(.tg-article-hero--with-actions) .tg-article-hero__meta {
     margin-top: 24px;
+    padding-top: 0;
   }
 
   .tg-article-intro h2 {

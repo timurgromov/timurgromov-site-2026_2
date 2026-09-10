@@ -45,6 +45,11 @@ palette, service line, author block or photo treatment.
 - Desktop introduction H2: at most `38px`.
 - Desktop body: `19px / 1.68`; mobile body: `17px / 1.55`.
 - Desktop service-line-to-H1 gap: `34px`; mobile: `20px`.
+- Heroes without primary actions use the same vertical anchors regardless of
+  copy length: the service block starts `74px` from the top and the author row
+  ends `88px` above the bottom on desktop. Remaining height becomes deliberate
+  breathing room between the lead and author row; it must not push the service
+  block down.
 - A short desktop Hero with CTA keeps at least `24px` from H1 to lead,
   `28px` from lead to actions and `32px` from actions to author metadata.
   These are semantic group gaps, not spare pixels to remove merely to make the
@@ -54,8 +59,9 @@ palette, service line, author block or photo treatment.
 - Introduction prose measure: at most `660px`.
 - Portrait: shared black-and-white asset, upper focal point, no decorative
   scaling that can crop the head. At wide-short desktop windows (`>=1600px`
-  wide and `<=820px` high), use the proven `74% 10%` focal position; the exact
-  `1911x764` viewport is mandatory for all four wedding-editorial routes.
+  wide with an aspect ratio of at least `2:1`), use the proven `74% 10%` focal
+  position. Both `1911x764` and the owner-observed `1911x839` viewport are
+  mandatory for all four wedding-editorial routes.
 
 ## New article rule
 

@@ -200,9 +200,12 @@ system is a release blocker unless the owner explicitly approves it.
 - After the Hero, show only a restrained list of published materials and the
   footer. The hub has no independent conversion CTA, no unpublished-topic
   showcase and no page-specific button family.
-- At `1911x764` and equivalent wide-short windows the portrait uses the upper
-  focal rule so the full head remains visible. This viewport is checked on the
-  hub and every wedding article.
+- On desktop Heroes without primary actions, the service block starts `74px`
+  from the top and the author row finishes `88px` above the bottom. Shorter copy
+  creates breathing room in the middle instead of moving the service line.
+- At `1911x764`, `1911x839` and equivalent windows with at least a `2:1`
+  aspect ratio, the portrait uses the upper focal rule so the full head remains
+  visible. Both exact viewports are checked on the hub and every wedding article.
 
 ## Visible release target
 

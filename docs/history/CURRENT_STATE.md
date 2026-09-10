@@ -1,5 +1,20 @@
 # Current State - 2026-09-11
 
+## Wedding Hero vertical anchors and real wide-short viewport (2026-09-11)
+
+- The earlier `max-height: 820px` portrait condition did not cover the owner's
+  actual Chrome content area of approximately `1911x839`. The shared focal rule
+  now uses a `2:1` aspect-ratio condition, so both reported wide-short windows
+  keep visible space above the head.
+- Desktop wedding Heroes without primary actions no longer bottom-align the
+  entire copy stack. Their service block is fixed `74px` from the top and author
+  row `88px` from the bottom; short titles receive breathing room in the middle
+  instead of pushing «Авторский материал» downward.
+- `/articles/` and `/scenario/` were rendered side by side at `1911x839`: top
+  and bottom anchors align, the portrait crop matches, and mobile `390x844`
+  remains intact. Responsive coverage is now 230 cases.
+- Commit, push and production verification are pending this correction.
+
 ## Articles hub restored to a catalogue and wide-short portrait fixed (2026-09-11)
 
 - `/articles/` has one job again: help a visitor choose among the three

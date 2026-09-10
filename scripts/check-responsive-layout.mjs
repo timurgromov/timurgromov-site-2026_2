@@ -115,6 +115,15 @@ const routeSpecificGroups = [
         "/articles/byudzhet-svadby-v-moskve/",
       ],
     }]),
+  ...(viewports.some(({ name }) => name === "1911x839") ? [] : [{
+      viewport: { width: 1911, height: 839, name: "1911x839" },
+      routes: [
+        "/articles/",
+        "/scenario/",
+        "/articles/plan-podgotovki-k-svadbe/",
+        "/articles/byudzhet-svadby-v-moskve/",
+      ],
+    }]),
 ];
 const routeSpecificCaseCount = routeSpecificGroups.reduce(
   (count, group) => count + group.routes.length,
@@ -231,7 +240,7 @@ function assertWeddingArticleUi(result) {
   }
   const expectedMediaPosition = result.viewport.width <= 640
     ? "72% 38%"
-    : result.viewport.width >= 1600 && result.viewport.height <= 820
+    : result.viewport.width >= 1600 && result.viewport.width / result.viewport.height >= 2
       ? "74% 10%"
       : "74% 38%";
   if (result.weddingArticleUi.mediaBackgroundPosition !== expectedMediaPosition) {
@@ -267,6 +276,14 @@ function assertWeddingArticleUi(result) {
 
   if (result.route === "/articles/" && result.weddingArticleUi.heroBottom > result.viewport.height + 1) {
     fail("Article hub Hero is taller than the initial viewport", result);
+  }
+  if (!result.weddingArticleUi.hasActions && !isMobile) {
+    if (Math.abs(result.weddingArticleUi.kickerTop - 74) > 1) {
+      fail("Wedding article service line must keep the shared top anchor", result);
+    }
+    if (Math.abs(result.weddingArticleUi.metaBottomGap - 88) > 1) {
+      fail("Wedding article author row must keep the shared bottom anchor", result);
+    }
   }
   if (result.route === "/articles/") {
     if (!result.articleHubUi || result.articleHubUi.cardCount < 1) {
@@ -411,6 +428,7 @@ async function measure(page, route, viewport, watchedTextSelectors) {
     const weddingArticleUi = weddingArticleHero && weddingArticleKicker && weddingArticleHeading && weddingArticleMedia && weddingArticleLead
       ? {
           kickerToHeadingGap: Number((weddingArticleHeading.getBoundingClientRect().top - weddingArticleKicker.getBoundingClientRect().bottom).toFixed(2)),
+          kickerTop: Number(weddingArticleKicker.getBoundingClientRect().top.toFixed(2)),
           headingToLeadGap: weddingArticleLead
             ? Number((weddingArticleLead.getBoundingClientRect().top - weddingArticleHeading.getBoundingClientRect().bottom).toFixed(2))
             : null,
@@ -425,6 +443,9 @@ async function measure(page, route, viewport, watchedTextSelectors) {
             ? Number(weddingArticleActions.querySelector("a, button")?.getBoundingClientRect().height.toFixed(2) || 0)
             : null,
           heroBottom: Number(weddingArticleHero.getBoundingClientRect().bottom.toFixed(2)),
+          metaBottomGap: weddingArticleMeta
+            ? Number((weddingArticleHero.getBoundingClientRect().bottom - weddingArticleMeta.getBoundingClientRect().bottom).toFixed(2))
+            : null,
           mediaTransform: getComputedStyle(weddingArticleMedia).transform,
           mediaBackgroundPosition: getComputedStyle(weddingArticleMedia).backgroundPosition,
           introBodyFontFamily: weddingArticleIntroBody ? getComputedStyle(weddingArticleIntroBody).fontFamily : null,

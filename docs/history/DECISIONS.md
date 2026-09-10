@@ -1258,8 +1258,11 @@ Do:
 - include `/articles/` in the strict wedding Article UI assertions;
 - keep `1280x720` as a permanent route-specific probe and fail if the hub Hero
   is taller than the initial viewport or its semantic groups collapse.
-- keep `1911x764` as a permanent portrait-focal probe for every shared wedding
-  Hero; fail if the wide-short focal rule drifts;
+- keep `1911x764` and `1911x839` as permanent portrait-focal probes for every
+  shared wedding Hero; select the upper focal rule by viewport aspect ratio and
+  fail if it drifts;
+- anchor the service block `74px` from the top and author row `88px` from the
+  bottom on desktop Heroes without actions, independent of copy length;
 - fail if the hub regains an independent promo/CTA section or oversized card
   typography.
 
