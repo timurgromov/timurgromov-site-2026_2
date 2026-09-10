@@ -17,9 +17,12 @@
   fails on differences in anchors, H1/lead scale, byline anchor or portrait
   focal point. Runtime commit `ba30971` is pushed, but its Linux CI check found
   that font metrics at `1232x582` compressed the shared action-to-byline gap to
-  `15.2px`; the global `<=650px` mode now reduces only the byline's internal
-  top padding, restoring room without a page-specific exception. Production
-  verification remains pending the replacement CI/deploy run.
+  `15.2px`; Linux then exposed the more general source: a `ch`-based H1
+  measure produces materially different Cyrillic wrapping across font engines.
+  The shared system now uses a stable `660px` H1 measure and reduces only the
+  global very-short byline's internal top padding, restoring room without a
+  page-specific exception. Production verification remains pending the
+  replacement CI/deploy run.
 
 ## Wedding Hero vertical anchors and real wide-short viewport (2026-09-11)
 

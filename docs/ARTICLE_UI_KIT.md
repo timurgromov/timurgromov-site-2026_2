@@ -51,7 +51,9 @@ This is an adaptive system, not permission to tune one article separately.
 - Desktop introduction H2: at most `38px`.
 - Desktop body: `19px / 1.68`; mobile body: `17px / 1.55`.
 - One desktop H1 scale: `48–58px`; one desktop lead scale: `21–22px`.
-  Title length changes wrapping only, never the selected type role.
+  The shared desktop H1 measure is `660px` (or `54vw` in the global
+  short-height mode). Title length changes wrapping only, never the selected
+  type role or a page-local measure.
 - Desktop service-line-to-H1 gap: `62px`; short desktop: `34px`; very short
   desktop: `24px`; mobile: `20px`.
 - Every desktop Hero starts its service block at the shared top anchor and ends
