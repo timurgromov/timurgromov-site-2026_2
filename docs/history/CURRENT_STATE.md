@@ -1,4 +1,4 @@
-# Current State - 2026-08-20
+# Current State - 2026-09-10
 
 ## Expert-page conversion contour (2026-09-08)
 
@@ -23,18 +23,25 @@
   literal `ExpertMaterialsInlineCta` materials island. Their source and
   cross-project attribution checklist are owned by `docs/CTA_TEMPLATES.md`.
 
-## Open SEO guide: preparation plan (2026-09-08)
+## Open SEO guide: preparation plan (2026-09-10)
 
 - `/articles/plan-podgotovki-k-svadbe/` is the first open long-form guide in
   the wedding preparation cluster: twelve practical stages, a checklist,
   article navigation and non-blocking paths to materials or consultation.
+- Its first screen and editorial body now use the canonical `/scenario/`
+  wedding-content system: black-and-white author portrait, dark layered Hero,
+  orange accent and shared display/italic type roles. The article remains a
+  structured plan, not a clone of the scenario text.
 - It is linked from `/articles/` and listed in `public/sitemap.xml`.
 - Its Telegram/MAX CTA retains the proven `site_meeting_home` bot intent while
   the site handoff now passes bounded acquisition context, exact landing path
   and CTA code to EventBudjet. This keeps paid Direct classification separate
   from organic/referral entries.
 - UI contract/evidence: `docs/ui-evidence/2026-09-08-preparation-plan-page-contract.md`
-  and `docs/ui-evidence/2026-09-08-preparation-plan-page-evidence.json`.
+  and `docs/ui-evidence/2026-09-08-preparation-plan-page-evidence.json`;
+  the brand-system change is documented in
+  `docs/ui-evidence/2026-09-10-preparation-plan-brand-contract.md` and its
+  matching evidence record.
 
 ## Hero CTA typography is scale-safe (2026-09-07)
 

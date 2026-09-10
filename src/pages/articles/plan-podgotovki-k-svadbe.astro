@@ -215,103 +215,116 @@ const articleSchema = {
   </Fragment>
 
   <main class="plan-page" data-testid="preparation-plan-page">
-    <header class="plan-hero">
-      <div class="plan-shell">
-        <a class="plan-back" href={articlesHref}>← Все статьи</a>
-        <p class="plan-kicker">Авторский свадебный гид</p>
-        <h1>Пошаговый план подготовки к свадьбе: что делать и в каком порядке</h1>
+    <header class="plan-hero" data-testid="preparation-plan-hero">
+      <div class="plan-hero__media" data-testid="preparation-plan-hero-media" aria-hidden="true"></div>
+      <div class="plan-hero__overlay" aria-hidden="true"></div>
+      <div class="plan-shell plan-hero__shell">
+        <div class="plan-hero__kicker">
+          <a class="plan-back" href={homeHref}>timurgromov.ru</a>
+          <p class="plan-kicker">Авторский материал — <span>Тимур Громов</span></p>
+        </div>
+        <h1>Пошаговый план <em>подготовки к свадьбе</em></h1>
         <p class="plan-lead">
           Подготовка становится спокойнее, когда решения идут в правильной
           последовательности. Начните с даты, формата, гостей и бюджета — и
           только затем переходите к площадке, команде и таймингу.
         </p>
-        <div class="plan-first-steps">
-          <span>Начните сегодня</span>
-          <ol>
-            <li>Запишите сезон и две-три возможные даты.</li>
-            <li>Опишите формат и диапазон гостей.</li>
-            <li>Зафиксируйте финансовую границу и приоритеты.</li>
-          </ol>
+        <div class="plan-hero__meta">
+          <div class="plan-hero__badge">Т</div>
+          <div>
+            <strong>Тимур Громов</strong>
+            <span>Ведущий · план подготовки</span>
+          </div>
         </div>
       </div>
     </header>
 
-    <div class="plan-shell plan-layout">
-      <article class="plan-article" data-testid="preparation-plan-article">
-        <section class="plan-intro">
-          <p>
-            Этот гид — не набор обязательных правил. У каждой пары свой срок,
-            город, состав гостей и представление о празднике. Но порядок ниже
-            помогает не переделывать уже принятые решения и не превращать
-            подготовку в бесконечный список задач.
-          </p>
-        </section>
+    <article class="plan-shell plan-article" data-testid="preparation-plan-article">
+      <section class="plan-intro">
+        <p>
+          Этот гид — не набор обязательных правил. У каждой пары свой срок,
+          город, состав гостей и представление о празднике. Но порядок ниже
+          помогает не переделывать уже принятые решения и не превращать
+          подготовку в бесконечный список задач.
+        </p>
+      </section>
 
-        {stages.map((stage) => (
-          <section class="plan-stage" id={`stage-${stage.number}`}>
+      <section class="plan-first-steps" aria-labelledby="plan-first-steps-title">
+        <div>
+          <p class="plan-kicker">Начните сегодня</p>
+          <h2 id="plan-first-steps-title">Три решения, которые дадут опору</h2>
+        </div>
+        <ol>
+          <li><span>01</span>Запишите сезон и две-три возможные даты.</li>
+          <li><span>02</span>Опишите формат и диапазон гостей.</li>
+          <li><span>03</span>Зафиксируйте финансовую границу и приоритеты.</li>
+        </ol>
+      </section>
+
+      <details class="plan-contents">
+        <summary>Все этапы подготовки</summary>
+        <ol>
+          {stages.map((stage) => <li><a href={`#stage-${stage.number}`}>{stage.title}</a></li>)}
+        </ol>
+      </details>
+
+      {stages.map((stage) => (
+        <section class="plan-stage" id={`stage-${stage.number}`}>
+          <div class="plan-stage__meta">
             <div class="plan-stage__number" aria-hidden="true">{stage.number}</div>
-            <div class="plan-stage__content">
-              <h2>{stage.title}</h2>
-              {stage.body.map((paragraph) => <p>{paragraph}</p>)}
-              {stage.list && (
-                <ul>
-                  {stage.list.map((item) => <li>{item}</li>)}
-                </ul>
-              )}
-              {stage.note && <aside class="plan-note">{stage.note}</aside>}
-              {stage.cta && (
-                <aside class="plan-inline-link">
-                  <p>{stage.cta.text}</p>
-                  <a href={stage.cta.href}>{stage.cta.label} →</a>
-                </aside>
-              )}
-            </div>
-          </section>
-        ))}
-
-        <section class="plan-checklist">
-          <p class="plan-kicker">Мини-чек-лист</p>
-          <h2>Что делать дальше</h2>
-          <div class="plan-checklist__grid">
-            {checklist.map(([term, text]) => (
-              <div>
-                <strong>{term}</strong>
-                <p>{text}</p>
-              </div>
-            ))}
+            <h2>{stage.title}</h2>
+          </div>
+          <div class="plan-stage__content">
+            {stage.body.map((paragraph) => <p>{paragraph}</p>)}
+            {stage.list && (
+              <ul>
+                {stage.list.map((item) => <li>{item}</li>)}
+              </ul>
+            )}
+            {stage.note && <aside class="plan-note">{stage.note}</aside>}
+            {stage.cta && (
+              <aside class="plan-inline-link">
+                <p>{stage.cta.text}</p>
+                <a href={stage.cta.href}>{stage.cta.label} →</a>
+              </aside>
+            )}
           </div>
         </section>
+      ))}
 
-        <section class="plan-faq">
-          <p class="plan-kicker">Частые вопросы</p>
-          <details open>
-            <summary>С чего начать подготовку к свадьбе?</summary>
-            <p>С даты с несколькими вариантами, формата, диапазона гостей и финансовых границ. Эти решения задают критерии для площадки и команды.</p>
-          </details>
-          <details>
-            <summary>Когда искать ведущего?</summary>
-            <p>Когда понятны дата, формат, число гостей и площадка или хотя бы её тип. Тогда разговор будет предметным: можно обсуждать стиль вечера, логистику и объём подготовки.</p>
-          </details>
-          <details>
-            <summary>Нужен ли координатор на небольшую свадьбу?</summary>
-            <p>Не всегда. Но в день праздника должен быть один понятный человек, который держит операционные вопросы, чтобы пара и близкие не превращались в диспетчеров.</p>
-          </details>
-          <details>
-            <summary>Нужно ли делать тайминг поминутно?</summary>
-            <p>Сначала достаточно крупных блоков. Затем рабочая таблица с ответственными и подготовкой помогает команде согласовать детали без лишней суеты.</p>
-          </details>
-        </section>
-      </article>
-
-      <aside class="plan-side" aria-label="Навигация по плану">
-        <div class="plan-side__card">
-          <p class="plan-kicker">Внутри гида</p>
-          <ol>
-            {stages.map((stage) => <li><a href={`#stage-${stage.number}`}>{stage.title}</a></li>)}
-          </ol>
+      <section class="plan-checklist">
+        <p class="plan-kicker">Мини-чек-лист</p>
+        <h2>Что делать дальше</h2>
+        <div class="plan-checklist__grid">
+          {checklist.map(([term, text]) => (
+            <div>
+              <strong>{term}</strong>
+              <p>{text}</p>
+            </div>
+          ))}
         </div>
-      </aside>
-    </div>
+      </section>
+
+      <section class="plan-faq">
+        <p class="plan-kicker">Частые вопросы</p>
+        <details open>
+          <summary>С чего начать подготовку к свадьбе?</summary>
+          <p>С даты с несколькими вариантами, формата, диапазона гостей и финансовых границ. Эти решения задают критерии для площадки и команды.</p>
+        </details>
+        <details>
+          <summary>Когда искать ведущего?</summary>
+          <p>Когда понятны дата, формат, число гостей и площадка или хотя бы её тип. Тогда разговор будет предметным: можно обсуждать стиль вечера, логистику и объём подготовки.</p>
+        </details>
+        <details>
+          <summary>Нужен ли координатор на небольшую свадьбу?</summary>
+          <p>Не всегда. Но в день праздника должен быть один понятный человек, который держит операционные вопросы, чтобы пара и близкие не превращались в диспетчеров.</p>
+        </details>
+        <details>
+          <summary>Нужно ли делать тайминг поминутно?</summary>
+          <p>Сначала достаточно крупных блоков. Затем рабочая таблица с ответственными и подготовкой помогает команде согласовать детали без лишней суеты.</p>
+        </details>
+      </section>
+    </article>
 
     <Fragment set:html={expertConversionMarkup} />
     <Fragment set:html={consultationPopupMarkup} />
@@ -786,6 +799,526 @@ const articleSchema = {
 
     .plan-button {
       width: 100%;
+    }
+  }
+
+  /* The plan keeps its own long-form information architecture, but inherits
+     the canonical Scenario author cover, type roles and editorial rhythm. */
+  .plan-page {
+    --plan-bg: #f7f1e8;
+    --plan-ink: #241d19;
+    --plan-muted: rgba(36, 29, 25, 0.76);
+    --plan-soft: rgba(36, 29, 25, 0.12);
+    --plan-accent: #fa4604;
+    --plan-dark: #1f1916;
+    color: var(--plan-ink);
+    background: var(--plan-bg);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .plan-shell {
+    width: min(100%, 1080px);
+    padding: 0 24px;
+  }
+
+  .plan-hero {
+    position: relative;
+    min-height: 84vh;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--plan-dark);
+    color: #fffaf4;
+  }
+
+  .plan-hero__media {
+    position: absolute;
+    inset: 0;
+    background: url("/images/scenario-hero-host-bw-source.jpg") 74% center / cover no-repeat;
+    filter: grayscale(1) brightness(0.72) contrast(1.02);
+    transform: scale(1.02);
+  }
+
+  .plan-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(16, 13, 12, 0.12) 0%, rgba(16, 13, 12, 0.3) 30%, rgba(16, 13, 12, 0.58) 74%, rgba(16, 13, 12, 0.74) 100%),
+      linear-gradient(90deg, rgba(16, 13, 12, 0.74) 0%, rgba(16, 13, 12, 0.42) 37%, rgba(16, 13, 12, 0.18) 68%, rgba(16, 13, 12, 0.3) 100%),
+      radial-gradient(circle at top right, rgba(250, 70, 4, 0.1), transparent 34%);
+  }
+
+  .plan-hero__shell {
+    position: relative;
+    display: flex;
+    min-height: 84vh;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-top: 46px;
+    padding-bottom: 88px;
+  }
+
+  .plan-hero__kicker {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 34px;
+  }
+
+  .plan-back {
+    display: inline-block;
+    margin: 0;
+    color: rgba(255, 250, 244, 0.82);
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .plan-kicker {
+    margin: 0 0 18px;
+    color: var(--plan-accent);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+  }
+
+  .plan-hero .plan-kicker {
+    margin: 0;
+  }
+
+  .plan-hero .plan-kicker span {
+    white-space: nowrap;
+  }
+
+  .plan-hero h1,
+  .plan-article h2 {
+    margin: 0;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  .plan-hero h1 {
+    max-width: 12ch;
+    font-size: clamp(50px, 7vw, 96px);
+    line-height: 0.92;
+    color: #fffaf4;
+  }
+
+  .plan-hero h1 em {
+    color: var(--plan-accent);
+    font-family: "Instrument Serif", Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .plan-lead {
+    max-width: 620px;
+    margin: 28px 0 0;
+    color: rgba(255, 250, 244, 0.8);
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: clamp(22px, 2.4vw, 29px);
+    font-style: italic;
+    line-height: 1.22;
+  }
+
+  .plan-hero__meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 42px;
+    color: rgba(255, 250, 244, 0.74);
+  }
+
+  .plan-hero__meta strong,
+  .plan-hero__meta span {
+    display: block;
+  }
+
+  .plan-hero__meta strong {
+    margin-bottom: 3px;
+    color: #fffaf4;
+    font-size: 16px;
+  }
+
+  .plan-hero__meta span {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .plan-hero__badge {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    border-radius: 999px;
+    background: var(--plan-accent);
+    color: var(--plan-dark);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .plan-article {
+    padding-top: 72px;
+    padding-bottom: 16px;
+  }
+
+  .plan-intro {
+    max-width: 760px;
+    padding: 0;
+    color: var(--plan-ink);
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: clamp(25px, 3vw, 34px);
+    font-style: italic;
+    line-height: 1.2;
+  }
+
+  .plan-first-steps,
+  .plan-stage,
+  .plan-checklist,
+  .plan-faq {
+    border-top: 1px solid var(--plan-soft);
+  }
+
+  .plan-first-steps {
+    display: grid;
+    grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
+    gap: 28px;
+    max-width: none;
+    margin-top: 48px;
+    padding: 40px 0 0;
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .plan-first-steps h2 {
+    font-size: clamp(30px, 2.8vw, 38px);
+    line-height: 1;
+  }
+
+  .plan-first-steps ol {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .plan-first-steps li {
+    display: grid;
+    gap: 8px;
+    padding: 0 0 12px;
+    border-bottom: 1px solid rgba(36, 29, 25, 0.08);
+    color: var(--plan-ink);
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: 22px;
+    font-style: italic;
+    line-height: 1.14;
+  }
+
+  .plan-first-steps li span,
+  .plan-stage__number {
+    color: var(--plan-accent);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .plan-contents {
+    margin-top: 40px;
+    padding: 18px 0;
+    border-top: 1px solid var(--plan-soft);
+    border-bottom: 1px solid var(--plan-soft);
+  }
+
+  .plan-contents summary,
+  .plan-faq summary {
+    cursor: pointer;
+    color: var(--plan-ink);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .plan-contents ol {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 28px;
+    margin: 22px 0 2px;
+    padding-left: 22px;
+  }
+
+  .plan-contents li,
+  .plan-contents a {
+    color: var(--plan-muted);
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .plan-stage {
+    display: grid;
+    grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
+    gap: 28px;
+    margin-top: 48px;
+    padding: 40px 0 0;
+    scroll-margin-top: 18px;
+  }
+
+  .plan-stage__meta {
+    position: sticky;
+    top: 24px;
+    align-self: start;
+  }
+
+  .plan-stage h2 {
+    margin-top: 12px;
+    color: var(--plan-ink);
+    font-size: clamp(30px, 2.8vw, 38px);
+    line-height: 1;
+  }
+
+  .plan-stage__content {
+    max-width: 660px;
+  }
+
+  .plan-stage p,
+  .plan-stage li,
+  .plan-checklist p,
+  .plan-faq p {
+    color: var(--plan-muted);
+    font-size: 19px;
+    line-height: 1.68;
+  }
+
+  .plan-stage p {
+    margin: 0 0 18px;
+  }
+
+  .plan-stage p:first-of-type {
+    margin-top: 0;
+  }
+
+  .plan-stage ul {
+    margin: 0 0 20px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .plan-stage li {
+    position: relative;
+    margin-bottom: 10px;
+    padding-left: 22px;
+  }
+
+  .plan-stage li::before {
+    top: 13px;
+    width: 9px;
+    height: 1px;
+    border-radius: 0;
+    background: var(--plan-accent);
+  }
+
+  .plan-note,
+  .plan-inline-link {
+    margin: 28px 0;
+    padding: 18px 20px 18px 22px;
+    border: 0;
+    border-left: 2px solid var(--plan-accent);
+    background: rgba(255, 255, 255, 0.52);
+    color: var(--plan-ink);
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: 18px;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .plan-inline-link p {
+    margin: 0;
+    color: var(--plan-ink);
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  .plan-inline-link a {
+    margin-top: 12px;
+    color: var(--plan-accent);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .plan-checklist,
+  .plan-faq {
+    margin-top: 48px;
+    padding-top: 40px;
+  }
+
+  .plan-checklist h2 {
+    font-size: clamp(34px, 3.2vw, 42px);
+    line-height: 1;
+  }
+
+  .plan-checklist__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 24px;
+    margin-top: 30px;
+  }
+
+  .plan-checklist__grid > div {
+    padding: 0 0 16px;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(36, 29, 25, 0.08);
+    background: transparent;
+  }
+
+  .plan-checklist strong {
+    color: var(--plan-accent);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .plan-checklist p {
+    margin: 12px 0 0;
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  .plan-faq details {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--plan-soft);
+  }
+
+  .plan-faq p {
+    margin: 14px 0 0;
+    font-size: 18px;
+  }
+
+  @media (max-width: 1100px) {
+    .plan-first-steps,
+    .plan-stage {
+      grid-template-columns: 1fr;
+    }
+
+    .plan-stage__meta {
+      position: static;
+    }
+
+    .plan-first-steps ol {
+      max-width: 760px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .plan-shell {
+      width: min(100%, 1080px);
+      padding: 0 18px;
+    }
+
+    .plan-hero,
+    .plan-hero__shell {
+      min-height: auto;
+    }
+
+    .plan-hero__shell {
+      padding-top: 74px;
+      padding-bottom: 42px;
+    }
+
+    .plan-hero__media {
+      background-position: 72% center;
+      filter: grayscale(1) brightness(0.6) contrast(1.02);
+    }
+
+    .plan-hero__kicker {
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .plan-back {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+    }
+
+    .plan-kicker {
+      margin-bottom: 14px;
+      font-size: 10px;
+      letter-spacing: 0.24em;
+    }
+
+    .plan-lead {
+      margin-top: 20px;
+      font-size: 20px;
+      line-height: 1.24;
+    }
+
+    .plan-hero__meta {
+      margin-top: 26px;
+    }
+
+    .plan-article {
+      padding-top: 42px;
+    }
+
+    .plan-first-steps,
+    .plan-stage,
+    .plan-checklist,
+    .plan-faq {
+      margin-top: 34px;
+      padding-top: 28px;
+    }
+
+    .plan-first-steps ol,
+    .plan-contents ol,
+    .plan-checklist__grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .plan-first-steps li {
+      font-size: 22px;
+    }
+
+    .plan-contents {
+      margin-top: 34px;
+    }
+
+    .plan-stage p,
+    .plan-stage li,
+    .plan-checklist p,
+    .plan-faq p {
+      font-size: 17px;
+      line-height: 1.55;
+    }
+
+    .plan-stage li::before {
+      top: 11px;
+    }
+
+    .plan-note,
+    .plan-inline-link {
+      margin: 22px 0;
+      padding: 16px 16px 16px 18px;
+    }
+
+    .plan-faq summary,
+    .plan-contents summary {
+      font-size: 25px;
     }
   }
 </style>

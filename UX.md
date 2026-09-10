@@ -1,6 +1,6 @@
 # UX — контур конверсии экспертных страниц
 
-Updated: 2026-09-08
+Updated: 2026-09-10
 
 ## Job and flow
 
@@ -51,6 +51,29 @@ Updated: 2026-09-08
   `1440x900`, `1984x1046`; no horizontal overflow and no clipped button text.
 - Preserved invariants: homepage, Direct CTA/protection and the useful page
   content above the shared contour are untouched.
+
+## Shared wedding-editorial visual system
+
+`/scenario/` is the canonical visual source for wedding expert content. Its
+black-and-white Timur portrait Hero, dark layered overlay, warm neutral body,
+orange accent, `Cormorant Garamond` display role and `Instrument Serif` italic
+role belong to the public Timur Gromov wedding-site identity, not just to the
+scenario article.
+
+`/articles/plan-podgotovki-k-svadbe/` uses this system while retaining a
+long-form guide's information architecture:
+
+- first screen: `timurgromov.ru`, «Авторский материал — Тимур Громов», portrait,
+  title, introductory lead and author metadata;
+- body: readable warm-neutral long form, a compact three-step start, optional
+  contents disclosure, then twelve numbered editorial sections;
+- `1100px` and below: stage metadata becomes static above its content;
+  `640px` and below: Hero has dedicated crop, type and padding rules with no
+  horizontal overflow.
+
+Pages may vary in content structure, but must not introduce a separate palette,
+generic card template or page-local type system. The homepage, Direct flow,
+conversion CTA island and all bot/CRM contracts remain unchanged.
 
 ## Visible release target
 

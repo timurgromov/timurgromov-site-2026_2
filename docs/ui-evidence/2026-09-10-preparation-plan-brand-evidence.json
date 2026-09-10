@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-10-preparation-plan-brand",
+  "change_kind": "hero-and-editorial-layout",
+  "status": "passed",
+  "requested_visible_change": "The preparation-plan page must use the same Timur Gromov wedding editorial system as the wedding scenario rather than a separate beige SEO template.",
+  "expected_visible_delta": "A portrait-led dark author Hero, orange italic title accent, author attribution and Scenario-style editorial rhythm are visibly present while the twelve-stage guide and final conversion contour remain.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "fc5245e2b56aaff4207a42ddb139da5254e6de59d5b93a9c13ffecf02442121a",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/articles/plan-podgotovki-k-svadbe/",
+    "source_ref": "working tree after astro build",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/articles/plan-podgotovki-k-svadbe/",
+    "state": "public anonymous direct load at scroll position 0",
+    "selector_or_slide_id": "[data-testid=preparation-plan-hero] and [data-testid=preparation-plan-hero-media]",
+    "action": "open the route directly; then scroll to #stage-01 to inspect the editorial grid"
+  },
+  "must_remain_unchanged": [
+    "twelve stage IDs and guide copy",
+    "article schema, canonical URL and article route",
+    "shared final conversion contour and consultation popup",
+    "homepage, Direct flow, bot and CRM contracts"
+  ],
+  "required_viewports": [
+    "390x844",
+    "639x844",
+    "640x844",
+    "641x844",
+    "768x1024",
+    "1099x900",
+    "1100x900",
+    "1101x900",
+    "1180x820",
+    "1366x768",
+    "1440x900",
+    "1984x1046"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "Codex browser viewport override; innerWidth=390; innerHeight=844",
+      "before_signature": "light text-only Hero; Georgia type; no media or author metadata",
+      "after_signature": "hero height=654; scrollWidth=390; portrait media object-position=72% 50%; author metadata and orange italic title are visible",
+      "observed_visible_result": "Mobile Hero keeps the portrait, readable left/bottom copy area and author identity without horizontal overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "639x844",
+      "viewport_source": "Codex browser viewport override; innerWidth=639; innerHeight=844",
+      "before_signature": "light text-only Hero; one page-local guide layout",
+      "after_signature": "portrait Hero visible; stage grid is one column; scrollWidth=639; shared final CTA exists",
+      "observed_visible_result": "The mobile mode remains active immediately below the 640px Hero boundary with no overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "640x844",
+      "viewport_source": "Codex browser viewport override; innerWidth=640; innerHeight=844",
+      "before_signature": "light text-only Hero; one page-local guide layout",
+      "after_signature": "portrait Hero visible; stage grid is one column; scrollWidth=640; shared final CTA exists",
+      "observed_visible_result": "The explicit mobile boundary keeps the Hero and single-column reading order intact.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "641x844",
+      "viewport_source": "Codex browser viewport override; innerWidth=641; innerHeight=844",
+      "before_signature": "light text-only Hero; one page-local guide layout",
+      "after_signature": "portrait Hero visible; stage grid is one column; scrollWidth=641; shared final CTA exists",
+      "observed_visible_result": "The desktop Hero treatment begins above the mobile media boundary without breaking the one-column tablet reading order.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "768x1024",
+      "viewport_source": "responsive-qa-gate local candidate sweep; innerWidth=768; innerHeight=1024",
+      "before_signature": "light text-only Hero; page-local SEO-card system",
+      "after_signature": "portrait Hero found and visible; scrollWidth=768; no horizontal overflow",
+      "observed_visible_result": "Tablet candidate renders the new author Hero and guide article without overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1099x900",
+      "viewport_source": "Codex browser viewport override; innerWidth=1099; innerHeight=900",
+      "before_signature": "light text-only Hero; page-local guide layout",
+      "after_signature": "portrait Hero visible; stage grid=1032px one column; scrollWidth=1099; shared final CTA exists",
+      "observed_visible_result": "The guide intentionally stays single-column below the 1100px stage boundary.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1100x900",
+      "viewport_source": "Codex browser viewport override; innerWidth=1100; innerHeight=900",
+      "before_signature": "light text-only Hero; page-local guide layout",
+      "after_signature": "portrait Hero visible; stage grid=1032px one column; scrollWidth=1100; shared final CTA exists",
+      "observed_visible_result": "The declared 1100px boundary is stable with the metadata above the stage content.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1101x900",
+      "viewport_source": "Codex browser viewport override; innerWidth=1101; innerHeight=900",
+      "before_signature": "light text-only Hero; page-local guide layout",
+      "after_signature": "portrait Hero visible; stage grid=280px 724px; scrollWidth=1101; shared final CTA exists",
+      "observed_visible_result": "The editorial two-column stage grid activates directly above the boundary without overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1180x820",
+      "viewport_source": "Codex browser viewport override; innerWidth=1180; innerHeight=820",
+      "before_signature": "light peach text-only Hero, rounded start card and a separate sticky sidebar",
+      "after_signature": "hero height=922; portrait source=scenario-hero-host-bw-source.jpg at 74% 50%; dark overlay; Scenario-style 280px/724px first-stage grid; scrollWidth=1180",
+      "observed_visible_result": "The requested desktop author cover is visibly present, and the first plan stage reads as a calm editorial two-column section rather than a generic card layout.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1366x768",
+      "viewport_source": "Codex browser viewport override; innerWidth=1366; innerHeight=768",
+      "before_signature": "light text-only Hero; page-local guide layout",
+      "after_signature": "portrait Hero visible; stage grid=280px 724px; scrollWidth=1366; shared final CTA exists",
+      "observed_visible_result": "Desktop author cover and editorial stage columns remain visible and inside the viewport width.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "viewport_source": "Codex browser viewport override; innerWidth=1440; innerHeight=900",
+      "before_signature": "light text-only Hero; page-local guide layout",
+      "after_signature": "portrait Hero visible; stage grid=280px 724px; scrollWidth=1440; shared final CTA exists",
+      "observed_visible_result": "The wide desktop composition preserves the author focal point and controlled guide width.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1984x1046",
+      "viewport_source": "Codex browser viewport override; innerWidth=1984; innerHeight=1046",
+      "before_signature": "light text-only Hero; page-local guide layout",
+      "after_signature": "portrait Hero visible; stage grid=280px 724px; scrollWidth=1984; shared final CTA exists",
+      "observed_visible_result": "The centered editorial composition remains deliberately constrained on a wide desktop with no horizontal overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 0,
+    "selected_variant": "",
+    "owner_approval_reference": ""
+  }
+}

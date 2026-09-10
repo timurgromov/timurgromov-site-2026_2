@@ -1135,3 +1135,39 @@ Do:
 - use `mid_article` for the compact materials CTA and `final` for the one
   universal author island; record a distinct placement for any other CTA;
 - keep legacy short page sources accepted for already-published links only.
+
+## DEC-2026-09-10-ONE-WEDDING-EDITORIAL-SYSTEM
+
+Status: active
+Area: product, UX, frontend
+Decision date: 2026-09-10
+Evidence: owner direction, `/scenario/` source pattern and live candidate review
+Commits: pending
+Supersedes: the preparation-plan page-local light SEO-template presentation
+
+Decision:
+
+All wedding expert pages use one Timur Gromov editorial brand system.
+`/scenario/` is the canonical source for the author Hero, portrait treatment,
+dark/warm-neutral/orange palette and display/italic typography. A page may have
+its own reading structure — for example, a preparation plan retains numbered
+steps and contents — but it must not look like a separate product or generic
+SEO template.
+
+Do:
+
+- reuse the black-and-white author Hero pattern from `src/pages/scenario.astro`
+  for new or reworked wedding expert pages;
+- preserve the portrait focal point, author identification and readable dark
+  copy area on desktop and mobile;
+- retain one shared final CTA island and all existing conversion/source
+  contracts;
+- treat `1100px` and `640px` as explicit plan-page layout boundaries.
+
+Do not:
+
+- do not clone the scenario's text or remove a guide's useful navigation;
+- do not introduce another palette, generic rounded-card language or a
+  page-specific typography system for wedding editorial content;
+- do not change the homepage, Direct flow, bot or CRM while making this visual
+  alignment.
