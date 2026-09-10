@@ -1,5 +1,20 @@
 # Current State - 2026-09-11
 
+## Articles hub uses the shared wedding Hero (2026-09-11)
+
+- `/articles/` no longer carries a separate page-local portrait Hero. It now
+  uses `WeddingArticleHero.astro` with the concise H1 «Статьи о свадьбе: по
+  делу»; the article cards, schema and navigation remain unchanged.
+- The production `1280x720` regression is closed: Hero height changed from
+  `775.27px` to `605.8px`, H1 from `89.6px` across five lines to `65.28px`
+  across two lines, and the overlapping service text is gone.
+- At `390x844`, Hero height is `466.2px` instead of the old fixed `760px`, so
+  the first published-material section appears in the initial viewport.
+- `/articles/` is now part of the strict Article UI assertions with a permanent
+  route-specific `1280x720` case. The full local/CI matrix contains 222 cases.
+- Runtime commit `a3c2996` is pushed and live; Code health, Deploy to gh-pages,
+  marker verification and fresh production screenshots passed.
+
 ## Shared wedding article UI kit and composition QA (2026-09-11)
 
 - `/scenario/`, `/articles/plan-podgotovki-k-svadbe/` and

@@ -27,4 +27,10 @@ Generic overflow checks did not classify the hub as a wedding article surface.
 - `npm run build` — passed.
 - `npm run verify:responsive-layout` — passed, 222 cases.
 - Fresh local rendered checks passed at `1280x720` and `390x844`.
-- Production release is pending.
+- Runtime commit `a3c2996` was pushed to `origin/main`; Code health and Deploy
+  to gh-pages both completed successfully.
+- `npm run verify:pages` confirmed that production was deployed from the exact
+  commit, contains the shared Hero marker/new H1 and no longer contains the old
+  long Hero heading.
+- Fresh production screenshots matched local geometry at `1280x720` and
+  `390x844`; no overlap, portrait scale or horizontal overflow remains.

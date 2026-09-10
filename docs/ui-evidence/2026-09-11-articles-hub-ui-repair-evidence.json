@@ -2,7 +2,7 @@
   "schema_version": 1,
   "change_id": "2026-09-11-articles-hub-ui-repair",
   "change_kind": "shared-editorial-hero-repair",
-  "status": "local_passed_release_pending",
+  "status": "production_passed",
   "requested_visible_change": "Repair the visibly broken articles hub and bring it into the same corporate wedding-editorial system as the published guides.",
   "checked_after_last_edit": true,
   "served_candidate": {
@@ -36,5 +36,33 @@
     "command": "npm run verify:responsive-layout",
     "result": "passed",
     "coverage": "222 cases: 11 routes x 20 shared viewports plus budget 1232x582 and articles hub 1280x720"
+  },
+  "production_verification": {
+    "commit": "a3c2996e0b87caf81e9d2f826c2d5d01a22bd9e0",
+    "url": "https://timurgromov.ru/articles/?qa=a3c2996",
+    "github_actions": {
+      "code_health": "success",
+      "deploy_to_gh_pages": "success"
+    },
+    "desktop_1280x720": {
+      "hero_height_px": 605.8,
+      "h1_font_px": 65.28,
+      "h1_height_px": 123.7,
+      "kicker_to_h1_px": 34,
+      "h1_to_lead_px": 24,
+      "lead_to_author_px": 42,
+      "document_width_px": 1280
+    },
+    "mobile_390x844": {
+      "hero_height_px": 466.2,
+      "h1_font_px": 40.95,
+      "h1_height_px": 117.5,
+      "document_width_px": 390
+    },
+    "portrait": {
+      "background_position": "74% 38% desktop; 72% 38% mobile",
+      "transform": "none"
+    },
+    "result": "passed after fresh production navigation and rendered screenshots at both required viewports"
   }
 }
