@@ -31,4 +31,11 @@ wide-short `1911x764` window this cropped the portrait from the top.
 - `npm run verify:responsive-layout` — passed, 226 cases.
 - Rendered local checks passed at `/articles/` `1911x764` and `390x844`, and at
   `/articles/byudzhet-svadby-v-moskve/` `1232x582`.
-- Commit, push and production verification are pending.
+- Runtime commit `7116152` was pushed to `origin/main`; Code health and Deploy
+  to gh-pages completed successfully.
+- `npm run verify:pages` confirmed production is deployed from the exact commit,
+  contains the new catalogue markers and no longer contains the removed promo
+  copy or button class.
+- Fresh production checks at `1911x764` confirmed the full head remains visible
+  with clear space above it and the catalogue contains only the three published
+  material rows.

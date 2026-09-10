@@ -1242,7 +1242,7 @@ Status: active
 Area: frontend, editorial UX, responsive QA
 Decision date: 2026-09-11
 Evidence: owner production review at `1280x720`
-Commits: `a3c2996`
+Commits: `a3c2996`, `7116152`
 
 Decision:
 

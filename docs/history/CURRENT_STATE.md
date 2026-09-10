@@ -13,7 +13,9 @@
 - Responsive QA now covers 226 cases. The exact `1911x764` viewport runs on all
   four wedding-editorial routes and the hub contract fails if independent promo
   sections or oversized catalogue typography return.
-- Runtime commit, push and production verification are pending this release.
+- Runtime commit `7116152` is pushed and live. Code health, Deploy to gh-pages,
+  exact-commit/marker verification and fresh production checks at `1911x764`
+  passed for both Hero framing and the published-material list.
 
 ## Articles hub uses the shared wedding Hero (2026-09-11)
 
