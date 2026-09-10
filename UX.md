@@ -76,6 +76,18 @@ Pages may vary in content structure, but must not introduce a separate palette,
 generic card template or page-local type system. The homepage, Direct flow,
 conversion CTA island and all bot/CRM contracts remain unchanged.
 
+The implementation source of truth is `docs/ARTICLE_UI_KIT.md`:
+
+- `WeddingArticleHero.astro` owns the common portrait, service line, title,
+  lead and author byline;
+- `WeddingArticleIntro.astro` owns the first editorial block and reading
+  measure;
+- `wedding-article-ui.css` owns shared tokens, fonts, type scale, spacing,
+  focal point and responsive modes.
+
+Existing and new wedding articles must use these primitives. Page-local Hero
+or introduction CSS is not an allowed way to customize an article.
+
 ### Permanent typography and CTA rule
 
 - Typography follows the role of the surface, not a requirement to make every
@@ -96,6 +108,14 @@ conversion CTA island and all bot/CRM contracts remain unchanged.
   Matching the homepage means reusing approved visual tokens and interaction
   anatomy through standalone Astro components, not coupling new routes to the
   homepage's legacy export.
+- Wedding Article Heroes preserve the whole head silhouette. The media layer
+  uses the shared upper focal point and no decorative scale/zoom. The service
+  line keeps a `34px` gap before H1 on desktop and `20px` on mobile; short
+  windows use the shared height-aware layout instead of collapsing that gap.
+- The first editorial block uses the shared hierarchy: H2 is capped at `38px`
+  on desktop, body copy is `19px / 1.68` sans on desktop and `17px / 1.55` on
+  mobile. `Instrument Serif` is reserved for display emphasis, not entire
+  explanatory paragraphs.
 - The Hero type scale is subordinate to the conversion job. On every public
   page whose primary CTA sits in the Hero, the complete H1, introductory lead
   and all primary Hero controls must be fully visible at `scrollY=0` in the
@@ -154,12 +174,16 @@ system is a release blocker unless the owner explicitly approves it.
 - Desktop height at `700px` and below is a compact mode: shorten vertical gaps,
   widen and reduce the H1 measure, reduce the lead proportionally and use the
   homepage's compact split-button sizing. Normal-height desktop preserves the
-  editorial scale. Mobile portrait retains touch-size controls and its own
-  readable type scale.
+  editorial scale. Compact does not mean compressed: keep at least `24px`
+  between H1 and lead, `28px` between lead and actions and `32px` between
+  actions and the author block, with controls at least `42px` high. Mobile
+  portrait retains touch-size controls and its own readable type scale.
 - Required viewports: `390x844`, `479/480/481x900`, `639/640/641x900`,
   `768x1024`, `1023/1024/1025x768`, `1199/1200/1201x650`, reported
   `1232x582`, `1366x768`, `1440x900`, `1504x900`, `1728x900` and
   `1984x1046`. No horizontal overflow, clipped labels or JavaScript errors.
+  Bounds-only acceptance is insufficient: the exact shortest desktop viewport
+  also needs a rendered composition review for grouping, hierarchy and air.
 
 ## Visible release target
 

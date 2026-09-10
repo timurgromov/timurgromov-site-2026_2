@@ -61,7 +61,10 @@ Meaningful change - это:
 ## Native Astro Page Rule
 
 - SEO- и редакционные страницы — нативные Astro-страницы. Они не импортируют Tilda runtime, Zero Block, `zoom` или Tilda-responsive; только главная остаётся legacy-контуром Tilda/Astro.
-- Новая публичная страница не создаёт собственную систему шрифтов или кнопок. Типографическая роль выбирается из двух утверждённых контуров в `UX.md`: коммерческий `Coolvetica` или редакционный `Cormorant Garamond`/`Instrument Serif`; control/body text остаётся в общем sans-serif-контуре. CTA переиспользует автономный corporate split-button/component.
+- Новая свадебная SEO- или редакционная статья обязана начинаться с `WeddingArticleHero.astro` и `WeddingArticleIntro.astro`; их токены и responsive-правила принадлежат `src/styles/wedding-article-ui.css`. Полный owner-контракт — `docs/ARTICLE_UI_KIT.md`. Копировать Hero/intro CSS в файл страницы или создавать для статьи отдельную шкалу шрифтов запрещено.
+- Новая публичная страница не создаёт собственную систему шрифтов или кнопок. Типографическая роль выбирается из двух утверждённых контуров в `UX.md`: коммерческий `Coolvetica` или редакционный `Cormorant Garamond`/`Instrument Serif`; абзацы и controls остаются в общем sans-serif-контуре. CTA переиспользует автономный corporate split-button/component.
+- Для свадебного Article Hero обязательны целая голова в кадре, явная focal point без декоративного zoom/scale и расстояние `34px` от служебной строки до H1 на desktop (`20px` на mobile). Нельзя сжимать этот зазор ради размещения CTA; для короткого окна используется `withActions` compact-layout из UI kit.
+- Первый содержательный блок использует общую article-иерархию: H2 не больше `38px` на desktop, основной текст `19px` sans (`17px` mobile). `Instrument Serif` остаётся акцентом и не используется для всего вводного абзаца.
 - Если основной CTA находится в Hero, lead и wrapper действий обязаны иметь `data-first-screen-lead` и `data-first-screen-primary-actions`: H1, lead и все primary controls должны полностью помещаться при `scrollY=0` в обязательной матрице, а responsive gate должен падать, если marker выходит ниже viewport. Подробный owner-контракт — `UX.md`, раздел `Permanent typography and CTA rule`.
 
 ## Required Checks
@@ -142,6 +145,13 @@ ps aux | egrep "headless|remote-debugging-port|astro preview|npm run preview" | 
   согласования владельца.
 - Контентная структура может отличаться по задаче страницы, но фирменный стиль
   и язык взаимодействия должны оставаться узнаваемыми на mobile и desktop.
+- Для Article Hero прохождение overflow/first-screen gate не означает
+  визуальную приёмку. Проверять также интервалы между смысловыми группами
+  (H1 → lead → CTA → подпись), длину строки и свободное пространство; нельзя
+  сжимать эти интервалы только ради формального попадания кнопок в viewport.
+- Численные роли и минимальные интервалы свадебных статей принадлежат
+  `docs/ARTICLE_UI_KIT.md`; после responsive gate обязателен rendered visual
+  review на самом коротком desktop viewport из контракта.
 
 ## CTA template commands
 

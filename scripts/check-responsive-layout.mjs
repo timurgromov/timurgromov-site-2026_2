@@ -97,6 +97,16 @@ const routes = walkAstroPages(pagesRoot).map(pagePathToRoute).sort();
 const viewports = parseViewports(
   process.env.RESPONSIVE_LAYOUT_VIEWPORTS || defaultViewports.join(","),
 );
+const routeSpecificGroups = viewports.some(({ name }) => name === "1232x582")
+  ? []
+  : [{
+      viewport: { width: 1232, height: 582, name: "1232x582" },
+      routes: ["/articles/byudzhet-svadby-v-moskve/"],
+    }];
+const caseGroups = [
+  ...viewports.map((viewport) => ({ viewport, routes })),
+  ...routeSpecificGroups,
+];
 
 function assertGenericLayout(result) {
   if (result.runtimeErrors.length) {
@@ -179,6 +189,77 @@ function assertFirstScreenPrimaryActions(result) {
       bottomLimit,
       ...result,
     });
+  }
+}
+
+function assertWeddingArticleUi(result) {
+  const weddingArticleRoutes = new Set([
+    "/scenario/",
+    "/articles/plan-podgotovki-k-svadbe/",
+    "/articles/byudzhet-svadby-v-moskve/",
+  ]);
+  if (!weddingArticleRoutes.has(result.route)) return;
+  if (!result.weddingArticleUi) fail("Wedding article UI kit is missing", result);
+
+  const expectedKickerGap = result.viewport.width <= 640 ? 20 : 34;
+  if (Math.abs(result.weddingArticleUi.kickerToHeadingGap - expectedKickerGap) > 1) {
+    fail("Wedding article Hero kicker spacing drifted", {
+      expectedKickerGap,
+      ...result,
+    });
+  }
+  if (result.weddingArticleUi.mediaTransform !== "none") {
+    fail("Wedding article portrait must not be decoratively scaled", result);
+  }
+  if (result.weddingArticleUi.mediaBackgroundPosition !== (result.viewport.width <= 640 ? "72% 38%" : "74% 38%")) {
+    fail("Wedding article portrait focal point drifted", result);
+  }
+
+  const expectedBodyFont = result.viewport.width <= 640 ? 17 : 19;
+  if (Math.abs(result.weddingArticleUi.introBodyFontPx - expectedBodyFont) > 0.5) {
+    fail("Wedding article introduction body scale drifted", {
+      expectedBodyFont,
+      ...result,
+    });
+  }
+  if (!result.weddingArticleUi.introBodyFontFamily.includes("Arial")) {
+    fail("Wedding article introduction body left the shared sans role", result);
+  }
+  if (result.weddingArticleUi.introHeadingFontPx && result.weddingArticleUi.introHeadingFontPx > 38.5) {
+    fail("Wedding article introduction heading is oversized", result);
+  }
+  if (result.weddingArticleUi.introBodyWidth > 661) {
+    fail("Wedding article introduction line measure is too wide", result);
+  }
+
+  const isMobile = result.viewport.width <= 640;
+  const isShortDesktop = !isMobile && result.viewport.height <= 700;
+  const minimumHeadingToLeadGap = isMobile ? 18 : 24;
+  if (result.weddingArticleUi.headingToLeadGap < minimumHeadingToLeadGap - 1) {
+    fail("Wedding article Hero heading and lead are visually compressed", {
+      minimumHeadingToLeadGap,
+      ...result,
+    });
+  }
+
+  if (result.weddingArticleUi.hasActions) {
+    const minimumLeadToActionsGap = isMobile ? 22 : isShortDesktop ? 28 : 26;
+    const minimumActionsToMetaGap = isMobile ? 24 : isShortDesktop ? 32 : 28;
+    if (result.weddingArticleUi.leadToActionsGap < minimumLeadToActionsGap - 1) {
+      fail("Wedding article Hero lead and actions are visually compressed", {
+        minimumLeadToActionsGap,
+        ...result,
+      });
+    }
+    if (result.weddingArticleUi.actionsToMetaGap < minimumActionsToMetaGap - 1) {
+      fail("Wedding article Hero actions and author metadata are visually compressed", {
+        minimumActionsToMetaGap,
+        ...result,
+      });
+    }
+    if (result.weddingArticleUi.actionControlHeight < 41) {
+      fail("Wedding article primary action controls are visually undersized", result);
+    }
   }
 }
 
@@ -275,6 +356,41 @@ async function measure(page, route, viewport, watchedTextSelectors) {
         whiteSpace: style.whiteSpace,
       };
     };
+    const weddingArticleHero = document.querySelector(".tg-article-hero");
+    const weddingArticleKicker = weddingArticleHero?.querySelector(".tg-article-hero__kicker");
+    const weddingArticleHeading = weddingArticleHero?.querySelector("h1");
+    const weddingArticleLead = weddingArticleHero?.querySelector(".tg-article-hero__lead");
+    const weddingArticleActions = weddingArticleHero?.querySelector("[data-first-screen-primary-actions]");
+    const weddingArticleMeta = weddingArticleHero?.querySelector(".tg-article-hero__meta");
+    const weddingArticleMedia = weddingArticleHero?.querySelector(".tg-article-hero__media");
+    const weddingArticleIntroBody = document.querySelector(".tg-article-intro__prose p");
+    const weddingArticleIntroHeading = document.querySelector(".tg-article-intro h2");
+    const weddingArticleUi = weddingArticleHero && weddingArticleKicker && weddingArticleHeading && weddingArticleMedia && weddingArticleIntroBody
+      ? {
+          kickerToHeadingGap: Number((weddingArticleHeading.getBoundingClientRect().top - weddingArticleKicker.getBoundingClientRect().bottom).toFixed(2)),
+          headingToLeadGap: weddingArticleLead
+            ? Number((weddingArticleLead.getBoundingClientRect().top - weddingArticleHeading.getBoundingClientRect().bottom).toFixed(2))
+            : null,
+          hasActions: Boolean(weddingArticleActions),
+          leadToActionsGap: weddingArticleLead && weddingArticleActions
+            ? Number((weddingArticleActions.getBoundingClientRect().top - weddingArticleLead.getBoundingClientRect().bottom).toFixed(2))
+            : null,
+          actionsToMetaGap: weddingArticleActions && weddingArticleMeta
+            ? Number((weddingArticleMeta.getBoundingClientRect().top - weddingArticleActions.getBoundingClientRect().bottom).toFixed(2))
+            : null,
+          actionControlHeight: weddingArticleActions
+            ? Number(weddingArticleActions.querySelector("a, button")?.getBoundingClientRect().height.toFixed(2) || 0)
+            : null,
+          mediaTransform: getComputedStyle(weddingArticleMedia).transform,
+          mediaBackgroundPosition: getComputedStyle(weddingArticleMedia).backgroundPosition,
+          introBodyFontFamily: getComputedStyle(weddingArticleIntroBody).fontFamily,
+          introBodyFontPx: Number.parseFloat(getComputedStyle(weddingArticleIntroBody).fontSize),
+          introBodyWidth: Number(weddingArticleIntroBody.closest(".tg-article-intro__prose").getBoundingClientRect().width.toFixed(2)),
+          introHeadingFontPx: weddingArticleIntroHeading
+            ? Number.parseFloat(getComputedStyle(weddingArticleIntroHeading).fontSize)
+            : null,
+        }
+      : null;
 
     return {
       route,
@@ -288,6 +404,7 @@ async function measure(page, route, viewport, watchedTextSelectors) {
       firstScreenPrimaryActions: elementBox(firstScreenPrimaryActionsElement),
       firstScreenHeroHeading: elementBox(firstScreenHero?.querySelector("h1")),
       firstScreenHeroLead: elementBox(firstScreenHero?.querySelector("[data-first-screen-lead]")),
+      weddingArticleUi,
       heroZoom: heroElement
         ? getComputedStyle(document.querySelector("#rec861352716")).getPropertyValue("--zoom").trim()
         : null,
@@ -315,7 +432,7 @@ const browser = await chromium.launch({
 const results = [];
 
 try {
-  for (const viewport of viewports) {
+  for (const { viewport, routes: caseRoutes } of caseGroups) {
     const page = await browser.newPage({
       viewport: { width: viewport.width, height: viewport.height },
       isMobile: false,
@@ -334,13 +451,18 @@ try {
     });
 
     try {
-      for (const route of routes) {
+      for (const route of caseRoutes) {
         runtimeErrors.length = 0;
         await page.goto(`${targetOrigin}${route}`, {
           waitUntil: "domcontentloaded",
           timeout: 30000,
         });
-        await page.waitForTimeout(route === "/" ? 900 : 250);
+        await page.waitForFunction(
+          () => [...document.querySelectorAll('link[rel="stylesheet"]')].every((link) => Boolean(link.sheet)),
+          null,
+          { timeout: 5000 },
+        );
+        await page.waitForTimeout(route === "/" ? 900 : 80);
         const result = {
           ...(await measure(page, route, viewport, watchTextSelectors)),
           runtimeErrors: [...runtimeErrors],
@@ -348,6 +470,7 @@ try {
         assertGenericLayout(result);
         assertHomeHero(result);
         assertFirstScreenPrimaryActions(result);
+        assertWeddingArticleUi(result);
         results.push({
           route,
           viewport: viewport.name,
@@ -363,9 +486,12 @@ try {
   await browser.close();
 }
 
-console.log(`Responsive layout check passed: ${routes.length} routes x ${viewports.length} viewports = ${results.length} cases`);
+console.log(`Responsive layout check passed: ${results.length} cases (${routes.length} routes x ${viewports.length} shared viewports + ${routeSpecificGroups.length} route-specific)`);
 console.log(`Routes: ${routes.join(", ")}`);
 console.log(`Viewports: ${viewports.map(({ name }) => name).join(", ")}`);
+if (routeSpecificGroups.length) {
+  console.log(`Route-specific viewports: ${routeSpecificGroups.map(({ viewport, routes: specificRoutes }) => `${viewport.name} -> ${specificRoutes.join(", ")}`).join("; ")}`);
+}
 if (watchTextSelectors.length) {
   console.log(`Watched text metrics:\n${JSON.stringify(results.map(({ route, viewport, watchedText }) => ({ route, viewport, watchedText })), null, 2)}`);
 }

@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import WeddingArticleHero from "../../components/WeddingArticleHero.astro";
+import WeddingArticleIntro from "../../components/WeddingArticleIntro.astro";
 import { renderExpertConversionContour } from "../../site/expert-conversion";
 import { renderConsultationContactPopup } from "../../site/consultation-contact-popup";
 import { expertCtaSource, maxMeetingUrlFor, maxPlanUrlFor, telegramMeetingUrlFor, telegramPlanUrlFor } from "../../site/home-data";
@@ -215,39 +217,29 @@ const articleSchema = {
   </Fragment>
 
   <main class="plan-page" data-testid="preparation-plan-page">
-    <header class="plan-hero" data-testid="preparation-plan-hero">
-      <div class="plan-hero__media" data-testid="preparation-plan-hero-media" aria-hidden="true"></div>
-      <div class="plan-hero__overlay" aria-hidden="true"></div>
-      <div class="plan-shell plan-hero__shell">
-        <div class="plan-hero__kicker">
-          <a class="plan-back" href={homeHref}>timurgromov.ru</a>
-          <p class="plan-kicker">Авторский материал — <span>Тимур Громов</span></p>
-        </div>
-        <h1>Пошаговый план <em>подготовки к свадьбе</em></h1>
-        <p class="plan-lead">
+    <WeddingArticleHero
+      homeHref={homeHref}
+      meta="Ведущий · план подготовки"
+      testId="preparation-plan-hero"
+      mediaTestId="preparation-plan-hero-media"
+    >
+      <h1 slot="title">Пошаговый план <em>подготовки к свадьбе</em></h1>
+      <Fragment slot="lead">
           Подготовка становится спокойнее, когда решения идут в правильной
           последовательности. Начните с даты, формата, гостей и бюджета — и
           только затем переходите к площадке, команде и таймингу.
-        </p>
-        <div class="plan-hero__meta">
-          <div class="plan-hero__badge">Т</div>
-          <div>
-            <strong>Автор: Тимур Громов</strong>
-            <span>Ведущий · план подготовки</span>
-          </div>
-        </div>
-      </div>
-    </header>
+      </Fragment>
+    </WeddingArticleHero>
 
     <article class="plan-shell plan-article" data-testid="preparation-plan-article">
-      <section class="plan-intro">
+      <WeddingArticleIntro eyebrow="Вступление">
         <p>
           Этот гид — не набор обязательных правил. У каждой пары свой срок,
           город, состав гостей и представление о празднике. Но порядок ниже
           помогает не переделывать уже принятые решения и не превращать
           подготовку в бесконечный список задач.
         </p>
-      </section>
+      </WeddingArticleIntro>
 
       <section class="plan-first-steps" aria-labelledby="plan-first-steps-title">
         <div>
@@ -345,21 +337,6 @@ const articleSchema = {
     margin: 0 auto;
   }
 
-  .plan-hero {
-    padding: 40px 0 48px;
-    border-bottom: 1px solid rgba(28, 27, 26, 0.1);
-  }
-
-  .plan-back {
-    display: inline-flex;
-    margin-bottom: 30px;
-    color: #6f5844;
-    font-size: 14px;
-    letter-spacing: 0.08em;
-    text-decoration: none;
-    text-transform: uppercase;
-  }
-
   .plan-kicker {
     margin: 0 0 14px;
     color: #9f5f2b;
@@ -369,7 +346,6 @@ const articleSchema = {
     text-transform: uppercase;
   }
 
-  .plan-hero h1,
   .plan-article h2,
   .plan-checklist h2,
   .plan-cta h2 {
@@ -377,20 +353,6 @@ const articleSchema = {
     font-family: Georgia, "Times New Roman", serif;
     font-weight: 400;
     letter-spacing: 0;
-  }
-
-  .plan-hero h1 {
-    max-width: 920px;
-    font-size: clamp(42px, 6vw, 76px);
-    line-height: 0.96;
-  }
-
-  .plan-lead {
-    max-width: 760px;
-    margin: 24px 0 0;
-    color: #54463a;
-    font-size: 20px;
-    line-height: 1.55;
   }
 
   .plan-first-steps {
@@ -437,18 +399,6 @@ const articleSchema = {
 
   .plan-article {
     min-width: 0;
-  }
-
-  .plan-intro {
-    padding-bottom: 38px;
-    color: #382e26;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(24px, 3vw, 34px);
-    line-height: 1.2;
-  }
-
-  .plan-intro p {
-    margin: 0;
   }
 
   .plan-stage {
@@ -716,21 +666,11 @@ const articleSchema = {
       width: min(100vw - 32px, 1120px);
     }
 
-    .plan-hero {
-      padding: 28px 0 34px;
-    }
-
-    .plan-back {
-      margin-bottom: 22px;
-      font-size: 12px;
-    }
-
     .plan-kicker,
     .plan-first-steps > span {
       font-size: 11px;
     }
 
-    .plan-lead,
     .plan-stage p,
     .plan-stage li,
     .plan-cta p,
@@ -821,59 +761,6 @@ const articleSchema = {
     padding: 0 24px;
   }
 
-  .plan-hero {
-    position: relative;
-    min-height: 84vh;
-    overflow: hidden;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    background: var(--plan-dark);
-    color: #fffaf4;
-  }
-
-  .plan-hero__media {
-    position: absolute;
-    inset: 0;
-    background: url("/images/scenario-hero-host-bw-source.jpg") 74% center / cover no-repeat;
-    filter: grayscale(1) brightness(0.72) contrast(1.02);
-    transform: scale(1.02);
-  }
-
-  .plan-hero__overlay {
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(180deg, rgba(16, 13, 12, 0.12) 0%, rgba(16, 13, 12, 0.3) 30%, rgba(16, 13, 12, 0.58) 74%, rgba(16, 13, 12, 0.74) 100%),
-      linear-gradient(90deg, rgba(16, 13, 12, 0.74) 0%, rgba(16, 13, 12, 0.42) 37%, rgba(16, 13, 12, 0.18) 68%, rgba(16, 13, 12, 0.3) 100%),
-      radial-gradient(circle at top right, rgba(250, 70, 4, 0.1), transparent 34%);
-  }
-
-  .plan-hero__shell {
-    position: relative;
-    display: flex;
-    min-height: 84vh;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding-top: 46px;
-    padding-bottom: 88px;
-  }
-
-  .plan-hero__kicker {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 34px;
-  }
-
-  .plan-back {
-    display: inline-block;
-    margin: 0;
-    color: rgba(255, 250, 244, 0.82);
-    font-size: 13px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
-
   .plan-kicker {
     margin: 0 0 18px;
     color: var(--plan-accent);
@@ -883,15 +770,6 @@ const articleSchema = {
     text-transform: uppercase;
   }
 
-  .plan-hero .plan-kicker {
-    margin: 0;
-  }
-
-  .plan-hero .plan-kicker span {
-    white-space: nowrap;
-  }
-
-  .plan-hero h1,
   .plan-article h2 {
     margin: 0;
     font-family: "Cormorant Garamond", Georgia, serif;
@@ -899,81 +777,9 @@ const articleSchema = {
     letter-spacing: 0;
   }
 
-  .plan-hero h1 {
-    max-width: 12ch;
-    font-size: clamp(50px, 7vw, 96px);
-    line-height: 0.92;
-    color: #fffaf4;
-  }
-
-  .plan-hero h1 em {
-    color: var(--plan-accent);
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-weight: 400;
-  }
-
-  .plan-lead {
-    max-width: 620px;
-    margin: 28px 0 0;
-    color: rgba(255, 250, 244, 0.8);
-    font-family: "Instrument Serif", Georgia, serif;
-    font-size: clamp(22px, 2.4vw, 29px);
-    font-style: italic;
-    line-height: 1.22;
-  }
-
-  .plan-hero__meta {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-top: 42px;
-    color: rgba(255, 250, 244, 0.74);
-  }
-
-  .plan-hero__meta strong,
-  .plan-hero__meta span {
-    display: block;
-  }
-
-  .plan-hero__meta strong {
-    margin-bottom: 3px;
-    color: #fffaf4;
-    font-size: 16px;
-  }
-
-  .plan-hero__meta span {
-    font-size: 12px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-  }
-
-  .plan-hero__badge {
-    display: grid;
-    width: 44px;
-    height: 44px;
-    place-items: center;
-    border-radius: 999px;
-    background: var(--plan-accent);
-    color: var(--plan-dark);
-    font-family: "Cormorant Garamond", Georgia, serif;
-    font-size: 24px;
-    font-weight: 600;
-  }
-
   .plan-article {
     padding-top: 72px;
     padding-bottom: 16px;
-  }
-
-  .plan-intro {
-    max-width: 760px;
-    padding: 0;
-    color: var(--plan-ink);
-    font-family: "Instrument Serif", Georgia, serif;
-    font-size: clamp(25px, 3vw, 34px);
-    font-style: italic;
-    line-height: 1.2;
   }
 
   .plan-first-steps,
@@ -1230,45 +1036,10 @@ const articleSchema = {
       padding: 0 18px;
     }
 
-    .plan-hero,
-    .plan-hero__shell {
-      min-height: auto;
-    }
-
-    .plan-hero__shell {
-      padding-top: 74px;
-      padding-bottom: 42px;
-    }
-
-    .plan-hero__media {
-      background-position: 72% center;
-      filter: grayscale(1) brightness(0.6) contrast(1.02);
-    }
-
-    .plan-hero__kicker {
-      gap: 8px;
-      margin-bottom: 20px;
-    }
-
-    .plan-back {
-      font-size: 11px;
-      letter-spacing: 0.14em;
-    }
-
     .plan-kicker {
       margin-bottom: 14px;
       font-size: 10px;
       letter-spacing: 0.24em;
-    }
-
-    .plan-lead {
-      margin-top: 20px;
-      font-size: 20px;
-      line-height: 1.24;
-    }
-
-    .plan-hero__meta {
-      margin-top: 26px;
     }
 
     .plan-article {

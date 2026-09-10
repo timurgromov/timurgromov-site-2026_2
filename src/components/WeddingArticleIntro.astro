@@ -1,0 +1,20 @@
+---
+import "../styles/wedding-article-ui.css";
+
+interface Props {
+  eyebrow: string;
+  title?: string;
+  titleId?: string;
+  dropcap?: boolean;
+}
+
+const { eyebrow, title, titleId, dropcap = false } = Astro.props;
+---
+
+<section class:list={["tg-article-intro", { "tg-article-intro--with-title": Boolean(title) }]} aria-labelledby={title ? titleId : undefined}>
+  <p class="tg-article-eyebrow">{eyebrow}</p>
+  {title && <h2 id={titleId}>{title}</h2>}
+  <div class:list={["tg-article-intro__prose", { "tg-article-intro__prose--dropcap": dropcap }]}>
+    <slot />
+  </div>
+</section>

@@ -1212,10 +1212,17 @@ SEO template.
 
 Do:
 
-- reuse the black-and-white author Hero pattern from `src/pages/scenario.astro`
-  for new or reworked wedding expert pages;
+- reuse `WeddingArticleHero.astro`, `WeddingArticleIntro.astro` and
+  `wedding-article-ui.css` for new or reworked wedding expert pages;
 - preserve the portrait focal point, author identification and readable dark
   copy area on desktop and mobile;
+- keep the shared `34px` desktop service-line gap, upper portrait focal point,
+  no-scale media rule and `38px`/`19px` introduction hierarchy;
+- in the short desktop CTA Hero preserve semantic spacing of at least
+  `24px` H1-to-lead, `28px` lead-to-actions and `32px` actions-to-byline, with
+  split controls at least `42px` high;
+- treat overflow and first-screen fit as geometry gates, then separately review
+  the rendered composition for hierarchy, grouping and breathing room;
 - retain one shared final CTA island and all existing conversion/source
   contracts;
 - treat `1100px` and `640px` as explicit plan-page layout boundaries.
@@ -1225,6 +1232,7 @@ Do not:
 - do not clone the scenario's text or remove a guide's useful navigation;
 - do not introduce another palette, generic rounded-card language or a
   page-specific typography system for wedding editorial content;
+- do not copy Hero or introduction CSS into an individual article;
 - do not change the homepage, Direct flow, bot or CRM while making this visual
   alignment.
 

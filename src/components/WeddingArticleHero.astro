@@ -1,0 +1,54 @@
+---
+import "../styles/wedding-article-ui.css";
+
+interface Props {
+  homeHref: string;
+  meta: string;
+  testId?: string;
+  mediaTestId?: string;
+  titleSize?: "standard" | "compact";
+}
+
+const {
+  homeHref,
+  meta,
+  testId,
+  mediaTestId,
+  titleSize = "standard",
+} = Astro.props;
+const hasActions = Astro.slots.has("actions");
+---
+
+<header
+  class:list={[
+    "tg-article-hero",
+    `tg-article-hero--${titleSize}`,
+    { "tg-article-hero--with-actions": hasActions },
+  ]}
+  data-testid={testId}
+>
+  <div class="tg-article-hero__media" data-testid={mediaTestId} aria-hidden="true"></div>
+  <div class="tg-article-hero__overlay" aria-hidden="true"></div>
+  <div class="tg-article-shell tg-article-hero__shell">
+    <div class="tg-article-hero__kicker">
+      <a class="tg-article-hero__back" href={homeHref}>timurgromov.ru</a>
+      <p class="tg-article-eyebrow">Авторский материал — <span>Тимур Громов</span></p>
+    </div>
+    <div class="tg-article-hero__title"><slot name="title" /></div>
+    <p class="tg-article-hero__lead" data-first-screen-lead={hasActions ? true : undefined}>
+      <slot name="lead" />
+    </p>
+    {hasActions && (
+      <div class="tg-article-hero__actions" data-first-screen-primary-actions>
+        <slot name="actions" />
+      </div>
+    )}
+    <div class="tg-article-hero__meta">
+      <div class="tg-article-hero__badge">Т</div>
+      <div>
+        <strong>Тимур Громов</strong>
+        <span>{meta}</span>
+      </div>
+    </div>
+  </div>
+</header>

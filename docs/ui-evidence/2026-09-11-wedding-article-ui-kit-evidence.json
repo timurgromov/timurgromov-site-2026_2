@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-10-wedding-article-ui-kit",
+  "change_kind": "shared-editorial-ui-and-responsive-composition-gate",
+  "status": "local_passed_release_pending",
+  "requested_visible_change": "Make the wedding-budget article use the same intentional editorial hierarchy as the approved wedding guides without compressing the Hero merely to fit controls in the first screen.",
+  "expected_visible_delta": "The budget Hero keeps the complete portrait and first-screen controls while using a confident article scale, full-size split controls and visible breathing room between semantic groups.",
+  "attempt_number": 2,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "8326285c906f39b4d91ef17733453a9eda94aafb8ea6f8e031f822bc52556c48",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/articles/byudzhet-svadby-v-moskve/",
+    "source_ref": "local Astro preview from the current working-tree candidate after build",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/articles/byudzhet-svadby-v-moskve/",
+    "state": "public anonymous visitor at scrollY=0",
+    "selector_or_slide_id": ".tg-article-hero",
+    "action": "Compare the budget Hero with the shared wedding article system at exact desktop and mobile viewports."
+  },
+  "must_remain_unchanged": [
+    "Exact article H1, lead and SEO metadata",
+    "Telegram and MAX calculator destinations and source codes",
+    "Native Astro page boundary",
+    "Black-and-white portrait and dark overlay",
+    "Homepage runtime and layout"
+  ],
+  "observations": [
+    {
+      "viewport": "1232x582",
+      "before_signature": "The first compact candidate reduced semantic gaps to 12/16/18px and rendered the calculator controls at 30.8px high.",
+      "after_signature": "H1=51.744px; lead=20.944px; H1-to-lead=24px; lead-to-actions=28px; actions-to-byline=32px; controls=42px; byline bottom=520.6px; free space below byline=61.4px.",
+      "observed_visible_result": "The complete title, lead, both controls and author row remain in the first screen without looking like a miniature compressed block.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "required_signature_present": true,
+      "forbidden_signature_absent": true,
+      "unchanged_checks": [
+        "portrait background-position=74% 38%",
+        "portrait transform=none",
+        "all controls remain above the fold"
+      ],
+      "console_errors": []
+    },
+    {
+      "viewport": "390x844",
+      "before_signature": "The shared components had not yet been visually rechecked after the desktop rhythm correction.",
+      "after_signature": "H1-to-lead=18px; lead-to-actions=22px; actions-to-byline=24px; stacked controls=48px; byline bottom=743.7px; document width=390px.",
+      "observed_visible_result": "The mobile Hero keeps readable hierarchy, touch-size controls and the complete author row without horizontal overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "required_signature_present": true,
+      "forbidden_signature_absent": true,
+      "unchanged_checks": [
+        "portrait background-position=72% 38%",
+        "both CTA labels remain on one line",
+        "document width equals viewport width"
+      ],
+      "console_errors": []
+    },
+    {
+      "viewport": "shared introduction",
+      "before_signature": "The budget opening used an oversized 61.6px H2 and 34px italic paragraph role.",
+      "after_signature": "Introduction H2 is capped at 38px; desktop body is 19px Arial/sans with a maximum 660px measure; mobile body is 17px.",
+      "observed_visible_result": "The opening now follows the same readable heading/body hierarchy as the wedding-scenario article.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "required_signature_present": true,
+      "forbidden_signature_absent": true,
+      "unchanged_checks": [
+        "opening copy unchanged",
+        "article information architecture unchanged"
+      ],
+      "console_errors": []
+    }
+  ],
+  "automated_verification": {
+    "commands": [
+      "npm run build",
+      "npm run verify:responsive-layout",
+      "npm run verify:contacts"
+    ],
+    "result": "passed",
+    "coverage": "221 responsive cases: 11 static routes across 20 shared viewports plus the permanent budget-only 1232x582 case; contact and messenger-link contracts also passed"
+  },
+  "qa_contract": {
+    "stylesheet_readiness": "The browser gate waits until linked stylesheets are attached before measuring geometry.",
+    "composition_metrics": [
+      "kicker-to-H1 gap",
+      "H1-to-lead gap",
+      "lead-to-actions gap",
+      "actions-to-byline gap",
+      "action control height",
+      "introduction body measure and type role"
+    ],
+    "manual_requirement": "Bounds and numeric gates are followed by rendered visual comparison at the shortest required desktop viewport."
+  }
+}
