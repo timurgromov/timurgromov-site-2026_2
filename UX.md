@@ -76,6 +76,12 @@ Pages may vary in content structure, but must not introduce a separate palette,
 generic card template or page-local type system. The homepage, Direct flow,
 conversion CTA island and all bot/CRM contracts remain unchanged.
 
+This is the default for every new wedding expert or SEO route, not a one-off
+decision for the preparation guide. Before implementation, each new route must
+name `/scenario/` as its canonical visual source and define only the content
+structure that differs. A generic SEO template or a separate page-local brand
+system is a release blocker unless the owner explicitly approves it.
+
 ## Visible release target
 
 Each shared contour is visible after its useful page content. It contains four

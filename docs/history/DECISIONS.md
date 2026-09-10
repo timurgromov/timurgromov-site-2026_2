@@ -1171,3 +1171,37 @@ Do not:
   page-specific typography system for wedding editorial content;
 - do not change the homepage, Direct flow, bot or CRM while making this visual
   alignment.
+
+## DEC-2026-09-10-DIRECT-CALCULATOR-ARTICLE-ENTRY
+
+Status: active
+Area: SEO article, calculator CTA, attribution
+Decision date: 2026-09-10
+Evidence: owner-approved wedding-budget article and existing EventBudjet Mini App
+Commits: pending
+
+Decision:
+
+The wedding-budget article has one conversion job: open the existing calculator
+inside Telegram or MAX. It does not launch the scenario/materials qualification
+or a meeting flow. Its structured source family is
+`site_calculator_timurgromov__wedding_budget__<placement>` for `hero`,
+`mid_article` and `final`.
+
+The article index `/articles/` is a supporting hub. It is indexable and appears
+in navigation, but it owns no keyword cluster and has no independent messenger
+CTA competing with its articles.
+
+Do:
+
+- use `startapp` for both providers and keep provider attribution separate;
+- preserve an existing lead's original `source` while recording every
+  calculator entry in append-only history;
+- use confirmed calculator capabilities only: edit/add items, autosave, resume
+  and copy for manual sharing.
+
+Do not:
+
+- do not route this article through `site_plan` or `site_meeting`;
+- do not claim native estimate sharing from the Mini App;
+- do not create year variants, average-price claims or sibling budget pages.

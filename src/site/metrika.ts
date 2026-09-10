@@ -167,10 +167,11 @@ export const yandexMetrikaHead = `<meta name="yandex-verification" content="${ya
         var provider = host === 'max.ru' || host.endsWith('.max.ru') ? 'max'
           : host === 't.me' || host.endsWith('.t.me') ? 'telegram'
           : null;
-        var source = url.searchParams.get('start') || '';
-        var structuredSource = /^site_(plan|meeting)_[a-z0-9_-]+__[a-z0-9_-]+__[a-z0-9_-]+$/.test(source) && source.length <= 64;
+        var parameter = url.searchParams.has('startapp') ? 'startapp' : 'start';
+        var source = url.searchParams.get(parameter) || '';
+        var structuredSource = /^site_(plan|meeting|calculator)_[a-z0-9_-]+__[a-z0-9_-]+__[a-z0-9_-]+$/.test(source) && source.length <= 64;
         if (!provider || (!legacySources[source] && !structuredSource)) return null;
-        return { provider: provider, source: source, url: url };
+        return { provider: provider, source: source, parameter: parameter, url: url };
       } catch (_error) {
         return null;
       }
@@ -198,7 +199,7 @@ export const yandexMetrikaHead = `<meta name="yandex-verification" content="${ya
                 entry_landing_path: getAcquisitionContext().landing_path || '/'
               }),
               landing_url: window.location.href,
-              cta_code: anchor.getAttribute('data-plan-source') || data.source
+              cta_code: anchor.getAttribute('data-calculator-source') || anchor.getAttribute('data-plan-source') || data.source
             }),
             credentials: 'omit'
           });
@@ -214,7 +215,7 @@ export const yandexMetrikaHead = `<meta name="yandex-verification" content="${ya
       }
       return promiseBySource[data.source].then(function(startPayload){
         var result = new URL(data.url.toString());
-        result.searchParams.set('start', startPayload);
+        result.searchParams.set(data.parameter, startPayload);
         return result.toString();
       });
     }

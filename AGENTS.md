@@ -121,6 +121,22 @@ ps aux | egrep "headless|remote-debugging-port|astro preview|npm run preview" | 
 `docs/EXISTING_DESIGN_REUSE_RULE.md`: правило copy-first, canonical CTA и
 обязательный source паттерна сохраняются там целиком.
 
+## Public Page Brand Rule
+
+- Любая новая публичная страница продолжает существующий сайт, а не получает
+  отдельный «SEO-шаблон» или новую визуальную концепцию.
+- До верстки в UI-контракте обязательно указать ближайшую утверждённую
+  production-страницу как canonical visual source.
+- Для свадебных экспертных и SEO-страниц canonical visual source —
+  `/scenario/`: портретный тёмный Hero, тёплый нейтральный фон, оранжевый
+  акцент, существующие шрифтовые роли, карточки, ритм и CTA-контролы.
+- Сначала переиспользовать существующие компоненты, токены, ассеты и
+  interaction patterns. Отдельная палитра, generic SEO-card UI, новая
+  типографика и перерисованные Telegram/MAX-кнопки запрещены без явного
+  согласования владельца.
+- Контентная структура может отличаться по задаче страницы, но фирменный стиль
+  и язык взаимодействия должны оставаться узнаваемыми на mobile и desktop.
+
 ## CTA template commands
 
 The exact phrases below have fixed implementation meaning; read

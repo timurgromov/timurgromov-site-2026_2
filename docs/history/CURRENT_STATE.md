@@ -215,3 +215,22 @@
 - Local verification: `npm run verify:contacts` (desktop `1911x1064`, desktop `1440x900`, mobile `390x844`, включая uncaught runtime exceptions) и `npm run verify:responsive-layout` (все 9 маршрутов × 18 viewport-точек), stable local docker preview `http://127.0.0.1:4323/`.
 - Последнее правленное состояние: CTA-блок сценария очищен от нижних proof-карточек и прямой ссылки на `/scenario/`; hero popup оставлен компактным bot-first preview с выбором Telegram или MAX.
 - Production deploy: выполняется через push в `main` и GitHub Actions `deploy-gh-pages`; GitHub Pages source — ветка `gh-pages` (`/`).
+
+## Wedding-budget article candidate (2026-09-10)
+
+- Added the evergreen Moscow/MO article
+  `/articles/byudzhet-svadby-v-moskve/`. It explains expense structure and
+  estimate maintenance without years, market-average totals or price ranges.
+- The article uses the approved wedding-editorial design from `/scenario/`:
+  black-and-white author portrait, dark Hero, warm-neutral reading canvas,
+  orange accent and shared display/italic type roles.
+- `/articles/` was rebuilt in the same corporate style. It remains an
+  indexable navigation and internal-linking hub without an independent keyword
+  cluster; the budget article is its featured entry.
+- Three sanitized screenshots are rendered from the real EventBudjet Mini App
+  component with a fixture account and hidden money values. They show expense
+  selection, the service/factor hint and the autosave/copy state.
+- All six article CTA links use direct Mini App `startapp` URLs and exact
+  sources `site_calculator_timurgromov__wedding_budget__{hero|mid_article|final}`.
+- Local Astro build passed. Production release and live Telegram/MAX/CRM proof
+  remain pending until the matching EventBudjet source release is live.

@@ -1,0 +1,482 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CalculatorCtaPair from "../../components/CalculatorCtaPair.astro";
+
+const homeHref = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const articlesHref = `${homeHref}articles/`;
+const planHref = `${homeHref}articles/plan-podgotovki-k-svadbe/`;
+const pageUrl = new URL(`${homeHref}articles/byudzhet-svadby-v-moskve/`, "https://timurgromov.ru").toString();
+const socialImageUrl = new URL(`${homeHref}images/scenario-hero-host-bw-source.jpg`, "https://timurgromov.ru").toString();
+const pageTitle = "Бюджет свадьбы в Москве: как рассчитать смету без сюрпризов | Тимур Громов";
+const pageDescription = "Как собрать бюджет свадьбы в Москве и Подмосковье: структура сметы, приоритеты пары, скрытые доплаты и бесплатный свадебный калькулятор.";
+
+const chapters = [
+  {
+    number: "01",
+    id: "format-gosti-limit",
+    title: "Формат, гости и лимит бюджета",
+    body: [
+      "Бюджет свадьбы начинается не с прайсов, а с рамки. Камерный ужин, классический банкет и большая загородная вечеринка требуют разного набора решений. На смету одновременно влияют число гостей, длительность дня, локация, сезонность, состав команды и то, какие впечатления пара хочет сохранить любой ценой.",
+      "Сначала договоритесь о доступном лимите и назовите несколько приоритетов. Для одной пары это площадка и ужин, для другой — музыка, фотографии или ощущение свободной вечеринки. Всё остальное оценивайте через эти приоритеты: без чего праздник потеряет характер, а что можно упростить или убрать.",
+    ],
+    list: [
+      "формат и продолжительность праздника;",
+      "рабочий список гостей с разумным запасом на изменения;",
+      "общий лимит, который комфортен без расчёта на подарки;",
+      "ядро свадьбы, гибкие статьи и идеи, от которых можно отказаться.",
+    ],
+  },
+  {
+    number: "02",
+    id: "ploshchadka-banket",
+    title: "Площадка, банкет, напитки и условия",
+    body: [
+      "Площадку важно считать не одной строкой. В Москве и Подмосковье итог зависит от меню, аренды, сервисных условий, продолжительности, возможности привезти свои напитки и подрядчиков, доступного оборудования и того, сколько пространства уже готово визуально.",
+      "Красивый зал с подходящей мебелью, светом и зоной церемонии может снять часть расходов в других категориях. И наоборот: привлекательная стартовая цена может вырасти, если отдельно оплачиваются продление, клининг, пробковый сбор, техника, монтаж или работа персонала после определённого времени.",
+    ],
+    list: [
+      "что входит в меню, аренду и обслуживание;",
+      "какие напитки можно привезти и на каких условиях;",
+      "есть ли обязательные подрядчики или минимальный заказ;",
+      "как считаются продление, монтаж, уборка и дополнительные часы;",
+      "что происходит при изменении числа гостей, переносе или отмене.",
+    ],
+  },
+  {
+    number: "03",
+    id: "komanda",
+    title: "Команда: ведущий, DJ, фото, видео и организация",
+    body: [
+      "Команда — это не просто список специалистов. Стоимость зависит от состава услуги, времени работы, подготовки, оборудования, второго специалиста, логистики и уровня ответственности. Поэтому сравнивать только итоговую цифру в предложении почти всегда некорректно.",
+      "Ведущий и DJ отвечают за ритм вечера и техническую готовность программы. Фотограф и видеограф — за результат, который останется после свадьбы. Координатор держит исполнение уже собранного плана в день события, а организатор ведёт подготовку шире: помогает с концепцией, поиском команды, сметой и процессом. Эти роли могут быть нужны в разном объёме — их не стоит автоматически включать или исключать.",
+    ],
+    list: [
+      "что именно специалист делает до свадьбы и в день события;",
+      "сколько часов и какие этапы входят;",
+      "нужны ли техника, ассистент, второй оператор или дополнительный комплект;",
+      "как оплачиваются дорога, ранний выезд, продление и изменения задачи;",
+      "какой результат и в какой срок вы получаете после свадьбы.",
+    ],
+  },
+  {
+    number: "04",
+    id: "vizualnaya-chast",
+    title: "Образы, декор, флористика и полиграфия",
+    body: [
+      "Визуальная часть легко расширяется незаметными решениями. В смете полезно отделить образы пары от оформления пространства, а декор — от флористики, печати и монтажа. Тогда видно, какая часть создаёт нужное впечатление, а какая появилась по привычке или из подборки референсов.",
+      "На результат влияют не только объём цветов или количество конструкций. Важны исходный интерьер, сезонность и доступность материалов, повторное использование оформления между зонами, время на монтаж и демонтаж, сложность доставки и требования площадки.",
+    ],
+    list: [
+      "платье, костюм, обувь, аксессуары и подготовка образов;",
+      "букет, бутоньерка и личная флористика;",
+      "церемония, столы, welcome-зона и навигация;",
+      "приглашения, карточки рассадки, меню и другая полиграфия;",
+      "доставка, монтаж, демонтаж и возврат арендованных предметов.",
+    ],
+  },
+  {
+    number: "05",
+    id: "logistika-dopolneniya",
+    title: "Логистика и дополнительные решения",
+    body: [
+      "Транспорт, размещение гостей, церемония, торт, шоу, живая музыка и техническое усиление не обязательны для каждой свадьбы. Но если они нужны именно вашему формату, их лучше видеть отдельными строками, а не надеяться, что они растворятся в общей сумме.",
+      "Особенно внимательно считайте загородные площадки Московской области: дорога команды, трансфер гостей, проживание, поздний выезд и доступ к площадке могут менять не одну, а сразу несколько статей. Дополнительное решение должно отвечать на конкретную задачу — создавать атмосферу, упрощать маршрут или поддерживать важный момент дня.",
+    ],
+    list: [
+      "транспорт пары, команды и гостей;",
+      "размещение, питание команды и бытовая логистика;",
+      "выездная церемония и всё, что требуется для её проведения;",
+      "торт, доставка, хранение и подача;",
+      "музыканты, артисты, шоу и дополнительный свет или звук.",
+    ],
+  },
+];
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Главная", item: "https://timurgromov.ru/" },
+    { "@type": "ListItem", position: 2, name: "Статьи", item: new URL(articlesHref, "https://timurgromov.ru").toString() },
+    { "@type": "ListItem", position: 3, name: "Бюджет свадьбы", item: pageUrl },
+  ],
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "Бюджет свадьбы: из чего складывается смета и как её рассчитать",
+  description: pageDescription,
+  mainEntityOfPage: pageUrl,
+  author: { "@type": "Person", name: "Тимур Громов", url: "https://timurgromov.ru/" },
+  publisher: { "@type": "Person", name: "Тимур Громов" },
+  image: socialImageUrl,
+  about: ["бюджет свадьбы", "смета свадьбы", "расходы на свадьбу", "Москва", "Московская область"],
+  inLanguage: "ru-RU",
+};
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical={pageUrl}
+  ogImage={socialImageUrl}
+  ogImageAlt="Тимур Громов"
+  ogType="article"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)}></script>
+  </Fragment>
+
+  <main class="budget-page" data-testid="wedding-budget-page">
+    <header class="budget-hero" data-testid="wedding-budget-hero">
+      <div class="budget-hero__media" aria-hidden="true"></div>
+      <div class="budget-hero__overlay" aria-hidden="true"></div>
+      <div class="budget-shell budget-hero__shell">
+        <div class="budget-hero__kicker">
+          <a class="budget-back" href={homeHref}>timurgromov.ru</a>
+          <p class="budget-eyebrow">Авторский материал — <span>Тимур Громов</span></p>
+        </div>
+        <h1>Бюджет свадьбы: <em>из чего складывается смета</em> и как её рассчитать</h1>
+        <p class="budget-lead">
+          Единой корректной суммы «для всех» нет. Бюджет определяют формат,
+          гости, площадка, команда и ваши приоритеты — поэтому полезнее сразу
+          собрать собственную смету, чем примерять чужую среднюю стоимость.
+        </p>
+        <div class="budget-hero__actions">
+          <CalculatorCtaPair placement="hero" theme="dark" />
+        </div>
+        <div class="budget-hero__meta">
+          <div class="budget-hero__badge">Т</div>
+          <div>
+            <strong>Автор: Тимур Громов</strong>
+            <span>Ведущий · Москва и Московская область</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <article class="budget-shell budget-article" data-testid="wedding-budget-article">
+      <section class="budget-answer" aria-labelledby="short-answer-title">
+        <p class="budget-eyebrow">Короткий ответ</p>
+        <h2 id="short-answer-title">Сколько стоит свадьба в Москве?</h2>
+        <p>
+          Столько, сколько требует выбранный вами формат — и сколько вы готовы
+          на него потратить без тревоги. Одинаковое число гостей ещё не делает
+          две свадьбы сопоставимыми: один зал уже задаёт атмосферу, другому нужен
+          декор; одной паре важна большая команда, другой — камерный ужин и
+          сильная музыка. Честный расчёт начинается с состава расходов.
+        </p>
+      </section>
+
+      <nav class="budget-contents" aria-label="Содержание статьи">
+        <span>В этой статье</span>
+        <ol>
+          {chapters.map((chapter) => <li><a href={`#${chapter.id}`}>{chapter.title}</a></li>)}
+          <li><a href="#unexpected">Как избежать неожиданных доплат</a></li>
+          <li><a href="#estimate">Как работать со сметой</a></li>
+          <li><a href="#calculator">Как работает калькулятор</a></li>
+        </ol>
+      </nav>
+
+      {chapters.map((chapter) => (
+        <section class="budget-chapter" id={chapter.id}>
+          <div class="budget-chapter__meta">
+            <span class="budget-chapter__number">{chapter.number}</span>
+            <h2>{chapter.title}</h2>
+          </div>
+          <div class="budget-chapter__content">
+            {chapter.body.map((paragraph) => <p>{paragraph}</p>)}
+            <ul>{chapter.list.map((item) => <li>{item}</li>)}</ul>
+          </div>
+        </section>
+      ))}
+
+      <aside class="budget-mid-cta" aria-labelledby="mid-cta-title">
+        <div>
+          <p class="budget-eyebrow">Соберите свою структуру</p>
+          <h2 id="mid-cta-title">Отметьте нужные статьи — без чужой «средней свадьбы»</h2>
+          <p>Калькулятор откроется внутри выбранного мессенджера и сохранит ваш расчёт.</p>
+        </div>
+        <CalculatorCtaPair placement="mid_article" />
+      </aside>
+
+      <section class="budget-chapter" id="unexpected">
+        <div class="budget-chapter__meta">
+          <span class="budget-chapter__number">06</span>
+          <h2>Как избежать неожиданных доплат</h2>
+        </div>
+        <div class="budget-chapter__content">
+          <p>
+            Неожиданной обычно становится не дорогая статья, а условие, которое
+            не попало в первоначальное сравнение. Просите описывать состав услуги
+            одинаково: подготовка, часы работы, техника, логистика, результат,
+            возможное продление и правила изменения заказа.
+          </p>
+          <p>
+            Все значимые договорённости фиксируйте письменно. Оставьте отдельный
+            резерв, не распределяя его заранее по красивым идеям. И назначьте
+            человека, который в день свадьбы принимает доставки, держит контакты
+            команды и решает операционные вопросы: координатора или заранее
+            согласованного близкого.
+          </p>
+          <ul>
+            <li>сравнивайте одинаковый состав услуги, а не только итог;</li>
+            <li>проверяйте доплаты, ограничения и условия изменений до оплаты;</li>
+            <li>держите резерв отдельной строкой;</li>
+            <li>зафиксируйте ответственного за решения в день свадьбы.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="budget-chapter" id="estimate">
+        <div class="budget-chapter__meta">
+          <span class="budget-chapter__number">07</span>
+          <h2>Как работать со сметой</h2>
+        </div>
+        <div class="budget-chapter__content">
+          <p>
+            Смета полезна, когда она отражает именно вашу свадьбу. Начните с
+            нужных категорий, отключите лишние, затем заменяйте ориентиры своими
+            предложениями и договорённостями. Если конкретной статьи нет в
+            списке, добавьте собственный расход.
+          </p>
+          <p>
+            Возвращайтесь к расчёту после выбора площадки и каждого ключевого
+            специалиста. Так изменения не теряются в переписках, а решение о
+            новом элементе можно сразу проверить относительно общего лимита и
+            приоритетов пары.
+          </p>
+          <div class="budget-rule">
+            <strong>Простой принцип</strong>
+            <span>Сначала состав сметы, потом реальные условия, затем финальная проверка резерва и ответственности.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="budget-calculator" id="calculator" data-testid="wedding-budget-calculator-guide">
+        <div class="budget-calculator__head">
+          <p class="budget-eyebrow">Бесплатный инструмент</p>
+          <h2>Как работает калькулятор</h2>
+          <p>
+            Расчёт сохраняется, поэтому к нему можно вернуться. Статьи и суммы
+            можно редактировать, свой расход — добавить. Готовую смету можно
+            скопировать и вручную отправить близким или организатору.
+          </p>
+        </div>
+
+        <div class="budget-screens" aria-label="Экраны свадебного калькулятора">
+          <figure>
+            <div class="budget-screen">
+              <img src={`${homeHref}images/calculator-budget-items.webp`} alt="Выбор и настройка статей свадебной сметы" width="720" height="1280" loading="lazy" />
+            </div>
+            <figcaption><span>01</span><strong>Выберите статьи</strong><p>Оставьте нужные категории и настройте их под свой формат.</p></figcaption>
+          </figure>
+          <figure>
+            <div class="budget-screen">
+              <img src={`${homeHref}images/calculator-budget-factors.webp`} alt="Подсказки о составе услуги и факторах стоимости" width="720" height="1280" loading="lazy" />
+            </div>
+            <figcaption><span>02</span><strong>Проверьте состав</strong><p>В подсказках видно, что входит в статью и что влияет на итог.</p></figcaption>
+          </figure>
+          <figure>
+            <div class="budget-screen">
+              <img src={`${homeHref}images/calculator-budget-summary.webp`} alt="Итоговый экран со статусом сохранения и копированием сметы" width="720" height="1280" loading="lazy" />
+            </div>
+            <figcaption><span>03</span><strong>Сохраните и скопируйте</strong><p>Вернитесь к расчёту позже или скопируйте смету для ручной отправки.</p></figcaption>
+          </figure>
+        </div>
+
+        <div class="budget-final-cta">
+          <div>
+            <p class="budget-eyebrow">Начать расчёт</p>
+            <h3>Соберите смету своей свадьбы</h3>
+            <p>Выберите мессенджер — калькулятор откроется внутри приложения.</p>
+          </div>
+          <CalculatorCtaPair placement="final" theme="dark" />
+        </div>
+      </section>
+
+      <section class="budget-faq" aria-labelledby="faq-title">
+        <p class="budget-eyebrow">Частые вопросы</p>
+        <h2 id="faq-title">О бюджете свадьбы</h2>
+        <details>
+          <summary>Можно ли заранее назвать точную стоимость свадьбы?</summary>
+          <p>Нет, пока не определены формат, гости, площадка, состав команды и условия услуг. Список статей даёт структуру, а точность появляется после ваших решений и предложений подрядчиков.</p>
+        </details>
+        <details>
+          <summary>Что обязательно включить в смету свадьбы?</summary>
+          <p>Обязателен не универсальный набор, а всё, без чего не состоится ваш формат: площадка и еда, нужная команда, образы, логистика и отдельно зафиксированные дополнительные решения.</p>
+        </details>
+        <details>
+          <summary>Когда пересматривать расчёт?</summary>
+          <p>После каждого решения, которое меняет условия: площадки, числа гостей, состава команды, длительности дня или программы. Короткая регулярная проверка лучше большого пересчёта в конце.</p>
+        </details>
+      </section>
+
+      <p class="budget-plan-link">
+        Когда бюджетный каркас готов, можно перейти к
+        <a href={planHref}>пошаговому плану подготовки к свадьбе</a> — как к
+        навигации по следующим решениям, а не к отдельному конверсионному пути.
+      </p>
+    </article>
+
+    <footer class="budget-footer">
+      <div class="budget-shell budget-footer__inner">
+        <a href={homeHref}>Тимур Громов</a>
+        <nav aria-label="Навигация по материалам">
+          <a href={articlesHref}>Все статьи</a>
+          <a href={`${homeHref}scenario/`}>Сценарий вечера</a>
+          <a href={`${homeHref}materials/`}>Материалы</a>
+        </nav>
+      </div>
+    </footer>
+  </main>
+</BaseLayout>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Instrument+Serif:ital@0;1&display=swap");
+
+  :global(html), :global(body) { margin: 0; background: #f7f1e8; color: #241d19; }
+  :global(*) { box-sizing: border-box; }
+
+  .budget-page {
+    --bg: #f7f1e8;
+    --ink: #241d19;
+    --muted: rgba(36, 29, 25, .76);
+    --soft: rgba(36, 29, 25, .12);
+    --accent: #fa4604;
+    --dark: #1f1916;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .budget-shell { width: min(100%, 1080px); margin: 0 auto; padding: 0 24px; }
+  .budget-hero { position: relative; min-height: 92vh; overflow: hidden; background: var(--dark); color: #fffaf4; }
+  .budget-hero__media { position: absolute; inset: 0; background: url("/images/scenario-hero-host-bw-source.jpg") 74% center / cover no-repeat; filter: grayscale(1) brightness(.7) contrast(1.02); transform: scale(1.02); }
+  .budget-hero__overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16,13,12,.16), rgba(16,13,12,.34) 32%, rgba(16,13,12,.72) 82%, rgba(16,13,12,.82)), linear-gradient(90deg, rgba(16,13,12,.78), rgba(16,13,12,.46) 42%, rgba(16,13,12,.16) 72%, rgba(16,13,12,.28)), radial-gradient(circle at top right, rgba(250,70,4,.1), transparent 34%); }
+  .budget-hero__shell { position: relative; display: flex; min-height: 92vh; flex-direction: column; justify-content: flex-end; padding-top: 46px; padding-bottom: 64px; }
+  .budget-hero__kicker { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; margin-bottom: 28px; }
+  .budget-back { color: rgba(255,250,244,.82); font-size: 13px; letter-spacing: .18em; text-decoration: none; text-transform: uppercase; }
+  .budget-eyebrow { margin: 0 0 18px; color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: .28em; text-transform: uppercase; }
+  .budget-hero .budget-eyebrow { margin: 0; }
+  .budget-hero .budget-eyebrow span { white-space: nowrap; }
+  .budget-hero h1, .budget-article h2, .budget-calculator h3 { margin: 0; font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; letter-spacing: 0; }
+  .budget-hero h1 { max-width: 14ch; color: #fffaf4; font-size: clamp(50px, 6.7vw, 92px); line-height: .9; }
+  .budget-hero h1 em { color: var(--accent); font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; }
+  .budget-lead { max-width: 680px; margin: 24px 0 0; color: rgba(255,250,244,.82); font-family: "Instrument Serif", Georgia, serif; font-size: clamp(21px, 2.2vw, 28px); font-style: italic; line-height: 1.2; }
+  .budget-hero__actions { margin-top: 26px; }
+  .budget-hero__meta { display: flex; align-items: center; gap: 16px; margin-top: 28px; color: rgba(255,250,244,.72); }
+  .budget-hero__meta strong, .budget-hero__meta span { display: block; }
+  .budget-hero__meta strong { margin-bottom: 3px; color: #fffaf4; font-size: 15px; }
+  .budget-hero__meta span { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+  .budget-hero__badge { display: grid; width: 42px; height: 42px; place-items: center; border-radius: 50%; background: var(--accent); color: var(--dark); font-family: "Cormorant Garamond", Georgia, serif; font-size: 23px; font-weight: 600; }
+
+  .budget-article { padding-top: 72px; padding-bottom: 72px; }
+  .budget-answer { max-width: 850px; }
+  .budget-answer h2, .budget-calculator__head h2, .budget-faq h2 { font-size: clamp(42px, 5vw, 66px); line-height: .96; }
+  .budget-answer > p:last-child { max-width: 760px; margin: 24px 0 0; color: var(--ink); font-family: "Instrument Serif", Georgia, serif; font-size: clamp(25px, 3vw, 34px); font-style: italic; line-height: 1.22; }
+
+  .budget-contents { display: grid; grid-template-columns: minmax(180px, 240px) minmax(0, 1fr); gap: 32px; margin-top: 56px; padding: 32px 0; border-top: 1px solid var(--soft); border-bottom: 1px solid var(--soft); }
+  .budget-contents > span { color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; }
+  .budget-contents ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 30px; margin: 0; padding-left: 20px; }
+  .budget-contents a { color: var(--muted); font-size: 15px; line-height: 1.4; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+
+  .budget-chapter { display: grid; grid-template-columns: minmax(240px, 280px) minmax(0, 1fr); gap: 28px; margin-top: 52px; padding-top: 42px; border-top: 1px solid var(--soft); scroll-margin-top: 20px; }
+  .budget-chapter__meta { position: sticky; top: 24px; align-self: start; }
+  .budget-chapter__number { color: var(--accent); font-family: "Cormorant Garamond", Georgia, serif; font-size: 22px; font-weight: 600; }
+  .budget-chapter h2 { margin-top: 12px; font-size: clamp(31px, 3vw, 40px); line-height: .98; }
+  .budget-chapter__content { max-width: 670px; }
+  .budget-chapter p, .budget-chapter li, .budget-calculator__head > p:last-child, .budget-screens p, .budget-final-cta > div > p:last-child, .budget-faq p, .budget-plan-link { color: var(--muted); font-size: 19px; line-height: 1.66; }
+  .budget-chapter p { margin: 0 0 18px; }
+  .budget-chapter ul { display: grid; gap: 10px; margin: 24px 0 0; padding: 0; list-style: none; }
+  .budget-chapter li { position: relative; padding-left: 22px; }
+  .budget-chapter li::before { position: absolute; top: 13px; left: 0; width: 9px; height: 1px; background: var(--accent); content: ""; }
+
+  .budget-mid-cta { display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, .82fr); gap: 34px; align-items: center; margin-top: 60px; padding: 38px; border-radius: 28px; background: #fffefa; box-shadow: 0 20px 48px rgba(36,29,25,.06); }
+  .budget-mid-cta h2 { max-width: 690px; font-size: clamp(34px, 3.6vw, 48px); line-height: .98; }
+  .budget-mid-cta > div > p:last-child { margin: 18px 0 0; color: var(--muted); font-size: 17px; line-height: 1.5; }
+
+  .budget-rule { display: grid; gap: 8px; margin-top: 30px; padding: 20px 22px; border-left: 2px solid var(--accent); background: rgba(255,255,255,.52); }
+  .budget-rule strong { color: var(--accent); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; }
+  .budget-rule span { color: var(--ink); font-family: "Instrument Serif", Georgia, serif; font-size: 21px; font-style: italic; line-height: 1.35; }
+
+  .budget-calculator { margin-top: 72px; padding: 58px 48px 48px; border-radius: 34px; background: var(--dark); color: #fffaf4; scroll-margin-top: 20px; }
+  .budget-calculator__head { max-width: 780px; }
+  .budget-calculator__head h2 { color: #fffaf4; }
+  .budget-calculator__head > p:last-child { margin: 22px 0 0; color: rgba(255,250,244,.72); }
+  .budget-screens { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 42px; }
+  .budget-screens figure { min-width: 0; margin: 0; }
+  .budget-screen { position: relative; overflow: hidden; aspect-ratio: 9 / 16; border: 1px solid rgba(255,250,244,.18); border-radius: 26px; background: #f5efe7; box-shadow: 0 24px 52px rgba(0,0,0,.22); }
+  .budget-screen img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+  .budget-screens figcaption { margin-top: 18px; }
+  .budget-screens figcaption > span { display: block; margin-bottom: 8px; color: var(--accent); font-family: "Cormorant Garamond", Georgia, serif; font-size: 20px; font-weight: 600; }
+  .budget-screens strong { display: block; color: #fffaf4; font-family: "Cormorant Garamond", Georgia, serif; font-size: 26px; line-height: 1; }
+  .budget-screens p { margin: 10px 0 0; color: rgba(255,250,244,.66); font-size: 15px; line-height: 1.5; }
+  .budget-final-cta { display: grid; grid-template-columns: minmax(0, 1fr) minmax(380px, .86fr); gap: 36px; align-items: end; margin-top: 52px; padding-top: 40px; border-top: 1px solid rgba(255,250,244,.14); }
+  .budget-final-cta h3 { color: #fffaf4; font-size: clamp(34px, 4vw, 48px); line-height: .98; }
+  .budget-final-cta > div > p:last-child { margin: 14px 0 0; color: rgba(255,250,244,.68); font-size: 16px; line-height: 1.45; }
+
+  .budget-faq { margin-top: 72px; padding-top: 48px; border-top: 1px solid var(--soft); }
+  .budget-faq details { padding: 20px 0; border-bottom: 1px solid var(--soft); }
+  .budget-faq summary { cursor: pointer; font-family: "Cormorant Garamond", Georgia, serif; font-size: 27px; font-weight: 600; line-height: 1.08; }
+  .budget-faq p { max-width: 760px; margin: 14px 0 0; font-size: 18px; }
+  .budget-plan-link { max-width: 760px; margin: 42px 0 0; padding-left: 20px; border-left: 2px solid var(--accent); font-size: 16px; }
+  .budget-plan-link a { color: var(--accent); font-weight: 700; text-underline-offset: 4px; }
+
+  .budget-footer { padding: 34px 0; background: #241d19; color: #fffaf4; }
+  .budget-footer__inner { display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+  .budget-footer a { color: #fffaf4; font-size: 15px; text-decoration-color: rgba(255,250,244,.3); text-underline-offset: 4px; }
+  .budget-footer__inner > a { font-family: "Cormorant Garamond", Georgia, serif; font-size: 28px; font-weight: 600; text-decoration: none; }
+  .budget-footer nav { display: flex; flex-wrap: wrap; gap: 22px; }
+
+  @media (max-width: 900px) {
+    .budget-mid-cta, .budget-final-cta { grid-template-columns: 1fr; align-items: start; }
+    .budget-screens { gap: 16px; }
+  }
+
+  @media (max-width: 700px) {
+    .budget-screens { grid-template-columns: 1fr; gap: 34px; }
+    .budget-screens figure { display: grid; grid-template-columns: minmax(190px, .72fr) minmax(0, 1fr); gap: 20px; align-items: center; }
+    .budget-screens figcaption { margin-top: 0; }
+  }
+
+  @media (max-width: 640px) {
+    .budget-shell { padding: 0 18px; }
+    .budget-hero, .budget-hero__shell { min-height: auto; }
+    .budget-hero__shell { padding-top: 74px; padding-bottom: 42px; }
+    .budget-hero__media { background-position: 72% center; filter: grayscale(1) brightness(.58) contrast(1.02); }
+    .budget-hero__kicker { gap: 8px; margin-bottom: 20px; }
+    .budget-back { font-size: 11px; letter-spacing: .14em; }
+    .budget-eyebrow { font-size: 10px; letter-spacing: .22em; }
+    .budget-hero h1 { max-width: 13ch; font-size: clamp(42px, 12.4vw, 58px); }
+    .budget-lead { margin-top: 18px; font-size: 19px; }
+    .budget-hero__actions { margin-top: 22px; }
+    .budget-hero__meta { margin-top: 24px; }
+    .budget-article { padding-top: 44px; padding-bottom: 48px; }
+    .budget-answer h2, .budget-calculator__head h2, .budget-faq h2 { font-size: 42px; }
+    .budget-answer > p:last-child { margin-top: 18px; font-size: 24px; }
+    .budget-contents, .budget-chapter { grid-template-columns: 1fr; }
+    .budget-contents { gap: 20px; margin-top: 38px; padding: 26px 0; }
+    .budget-contents ol { grid-template-columns: 1fr; }
+    .budget-chapter { gap: 20px; margin-top: 38px; padding-top: 30px; }
+    .budget-chapter__meta { position: static; }
+    .budget-chapter p, .budget-chapter li { font-size: 17px; line-height: 1.56; }
+    .budget-mid-cta { gap: 24px; margin-top: 42px; padding: 26px 20px; border-radius: 24px; }
+    .budget-calculator { margin: 48px -2px 0; padding: 38px 18px 30px; border-radius: 26px; }
+    .budget-calculator__head > p:last-child { font-size: 17px; line-height: 1.55; }
+    .budget-final-cta { gap: 24px; margin-top: 42px; padding-top: 30px; }
+    .budget-faq { margin-top: 48px; padding-top: 34px; }
+    .budget-faq summary { font-size: 24px; }
+    .budget-footer__inner { align-items: flex-start; flex-direction: column; }
+    .budget-footer nav { flex-direction: column; gap: 12px; }
+  }
+
+  @media (max-width: 479px) {
+    .budget-screens figure { grid-template-columns: 1fr; gap: 0; }
+    .budget-screen { width: min(100%, 270px); }
+    .budget-screens figcaption { margin-top: 16px; }
+  }
+</style>

@@ -1,0 +1,16 @@
+---
+description: Enforce the approved Timur Gromov visual system on every new public page
+globs: src/pages/**/*.astro
+alwaysApply: false
+---
+
+# Public Page Brand System
+
+- A new public page is an extension of the existing site, not a standalone landing-page design.
+- Before markup or CSS, choose the closest approved production page and record it as the canonical visual source in the UI contract.
+- Wedding expert and SEO pages inherit `/scenario/`: portrait-led dark Hero, warm-neutral body, orange accent, `Cormorant Garamond` display type, `Instrument Serif` italic role, established editorial spacing and existing CTA controls.
+- Reuse existing components, tokens, assets and interaction patterns before adding page-local variants.
+- Do not introduce a separate palette, generic SEO-card template, unrelated type system or redrawn Telegram/MAX controls.
+- Content structure may vary when the user job requires it, but the brand identity and interaction language must remain recognizable.
+- A new visual language requires explicit owner approval before implementation.
+- Verify the candidate against its canonical page on mobile and desktop before release.
