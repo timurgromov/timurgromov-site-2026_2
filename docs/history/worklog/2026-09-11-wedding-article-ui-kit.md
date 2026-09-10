@@ -44,5 +44,13 @@ preparation-plan article.
 
 ## Release
 
-Runtime commit, push, GitHub Pages deploy and production visual verification
-are pending.
+- Runtime commit `782235f` was pushed to `origin/main`.
+- Code health and Deploy to gh-pages both completed successfully; the deploy
+  workflow also ran the full responsive gate before publishing.
+- `npm run verify:pages` confirmed that GitHub Pages was built from the exact
+  runtime commit and that the live article contains the shared Hero and both
+  calculator controls.
+- Fresh production browser verification at `1232x582` matched the local
+  candidate exactly: `34/24/28/32px` semantic gaps, `42px` controls, byline
+  bottom `520.6px`, `61.4px` remaining below it, no portrait transform and no
+  horizontal overflow.

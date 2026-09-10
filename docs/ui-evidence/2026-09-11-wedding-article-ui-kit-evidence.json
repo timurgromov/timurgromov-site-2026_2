@@ -2,7 +2,7 @@
   "schema_version": 1,
   "change_id": "2026-09-10-wedding-article-ui-kit",
   "change_kind": "shared-editorial-ui-and-responsive-composition-gate",
-  "status": "local_passed_release_pending",
+  "status": "production_passed",
   "requested_visible_change": "Make the wedding-budget article use the same intentional editorial hierarchy as the approved wedding guides without compressing the Hero merely to fit controls in the first screen.",
   "expected_visible_delta": "The budget Hero keeps the complete portrait and first-screen controls while using a confident article scale, full-size split controls and visible breathing room between semantic groups.",
   "attempt_number": 2,
@@ -98,5 +98,31 @@
       "introduction body measure and type role"
     ],
     "manual_requirement": "Bounds and numeric gates are followed by rendered visual comparison at the shortest required desktop viewport."
+  },
+  "production_verification": {
+    "runtime_commit": "782235fc876b4c6a8f150f3369607b6d569a534d",
+    "url": "https://timurgromov.ru/articles/byudzhet-svadby-v-moskve/?ui-kit=782235f",
+    "github_actions": {
+      "code_health": "success",
+      "deploy_to_gh_pages": "success"
+    },
+    "live_markers": [
+      "tg-article-hero--with-actions",
+      "Рассчитать в Telegram",
+      "Рассчитать в MAX"
+    ],
+    "exact_1232x582_metrics": {
+      "document_width": 1232,
+      "kicker_to_h1_px": 34,
+      "h1_to_lead_px": 24,
+      "lead_to_actions_px": 28,
+      "actions_to_byline_px": 32,
+      "action_control_height_px": 42,
+      "byline_bottom_px": 520.6,
+      "free_space_below_byline_px": 61.4,
+      "portrait_transform": "none",
+      "portrait_background_position": "74% 38%"
+    },
+    "result": "passed after a fresh no-cache production navigation and rendered screenshot"
   }
 }

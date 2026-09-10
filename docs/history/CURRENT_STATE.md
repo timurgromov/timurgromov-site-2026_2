@@ -1,4 +1,26 @@
-# Current State - 2026-09-10
+# Current State - 2026-09-11
+
+## Shared wedding article UI kit and composition QA (2026-09-11)
+
+- `/scenario/`, `/articles/plan-podgotovki-k-svadbe/` and
+  `/articles/byudzhet-svadby-v-moskve/` now consume the same native Astro Hero,
+  introduction and wedding-editorial stylesheet. The homepage Tilda/Astro
+  layer remains separate and unchanged.
+- The budget Hero no longer achieves first-screen fit by miniaturizing the
+  design. At the exact live `1232x582` viewport it uses a `51.744px` H1,
+  `20.944px` lead, `42px` controls and `34/24/28/32px` semantic gaps; the
+  byline ends at `520.6px`, leaving `61.4px` below it.
+- The shared portrait has an explicit upper focal point and no transform scale,
+  so the head remains complete. Introduction body text uses the shared
+  `19px` desktop / `17px` mobile sans role and a maximum `660px` measure.
+- Responsive QA now waits for applied stylesheets and checks semantic group
+  spacing, control height, portrait treatment and introduction hierarchy in
+  addition to overflow and first-screen bounds. The exact `1232x582` budget
+  case is permanent: local coverage is 221 cases, not an ad hoc screenshot.
+- Runtime commit `782235f` is pushed and live. Code health, Deploy to gh-pages,
+  live marker verification and a fresh production screenshot at `1232x582`
+  passed. Full evidence is in
+  `docs/ui-evidence/2026-09-11-wedding-article-ui-kit-evidence.json`.
 
 ## Expert-page conversion contour (2026-09-08)
 
