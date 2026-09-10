@@ -64,7 +64,8 @@ scenario article.
 long-form guide's information architecture:
 
 - first screen: `timurgromov.ru`, «Авторский материал — Тимур Громов», portrait,
-  title, introductory lead and author metadata;
+  title, introductory lead and the byline «Автор: Тимур Громов»; the second
+  line keeps the page's role/time or role/guide context;
 - body: readable warm-neutral long form, a compact three-step start, optional
   contents disclosure, then twelve numbered editorial sections;
 - `1100px` and below: stage metadata becomes static above its content;

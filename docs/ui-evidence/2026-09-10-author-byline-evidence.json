@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-10-author-byline",
+  "change_kind": "hero-byline-copy",
+  "status": "passed",
+  "requested_visible_change": "Name Timur Gromov as the author in the Hero metadata on the scenario and preparation-plan pages.",
+  "expected_visible_delta": "The bare byline `Тимур Громов` becomes `Автор: Тимур Громов`; the second metadata line remains unchanged.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "f46dcc471f935e8e389536e9259194e79d9cf6bd566a657061add385ab2749c1",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/",
+    "source_ref": "local Astro preview from the working tree after a successful build",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/scenario/ and /articles/plan-podgotovki-k-svadbe/",
+    "state": "public anonymous visitor at scroll position 0",
+    "selector_or_slide_id": ".scenario-hero__meta strong and .plan-hero__meta strong",
+    "action": "Open each route directly."
+  },
+  "must_remain_unchanged": [
+    "Hero photo and overlay",
+    "Hero title and lead",
+    "Orange initial badge",
+    "Role/context second line",
+    "CTA and links"
+  ],
+  "required_viewports": [
+    "390x844",
+    "1180x820"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "before_signature": "Тимур Громов",
+      "after_signature": "Автор: Тимур Громов",
+      "observed_visible_result": "Автор: Тимур Громов is visible in the scenario Hero byline as one line.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "required_signature_present": true,
+      "forbidden_signature_absent": true,
+      "unchanged_checks": [
+        "byline fits on one visible line",
+        "scenario context remains Ведущий · 5 минут чтения",
+        "no horizontal overflow"
+      ],
+      "console_errors": []
+    },
+    {
+      "viewport": "390x844",
+      "before_signature": "Тимур Громов",
+      "after_signature": "Автор: Тимур Громов",
+      "observed_visible_result": "Автор: Тимур Громов is visible in the preparation-plan Hero byline as one line.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "required_signature_present": true,
+      "forbidden_signature_absent": true,
+      "unchanged_checks": [
+        "byline fits on one visible line",
+        "plan context remains Ведущий · план подготовки",
+        "no horizontal overflow"
+      ],
+      "console_errors": []
+    },
+    {
+      "viewport": "1180x820",
+      "before_signature": "Тимур Громов",
+      "after_signature": "Автор: Тимур Громов",
+      "observed_visible_result": "Автор: Тимур Громов is visible in the scenario Hero byline as one line.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "required_signature_present": true,
+      "forbidden_signature_absent": true,
+      "unchanged_checks": [
+        "byline fits on one visible line",
+        "scenario context remains Ведущий · 5 минут чтения",
+        "no horizontal overflow"
+      ],
+      "console_errors": []
+    },
+    {
+      "viewport": "1180x820",
+      "before_signature": "Тимур Громов",
+      "after_signature": "Автор: Тимур Громов",
+      "observed_visible_result": "Автор: Тимур Громов is visible in the preparation-plan Hero byline as one line.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "required_signature_present": true,
+      "forbidden_signature_absent": true,
+      "unchanged_checks": [
+        "byline fits on one visible line",
+        "plan context remains Ведущий · план подготовки",
+        "no horizontal overflow"
+      ],
+      "console_errors": []
+    }
+  ]
+}
