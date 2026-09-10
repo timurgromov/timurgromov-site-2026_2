@@ -7,9 +7,9 @@
   "expected_visible_delta": "At the same viewport, every route has the same service-line anchor, portrait focal point, H1/lead scale and author-row anchor; the budget route adds calculator buttons without changing the composition.",
   "attempt_number": 3,
   "checked_after_last_edit": true,
-  "candidate_diff_sha256": "34d1e6b7d150678203931e1f0a27a3b40f46e89bd5a54586d20cd57c6210c76b",
+  "candidate_diff_sha256": "ac42d15a3edb64e322a8db379cb07fd1e61bc26bdf202e178d38532250eceace",
   "served_candidate": {
-    "url": "http://127.0.0.1:4321/",
+    "url": "http://127.0.0.1:4325/",
     "source_ref": "fresh local Astro preview from the current working tree",
     "fresh_reload": true
   },
@@ -71,7 +71,7 @@
       "viewport": "1232x582",
       "viewport_source": "Playwright exact resize in the permanent budget first-screen gate",
       "before_signature": "The budget Hero either exceeded the initial viewport or reduced only its own spacing through a CTA-specific mode.",
-      "after_signature": "The global very-short mode renders the budget title, lead, both 42px controls and author row in the initial viewport; Hero bottom=583px including its border, portrait background-position=74% 0%.",
+      "after_signature": "The global very-short mode renders the budget title, lead, both 42px controls and author row in the initial viewport; reduced shared byline internal padding preserves air above the author row. Hero bottom=583px including its border, portrait background-position=74% 0%.",
       "observed_visible_result": "The full budget entry stays readable and complete without a page-specific Hero variant; the author row has visible air below the buttons.",
       "delta_visible": true,
       "target_visible": true,

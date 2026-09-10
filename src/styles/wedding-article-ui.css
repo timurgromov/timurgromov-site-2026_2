@@ -284,7 +284,8 @@
   }
 
   .tg-article-hero__meta {
-    padding-top: 20px;
+    /* Preserve a visible action-to-byline gap in the shared very-short mode. */
+    padding-top: 12px;
   }
 }
 

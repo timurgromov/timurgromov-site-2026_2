@@ -15,8 +15,11 @@
   `74% 0%` desktop and `72% 0%` mobile, keeping the full head visible.
 - The responsive gate now compares the four routes at the same viewport and
   fails on differences in anchors, H1/lead scale, byline anchor or portrait
-  focal point. Local rendered checks are complete; commit, push, deploy and
-  production verification are still pending.
+  focal point. Runtime commit `ba30971` is pushed, but its Linux CI check found
+  that font metrics at `1232x582` compressed the shared action-to-byline gap to
+  `15.2px`; the global `<=650px` mode now reduces only the byline's internal
+  top padding, restoring room without a page-specific exception. Production
+  verification remains pending the replacement CI/deploy run.
 
 ## Wedding Hero vertical anchors and real wide-short viewport (2026-09-11)
 
