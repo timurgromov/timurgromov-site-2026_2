@@ -10,5 +10,13 @@
   final placements, plus exact structured source tracking.
 - Added the URL to the sitemap and documented the permanent public-page brand
   rule for future pages.
-- Local build and first desktop/mobile rendered review passed. Responsive,
-  messenger, production and CRM checks remain release gates.
+- Local build passed. The responsive gate covered 11 routes across 20
+  viewports (220 cases); rendered desktop/mobile checks passed.
+- Site commit `6dec7b6` was pushed and deployed by the passing GitHub Pages
+  workflow. Production article, hub, sitemap and screenshot assets return
+  `200`; the new canonical URL is present in the sitemap.
+- EventBudjet runtime `6a199fe` is live. MAX Web proved the exact Hero source,
+  provider-specific `calculator_opened` event and original-source preservation.
+  Telegram Web proved Mini App open, estimate restoration and copy, while exact
+  Telegram article-source retention remains pending because that client reduced
+  the tested `startapp` link to generic `/start`.

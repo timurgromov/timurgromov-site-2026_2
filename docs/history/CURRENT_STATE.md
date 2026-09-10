@@ -216,7 +216,7 @@
 - Последнее правленное состояние: CTA-блок сценария очищен от нижних proof-карточек и прямой ссылки на `/scenario/`; hero popup оставлен компактным bot-first preview с выбором Telegram или MAX.
 - Production deploy: выполняется через push в `main` и GitHub Actions `deploy-gh-pages`; GitHub Pages source — ветка `gh-pages` (`/`).
 
-## Wedding-budget article candidate (2026-09-10)
+## Wedding-budget article live release (2026-09-10)
 
 - Added the evergreen Moscow/MO article
   `/articles/byudzhet-svadby-v-moskve/`. It explains expense structure and
@@ -232,5 +232,16 @@
   selection, the service/factor hint and the autosave/copy state.
 - All six article CTA links use direct Mini App `startapp` URLs and exact
   sources `site_calculator_timurgromov__wedding_budget__{hero|mid_article|final}`.
-- Local Astro build passed. Production release and live Telegram/MAX/CRM proof
-  remain pending until the matching EventBudjet source release is live.
+- Site commit `6dec7b6` is pushed and live. GitHub Pages deploy and code-health
+  workflows passed; production returns `200` for the hub, article, sitemap and
+  all three calculator screenshots. The sitemap contains the new canonical URL.
+- Production desktop/mobile checks passed without horizontal overflow or
+  JavaScript errors. All six CTA links retain their placement source in
+  `data-calculator-source`; Metrika replaces only the transport payload with a
+  short `yd_*` attribution token.
+- EventBudjet runtime `6a199fe` is deployed. An authorised MAX Web launch from
+  the live Hero CTA opened the Mini App and wrote `calculator_opened` with the
+  exact Hero source while preserving the existing lead origin. Telegram Web
+  opened the production Mini App, restored the estimate and confirmed copy,
+  but converted the tested exact `startapp` deep link to generic `/start`;
+  exact Telegram article-source retention remains an open live proof gate.
