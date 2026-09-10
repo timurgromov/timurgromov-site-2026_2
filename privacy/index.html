@@ -164,10 +164,11 @@
         var provider = host === 'max.ru' || host.endsWith('.max.ru') ? 'max'
           : host === 't.me' || host.endsWith('.t.me') ? 'telegram'
           : null;
-        var source = url.searchParams.get('start') || '';
-        var structuredSource = /^site_(plan|meeting)_[a-z0-9_-]+__[a-z0-9_-]+__[a-z0-9_-]+$/.test(source) && source.length <= 64;
+        var parameter = url.searchParams.has('startapp') ? 'startapp' : 'start';
+        var source = url.searchParams.get(parameter) || '';
+        var structuredSource = /^site_(plan|meeting|calculator)_[a-z0-9_-]+__[a-z0-9_-]+__[a-z0-9_-]+$/.test(source) && source.length <= 64;
         if (!provider || (!legacySources[source] && !structuredSource)) return null;
-        return { provider: provider, source: source, url: url };
+        return { provider: provider, source: source, parameter: parameter, url: url };
       } catch (_error) {
         return null;
       }
@@ -195,7 +196,7 @@
                 entry_landing_path: getAcquisitionContext().landing_path || '/'
               }),
               landing_url: window.location.href,
-              cta_code: anchor.getAttribute('data-plan-source') || data.source
+              cta_code: anchor.getAttribute('data-calculator-source') || anchor.getAttribute('data-plan-source') || data.source
             }),
             credentials: 'omit'
           });
@@ -211,7 +212,7 @@
       }
       return promiseBySource[data.source].then(function(startPayload){
         var result = new URL(data.url.toString());
-        result.searchParams.set('start', startPayload);
+        result.searchParams.set(data.parameter, startPayload);
         return result.toString();
       });
     }
@@ -249,7 +250,7 @@
     else bindMessengerLinks();
     window.addEventListener('load', bindMessengerLinks);
   }());
-</script><link rel="stylesheet" href="/_astro/index.Dxuvml77.css">
+</script><link rel="stylesheet" href="/_astro/byudzhet-svadby-v-moskve.Dxuvml77.css">
 <style>.privacy-page[data-astro-cid-fb3qbcs3]{min-height:100vh;padding:48px 20px 64px;background:#fffefa;color:#1c1b1a}.privacy-page__shell[data-astro-cid-fb3qbcs3]{width:min(900px,100%);margin:0 auto}.privacy-page__eyebrow[data-astro-cid-fb3qbcs3]{margin:0 0 18px;color:#fa4604;font-size:18px;line-height:1.1}.privacy-page[data-astro-cid-fb3qbcs3] h1[data-astro-cid-fb3qbcs3],.privacy-page[data-astro-cid-fb3qbcs3] h2[data-astro-cid-fb3qbcs3]{margin:0;font-family:Arial,Helvetica,sans-serif;font-weight:500;letter-spacing:0;text-transform:uppercase}.privacy-page[data-astro-cid-fb3qbcs3] h1[data-astro-cid-fb3qbcs3]{margin-bottom:20px;font-size:56px;line-height:1}.privacy-page__lead[data-astro-cid-fb3qbcs3],.privacy-page[data-astro-cid-fb3qbcs3] p[data-astro-cid-fb3qbcs3]{margin:0;font-size:20px;line-height:1.45}.privacy-page__lead[data-astro-cid-fb3qbcs3]{max-width:760px;color:#1c1b1ac7}.privacy-page__section[data-astro-cid-fb3qbcs3]{margin-top:34px;padding-top:22px;border-top:1px solid rgba(28,27,26,.12)}.privacy-page__section[data-astro-cid-fb3qbcs3] h2[data-astro-cid-fb3qbcs3]{margin-bottom:10px;font-size:28px;line-height:1.05}.privacy-page__back[data-astro-cid-fb3qbcs3]{margin-top:34px}.privacy-page[data-astro-cid-fb3qbcs3] a[data-astro-cid-fb3qbcs3]{color:#fa4604;text-decoration:underline;text-underline-offset:3px}@media screen and (max-width:899px){.privacy-page[data-astro-cid-fb3qbcs3] h1[data-astro-cid-fb3qbcs3]{font-size:clamp(28px,7.2vw,56px);overflow-wrap:anywhere}}@media screen and (max-width:639px){.privacy-page[data-astro-cid-fb3qbcs3]{padding:34px 18px 48px}.privacy-page__eyebrow[data-astro-cid-fb3qbcs3]{font-size:15px}.privacy-page__lead[data-astro-cid-fb3qbcs3],.privacy-page[data-astro-cid-fb3qbcs3] p[data-astro-cid-fb3qbcs3]{font-size:17px;line-height:1.38}.privacy-page__section[data-astro-cid-fb3qbcs3] h2[data-astro-cid-fb3qbcs3]{font-size:22px}}
 </style></head> <body>  <main class="privacy-page" data-astro-cid-fb3qbcs3> <section class="privacy-page__shell" data-astro-cid-fb3qbcs3> <p class="privacy-page__eyebrow" data-astro-cid-fb3qbcs3>Документы сайта</p> <h1 data-astro-cid-fb3qbcs3>Политика конфиденциальности</h1> <p class="privacy-page__lead" data-astro-cid-fb3qbcs3>
 Эта страница описывает, как обрабатываются контактные данные,

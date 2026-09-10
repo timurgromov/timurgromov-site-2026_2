@@ -164,10 +164,11 @@
         var provider = host === 'max.ru' || host.endsWith('.max.ru') ? 'max'
           : host === 't.me' || host.endsWith('.t.me') ? 'telegram'
           : null;
-        var source = url.searchParams.get('start') || '';
-        var structuredSource = /^site_(plan|meeting)_[a-z0-9_-]+__[a-z0-9_-]+__[a-z0-9_-]+$/.test(source) && source.length <= 64;
+        var parameter = url.searchParams.has('startapp') ? 'startapp' : 'start';
+        var source = url.searchParams.get(parameter) || '';
+        var structuredSource = /^site_(plan|meeting|calculator)_[a-z0-9_-]+__[a-z0-9_-]+__[a-z0-9_-]+$/.test(source) && source.length <= 64;
         if (!provider || (!legacySources[source] && !structuredSource)) return null;
-        return { provider: provider, source: source, url: url };
+        return { provider: provider, source: source, parameter: parameter, url: url };
       } catch (_error) {
         return null;
       }
@@ -195,7 +196,7 @@
                 entry_landing_path: getAcquisitionContext().landing_path || '/'
               }),
               landing_url: window.location.href,
-              cta_code: anchor.getAttribute('data-plan-source') || data.source
+              cta_code: anchor.getAttribute('data-calculator-source') || anchor.getAttribute('data-plan-source') || data.source
             }),
             credentials: 'omit'
           });
@@ -211,7 +212,7 @@
       }
       return promiseBySource[data.source].then(function(startPayload){
         var result = new URL(data.url.toString());
-        result.searchParams.set('start', startPayload);
+        result.searchParams.set(data.parameter, startPayload);
         return result.toString();
       });
     }
@@ -249,7 +250,7 @@
     else bindMessengerLinks();
     window.addEventListener('load', bindMessengerLinks);
   }());
-</script><link rel="stylesheet" href="/_astro/index.Dxuvml77.css">
+</script><link rel="stylesheet" href="/_astro/byudzhet-svadby-v-moskve.Dxuvml77.css">
 <link rel="stylesheet" href="/_astro/scenario.UQqSftVF.css"></head> <body>  <main class="scenario-page" data-astro-cid-jfa4gbdv> <header class="scenario-hero" data-astro-cid-jfa4gbdv> <div class="scenario-hero__media" aria-hidden="true" data-astro-cid-jfa4gbdv></div> <div class="scenario-hero__overlay" data-astro-cid-jfa4gbdv></div> <div class="scenario-shell scenario-hero__shell" data-astro-cid-jfa4gbdv> <div class="scenario-hero__kicker" data-astro-cid-jfa4gbdv> <a class="scenario-hero__back" href="/" data-astro-cid-jfa4gbdv>timurgromov.ru</a> <div class="scenario-hero__eyebrow" data-astro-cid-jfa4gbdv>
 Авторский материал — <span class="scenario-hero__eyebrow-name" data-astro-cid-jfa4gbdv>Тимур Громов</span> </div> </div> <h1 data-astro-cid-jfa4gbdv>
 Свадебный <em data-astro-cid-jfa4gbdv>сценарий</em> </h1> <p class="scenario-hero__lead" data-astro-cid-jfa4gbdv>

@@ -164,10 +164,11 @@
         var provider = host === 'max.ru' || host.endsWith('.max.ru') ? 'max'
           : host === 't.me' || host.endsWith('.t.me') ? 'telegram'
           : null;
-        var source = url.searchParams.get('start') || '';
-        var structuredSource = /^site_(plan|meeting)_[a-z0-9_-]+__[a-z0-9_-]+__[a-z0-9_-]+$/.test(source) && source.length <= 64;
+        var parameter = url.searchParams.has('startapp') ? 'startapp' : 'start';
+        var source = url.searchParams.get(parameter) || '';
+        var structuredSource = /^site_(plan|meeting|calculator)_[a-z0-9_-]+__[a-z0-9_-]+__[a-z0-9_-]+$/.test(source) && source.length <= 64;
         if (!provider || (!legacySources[source] && !structuredSource)) return null;
-        return { provider: provider, source: source, url: url };
+        return { provider: provider, source: source, parameter: parameter, url: url };
       } catch (_error) {
         return null;
       }
@@ -195,7 +196,7 @@
                 entry_landing_path: getAcquisitionContext().landing_path || '/'
               }),
               landing_url: window.location.href,
-              cta_code: anchor.getAttribute('data-plan-source') || data.source
+              cta_code: anchor.getAttribute('data-calculator-source') || anchor.getAttribute('data-plan-source') || data.source
             }),
             credentials: 'omit'
           });
@@ -211,7 +212,7 @@
       }
       return promiseBySource[data.source].then(function(startPayload){
         var result = new URL(data.url.toString());
-        result.searchParams.set('start', startPayload);
+        result.searchParams.set(data.parameter, startPayload);
         return result.toString();
       });
     }
@@ -249,7 +250,7 @@
     else bindMessengerLinks();
     window.addEventListener('load', bindMessengerLinks);
   }());
-</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://timurgromov.ru/"},{"@type":"ListItem","position":2,"name":"Статьи","item":"https://timurgromov.ru/articles/"},{"@type":"ListItem","position":3,"name":"Пошаговый план подготовки к свадьбе","item":"https://timurgromov.ru/articles/plan-podgotovki-k-svadbe/"}]}</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Пошаговый план подготовки к свадьбе: что делать и в каком порядке","description":"Спокойный план подготовки к свадьбе: дата, формат, бюджет, площадка, команда, тайминг и последние дни перед праздником.","mainEntityOfPage":"https://timurgromov.ru/articles/plan-podgotovki-k-svadbe/","author":{"@type":"Person","name":"Тимур Громов","url":"https://timurgromov.ru/"},"publisher":{"@type":"Person","name":"Тимур Громов"},"image":"https://timurgromov.ru/images/scenario-hero-host-bw-source.jpg","inLanguage":"ru-RU"}</script> <link rel="stylesheet" href="/_astro/index.Dxuvml77.css">
+</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://timurgromov.ru/"},{"@type":"ListItem","position":2,"name":"Статьи","item":"https://timurgromov.ru/articles/"},{"@type":"ListItem","position":3,"name":"Пошаговый план подготовки к свадьбе","item":"https://timurgromov.ru/articles/plan-podgotovki-k-svadbe/"}]}</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Пошаговый план подготовки к свадьбе: что делать и в каком порядке","description":"Спокойный план подготовки к свадьбе: дата, формат, бюджет, площадка, команда, тайминг и последние дни перед праздником.","mainEntityOfPage":"https://timurgromov.ru/articles/plan-podgotovki-k-svadbe/","author":{"@type":"Person","name":"Тимур Громов","url":"https://timurgromov.ru/"},"publisher":{"@type":"Person","name":"Тимур Громов"},"image":"https://timurgromov.ru/images/scenario-hero-host-bw-source.jpg","inLanguage":"ru-RU"}</script> <link rel="stylesheet" href="/_astro/byudzhet-svadby-v-moskve.Dxuvml77.css">
 <link rel="stylesheet" href="/_astro/plan-podgotovki-k-svadbe.C2gtG634.css"></head> <body>   <main class="plan-page" data-testid="preparation-plan-page" data-astro-cid-ylyeuvax> <header class="plan-hero" data-testid="preparation-plan-hero" data-astro-cid-ylyeuvax> <div class="plan-hero__media" data-testid="preparation-plan-hero-media" aria-hidden="true" data-astro-cid-ylyeuvax></div> <div class="plan-hero__overlay" aria-hidden="true" data-astro-cid-ylyeuvax></div> <div class="plan-shell plan-hero__shell" data-astro-cid-ylyeuvax> <div class="plan-hero__kicker" data-astro-cid-ylyeuvax> <a class="plan-back" href="/" data-astro-cid-ylyeuvax>timurgromov.ru</a> <p class="plan-kicker" data-astro-cid-ylyeuvax>Авторский материал — <span data-astro-cid-ylyeuvax>Тимур Громов</span></p> </div> <h1 data-astro-cid-ylyeuvax>Пошаговый план <em data-astro-cid-ylyeuvax>подготовки к свадьбе</em></h1> <p class="plan-lead" data-astro-cid-ylyeuvax>
 Подготовка становится спокойнее, когда решения идут в правильной
           последовательности. Начните с даты, формата, гостей и бюджета — и
