@@ -1247,21 +1247,28 @@ Commits: `a3c2996`
 Decision:
 
 The `/articles/` library hub belongs to the same native Astro wedding editorial
-system as its articles. It uses `WeddingArticleHero.astro`; its card grid and
-navigation may remain page-specific.
+system as its articles. It uses `WeddingArticleHero.astro`, then presents a
+single restrained list of published materials. The page is an index, not a
+separate promotional landing.
 
 Do:
 
-- use the concise H1 «Статьи о свадьбе: по делу» and keep the longer
-  positioning statement in the lead/metadata;
+- use the concise H1 «Статьи о свадьбе» and describe the catalogue directly in
+  the lead/metadata;
 - include `/articles/` in the strict wedding Article UI assertions;
 - keep `1280x720` as a permanent route-specific probe and fail if the hub Hero
   is taller than the initial viewport or its semantic groups collapse.
+- keep `1911x764` as a permanent portrait-focal probe for every shared wedding
+  Hero; fail if the wide-short focal rule drifts;
+- fail if the hub regains an independent promo/CTA section or oversized card
+  typography.
 
 Do not:
 
 - do not restore a second page-local portrait Hero;
 - do not use an absolutely positioned service line that can overlap the title;
+- do not publish planned topics or a second choice/CTA block on the catalogue;
+- do not create page-local rectangular buttons on the catalogue;
 - do not treat the hub as visually exempt because it is not itself a keyword
   landing page.
 

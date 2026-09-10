@@ -1,19 +1,35 @@
 # Current State - 2026-09-11
 
+## Articles hub restored to a catalogue and wide-short portrait fixed (2026-09-11)
+
+- `/articles/` has one job again: help a visitor choose among the three
+  published materials. The invented promise/CTA section and unpublished-topic
+  showcase are removed; material links are restrained editorial rows rather
+  than a page-local button family.
+- The shared Hero now uses an upper `74% 10%` focal point on wide-short desktop
+  windows. A rendered local check at the owner-reported `1911x764` composition
+  shows the full head with clear space above it; mobile `390x844` and the budget
+  Hero at `1232x582` remain intact.
+- Responsive QA now covers 226 cases. The exact `1911x764` viewport runs on all
+  four wedding-editorial routes and the hub contract fails if independent promo
+  sections or oversized catalogue typography return.
+- Runtime commit, push and production verification are pending this release.
+
 ## Articles hub uses the shared wedding Hero (2026-09-11)
 
 - `/articles/` no longer carries a separate page-local portrait Hero. It now
-  uses `WeddingArticleHero.astro` with the concise H1 «Статьи о свадьбе: по
-  делу»; the article cards, schema and navigation remain unchanged.
+  uses `WeddingArticleHero.astro`; the concise current H1 is «Статьи о
+  свадьбе».
 - The production `1280x720` regression is closed: Hero height changed from
   `775.27px` to `605.8px`, H1 from `89.6px` across five lines to `65.28px`
   across two lines, and the overlapping service text is gone.
 - At `390x844`, Hero height is `466.2px` instead of the old fixed `760px`, so
   the first published-material section appears in the initial viewport.
-- `/articles/` is now part of the strict Article UI assertions with a permanent
-  route-specific `1280x720` case. The full local/CI matrix contains 222 cases.
-- Runtime commit `a3c2996` is pushed and live; Code health, Deploy to gh-pages,
-  marker verification and fresh production screenshots passed.
+- `/articles/` is part of the strict Article UI assertions with permanent
+  route-specific `1280x720` and `1911x764` cases. The current matrix contains
+  226 cases.
+- The earlier shared-Hero baseline shipped in `a3c2996`; the catalogue
+  simplification and wide-short focal fix are the current pending release.
 
 ## Shared wedding article UI kit and composition QA (2026-09-11)
 

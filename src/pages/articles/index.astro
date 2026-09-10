@@ -18,7 +18,6 @@ const publishedArticles = [
     description:
       "Из чего складываются расходы, какие решения сильнее всего меняют смету и как рассчитать свой вариант без чужих средних цифр.",
     tag: "С калькулятором",
-    featured: true,
   },
   {
     href: `${homeHref}articles/plan-podgotovki-k-svadbe/`,
@@ -38,13 +37,6 @@ const publishedArticles = [
       "Почему хороший сценарий держится не на конкурсах, а на состоянии гостей, понятном тайминге и последовательности событий.",
     tag: "5 минут чтения",
   },
-];
-
-const plannedTopics = [
-  "Как выбрать ведущего и что спросить на первой встрече",
-  "Тайминг свадьбы: где чаще всего теряется время",
-  "Как собрать вечер без неловких конкурсов",
-  "Что на самом деле влияет на стоимость ведущего",
 ];
 
 const breadcrumbSchema = {
@@ -91,69 +83,34 @@ const collectionSchema = {
       testId="articles-hub-hero"
       titleSize="compact"
     >
-        <h1 slot="title">Статьи о свадьбе: <em>по делу</em></h1>
+        <h1 slot="title">Статьи <em>о свадьбе</em></h1>
         <Fragment slot="lead">
-          Разбираю подготовку так же, как работаю с парами: без универсальных
-          рецептов, лишнего шума и решений ради галочки.
+          Здесь собраны все опубликованные материалы о бюджете, подготовке и
+          сценарии свадебного дня.
         </Fragment>
     </WeddingArticleHero>
 
     <section class="library-section library-shell" aria-labelledby="published-title">
       <div class="library-section__head">
-        <p class="library-eyebrow">Что уже опубликовано</p>
-        <h2 id="published-title">Начните с вопроса, который решаете сейчас</h2>
+        <p class="library-eyebrow">Материалы</p>
+        <h2 id="published-title">Выберите тему</h2>
       </div>
 
-      <div class="library-grid">
+      <div class="library-list">
         {publishedArticles.map((article) => (
-          <article class:list={["library-card", { "library-card--featured": article.featured }]}>
+          <a class="library-card" href={article.href}>
             <div class="library-card__topline">
-              <span>{article.number}</span>
-              <span>{article.eyebrow}</span>
+              <span>{article.number} · {article.eyebrow}</span>
+              <span>{article.tag}</span>
             </div>
             <div class="library-card__body">
               <h3>{article.title}</h3>
               <p>{article.description}</p>
             </div>
-            <a href={article.href}>
-              <span>{article.tag}</span>
-              <strong>Читать материал <span aria-hidden="true">↗</span></strong>
-            </a>
-          </article>
+            <strong>Читать материал <span aria-hidden="true">↗</span></strong>
+          </a>
         ))}
       </div>
-    </section>
-
-    <section class="library-next">
-      <div class="library-shell library-next__grid">
-        <div>
-          <p class="library-eyebrow">Дальше в библиотеке</p>
-          <h2>Темы, которые помогают принимать решения до договора</h2>
-        </div>
-        <ol>
-          {plannedTopics.map((topic, index) => (
-            <li><span>{String(index + 1).padStart(2, "0")}</span><p>{topic}</p></li>
-          ))}
-        </ol>
-      </div>
-    </section>
-
-    <section class="library-start library-shell">
-      <p class="library-eyebrow">С чего начать</p>
-      <h2>Сначала — ясность. Потом — подрядчики и детали.</h2>
-      <p>
-        Если сейчас важнее понять деньги, соберите структуру расходов в статье
-        про бюджет. Если задача — разложить подготовку по порядку, откройте
-        пошаговый план.
-      </p>
-      <nav aria-label="Выбрать первый материал">
-        <a class="library-button library-button--primary" href={`${homeHref}articles/byudzhet-svadby-v-moskve/`}>
-          Рассчитать бюджет
-        </a>
-        <a class="library-button" href={`${homeHref}articles/plan-podgotovki-k-svadbe/`}>
-          Открыть план подготовки
-        </a>
-      </nav>
     </section>
 
     <footer class="library-footer">
@@ -187,45 +144,25 @@ const collectionSchema = {
 
   .library-eyebrow { margin: 0 0 18px; color: var(--accent); font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; }
 
-  .library-section h2, .library-card h3, .library-next h2, .library-start h2 {
+  .library-section h2, .library-card h3 {
     margin: 0;
     font-family: "Cormorant Garamond", Georgia, serif;
     font-weight: 600;
     letter-spacing: 0;
   }
 
-  .library-section { padding-block: clamp(76px, 10vw, 126px); }
-  .library-section__head { display: grid; grid-template-columns: .7fr 1.3fr; align-items: end; gap: 40px; margin-bottom: 42px; }
-  .library-section__head h2 { max-width: 17ch; font-size: clamp(38px, 5vw, 62px); line-height: .98; }
+  .library-section { padding-block: clamp(72px, 8vw, 104px); }
+  .library-section__head { margin-bottom: 34px; }
+  .library-section__head h2 { font-size: clamp(34px, 3.8vw, 48px); line-height: 1; }
 
-  .library-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
-  .library-card { display: flex; min-height: 410px; flex-direction: column; justify-content: space-between; padding: 28px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255,255,255,.16); }
-  .library-card--featured { grid-column: 1 / -1; min-height: 440px; background: var(--dark); color: #fffaf4; }
+  .library-list { border-top: 1px solid var(--line); }
+  .library-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, .8fr) auto; align-items: center; gap: 40px; padding: 34px 0; border-bottom: 1px solid var(--line); color: inherit; text-decoration: none; }
   .library-card__topline { display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; }
-  .library-card--featured .library-card__topline { color: rgba(255,250,244,.6); }
-  .library-card__body { max-width: 690px; margin-block: 44px; }
-  .library-card h3 { max-width: 17ch; font-size: clamp(34px, 4.5vw, 58px); line-height: .98; }
-  .library-card p { max-width: 610px; margin: 20px 0 0; color: var(--muted); font-size: 17px; line-height: 1.55; }
-  .library-card--featured p { color: rgba(255,250,244,.7); }
-  .library-card > a { display: flex; align-items: end; justify-content: space-between; gap: 20px; padding-top: 22px; border-top: 1px solid currentColor; color: inherit; text-decoration: none; }
-  .library-card > a > span { color: var(--accent); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; }
-  .library-card > a strong { font-size: 14px; }
-
-  .library-next { background: var(--dark); color: #fffaf4; }
-  .library-next__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(48px, 8vw, 100px); padding-block: clamp(76px, 10vw, 126px); }
-  .library-next h2 { max-width: 12ch; font-size: clamp(40px, 5.2vw, 66px); line-height: .95; }
-  .library-next ol { margin: 0; padding: 0; list-style: none; }
-  .library-next li { display: grid; grid-template-columns: 46px 1fr; gap: 18px; padding: 22px 0; border-top: 1px solid rgba(255,255,255,.16); }
-  .library-next li:last-child { border-bottom: 1px solid rgba(255,255,255,.16); }
-  .library-next li span { color: var(--accent); font-size: 12px; letter-spacing: .16em; }
-  .library-next li p { margin: 0; color: rgba(255,250,244,.82); font-size: 17px; line-height: 1.4; }
-
-  .library-start { padding-block: clamp(78px, 11vw, 140px); }
-  .library-start h2 { max-width: 14ch; font-size: clamp(42px, 6vw, 72px); line-height: .94; }
-  .library-start > p:not(.library-eyebrow) { max-width: 680px; margin: 28px 0 0; color: var(--muted); font-size: 18px; line-height: 1.6; }
-  .library-start nav { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
-  .library-button { display: inline-flex; min-height: 52px; align-items: center; justify-content: center; padding: 0 22px; border: 1px solid var(--ink); color: var(--ink); font-size: 14px; font-weight: 700; text-decoration: none; }
-  .library-button--primary { border-color: var(--accent); background: var(--accent); color: #fff; }
+  .library-card__topline span:last-child { display: none; }
+  .library-card__body { min-width: 0; }
+  .library-card h3 { max-width: 20ch; font-size: clamp(30px, 3vw, 42px); line-height: 1; }
+  .library-card p { max-width: 560px; margin: 14px 0 0; color: var(--muted); font-size: 17px; line-height: 1.55; }
+  .library-card > strong { justify-self: end; color: var(--ink); font-size: 14px; white-space: nowrap; }
 
   .library-footer { padding-block: 46px; background: var(--dark); color: #fffaf4; }
   .library-footer .library-shell { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 28px; }
@@ -234,25 +171,20 @@ const collectionSchema = {
   .library-footer a { color: var(--accent); font-size: 13px; text-decoration: none; }
 
   @media (hover: hover) {
-    .library-card > a strong, .library-button { transition: transform .2s ease, color .2s ease, background .2s ease; }
-    .library-card > a:hover strong { transform: translateX(4px); }
-    .library-button:not(.library-button--primary):hover { background: var(--ink); color: #fffaf4; }
-    .library-button--primary:hover { background: #d93c03; }
+    .library-card > strong { transition: color .2s ease, transform .2s ease; }
+    .library-card:hover > strong { color: var(--accent); transform: translateX(4px); }
   }
 
   @media (max-width: 760px) {
-    .library-section__head, .library-next__grid { grid-template-columns: 1fr; }
-    .library-grid { grid-template-columns: 1fr; }
-    .library-card--featured { grid-column: auto; }
-    .library-card { min-height: 390px; padding: 24px 20px; }
-    .library-card h3 { font-size: clamp(34px, 11vw, 48px); }
+    .library-card { grid-template-columns: 1fr; gap: 18px; padding: 28px 0; }
+    .library-card__topline span:last-child { display: inline; }
+    .library-card h3 { font-size: clamp(30px, 8.5vw, 40px); }
+    .library-card > strong { justify-self: start; }
     .library-footer .library-shell { grid-template-columns: 1fr; gap: 12px; }
   }
 
   @media (max-width: 479px) {
     .library-shell { padding-inline: 18px; }
     .library-card__topline { align-items: flex-start; flex-direction: column; gap: 8px; }
-    .library-card > a { align-items: flex-start; flex-direction: column; }
-    .library-start nav, .library-button { width: 100%; }
   }
 </style>

@@ -106,7 +106,20 @@ const routeSpecificGroups = [
       viewport: { width: 1280, height: 720, name: "1280x720" },
       routes: ["/articles/"],
     }]),
+  ...(viewports.some(({ name }) => name === "1911x764") ? [] : [{
+      viewport: { width: 1911, height: 764, name: "1911x764" },
+      routes: [
+        "/articles/",
+        "/scenario/",
+        "/articles/plan-podgotovki-k-svadbe/",
+        "/articles/byudzhet-svadby-v-moskve/",
+      ],
+    }]),
 ];
+const routeSpecificCaseCount = routeSpecificGroups.reduce(
+  (count, group) => count + group.routes.length,
+  0,
+);
 const caseGroups = [
   ...viewports.map((viewport) => ({ viewport, routes })),
   ...routeSpecificGroups,
@@ -216,7 +229,12 @@ function assertWeddingArticleUi(result) {
   if (result.weddingArticleUi.mediaTransform !== "none") {
     fail("Wedding article portrait must not be decoratively scaled", result);
   }
-  if (result.weddingArticleUi.mediaBackgroundPosition !== (result.viewport.width <= 640 ? "72% 38%" : "74% 38%")) {
+  const expectedMediaPosition = result.viewport.width <= 640
+    ? "72% 38%"
+    : result.viewport.width >= 1600 && result.viewport.height <= 820
+      ? "74% 10%"
+      : "74% 38%";
+  if (result.weddingArticleUi.mediaBackgroundPosition !== expectedMediaPosition) {
     fail("Wedding article portrait focal point drifted", result);
   }
 
@@ -249,6 +267,20 @@ function assertWeddingArticleUi(result) {
 
   if (result.route === "/articles/" && result.weddingArticleUi.heroBottom > result.viewport.height + 1) {
     fail("Article hub Hero is taller than the initial viewport", result);
+  }
+  if (result.route === "/articles/") {
+    if (!result.articleHubUi || result.articleHubUi.cardCount < 1) {
+      fail("Article hub published-material list is missing", result);
+    }
+    if (result.articleHubUi.hasIndependentPromo) {
+      fail("Article hub must remain a catalogue without its own promotional CTA", result);
+    }
+    if (result.articleHubUi.cardHeadingFontPx > 42.5) {
+      fail("Article hub card heading is oversized", result);
+    }
+    if (result.articleHubUi.cardBodyFontPx > 17.5) {
+      fail("Article hub card body is oversized", result);
+    }
   }
 
   if (result.weddingArticleUi.hasActions) {
@@ -374,6 +406,8 @@ async function measure(page, route, viewport, watchedTextSelectors) {
     const weddingArticleMedia = weddingArticleHero?.querySelector(".tg-article-hero__media");
     const weddingArticleIntroBody = document.querySelector(".tg-article-intro__prose p");
     const weddingArticleIntroHeading = document.querySelector(".tg-article-intro h2");
+    const articleHubCardHeading = document.querySelector(".library-card h3");
+    const articleHubCardBody = document.querySelector(".library-card p");
     const weddingArticleUi = weddingArticleHero && weddingArticleKicker && weddingArticleHeading && weddingArticleMedia && weddingArticleLead
       ? {
           kickerToHeadingGap: Number((weddingArticleHeading.getBoundingClientRect().top - weddingArticleKicker.getBoundingClientRect().bottom).toFixed(2)),
@@ -417,6 +451,16 @@ async function measure(page, route, viewport, watchedTextSelectors) {
       firstScreenHeroHeading: elementBox(firstScreenHero?.querySelector("h1")),
       firstScreenHeroLead: elementBox(firstScreenHero?.querySelector("[data-first-screen-lead]")),
       weddingArticleUi,
+      articleHubUi: route === "/articles/" ? {
+        cardCount: document.querySelectorAll(".library-card").length,
+        hasIndependentPromo: Boolean(document.querySelector(".library-start, .library-next, .library-button")),
+        cardHeadingFontPx: articleHubCardHeading
+          ? Number.parseFloat(getComputedStyle(articleHubCardHeading).fontSize)
+          : null,
+        cardBodyFontPx: articleHubCardBody
+          ? Number.parseFloat(getComputedStyle(articleHubCardBody).fontSize)
+          : null,
+      } : null,
       heroZoom: heroElement
         ? getComputedStyle(document.querySelector("#rec861352716")).getPropertyValue("--zoom").trim()
         : null,
@@ -498,7 +542,7 @@ try {
   await browser.close();
 }
 
-console.log(`Responsive layout check passed: ${results.length} cases (${routes.length} routes x ${viewports.length} shared viewports + ${routeSpecificGroups.length} route-specific)`);
+console.log(`Responsive layout check passed: ${results.length} cases (${routes.length} routes x ${viewports.length} shared viewports + ${routeSpecificCaseCount} route-specific)`);
 console.log(`Routes: ${routes.join(", ")}`);
 console.log(`Viewports: ${viewports.map(({ name }) => name).join(", ")}`);
 if (routeSpecificGroups.length) {

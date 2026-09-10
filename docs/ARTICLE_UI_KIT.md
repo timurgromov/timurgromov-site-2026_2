@@ -7,6 +7,12 @@ Covered routes include the `/articles/` library hub as well as individual
 wedding articles. The hub may keep its own card grid and navigation sections,
 but its Hero uses the same primitive and type roles.
 
+The hub is a catalogue, not a landing page. After the shared Hero it lists only
+published materials. It must not add an independent sales promise, calculator
+CTA, preparation-plan CTA or unpublished-topic promo between the catalogue and
+footer. Links to individual materials are editorial rows, not a second button
+system.
+
 ## Required primitives
 
 - `src/components/WeddingArticleHero.astro` owns the portrait, overlay, service
@@ -47,7 +53,9 @@ palette, service line, author block or photo treatment.
   mode must not turn them into miniature controls.
 - Introduction prose measure: at most `660px`.
 - Portrait: shared black-and-white asset, upper focal point, no decorative
-  scaling that can crop the head.
+  scaling that can crop the head. At wide-short desktop windows (`>=1600px`
+  wide and `<=820px` high), use the proven `74% 10%` focal position; the exact
+  `1911x764` viewport is mandatory for all four wedding-editorial routes.
 
 ## New article rule
 

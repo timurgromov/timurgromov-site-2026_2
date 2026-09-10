@@ -191,12 +191,18 @@ system is a release blocker unless the owner explicitly approves it.
 - `/articles/` is the navigation hub for the wedding editorial system, not a
   separate visual product. Its Hero uses `WeddingArticleHero.astro` and the
   compact shared title role.
-- The collection H1 is «Статьи о свадьбе: по делу». The longer explanation
-  remains in the lead and metadata/SEO description instead of becoming a
-  five-line display heading.
+- The collection H1 is «Статьи о свадьбе». The lead directly explains the
+  page's only job: it contains the published materials about budget,
+  preparation and scenario.
 - At the owner-reported `1280x720` window the complete Hero must be no taller
   than the viewport; service lines must not overlap. `1280x720` is a permanent
   route-specific responsive case alongside the full shared matrix.
+- After the Hero, show only a restrained list of published materials and the
+  footer. The hub has no independent conversion CTA, no unpublished-topic
+  showcase and no page-specific button family.
+- At `1911x764` and equivalent wide-short windows the portrait uses the upper
+  focal rule so the full head remains visible. This viewport is checked on the
+  hub and every wedding article.
 
 ## Visible release target
 
