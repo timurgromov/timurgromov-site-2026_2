@@ -31,3 +31,6 @@
   Pages workflows passed; the production page then rendered the new CTA and a
   `62.832px` H1 with a `298.273px` text box at the reported live viewport.
   Google/Yandex crawl registration is recorded in the separate `SEO/` owner.
+- Updated the project rule to avoid a stale fixed route count: every discovered
+  static Astro route is automatically included in the responsive matrix, and a
+  new dynamic route must provide a fixture before release. No page may opt out.
