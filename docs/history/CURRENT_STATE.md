@@ -261,4 +261,7 @@
   proportions; the article output contains no Tilda classes, Zero Block markup
   or Tilda runtime dependency. The generic responsive gate enforces marked
   first-screen Hero actions on future native routes. The complete 11-route x
-  20-viewport matrix passed locally.
+  20-viewport matrix passed locally. Site commit `a6ce704` is pushed and live;
+  both GitHub workflows passed, production HTML contains the native markers and
+  no legacy CTA class, the article and neutral arrow asset return `200`, and a
+  fresh production browser screenshot confirms the exact short-screen result.

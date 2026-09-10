@@ -50,3 +50,8 @@
   `1232x582` candidate.
 - `npm run verify:contacts` also passed after the helper replacement; the
   Telegram/MAX targets and all existing contact contracts remain intact.
+- Runtime commit `a6ce704` was pushed to `main`; Code health and Deploy to
+  gh-pages both passed. Production verification confirmed the deployed commit,
+  native `tg-split-cta` and first-screen marker, absence of `tg-tilda-cta`, and
+  HTTP `200` for the article and neutral arrow asset. A fresh live production
+  screenshot at the owner-reported viewport shows the complete Hero CTA block.
