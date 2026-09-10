@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-10-budget-hero-first-viewport-fit",
+  "change_kind": "responsive-hero-and-shared-cta",
+  "status": "passed",
+  "requested_visible_change": "Keep the wedding-budget title, lead and both calculator controls together in the first screen and align the controls with the main-site system.",
+  "expected_visible_delta": "At the reported 1232x582 viewport the complete Hero conversion block is visible without scrolling, while the editorial typography remains distinct from the commercial homepage role.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "c3b7a94a0ada75ba5e753fa25db328515ba50e53970e6e54e1a4cdb704858d65",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4324/articles/byudzhet-svadby-v-moskve/",
+    "source_ref": "local Astro preview from the staged working-tree candidate after the successful build",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/articles/byudzhet-svadby-v-moskve/",
+    "state": "public anonymous visitor at scrollY=0",
+    "selector_or_slide_id": ".budget-hero h1, [data-first-screen-lead], [data-first-screen-primary-actions]",
+    "action": "Open the native Astro article directly and inspect the complete Hero without scrolling."
+  },
+  "must_remain_unchanged": [
+    "Editorial Cormorant Garamond and Instrument Serif roles",
+    "Corporate portrait and dark overlay",
+    "Exact H1, lead and CTA labels",
+    "All Telegram and MAX calculator destinations and source codes",
+    "Article metadata, body and calculator screenshots",
+    "Homepage runtime and layout"
+  ],
+  "required_viewports": [
+    "390x844",
+    "479x900",
+    "480x900",
+    "481x900",
+    "639x900",
+    "640x900",
+    "641x900",
+    "768x1024",
+    "959x900",
+    "1023x768",
+    "1024x768",
+    "1025x768",
+    "1199x650",
+    "1200x650",
+    "1201x650",
+    "1232x582",
+    "1366x768",
+    "1440x900",
+    "1504x900",
+    "1728x900",
+    "1984x1046"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "before_signature": "The article CTA used a fixed desktop-like 48px/14px control system at every width.",
+      "after_signature": "H1 bottom=359.91px; lead bottom=537.48px; stacked actions bottom=665.48px; buttons=48px/13px.",
+      "observed_visible_result": "The complete title, lead and both touch-size controls are visible in the first mobile screen.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "required_signature_present": true,
+      "forbidden_signature_absent": true,
+      "unchanged_checks": ["scrollWidth equals innerWidth", "both source-coded links preserved"],
+      "console_errors": []
+    },
+    {
+      "viewport": "1232x582",
+      "before_signature": "Hero height=806.35px; actions bottom=672.35px, 90.35px below the viewport.",
+      "after_signature": "Hero height=582px; H1=48.048px and bottom=276.38px; lead bottom=378.44px; actions bottom=425.23px; controls=30.8px/12.32px.",
+      "observed_visible_result": "A fresh live browser screenshot shows the title, full lead, both controls and author row together without scrolling.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "required_signature_present": true,
+      "forbidden_signature_absent": true,
+      "unchanged_checks": ["scrollWidth 1232 equals innerWidth 1232", "portrait and overlay preserved", "CTA labels and URLs preserved"],
+      "console_errors": []
+    },
+    {
+      "viewport": "1199/1200/1201x650",
+      "before_signature": "The calculator pair did not use the same responsive control scale as the homepage.",
+      "after_signature": "Actions bottom=458.36/455.94/456.05px; controls switch from the 35px/13px compact mode to the fluid 30px/12px desktop mode at 1200 without clipping.",
+      "observed_visible_result": "All breakpoint boundary cases keep the complete Hero conversion block inside the first screen.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "required_signature_present": true,
+      "forbidden_signature_absent": true,
+      "unchanged_checks": ["no horizontal overflow", "labels remain on one line"],
+      "console_errors": []
+    },
+    {
+      "viewport": "1366x768 / 1440x900 / 1984x1046",
+      "before_signature": "Buttons were fixed at 48px/14px and visually diverged from the homepage scale.",
+      "after_signature": "Actions bottoms=627.05/694/828.31px; controls scale to 34.14px/13.66px, 36px/14.4px and 48px/19px respectively.",
+      "observed_visible_result": "Normal and wide desktop preserve the editorial Hero and use the established corporate button proportions.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "required_signature_present": true,
+      "forbidden_signature_absent": true,
+      "unchanged_checks": ["no horizontal overflow", "homepage unchanged"],
+      "console_errors": []
+    }
+  ],
+  "automated_verification": {
+    "command": "npm run verify:responsive-layout; npm run verify:contacts",
+    "result": "passed",
+    "coverage": "11 static routes across 20 viewports (220 cases), plus the site contact and messenger-link contracts"
+  },
+  "native_page_boundary": {
+    "command": "rg for tg-tilda-cta, data-tilda, t396, tn-elem and tilda in the built article HTML",
+    "result": "passed; no matches",
+    "implementation": "standalone corporate-split-cta Astro helper and neutral arrow asset"
+  }
+}

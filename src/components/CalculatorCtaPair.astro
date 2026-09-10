@@ -5,7 +5,7 @@ import {
   telegramCalculatorUrlFor,
   type ExpertCtaPlacement,
 } from "../site/home-data";
-import { tildaCtaLink } from "../site/tilda-cta";
+import { corporateSplitCtaLink } from "../site/corporate-split-cta";
 
 interface Props {
   placement: Extract<ExpertCtaPlacement, "hero" | "mid_article" | "final">;
@@ -22,8 +22,8 @@ const attrs = `target="_blank" rel="noopener noreferrer nofollow" data-calculato
   data-testid={`calculator-cta-${placement}`}
   aria-label="Рассчитать бюджет свадьбы"
 >
-  <Fragment set:html={tildaCtaLink("calculator-cta-pair__button calculator-cta-pair__button--primary", telegramCalculatorUrlFor("wedding_budget", placement), "Рассчитать в Telegram", attrs)} />
-  <Fragment set:html={tildaCtaLink("calculator-cta-pair__button calculator-cta-pair__button--secondary", maxCalculatorUrlFor("wedding_budget", placement), "Рассчитать в MAX", attrs)} />
+  <Fragment set:html={corporateSplitCtaLink("calculator-cta-pair__button calculator-cta-pair__button--primary", telegramCalculatorUrlFor("wedding_budget", placement), "Рассчитать в Telegram", attrs)} />
+  <Fragment set:html={corporateSplitCtaLink("calculator-cta-pair__button calculator-cta-pair__button--secondary", maxCalculatorUrlFor("wedding_budget", placement), "Рассчитать в MAX", attrs)} />
 </div>
 
 <style>
@@ -35,20 +35,20 @@ const attrs = `target="_blank" rel="noopener noreferrer nofollow" data-calculato
     width: min(100%, 590px);
   }
 
-  .calculator-cta-pair :global(.tg-tilda-cta) {
-    --tg-cta-height: 48px;
-    --tg-cta-arrow-box: 48px;
+  .calculator-cta-pair :global(.tg-split-cta) {
+    --tg-cta-height: 30px;
+    --tg-cta-arrow-box: 30px;
     --tg-cta-overlap: 1px;
     --tg-cta-pad-left: 20px;
     --tg-cta-pad-right: 18px;
-    --tg-cta-radius: 7px;
+    --tg-cta-radius: 5px;
     --tg-cta-fill: #fffefa;
     --tg-cta-border: #fa4604;
     --tg-cta-color: #241d19;
     --tg-cta-arrow-fill: #fffefa;
     --tg-cta-arrow-color: #241d19;
-    --tg-cta-icon-size: 14px;
-    --tg-cta-font-size: 14px;
+    --tg-cta-icon-size: 10px;
+    --tg-cta-font-size: 12px;
     position: relative;
     display: grid;
     grid-template-columns: minmax(0, 1fr) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
@@ -70,8 +70,8 @@ const attrs = `target="_blank" rel="noopener noreferrer nofollow" data-calculato
     transition: box-shadow .18s ease, transform .18s ease;
   }
 
-  .calculator-cta-pair :global(.tg-tilda-cta__plate),
-  .calculator-cta-pair :global(.tg-tilda-cta__arrow-box) {
+  .calculator-cta-pair :global(.tg-split-cta__plate),
+  .calculator-cta-pair :global(.tg-split-cta__arrow-box) {
     grid-row: 1;
     border: 1px solid var(--tg-cta-border);
     box-sizing: border-box;
@@ -79,13 +79,13 @@ const attrs = `target="_blank" rel="noopener noreferrer nofollow" data-calculato
     transition: background-color .18s ease, border-color .18s ease;
   }
 
-  .calculator-cta-pair :global(.tg-tilda-cta__plate) {
+  .calculator-cta-pair :global(.tg-split-cta__plate) {
     grid-column: 1;
     min-width: 0;
     border-radius: var(--tg-cta-radius);
   }
 
-  .calculator-cta-pair :global(.tg-tilda-cta__arrow-box) {
+  .calculator-cta-pair :global(.tg-split-cta__arrow-box) {
     grid-column: 2;
     width: var(--tg-cta-arrow-box);
     margin-left: calc(-1 * var(--tg-cta-overlap));
@@ -93,7 +93,7 @@ const attrs = `target="_blank" rel="noopener noreferrer nofollow" data-calculato
     background: var(--tg-cta-arrow-fill);
   }
 
-  .calculator-cta-pair :global(.tg-tilda-cta__label) {
+  .calculator-cta-pair :global(.tg-split-cta__label) {
     z-index: 1;
     grid-column: 1;
     grid-row: 1;
@@ -108,7 +108,7 @@ const attrs = `target="_blank" rel="noopener noreferrer nofollow" data-calculato
     pointer-events: none;
   }
 
-  .calculator-cta-pair :global(.tg-tilda-cta__icon) {
+  .calculator-cta-pair :global(.tg-split-cta__icon) {
     z-index: 1;
     grid-column: 2;
     grid-row: 1;
@@ -119,13 +119,13 @@ const attrs = `target="_blank" rel="noopener noreferrer nofollow" data-calculato
     pointer-events: none;
   }
 
-  .calculator-cta-pair :global(.tg-tilda-cta__icon)::before {
+  .calculator-cta-pair :global(.tg-split-cta__icon)::before {
     width: var(--tg-cta-icon-size);
     height: var(--tg-cta-icon-size);
     background: var(--tg-cta-arrow-color);
     content: "";
-    -webkit-mask: url("/images/tild3536-3939-4363-b163-323761323432__vector_8.svg") center / contain no-repeat;
-    mask: url("/images/tild3536-3939-4363-b163-323761323432__vector_8.svg") center / contain no-repeat;
+    -webkit-mask: url("/images/split-arrow-up-right.svg") center / contain no-repeat;
+    mask: url("/images/split-arrow-up-right.svg") center / contain no-repeat;
     transition: transform .2s ease, background-color .18s ease;
   }
 
@@ -144,7 +144,7 @@ const attrs = `target="_blank" rel="noopener noreferrer nofollow" data-calculato
   }
 
   @media (hover: hover) {
-    .calculator-cta-pair :global(.tg-tilda-cta:hover) {
+    .calculator-cta-pair :global(.tg-split-cta:hover) {
       --tg-cta-fill: #fa4604;
       --tg-cta-color: #fffefa;
       --tg-cta-arrow-fill: #fa4604;
@@ -153,14 +153,56 @@ const attrs = `target="_blank" rel="noopener noreferrer nofollow" data-calculato
       transform: translateY(-1px);
     }
 
-    .calculator-cta-pair :global(.tg-tilda-cta:hover .tg-tilda-cta__icon)::before {
+    .calculator-cta-pair :global(.tg-split-cta:hover .tg-split-cta__icon)::before {
       transform: rotate(45deg);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .calculator-cta-pair :global(.tg-split-cta) {
+      --tg-cta-height: clamp(30px, 2.5vw, 48px);
+      --tg-cta-arrow-box: clamp(30px, 2.5vw, 48px);
+      --tg-cta-pad-left: clamp(20px, 1.6667vw, 34px);
+      --tg-cta-pad-right: clamp(18px, 1.5vw, 26px);
+      --tg-cta-radius: clamp(5px, .4167vw, 8px);
+      --tg-cta-icon-size: clamp(10px, .8333vw, 16px);
+      --tg-cta-font-size: clamp(12px, 1vw, 19px);
+    }
+  }
+
+  @media (min-width: 1920px) {
+    .calculator-cta-pair :global(.tg-split-cta) {
+      --tg-cta-height: 48px;
+      --tg-cta-arrow-box: 48px;
+      --tg-cta-pad-left: 34px;
+      --tg-cta-pad-right: 26px;
+      --tg-cta-radius: 8px;
+      --tg-cta-icon-size: 16px;
+      --tg-cta-font-size: 19px;
+    }
+  }
+
+  @media (max-width: 1199px) {
+    .calculator-cta-pair :global(.tg-split-cta) {
+      --tg-cta-height: 35px;
+      --tg-cta-arrow-box: 35px;
+      --tg-cta-pad-left: 18px;
+      --tg-cta-pad-right: 16px;
+      --tg-cta-radius: 5px;
+      --tg-cta-icon-size: 13px;
+      --tg-cta-font-size: 13px;
     }
   }
 
   @media (max-width: 479px) {
     .calculator-cta-pair {
       grid-template-columns: 1fr;
+    }
+
+    .calculator-cta-pair :global(.tg-split-cta) {
+      --tg-cta-height: 48px;
+      --tg-cta-arrow-box: 48px;
+      --tg-cta-font-size: 13px;
     }
   }
 </style>

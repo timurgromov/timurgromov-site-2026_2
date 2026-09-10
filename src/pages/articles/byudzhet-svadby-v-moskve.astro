@@ -139,13 +139,13 @@ const articleSchema = {
           <p class="budget-eyebrow">Авторский материал — <span>Тимур Громов</span></p>
         </div>
         <h1>Бюджет свадьбы: <em>из чего складывается смета</em> и как её рассчитать</h1>
-        <p class="budget-lead">
+        <p class="budget-lead" data-first-screen-lead>
           Нет одной суммы, которая подойдёт всем. На бюджет влияют формат,
           количество гостей, площадка, команда и то, что важно именно вам.
           Поэтому лучше сразу посчитать свою свадьбу, а не ориентироваться на
           чужие цифры.
         </p>
-        <div class="budget-hero__actions">
+        <div class="budget-hero__actions" data-first-screen-primary-actions>
           <CalculatorCtaPair placement="hero" theme="dark" />
         </div>
         <div class="budget-hero__meta">
@@ -438,6 +438,21 @@ const articleSchema = {
   @media (max-width: 900px) {
     .budget-mid-cta, .budget-final-cta { grid-template-columns: 1fr; align-items: start; }
     .budget-screens { gap: 16px; }
+  }
+
+  @media (min-width: 641px) and (max-height: 700px) {
+    .budget-hero, .budget-hero__shell { min-height: 100svh; }
+    .budget-hero__shell { justify-content: center; padding-top: 22px; padding-bottom: 24px; }
+    .budget-hero__kicker { gap: 6px; margin-bottom: 12px; }
+    .budget-back { font-size: 11px; letter-spacing: .14em; }
+    .budget-eyebrow { font-size: 10px; letter-spacing: .22em; }
+    .budget-hero h1 { max-width: min(52vw, 620px); font-size: clamp(42px, 3.9vw, 52px); line-height: .92; }
+    .budget-lead { max-width: 650px; margin-top: 12px; font-size: clamp(18px, 1.55vw, 21px); line-height: 1.18; }
+    .budget-hero__actions { margin-top: 16px; }
+    .budget-hero__meta { gap: 12px; margin-top: 18px; }
+    .budget-hero__badge { width: 34px; height: 34px; font-size: 19px; }
+    .budget-hero__meta strong { margin-bottom: 2px; font-size: 13px; }
+    .budget-hero__meta span { font-size: 10px; }
   }
 
   @media (max-width: 700px) {

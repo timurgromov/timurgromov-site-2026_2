@@ -34,3 +34,19 @@
 - Updated the project rule to avoid a stale fixed route count: every discovered
   static Astro route is automatically included in the responsive matrix, and a
   new dynamic route must provide a fixture before release. No page may opt out.
+- Clarified and implemented the permanent native-page boundary: wedding SEO
+  articles are standalone Astro routes, not Tilda pages. The budget calculator
+  CTA moved from the legacy-named helper/classes to a native
+  `corporate-split-cta` helper and neutral asset while preserving the approved
+  homepage button anatomy and all six destination/source contracts.
+- Added a height-aware compact Hero mode and a reusable
+  `data-first-screen-lead` / `data-first-screen-primary-actions` acceptance
+  marker. At the reported `1232x582`, the actions moved from `672.35px` (below
+  the fold) to `425.23px`; the full H1, lead, two controls and author row are
+  visible at `scrollY=0` with no horizontal overflow.
+- Added the typography/CTA/native-Astro rule to `UX.md`, `AGENTS.md` and
+  `DECISIONS.md`. The full responsive gate passed all 11 routes across 20
+  viewports (220 cases), and a live browser screenshot confirmed the exact
+  `1232x582` candidate.
+- `npm run verify:contacts` also passed after the helper replacement; the
+  Telegram/MAX targets and all existing contact contracts remain intact.

@@ -2,6 +2,62 @@
 
 Этот файл фиксирует решения, которые важно помнить и не откатывать случайно.
 
+## DEC-2026-09-10-PUBLIC-TYPE-AND-HERO-CTA-SYSTEM
+
+Status: active
+Area: public site, typography, CTA, responsive QA
+Decision date: 2026-09-10
+Evidence: owner comparison of the homepage and wedding-budget article plus the
+reported `1232x582` article viewport
+Supersedes: the assumption that corporate style requires one display font or
+that width-only type scaling is sufficient for a Hero
+
+Decision:
+Public pages share one standalone corporate split-button interaction system, while display
+typography follows the page role. Commercial offer surfaces may use the
+approved Coolvetica headline role; editorial wedding/SEO surfaces use the
+approved Cormorant Garamond and Instrument Serif roles. Editorial and SEO
+routes remain native Astro pages without Tilda runtime, Zero Block or Tilda
+responsive scaling. Any Hero containing the
+page's primary CTA must keep the full H1, lead and all primary controls inside
+the initial viewport across the required matrix. Width and height are both
+layout inputs.
+
+Why:
+Blindly copying one headline font would erase the deliberate difference
+between a commercial offer and an article. Conversely, page-local buttons and
+width-only Hero clamps caused the budget article to feel disconnected from the
+homepage and pushed its conversion controls below the fold in a short desktop
+window.
+
+Do:
+
+- reuse the standalone corporate split-button component and its established
+  visual states;
+- choose an existing commercial or editorial display role before building a
+  route;
+- mark the Hero lead and primary actions with `data-first-screen-lead` and
+  `data-first-screen-primary-actions`, then test them at `scrollY=0`, including
+  short desktop and breakpoint boundary sizes;
+- reduce type, line measure and spacing in a height-aware compact mode before
+  dropping essential Hero actions.
+
+Do not:
+
+- force every page to use the same display font;
+- create a page-local CTA shape, arrow treatment or type family;
+- accept a Hero when its H1 is readable but its primary buttons are below the
+  initial viewport;
+- hide or remove the primary CTA to satisfy the fit check.
+
+Verification:
+
+- `npm run verify:responsive-layout` covers every static route and fails when a
+  marked Hero action wrapper ends below the viewport;
+- live browser review includes the exact reported viewport and confirms the
+  title, lead and controls together without scrolling;
+- the homepage remains a visual regression control.
+
 ## DEC-2026-09-08-EXPERT-PAGE-SPLIT-CONVERSION
 
 Status: active

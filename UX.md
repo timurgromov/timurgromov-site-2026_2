@@ -76,6 +76,39 @@ Pages may vary in content structure, but must not introduce a separate palette,
 generic card template or page-local type system. The homepage, Direct flow,
 conversion CTA island and all bot/CRM contracts remain unchanged.
 
+### Permanent typography and CTA rule
+
+- Typography follows the role of the surface, not a requirement to make every
+  page visually identical. Commercial homepage/offer headings may use the
+  approved condensed `Coolvetica` treatment; wedding editorial and SEO pages
+  use the approved `Cormorant Garamond` display role with `Instrument Serif`
+  accents. Body and control text use the shared sans-serif role. A new route
+  must choose one of these existing roles; inventing another page-local type
+  system is a release blocker.
+- CTA controls are one shared interface family across the public site: the
+  corporate split-button anatomy, Manrope label, orange primary/light or
+  dark secondary states, separate arrow cell, established radius and hover
+  behaviour. Width may follow the local layout and touch height may increase on
+  mobile, but a new page must reuse the shared component/pattern rather than
+  redraw the button.
+- Wedding editorial and SEO routes are native Astro pages. They do not import
+  Tilda runtime, Zero Block layout, Tilda `zoom` or its responsive behaviour.
+  Matching the homepage means reusing approved visual tokens and interaction
+  anatomy through standalone Astro components, not coupling new routes to the
+  homepage's legacy export.
+- The Hero type scale is subordinate to the conversion job. On every public
+  page whose primary CTA sits in the Hero, the complete H1, introductory lead
+  and all primary Hero controls must be fully visible at `scrollY=0` in the
+  route's required portrait and desktop viewport matrix. Font size, line
+  measure and vertical gaps must respond to both viewport width and viewport
+  height; inheriting a large heading that pushes the CTA below the fold is a
+  release failure.
+- Such a Hero must mark its lead with `data-first-screen-lead` and its primary
+  action wrapper with `data-first-screen-primary-actions`. The responsive gate measures that marker
+  and fails if it ends below the initial viewport. Author metadata may continue
+  below the first screen when the viewport is unusually short; it must not push
+  the primary controls out of view.
+
 This is the default for every new wedding expert or SEO route, not a one-off
 decision for the preparation guide. Before implementation, each new route must
 name `/scenario/` as its canonical visual source and define only the content
@@ -105,6 +138,28 @@ system is a release blocker unless the owner explicitly approves it.
   `641x900`, `1180x820`, reported `1232x638`, `1366x768`, `1440x900` and
   `1984x1046`; no horizontal overflow or JavaScript errors. `/scenario/` and
   `/` remain regression controls.
+
+## Wedding-budget Hero first-viewport fit
+
+- Change ID: `2026-09-10-budget-hero-first-viewport-fit`.
+- Surface/state: `/articles/byudzhet-svadby-v-moskve/`, public anonymous state,
+  `scrollY=0`.
+- Exact owner-reported browser state: `1232x582` CSS px at DPR 2. Baseline Hero
+  height is `806.35px`; the calculator actions end at `672.35px`, which leaves
+  the two primary controls `90.35px` below the initial viewport.
+- Expected visible delta: the complete H1, lead and both calculator buttons are
+  visible together in the first screen with at least a `12px` bottom safety
+  gap. The portrait, dark overlay, exact copy, editorial type roles and all CTA
+  destinations/source codes remain unchanged.
+- Desktop height at `700px` and below is a compact mode: shorten vertical gaps,
+  widen and reduce the H1 measure, reduce the lead proportionally and use the
+  homepage's compact split-button sizing. Normal-height desktop preserves the
+  editorial scale. Mobile portrait retains touch-size controls and its own
+  readable type scale.
+- Required viewports: `390x844`, `479/480/481x900`, `639/640/641x900`,
+  `768x1024`, `1023/1024/1025x768`, `1199/1200/1201x650`, reported
+  `1232x582`, `1366x768`, `1440x900`, `1504x900`, `1728x900` and
+  `1984x1046`. No horizontal overflow, clipped labels or JavaScript errors.
 
 ## Visible release target
 

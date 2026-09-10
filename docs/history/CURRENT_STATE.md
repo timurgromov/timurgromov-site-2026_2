@@ -253,3 +253,12 @@
   links or calculator attribution. Site commit `3f1ab06` is live; both GitHub
   workflows passed and the production page was rechecked at `1232x638` with no
   overflow. Search-engine registration is owned and recorded in `SEO/`.
+- Follow-up contract `2026-09-10-budget-hero-first-viewport-fit` makes the
+  budget article Hero height-aware: at the owner-reported `1232x582`, the full
+  H1, lead, both calculator controls and author row fit without scrolling, with
+  actions ending at `425.23px`. Calculator controls now use a standalone native
+  Astro corporate split-button helper and the homepage's approved responsive
+  proportions; the article output contains no Tilda classes, Zero Block markup
+  or Tilda runtime dependency. The generic responsive gate enforces marked
+  first-screen Hero actions on future native routes. The complete 11-route x
+  20-viewport matrix passed locally.

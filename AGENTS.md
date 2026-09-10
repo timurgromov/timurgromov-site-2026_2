@@ -58,6 +58,12 @@ Meaningful change - это:
 - Для любой адаптивной правки и перед deploy запускай `npm run verify:responsive-layout`: gate автоматически включает все обнаруженные `src/pages/**/*.astro`, проверяет каждый текущий публичный маршрут на общей viewport-матрице и отдельно контролирует Hero на `B-1/B/B+1` вокруг 480/640/1024/1200. Любой uncaught browser runtime error (`pageerror`) — fail, а не предупреждение. Для текста внутри масштабируемого Hero/Zero Block gate обязан измерять effective rendered font (учитывая ancestor `zoom`/`transform`), ширину и число строк; одного computed `font-size` недостаточно. Новая статическая Astro-страница включается автоматически; новая dynamic route обязана сначала получить явный fixture. Пропуск responsive-проверки для отдельной новой страницы запрещён.
 - Для мелких правок сначала используй карту ID из `docs/quick-edit-playbook.md`, а не раскапывай export заново.
 
+## Native Astro Page Rule
+
+- SEO- и редакционные страницы — нативные Astro-страницы. Они не импортируют Tilda runtime, Zero Block, `zoom` или Tilda-responsive; только главная остаётся legacy-контуром Tilda/Astro.
+- Новая публичная страница не создаёт собственную систему шрифтов или кнопок. Типографическая роль выбирается из двух утверждённых контуров в `UX.md`: коммерческий `Coolvetica` или редакционный `Cormorant Garamond`/`Instrument Serif`; control/body text остаётся в общем sans-serif-контуре. CTA переиспользует автономный corporate split-button/component.
+- Если основной CTA находится в Hero, lead и wrapper действий обязаны иметь `data-first-screen-lead` и `data-first-screen-primary-actions`: H1, lead и все primary controls должны полностью помещаться при `scrollY=0` в обязательной матрице, а responsive gate должен падать, если marker выходит ниже viewport. Подробный owner-контракт — `UX.md`, раздел `Permanent typography and CTA rule`.
+
 ## Required Checks
 
 Для любых правок контактов, popup/menu, телефона, Telegram/MAX, footer:

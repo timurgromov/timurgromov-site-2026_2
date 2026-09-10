@@ -157,10 +157,34 @@ function assertHomeHero(result) {
   }
 }
 
+function assertFirstScreenPrimaryActions(result) {
+  if (!result.firstScreenPrimaryActions) return;
+
+  if (!result.firstScreenHeroHeading || !result.firstScreenHeroLead) {
+    fail("First-screen Hero contract is missing its H1 or marked lead", result);
+  }
+
+  const bottomLimit = result.viewport.height - 12;
+  if (result.firstScreenHeroHeading.top < -2 || result.firstScreenHeroLead.top < -2) {
+    fail("First-screen Hero copy begins above the viewport", result);
+  }
+  if (result.firstScreenHeroHeading.bottom > result.firstScreenHeroLead.top + 2) {
+    fail("First-screen Hero heading overlaps its lead", result);
+  }
+  if (result.firstScreenHeroLead.bottom > result.firstScreenPrimaryActions.top + 2) {
+    fail("First-screen Hero lead overlaps its primary actions", result);
+  }
+  if (result.firstScreenPrimaryActions.bottom > bottomLimit) {
+    fail("First-screen Hero primary actions fall below the initial viewport", {
+      bottomLimit,
+      ...result,
+    });
+  }
+}
+
 async function measure(page, route, viewport, watchedTextSelectors) {
   return page.evaluate(({ route, viewport, watchedTextSelectors }) => {
-    const box = (selector) => {
-      const element = document.querySelector(selector);
+    const elementBox = (element) => {
       if (!element) return null;
       const rect = element.getBoundingClientRect();
       const style = getComputedStyle(element);
@@ -177,6 +201,7 @@ async function measure(page, route, viewport, watchedTextSelectors) {
         inlineStyle: element.getAttribute("style"),
       };
     };
+    const box = (selector) => elementBox(document.querySelector(selector));
 
     const fullyOffscreenControls = Array.from(
       document.querySelectorAll('a[href], button, input, select, textarea, [role="button"]'),
@@ -203,6 +228,8 @@ async function measure(page, route, viewport, watchedTextSelectors) {
 
     const heroElement = document.querySelector("#rec861352716 .t396__artboard");
     const hero = heroElement ? box("#rec861352716 .t396__artboard") : null;
+    const firstScreenPrimaryActionsElement = document.querySelector("[data-first-screen-primary-actions]");
+    const firstScreenHero = firstScreenPrimaryActionsElement?.closest("header") || null;
     const textBox = (selector) => {
       const element = document.querySelector(selector);
       if (!element) return null;
@@ -258,6 +285,9 @@ async function measure(page, route, viewport, watchedTextSelectors) {
       bodyWidth: Number(document.body.getBoundingClientRect().width.toFixed(2)),
       fullyOffscreenControls,
       hero,
+      firstScreenPrimaryActions: elementBox(firstScreenPrimaryActionsElement),
+      firstScreenHeroHeading: elementBox(firstScreenHero?.querySelector("h1")),
+      firstScreenHeroLead: elementBox(firstScreenHero?.querySelector("[data-first-screen-lead]")),
       heroZoom: heroElement
         ? getComputedStyle(document.querySelector("#rec861352716")).getPropertyValue("--zoom").trim()
         : null,
@@ -317,6 +347,7 @@ try {
         };
         assertGenericLayout(result);
         assertHomeHero(result);
+        assertFirstScreenPrimaryActions(result);
         results.push({
           route,
           viewport: viewport.name,
