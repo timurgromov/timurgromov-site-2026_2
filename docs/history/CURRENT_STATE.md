@@ -21,8 +21,13 @@
   measure produces materially different Cyrillic wrapping across font engines.
   The shared system now uses a stable `660px` H1 measure and reduces only the
   global very-short byline's internal top padding, restoring room without a
-  page-specific exception. Production verification remains pending the
-  replacement CI/deploy run.
+  page-specific exception.
+- Runtime commit `5aded0c` is pushed and live. Code health and Deploy to
+  gh-pages passed; the fresh production matrix passed all 21 required cases,
+  including the four-route `1911x764` / `1911x839` comparison and budget
+  `1232x582`. Fresh Chrome captures of the published budget and preparation
+  Heroes confirm the full head, shared service-line anchor and author-row
+  breathing room.
 
 ## Wedding Hero vertical anchors and real wide-short viewport (2026-09-11)
 
