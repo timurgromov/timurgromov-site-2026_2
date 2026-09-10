@@ -97,12 +97,16 @@ const routes = walkAstroPages(pagesRoot).map(pagePathToRoute).sort();
 const viewports = parseViewports(
   process.env.RESPONSIVE_LAYOUT_VIEWPORTS || defaultViewports.join(","),
 );
-const routeSpecificGroups = viewports.some(({ name }) => name === "1232x582")
-  ? []
-  : [{
+const routeSpecificGroups = [
+  ...(viewports.some(({ name }) => name === "1232x582") ? [] : [{
       viewport: { width: 1232, height: 582, name: "1232x582" },
       routes: ["/articles/byudzhet-svadby-v-moskve/"],
-    }];
+    }]),
+  ...(viewports.some(({ name }) => name === "1280x720") ? [] : [{
+      viewport: { width: 1280, height: 720, name: "1280x720" },
+      routes: ["/articles/"],
+    }]),
+];
 const caseGroups = [
   ...viewports.map((viewport) => ({ viewport, routes })),
   ...routeSpecificGroups,
@@ -194,6 +198,7 @@ function assertFirstScreenPrimaryActions(result) {
 
 function assertWeddingArticleUi(result) {
   const weddingArticleRoutes = new Set([
+    "/articles/",
     "/scenario/",
     "/articles/plan-podgotovki-k-svadbe/",
     "/articles/byudzhet-svadby-v-moskve/",
@@ -216,19 +221,19 @@ function assertWeddingArticleUi(result) {
   }
 
   const expectedBodyFont = result.viewport.width <= 640 ? 17 : 19;
-  if (Math.abs(result.weddingArticleUi.introBodyFontPx - expectedBodyFont) > 0.5) {
+  if (result.weddingArticleUi.introBodyFontPx && Math.abs(result.weddingArticleUi.introBodyFontPx - expectedBodyFont) > 0.5) {
     fail("Wedding article introduction body scale drifted", {
       expectedBodyFont,
       ...result,
     });
   }
-  if (!result.weddingArticleUi.introBodyFontFamily.includes("Arial")) {
+  if (result.weddingArticleUi.introBodyFontFamily && !result.weddingArticleUi.introBodyFontFamily.includes("Arial")) {
     fail("Wedding article introduction body left the shared sans role", result);
   }
   if (result.weddingArticleUi.introHeadingFontPx && result.weddingArticleUi.introHeadingFontPx > 38.5) {
     fail("Wedding article introduction heading is oversized", result);
   }
-  if (result.weddingArticleUi.introBodyWidth > 661) {
+  if (result.weddingArticleUi.introBodyWidth && result.weddingArticleUi.introBodyWidth > 661) {
     fail("Wedding article introduction line measure is too wide", result);
   }
 
@@ -240,6 +245,10 @@ function assertWeddingArticleUi(result) {
       minimumHeadingToLeadGap,
       ...result,
     });
+  }
+
+  if (result.route === "/articles/" && result.weddingArticleUi.heroBottom > result.viewport.height + 1) {
+    fail("Article hub Hero is taller than the initial viewport", result);
   }
 
   if (result.weddingArticleUi.hasActions) {
@@ -365,7 +374,7 @@ async function measure(page, route, viewport, watchedTextSelectors) {
     const weddingArticleMedia = weddingArticleHero?.querySelector(".tg-article-hero__media");
     const weddingArticleIntroBody = document.querySelector(".tg-article-intro__prose p");
     const weddingArticleIntroHeading = document.querySelector(".tg-article-intro h2");
-    const weddingArticleUi = weddingArticleHero && weddingArticleKicker && weddingArticleHeading && weddingArticleMedia && weddingArticleIntroBody
+    const weddingArticleUi = weddingArticleHero && weddingArticleKicker && weddingArticleHeading && weddingArticleMedia && weddingArticleLead
       ? {
           kickerToHeadingGap: Number((weddingArticleHeading.getBoundingClientRect().top - weddingArticleKicker.getBoundingClientRect().bottom).toFixed(2)),
           headingToLeadGap: weddingArticleLead
@@ -381,11 +390,14 @@ async function measure(page, route, viewport, watchedTextSelectors) {
           actionControlHeight: weddingArticleActions
             ? Number(weddingArticleActions.querySelector("a, button")?.getBoundingClientRect().height.toFixed(2) || 0)
             : null,
+          heroBottom: Number(weddingArticleHero.getBoundingClientRect().bottom.toFixed(2)),
           mediaTransform: getComputedStyle(weddingArticleMedia).transform,
           mediaBackgroundPosition: getComputedStyle(weddingArticleMedia).backgroundPosition,
-          introBodyFontFamily: getComputedStyle(weddingArticleIntroBody).fontFamily,
-          introBodyFontPx: Number.parseFloat(getComputedStyle(weddingArticleIntroBody).fontSize),
-          introBodyWidth: Number(weddingArticleIntroBody.closest(".tg-article-intro__prose").getBoundingClientRect().width.toFixed(2)),
+          introBodyFontFamily: weddingArticleIntroBody ? getComputedStyle(weddingArticleIntroBody).fontFamily : null,
+          introBodyFontPx: weddingArticleIntroBody ? Number.parseFloat(getComputedStyle(weddingArticleIntroBody).fontSize) : null,
+          introBodyWidth: weddingArticleIntroBody
+            ? Number(weddingArticleIntroBody.closest(".tg-article-intro__prose").getBoundingClientRect().width.toFixed(2))
+            : null,
           introHeadingFontPx: weddingArticleIntroHeading
             ? Number.parseFloat(getComputedStyle(weddingArticleIntroHeading).fontSize)
             : null,

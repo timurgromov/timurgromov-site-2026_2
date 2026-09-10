@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-11-articles-hub-ui-repair",
+  "change_kind": "shared-editorial-hero-repair",
+  "status": "local_passed_release_pending",
+  "requested_visible_change": "Repair the visibly broken articles hub and bring it into the same corporate wedding-editorial system as the published guides.",
+  "checked_after_last_edit": true,
+  "served_candidate": {
+    "url": "http://127.0.0.1:4322/articles/",
+    "source_ref": "local Astro preview after successful build",
+    "fresh_reload": true
+  },
+  "observations": [
+    {
+      "viewport": "1280x720",
+      "before_signature": "Live Hero=775.27px; H1=89.6px across five lines; top service text visibly overlapped.",
+      "after_signature": "Hero=605.8px; H1=65.28px and 123.7px high; kicker-to-H1=34px; H1-to-lead=24px; lead-to-author=42px.",
+      "observed_visible_result": "The complete shared Hero sits inside the first screen with clear hierarchy and no overlapping service text.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "390x844",
+      "before_signature": "Live page-local Hero=760px; H1=58.5px and 324.38px high.",
+      "after_signature": "Hero=466.2px; H1=40.95px and 117.5px high; first published-material section is visible in the initial screen.",
+      "observed_visible_result": "Mobile hierarchy is concise, readable and consistent with the article pages without delaying content discovery.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "automated_verification": {
+    "command": "npm run verify:responsive-layout",
+    "result": "passed",
+    "coverage": "222 cases: 11 routes x 20 shared viewports plus budget 1232x582 and articles hub 1280x720"
+  }
+}

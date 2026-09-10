@@ -3,6 +3,10 @@
 This is the source of truth for native Astro wedding-editorial and SEO pages.
 It does not apply to the legacy Tilda layer on `/`.
 
+Covered routes include the `/articles/` library hub as well as individual
+wedding articles. The hub may keep its own card grid and navigation sections,
+but its Hero uses the same primitive and type roles.
+
 ## Required primitives
 
 - `src/components/WeddingArticleHero.astro` owns the portrait, overlay, service
@@ -19,6 +23,8 @@ It does not apply to the legacy Tilda layer on `/`.
 - `standard`: editorial titles such as «Свадебный сценарий» and the preparation
   guide.
 - `compact`: long SEO titles that need a smaller maximum display size.
+- The library hub also uses `compact` with a concise collection H1; it must not
+  recreate a separate oversized Hero around a long promotional sentence.
 - `withActions`: only when primary controls are inside the Hero. This variant
   adds the first-screen markers and height-aware compact desktop layout.
 

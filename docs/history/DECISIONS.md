@@ -1236,6 +1236,35 @@ Do not:
 - do not change the homepage, Direct flow, bot or CRM while making this visual
   alignment.
 
+## DEC-2026-09-11-ARTICLES-HUB-USES-SHARED-HERO
+
+Status: active
+Area: frontend, editorial UX, responsive QA
+Decision date: 2026-09-11
+Evidence: owner production review at `1280x720`
+Commits: pending
+
+Decision:
+
+The `/articles/` library hub belongs to the same native Astro wedding editorial
+system as its articles. It uses `WeddingArticleHero.astro`; its card grid and
+navigation may remain page-specific.
+
+Do:
+
+- use the concise H1 «Статьи о свадьбе: по делу» and keep the longer
+  positioning statement in the lead/metadata;
+- include `/articles/` in the strict wedding Article UI assertions;
+- keep `1280x720` as a permanent route-specific probe and fail if the hub Hero
+  is taller than the initial viewport or its semantic groups collapse.
+
+Do not:
+
+- do not restore a second page-local portrait Hero;
+- do not use an absolutely positioned service line that can overlap the title;
+- do not treat the hub as visually exempt because it is not itself a keyword
+  landing page.
+
 ## DEC-2026-09-10-DIRECT-CALCULATOR-ARTICLE-ENTRY
 
 Status: active
