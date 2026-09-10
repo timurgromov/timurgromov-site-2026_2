@@ -27,3 +27,7 @@
 - Exact local proof at `1232x638`: H1 `62.832px`, text box `301.234px`, no
   horizontal overflow, new CTA present and old CTA absent. The responsive gate
   passed all 11 routes across 20 viewports after the final edit.
+- Follow-up commit `3f1ab06` was pushed and deployed. Code health and GitHub
+  Pages workflows passed; the production page then rendered the new CTA and a
+  `62.832px` H1 with a `298.273px` text box at the reported live viewport.
+  Google/Yandex crawl registration is recorded in the separate `SEO/` owner.

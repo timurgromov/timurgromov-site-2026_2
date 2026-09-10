@@ -232,7 +232,7 @@
   selection, the service/factor hint and the autosave/copy state.
 - All six article CTA links use direct Mini App `startapp` URLs and exact
   sources `site_calculator_timurgromov__wedding_budget__{hero|mid_article|final}`.
-- Site commit `6dec7b6` is pushed and live. GitHub Pages deploy and code-health
+- Initial site commit `6dec7b6` is pushed and live. GitHub Pages deploy and code-health
   workflows passed; production returns `200` for the hub, article, sitemap and
   all three calculator screenshots. The sitemap contains the new canonical URL.
 - Production desktop/mobile checks passed without horizontal overflow or
@@ -250,4 +250,6 @@
   `62.832px` / `301.234px` at `1232x638`. The middle CTA now says
   «Выберите нужные расходы и соберите свою смету», and the article copy was
   edited for direct, natural Russian without changing the page intent, schema,
-  links or calculator attribution.
+  links or calculator attribution. Site commit `3f1ab06` is live; both GitHub
+  workflows passed and the production page was rechecked at `1232x638` with no
+  overflow. Search-engine registration is owned and recorded in `SEO/`.
