@@ -7,7 +7,7 @@
   "expected_visible_delta": "At 1232x582, /scenario/ and /articles/ change the selected lead from the generic 20.944px role to 24.64px while retaining a one-line H1, equal vertical lane gaps and no overflow.",
   "attempt_number": 1,
   "checked_after_last_edit": true,
-  "candidate_diff_sha256": "07da556498dbdd41cd716062f7bba5a453bec683a6db863e84484248e524d878",
+  "candidate_diff_sha256": "33686f2049daae5693a18a4b9e4acf6db34a7ca34bd388fdb72f0bbf18ac4ddd",
   "served_candidate": {
     "url": "http://127.0.0.1:4321/scenario/?candidate=prominent-lead",
     "companion_url": "http://127.0.0.1:4321/articles/?candidate=prominent-lead",

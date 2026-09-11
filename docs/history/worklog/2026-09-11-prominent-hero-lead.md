@@ -22,3 +22,11 @@
   stronger four-line scenario lead, separated service anchor and bottom author
   row. No console errors occurred in the measured views.
 - `npm run build` and the full `npm run verify:responsive-layout` matrix pass.
+
+## CI guard correction
+
+- Linux CI exposed an obsolete cross-route assertion that still compared lead
+  font sizes across different explicit title roles. The guard now compares both
+  H1 and lead sizes only within the same `isProminentTitle` role, while keeping
+  the shared service and author anchors cross-route. This is the test encoding
+  of the deliberately approved two-role design, not a page-specific exemption.

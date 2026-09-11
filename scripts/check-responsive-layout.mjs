@@ -403,7 +403,6 @@ function assertWeddingArticleCrossRouteConsistency(results) {
     for (const candidate of ui.slice(1)) {
       for (const [metric, tolerance] of [
         ["kickerTop", 1],
-        ["leadFontPx", 0.5],
         ["metaBottomGap", 1],
       ]) {
         if (Math.abs(candidate[metric] - reference[metric]) > tolerance) {
@@ -421,14 +420,16 @@ function assertWeddingArticleCrossRouteConsistency(results) {
       if (titleRoleGroup.length < 2) continue;
       const titleReference = titleRoleGroup[0];
       for (const candidate of titleRoleGroup.slice(1)) {
-        if (Math.abs(candidate.headingFontPx - titleReference.headingFontPx) > 0.5) {
-          fail("Wedding article routes drifted within a shared Hero title role", {
-            viewport,
-            isProminentTitle,
-            metric: "headingFontPx",
-            reference: titleReference,
-            candidate,
-          });
+        for (const metric of ["headingFontPx", "leadFontPx"]) {
+          if (Math.abs(candidate[metric] - titleReference[metric]) > 0.5) {
+            fail("Wedding article routes drifted within a shared Hero title role", {
+              viewport,
+              isProminentTitle,
+              metric,
+              reference: titleReference,
+              candidate,
+            });
+          }
         }
       }
     }
