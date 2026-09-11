@@ -400,3 +400,10 @@
   the local matrix and a production responsive run passed. Fresh in-app browser
   inspection confirmed the compact covers, visible next sections and upper
   air around Timur's portrait.
+- Follow-up commit `8d3cc0e` refines only the compact-role desktop portrait
+  framing from the rejected flush `74% 30%` candidate to `74% 25%`. At the
+  owner-reported `1232x582`, both published compact covers now retain a small
+  visible gap above Timur's hair without restoring the former large ceiling.
+  `Code health`, `Deploy to gh-pages`, local and production responsive checks,
+  and fresh production in-app-browser inspection all passed. Screen-role and
+  mobile portrait framing remain unchanged.

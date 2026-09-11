@@ -51,3 +51,17 @@ this height role silently.
   visible after the cover, the shared type hierarchy remains intact, and the
   portrait head has room above it.
 - The production responsive runner passed against `https://timurgromov.ru`.
+
+## Portrait framing follow-up
+
+At the owner-reported `1232x582` viewport, the old `74% 0%` compact cover had
+about `164px` of ceiling above Timur's hair. A first `74% 30%` candidate
+over-corrected: the hair became flush with the Hero edge. The released bounded
+correction is `74% 25%` for the same two desktop compact routes only.
+
+- Commit `8d3cc0e` — `Refine compact hero portrait framing`.
+- Fresh local and production in-app-browser screenshots show a small visible
+  gap above the hair in both covers, with no head clipping.
+- `npm run build`, `npm run verify:responsive-layout`, GitHub `Code health`,
+  GitHub `Deploy to gh-pages`, and the production responsive runner passed.
+- Default screen Heroes still use `74% 0%`; mobile remains `72% 0%`.
