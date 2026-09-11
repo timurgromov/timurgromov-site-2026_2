@@ -1,5 +1,23 @@
 # Current State - 2026-09-11
 
+## Wedding Hero balanced content lane live (2026-09-11)
+
+- The four wedding-editorial Heroes use a shared three-row desktop grid:
+  service block at the top, author row at the bottom and the H1/lead/CTA group
+  vertically centred in the lane between them. This removes the formerly
+  top-pinned copy stack and lower empty void without a budget-only exception.
+- The permanent responsive gate now runs the owner-reported `1232x638`
+  viewport for all four routes and fails if the upper/lower free lane gaps
+  differ by more than `2px`. It also retains all earlier fit, typography,
+  portrait and action assertions.
+- Fresh local in-app-browser evidence at `1232x638` measured equal gaps on all
+  routes; production budget Hero measured `93px` above and `93px` below the
+  content group with no horizontal overflow. The mobile `390x844` Hero was
+  also visually inspected.
+- Runtime commit `b937376` is pushed and live. `Code health`, `Deploy to
+  gh-pages`, production HTML confirmation and the production responsive matrix
+  passed.
+
 ## Unified wedding Hero system pending release (2026-09-11)
 
 - The previous shared component still permitted `standard`, `compact` and

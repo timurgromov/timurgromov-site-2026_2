@@ -36,4 +36,8 @@ the first Hero.
 
 ## Release status
 
-Pending commit, GitHub Pages deploy and exact production re-check.
+- Runtime commit `b937376` pushed to `main`.
+- GitHub Actions `Code health` and `Deploy to gh-pages` both passed.
+- The fresh production matrix passed. A production in-app-browser render of
+  the budget route at `1232x638` measured `93px` above and `93px` below the
+  content group, with no horizontal overflow.
