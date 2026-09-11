@@ -1414,3 +1414,35 @@ safety gap. `screen` Heroes remain `74% 0%`; every mobile Hero remains `72% 0%`.
 
 Do not apply the compact portrait position to the budget or scenario Hero, or
 to mobile.
+
+# DEC-2026-09-11-MOBILE-FINAL-CTA-PORTRAIT-SAFE-CROP
+
+Status: active
+Area: frontend, conversion CTA, responsive QA
+Decision date: 2026-09-11
+Evidence: owner iPhone screenshot, local rendered mobile review and responsive
+matrix
+
+Decision:
+
+The final `renderExpertConversionContour` is one shared CTA component. At
+`<=640px` it always applies the explicit top-safe portrait crop
+`object-position: 62% 0%`. This prevents a route's desktop crop from cutting
+the top of Timur's head in the wide homepage stencil. Desktop and tablet retain
+the existing route-specific focal points where needed.
+
+Do:
+
+- use the literal renderer and its shared mobile crop for every existing and
+  future final CTA;
+- keep `375x812`, `390x844`, `430x932` and `440x956` in the CTA portrait
+  acceptance matrix;
+- fail responsive QA when a shared CTA is missing its portrait or computes a
+  different mobile object position.
+
+Do not:
+
+- add a mobile per-route crop without an explicit owner decision;
+- alter the stencil, source payloads or CTA interaction while correcting only
+  the portrait crop;
+- use a desktop screenshot as mobile crop evidence.

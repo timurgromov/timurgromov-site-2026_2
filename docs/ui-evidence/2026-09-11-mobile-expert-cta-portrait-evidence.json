@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-11-mobile-expert-cta-portrait-safe-crop",
+  "change_kind": "responsive-final-cta-portrait-crop",
+  "status": "passed",
+  "requested_visible_change": "Keep the full top of Timur's head inside the shared final CTA portrait on mobile.",
+  "expected_visible_delta": "The preparation-plan desktop crop no longer applies inside the mobile stencil; every shared final CTA uses the dedicated top-safe mobile crop.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "d95c65d41e1b04189df5e1372200897ad26c0babb4c4b13af7320f859d123c45",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4324/articles/plan-podgotovki-k-svadbe/",
+    "source_ref": "working-tree",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "shared renderExpertConversionContour",
+    "state": "public anonymous visitor; final CTA revealed without opening a messenger link or form",
+    "selector_or_slide_id": "[data-testid^=expert-conversion-] .tg-plan-cta__photo img",
+    "action": "scroll the article to the final CTA"
+  },
+  "must_remain_unchanged": [
+    "Homepage transparent photo stencil and portrait asset",
+    "Desktop and tablet route-specific crops",
+    "CTA controls, phone, source payloads, links and consultation popup",
+    "No production messenger or form submission"
+  ],
+  "required_viewports": [
+    "375x812",
+    "390x844",
+    "430x932",
+    "440x956",
+    "639x900",
+    "640x900",
+    "641x900",
+    "1366x768",
+    "1440x900",
+    "1984x1046"
+  ],
+  "observations": [
+    {
+      "viewport": "375x812",
+      "viewport_source": "Fresh Chrome candidate render after scrolling the preparation-plan final CTA into view.",
+      "before_signature": "inherited preparation-plan desktop crop: 62% 27%",
+      "after_signature": "mobile top-safe crop: 62% 0%",
+      "observed_visible_result": "Computed crop is 62% 0%; document width equals 375px and no page error occurred.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "390x844",
+      "viewport_source": "Fresh Chrome candidate render after scrolling the preparation-plan final CTA into view.",
+      "before_signature": "inherited preparation-plan desktop crop: 62% 27%",
+      "after_signature": "mobile top-safe crop: 62% 0%",
+      "observed_visible_result": "Computed crop is 62% 0%; document width equals 390px and no page error occurred.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "430x932",
+      "viewport_source": "Fresh Chrome candidate render and rendered CTA capture after the last edit.",
+      "before_signature": "inherited preparation-plan desktop crop: 62% 27%; the owner screenshot visibly cuts the hair",
+      "after_signature": "mobile top-safe crop: 62% 0%; the rendered capture keeps the full top of the hair inside the stencil",
+      "observed_visible_result": "Computed crop is 62% 0%; document width equals 430px, no page error occurred and the rendered capture proves the visible head-safe frame.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "440x956",
+      "viewport_source": "Fresh Chrome candidate render after scrolling the preparation-plan final CTA into view.",
+      "before_signature": "inherited preparation-plan desktop crop: 62% 27%",
+      "after_signature": "mobile top-safe crop: 62% 0%",
+      "observed_visible_result": "Computed crop is 62% 0%; document width equals 440px and no page error occurred.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "639x900",
+      "viewport_source": "Fresh Chrome candidate render at the lower 640px boundary probe.",
+      "before_signature": "inherited preparation-plan desktop crop: 62% 27%",
+      "after_signature": "mobile top-safe crop: 62% 0%",
+      "observed_visible_result": "Computed crop is 62% 0%; document width equals 639px and no page error occurred.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "640x900",
+      "viewport_source": "Fresh Chrome candidate render at the exact 640px boundary.",
+      "before_signature": "inherited preparation-plan desktop crop: 62% 27%",
+      "after_signature": "mobile top-safe crop: 62% 0%",
+      "observed_visible_result": "Computed crop is 62% 0%; document width equals 640px and no page error occurred.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "641x900",
+      "viewport_source": "Fresh Chrome candidate render at the first desktop/tablet pixel above the breakpoint.",
+      "before_signature": "previous shared desktop/tablet crop: 62% 27%",
+      "after_signature": "preserved desktop/tablet crop: 62% 27%",
+      "observed_visible_result": "The mobile rule ends exactly at 640px: the preserved crop is 62% 27%, document width equals 641px and no page error occurred.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1366x768",
+      "viewport_source": "Fresh Chrome candidate render after scrolling the preparation-plan final CTA into view.",
+      "before_signature": "previous desktop crop: 62% 27%",
+      "after_signature": "preserved desktop crop: 62% 27%; mobile-only rule is inactive",
+      "observed_visible_result": "Desktop composition remains unchanged, with document width 1366px and no page error.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "viewport_source": "Fresh Chrome candidate render after scrolling the preparation-plan final CTA into view.",
+      "before_signature": "previous desktop crop: 62% 27%",
+      "after_signature": "preserved desktop crop: 62% 27%; mobile-only rule is inactive",
+      "observed_visible_result": "Desktop composition remains unchanged, with document width 1440px and no page error.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1984x1046",
+      "viewport_source": "Fresh Chrome candidate render after scrolling the preparation-plan final CTA into view.",
+      "before_signature": "previous desktop crop: 62% 27%",
+      "after_signature": "preserved desktop crop: 62% 27%; mobile-only rule is inactive",
+      "observed_visible_result": "Wide desktop composition remains unchanged, with document width 1984px and no page error.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 0,
+    "selected_variant": "top-safe mobile crop: 62% 0%",
+    "owner_approval_reference": "Owner supplied the clipped-head mobile screenshot and requested a universal mobile rule."
+  }
+}

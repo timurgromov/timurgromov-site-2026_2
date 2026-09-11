@@ -94,10 +94,21 @@ function pagePathToRoute(path) {
 }
 
 const routes = walkAstroPages(pagesRoot).map(pagePathToRoute).sort();
+const finalExpertConversionRoutes = [
+  "/scenario/",
+  "/materials/",
+  "/articles/plan-podgotovki-k-svadbe/",
+  "/articles/byudzhet-svadby-v-moskve/",
+];
 const viewports = parseViewports(
   process.env.RESPONSIVE_LAYOUT_VIEWPORTS || defaultViewports.join(","),
 );
 const routeSpecificGroups = [
+  ...["375x812", "430x932", "440x956"].flatMap((name) => {
+    if (viewports.some((viewport) => viewport.name === name)) return [];
+    const [width, height] = name.split("x").map(Number);
+    return [{ viewport: { width, height, name }, routes: finalExpertConversionRoutes }];
+  }),
   ...(viewports.some(({ name }) => name === "1232x582") ? [] : [{
       viewport: { width: 1232, height: 582, name: "1232x582" },
       routes: ["/articles/byudzhet-svadby-v-moskve/"],
@@ -156,6 +167,16 @@ function assertGenericLayout(result) {
   }
   if (result.fullyOffscreenControls.length) {
     fail("Visible interactive controls are fully outside the viewport", result);
+  }
+}
+
+function assertExpertConversionPortrait(result) {
+  if (!finalExpertConversionRoutes.includes(result.route) || result.viewport.width > 640) return;
+  if (!result.expertConversionPortrait) {
+    fail("Final expert CTA portrait is missing", result);
+  }
+  if (result.expertConversionPortrait.objectPosition !== "62% 0%") {
+    fail("Mobile final expert CTA portrait lost its top-safe crop", result);
   }
 }
 
@@ -536,6 +557,14 @@ async function measure(page, route, viewport, watchedTextSelectors) {
             : null,
         }
       : null;
+    const expertConversionPortraitImage = document.querySelector('[data-testid^="expert-conversion-"] .tg-plan-cta__photo img');
+    const expertConversionPortrait = expertConversionPortraitImage
+      ? {
+          objectPosition: getComputedStyle(expertConversionPortraitImage).objectPosition,
+          image: elementBox(expertConversionPortraitImage),
+          stencil: elementBox(expertConversionPortraitImage.closest(".tg-plan-cta__photo")),
+        }
+      : null;
 
     return {
       route,
@@ -550,6 +579,7 @@ async function measure(page, route, viewport, watchedTextSelectors) {
       firstScreenHeroHeading: elementBox(firstScreenHero?.querySelector("h1")),
       firstScreenHeroLead: elementBox(firstScreenHero?.querySelector("[data-first-screen-lead]")),
       weddingArticleUi,
+      expertConversionPortrait,
       articleHubUi: route === "/articles/" ? {
         cardCount: document.querySelectorAll(".library-card").length,
         hasIndependentPromo: Boolean(document.querySelector(".library-start, .library-next, .library-button")),
@@ -624,6 +654,7 @@ try {
           runtimeErrors: [...runtimeErrors],
         };
         assertGenericLayout(result);
+        assertExpertConversionPortrait(result);
         assertHomeHero(result);
         assertFirstScreenPrimaryActions(result);
         assertWeddingArticleUi(result);

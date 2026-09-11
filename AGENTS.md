@@ -68,6 +68,7 @@ Meaningful change - это:
 - Если основной CTA находится в Hero, lead и wrapper действий обязаны иметь `data-first-screen-lead` и `data-first-screen-primary-actions`: H1, lead и все primary controls должны полностью помещаться при `scrollY=0` в обязательной матрице, а responsive gate должен падать, если marker выходит ниже viewport. Подробный owner-контракт — `UX.md`, раздел `Permanent typography and CTA rule`.
 - Каждая публичная свадебная SEO- или редакционная статья по умолчанию заканчивается ровно одним literal `renderExpertConversionContour` после полезного контента и перед общим footer. Это не сценарное решение для каждой статьи: исключение возможно только по явному решению владельца. Каталог `/articles/` статьёй не является и остаётся без этого блока; другие типы страниц обсуждаются отдельно.
 - Любой публичный CTA, который запускает Telegram/MAX-бот, Mini App или отправляет форму, обязан передавать в EventBudjet структурированный source через `expertCtaSource`: intent, site, page и placement. Telegram/MAX — это provider, а не замена source. Нельзя писать raw `start` payload, использовать generic `site_plan`/`site_meeting` для новой точки входа или переиспользовать source другой страницы.
+- Для общего финального CTA-портрета mobile crop — отдельный universal contract: при `<=640px` `renderExpertConversionContour` всегда ставит `object-position: 62% 0%`, чтобы верх головы оставался в stencil. Не наследовать desktop/page crop на mobile; постоянные probes — `375x812`, `390x844`, `430x932`, `440x956`.
 
 ## Required Checks
 

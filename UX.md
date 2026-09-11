@@ -46,9 +46,12 @@ Updated: 2026-09-10
 - The portrait is not a generic rounded rectangle or a fixed `16:9` crop. It
   uses the existing transparent photo stencil from the homepage block «Честно
   о ценах». The same wide stencil is compact on desktop/tablet and moves above
-  the copy on mobile; each route may adjust only `object-position` so Timur's
-  face remains inside the visible part of the stencil.
-- Required checks: `390x844`, `640/641`, `900/901`, `1180x820`, `1366x768`,
+  the copy on mobile. Desktop/tablet may use the existing route crop; mobile
+  at `<=640px` always resets to the shared top-safe `object-position: 62% 0%`
+  so the full top of Timur's head remains inside the stencil. This is a
+  universal CTA rule, not a page-specific adjustment.
+- Required checks: `375x812`, `390x844`, `430x932`, `440x956`, `640/641`,
+  `900/901`, `1180x820`, `1366x768`,
   `1440x900`, `1984x1046`; no horizontal overflow and no clipped button text.
 - Preserved invariants: homepage, Direct CTA/protection and the useful page
   content above the shared contour are untouched.

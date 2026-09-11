@@ -15,6 +15,11 @@ card, buttons or pop-up.
 - Required input: page `entrypoint`. The renderer emits the final-island
   source automatically; Telegram/MAX materials and the contact pop-up receive
   different, exact source codes.
+- Mobile portrait rule: at `<=640px` the common horizontal stencil uses the
+  dedicated top-safe crop `object-position: 62% 0%` for every entrypoint. Do
+  not inherit or introduce a page/desktop crop on mobile: the full top of
+  Timur's head must stay in frame. Desktop and tablet can retain only the
+  existing route-specific crop where it serves their composition.
 
 ## Default rule for wedding articles
 

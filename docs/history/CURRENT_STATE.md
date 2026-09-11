@@ -1,5 +1,19 @@
 # Current State - 2026-09-11
 
+## Mobile final CTA portrait safe crop ready for release (2026-09-11)
+
+- The shared final CTA on `/scenario/`, `/materials/`, the preparation guide
+  and the wedding-budget article now uses its own mobile focal rule:
+  `object-position: 62% 0%` at `<=640px`. It no longer inherits a page's
+  desktop crop, so the full top of Timur's head stays inside the horizontal
+  photo stencil on phones.
+- Desktop and tablet route-specific crops, the photo stencil/asset, CTA
+  controls, deep links, sources and consultation popup are unchanged.
+- The responsive gate permanently covers `375x812`, `430x932` and `440x956`
+  for every shared CTA route and fails if the mobile crop changes or the
+  portrait disappears. The local build and full matrix passed; a fresh
+  `430x932` candidate capture confirms the requested visible crop.
+
 ## Wedding-budget final conversion contour ready for release (2026-09-11)
 
 - `/articles/byudzhet-svadby-v-moskve/` now ends with the literal homepage
