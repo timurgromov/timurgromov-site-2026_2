@@ -4,6 +4,7 @@ import "../styles/wedding-article-ui.css";
 interface Props {
   homeHref: string;
   meta: string;
+  heightMode?: "screen" | "compact";
   testId?: string;
   mediaTestId?: string;
 }
@@ -11,6 +12,7 @@ interface Props {
 const {
   homeHref,
   meta,
+  heightMode = "screen",
   testId,
   mediaTestId,
 } = Astro.props;
@@ -20,8 +22,12 @@ const hasActions = Astro.slots.has("actions");
 <header
   class:list={[
     "tg-article-hero",
-    { "tg-article-hero--with-actions": hasActions },
+    {
+      "tg-article-hero--with-actions": hasActions,
+      "tg-article-hero--compact": heightMode === "compact",
+    },
   ]}
+  data-hero-height={heightMode}
   data-testid={testId}
 >
   <div class="tg-article-hero__media" data-testid={mediaTestId} aria-hidden="true"></div>

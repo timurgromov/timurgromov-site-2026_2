@@ -24,12 +24,24 @@ system.
 - CTA controls use their existing shared components. Article pages must not
   redraw split buttons locally.
 
-## One Hero composition
+## One Hero composition, two shared height roles
 
-There are no page-level `standard`, `compact` or CTA-height variants. Every
-wedding-editorial route uses one `WeddingArticleHero` composition. A page may
-add its conversion controls in the action slot, but that must not change the
-Hero's font scale, top anchor, bottom anchor, portrait crop or vertical grid.
+Every wedding-editorial route uses one `WeddingArticleHero` construction. A
+page may add its conversion controls in the action slot, but that must not
+change the Hero's font scale, top anchor, bottom anchor, portrait crop or
+vertical grid.
+
+Desktop Hero height has only two owner-approved shared roles:
+
+- `screen` (the default): first-screen conversion or a substantial editorial
+  cover. It occupies the available viewport height.
+- `compact`: an explicitly approved short editorial cover. It is
+  `clamp(480px, 64svh, 640px)` and may grow naturally if its content requires
+  it. It never crops text. Current approved routes are `/articles/` and
+  `/articles/plan-podgotovki-k-svadbe/`.
+
+This is not permission to tune title size or height page by page. The same
+tokens, portrait crop, top/bottom anchors, type roles and grid remain shared.
 
 The only adaptive modes are global viewport modes applied to every route:
 
@@ -41,7 +53,7 @@ The only adaptive modes are global viewport modes applied to every route:
   line and author row; it must not strand the free space below the CTA or lead;
 - mobile: one dedicated mobile scale and crop for all routes.
 
-This is an adaptive system, not permission to tune one article separately.
+Mobile has one shared natural document flow. Compact mode is desktop-only.
 
 ## Fixed roles
 

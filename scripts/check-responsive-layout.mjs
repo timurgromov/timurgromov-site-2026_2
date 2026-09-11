@@ -297,6 +297,23 @@ function assertWeddingArticleUi(result) {
       fail("Wedding article Hero leaves its free space on only one side of the content group", result);
     }
   }
+  const compactRoutes = new Set([
+    "/articles/",
+    "/articles/plan-podgotovki-k-svadbe/",
+  ]);
+  const shouldUseCompactHero = compactRoutes.has(result.route);
+  if (result.weddingArticleUi.isCompact !== shouldUseCompactHero) {
+    fail("Wedding article Hero selected an unapproved height role", result);
+  }
+  if (!isMobile && shouldUseCompactHero) {
+    const expectedCompactHeroHeight = Math.min(640, Math.max(480, result.viewport.height * 0.64));
+    if (Math.abs(result.weddingArticleUi.heroHeight - expectedCompactHeroHeight) > 2) {
+      fail("Short editorial Hero lost its shared compact height", {
+        expectedCompactHeroHeight,
+        ...result,
+      });
+    }
+  }
   if (result.route === "/articles/") {
     if (!result.articleHubUi || result.articleHubUi.cardCount < 1) {
       fail("Article hub published-material list is missing", result);
@@ -494,6 +511,7 @@ async function measure(page, route, viewport, watchedTextSelectors) {
             ? Number((weddingArticleLead.getBoundingClientRect().top - weddingArticleHeading.getBoundingClientRect().bottom).toFixed(2))
             : null,
           hasActions: Boolean(weddingArticleActions),
+          isCompact: weddingArticleHero.dataset.heroHeight === "compact",
           leadToActionsGap: weddingArticleLead && weddingArticleActions
             ? Number((weddingArticleActions.getBoundingClientRect().top - weddingArticleLead.getBoundingClientRect().bottom).toFixed(2))
             : null,
@@ -507,6 +525,7 @@ async function measure(page, route, viewport, watchedTextSelectors) {
             ? Number(weddingArticleActions.querySelector("a, button")?.getBoundingClientRect().height.toFixed(2) || 0)
             : null,
           heroBottom: Number(weddingArticleHero.getBoundingClientRect().bottom.toFixed(2)),
+          heroHeight: Number(weddingArticleHero.getBoundingClientRect().height.toFixed(2)),
           metaBottomGap: weddingArticleMeta
             ? Number((weddingArticleHero.getBoundingClientRect().bottom - weddingArticleMeta.getBoundingClientRect().bottom).toFixed(2))
             : null,

@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-11-compact-short-editorial-heroes",
+  "change_kind": "shared-editorial-hero-height-role",
+  "status": "passed",
+  "requested_visible_change": "Make only the short-copy article hub and preparation-plan Hero shorter without making their type smaller or cropping Timur's head.",
+  "expected_visible_delta": "At the same desktop viewport, the next section begins after a compact cover; the shared title/lead hierarchy remains intact and the portrait retains visible air above the head.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "055ab88dc6c2c8ab2b0e90d48fae04647e494737960e78608d2a894fb4095435",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4326/articles/",
+    "source_ref": "fresh local Astro preview from the current working tree",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/articles/ and /articles/plan-podgotovki-k-svadbe/",
+    "state": "anonymous visitor at scrollY=0",
+    "selector_or_slide_id": ".tg-article-hero[data-hero-height=compact]",
+    "action": "direct navigation in a fresh in-app browser tab with an exact viewport override"
+  },
+  "must_remain_unchanged": [
+    "Shared wedding Article Hero DOM and font scale",
+    "Budget conversion Hero, its CTA destinations and source codes",
+    "Scenario Hero height role",
+    "Portrait focus: 74% 0% desktop and 72% 0% mobile",
+    "Mobile natural-flow Hero behavior"
+  ],
+  "required_viewports": [
+    "390x844",
+    "1232x638",
+    "1911x764"
+  ],
+  "observations": [
+    {
+      "viewport": "1232x638",
+      "viewport_source": "Owner-reported Chrome content viewport, reproduced in the in-app browser with an explicit exact viewport override",
+      "before_signature": "Both routes used the default full screen Hero, approximately 639px tall, leaving a large lower field after short copy.",
+      "after_signature": "Both routes render data-hero-height=compact and a 481px Hero. Hub main-group outer gaps are 112.23px/112.23px; preparation-plan gaps are 80.37px/80.37px. Background focus is 74% 0%.",
+      "observed_visible_result": "The following warm section enters the first view, text remains at the shared size, and the portrait has visible upper room above the head.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1911x764",
+      "viewport_source": "In-app browser exact resize",
+      "before_signature": "The preparation plan kept a full-window Hero despite a two-line H1 and short lead.",
+      "after_signature": "The preparation Hero is 489.95px tall (64svh), uses background-position 74% 0%, and has no horizontal overflow.",
+      "observed_visible_result": "The full hair/head remains inside the photograph with breathing room above it while the shorter Hero stops before an empty lower screen.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "390x844",
+      "viewport_source": "In-app browser exact resize",
+      "before_signature": "Mobile used the shared natural-flow Hero.",
+      "after_signature": "Compact routes return to min-height:auto and retain background-position 72% 0% with no horizontal overflow.",
+      "observed_visible_result": "No mobile text compression or portrait-head crop was introduced.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 2,
+    "selected_variant": "shared compact height role only for the two owner-approved short editorial covers",
+    "owner_approval_reference": "Owner chose lower Hero height over larger typography for the two short-copy routes on 2026-09-11."
+  }
+}

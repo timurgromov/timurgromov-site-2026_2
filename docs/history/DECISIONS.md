@@ -1315,8 +1315,9 @@ Area: frontend, editorial UX, responsive QA
 Decision date: 2026-09-11
 Evidence: owner comparison of all four live wedding routes and local rendered
 comparison against the approved `/scenario/` hierarchy
-Supersedes: page-level `standard`, `compact`, CTA-height and wide-short focal
-variants in the wedding Article UI Kit
+Supersedes: earlier page-level `standard`, CTA-height and wide-short focal
+variants in the wedding Article UI Kit. The compact-role exception below
+supersedes this decision's former blanket ban on a short editorial Hero.
 
 Decision:
 
@@ -1333,7 +1334,7 @@ Do:
 - keep one desktop H1/lead scale and one portrait focal point across the four
   routes at a shared viewport;
 - use only global short-height modes, triggered by viewport height and applied
-  uniformly to every Hero;
+  uniformly to every Hero of the same height role;
 - keep the service block anchored at the top and author row anchored at the
   bottom on desktop, then centre the main content group in the resulting lane;
   do not strand available air below the group;
@@ -1346,8 +1347,45 @@ Do:
 
 Do not:
 
-- reintroduce `titleSize`, `compact`, a CTA-specific Hero height or a page-local
-  media focal override;
+- reintroduce `titleSize`, a CTA-specific Hero height or a page-local media
+  focal override;
 - use title length as a reason to change a route's type role;
 - accept a numerical overflow pass without checking whether space is allocated
   between semantic groups rather than stranded below the Hero.
+
+# DEC-2026-09-11-COMPACT-SHORT-EDITORIAL-HERO
+
+Status: active
+Area: frontend, editorial UX, responsive QA
+Decision date: 2026-09-11
+Evidence: owner review of the two short-copy covers at `1232x638`; the
+full-screen shared Hero left a visibly excessive lower field despite correct
+type and portrait focal point
+Supersedes: the blanket all-routes full-screen-height reading of
+DEC-2026-09-11-ONE-WEDDING-HERO-NO-PAGE-VARIANTS
+
+Decision:
+
+The Article UI Kit has one shared Hero component and typography system, with
+two explicit desktop height roles. `screen` remains the default. `compact` is
+an owner-approved short-cover role only for `/articles/` and
+`/articles/plan-podgotovki-k-svadbe/`: `clamp(480px, 64svh, 640px)`, growing
+naturally if its content needs more space. It is not inferred from title
+length, presence of CTA or a one-off media override. On mobile both roles use
+the same natural-flow Hero.
+
+Do:
+
+- keep the same DOM, font scale, service-line anchor, byline anchor and
+  portrait focus (`74% 0%` desktop, `72% 0%` mobile) in both roles;
+- reduce only the lower portion of the short cover, preserving visible air
+  above Timur's head;
+- test the two compact routes at `1232x638`, wide short desktop and mobile;
+- make the responsive gate fail if a compact route loses the shared role or
+  its declared desktop height.
+
+Do not:
+
+- reduce title or lead type to manufacture a shorter cover;
+- silently opt another article into `compact`;
+- crop the portrait differently to compensate for the height change.

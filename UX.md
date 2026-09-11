@@ -120,6 +120,12 @@ the shared slots. They must not select another Hero mode, font size or height.
   are centred as one group in the lane between them. The free space above and
   below that group must match within `2px`. On mobile the Hero returns to its
   natural document flow with its own shared padding.
+- Desktop height has two shared roles. `screen` is reserved for a conversion
+  Hero or substantial editorial cover; `compact` is the approved short-cover
+  role for `/articles/` and the preparation guide. Compact is
+  `clamp(480px, 64svh, 640px)` and remains content-safe: it grows rather than
+  cropping text. It does not alter typography, the portrait focal point or the
+  author hierarchy.
 - The first editorial block uses the shared hierarchy: H2 is capped at `38px`
   on desktop, body copy is `19px / 1.68` sans on desktop and `17px / 1.55` on
   mobile. `Instrument Serif` is reserved for display emphasis, not entire

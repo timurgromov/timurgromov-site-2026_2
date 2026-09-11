@@ -43,6 +43,12 @@
   padding-bottom: 76px;
 }
 
+/* Shared short-cover role for explicitly approved editorial routes. */
+.tg-article-hero--compact,
+.tg-article-hero--compact .tg-article-hero__shell {
+  min-height: clamp(480px, 64svh, 640px);
+}
+
 .tg-article-hero__kicker {
   display: flex;
   flex-direction: column;
@@ -283,6 +289,11 @@
 
   .tg-article-hero,
   .tg-article-hero__shell {
+    min-height: auto;
+  }
+
+  .tg-article-hero--compact,
+  .tg-article-hero--compact .tg-article-hero__shell {
     min-height: auto;
   }
 
