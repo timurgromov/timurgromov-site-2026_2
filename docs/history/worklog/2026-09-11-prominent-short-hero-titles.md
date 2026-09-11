@@ -11,6 +11,9 @@
   `WeddingArticleHero.astro`, used only by `/scenario/` and `/articles/`.
   At desktop `>=1200px` wide and `>=781px` high it scales H1 to `52–68px`;
   short desktop and mobile retain their established smaller scales.
+- Updated the shared responsive assertion so it verifies title font consistency
+  within each explicit title role and fails if a route gains `prominent` outside
+  the two approved covers.
 
 ## Verification
 

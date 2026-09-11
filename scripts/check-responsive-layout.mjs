@@ -265,7 +265,12 @@ function assertWeddingArticleUi(result) {
     "/articles/",
     "/articles/plan-podgotovki-k-svadbe/",
   ]);
+  const prominentTitleRoutes = new Set([
+    "/articles/",
+    "/scenario/",
+  ]);
   const shouldUseCompactHero = compactRoutes.has(result.route);
+  const shouldHaveProminentTitleRole = prominentTitleRoutes.has(result.route);
   if (result.weddingArticleUi.mediaTransform !== "none") {
     fail("Wedding article portrait must not be decoratively scaled", result);
   }
@@ -327,6 +332,9 @@ function assertWeddingArticleUi(result) {
   }
   if (result.weddingArticleUi.isCompact !== shouldUseCompactHero) {
     fail("Wedding article Hero selected an unapproved height role", result);
+  }
+  if (result.weddingArticleUi.isProminentTitle !== shouldHaveProminentTitleRole) {
+    fail("Wedding article Hero selected an unapproved title-emphasis role", result);
   }
   if (!isMobile && shouldUseCompactHero) {
     const expectedCompactHeroHeight = Math.min(640, Math.max(480, result.viewport.height * 0.75));
@@ -395,7 +403,6 @@ function assertWeddingArticleCrossRouteConsistency(results) {
     for (const candidate of ui.slice(1)) {
       for (const [metric, tolerance] of [
         ["kickerTop", 1],
-        ["headingFontPx", 0.5],
         ["leadFontPx", 0.5],
         ["metaBottomGap", 1],
       ]) {
@@ -404,6 +411,22 @@ function assertWeddingArticleCrossRouteConsistency(results) {
             viewport,
             metric,
             reference,
+            candidate,
+          });
+        }
+      }
+    }
+    for (const isProminentTitle of [false, true]) {
+      const titleRoleGroup = ui.filter((candidate) => candidate.isProminentTitle === isProminentTitle);
+      if (titleRoleGroup.length < 2) continue;
+      const titleReference = titleRoleGroup[0];
+      for (const candidate of titleRoleGroup.slice(1)) {
+        if (Math.abs(candidate.headingFontPx - titleReference.headingFontPx) > 0.5) {
+          fail("Wedding article routes drifted within a shared Hero title role", {
+            viewport,
+            isProminentTitle,
+            metric: "headingFontPx",
+            reference: titleReference,
             candidate,
           });
         }
@@ -528,6 +551,7 @@ async function measure(page, route, viewport, watchedTextSelectors) {
             : null,
           hasActions: Boolean(weddingArticleActions),
           isCompact: weddingArticleHero.dataset.heroHeight === "compact",
+          isProminentTitle: weddingArticleHero.classList.contains("tg-article-hero--prominent-title"),
           leadToActionsGap: weddingArticleLead && weddingArticleActions
             ? Number((weddingArticleActions.getBoundingClientRect().top - weddingArticleLead.getBoundingClientRect().bottom).toFixed(2))
             : null,

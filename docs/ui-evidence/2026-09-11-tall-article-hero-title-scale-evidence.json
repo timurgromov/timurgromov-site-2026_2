@@ -7,7 +7,7 @@
   "expected_visible_delta": "At wide/tall desktop, /scenario/ and /articles/ use the owner-selected prominent 68px H1 while retaining centred content; long-title shared covers, short desktop and mobile retain their base scales.",
   "attempt_number": 1,
   "checked_after_last_edit": true,
-  "candidate_diff_sha256": "51cca4b166fb430e0a6b82595d3bdcd1511f7abe715553b704b8630d88204929",
+  "candidate_diff_sha256": "d64c6aa960cecc0a4f05deab2d1f0327e706c45705eb75b03e1ba4544d622595",
   "served_candidate": {
     "url": "http://127.0.0.1:4321/scenario/",
     "companion_url": "http://127.0.0.1:4321/articles/",
