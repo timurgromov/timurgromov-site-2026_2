@@ -7,7 +7,7 @@
   "expected_visible_delta": "At the same desktop viewport, the next section begins after a compact cover; the shared title/lead hierarchy remains intact and the portrait retains visible air above the head.",
   "attempt_number": 1,
   "checked_after_last_edit": true,
-  "candidate_diff_sha256": "055ab88dc6c2c8ab2b0e90d48fae04647e494737960e78608d2a894fb4095435",
+  "candidate_diff_sha256": "f5b7bb7099a2db83db98aff4c0b06f70bd384f3a8036cfb599cdd433b678b9cc",
   "served_candidate": {
     "url": "http://127.0.0.1:4326/articles/",
     "source_ref": "fresh local Astro preview from the current working tree",
@@ -47,7 +47,7 @@
       "viewport": "1911x764",
       "viewport_source": "In-app browser exact resize",
       "before_signature": "The preparation plan kept a full-window Hero despite a two-line H1 and short lead.",
-      "after_signature": "The preparation Hero is 489.95px tall (64svh), uses background-position 74% 0%, and has no horizontal overflow.",
+      "after_signature": "The preparation Hero is 573px tall (75svh), uses background-position 74% 0%, and has no horizontal overflow.",
       "observed_visible_result": "The full hair/head remains inside the photograph with breathing room above it while the shorter Hero stops before an empty lower screen.",
       "delta_visible": true,
       "target_visible": true,

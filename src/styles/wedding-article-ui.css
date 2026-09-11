@@ -46,7 +46,7 @@
 /* Shared short-cover role for explicitly approved editorial routes. */
 .tg-article-hero--compact,
 .tg-article-hero--compact .tg-article-hero__shell {
-  min-height: clamp(480px, 64svh, 640px);
+  min-height: clamp(480px, 75svh, 640px);
 }
 
 .tg-article-hero__kicker {

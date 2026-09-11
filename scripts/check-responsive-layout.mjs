@@ -306,7 +306,7 @@ function assertWeddingArticleUi(result) {
     fail("Wedding article Hero selected an unapproved height role", result);
   }
   if (!isMobile && shouldUseCompactHero) {
-    const expectedCompactHeroHeight = Math.min(640, Math.max(480, result.viewport.height * 0.64));
+    const expectedCompactHeroHeight = Math.min(640, Math.max(480, result.viewport.height * 0.75));
     if (Math.abs(result.weddingArticleUi.heroHeight - expectedCompactHeroHeight) > 2) {
       fail("Short editorial Hero lost its shared compact height", {
         expectedCompactHeroHeight,

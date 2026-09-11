@@ -14,7 +14,7 @@ role.
 
 Keep the shared wedding Article Hero, typography, portrait focal point and
 desktop anchors. Introduce the explicit `compact` height role for the two
-approved routes: `clamp(480px, 64svh, 640px)`. It grows with content and
+approved routes: `clamp(480px, 75svh, 640px)`. It grows with content and
 returns to natural flow on mobile.
 
 The change removes lower empty field instead of making type smaller. Portrait
@@ -28,7 +28,7 @@ air above Timur's head.
   the shared scale.
 - The article hub content lane measures `112.23px` above and below the main
   group; the preparation plan measures `80.37px` above and below it.
-- At `1911x764`, the preparation Hero measures `489.95px` and the portrait
+- At `1911x764`, the preparation Hero measures `573px` and the portrait
   head remains inside the image with upper breathing room.
 - At `390x844`, both use natural height; no horizontal overflow was observed.
 - `npm run verify:responsive-layout` passed after the change.

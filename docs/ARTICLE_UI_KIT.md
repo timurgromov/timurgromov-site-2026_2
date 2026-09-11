@@ -36,7 +36,7 @@ Desktop Hero height has only two owner-approved shared roles:
 - `screen` (the default): first-screen conversion or a substantial editorial
   cover. It occupies the available viewport height.
 - `compact`: an explicitly approved short editorial cover. It is
-  `clamp(480px, 64svh, 640px)` and may grow naturally if its content requires
+  `clamp(480px, 75svh, 640px)` and may grow naturally if its content requires
   it. It never crops text. Current approved routes are `/articles/` and
   `/articles/plan-podgotovki-k-svadbe/`.
 

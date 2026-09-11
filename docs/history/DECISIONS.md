@@ -1369,7 +1369,7 @@ Decision:
 The Article UI Kit has one shared Hero component and typography system, with
 two explicit desktop height roles. `screen` remains the default. `compact` is
 an owner-approved short-cover role only for `/articles/` and
-`/articles/plan-podgotovki-k-svadbe/`: `clamp(480px, 64svh, 640px)`, growing
+`/articles/plan-podgotovki-k-svadbe/`: `clamp(480px, 75svh, 640px)`, growing
 naturally if its content needs more space. It is not inferred from title
 length, presence of CTA or a one-off media override. On mobile both roles use
 the same natural-flow Hero.
