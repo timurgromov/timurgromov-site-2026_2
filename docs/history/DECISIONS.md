@@ -1339,8 +1339,9 @@ Do:
   use the shared `72–88px` scale and `min(1000px, 58vw)` measure only on the
   selected short-copy covers at tall desktop, plus its `60–76px` windowed
   desktop role at `>=800px` and `<=780px` high; that role uses one-line display
-  measure `min(1000px, calc(100vw - 48px))`, while long-title covers keep the
-  base scale at every height;
+  measure `min(1000px, calc(100vw - 48px))` and a matching `24–28px` / `22–25px`
+  lead scale on tall/windowed desktop, while long-title covers keep the base
+  scale at every height;
 - use only global short-height modes, triggered by viewport height and applied
   uniformly to every Hero of the same height role;
 - keep the service block anchored at the top and author row anchored at the

@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-11-prominent-hero-lead",
+  "change_kind": "shared-hero-subtitle-typography",
+  "status": "passed",
+  "requested_visible_change": "Increase the subtitle together with the already-prominent short Hero title so the composition does not feel unfinished.",
+  "expected_visible_delta": "At 1232x582, /scenario/ and /articles/ change the selected lead from the generic 20.944px role to 24.64px while retaining a one-line H1, equal vertical lane gaps and no overflow.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "07da556498dbdd41cd716062f7bba5a453bec683a6db863e84484248e524d878",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/scenario/?candidate=prominent-lead",
+    "companion_url": "http://127.0.0.1:4321/articles/?candidate=prominent-lead",
+    "source_ref": "fresh local Astro preview candidate",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/scenario/ and /articles/",
+    "state": "public anonymous reader at scrollY=0",
+    "selector_or_slide_id": ".tg-article-hero--prominent-title .tg-article-hero__lead",
+    "action": "fresh-load each route after the final CSS edit"
+  },
+  "must_remain_unchanged": [
+    "Hero photo crop and height role",
+    "service-line top anchor and author-row bottom anchor",
+    "prominent H1 role and one-line display measure",
+    "long-title article covers and mobile subtitle role"
+  ],
+  "required_viewports": ["390x844", "1232x582", "1280x720", "1911x839"],
+  "observations": [
+    {
+      "viewport": "1232x582",
+      "viewport_source": "owner-reported CSS viewport, rendered in fresh local browser contexts",
+      "before_signature": "Selected leads used the generic 20.944px short-desktop role.",
+      "after_signature": "/scenario/ and /articles/ use a 24.64px lead; scenario gaps=118.06px/118.06px and articles gaps=96.13px/96.13px.",
+      "observed_visible_result": "The subtitle is visibly stronger while the service line remains separated from the centred content group.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1280x720",
+      "viewport_source": "Codex in-app browser on a freshly opened local candidate",
+      "before_signature": "The scenario subtitle used the generic short-desktop 22px maximum role.",
+      "after_signature": "Scenario lead=25px with 29.5px line-height; H1=68.48px one line and lane gaps=186.25px/186.26px.",
+      "observed_visible_result": "Visible browser review shows the enlarged lead reads as part of the display composition without crowding the top service anchor or the author row.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1911x839",
+      "viewport_source": "fresh local Playwright render",
+      "before_signature": "Selected leads used the generic desktop 22px maximum role.",
+      "after_signature": "/scenario/ and /articles/ use a 28px lead; scenario gaps=181.42px/181.44px and articles gaps=110.08px/110.09px.",
+      "observed_visible_result": "The wide desktop composition retains a one-line display title, stronger subtitle and balanced content lane.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "390x844",
+      "viewport_source": "fresh local Playwright render",
+      "before_signature": "Mobile used the shared natural-flow 19px lead role.",
+      "after_signature": "/scenario/ and /articles/ retain the shared 19px lead role with document scrollWidth=390px.",
+      "observed_visible_result": "The desktop-only subtitle role is inactive on mobile; text remains readable without horizontal overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ]
+}

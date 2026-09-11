@@ -75,8 +75,10 @@ Mobile has one shared natural document flow. Compact mode is desktop-only.
   `<=780px` high, those same two short-copy covers use the role's `60–76px`
   scale and `min(1000px, calc(100vw - 48px))` measure. This keeps the short
   display title on one deliberate line, so the service line stays in the top
-  Hero zone rather than visually adhering to a wrapped heading. Mobile retains
-  the shared natural-flow scale.
+  Hero zone rather than visually adhering to a wrapped heading. Their lead is
+  part of the same display role: `24–28px` at tall desktop and `22–25px` in
+  the windowed-desktop mode, both at `1.18` line-height. Mobile retains the
+  shared natural-flow scale.
 - Desktop Hero is a three-row grid: service line at the top, author row at the
   bottom and the H1/lead/action group centred in the remaining lane. On desktop
   the free gap above and below that group must be equal within `2px`; metadata

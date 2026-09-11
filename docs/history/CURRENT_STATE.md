@@ -1,5 +1,21 @@
 # Current State - 2026-09-11
 
+## Prominent Hero subtitle role ready for release (2026-09-11)
+
+- The owner identified that the two intentionally prominent short-copy covers
+  had a large H1 but an unchanged base subtitle. `/scenario/` and `/articles/`
+  now pair their display titles with `24–28px` tall-desktop and `22–25px`
+  windowed-desktop leads; long-title covers and mobile preserve the shared base
+  role.
+- At the actual `1232x582` desktop window, both leads are `24.64px` rather
+  than `20.944px`; the scenario and articles content lanes remain vertically
+  balanced at `118.06px/118.06px` and `96.13px/96.13px`. The local visual
+  review confirms the top service anchor is distinct from the centred title and
+  lead group.
+- `npm run build` and `npm run verify:responsive-layout` pass. The pending
+  release must still complete commit, push, GitHub Pages deploy and fresh
+  production verification.
+
 ## Mobile final CTA portrait framing correction ready for release (2026-09-11)
 
 - The former `62% 0%` mobile crop correctly stopped clipping but left too much

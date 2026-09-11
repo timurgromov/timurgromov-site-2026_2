@@ -116,6 +116,11 @@
     max-width: min(1000px, 58vw);
     font-size: clamp(72px, 4.6vw, 88px);
   }
+
+  .tg-article-hero--prominent-title .tg-article-hero__lead {
+    font-size: clamp(24px, 1.75vw, 28px);
+    line-height: 1.18;
+  }
 }
 
 .tg-article-hero__title h1 em {
@@ -305,6 +310,11 @@
   .tg-article-hero--prominent-title .tg-article-hero__title h1 {
     max-width: min(1000px, calc(100vw - 48px));
     font-size: clamp(60px, 5.35vw, 76px);
+  }
+
+  .tg-article-hero--prominent-title .tg-article-hero__lead {
+    font-size: clamp(22px, 2vw, 25px);
+    line-height: 1.18;
   }
 }
 
