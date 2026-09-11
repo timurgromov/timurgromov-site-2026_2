@@ -3,6 +3,9 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import CalculatorCtaPair from "../../components/CalculatorCtaPair.astro";
 import WeddingArticleHero from "../../components/WeddingArticleHero.astro";
 import WeddingArticleIntro from "../../components/WeddingArticleIntro.astro";
+import { renderExpertConversionContour } from "../../site/expert-conversion";
+import { renderConsultationContactPopup } from "../../site/consultation-contact-popup";
+import { expertCtaSource, maxMeetingUrlFor, maxPlanUrlFor, telegramMeetingUrlFor, telegramPlanUrlFor } from "../../site/home-data";
 
 const homeHref = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const articlesHref = `${homeHref}articles/`;
@@ -11,6 +14,21 @@ const pageUrl = new URL(`${homeHref}articles/byudzhet-svadby-v-moskve/`, "https:
 const socialImageUrl = new URL(`${homeHref}images/scenario-hero-host-bw-source.jpg`, "https://timurgromov.ru").toString();
 const pageTitle = "Бюджет свадьбы в Москве: как рассчитать смету без сюрпризов | Тимур Громов";
 const pageDescription = "Как собрать бюджет свадьбы в Москве и Подмосковье: структура сметы, приоритеты пары, скрытые доплаты и бесплатный свадебный калькулятор.";
+const expertConversionMarkup = renderExpertConversionContour({
+  basePath: homeHref,
+  entrypoint: "wedding_budget",
+  telegramPlanUrl: telegramPlanUrlFor("wedding_budget"),
+  maxPlanUrl: maxPlanUrlFor("wedding_budget"),
+  telegramMeetingUrl: telegramMeetingUrlFor("wedding_budget"),
+  maxMeetingUrl: maxMeetingUrlFor("wedding_budget"),
+  planSource: expertCtaSource("plan", "wedding_budget", "final"),
+});
+const consultationPopupMarkup = renderConsultationContactPopup({
+  basePath: homeHref,
+  telegramMeetingUrl: telegramMeetingUrlFor("wedding_budget"),
+  maxMeetingUrl: maxMeetingUrlFor("wedding_budget"),
+  formSource: expertCtaSource("meeting", "wedding_budget", "final"),
+});
 
 const chapters = [
   {
@@ -315,16 +333,8 @@ const articleSchema = {
       </p>
     </article>
 
-    <footer class="budget-footer">
-      <div class="budget-shell budget-footer__inner">
-        <a href={homeHref}>Тимур Громов</a>
-        <nav aria-label="Навигация по материалам">
-          <a href={articlesHref}>Все статьи</a>
-          <a href={`${homeHref}scenario/`}>Сценарий вечера</a>
-          <a href={`${homeHref}materials/`}>Материалы</a>
-        </nav>
-      </div>
-    </footer>
+    <Fragment set:html={expertConversionMarkup} />
+    <Fragment set:html={consultationPopupMarkup} />
   </main>
 </BaseLayout>
 
@@ -399,12 +409,6 @@ const articleSchema = {
   .budget-plan-link { max-width: 760px; margin: 42px 0 0; padding-left: 20px; border-left: 2px solid var(--accent); font-size: 16px; }
   .budget-plan-link a { color: var(--accent); font-weight: 700; text-underline-offset: 4px; }
 
-  .budget-footer { padding: 34px 0; background: #241d19; color: #fffaf4; }
-  .budget-footer__inner { display: flex; align-items: center; justify-content: space-between; gap: 28px; }
-  .budget-footer a { color: #fffaf4; font-size: 15px; text-decoration-color: rgba(255,250,244,.3); text-underline-offset: 4px; }
-  .budget-footer__inner > a { font-family: "Cormorant Garamond", Georgia, serif; font-size: 28px; font-weight: 600; text-decoration: none; }
-  .budget-footer nav { display: flex; flex-wrap: wrap; gap: 22px; }
-
   @media (max-width: 900px) {
     .budget-mid-cta, .budget-final-cta { grid-template-columns: 1fr; align-items: start; }
     .budget-screens { gap: 16px; }
@@ -433,8 +437,6 @@ const articleSchema = {
     .budget-final-cta { gap: 24px; margin-top: 42px; padding-top: 30px; }
     .budget-faq { margin-top: 48px; padding-top: 34px; }
     .budget-faq summary { font-size: 24px; }
-    .budget-footer__inner { align-items: flex-start; flex-direction: column; }
-    .budget-footer nav { flex-direction: column; gap: 12px; }
   }
 
   @media (max-width: 479px) {

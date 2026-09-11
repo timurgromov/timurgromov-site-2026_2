@@ -67,7 +67,10 @@ Evidence: approved conversion standard; shared rendered module and page-specific
 Supersedes: route-specific mixed material/contact CTAs on expert pages
 
 Decision:
-Every expert page uses the same conversion contour after its useful content:
+Every expert page uses the same conversion contour after its useful content.
+Every public wedding SEO or editorial article receives that contour by default,
+exactly once, unless the owner explicitly records an exception. The `/articles/`
+catalogue is not an article and remains outside this default. The contour has
 a relevant useful-material CTA with equal Telegram/MAX choices
 (`site_plan_<page>`), a distinct free-meeting CTA with Telegram/MAX/phone
 (`site_meeting_<page>`), Timur's author card and one shared footer. The two
@@ -81,9 +84,9 @@ keeps a consultation request attributable and does not force a conversation.
 
 Do:
 
-- add a page-specific source to the site tracking allowlist, both Telegram and
-  MAX EventBudjet handlers, CRM source-label migration and the source contract
-  before placing its deep link in public UI;
+- add a page-specific `PublicSiteEntrypoint` and emit its structured sources
+  through the shared URL builders; do not hand-write payloads or reuse another
+  route's source;
 - instantiate the common `expert-conversion` renderer for a new expert route;
 - verify the rendered URLs, equal channel choices and responsive geometry
   without creating a production messenger lead.

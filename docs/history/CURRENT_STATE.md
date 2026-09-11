@@ -1,5 +1,25 @@
 # Current State - 2026-09-11
 
+## Wedding-budget final conversion contour ready for release (2026-09-11)
+
+- `/articles/byudzhet-svadby-v-moskve/` now ends with the literal homepage
+  conversion island «Всё для подготовки к свадьбе», its four paths, portrait,
+  phone, consultation pop-up and common footer. The page-local footer was
+  removed, so the useful article content flows directly into the shared contour.
+- The new final paths preserve attribution: materials use
+  `site_plan_timurgromov__wedding_budget__final`; consultation, its popup and
+  form use `site_meeting_timurgromov__wedding_budget__final`. Calculator CTA
+  pairs keep their separate `site_calculator_...__{hero|mid_article|final}`
+  source family.
+- The permanent site rule is now explicit: every public wedding SEO/editorial
+  article gets one final big CTA by default; every messenger/Mini App/form CTA
+  carries its own structured source. `/articles/` remains a catalogue and is
+  outside this rule.
+- Local build and full responsive matrix passed. In-app browser review of the
+  fresh local candidate confirms the final island and common footer are visible
+  after the article. Live messenger traversal was not performed because it
+  would create production bot/CRM data and has no explicit test-lead approval.
+
 ## Wedding Hero balanced content lane live (2026-09-11)
 
 - The four wedding-editorial Heroes use a shared three-row desktop grid:

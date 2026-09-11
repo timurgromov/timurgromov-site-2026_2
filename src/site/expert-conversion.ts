@@ -1,6 +1,6 @@
 import { getTildaCtaArrowIconUrl, tildaCtaLink } from "./tilda-cta";
 
-export type ExpertConversionEntrypoint = "scenario" | "materials" | "preparation_plan";
+export type ExpertConversionEntrypoint = "scenario" | "materials" | "preparation_plan" | "wedding_budget";
 
 interface ExpertConversionContourOptions {
   basePath: string;
@@ -16,6 +16,7 @@ const pagePhotoClasses: Record<ExpertConversionEntrypoint, string> = {
   scenario: "tg-plan-cta__photo--scenario",
   materials: "tg-plan-cta__photo--materials",
   preparation_plan: "tg-plan-cta__photo--preparation-plan",
+  wedding_budget: "tg-plan-cta__photo--wedding-budget",
 };
 
 // The public home page owns the visual language. This renderer deliberately

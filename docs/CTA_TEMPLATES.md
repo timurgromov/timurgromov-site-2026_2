@@ -16,6 +16,17 @@ card, buttons or pop-up.
   source automatically; Telegram/MAX materials and the contact pop-up receive
   different, exact source codes.
 
+## Default rule for wedding articles
+
+Every public wedding SEO or editorial article ends with exactly one «Большой
+CTA» after all useful content and before the shared footer. This is the default
+template rule, not a per-article design choice. A mid-article «Маленький CTA»
+may be added for reading flow, but never replaces or duplicates the final
+island. Exceptions require the owner's explicit decision for that route.
+
+The `/articles/` hub is a catalogue, not an article, so it remains outside this
+default. Other public page types are discussed per scenario.
+
 ## «Маленький CTA»
 
 - Source: `src/components/ExpertMaterialsInlineCta.astro`.
@@ -46,6 +57,13 @@ site, page, intent and exact CTA placement. The source format is:
 site_<plan|meeting>_<site>__<page>__<placement>
 ```
 
+This is a universal public-site rule: every Telegram/MAX bot or Mini App start
+and every consultation-form submit must use its own structured source. A source
+must name the real `intent`, `site`, `page` and `placement`; never use a raw
+payload, a generic `site_plan` / `site_meeting`, or another page's code. The
+provider remains a separate EventBudjet dimension, so the same page code is
+used for Telegram and MAX while the admin shows which channel the visitor used.
+
 For example, the compact reading CTA on `/scenario/` sends
 `site_plan_timurgromov__scenario__mid_article`; the final conversion island
 sends `site_plan_timurgromov__scenario__final` or
@@ -58,6 +76,7 @@ Current expert routes use these final-island pairs:
 | `/scenario/` | `site_plan_timurgromov__scenario__final` | `site_meeting_timurgromov__scenario__final` |
 | `/materials/` | `site_plan_timurgromov__materials__final` | `site_meeting_timurgromov__materials__final` |
 | `/articles/plan-podgotovki-k-svadbe/` | `site_plan_timurgromov__preparation_plan__final` | `site_meeting_timurgromov__preparation_plan__final` |
+| `/articles/byudzhet-svadby-v-moskve/` | `site_plan_timurgromov__wedding_budget__final` | `site_meeting_timurgromov__wedding_budget__final` |
 
 EventBudjet writes the payload to `leads.source`; the admin response exposes
 both `source` and the human-readable `source_label`, while `entry_provider`
@@ -66,9 +85,10 @@ they must not be collapsed into one generic `site_plan` or `site_meeting`.
 
 ### Before publishing a new expert page
 
-1. Add its exact entrypoint to `PublicSiteEntrypoint` and use the literal
-   templates. Pass only a placement from the contract (`mid_article` for the
-   small CTA; the big CTA owns `final`). Do not type raw `start` payloads.
+1. Add its exact entrypoint to `PublicSiteEntrypoint` and the conversion
+   renderer, then use the literal templates. Pass only a placement from the
+   contract (`mid_article` for the small CTA; the big CTA owns `final`). Do not
+   type raw `start` payloads.
 2. The common Metrika helper accepts the structured source and forwards it to
    EventBudjet. Telegram and MAX parse the same format; the admin derives a
    Russian source label even before a separate source-directory record exists.

@@ -18,19 +18,20 @@ Updated: 2026-09-10
   отдельной CTA-кнопки. Кнопка «Обсудить свадьбу» открывает тот же pop-up, что
   на главной: Telegram, MAX, телефон и форма заявки.
 - Shared routes: `/scenario/`, `/materials/`,
-  `/articles/plan-podgotovki-k-svadbe/`. The homepage and its Direct flow are
+  `/articles/plan-podgotovki-k-svadbe/` and
+  `/articles/byudzhet-svadby-v-moskve/`. The homepage and its Direct flow are
   outside this contour.
 
 ## Page states and responsive contract
 
 - Public state only: no lead is created until a person actually opens a
   messenger deep link. No production test leads are created during QA.
-- `/scenario/`, `/materials/` and `/articles/plan-podgotovki-k-svadbe/` render
-  the same home-site CTA island: the literal `tg-plan-cta` split-button
-  pattern, home fonts, split cells and arrow pseudo-element. Hover rotates the
-  arrow by 45 degrees and switches the button to orange exactly as on the
-  homepage. There are no page-specific button redraws or stacked
-  material/meeting cards.
+- `/scenario/`, `/materials/`, `/articles/plan-podgotovki-k-svadbe/` and
+  `/articles/byudzhet-svadby-v-moskve/` render the same home-site CTA island:
+  the literal `tg-plan-cta` split-button pattern, home fonts, split cells and
+  arrow pseudo-element. Hover rotates the arrow by 45 degrees and switches the
+  button to orange exactly as on the homepage. There are no page-specific
+  button redraws or stacked material/meeting cards.
 - The sole CTA headline on every route is «Всё для подготовки к свадьбе» in
   the large homepage headline treatment. Route-specific CTA headings are not
   used.
@@ -241,13 +242,24 @@ equal, explicit controls: Telegram, MAX, «Обсудить свадьбу» and
 ведущего». The author portrait and the text phone number remain in the island;
 the contact pop-up opens over the page rather than creating a fifth CTA.
 
+Every public wedding SEO or editorial article receives this final contour by
+default, exactly once, after its useful content and before the shared footer.
+The catalogue `/articles/` is not an article and has no such contour; any other
+exception requires an explicit owner decision.
+
+Every Telegram/MAX start and consultation-form submission from a public CTA
+keeps a distinct structured `source` for its intent, site, page and placement.
+The admin shows that source alongside the separate Telegram/MAX provider; no
+new public CTA may use a generic or copied source code.
+
 ## Shared consultation popup on SEO routes
 
-`/scenario/`, `/materials/` and `/articles/plan-podgotovki-k-svadbe/` use the
-literal homepage consultation-popup pattern: Coolvetica/Manrope typography,
-the compact split-button system with rotating arrow, phone card, form and
-success state. Only Telegram/MAX deep-link values vary by source route; this is
-not a separate SEO-page popup design.
+`/scenario/`, `/materials/`, `/articles/plan-podgotovki-k-svadbe/` and
+`/articles/byudzhet-svadby-v-moskve/` use the literal homepage
+consultation-popup pattern: Coolvetica/Manrope typography, the compact
+split-button system with rotating arrow, phone card, form and success state.
+Only Telegram/MAX deep-link values vary by source route; this is not a separate
+SEO-page popup design.
 
 ## Scenario article material entry
 
@@ -262,7 +274,8 @@ full four-path author island remains once at the bottom.
 
 - «Большой CTA» is the literal `renderExpertConversionContour` home-site
   island: four paths, the author photo stencil, text phone and the existing
-  contact pop-up. It appears once at the end of useful page content.
+  contact pop-up. It appears once at the end of useful page content and is
+  mandatory by default for every wedding SEO/editorial article.
 - «Маленький CTA» is the literal `ExpertMaterialsInlineCta` white materials
   island: one contextual copy line, orange Telegram and light MAX. It can be
   placed during reading, but never replaces or duplicates the final big CTA.

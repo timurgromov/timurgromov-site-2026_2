@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-11-budget-final-conversion-contour",
+  "change_kind": "final-conversion-contour",
+  "status": "passed",
+  "requested_visible_change": "Show the shared final 'Всё для подготовки к свадьбе' conversion island after the useful content of the wedding-budget article.",
+  "expected_visible_delta": "The old page-local footer is replaced by one rendered expert conversion island with a portrait, phone, four paths and the common footer.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "aab961e144401079775414d0f452446304cd9dbe0a643c958d72e03e01cd5a1e",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4322/articles/byudzhet-svadby-v-moskve/",
+    "source_ref": "working-tree",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/articles/byudzhet-svadby-v-moskve/",
+    "state": "public anonymous article; no messenger link or form submitted",
+    "selector_or_slide_id": "[data-testid=expert-conversion-wedding_budget]",
+    "action": "scroll to the end of the useful article content"
+  },
+  "must_remain_unchanged": [
+    "Useful article content and calculator CTA pairs",
+    "Calculator sources for hero, mid_article and final",
+    "No production messenger or form submission during QA"
+  ],
+  "required_viewports": [
+    "390x844",
+    "1440x900"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "Responsive matrix after the final CTA edit; route was rendered without runtime errors or horizontal overflow.",
+      "before_signature": "Published baseline ends after the preparation-plan link with a local footer; no expert-conversion-wedding_budget target or four-path final island.",
+      "after_signature": "Fresh candidate includes one expert-conversion-wedding_budget target with the final plan source, meeting popup/form source and shared footer.",
+      "observed_visible_result": "The responsive route check passed after rendering the current candidate; target markup is present and its mobile layout has no horizontal overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "viewport_source": "Responsive matrix after the final CTA edit; rendered local in-app-browser review of the freshly loaded candidate.",
+      "before_signature": "Published baseline ends after the preparation-plan link with a local footer; no expert-conversion-wedding_budget target or four-path final island.",
+      "after_signature": "Fresh candidate visibly shows the large 'Всё для подготовки к свадьбе' island, portrait, phone, Telegram, MAX, consultation and home controls before the shared footer.",
+      "observed_visible_result": "In-app browser review showed the requested final conversion block and shared footer after the article; rendered links expose exact wedding_budget final sources.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 0,
+    "selected_variant": "",
+    "owner_approval_reference": ""
+  }
+}

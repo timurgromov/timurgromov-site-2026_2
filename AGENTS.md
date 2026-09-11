@@ -66,6 +66,8 @@ Meaningful change - это:
 - Для свадебного Article Hero обязательны целая голова в кадре, явная focal point без декоративного zoom/scale и интервалы из `docs/ARTICLE_UI_KIT.md`. Высота Hero выбирается только из зафиксированных там shared-ролей; нельзя уменьшать типографику или сжимать смысловые интервалы ради размещения CTA.
 - Первый содержательный блок использует общую article-иерархию: H2 не больше `38px` на desktop, основной текст `19px` sans (`17px` mobile). `Instrument Serif` остаётся акцентом и не используется для всего вводного абзаца.
 - Если основной CTA находится в Hero, lead и wrapper действий обязаны иметь `data-first-screen-lead` и `data-first-screen-primary-actions`: H1, lead и все primary controls должны полностью помещаться при `scrollY=0` в обязательной матрице, а responsive gate должен падать, если marker выходит ниже viewport. Подробный owner-контракт — `UX.md`, раздел `Permanent typography and CTA rule`.
+- Каждая публичная свадебная SEO- или редакционная статья по умолчанию заканчивается ровно одним literal `renderExpertConversionContour` после полезного контента и перед общим footer. Это не сценарное решение для каждой статьи: исключение возможно только по явному решению владельца. Каталог `/articles/` статьёй не является и остаётся без этого блока; другие типы страниц обсуждаются отдельно.
+- Любой публичный CTA, который запускает Telegram/MAX-бот, Mini App или отправляет форму, обязан передавать в EventBudjet структурированный source через `expertCtaSource`: intent, site, page и placement. Telegram/MAX — это provider, а не замена source. Нельзя писать raw `start` payload, использовать generic `site_plan`/`site_meeting` для новой точки входа или переиспользовать source другой страницы.
 
 ## Required Checks
 
@@ -161,6 +163,12 @@ The exact phrases below have fixed implementation meaning; read
 - «поставь большой CTA» means the literal
   `renderExpertConversionContour` island, including its existing contact
   pop-up, photo stencil, phone, four paths and source-specific deep links.
+- Для новой свадебной SEO/редакционной статьи этот «большой CTA» обязателен по
+  умолчанию в конце полезного контента; «маленький CTA» внутри чтения его не
+  заменяет.
+- Все Telegram/MAX и form-пути этого CTA должны использовать его собственные
+  structured sources, чтобы в EventBudjet были видны страница, намерение,
+  placement и provider.
 - «поставь маленький CTA» means the literal
   `ExpertMaterialsInlineCta.astro` white materials island: Telegram, MAX and
   no portrait/phone/contact redraw.
