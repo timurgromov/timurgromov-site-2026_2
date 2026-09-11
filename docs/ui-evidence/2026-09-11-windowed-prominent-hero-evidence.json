@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-11-windowed-prominent-hero",
+  "change_kind": "shared-hero-typography-and-spacing",
+  "status": "passed",
+  "requested_visible_change": "Make the two short Hero titles visibly larger at the owner's windowed-desktop size without visually attaching the service line to the heading.",
+  "expected_visible_delta": "At 1232x582, /scenario/ and /articles/ use a one-line 65.912px H1 with a 1000px display measure and equal upper/lower content-lane gaps; mobile and long-title article covers retain their established roles.",
+  "attempt_number": 2,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "9fa35e1459b7c9feb37369cc4e5551a94af750f6568d0d6e4bd16231ced3c4ae",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/scenario/?candidate=final-one-line",
+    "companion_url": "http://127.0.0.1:4321/articles/",
+    "source_ref": "staged local candidate",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/scenario/ and /articles/",
+    "state": "public anonymous reader at scrollY=0",
+    "selector_or_slide_id": ".tg-article-hero--prominent-title .tg-article-hero__title h1",
+    "action": "fresh-load each route in the Codex in-app browser"
+  },
+  "must_remain_unchanged": [
+    "Hero photo crop and height role",
+    "service-line top anchor and author-row bottom anchor",
+    "long-title article title roles",
+    "mobile natural-flow title scale"
+  ],
+  "required_viewports": ["390x844", "1232x582", "1280x720", "1911x839"],
+  "observations": [
+    {
+      "viewport": "1232x582",
+      "viewport_source": "owner's open Chrome tab; innerWidth=1232; innerHeight=582",
+      "before_signature": "/scenario/: H1=45.584px, box=660px by 42.94px; global very-short rule overrode the prominent role.",
+      "after_signature": "/scenario/ and /articles/: H1=65.912px, box=1000px by 60.63px; scenario gaps=143.98px/144px and articles gaps=103.89px/103.89px.",
+      "observed_visible_result": "The display title is now large and one line; the service line remains visually in the top Hero zone rather than adhering to a wrapped title.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1280x720",
+      "viewport_source": "Codex in-app browser, freshly opened local candidate; innerWidth=1280; innerHeight=720",
+      "before_signature": "Base short-desktop H1 role was 53.76px with a 660px measure.",
+      "after_signature": "/scenario/ and /articles/ H1=68.48px, box=1000px by 63px; scenario gaps=207.98px/208px and articles gaps=130.83px/130.83px.",
+      "observed_visible_result": "Live browser review shows a single large title in the centred content lane, separated from the top service line.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1911x839",
+      "viewport_source": "Playwright rendered local candidate; innerWidth=1911; innerHeight=839",
+      "before_signature": "Previously deployed prominent H1=68px with a 660px measure.",
+      "after_signature": "/scenario/ and /articles/ H1=87.906px, box=1000px by 82.63px; scenario gaps=208.25px/208.25px and articles gaps=116.78px/116.8px.",
+      "observed_visible_result": "The wide desktop display title remains one line and centred; no content shifts into the header zone.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "390x844",
+      "viewport_source": "Playwright rendered local candidate; innerWidth=390; innerHeight=844",
+      "before_signature": "The desktop-only prominent rule was intentionally absent from the mobile natural-flow Hero.",
+      "after_signature": "/scenario/ and /articles/ retain H1=40.95px, document scrollWidth=390px and the desktop display rule remains inactive.",
+      "observed_visible_result": "Mobile stays readable and has no horizontal overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ]
+}

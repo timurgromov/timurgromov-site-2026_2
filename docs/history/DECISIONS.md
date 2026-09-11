@@ -1336,8 +1336,11 @@ Do:
 
 - keep one desktop H1/lead scale and one portrait focal point across the four
   routes at a shared viewport; an explicit owner-approved `prominent` role may
-  use `52–68px` only on the selected short-copy covers at tall desktop, while
-  long-title covers and short desktop keep the base scale;
+  use the shared `72–88px` scale and `min(1000px, 58vw)` measure only on the
+  selected short-copy covers at tall desktop, plus its `60–76px` windowed
+  desktop role at `>=800px` and `<=780px` high; that role uses one-line display
+  measure `min(1000px, calc(100vw - 48px))`, while long-title covers keep the
+  base scale at every height;
 - use only global short-height modes, triggered by viewport height and applied
   uniformly to every Hero of the same height role;
 - keep the service block anchored at the top and author row anchored at the

@@ -68,9 +68,15 @@ Mobile has one shared natural document flow. Compact mode is desktop-only.
   wrapping only, never the selected type role or a page-local measure.
 - Exception by explicit owner request only: a short-copy cover may use the
   `prominent` shared component role at `>=1200px` and `>=781px` high, scaling
-  H1 to `52–68px`. It is not inferred from title length. Current approved
-  routes are `/scenario/` and `/articles/`; long-title covers retain the base
-  scale to preserve their centred vertical lane.
+  H1 to `72–88px` with a shared `min(1000px, 58vw)` display measure. It is not
+  inferred from title length. Current approved routes are `/scenario/` and
+  `/articles/`; long-title covers retain the base scale and `660px` measure to
+  preserve their centred vertical lane. On windowed desktop `>=800px` and
+  `<=780px` high, those same two short-copy covers use the role's `60–76px`
+  scale and `min(1000px, calc(100vw - 48px))` measure. This keeps the short
+  display title on one deliberate line, so the service line stays in the top
+  Hero zone rather than visually adhering to a wrapped heading. Mobile retains
+  the shared natural-flow scale.
 - Desktop Hero is a three-row grid: service line at the top, author row at the
   bottom and the H1/lead/action group centred in the remaining lane. On desktop
   the free gap above and below that group must be equal within `2px`; metadata
