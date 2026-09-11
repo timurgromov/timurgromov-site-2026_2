@@ -36,9 +36,9 @@ The only adaptive modes are global viewport modes applied to every route:
 - desktop: shared `72px` top anchor, `76px` author bottom anchor;
 - short desktop (`<=780px` high): shared `40px` top/bottom anchors and one
   smaller type scale for all routes;
-- very short desktop (`<=650px` high): the same global grid tightens its
-  content spacing so the longest published Hero still keeps its author and
-  controls in the initial viewport;
+- very short desktop (`<=650px` high): the same global grid reduces the type
+  scale, but keeps the main content vertically balanced between the service
+  line and author row; it must not strand the free space below the CTA or lead;
 - mobile: one dedicated mobile scale and crop for all routes.
 
 This is an adaptive system, not permission to tune one article separately.
@@ -54,12 +54,17 @@ This is an adaptive system, not permission to tune one article separately.
   The shared desktop H1 measure is `660px` (or `54vw` in the global
   short-height mode). Title length changes wrapping only, never the selected
   type role or a page-local measure.
-- Desktop service-line-to-H1 gap: `62px`; short desktop: `34px`; very short
-  desktop: `24px`; mobile: `20px`.
+- Desktop Hero is a three-row grid: service line at the top, author row at the
+  bottom and the H1/lead/action group centred in the remaining lane. On desktop
+  the free gap above and below that group must be equal within `2px`; metadata
+  receives no artificial top padding that would create a lower empty void.
+- The internal group rhythm is `28px` H1-to-lead and `32px` lead-to-actions on
+  regular desktop, `20px`/`24px` on short desktop and `24px`/`28px` in the
+  very-short mode. Mobile keeps its own natural document flow.
 - Every desktop Hero starts its service block at the shared top anchor and ends
   the author row at the shared bottom anchor, regardless of CTA presence or
-  copy length. Free space belongs between the content group and author row,
-  not below an accidentally short page or above a shifted service line.
+  copy length. Title length may move a centred content group slightly, but may
+  not create a page-local grid or leave all free space below the group.
 - Semantic group gaps are never below `24px` on regular desktop, `20px` on
   short desktop and `18px` on mobile. Primary controls remain at least `42px`
   high.
@@ -69,7 +74,8 @@ This is an adaptive system, not permission to tune one article separately.
 - Portrait: shared black-and-white asset, no decorative scaling and one upper
   focal point (`74% 0%` desktop; `72% 0%` mobile). The head must remain fully
   visible. Both `1911x764` and the owner-observed `1911x839` viewport are
-  mandatory for all four wedding-editorial routes.
+  mandatory for all four wedding-editorial routes. The owner-reported
+  `1232x638` desktop viewport is also a required four-route composition probe.
 
 ## New article rule
 

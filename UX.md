@@ -115,9 +115,11 @@ the shared slots. They must not select another Hero mode, font size or height.
   anatomy through standalone Astro components, not coupling new routes to the
   homepage's legacy export.
 - Wedding Article Heroes preserve the whole head silhouette. The media layer
-  uses the shared upper focal point and no decorative scale/zoom. The service
-  line keeps a `34px` gap before H1 on desktop and `20px` on mobile; short
-  windows use the shared height-aware layout instead of collapsing that gap.
+  uses the shared upper focal point and no decorative scale/zoom. On desktop,
+  the service line and author row are outer anchors; H1, lead and optional CTA
+  are centred as one group in the lane between them. The free space above and
+  below that group must match within `2px`. On mobile the Hero returns to its
+  natural document flow with its own shared padding.
 - The first editorial block uses the shared hierarchy: H2 is capped at `38px`
   on desktop, body copy is `19px / 1.68` sans on desktop and `17px / 1.55` on
   mobile. `Instrument Serif` is reserved for display emphasis, not entire
@@ -141,6 +143,17 @@ name the shared wedding Article UI Kit as its canonical source and define only
 the content structure that differs. A generic SEO template, a page-local brand
 system or a per-page Hero mode is a release blocker unless the owner explicitly
 approves it.
+
+### Mandatory Hero composition check
+
+Passing a no-overflow test alone is not visual acceptance. Every visible change
+to the shared wedding Hero must be reviewed at the owner-reported `1232x638`
+desktop viewport on all four routes (`/articles/`, `/scenario/`, the
+preparation guide and the budget article). The responsive gate measures the
+space from the service block to the content group and from that group to the
+author row, and fails if either side is too small or the two gaps differ by
+more than `2px`. The reviewer must also inspect a rendered browser frame at
+that viewport, plus the required mobile frame, before release.
 
 ## Wedding-budget Hero typography correction
 

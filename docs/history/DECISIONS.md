@@ -1335,11 +1335,14 @@ Do:
 - use only global short-height modes, triggered by viewport height and applied
   uniformly to every Hero;
 - keep the service block anchored at the top and author row anchored at the
-  bottom on desktop, then put available air between content and byline;
+  bottom on desktop, then centre the main content group in the resulting lane;
+  do not strand available air below the group;
 - test the four routes as a comparison group at `1911x764` and `1911x839`, not
   merely as independent no-overflow pages;
 - retain the short `1232x582` budget case so its title, two calculator controls
   and author row remain in the first screen.
+- retain the owner-reported `1232x638` four-route probe and fail if the gap
+  above the main group and the gap below it are materially unbalanced.
 
 Do not:
 

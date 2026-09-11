@@ -102,6 +102,15 @@ const routeSpecificGroups = [
       viewport: { width: 1232, height: 582, name: "1232x582" },
       routes: ["/articles/byudzhet-svadby-v-moskve/"],
     }]),
+  ...(viewports.some(({ name }) => name === "1232x638") ? [] : [{
+      viewport: { width: 1232, height: 638, name: "1232x638" },
+      routes: [
+        "/articles/",
+        "/scenario/",
+        "/articles/plan-podgotovki-k-svadbe/",
+        "/articles/byudzhet-svadby-v-moskve/",
+      ],
+    }]),
   ...(viewports.some(({ name }) => name === "1280x720") ? [] : [{
       viewport: { width: 1280, height: 720, name: "1280x720" },
       routes: ["/articles/"],
@@ -231,13 +240,6 @@ function assertWeddingArticleUi(result) {
   const isMobile = result.viewport.width <= 640;
   const isShortDesktop = !isMobile && result.viewport.height <= 780;
   const isVeryShortDesktop = !isMobile && result.viewport.height <= 650;
-  const expectedKickerGap = isMobile ? 20 : isVeryShortDesktop ? 24 : isShortDesktop ? 34 : 62;
-  if (Math.abs(result.weddingArticleUi.kickerToHeadingGap - expectedKickerGap) > 1) {
-    fail("Wedding article Hero kicker spacing drifted", {
-      expectedKickerGap,
-      ...result,
-    });
-  }
   if (result.weddingArticleUi.mediaTransform !== "none") {
     fail("Wedding article portrait must not be decoratively scaled", result);
   }
@@ -263,7 +265,7 @@ function assertWeddingArticleUi(result) {
     fail("Wedding article introduction line measure is too wide", result);
   }
 
-  const minimumHeadingToLeadGap = isMobile ? 18 : isShortDesktop ? 20 : 24;
+  const minimumHeadingToLeadGap = isMobile ? 18 : isVeryShortDesktop ? 24 : isShortDesktop ? 20 : 24;
   if (result.weddingArticleUi.headingToLeadGap < minimumHeadingToLeadGap - 1) {
     fail("Wedding article Hero heading and lead are visually compressed", {
       minimumHeadingToLeadGap,
@@ -283,6 +285,17 @@ function assertWeddingArticleUi(result) {
     if (Math.abs(result.weddingArticleUi.metaBottomGap - expectedMetaBottomGap) > 1) {
       fail("Wedding article author row must keep the shared bottom anchor", result);
     }
+    const minimumLaneGap = isVeryShortDesktop ? 32 : isShortDesktop ? 40 : 48;
+    if (result.weddingArticleUi.kickerToHeadingGap < minimumLaneGap - 1
+      || result.weddingArticleUi.contentToMetaGap < minimumLaneGap - 1) {
+      fail("Wedding article Hero content is pinned against a lane edge", {
+        minimumLaneGap,
+        ...result,
+      });
+    }
+    if (Math.abs(result.weddingArticleUi.kickerToHeadingGap - result.weddingArticleUi.contentToMetaGap) > 2) {
+      fail("Wedding article Hero leaves its free space on only one side of the content group", result);
+    }
   }
   if (result.route === "/articles/") {
     if (!result.articleHubUi || result.articleHubUi.cardCount < 1) {
@@ -300,7 +313,7 @@ function assertWeddingArticleUi(result) {
   }
 
   if (result.weddingArticleUi.hasActions) {
-    const minimumLeadToActionsGap = isMobile || isVeryShortDesktop ? 20 : isShortDesktop ? 24 : 32;
+    const minimumLeadToActionsGap = isMobile ? 20 : isVeryShortDesktop ? 28 : isShortDesktop ? 24 : 32;
     const minimumActionsToMetaGap = isMobile || isVeryShortDesktop ? 20 : isShortDesktop ? 24 : 32;
     if (result.weddingArticleUi.leadToActionsGap < minimumLeadToActionsGap - 1) {
       fail("Wedding article Hero lead and actions are visually compressed", {
@@ -463,6 +476,7 @@ async function measure(page, route, viewport, watchedTextSelectors) {
     const weddingArticleKicker = weddingArticleHero?.querySelector(".tg-article-hero__kicker");
     const weddingArticleHeading = weddingArticleHero?.querySelector("h1");
     const weddingArticleLead = weddingArticleHero?.querySelector(".tg-article-hero__lead");
+    const weddingArticleContent = weddingArticleHero?.querySelector(".tg-article-hero__content");
     const weddingArticleActions = weddingArticleHero?.querySelector("[data-first-screen-primary-actions]");
     const weddingArticleMeta = weddingArticleHero?.querySelector(".tg-article-hero__meta");
     const weddingArticleMedia = weddingArticleHero?.querySelector(".tg-article-hero__media");
@@ -482,6 +496,9 @@ async function measure(page, route, viewport, watchedTextSelectors) {
           hasActions: Boolean(weddingArticleActions),
           leadToActionsGap: weddingArticleLead && weddingArticleActions
             ? Number((weddingArticleActions.getBoundingClientRect().top - weddingArticleLead.getBoundingClientRect().bottom).toFixed(2))
+            : null,
+          contentToMetaGap: weddingArticleContent && weddingArticleMeta
+            ? Number((weddingArticleMeta.getBoundingClientRect().top - weddingArticleContent.getBoundingClientRect().bottom).toFixed(2))
             : null,
           actionsToMetaGap: weddingArticleActions && weddingArticleMeta
             ? Number((weddingArticleMeta.getBoundingClientRect().top - weddingArticleActions.getBoundingClientRect().bottom).toFixed(2))

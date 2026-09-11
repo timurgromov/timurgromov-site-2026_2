@@ -3,13 +3,13 @@
   "change_id": "2026-09-11-unified-wedding-hero",
   "change_kind": "shared-editorial-hero-layout",
   "status": "passed",
-  "requested_visible_change": "Make the articles hub, scenario, preparation guide and budget article visibly one corporate wedding-editorial system instead of four page-specific Hero layouts.",
-  "expected_visible_delta": "At the same viewport, every route has the same service-line anchor, portrait focal point, H1/lead scale and author-row anchor; the budget route adds calculator buttons without changing the composition.",
-  "attempt_number": 3,
+  "requested_visible_change": "Correct the visible upper-cluster/lower-void composition in every shared wedding Hero, not only in the budget article.",
+  "expected_visible_delta": "At the same viewport, every route retains shared service and author anchors while its H1/lead/action group is centred in the lane between them; free space is visibly balanced rather than stranded below the group.",
+  "attempt_number": 4,
   "checked_after_last_edit": true,
-  "candidate_diff_sha256": "6cee68470c2a5894bc6e0bdff4040110e4309a7ccb2be671078a7434b5e87c57",
+  "candidate_diff_sha256": "cbf1258445177c6e656c7bee325d13ccb622d5deeebfd5506086ee6bc5d6b1b2",
   "served_candidate": {
-    "url": "http://127.0.0.1:4325/",
+    "url": "http://127.0.0.1:4326/",
     "source_ref": "fresh local Astro preview from the current working tree",
     "fresh_reload": true
   },
@@ -29,16 +29,28 @@
   "required_viewports": [
     "390x844",
     "1232x582",
+    "1232x638",
     "1280x720",
     "1911x764",
     "1911x839"
   ],
   "observations": [
     {
+      "viewport": "1232x638",
+      "viewport_source": "Owner-reported Chrome content viewport, reproduced in the in-app browser with an explicit exact viewport override",
+      "before_signature": "Budget Hero: service block ended at 71px, content started at 95px (24px upper gap); CTA ended at 393px and author row began at 552px (159px lower void). The other routes used the same structurally top-pinned pattern.",
+      "after_signature": "The shared three-row grid centres each content group in the lane: hub 191.2px/191.2px, scenario 180.3px/180.3px, preparation 159.4px/159.4px and budget 91.5px/91.5px above/below.",
+      "observed_visible_result": "The service lines retain air above, authors remain bottom-anchored and the title/lead/CTA group no longer adheres to the top of the Hero or leaves a lower empty pit.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
       "viewport": "1280x720",
       "viewport_source": "Playwright exact resize in the permanent articles-hub probe",
       "before_signature": "The hub could receive its own compact Hero measure and drift from the editorial articles.",
-      "after_signature": "The hub uses the same short-desktop grid as every wedding route: kicker top=40px, short-scale H1/lead and byline bottom gap=40px.",
+      "after_signature": "The hub uses the same short-desktop grid as every wedding route: service and byline anchors are fixed while the H1/lead group is centred in their shared lane.",
       "observed_visible_result": "The catalogue first screen is a complete shared Hero rather than a separate landing composition, with the author row fully visible.",
       "delta_visible": true,
       "target_visible": true,
@@ -49,7 +61,7 @@
       "viewport": "1911x764",
       "viewport_source": "Playwright exact resize in the strict four-route comparison gate",
       "before_signature": "The four routes could select different title, CTA and focal rules at this wide-short desktop size.",
-      "after_signature": "All four routes use the global short-height mode, a common 660px H1 measure, portrait background-position=74% 0% and equal cross-route anchors and type metrics.",
+      "after_signature": "All four routes use the global short-height mode, a common 660px H1 measure, portrait background-position=74% 0% and a content group centred between equal outer anchors.",
       "observed_visible_result": "No route clips the portrait head or pushes the author row outside the first desktop frame.",
       "delta_visible": true,
       "target_visible": true,
@@ -71,7 +83,7 @@
       "viewport": "1232x582",
       "viewport_source": "Playwright exact resize in the permanent budget first-screen gate",
       "before_signature": "The budget Hero either exceeded the initial viewport or reduced only its own spacing through a CTA-specific mode.",
-      "after_signature": "The global very-short mode renders the budget title, lead, both 42px controls and author row in the initial viewport; reduced shared byline internal padding preserves air above the author row. Hero bottom=583px including its border, portrait background-position=74% 0%.",
+      "after_signature": "The global very-short mode renders the budget title, lead, both 42px controls and author row in the initial viewport; its shared grid centres the group instead of creating lower metadata padding. Hero bottom=583px including its border, portrait background-position=74% 0%.",
       "observed_visible_result": "The full budget entry stays readable and complete without a page-specific Hero variant; the author row has visible air below the buttons.",
       "delta_visible": true,
       "target_visible": true,
@@ -93,6 +105,6 @@
   "comparison_review": {
     "variants_shown": 4,
     "selected_variant": "one shared Hero system",
-    "owner_approval_reference": "Owner-supplied /scenario/ comparison screenshot as the intended editorial hierarchy"
+    "owner_approval_reference": "Owner-supplied 2026-09-11 1232x638 comparison screenshots rejecting the top-pinned group and requiring a shared balanced Hero system"
   }
 }
