@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-11-scenario-inline-cta-corporate",
+  "change_kind": "mid-article-conversion-cta",
+  "status": "passed",
+  "requested_visible_change": "Replace the rounded orange inline meeting button in the wedding-scenario article with the approved corporate split-button.",
+  "expected_visible_delta": "The inline meeting CTA has a separate orange text plate and 48px arrow cell instead of one continuous rounded pill.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "e8a6ae5eed6cf5cc9b23b04d8eb0be053b02b485cb2552b682317d07360d2ee0",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/scenario/",
+    "source_ref": "staged local candidate",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/scenario/",
+    "state": "public anonymous article reader",
+    "selector_or_slide_id": ".scenario-inline-cta .scenario-inline-cta__button",
+    "action": "fresh-load the article and scroll to the Короткая встреча card"
+  },
+  "must_remain_unchanged": [
+    "the inline-card copy",
+    "the 30–50 минут note",
+    "the direct site_meeting_timurgromov__scenario__inline_consultation destination"
+  ],
+  "required_viewports": [
+    "390x844",
+    "1099x900",
+    "1100x900",
+    "1180x820",
+    "1440x900"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "in-app browser viewport override; innerWidth=390; innerHeight=844",
+      "before_signature": "One continuous rounded orange button with no arrow cell.",
+      "after_signature": "CTA=316px by 48px; separate arrow cell=48px by 48px; document scrollWidth=390.",
+      "observed_visible_result": "The one-column mobile card keeps the corporate split-button fully visible, its Manrope label readable, and the duration note beneath it.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1099x900",
+      "viewport_source": "in-app browser viewport override; innerWidth=1099; innerHeight=900",
+      "before_signature": "One continuous rounded orange button with no arrow cell.",
+      "after_signature": "CTA=978px by 48px in the single-column card; separate arrow cell=48px by 48px; document scrollWidth=1099.",
+      "observed_visible_result": "At the single-column breakpoint the control spans the card without overflow and retains the direct meeting URL.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1100x900",
+      "viewport_source": "in-app browser viewport override; innerWidth=1100; innerHeight=900",
+      "before_signature": "One continuous rounded orange button with no arrow cell.",
+      "after_signature": "CTA=272.82px by 48px in the two-column card; separate arrow cell=48px by 48px; document scrollWidth=1100.",
+      "observed_visible_result": "The two-column desktop layout begins cleanly at its breakpoint and preserves the card copy and duration note.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1180x820",
+      "viewport_source": "in-app browser viewport override; innerWidth=1180; innerHeight=820",
+      "before_signature": "One continuous rounded orange button with no arrow cell.",
+      "after_signature": "CTA=272.82px by 48px; separate arrow cell=48px by 48px; document scrollWidth=1180.",
+      "observed_visible_result": "The compact desktop anchor visibly shows the separate text plate and arrow cell in the existing inline card.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "viewport_source": "in-app browser viewport override; innerWidth=1440; innerHeight=900",
+      "before_signature": "One continuous rounded orange button with no arrow cell.",
+      "after_signature": "CTA=272.82px by 48px; separate arrow cell=48px by 48px; document scrollWidth=1440.",
+      "observed_visible_result": "The corporate CTA remains proportionate in the unchanged card and points to the retained inline-consultation Telegram URL.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 0,
+    "selected_variant": "native corporate split-button",
+    "owner_approval_reference": "User explicitly requested replacement of the round non-corporate button."
+  }
+}
