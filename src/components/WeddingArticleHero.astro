@@ -5,6 +5,7 @@ interface Props {
   homeHref: string;
   meta: string;
   heightMode?: "screen" | "compact";
+  titleEmphasis?: "standard" | "prominent";
   testId?: string;
   mediaTestId?: string;
 }
@@ -13,6 +14,7 @@ const {
   homeHref,
   meta,
   heightMode = "screen",
+  titleEmphasis = "standard",
   testId,
   mediaTestId,
 } = Astro.props;
@@ -25,6 +27,7 @@ const hasActions = Astro.slots.has("actions");
     {
       "tg-article-hero--with-actions": hasActions,
       "tg-article-hero--compact": heightMode === "compact",
+      "tg-article-hero--prominent-title": titleEmphasis === "prominent",
     },
   ]}
   data-hero-height={heightMode}

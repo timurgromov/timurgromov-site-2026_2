@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-11-tall-article-hero-title-scale",
+  "change_kind": "shared-hero-typography",
+  "status": "passed",
+  "requested_visible_change": "Give the two shown short-cover editorial H1s more visual weight without losing their vertical balance.",
+  "expected_visible_delta": "At wide/tall desktop, /scenario/ and /articles/ use the owner-selected prominent 68px H1 while retaining centred content; long-title shared covers, short desktop and mobile retain their base scales.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "51cca4b166fb430e0a6b82595d3bdcd1511f7abe715553b704b8630d88204929",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/scenario/",
+    "companion_url": "http://127.0.0.1:4321/articles/",
+    "source_ref": "staged local candidate",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/scenario/ and /articles/",
+    "state": "public anonymous reader at scrollY=0",
+    "selector_or_slide_id": ".tg-article-hero--prominent-title .tg-article-hero__title h1",
+    "action": "fresh-load the route in the in-app browser"
+  },
+  "must_remain_unchanged": [
+    "Hero photo crop and height role",
+    "top service and bottom author anchors",
+    "H1 measure, lead and title-to-lead rhythm",
+    "base H1 scale on preparation-plan and budget covers",
+    "short-desktop and mobile title scale"
+  ],
+  "required_viewports": [
+    "390x844",
+    "1232x582",
+    "1366x768",
+    "1440x900",
+    "1911x764",
+    "1911x839"
+  ],
+  "observations": [
+    {
+      "route": "/scenario/",
+      "viewport": "1911x839",
+      "viewport_source": "in-app browser viewport override; innerWidth=1911; innerHeight=839",
+      "before_signature": "H1=58px, rendered box=660px by 56.02px; free lane above/below content=221.29px/221.29px.",
+      "after_signature": "H1=68px, rendered box=660px by 65.41px; free lane above/below content=216.59px/216.59px; hero has tg-article-hero--prominent-title.",
+      "observed_visible_result": "The title has stronger hierarchy in the generous screen-height Hero and remains centred between the service line and author row.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "route": "/articles/",
+      "viewport": "1911x839",
+      "viewport_source": "in-app browser viewport override; innerWidth=1911; innerHeight=839",
+      "before_signature": "H1=58px, rendered box=660px by 56.02px; free lane above/below content=129.83px/129.84px.",
+      "after_signature": "H1=68px, rendered box=660px by 65.41px; free lane above/below content=125.13px/125.13px; hero has tg-article-hero--compact and tg-article-hero--prominent-title.",
+      "observed_visible_result": "The catalogue title gains weight without affecting its compact Hero role, author row or the next materials section.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "route": "/articles/plan-podgotovki-k-svadbe/ and /articles/byudzhet-svadby-v-moskve/",
+      "viewport": "1911x839",
+      "viewport_source": "in-app browser viewport override; innerWidth=1911; innerHeight=839",
+      "before_signature": "Shared base H1 role=58px.",
+      "after_signature": "Shared base H1 role remains=58px; balanced lanes are 75.74px and 111.97px respectively.",
+      "observed_visible_result": "Long-title covers keep their readable, breathable composition rather than inheriting the short-cover emphasis.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "route": "/scenario/",
+      "viewport": "390x844",
+      "viewport_source": "in-app browser viewport override; innerWidth=390; innerHeight=844",
+      "before_signature": "Existing natural-flow mobile title scale.",
+      "after_signature": "H1=40.95px, document scrollWidth=390; no tall-desktop prominent rule is active.",
+      "observed_visible_result": "The mobile Hero remains readable, uncropped and free of horizontal overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "route": "/scenario/ and /articles/",
+      "viewport": "1232x582",
+      "viewport_source": "in-app browser viewport override",
+      "before_signature": "Existing very-short desktop guard.",
+      "after_signature": "H1 remains 45.58px; all checked scroll widths equal viewport width.",
+      "observed_visible_result": "The prominent role respects the existing very-short desktop guard.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "route": "/scenario/ and /articles/",
+      "viewport": "1366x768",
+      "viewport_source": "in-app browser viewport override",
+      "before_signature": "Existing short desktop guard.",
+      "after_signature": "H1 remains 56px; all checked scroll widths equal viewport width.",
+      "observed_visible_result": "The prominent role does not crowd the short desktop Hero.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "route": "/scenario/ and /articles/",
+      "viewport": "1440x900",
+      "viewport_source": "in-app browser viewport override",
+      "before_signature": "Base wide desktop scale before the owner-selected role.",
+      "after_signature": "H1 scales smoothly to 59.04px; all checked scroll widths equal viewport width.",
+      "observed_visible_result": "The title gains a proportional amount of weight before reaching the wide 68px cap.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "route": "/scenario/ and /articles/",
+      "viewport": "1911x764",
+      "viewport_source": "in-app browser viewport override",
+      "before_signature": "Existing short desktop guard.",
+      "after_signature": "H1 remains 56px; all checked scroll widths equal viewport width.",
+      "observed_visible_result": "The prominent rule correctly turns off below the 781px height boundary.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 1,
+    "selected_variant": "Explicit prominent role only for the two user-reported short-copy covers; universal 68px was rejected after measuring long-title lane compression.",
+    "owner_approval_reference": "User asked to decide between a universal adaptive rule and a safe targeted change on the two shown pages."
+  }
+}

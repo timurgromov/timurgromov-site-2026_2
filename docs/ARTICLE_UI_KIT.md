@@ -62,10 +62,15 @@ Mobile has one shared natural document flow. Compact mode is desktop-only.
 - Paragraphs, service lines, metadata and controls: shared sans-serif role.
 - Desktop introduction H2: at most `38px`.
 - Desktop body: `19px / 1.68`; mobile body: `17px / 1.55`.
-- One desktop H1 scale: `48–58px`; one desktop lead scale: `21–22px`.
-  The shared desktop H1 measure is `660px` (or `54vw` in the global
-  short-height mode). Title length changes wrapping only, never the selected
-  type role or a page-local measure.
+- One desktop H1 scale is `48–58px`; short desktop retains its global compact
+  `42–56px` scale. The desktop lead remains `21–22px`. The shared H1 measure
+  is `660px` (or `54vw` in the global short-height mode). Title length changes
+  wrapping only, never the selected type role or a page-local measure.
+- Exception by explicit owner request only: a short-copy cover may use the
+  `prominent` shared component role at `>=1200px` and `>=781px` high, scaling
+  H1 to `52–68px`. It is not inferred from title length. Current approved
+  routes are `/scenario/` and `/articles/`; long-title covers retain the base
+  scale to preserve their centred vertical lane.
 - Desktop Hero is a three-row grid: service line at the top, author row at the
   bottom and the H1/lead/action group centred in the remaining lane. On desktop
   the free gap above and below that group must be equal within `2px`; metadata
