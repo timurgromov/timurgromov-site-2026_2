@@ -1376,8 +1376,9 @@ the same natural-flow Hero.
 
 Do:
 
-- keep the same DOM, font scale, service-line anchor, byline anchor and
-  portrait focus (`74% 0%` desktop, `72% 0%` mobile) in both roles;
+- keep the same DOM, font scale, service-line anchor and byline anchor in both
+  roles; `screen` portrait framing is `74% 0%`, compact framing is `74% 25%`
+  and mobile remains `72% 0%`;
 - reduce only the lower portion of the short cover, preserving visible air
   above Timur's head;
 - test the two compact routes at `1232x638`, wide short desktop and mobile;
@@ -1388,4 +1389,25 @@ Do not:
 
 - reduce title or lead type to manufacture a shorter cover;
 - silently opt another article into `compact`;
-- crop the portrait differently to compensate for the height change.
+- introduce any portrait crop beyond the two declared shared height roles.
+
+# DEC-2026-09-11-COMPACT-PORTRAIT-UPPER-FRAMING
+
+Status: active
+Area: frontend, editorial UX, responsive QA
+Decision date: 2026-09-11
+Evidence: owner review of the live compact `/articles/` and preparation-plan
+Heroes at `1232x582`; `74% 0%` left approximately `164px` of ceiling above
+Timur's hair
+
+Decision:
+
+The two owner-approved `compact` Heroes use the role-level desktop portrait
+position `74% 25%`. This shifts the shared background upward without scaling
+or replacing it, leaving approximately `15–35px` above the hair at the reported
+viewport. The first `30%` candidate made the hair flush with the Hero edge in
+the exact rendered frame, so this bounded correction restores a small, visible
+safety gap. `screen` Heroes remain `74% 0%`; every mobile Hero remains `72% 0%`.
+
+Do not apply the compact portrait position to the budget or scenario Hero, or
+to mobile.

@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-11-compact-portrait-framing",
+  "change_kind": "shared-compact-hero-portrait-framing",
+  "status": "passed",
+  "requested_visible_change": "On only the compact article hub and preparation-plan Heroes, replace the excessive ceiling above Timur's hair with a small clear gap; do not alter the screen-height articles or mobile framing.",
+  "expected_visible_delta": "At the owner-reported 1232x582 desktop viewport, the portrait hair is visibly below the Hero edge with a narrow air gap, rather than ~164px of ceiling or a flush crop.",
+  "attempt_number": 2,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "5e0b7c256138ba4e6f372b8abf40d269378198f02299ee526e2abbe0291bc84a",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4326/articles/",
+    "source_ref": "fresh local Astro preview from the current working tree",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/articles/ and /articles/plan-podgotovki-k-svadbe/",
+    "state": "anonymous visitor at scrollY=0",
+    "selector_or_slide_id": ".tg-article-hero--compact .tg-article-hero__media",
+    "action": "direct navigation in the in-app browser with the owner-reported exact viewport"
+  },
+  "must_remain_unchanged": [
+    "Shared Article Hero DOM, typography, service-line and byline anchors",
+    "Compact Hero height: clamp(480px, 75svh, 640px)",
+    "Screen Hero portrait framing: 74% 0%",
+    "Mobile portrait framing: 72% 0%",
+    "Budget and scenario Hero roles, conversion CTA destinations and source codes",
+    "Shared image asset and no-scale media rule"
+  ],
+  "required_viewports": [
+    "390x844",
+    "1232x582",
+    "1911x764",
+    "1911x839"
+  ],
+  "observations": [
+    {
+      "viewport": "1232x582",
+      "viewport_source": "Owner-reported Chrome content viewport, reproduced in a local in-app browser",
+      "before_signature": "74% 0% left approximately 164px of ceiling; the first 74% 30% candidate made the hair flush with the Hero edge.",
+      "after_signature": "Both compact routes render desktop background-position 74% 25% with the 481px compact Hero.",
+      "observed_visible_result": "The hair is fully inside the photograph with a narrow, visibly clear top gap. It no longer has the excessive ceiling and no longer touches the Hero edge.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1911x764",
+      "viewport_source": "responsive layout gate",
+      "before_signature": "Wide desktop uses the shared compact short-cover role for only the hub and preparation-plan routes.",
+      "after_signature": "The gate confirms the approved compact portrait position and full Hero invariants for each route.",
+      "observed_visible_result": "The portrait remains uncropped and the cover remains compact without changing the other two article roles.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1911x839",
+      "viewport_source": "responsive layout gate",
+      "before_signature": "Wide desktop uses the shared compact short-cover role for only the hub and preparation-plan routes.",
+      "after_signature": "The gate confirms the approved compact portrait position and full Hero invariants for each route.",
+      "observed_visible_result": "The portrait remains uncropped and the cover remains compact without changing the other two article roles.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "390x844",
+      "viewport_source": "responsive layout gate",
+      "before_signature": "Mobile uses the natural-flow Hero and shared 72% 0% image framing.",
+      "after_signature": "The compact desktop override is limited to min-width: 641px; mobile remains 72% 0%.",
+      "observed_visible_result": "No mobile text compression, horizontal overflow or portrait-framing change was introduced.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 3,
+    "selected_variant": "role-level 74% 25% desktop framing for the two compact covers",
+    "owner_approval_reference": "Owner rejected the 30% candidate as flush at 1232x582 and requested a small visible top gap on 2026-09-11."
+  }
+}

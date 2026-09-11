@@ -83,11 +83,15 @@ Mobile has one shared natural document flow. Compact mode is desktop-only.
 - Primary split controls are at least `42px` high on desktop; short viewport
   mode must not turn them into miniature controls.
 - Introduction prose measure: at most `660px`.
-- Portrait: shared black-and-white asset, no decorative scaling and one upper
-  focal point (`74% 0%` desktop; `72% 0%` mobile). The head must remain fully
-  visible. Both `1911x764` and the owner-observed `1911x839` viewport are
-  mandatory for all four wedding-editorial routes. The owner-reported
-  `1232x638` desktop viewport is also a required four-route composition probe.
+- Portrait: shared black-and-white asset and no decorative scaling. `screen`
+  uses `74% 0%` on desktop; `compact` uses the role-level upper framing
+  `74% 25%` to remove excess ceiling without changing the image or clipping the
+  head. Mobile for both roles uses `72% 0%`. The head must remain fully visible.
+  Both `1911x764` and the owner-observed `1911x839` viewport are mandatory for
+  all four wedding-editorial routes. The owner-reported `1232x582` desktop
+  viewport is also a required compact-role composition probe: the space between
+  the Hero top and hair should be approximately `15–35px`, rather than the
+  `~164px` baseline at `74% 0%`.
 
 ## New article rule
 

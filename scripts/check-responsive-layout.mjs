@@ -240,10 +240,17 @@ function assertWeddingArticleUi(result) {
   const isMobile = result.viewport.width <= 640;
   const isShortDesktop = !isMobile && result.viewport.height <= 780;
   const isVeryShortDesktop = !isMobile && result.viewport.height <= 650;
+  const compactRoutes = new Set([
+    "/articles/",
+    "/articles/plan-podgotovki-k-svadbe/",
+  ]);
+  const shouldUseCompactHero = compactRoutes.has(result.route);
   if (result.weddingArticleUi.mediaTransform !== "none") {
     fail("Wedding article portrait must not be decoratively scaled", result);
   }
-  const expectedMediaPosition = isMobile ? "72% 0%" : "74% 0%";
+  const expectedMediaPosition = isMobile
+    ? "72% 0%"
+    : shouldUseCompactHero ? "74% 25%" : "74% 0%";
   if (result.weddingArticleUi.mediaBackgroundPosition !== expectedMediaPosition) {
     fail("Wedding article portrait focal point drifted", result);
   }
@@ -297,11 +304,6 @@ function assertWeddingArticleUi(result) {
       fail("Wedding article Hero leaves its free space on only one side of the content group", result);
     }
   }
-  const compactRoutes = new Set([
-    "/articles/",
-    "/articles/plan-podgotovki-k-svadbe/",
-  ]);
-  const shouldUseCompactHero = compactRoutes.has(result.route);
   if (result.weddingArticleUi.isCompact !== shouldUseCompactHero) {
     fail("Wedding article Hero selected an unapproved height role", result);
   }
@@ -384,13 +386,6 @@ function assertWeddingArticleCrossRouteConsistency(results) {
             candidate,
           });
         }
-      }
-      if (candidate.mediaBackgroundPosition !== reference.mediaBackgroundPosition) {
-        fail("Wedding article routes drifted from the shared portrait focal point", {
-          viewport,
-          reference,
-          candidate,
-        });
       }
     }
   }

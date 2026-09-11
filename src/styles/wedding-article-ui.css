@@ -49,6 +49,12 @@
   min-height: clamp(480px, 75svh, 640px);
 }
 
+@media (min-width: 641px) {
+  .tg-article-hero--compact .tg-article-hero__media {
+    background-position: 74% 25%;
+  }
+}
+
 .tg-article-hero__kicker {
   display: flex;
   flex-direction: column;
