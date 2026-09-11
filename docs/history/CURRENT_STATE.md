@@ -384,3 +384,19 @@
   both GitHub workflows passed, production HTML contains the native markers and
   no legacy CTA class, the article and neutral arrow asset return `200`, and a
   fresh production browser screenshot confirms the exact short-screen result.
+
+## Compact short editorial Heroes (2026-09-11)
+
+- `/articles/` and `/articles/plan-podgotovki-k-svadbe/` now use the explicit
+  shared `compact` Hero role. It preserves the corporate portrait, typography,
+  service/byline anchors and top-safe portrait focus while removing the lower
+  empty field on the two short-copy covers.
+- Desktop role: `clamp(480px, 75svh, 640px)`; mobile stays natural flow. This
+  is intentionally limited to these two routes. The budget calculator Hero and
+  scenario Hero remain in the default `screen` role.
+- Site commit `a1ba666` first failed CI because the broad fallback-font plan
+  layout exposed only `30.61px` before the author line at `1911x839`; corrective
+  commit `855ac44` is pushed and live. `Code health`, `Deploy to gh-pages`,
+  the local matrix and a production responsive run passed. Fresh in-app browser
+  inspection confirmed the compact covers, visible next sections and upper
+  air around Timur's portrait.

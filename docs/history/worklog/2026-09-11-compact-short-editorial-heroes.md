@@ -41,4 +41,13 @@ this height role silently.
 
 ## Release
 
-Pending commit, push, GitHub Pages deployment and production recheck.
+- Initial commit `a1ba666` correctly exposed a wide-desktop air defect in CI:
+  the fallback-font preparation-plan lead had only `30.61px` before the author
+  row at `1911x839`. It was not released.
+- Corrective commit `855ac44` changes the shared role to
+  `clamp(480px, 75svh, 640px)`. `Code health` and `Deploy to gh-pages` passed.
+- Production HTML on both routes contains `data-hero-height="compact"`.
+  Fresh in-app browser inspection confirms the following reading section is
+  visible after the cover, the shared type hierarchy remains intact, and the
+  portrait head has room above it.
+- The production responsive runner passed against `https://timurgromov.ru`.
