@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-11-preparation-plan-inline-cta",
+  "change_kind": "mid-article-conversion-cta",
+  "status": "passed",
+  "requested_visible_change": "Add the standard compact Telegram/MAX materials CTA in the middle of the preparation-plan article.",
+  "expected_visible_delta": "Stage 04 now ends with one white compact materials island containing orange Telegram and light MAX split controls before stage 05.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "802a6211331b0f439825d33fe804d5818217b11232fb9093cc8a4e1defb09b9e",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/articles/plan-podgotovki-k-svadbe/",
+    "source_ref": "staged local candidate",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/articles/plan-podgotovki-k-svadbe/",
+    "state": "public anonymous article reader",
+    "selector_or_slide_id": "#stage-04 .expert-materials-inline-cta",
+    "action": "fresh-load the article and scroll through stage 04"
+  },
+  "must_remain_unchanged": [
+    "the stage-07 scenario link",
+    "the article prose",
+    "the single final four-path conversion island"
+  ],
+  "required_viewports": [
+    "390x844",
+    "1099x900",
+    "1100x900",
+    "1180x820",
+    "1366x900",
+    "1440x900"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "in-app browser viewport override; innerWidth=390; innerHeight=844",
+      "before_signature": "Stage 04 was followed directly by stage 05 with no materials island.",
+      "after_signature": "CTA width=354px, height=189px; two 153px by 35px Telegram/MAX controls; document scrollWidth=390.",
+      "observed_visible_result": "The compact card is readable below the stage-04 note, and both controls remain fully visible in the single-column mobile article.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1099x900",
+      "viewport_source": "in-app browser viewport override; innerWidth=1099; innerHeight=900",
+      "before_signature": "Stage 04 was followed directly by stage 05 with no materials island.",
+      "after_signature": "CTA width=660px, height=144px; two 306px by 35px controls; document scrollWidth=1099.",
+      "observed_visible_result": "The tablet layout uses the compact component's full-width action row without overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1100x900",
+      "viewport_source": "in-app browser viewport override; innerWidth=1100; innerHeight=900",
+      "before_signature": "Stage 04 was followed directly by stage 05 with no materials island.",
+      "after_signature": "CTA width=660px, height=182px; two 136px by 35px controls; document scrollWidth=1100.",
+      "observed_visible_result": "The desktop two-column card starts cleanly at its 1100px breakpoint.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1180x820",
+      "viewport_source": "in-app browser viewport override; innerWidth=1180; innerHeight=820",
+      "before_signature": "Stage 04 was followed directly by stage 05 with no materials island.",
+      "after_signature": "CTA width=660px, height=182px; two 136px by 35px controls; document scrollWidth=1180.",
+      "observed_visible_result": "The compact CTA sits between stages 04 and 05 without replacing the final conversion contour.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1366x900",
+      "viewport_source": "in-app browser viewport override; innerWidth=1366; innerHeight=900",
+      "before_signature": "Stage 04 was followed directly by stage 05 with no materials island.",
+      "after_signature": "CTA width=660px, height=182px; two 136px by 35px controls; document scrollWidth=1366.",
+      "observed_visible_result": "Desktop controls keep their shared split-button geometry and the article has no horizontal overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "viewport_source": "in-app browser viewport override; innerWidth=1440; innerHeight=900",
+      "before_signature": "Stage 04 was followed directly by stage 05 with no materials island.",
+      "after_signature": "CTA width=660px, height=182px; two 136px by 35px controls; document scrollWidth=1440.",
+      "observed_visible_result": "The new card remains compact at wide desktop and preserves stage 05 and the final four-path CTA.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 0,
+    "selected_variant": "",
+    "owner_approval_reference": ""
+  }
+}

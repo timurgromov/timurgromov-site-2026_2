@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ExpertMaterialsInlineCta from "../../components/ExpertMaterialsInlineCta.astro";
 import WeddingArticleHero from "../../components/WeddingArticleHero.astro";
 import WeddingArticleIntro from "../../components/WeddingArticleIntro.astro";
 import { renderExpertConversionContour } from "../../site/expert-conversion";
@@ -275,6 +276,13 @@ const articleSchema = {
               </ul>
             )}
             {stage.note && <aside class="plan-note">{stage.note}</aside>}
+            {stage.number === "04" && (
+              <ExpertMaterialsInlineCta
+                entrypoint="preparation_plan"
+                placement="mid_article"
+                copy="Хотите собрать подготовку в своей ситуации? В Telegram или MAX — свадебный калькулятор, чек-листы и материалы по планированию."
+              />
+            )}
             {stage.cta && (
               <aside class="plan-inline-link">
                 <p>{stage.cta.text}</p>
