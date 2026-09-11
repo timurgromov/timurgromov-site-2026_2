@@ -16,10 +16,18 @@ card, buttons or pop-up.
   source automatically; Telegram/MAX materials and the contact pop-up receive
   different, exact source codes.
 - Mobile portrait rule: at `<=640px` the common horizontal stencil uses the
-  dedicated top-safe crop `object-position: 62% 0%` for every entrypoint. Do
-  not inherit or introduce a page/desktop crop on mobile: the full top of
-  Timur's head must stay in frame. Desktop and tablet can retain only the
-  existing route-specific crop where it serves their composition.
+  dedicated head-safe framing `object-position: 62% 18%` for every entrypoint.
+  Do not inherit or introduce a page/desktop crop on mobile. Acceptance is not
+  merely «hair is not clipped»: at `430x932` the top of the hair has a small,
+  visually balanced `10–24px` gap from the stencil edge, without a large empty
+  ceiling. Inspect the rendered frame before release; a computed CSS value or
+  DOM check alone is insufficient. Desktop and tablet retain only the existing
+  route-specific crop where it serves their composition.
+- Crop acceptance for this and every future visual asset is three-part:
+  verify the subject is not cut, the composition is balanced inside its frame,
+  and the visible breathing space is visually symmetric/intentional. Record a
+  real before/after rendered review in UI evidence. Passing an overflow test or
+  matching an `object-position` value does not prove any of these qualities.
 
 ## Default rule for wedding articles
 

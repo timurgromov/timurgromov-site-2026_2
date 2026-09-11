@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-11-mobile-expert-cta-portrait-framing",
+  "change_kind": "responsive-final-cta-portrait-framing",
+  "status": "passed",
+  "requested_visible_change": "Replace the empty-ceiling mobile CTA portrait crop with a small balanced head-safe gap.",
+  "expected_visible_delta": "At <=640px the portrait changes from 62% 0% to 62% 18%, keeping the hair whole while restoring balanced vertical composition.",
+  "attempt_number": 2,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "73599ffaa85ea148473b5096f7141a6ef1b8c6a4db26b206f57e541d28a592be",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4324/articles/plan-podgotovki-k-svadbe/",
+    "source_ref": "working-tree",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "shared renderExpertConversionContour",
+    "state": "public anonymous visitor; no messenger link or form submitted",
+    "selector_or_slide_id": "[data-testid^=expert-conversion-] .tg-plan-cta__photo img",
+    "action": "scroll to the final CTA and visually inspect the complete masked portrait"
+  },
+  "must_remain_unchanged": [
+    "Portrait asset and homepage mask",
+    "Desktop and tablet route-specific crops",
+    "CTA controls, links, source payloads, phone and popup",
+    "No production messenger/form activity"
+  ],
+  "required_viewports": ["375x812", "390x844", "430x932", "440x956", "639x900", "640x900", "641x900", "1366x768", "1440x900", "1984x1046"],
+  "observations": [
+    {
+      "viewport": "375x812",
+      "viewport_source": "Fresh local responsive checker after the final edit.",
+      "before_signature": "shared mobile crop: 62% 0%",
+      "after_signature": "shared head-safe framing: 62% 18%",
+      "observed_visible_result": "The checker loaded the final CTA without overflow or runtime error and verified the shared mobile framing.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "390x844",
+      "viewport_source": "Fresh local responsive checker after the final edit.",
+      "before_signature": "shared mobile crop: 62% 0%",
+      "after_signature": "shared head-safe framing: 62% 18%",
+      "observed_visible_result": "The checker loaded the final CTA without overflow or runtime error and verified the shared mobile framing.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "430x932",
+      "viewport_source": "Fresh local Chrome candidate render after scrolling the preparation-plan final CTA into view; rendered frame was visually inspected.",
+      "before_signature": "62% 0% leaves a conspicuous empty ceiling over the hair, shown in the owner production screenshot.",
+      "after_signature": "62% 18% leaves a small balanced visible gap above the complete hair silhouette.",
+      "observed_visible_result": "Computed crop is 62% 18%, image load completed, document width equals 430px, no page error occurred, and the rendered frame shows the intended balanced head-safe composition.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "440x956",
+      "viewport_source": "Fresh local responsive checker after the final edit.",
+      "before_signature": "shared mobile crop: 62% 0%",
+      "after_signature": "shared head-safe framing: 62% 18%",
+      "observed_visible_result": "The checker loaded the final CTA without overflow or runtime error and verified the shared mobile framing.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "639x900",
+      "viewport_source": "Fresh local responsive checker at the lower mobile boundary probe.",
+      "before_signature": "shared mobile crop: 62% 0%",
+      "after_signature": "shared head-safe framing: 62% 18%",
+      "observed_visible_result": "The checker loaded the final CTA without overflow or runtime error and verified the shared mobile framing.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "640x900",
+      "viewport_source": "Fresh local responsive checker at the exact mobile boundary.",
+      "before_signature": "shared mobile crop: 62% 0%",
+      "after_signature": "shared head-safe framing: 62% 18%",
+      "observed_visible_result": "The checker loaded the final CTA without overflow or runtime error and verified the shared mobile framing.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "641x900",
+      "viewport_source": "Fresh local responsive checker at the first desktop/tablet pixel above the mobile boundary.",
+      "before_signature": "previous desktop/tablet crop: 62% 27%",
+      "after_signature": "preserved desktop/tablet crop: 62% 27%; mobile rule is inactive",
+      "observed_visible_result": "The boundary checker passed without overflow or runtime error; desktop/tablet composition remains unchanged.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1366x768",
+      "viewport_source": "Fresh local responsive checker after the final edit.",
+      "before_signature": "previous desktop crop: 62% 27%",
+      "after_signature": "preserved desktop crop: 62% 27%; mobile rule is inactive",
+      "observed_visible_result": "The desktop route completed without overflow or runtime error; no desktop photo composition changed.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "viewport_source": "Fresh local responsive checker after the final edit.",
+      "before_signature": "previous desktop crop: 62% 27%",
+      "after_signature": "preserved desktop crop: 62% 27%; mobile rule is inactive",
+      "observed_visible_result": "The desktop route completed without overflow or runtime error; no desktop photo composition changed.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1984x1046",
+      "viewport_source": "Fresh local responsive checker after the final edit.",
+      "before_signature": "previous desktop crop: 62% 27%",
+      "after_signature": "preserved desktop crop: 62% 27%; mobile rule is inactive",
+      "observed_visible_result": "The wide desktop route completed without overflow or runtime error; no desktop photo composition changed.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    }
+  ]
+}

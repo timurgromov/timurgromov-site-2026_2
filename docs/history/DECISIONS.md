@@ -1417,7 +1417,7 @@ to mobile.
 
 # DEC-2026-09-11-MOBILE-FINAL-CTA-PORTRAIT-SAFE-CROP
 
-Status: active
+Status: superseded by DEC-2026-09-11-MOBILE-FINAL-CTA-PORTRAIT-FRAMING
 Area: frontend, conversion CTA, responsive QA
 Decision date: 2026-09-11
 Evidence: owner iPhone screenshot, local rendered mobile review and responsive
@@ -1446,3 +1446,34 @@ Do not:
 - alter the stencil, source payloads or CTA interaction while correcting only
   the portrait crop;
 - use a desktop screenshot as mobile crop evidence.
+
+# DEC-2026-09-11-MOBILE-FINAL-CTA-PORTRAIT-FRAMING
+
+Status: active
+Area: frontend, conversion CTA, responsive QA
+Decision date: 2026-09-11
+Evidence: owner production correction after the former `0%` crop left a large
+empty field above the hair; rendered comparison at `430x932`.
+Supersedes: DEC-2026-09-11-MOBILE-FINAL-CTA-PORTRAIT-SAFE-CROP
+
+Decision:
+
+For every final `renderExpertConversionContour`, the mobile crop at `<=640px`
+is `object-position: 62% 18%`. It keeps a small, visually balanced top safety
+gap above the hair rather than treating the image top as the head-safe line.
+
+Do:
+
+- approve the crop only after looking at the rendered `430x932` CTA frame;
+- require the top hair gap to be approximately `10–24px`, with no clipped hair
+  and no conspicuous empty ceiling;
+- for every image crop, explicitly review the whole subject, composition
+  balance and intentional/symmetric breathing space — not only crop removal;
+- keep the same shared framing on all final CTA entrypoints and retain the
+  `375x812`, `390x844`, `430x932`, `440x956` probes.
+
+Do not:
+
+- accept `object-position: 0%` simply because it removes a crop;
+- use computed CSS/DOM checks as a substitute for a visual crop review;
+- introduce a mobile page-specific portrait position without owner approval.

@@ -175,8 +175,8 @@ function assertExpertConversionPortrait(result) {
   if (!result.expertConversionPortrait) {
     fail("Final expert CTA portrait is missing", result);
   }
-  if (result.expertConversionPortrait.objectPosition !== "62% 0%") {
-    fail("Mobile final expert CTA portrait lost its top-safe crop", result);
+  if (result.expertConversionPortrait.objectPosition !== "62% 18%") {
+    fail("Mobile final expert CTA portrait lost its approved head-safe framing", result);
   }
 }
 

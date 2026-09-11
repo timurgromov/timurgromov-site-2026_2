@@ -47,9 +47,17 @@ Updated: 2026-09-10
   uses the existing transparent photo stencil from the homepage block «Честно
   о ценах». The same wide stencil is compact on desktop/tablet and moves above
   the copy on mobile. Desktop/tablet may use the existing route crop; mobile
-  at `<=640px` always resets to the shared top-safe `object-position: 62% 0%`
-  so the full top of Timur's head remains inside the stencil. This is a
-  universal CTA rule, not a page-specific adjustment.
+  at `<=640px` always uses the shared head-safe `object-position: 62% 18%`.
+  The visible top of the hair must have a small balanced `10–24px` safety gap
+  at `430x932`: no clipping, but also no blank ceiling above the portrait. This
+  is a universal CTA rule, not a page-specific adjustment; manual visual crop
+  review is required in addition to the responsive CSS assertion.
+- Every public visual crop has the same acceptance order: inspect the actual
+  rendered before/after frame at the reported CSS viewport; verify that the
+  subject is whole, visual mass is compositionally balanced, and the apparent
+  frame/mask breathing space is symmetric or deliberately asymmetric. A CSS
+  value, a selector assertion and a no-overflow result prove mechanics only,
+  never the crop composition.
 - Required checks: `375x812`, `390x844`, `430x932`, `440x956`, `640/641`,
   `900/901`, `1180x820`, `1366x768`,
   `1440x900`, `1984x1046`; no horizontal overflow and no clipped button text.

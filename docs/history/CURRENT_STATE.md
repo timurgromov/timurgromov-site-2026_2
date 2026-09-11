@@ -1,18 +1,18 @@
 # Current State - 2026-09-11
 
-## Mobile final CTA portrait safe crop ready for release (2026-09-11)
+## Mobile final CTA portrait framing correction ready for release (2026-09-11)
 
-- The shared final CTA on `/scenario/`, `/materials/`, the preparation guide
-  and the wedding-budget article now uses its own mobile focal rule:
-  `object-position: 62% 0%` at `<=640px`. It no longer inherits a page's
-  desktop crop, so the full top of Timur's head stays inside the horizontal
-  photo stencil on phones.
+- The former `62% 0%` mobile crop correctly stopped clipping but left too much
+  empty space over the head. It is superseded by the shared mobile framing
+  `object-position: 62% 18%` on `/scenario/`, `/materials/`, the preparation
+  guide and the wedding-budget article. This keeps a small visible safety gap
+  above the hair without sinking the portrait in the horizontal stencil.
 - Desktop and tablet route-specific crops, the photo stencil/asset, CTA
   controls, deep links, sources and consultation popup are unchanged.
 - The responsive gate permanently covers `375x812`, `430x932` and `440x956`
   for every shared CTA route and fails if the mobile crop changes or the
-  portrait disappears. The local build and full matrix passed; a fresh
-  `430x932` candidate capture confirms the requested visible crop.
+  portrait disappears. A `430x932` rendered visual review is additionally
+  mandatory: CSS/DOM evidence alone cannot accept a portrait composition.
 
 ## Wedding-budget final conversion contour ready for release (2026-09-11)
 
