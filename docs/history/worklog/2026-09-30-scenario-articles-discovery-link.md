@@ -24,4 +24,9 @@ homepage, Direct, messengers or CRM.
 
 ## Release
 
-Commit, push, GitHub Pages deployment and production verification are pending.
+- Runtime commit `7988751` pushed to `main`.
+- GitHub `Code health` and `Deploy to gh-pages` completed successfully.
+- Fresh production verification at
+  `https://timurgromov.ru/scenario/?release=7988751` found the same visible
+  `/articles/` link. Activating it opened `https://timurgromov.ru/articles/`.
+- Browser console errors: none.

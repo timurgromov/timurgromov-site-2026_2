@@ -1,6 +1,6 @@
 # Current State - 2026-09-30
 
-## Scenario → article-hub discovery link pending release (2026-09-30)
+## Scenario → article-hub discovery link live (2026-09-30)
 
 - The weekly SEO audit confirmed that `/articles/` links to its guides but had
   no verified contextual inbound link from the tested public pages. The
@@ -11,8 +11,11 @@
 - Local `npm run build` and `npm run verify:responsive-layout` passed. A fresh
   `1280x720` in-app-browser check showed the new visible link and confirmed it
   opens the existing article hub with no console errors.
-- Pending: commit, push to `main`, Pages deployment and a fresh production
-  verification of the same link.
+- Runtime commit `7988751` is pushed to `main`. GitHub `Code health` and
+  `Deploy to gh-pages` completed successfully.
+- Fresh production check at `https://timurgromov.ru/scenario/?release=7988751`
+  found the visible link with `href="/articles/"`; activating it opened the
+  live articles hub. Console errors: none.
 
 ## Prominent Hero subtitle role ready for release (2026-09-11)
 
