@@ -9,6 +9,7 @@ import { expertCtaSource, maxMeetingUrlFor, maxPlanUrlFor, telegramMeetingUrlFor
 import { corporateSplitCtaLink } from "../site/corporate-split-cta";
 
 const homeHref = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const articlesHref = `${homeHref}articles/`;
 const pageUrl = new URL(`${homeHref}scenario/`, "https://timurgromov.ru").toString();
 const telegramScenarioInlineMeetingUrl = telegramMeetingUrlFor("scenario", "inline_consultation");
 const telegramScenarioMeetingUrl = telegramMeetingUrlFor("scenario");
@@ -115,6 +116,11 @@ const mistakes = [
             становится спокойным, понятным и живым: гости не теряются,
             молодожёны не решают организационные вопросы на ходу, а важные
             моменты оказываются на своём месте.
+          </p>
+          <p>
+            Если вы только начинаете подготовку, посмотрите и
+            <a href={articlesHref}> другие статьи о свадьбе</a>: там есть
+            пошаговый план и разбор бюджета.
           </p>
       </WeddingArticleIntro>
 

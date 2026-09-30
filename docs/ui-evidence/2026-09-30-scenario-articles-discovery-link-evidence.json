@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-09-30-scenario-articles-discovery-link",
+  "change_kind": "contextual-internal-link",
+  "status": "passed",
+  "requested_visible_change": "Give the scenario reader one native text path to the wedding-articles hub.",
+  "expected_visible_delta": "The scenario introduction contains one visible link labelled 'другие статьи о свадьбе' to /articles/.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "88518c9bdeef2ea1e3bcedb57317cea75a770e0c9ab421cab0d979ffda1feffe",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/scenario/",
+    "source_ref": "working tree after local Astro build",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/scenario/",
+    "state": "anonymous public reader",
+    "selector_or_slide_id": "WeddingArticleIntro a[href='/articles/']",
+    "action": "Open the scenario page and activate the contextual text link."
+  },
+  "must_remain_unchanged": [
+    "Hero and scenario article content",
+    "Telegram/MAX CTA URLs and sources",
+    "Consultation popup",
+    "Homepage and Direct flow"
+  ],
+  "required_viewports": [
+    "1280x720",
+    "390x844"
+  ],
+  "observations": [
+    {
+      "viewport": "1280x720",
+      "viewport_source": "Codex in-app browser; window.innerWidth=1280; window.innerHeight=720",
+      "before_signature": "production /scenario/ had zero ordinary a[href='/articles/'] links",
+      "after_signature": "one visible link: text='другие статьи о свадьбе'; href='/articles/'",
+      "observed_visible_result": "The new sentence appears in the introduction; activating its link opened the existing /articles/ hub.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "390x844",
+      "viewport_source": "npm run verify:responsive-layout",
+      "before_signature": "existing scenario route in required matrix",
+      "after_signature": "full matrix passed after the text-link addition",
+      "observed_visible_result": "No responsive regression was reported by the route matrix.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 0,
+    "selected_variant": "",
+    "owner_approval_reference": "User: 'делай' after the 2026-09-28 proposal."
+  }
+}
