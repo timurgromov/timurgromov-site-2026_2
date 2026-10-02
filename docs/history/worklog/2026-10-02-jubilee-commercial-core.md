@@ -32,7 +32,11 @@ Transfer the approved commercial pattern from the corporate page to
   no horizontal overflow, and show-reel transition from poster/overlay to the
   native video-control state.
 
-## Release boundary
+## Release
 
-Publish through the standard `main` → GitHub Pages flow, then verify the live
-`/yubiley/` page and the unaffected homepage.
+- Site commit `f6ed180` was pushed to `main`.
+- GitHub `Code health` and `Deploy to gh-pages` completed successfully for
+  that SHA.
+- Fresh production checks confirmed `/yubiley/` returns the new package,
+  music, anniversary-flow and workflow content. The unchanged root route
+  `https://timurgromov.ru/` also returned its normal wedding landing.

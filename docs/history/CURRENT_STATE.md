@@ -416,6 +416,10 @@
 - Hero, existing anniversary videos, public prices, the existing lead form,
   analytics, SEO metadata, gallery and letter archive remain outside this
   release.
+- Site commit `f6ed180` is live on `https://timurgromov.ru/yubiley/`.
+  GitHub `Code health` and `Deploy to gh-pages` completed successfully; a
+  fresh in-app-browser production check found the package, live-music,
+  anniversary-flow and workflow sections in the prescribed order.
 
 ## Wedding-budget article live release (2026-09-10)
 
