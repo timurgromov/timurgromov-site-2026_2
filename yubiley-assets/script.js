@@ -15,7 +15,50 @@ document.addEventListener("DOMContentLoaded", () => {
       video.play();
     });
   });
+
 });
+
+// The Jubilee page can load this asset after DOMContentLoaded in Astro dev/Pages
+// contexts, so initialise independently instead of relying on the legacy video
+// wrapper listener above.
+(function initMusicShowreels() {
+  function init() {
+    document.querySelectorAll("[data-music-showreel]").forEach(wrapper => {
+    if (wrapper.dataset.musicShowreelReady === "true") return;
+    wrapper.dataset.musicShowreelReady = "true";
+
+    const videoSrc = wrapper.dataset.musicShowreel;
+    const videoTitle = wrapper.dataset.musicShowreelTitle || 'Шоу-рил музыкального состава';
+    const playButton = wrapper.querySelector(".music-program__play");
+    const showreelOverlay = wrapper.querySelector(".music-program__showreel-overlay");
+    const media = wrapper.querySelector(".music-program__media");
+
+    if (!videoSrc || !playButton || !showreelOverlay || !media) return;
+
+    const posterMarkup = media.innerHTML;
+
+    playButton.addEventListener("click", () => {
+      media.innerHTML = `<video controls autoplay playsinline preload="metadata" aria-label="${videoTitle}"><source src="${videoSrc}" type="video/mp4"></video>`;
+      showreelOverlay.hidden = true;
+      const video = media.querySelector("video");
+      video.muted = false;
+      video.volume = 1.0;
+      video.play().catch(() => {});
+
+      video.addEventListener("ended", () => {
+        media.innerHTML = posterMarkup;
+        showreelOverlay.hidden = false;
+      }, { once: true });
+    });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init, { once: true });
+  } else {
+    init();
+  }
+})();
 
 // ===== Scroll-Reveal для .sr =====
 (function(){
