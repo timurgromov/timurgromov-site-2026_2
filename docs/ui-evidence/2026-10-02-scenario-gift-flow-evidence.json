@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-10-02-scenario-gift-flow",
+  "change_kind": "editorial-copy-flow",
+  "status": "passed",
+  "requested_visible_change": "Show the concrete three-option gift handover flow in the ceremony, congratulations and photos time block.",
+  "expected_visible_delta": "The 16:40—17:20 block shows the new heading and all three options; the later banquet block begins directly with toast guidance.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "7ae1fa4451312516b9c3b720d9db0cd42cb52567881d1b7d5b9149a5f4348a30",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/scenario/",
+    "source_ref": "staged working tree",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/scenario/",
+    "state": "public article, ceremony/congratulations/photos time block",
+    "selector_or_slide_id": "h3: Как гости могут вручить подарки",
+    "action": "Scroll from the article hero to the 16:40—17:20 time block."
+  },
+  "must_remain_unchanged": [
+    "Hero and article visual system",
+    "CTA destinations and sources",
+    "Existing two-column timeblock layout",
+    "Toast guidance in the following banquet block"
+  ],
+  "required_viewports": [
+    "1231x639"
+  ],
+  "observations": [
+    {
+      "viewport": "1231x639",
+      "viewport_source": "Dedicated Chrome QA browser; window.innerWidth=1231; window.innerHeight=639.",
+      "before_signature": "Live production: the ceremony block ends after the general photography paragraph; the generic 'Как организовать подарки' heading and three short options appear only in the following 17:20—18:20 banquet block.",
+      "after_signature": "Local fresh candidate: the ceremony block visibly contains 'Как гости могут вручить подарки' and the three full options; the following banquet block starts with 'Как организовать тосты'.",
+      "observed_visible_result": "The full three-item list is readable in the existing two-column article composition and leads directly to the original quote without a new card or duplicated gift section.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 0,
+    "selected_variant": "",
+    "owner_approval_reference": ""
+  }
+}
