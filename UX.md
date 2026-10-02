@@ -294,3 +294,26 @@ full four-path author island remains once at the bottom.
   emit one structured source per intent and placement: `site`, `page`,
   `placement`, then `plan` or `meeting`; provider is recorded separately in
   the CRM. A new page must not reuse another page's entrypoint.
+
+## Jubilee commercial core
+
+Primary user: родственник или организатор, которому нужно спокойно собрать юбилей для именинника и гостей разных поколений.
+
+Primary flow: `первый экран → примеры работы → преимущества → выбор состава → живая музыка при необходимости → как проходит юбилей → порядок работы → обсуждение юбилея`.
+
+Target route: `/yubiley/`.
+
+1. Existing Hero, video cases and benefits remain unchanged.
+2. `Выберите подходящий состав` follows the benefits with three packages: `Камерный` (`Ведущий + DJ`), `Праздничный` (`Ведущий + DJ + звук`) and `С живой музыкой` (`Ведущий + DJ + звук + два вокалиста`). Each card repeats the delivered scope instead of using vague shorthand; the third card anchors to `#music-program`.
+3. `Живая музыка` expands only the third package: two vocalists perform three 30-minute blocks under professional arrangements; saxophone and guitar are optional expansion. The public wording must not name the contractor, publish its contacts, or imply a full instrumental cover band.
+4. The showreel uses the approved corporate photo derivatives and existing published MP4. Initial state is the poster with a pulsing orange play control and caption; playback replaces it with a native video and hides the custom overlay. The overlay returns when playback ends.
+5. `Как проходит юбилей` describes the guest experience: gathering, opening and congratulations, family stories and programme, music and dancing, neutral final. It never promises a cake, saxophone or live vocals in packages that do not include them.
+6. `Порядок работы` remains a separate customer-service flow: acquaintance, jubilee concept, scenario and timing, agreement and preparation, event. Its CTA continues to use the existing consultation modal.
+7. Gallery, letters, current videos, form, analytics, hero and SEO metadata are unchanged in this release. Public prices are not added.
+
+Layout contract for the added commercial core:
+
+- desktop (`>=1181px`): three package cards in one row; music block in two columns; evening flow uses three cards then two balanced cards;
+- tablet (`769–1180px`): two package cards plus a full-width third; music block stacks; evening flow uses two columns with the final card full-width;
+- mobile (`<=768px`): one column, full-width CTAs, 250px music media, no horizontal overflow;
+- target evidence widths: `390x844`, `767/768/769x900`, `1023/1024/1025x820`, `1180x820`, `1366x768`, `1440x900`, `1984x1046`.

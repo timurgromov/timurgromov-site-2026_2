@@ -402,6 +402,21 @@
 - Последнее правленное состояние: CTA-блок сценария очищен от нижних proof-карточек и прямой ссылки на `/scenario/`; hero popup оставлен компактным bot-first preview с выбором Telegram или MAX.
 - Production deploy: выполняется через push в `main` и GitHub Actions `deploy-gh-pages`; GitHub Pages source — ветка `gh-pages` (`/`).
 
+## Jubilee commercial core (2026-10-02)
+
+- Route `/yubiley/` now carries the approved commercial journey after the
+  existing benefits: package choice → live-music package detail → how the
+  anniversary unfolds → order of work.
+- The three package names are `Камерный`, `Праздничный` and `С живой
+  музыкой`. The third package is a complete offer with two vocalists, three
+  30-minute vocal sets, and optional saxophone or guitar.
+- The live-music section reuses the already published corporate photo and
+  show-reel URL rather than duplicating media. The poster play control hides
+  during playback and native controls remain available.
+- Hero, existing anniversary videos, public prices, the existing lead form,
+  analytics, SEO metadata, gallery and letter archive remain outside this
+  release.
+
 ## Wedding-budget article live release (2026-09-10)
 
 - Added the evergreen Moscow/MO article

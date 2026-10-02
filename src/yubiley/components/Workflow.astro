@@ -4,7 +4,7 @@ import { workflowSteps } from '../data/jubilee';
 <section id="workflow" class="workflow section">
   <div class="container">
     <h2 class="section__title sr">Порядок работы</h2>
-    <p class="section__subtitle sr">От первого звонка — до аплодисментов</p>
+    <p class="section__subtitle sr">От первого разговора — до юбилея</p>
     <div class="workflow__steps">
       {workflowSteps.map(([title, text], index) => (
         <article class="workflow__step sr" role="group" aria-label={`Этап ${index + 1} из ${workflowSteps.length}`} data-cta={`workflow_step_${index + 1}`}>

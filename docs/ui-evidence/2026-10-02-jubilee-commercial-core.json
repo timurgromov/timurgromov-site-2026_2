@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-10-02-jubilee-commercial-core",
+  "change_kind": "landing-commercial-core",
+  "status": "passed",
+  "requested_visible_change": "The jubilee route visibly adds three commercial packages, live-music detail with a playable show-reel, a guest-facing anniversary flow, and a separate customer workflow.",
+  "expected_visible_delta": "After the existing benefits, the visitor sees packages, the third package links to live music, the custom show-reel poster changes to a native video on play, then the anniversary flow precedes the work order.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "a6fe587ea26f57e9b51a15032fc9cc0a8be57a31cd44dabc29daa5ba0c5d65ac",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/yubiley/?ui=20261002#formats",
+    "source_ref": "staged local candidate",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/yubiley/",
+    "state": "public landing: packages first, then show-reel playback state",
+    "selector_or_slide_id": "[data-testid=\"jubilee-service-formats\"], [data-testid=\"jubilee-music-program\"], [data-testid=\"jubilee-evening-flow\"], .music-program__play",
+    "action": "scroll to packages, activate the live-music link, then activate the show-reel play control"
+  },
+  "must_remain_unchanged": [
+    "Hero copy and media",
+    "Existing anniversary video cases",
+    "Public prices, form and analytics",
+    "Gallery and letter archive",
+    "Root homepage"
+  ],
+  "required_viewports": [
+    "390x844",
+    "767x900",
+    "768x900",
+    "769x900",
+    "1023x820",
+    "1024x820",
+    "1025x820",
+    "1180x820",
+    "1366x768",
+    "1440x900",
+    "1984x1046"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "Fresh in-app browser candidate; actual mobile viewport screenshot and Playwright responsive check",
+      "before_signature": "benefits directly followed by customer workflow; no commercial package or live-music section",
+      "after_signature": "three stacked package cards appear after benefits; third card exposes live-music details; no horizontal overflow",
+      "observed_visible_result": "The first new section is readable in the mobile in-app browser and preserves the existing dark/orange visual language.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "767x900",
+      "viewport_source": "Playwright responsive-layout runner against fresh local preview",
+      "before_signature": "no package/music/anniversary-flow sections in this route position",
+      "after_signature": "package, music and anniversary-flow sections render before workflow without overflow",
+      "observed_visible_result": "Responsive runner completed with no runtime errors or document overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "768x900",
+      "viewport_source": "Playwright responsive-layout runner against fresh local preview",
+      "before_signature": "no new commercial-core sequence",
+      "after_signature": "new commercial-core sequence rendered at the breakpoint",
+      "observed_visible_result": "Breakpoint runner completed with no runtime errors or document overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "769x900",
+      "viewport_source": "Playwright responsive-layout runner against fresh local preview",
+      "before_signature": "no new commercial-core sequence",
+      "after_signature": "new commercial-core sequence rendered above tablet breakpoint",
+      "observed_visible_result": "Breakpoint runner completed with no runtime errors or document overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1023x820",
+      "viewport_source": "Playwright responsive-layout runner against fresh local preview",
+      "before_signature": "no new commercial-core sequence",
+      "after_signature": "packages and music detail are inserted before the anniversary and client flows",
+      "observed_visible_result": "Pre-tablet breakpoint runner completed with no runtime errors or document overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1024x820",
+      "viewport_source": "Playwright responsive-layout runner against fresh local preview",
+      "before_signature": "no new commercial-core sequence",
+      "after_signature": "packages and music detail use the desktop-capable layout",
+      "observed_visible_result": "Exact breakpoint runner completed with no runtime errors or document overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1025x820",
+      "viewport_source": "Playwright responsive-layout runner against fresh local preview",
+      "before_signature": "no new commercial-core sequence",
+      "after_signature": "packages and music detail remain present above desktop breakpoint",
+      "observed_visible_result": "Post-breakpoint runner completed with no runtime errors or document overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1180x820",
+      "viewport_source": "Playwright responsive-layout runner against fresh local preview",
+      "before_signature": "no new commercial-core sequence",
+      "after_signature": "three packages, music detail, anniversary flow and customer workflow retain the prescribed order",
+      "observed_visible_result": "Tablet-wide runner completed with no runtime errors or document overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1366x768",
+      "viewport_source": "Playwright responsive-layout runner against fresh local preview",
+      "before_signature": "no new commercial-core sequence",
+      "after_signature": "three packages, music detail, anniversary flow and customer workflow retain the prescribed order",
+      "observed_visible_result": "Desktop runner completed with no runtime errors or document overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "viewport_source": "Playwright responsive-layout runner against fresh local preview",
+      "before_signature": "no new commercial-core sequence",
+      "after_signature": "three packages, music detail, anniversary flow and customer workflow retain the prescribed order",
+      "observed_visible_result": "Desktop runner completed with no runtime errors or document overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1984x1046",
+      "viewport_source": "Playwright responsive-layout runner against fresh local preview",
+      "before_signature": "no new commercial-core sequence",
+      "after_signature": "three packages, music detail, anniversary flow and customer workflow retain the prescribed order",
+      "observed_visible_result": "Wide desktop runner completed with no runtime errors or document overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 0,
+    "selected_variant": "",
+    "owner_approval_reference": "Corporate ServiceFormats, MusicProgram and EveningFlow pattern approved in the request."
+  }
+}

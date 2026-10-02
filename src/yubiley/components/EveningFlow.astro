@@ -1,0 +1,27 @@
+---
+import { jubileeEveningStages } from '../data/jubilee';
+---
+
+<section id="evening-flow" class="section evening-flow" data-testid="jubilee-evening-flow">
+  <div class="container">
+    <p class="section__eyebrow sr">От сбора гостей до финала</p>
+    <h2 class="section__title sr">Как проходит юбилей</h2>
+    <p class="section__subtitle evening-flow__intro sr">У вечера есть понятный ритм, но сценарий собирается под именинника, семью и гостей.</p>
+
+    <div class="evening-flow__grid">
+      {jubileeEveningStages.map(([title, text], index) => (
+        <article class="evening-flow__card sr">
+          <div class="evening-flow__heading">
+            <span class="evening-flow__number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <h3>{title}</h3>
+          </div>
+          <p>{text}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="evening-flow__cta">
+      <button class="btn btn-outline" type="button" data-modal="contact-popup" data-cta="contact_popup_jubilee_evening_flow">Обсудить программу юбилея</button>
+    </div>
+  </div>
+</section>

@@ -1587,4 +1587,56 @@
     content: none !important;
     display: none !important;
   }
+
+  /* Corporate commercial-core pattern, adapted for the jubilee route. */
+  .service-formats .section__eyebrow,
+  .evening-flow .section__eyebrow,
+  .music-program .section__eyebrow {
+    font-size: 10px !important;
+  }
+
+  .service-formats .section__subtitle,
+  .evening-flow .section__subtitle,
+  .music-program .section__subtitle {
+    font-size: 16px !important;
+    padding-inline: 8px;
+  }
+
+  .service-formats__intro,
+  .evening-flow__intro,
+  .music-program__intro {
+    margin-top: -8px !important;
+    margin-bottom: 22px !important;
+  }
+
+  .service-formats__grid,
+  .evening-flow__grid,
+  .music-program__layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .service-format,
+  .evening-flow__card,
+  .music-program__option {
+    min-height: 0 !important;
+    padding: 20px !important;
+  }
+
+  .service-format h3 { min-height: 0 !important; }
+  .evening-flow__card,
+  .evening-flow__card:nth-child(n + 4),
+  .evening-flow__card:last-child { grid-column: auto !important; }
+  .evening-flow__card:hover { transform: none !important; }
+
+  .service-formats__cta .btn,
+  .evening-flow__cta .btn,
+  .music-program__cta .btn {
+    width: 100%;
+    white-space: normal;
+  }
+
+  .music-program__summary { padding: 0 !important; }
+  .music-program__summary-copy { padding: 20px 20px 16px !important; }
+  .music-program__lead { font-size: 22px !important; }
+  .music-program__media { height: 250px; }
 }
