@@ -1,7 +1,7 @@
 export const siteMeta = {
   title: 'Ведущий на юбилей в Москве — Тимур Громов',
   description:
-    'Тёплый ведущий на юбилей в Москве — Тимур Громов. Семейный формат без неловких конкурсов. Ведущий + DJ + звук, сценарий под семью.',
+    'Ведущий на юбилей в Москве — Тимур Громов. Семейный формат без неловких конкурсов. Ведущий + DJ + звук, сценарий под семью.',
   shortDescription: 'Семейный формат без неловких конкурсов. Ведущий + DJ + звук. Сценарий под семью.',
   url: 'https://timurgromov.ru/yubiley/',
   ogImage: 'https://timurgromov.ru/yubiley-assets/assets/og_og.jpg?v=1',
@@ -24,7 +24,7 @@ export const contact = {
 };
 
 export const hero = {
-  title: 'Тёплый ведущий на юбилей в Москве',
+  title: 'Ведущий на юбилей в Москве',
   subtitle: 'Семейный, душевный формат без неловких конкурсов и лишнего шума.',
   image: '/yubiley-assets/assets/hero/portrait.webp',
   imageAlt: 'Тимур Громов — ведущий на юбилей',
