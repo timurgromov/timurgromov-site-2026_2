@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "change_id": "2026-10-03-jubilee-hero-photo-slider",
+  "change_kind": "jubilee-hero-photo-slider",
+  "requested_visible_change": "Reuse the approved corporate five-photo hero slider on /yubiley/ with Jubilee copy preserved.",
+  "expected_visible_delta": "The old portrait becomes the same five current photographs while the Jubilee H1, tags and actions remain fixed.",
+  "checked_after_last_edit": true,
+  "attempt_number": 1,
+  "served_candidate": {
+    "url": "http://127.0.0.1:4322/yubiley/?hero-slide=01-smile",
+    "source_ref": "fresh local Astro candidate",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/yubiley/ hero",
+    "state": "initial hero plus deterministic frame query",
+    "selector_or_slide_id": "[data-hero-slider], 01-smile through 05-gesture",
+    "action": "load the Jubilee hero and observe the fixed copy over the current-photo sequence"
+  },
+  "required_viewports": [
+    "390x844",
+    "767x900",
+    "768x900",
+    "769x900",
+    "1023x820",
+    "1024x820",
+    "1025x820",
+    "1180x820",
+    "1366x768",
+    "1440x900",
+    "1984x1046"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "before_signature": "one old portrait behind the Jubilee H1",
+      "after_signature": "current smiling portrait with unchanged Jubilee H1 overlay and controls",
+      "observed_visible_result": "The hero retained the square mobile frame, five slides and zero horizontal overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "before_signature": "one old desktop portrait",
+      "after_signature": "current event photograph inside the unchanged desktop hero column",
+      "observed_visible_result": "The Jubilee page preserved copy, tags, CTA positions and non-zero media geometry.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "matrix_result": "11 targeted Jubilee hero cases and the full 246-case repository responsive gate passed.",
+  "motion_result": "With prefers-reduced-motion: reduce, the slider remained on 01-smile after 5.2 seconds.",
+  "media_result": "All published derivatives are AVIF/WebP at 640px and 1024px; strict media budget audit returned no warnings."
+}

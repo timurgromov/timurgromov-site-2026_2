@@ -1,4 +1,12 @@
-# Current State - 2026-09-30
+# Current State - 2026-10-03
+
+## Jubilee current-photo hero slider
+
+- `/yubiley/` uses the same ordered five-frame current-photo slider as both corporate routes while preserving the approved Jubilee copy, CTA, tags and hero geometry.
+- Public delivery uses responsive `AVIF` with `WebP` fallback at `640px` and `1024px`; original PNG files remain outside `public/`.
+- Autoplay advances after `4.5s` for the first frame and every `4s` afterwards with a `650ms` crossfade, pauses in a hidden tab and stays static for reduced-motion users.
+- `?hero-slide=<slide-id>` is a deterministic visual-QA override and is not part of the visible interface.
+- Local build, the 246-case responsive gate, strict media-budget audit and focused Jubilee visual checks passed; production release is pending.
 
 ## Scenario → article-hub discovery link live (2026-09-30)
 

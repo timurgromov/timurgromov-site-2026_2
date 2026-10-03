@@ -303,7 +303,9 @@ Primary flow: `первый экран → примеры работы → пр�
 
 Target route: `/yubiley/`.
 
-1. Existing Hero, video cases and benefits remain unchanged.
+1. Existing Hero copy, tags, CTAs and geometry remain unchanged. Its single old
+   portrait is replaced by the shared five-frame current-photo slider used on
+   the two corporate routes.
 2. `Выберите подходящий состав` follows the benefits with three packages: `Камерный` (`Ведущий + DJ`), `Праздничный` (`Ведущий + DJ + звук`) and `С живой музыкой` (`Ведущий + DJ + звук + два вокалиста`). Each card repeats the delivered scope instead of using vague shorthand; the third card anchors to `#music-program`.
 3. `Живая музыка` expands only the third package: two vocalists perform three 30-minute blocks under professional arrangements; saxophone and guitar are optional expansion. The public wording must not name the contractor, publish its contacts, or imply a full instrumental cover band.
 4. The showreel uses the approved corporate photo derivatives and existing published MP4. Initial state is the poster with a pulsing orange play control and caption; playback replaces it with a native video and hides the custom overlay. The overlay returns when playback ends.
@@ -317,3 +319,19 @@ Layout contract for the added commercial core:
 - tablet (`769–1180px`): two package cards plus a full-width third; music block stacks; evening flow uses two columns with the final card full-width;
 - mobile (`<=768px`): one column, full-width CTAs, 250px music media, no horizontal overflow;
 - target evidence widths: `390x844`, `767/768/769x900`, `1023/1024/1025x820`, `1180x820`, `1366x768`, `1440x900`, `1984x1046`.
+
+### Jubilee current-photo hero slider
+
+- The order is shared with both corporate routes: smiling portrait, full-body
+  stage frame, two guest-facing hosting frames, then the gesture frame.
+- The first frame remains for `4.5s`; frames 2–5 remain for `4s`; dissolve is
+  `650ms`. Copy, tags and CTAs never move with the photographs.
+- The first frame is eager/high priority. Later frames are lazy/low priority.
+- Every source is a responsive AVIF with WebP fallback. Original PNG files stay
+  outside `public/`.
+- Autoplay pauses in hidden tabs and is disabled by
+  `prefers-reduced-motion: reduce`.
+- `data-slide-id` and `?hero-slide=<id>` provide deterministic QA states.
+- The route must preserve the existing square media frame and have no
+  horizontal overflow or browser-console errors at all Jubilee contract
+  viewports.

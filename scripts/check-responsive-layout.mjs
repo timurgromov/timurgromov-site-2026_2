@@ -223,6 +223,23 @@ function assertHomeHero(result) {
   }
 }
 
+function assertJubileeHeroSlider(result) {
+  if (result.route !== "/yubiley/") return;
+  if (!result.heroSlider) fail("Jubilee hero slider is missing", result);
+  if (result.heroSlider.slideCount !== 5) {
+    fail("Jubilee hero slider lost its five-frame contract", result);
+  }
+  if (!result.heroSlider.box || result.heroSlider.box.width < 1 || result.heroSlider.box.height < 1) {
+    fail("Jubilee hero slider collapsed", result);
+  }
+  if (result.heroSlider.activeSlide !== "01-smile") {
+    fail("Jubilee hero slider initial frame changed", result);
+  }
+  if (!result.heroSlider.hasAvif || !result.heroSlider.hasWebp) {
+    fail("Jubilee hero slider lost AVIF or WebP delivery", result);
+  }
+}
+
 function assertFirstScreenPrimaryActions(result) {
   if (!result.firstScreenPrimaryActions) return;
 
@@ -630,6 +647,13 @@ async function measure(page, route, viewport, watchedTextSelectors) {
         cta: box('#rec861352716 [data-elem-id="1738735136250"]'),
         ctaText: textMetrics('#rec861352716 [data-elem-id="1738733079599"] .tn-atom'),
       } : {},
+      heroSlider: route === "/yubiley/" ? {
+        box: box("[data-hero-slider]"),
+        slideCount: document.querySelectorAll("[data-hero-slide]").length,
+        activeSlide: document.querySelector("[data-hero-slide].is-active")?.getAttribute("data-slide-id") || null,
+        hasAvif: Boolean(document.querySelector('[data-hero-slider] source[type="image/avif"]')),
+        hasWebp: Boolean(document.querySelector('[data-hero-slider] source[type="image/webp"]')),
+      } : null,
     };
   }, { route, viewport, watchedTextSelectors });
 }
@@ -681,6 +705,7 @@ try {
         assertGenericLayout(result);
         assertExpertConversionPortrait(result);
         assertHomeHero(result);
+        assertJubileeHeroSlider(result);
         assertFirstScreenPrimaryActions(result);
         assertWeddingArticleUi(result);
         if (result.weddingArticleUi) weddingArticleResults.push(result);
