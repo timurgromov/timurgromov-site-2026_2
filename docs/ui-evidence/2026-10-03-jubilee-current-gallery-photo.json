@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "change_id": "2026-10-03-jubilee-current-gallery-photo",
+  "change_kind": "jubilee-responsive-gallery-photo",
+  "requested_visible_change": "Continue the approved modern-photo rollout on the Jubilee page.",
+  "expected_visible_delta": "The first existing Jubilee gallery frame shows the selected current photograph with Timur and an older guest.",
+  "checked_after_last_edit": true,
+  "attempt_number": 1,
+  "candidate_diff_sha256": "6777a289b451c04e57b06bbd1f3422e766b8929ac4123274d225a4db352acb9a",
+  "served_candidate": {
+    "url": "http://localhost:4321/yubiley/#photos",
+    "source_ref": "staged Astro preview candidate",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/yubiley/",
+    "state": "existing photo gallery",
+    "selector_or_slide_id": "#photos .photo-card:first-child",
+    "action": "Review the first gallery frame on mobile and desktop."
+  },
+  "must_remain_unchanged": [
+    "all gallery frames after the first position",
+    "hero, videos, packages and Jubilee evening-flow photograph",
+    "letters, CTA and form behavior"
+  ],
+  "required_viewports": [
+    "390x844", "479x900", "480x900", "481x900", "639x900", "640x900",
+    "641x900", "768x1024", "959x900", "1023x768", "1024x768",
+    "1025x768", "1199x650", "1200x650", "1201x650", "1366x768",
+    "1440x900", "1504x900", "1728x900", "1984x1046"
+  ],
+  "observations": [
+    {"viewport":"390x844","observed_visible_result":"The complete portrait is visible inside the 4:3 gallery frame with no head crop; overflow 0 and console errors 0.","delta_visible":true,"target_visible":true,"preserved_invariants_passed":true,"console_errors":[]},
+    {"viewport":"1440x900","observed_visible_result":"The first portrait is contained beside the existing landscape frames; the full head and guest remain visible; overflow 0 and console errors 0.","delta_visible":true,"target_visible":true,"preserved_invariants_passed":true,"console_errors":[]},
+    {"viewport":"full responsive gate","observed_visible_result":"The repository gate passed 246 cases across 11 routes and all required shared viewports.","delta_visible":true,"target_visible":true,"preserved_invariants_passed":true,"console_errors":[]}
+  ],
+  "responsive_matrix": {
+    "checked_cases": 246,
+    "routes": 11,
+    "horizontal_overflow_failures": 0,
+    "mechanical_runner_note": "The project verify:responsive-layout gate ran in one bounded headless Chrome session and closed after completion."
+  },
+  "media_audit": "Strict media-budget audit passed; delivery files are 27-73 KiB and the source original remains outside public.",
+  "production_submission": "not performed"
+}

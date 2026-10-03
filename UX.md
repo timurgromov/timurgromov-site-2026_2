@@ -320,6 +320,28 @@ Layout contract for the added commercial core:
 - mobile (`<=768px`): one column, full-width CTAs, 250px music media, no horizontal overflow;
 - target evidence widths: `390x844`, `767/768/769x900`, `1023/1024/1025x820`, `1180x820`, `1366x768`, `1440x900`, `1984x1046`.
 
+### Jubilee current gallery photograph
+
+- Change ID: `2026-10-03-jubilee-current-gallery-photo`.
+- Requested visible change: complete the approved current-photo rollout by
+  adding `23423.png` to the Jubilee gallery; the already published
+  evening-flow photograph remains unchanged.
+- Canonical source: existing Jubilee `Gallery` markup, horizontal scroll,
+  arrows and lightbox. Only the first media item changes.
+- Baseline visible signature: the first gallery image resolves to
+  `/yubiley-assets/assets/photos/gal/P1.webp`.
+- Expected visible signature: the first gallery image shows Timur speaking with
+  an adult guest and resolves to responsive AVIF/WebP files under
+  `/yubiley-assets/assets/photos/gal/current/`.
+- Media contract: the PNG original remains outside `public/`; delivery uses
+  `640/1024` AVIF with WebP fallback.
+- Crop contract: the portrait is rendered with `contain`; the complete heads,
+  hands and foreground candle remain visible on mobile and desktop.
+- Required viewports after the last edit: `390x844`, `767x900`, `768x900`,
+  `769x900`, `1023x820`, `1024x820`, `1025x820`, `1180x820`, `1366x768`,
+  `1440x900`, `1984x1046`. Preserve all Jubilee copy, packages, CTA behavior
+  and the current evening-flow image; no horizontal overflow or console errors.
+
 ### Jubilee current-photo hero slider
 
 - The order is shared with both corporate routes: smiling portrait, full-body

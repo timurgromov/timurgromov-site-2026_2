@@ -71,15 +71,26 @@ export const jubileeEveningStages = [
   ['Финал вечера', 'Общий красивый момент и завершение в темпе, который подходит имениннику и семье.']
 ];
 
-export const photos = Array.from({ length: 14 }, (_, index) => {
-  const number = index + 1;
-  return {
-    src: `/yubiley-assets/assets/photos/gal/P${number}.webp`,
-    alt: `Момент юбилейного вечера ${number}`,
-    loading: number === 1 ? 'eager' : 'lazy',
-    fetchpriority: number === 1 ? 'high' : undefined
-  };
-});
+export const photos = [
+  {
+    src: '/yubiley-assets/assets/photos/gal/current/current-01-guest-1024.webp',
+    srcset: '/yubiley-assets/assets/photos/gal/current/current-01-guest-640.webp 640w, /yubiley-assets/assets/photos/gal/current/current-01-guest-1024.webp 1024w',
+    avifSrcset: '/yubiley-assets/assets/photos/gal/current/current-01-guest-640.avif 640w, /yubiley-assets/assets/photos/gal/current/current-01-guest-1024.avif 1024w',
+    sizes: '(max-width: 768px) calc(100vw - 36px), 420px',
+    alt: 'Тимур Громов беседует с юбиляром во время программы',
+    loading: 'eager' as const,
+    fetchpriority: 'high' as const
+  },
+  ...Array.from({ length: 13 }, (_, index) => {
+    const number = index + 2;
+    return {
+      src: `/yubiley-assets/assets/photos/gal/P${number}.webp`,
+      alt: `Момент юбилейного вечера ${number}`,
+      loading: 'lazy' as const,
+      fetchpriority: undefined
+    };
+  })
+];
 
 export const letters = Array.from({ length: 13 }, (_, index) => {
   const number = index + 1;

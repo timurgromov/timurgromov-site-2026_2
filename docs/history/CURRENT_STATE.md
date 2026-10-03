@@ -1,5 +1,15 @@
 # Current State - 2026-10-03
 
+## Jubilee current gallery photo pending release
+
+- The first `/yubiley/` gallery frame now uses the approved current photograph
+  of Timur speaking with an older guest; all later gallery frames are unchanged.
+- Responsive AVIF/WebP derivatives at `640px` and `1024px` are public-ready;
+  the source original remains outside `public/`.
+- Local build, strict media audit, the full 246-case responsive gate and fresh
+  rendered checks at `390x844` and `1440x900` passed. Release and production
+  verification are still pending.
+
 ## Jubilee current photo in evening flow
 
 - `/yubiley/` now shows one current photo of Timur after the five `Как проходит
