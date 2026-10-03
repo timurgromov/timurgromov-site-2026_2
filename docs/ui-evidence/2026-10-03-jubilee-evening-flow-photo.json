@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "change_id": "2026-10-03-jubilee-evening-flow-photo",
+  "change_kind": "jubilee-responsive-photo",
+  "requested_visible_change": "Add one current photo of Timur to the existing Jubilee evening-flow block.",
+  "expected_visible_delta": "A responsive wide photo appears after the five Jubilee stages and before the unchanged CTA.",
+  "checked_after_last_edit": true,
+  "attempt_number": 1,
+  "candidate_diff_sha256": "d5c3d80126c77529b0bb292870c4e401501e5cc1e0dadf41758f19779f0c3bc8",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4322/yubiley/",
+    "source_ref": "staged Astro candidate in the Jubilee EveningFlow component",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/yubiley/",
+    "state": "public page without modal or form submission",
+    "selector_or_slide_id": "#evening-flow .evening-flow__media",
+    "action": "Open /yubiley/#evening-flow and scroll from the five cards to the photo and CTA."
+  },
+  "must_remain_unchanged": [
+    "five Jubilee stage cards and their copy",
+    "existing consultation CTA behavior",
+    "hero, videos, packages, workflow, gallery, letters and forms"
+  ],
+  "required_viewports": [
+    "390x844", "767x900", "768x900", "769x900", "1023x820",
+    "1024x820", "1025x820", "1180x900", "1366x768", "1440x900", "1984x1046"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "before_signature": "The fifth Jubilee stage was followed directly by the CTA.",
+      "after_signature": "A complete 3:2 scene with Timur and guests appears before CTA.",
+      "observed_visible_result": "In-app visual review confirms the full mobile composition; media width is 367px and document width equals 390px.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "767x900",
+      "before_signature": "No Jubilee photo existed below the stage cards.",
+      "after_signature": "The complete frame fills the mobile content lane.",
+      "observed_visible_result": "Media width is 739px and the target remains inside the viewport.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "768x900",
+      "before_signature": "No image existed at the mobile breakpoint.",
+      "after_signature": "The 3:2 mobile image remains visible at 768px.",
+      "observed_visible_result": "The target and CTA remain readable with no target overflow.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "769x900",
+      "before_signature": "No image existed above the mobile breakpoint.",
+      "after_signature": "The photo changes to a 302px-high wide crop.",
+      "observed_visible_result": "Timur's full head remains visible and the target fits the 721px lane.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1023x820",
+      "before_signature": "The stage cards flowed directly into CTA.",
+      "after_signature": "A 975px-wide photo is visible between stages and CTA.",
+      "observed_visible_result": "The responsive target stays contained and the CTA remains present.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1024x820",
+      "before_signature": "The Jubilee flow had no current-photo proof at this breakpoint.",
+      "after_signature": "The photo renders at 976px wide with the same focal point.",
+      "observed_visible_result": "The current AVIF is decoded and the target stays inside the viewport.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1025x820",
+      "before_signature": "No media separated the flow cards and CTA.",
+      "after_signature": "The target expands by one pixel with stable composition.",
+      "observed_visible_result": "Media width is 977px; cards and CTA are unchanged.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1180x900",
+      "before_signature": "No Jubilee image existed in the evening flow.",
+      "after_signature": "A centred 1000px-wide photo appears before CTA.",
+      "observed_visible_result": "Document width equals viewport width and the target crop preserves the full head.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1366x768",
+      "before_signature": "The desktop flow contained text cards only.",
+      "after_signature": "A 1120px by 432px scene appears with deliberate upper focal position.",
+      "observed_visible_result": "The wide crop is balanced and CTA remains directly below it.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "before_signature": "The desktop block had no current illustration.",
+      "after_signature": "The approved Jubilee scene is visible before CTA.",
+      "observed_visible_result": "In-app review confirms the headroom correction and consistent border/radius treatment.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1984x1046",
+      "before_signature": "The wide Jubilee route had no evening-flow media.",
+      "after_signature": "The photo is centred at the page maximum and capped at 430px plus border.",
+      "observed_visible_result": "The image remains sharp, contained and visually consistent at wide desktop.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 0,
+    "selected_variant": "One wide Jubilee-context photo inside the existing EveningFlow component.",
+    "owner_approval_reference": "The owner approved implementing the first photo placements before any gallery changes."
+  }
+}
