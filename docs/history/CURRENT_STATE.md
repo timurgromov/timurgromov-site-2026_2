@@ -16,6 +16,12 @@
 - Local build, fresh in-app-browser review at `390x844` and `1440x900`, and the
   complete 246-case responsive gate passed. The gallery has horizontal overflow
   `0`, all 14 frames remain present, and no form was submitted.
+- Runtime commit `05b90a2` is pushed to `origin/main` and published as
+  production commit `b0b3259`. `Code health` and `Deploy to gh-pages` passed,
+  including their complete responsive checks.
+- Fresh production review passed at `1440x900` and `390x844`: all three new
+  AVIF assets decoded in their real gallery positions, the Jubilee H1 stayed
+  unchanged, horizontal overflow and browser console errors were `0`.
 
 ## Jubilee current photo in evening flow
 

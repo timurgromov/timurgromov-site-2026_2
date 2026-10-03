@@ -34,4 +34,12 @@ frames.
 
 ## Release
 
-- Pending commit, push, Pages deployment and fresh production verification.
+- Runtime commit `05b90a2` is pushed to `origin/main` and published as
+  production commit `b0b3259`.
+- GitHub `Code health` and `Deploy to gh-pages` completed successfully,
+  including their full responsive checks.
+- Exact live marker verification confirmed the three new files, preserved
+  Jubilee H1 and absence of legacy `P3`, `P4` and `P13` in the rendered gallery.
+- Fresh production review passed at `1440x900` and `390x844`: frames 1, 3 and
+  8 render the intended AVIF files, horizontal overflow and console errors are
+  `0`; no form was submitted.
