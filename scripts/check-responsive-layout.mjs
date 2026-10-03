@@ -693,8 +693,11 @@ try {
           timeout: 30000,
         });
         await page.waitForFunction(
-          () => [...document.querySelectorAll('link[rel="stylesheet"]')].every((link) => Boolean(link.sheet)),
-          null,
+          (origin) => [...document.querySelectorAll('link[rel="stylesheet"]')].every((link) => {
+            const isLocalStylesheet = new URL(link.href, document.baseURI).origin === origin;
+            return !isLocalStylesheet || Boolean(link.sheet);
+          }),
+          targetOriginUrl,
           { timeout: 5000 },
         );
         await page.waitForTimeout(route === "/" ? 900 : 80);

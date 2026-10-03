@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "change_id": "2026-10-03-jubilee-curated-gallery",
+  "change_kind": "jubilee-gallery-curation",
+  "requested_visible_change": "Apply the approved three-photo curation to the Jubilee gallery and alternate current photographs with legacy event frames.",
+  "expected_visible_delta": "The Jubilee gallery starts with the current full-body stage photograph, shows the black-and-white guest portrait third and no longer groups similar old portraits together.",
+  "checked_after_last_edit": true,
+  "attempt_number": 1,
+  "candidate_diff_sha256": "0dd993229497cf0801fbb5c3575ba7f5fd5f8fb3a528914bebcc8596237a9dcd",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/yubiley/?gallery-after=local#photos",
+    "source_ref": "staged Astro candidate served by the project dev server",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/yubiley/",
+    "state": "existing event photo gallery",
+    "selector_or_slide_id": "#photos .photo-card",
+    "action": "Review the curated sequence and frames 1, 3 and 8 in their real gallery container."
+  },
+  "must_remain_unchanged": [
+    "14-frame gallery length, arrows, horizontal scroll and desktop lightbox",
+    "hero, videos, packages, Jubilee evening-flow photograph and CTA",
+    "letters, form behavior and wedding homepage"
+  ],
+  "required_viewports": [
+    "390x844",
+    "1440x900",
+    "full responsive gate"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "before_signature": "The first frame was current-01-guest, followed by the legacy P2 and P3 sequence.",
+      "after_signature": "Frame 1 is current-07-stage-floor, frame 3 is current-09-with-guests and frame 8 is current-08-gray-mic.",
+      "observed_visible_result": "All three new portrait frames are fully contained inside the mobile 4:3 card with complete heads and hands; the gallery remains 14 items and document overflow is 0.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "before_signature": "The gallery opened with the narrow guest-conversation portrait and then the legacy P2 and P3 frames.",
+      "after_signature": "The visible first row alternates the new full-body stage portrait, legacy guest interaction and black-and-white guest portrait.",
+      "observed_visible_result": "The first three frames form a balanced portrait-landscape-portrait rhythm; faces and full-body stage composition are intact and document overflow is 0.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "full responsive gate",
+      "before_signature": "The responsive runner dead-waited on external stylesheet links that its own request policy blocks.",
+      "after_signature": "The runner waits only for same-origin stylesheets and completes all 246 route and viewport cases.",
+      "observed_visible_result": "The complete project matrix passed 246 cases across 11 routes with all layout and runtime-error assertions enabled.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "responsive_matrix": {
+    "checked_cases": 246,
+    "routes": 11,
+    "horizontal_overflow_failures": 0,
+    "mechanical_runner_note": "The project verify:responsive-layout gate completed in one bounded headless Chrome session and closed its preview process."
+  },
+  "media_audit": "Strict media-budget audit passed; added AVIF/WebP delivery files are 29-113 KiB and PNG originals remain outside public.",
+  "production_submission": "not performed"
+}

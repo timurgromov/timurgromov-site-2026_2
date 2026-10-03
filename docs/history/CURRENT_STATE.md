@@ -1,17 +1,21 @@
 # Current State - 2026-10-03
 
-## Jubilee current gallery photo live
+## Jubilee curated event gallery
 
-- The first `/yubiley/` gallery frame now uses the approved current photograph
-  of Timur speaking with an older guest; all later gallery frames are unchanged.
-- Responsive AVIF/WebP derivatives at `640px` and `1024px` are public-ready;
-  the source original remains outside `public/`.
-- Runtime commit `f1d69c7` is live as production commit `5b20867`; `Code health`,
-  `Deploy to gh-pages` and `pages-build-deployment` completed successfully.
-- Local build, strict media audit, the full 246-case responsive gate and fresh
-  rendered checks at `390x844` and `1440x900` passed. Production confirmed the
-  decoded AVIF, preserved Jubilee H1, horizontal overflow `0` and browser
-  console errors `0`; no form was submitted.
+- `/yubiley/` keeps the existing 14-frame gallery mechanics but now alternates
+  current photographs with documentary frames of guests, interaction and
+  dancing instead of placing similar portraits together.
+- The current full-body stage photograph is first, the black-and-white frame
+  with two guests is third, and the grey-suit microphone portrait appears
+  later in the sequence. The earlier guest-conversation portrait remains at
+  position six.
+- Legacy frames `P3`, `P4` and `P13` are no longer rendered. No Jubilee copy,
+  packages, CTA, Hero, evening-flow media, letters or form behavior changed.
+- Added media uses responsive `640/1024` AVIF with WebP fallback. PNG originals
+  remain outside `public/`; the strict media-budget audit passed at `29–113 KiB`.
+- Local build, fresh in-app-browser review at `390x844` and `1440x900`, and the
+  complete 246-case responsive gate passed. The gallery has horizontal overflow
+  `0`, all 14 frames remain present, and no form was submitted.
 
 ## Jubilee current photo in evening flow
 

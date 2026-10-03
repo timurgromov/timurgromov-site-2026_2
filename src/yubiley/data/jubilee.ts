@@ -71,25 +71,38 @@ export const jubileeEveningStages = [
   ['Финал вечера', 'Общий красивый момент и завершение в темпе, который подходит имениннику и семье.']
 ];
 
+const currentGalleryPhoto = (file: string, alt: string, priority = false) => ({
+  src: `/yubiley-assets/assets/photos/gal/current/${file}-1024.webp`,
+  srcset: `/yubiley-assets/assets/photos/gal/current/${file}-640.webp 640w, /yubiley-assets/assets/photos/gal/current/${file}-1024.webp 1024w`,
+  avifSrcset: `/yubiley-assets/assets/photos/gal/current/${file}-640.avif 640w, /yubiley-assets/assets/photos/gal/current/${file}-1024.avif 1024w`,
+  sizes: '(max-width: 768px) calc(100vw - 36px), 420px',
+  alt,
+  loading: priority ? ('eager' as const) : ('lazy' as const),
+  fetchpriority: priority ? ('high' as const) : undefined
+});
+
+const legacyGalleryPhoto = (number: number, alt: string) => ({
+  src: `/yubiley-assets/assets/photos/gal/P${number}.webp`,
+  alt,
+  loading: 'lazy' as const,
+  fetchpriority: undefined
+});
+
 export const photos = [
-  {
-    src: '/yubiley-assets/assets/photos/gal/current/current-01-guest-1024.webp',
-    srcset: '/yubiley-assets/assets/photos/gal/current/current-01-guest-640.webp 640w, /yubiley-assets/assets/photos/gal/current/current-01-guest-1024.webp 1024w',
-    avifSrcset: '/yubiley-assets/assets/photos/gal/current/current-01-guest-640.avif 640w, /yubiley-assets/assets/photos/gal/current/current-01-guest-1024.avif 1024w',
-    sizes: '(max-width: 768px) calc(100vw - 36px), 420px',
-    alt: 'Тимур Громов беседует с юбиляром во время программы',
-    loading: 'eager' as const,
-    fetchpriority: 'high' as const
-  },
-  ...Array.from({ length: 13 }, (_, index) => {
-    const number = index + 2;
-    return {
-      src: `/yubiley-assets/assets/photos/gal/P${number}.webp`,
-      alt: `Момент юбилейного вечера ${number}`,
-      loading: 'lazy' as const,
-      fetchpriority: undefined
-    };
-  })
+  currentGalleryPhoto('current-07-stage-floor', 'Тимур Громов ведёт программу на сцене', true),
+  legacyGalleryPhoto(2, 'Тимур Громов общается с группой гостей'),
+  currentGalleryPhoto('current-09-with-guests', 'Тимур Громов с гостями юбилея'),
+  legacyGalleryPhoto(7, 'Гости танцуют на празднике'),
+  legacyGalleryPhoto(5, 'Интерактив с гостями во время программы'),
+  currentGalleryPhoto('current-01-guest', 'Тимур Громов беседует с юбиляром во время программы'),
+  legacyGalleryPhoto(10, 'Тимур Громов общается с гостьей'),
+  currentGalleryPhoto('current-08-gray-mic', 'Тимур Громов ведёт программу с микрофоном'),
+  legacyGalleryPhoto(14, 'Живое общение с гостями юбилея'),
+  legacyGalleryPhoto(11, 'Программа юбилея за общим столом'),
+  legacyGalleryPhoto(6, 'Активная часть программы с гостями'),
+  legacyGalleryPhoto(8, 'Тимур Громов обращается к гостям'),
+  legacyGalleryPhoto(12, 'Тимур Громов работает вместе с гостем'),
+  legacyGalleryPhoto(9, 'Общение с гостями на мероприятии')
 ];
 
 export const letters = Array.from({ length: 13 }, (_, index) => {
