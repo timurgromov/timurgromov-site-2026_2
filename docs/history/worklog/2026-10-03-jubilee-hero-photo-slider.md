@@ -29,6 +29,11 @@ Updated only the portrait area of the existing `/yubiley/` hero. The Jubilee cop
 - Focused `390x844` browser verification passed on `/yubiley/`: active slide
   changed from `01-smile` to `02-stage` after `5.2s`, computed transition
   duration was `0s`, horizontal overflow and console errors were `0`.
+- Runtime commit `2510214` is pushed to `main`; `Code health`, `Deploy to
+  gh-pages` and the Pages build completed successfully.
+- Fresh production checks at `390x844` passed in normal and reduced-motion
+  modes: HTTP `200`, five slides, AVIF delivery, `01-smile` to `02-stage` after
+  `5.2s`, zero horizontal overflow and zero console errors.
 
 ## Release
 
