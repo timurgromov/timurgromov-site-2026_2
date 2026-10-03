@@ -1483,3 +1483,25 @@ Do not:
 - accept `object-position: 0%` simply because it removes a crop;
 - use computed CSS/DOM checks as a substitute for a visual crop review;
 - introduce a mobile page-specific portrait position without owner approval.
+
+# DEC-2026-10-03-PHOTO-PLACEMENT-QA
+
+Status: active
+Area: frontend, media, responsive QA
+Decision date: 2026-10-03
+Evidence: repeated owner review of Hero crops across mobile and desktop containers
+
+Decision:
+
+Every added, replaced or recropped photo must be visually inspected in every
+real container where it renders. The required matrix includes mobile, desktop
+and `B-1/B/B+1` widths around each relevant layout breakpoint. A shared asset,
+successful build, correct CSS or one passing viewport is not sufficient.
+
+For every photo, inspect the complete composition: head and hair, hands and
+meaningful objects, focal point, intentional top and side breathing space,
+overlay clearance, masks and aspect ratio. Sliders and galleries are accepted
+only after every frame has been selected deterministically and reviewed.
+
+The full operational checklist is owned by
+`.cursor/rules/photo-placement-qa.mdc`.
