@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-10-03-jubilee-hero-mobile-crop-correction",
+  "change_kind": "jubilee-hero-slider-photo-crops",
+  "status": "passed",
+  "requested_visible_change": "Reuse the corrected corporate Hero crops on the Jubilee route: raise slide 02 slightly, lower slides 03 and 05, and restore the complete head on slide 04.",
+  "expected_visible_delta": "The Jubilee Hero shows the same balanced four corrected photographs while preserving its own H1, subtitle, tags, CTA, square geometry and slider behavior.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "69a5efecf22a5c88c1251b08e46329c2d0e41c2aef3fd83914d1fdc311719f57",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4322/yubiley/?hero-slide=04-grey-suit&crop-proof=20261003a",
+    "source_ref": "fresh local Astro candidate from the working tree",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/yubiley/ Hero media",
+    "state": "public first screen with an exact requested Hero frame",
+    "selector_or_slide_id": "[data-hero-slider] and 02-microphone/03-full-length/04-grey-suit/05-gesture",
+    "action": "open each slide through ?hero-slide=<id>, wait for the dissolve, and inspect the rendered square"
+  },
+  "must_remain_unchanged": [
+    "01-smile slide and five-frame order",
+    "Jubilee H1, subtitle, tags and CTA",
+    "square Hero geometry and autoplay timing",
+    "root wedding homepage and all Jubilee commercial sections"
+  ],
+  "required_viewports": [
+    "375x812", "390x844", "430x932", "767x900", "768x900",
+    "769x900", "1180x820", "1366x768", "1440x900", "1984x1046"
+  ],
+  "observations": [
+    {
+      "viewport": "375x812",
+      "before_signature": "shared crop windows 02/03/04/05: 245/205/256/175px; slide 04 cut the hair",
+      "after_signature": "shared crop windows 02/03/04/05: 295/165/100/135px; Jubilee slide 04 renders 347x347 from versioned AVIF",
+      "observed_visible_result": "The complete head is visible and the Jubilee Hero remains square without overflow.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "390x844",
+      "before_signature": "owner screenshots showed the shared slide 04 with the hair cut at the upper edge",
+      "after_signature": "04-grey-suit uses the y=100 crop in a 362x362 square; currentSrc is the 640 AVIF crop-20261003a",
+      "observed_visible_result": "The full head and upper breathing space are visible while the Jubilee H1 and controls remain in place.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "430x932",
+      "before_signature": "old shared slide-04 y=256 crop removed the top hair contour",
+      "after_signature": "new y=100 crop renders in a 402x402 Jubilee square; scrollWidth=430",
+      "observed_visible_result": "Live-browser inspection shows a complete, balanced portrait and unchanged Jubilee copy.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "767x900",
+      "before_signature": "old intrinsic slide-04 asset used the clipped y=256 crop",
+      "after_signature": "new 1024 AVIF uses y=100 and renders 739x739; scrollWidth=767",
+      "observed_visible_result": "The final mobile pixel preserves the complete head and square geometry.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "768x900",
+      "before_signature": "old intrinsic slide-04 asset used the clipped y=256 crop",
+      "after_signature": "new 1024 AVIF uses y=100 and renders 740x740; scrollWidth=768",
+      "observed_visible_result": "The exact boundary keeps the corrected crop and no horizontal overflow.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "769x900",
+      "before_signature": "old slide-04 asset clipped the upper hair silhouette",
+      "after_signature": "new versioned AVIF renders in the 257x257 desktop square from y=100",
+      "observed_visible_result": "The first desktop pixel keeps the full head and the original two-column Jubilee composition.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1180x820",
+      "before_signature": "old slide-04 crop ended inside the hair",
+      "after_signature": "new crop-20261003a 1024 AVIF renders at 484x484 with full upper contour",
+      "observed_visible_result": "Windowed desktop keeps the corrected portrait aligned with the unchanged Jubilee text module.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1366x768",
+      "before_signature": "old slide-04 crop ended inside the hair",
+      "after_signature": "new versioned AVIF renders at 488x488; scrollWidth=1366",
+      "observed_visible_result": "The complete head remains visible and the desktop layout does not drift.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "before_signature": "old slide-04 crop ended inside the hair",
+      "after_signature": "new y=100 crop renders at 488x488 with deliberate top space",
+      "observed_visible_result": "The corrected photograph preserves the Jubilee H1, subtitle, tags and actions.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1984x1046",
+      "before_signature": "old slide-04 crop ended inside the hair",
+      "after_signature": "new versioned 1024 AVIF renders at 600x600; scrollWidth=1984",
+      "observed_visible_result": "Wide desktop keeps the full portrait and has no horizontal overflow.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 4,
+    "selected_variant": "02 top=295; 03 top=165; 04 top=100; 05 top=135",
+    "owner_approval_reference": "The owner supplied four mobile screenshots and specified the direction of every crop correction."
+  }
+}
