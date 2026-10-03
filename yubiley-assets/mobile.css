@@ -1628,6 +1628,13 @@
   .evening-flow__card:last-child { grid-column: auto !important; }
   .evening-flow__card:hover { transform: none !important; }
 
+  .evening-flow__media { border-radius: 16px; }
+  .evening-flow__media img {
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-position: center;
+  }
+
   .service-formats__cta .btn,
   .evening-flow__cta .btn,
   .music-program__cta .btn {
