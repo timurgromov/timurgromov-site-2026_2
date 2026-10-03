@@ -435,6 +435,16 @@
   fresh in-app-browser production check found the package, live-music,
   anniversary-flow and workflow sections in the prescribed order.
 
+## Jubilee Hero first-frame headroom (2026-10-03)
+
+- Slide `01-smile` now reuses the corporate `top=95` square crop instead of
+  `top=150`, so the hair has a natural upper margin on mobile and desktop.
+- Responsive AVIF/WebP derivatives remain byte-identical to the corporate
+  copies; the original PNG stays outside `public/`.
+- Source commit `66a58fd` is live as production commit `9d4a85e`; Code health,
+  Pages deploy, the 246-case responsive gate and fresh production checks at
+  `390x844` and `1440x900` passed without overflow or console errors.
+
 ## Wedding-budget article live release (2026-09-10)
 
 - Added the evergreen Moscow/MO article

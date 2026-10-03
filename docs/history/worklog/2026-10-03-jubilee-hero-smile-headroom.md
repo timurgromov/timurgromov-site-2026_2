@@ -27,4 +27,11 @@ all Jubilee copy, controls, sections and slider timing.
 
 ## Release
 
-Pending commit, push, Pages deploy and fresh production verification.
+- Source commit `66a58fd` is pushed to `origin/main`.
+- `Code health` and `Deploy to gh-pages` completed successfully; production
+  commit is `9d4a85e`.
+- Fresh live checks passed on `/yubiley/` at `390x844` and `1440x900`: the
+  versioned AVIF decoded, the new headroom is visible, and horizontal overflow
+  and console errors are `0`.
+- The live 1024px AVIF SHA-256 matches both local site copies:
+  `b24fa574006f1b9f643e348a0498e87351c6b960cf129d7ffa1784ed211fe008`.
