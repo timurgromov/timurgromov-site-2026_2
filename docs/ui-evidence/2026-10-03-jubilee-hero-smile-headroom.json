@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-10-03-jubilee-hero-smile-headroom",
+  "change_kind": "jubilee-hero-slider-photo-crop",
+  "status": "passed",
+  "requested_visible_change": "Reuse the corrected first Hero photograph on the Jubilee route so the head has natural space above it.",
+  "expected_visible_delta": "Slide 01 moves the portrait down inside the unchanged Jubilee square crop while all Jubilee copy and controls remain intact.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "5c2fa29227721fe4457c591c11852a4521485c4c6f5595044155f99854241885",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4322/yubiley/?hero-slide=01-smile&qa=matrix#top",
+    "source_ref": "fresh local Astro candidate from the working tree",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/yubiley/ Hero media",
+    "state": "public first screen with deterministic slide 01-smile",
+    "selector_or_slide_id": "[data-slide-id=01-smile]",
+    "action": "open slide 01 through ?hero-slide=01-smile and inspect the settled square"
+  },
+  "must_remain_unchanged": [
+    "five-frame order and autoplay timing",
+    "Jubilee H1, subtitle, tags and CTA",
+    "square Hero geometry",
+    "root wedding homepage and Jubilee commercial sections"
+  ],
+  "required_viewports": [
+    "390x844", "767x900", "768x900", "769x900",
+    "1180x820", "1366x768", "1440x900", "1984x1046"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "before_signature": "slide 01 used source top=150 and left the hair close to the upper edge",
+      "after_signature": "slide 01 uses source top=95 and renders the versioned 640 AVIF in a 362x362 square",
+      "observed_visible_result": "The Jubilee portrait has natural headroom while its H1 overlay, face and hand remain balanced.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "767x900",
+      "before_signature": "old source crop began at y=150",
+      "after_signature": "versioned 1024 AVIF renders in a 739x739 square; scrollWidth=767",
+      "observed_visible_result": "The final mobile pixel keeps the new top margin without overflow.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "768x900",
+      "before_signature": "old source crop began at y=150",
+      "after_signature": "versioned 1024 AVIF renders in a 740x740 square; scrollWidth=768",
+      "observed_visible_result": "The exact boundary preserves the balanced square crop.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "769x900",
+      "before_signature": "old desktop crop left the hair close to the upper edge",
+      "after_signature": "versioned 1024 AVIF renders in a 302x302 square; scrollWidth=769",
+      "observed_visible_result": "The first desktop pixel keeps clear headroom and the two-column Jubilee Hero remains aligned.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1180x820",
+      "before_signature": "old crop was visually top-heavy",
+      "after_signature": "new top=95 crop renders at 484x484; scrollWidth=1180",
+      "observed_visible_result": "Windowed desktop keeps natural portrait balance and unchanged Jubilee copy.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1366x768",
+      "before_signature": "old crop was visually top-heavy",
+      "after_signature": "new versioned AVIF renders at 488x488; scrollWidth=1366",
+      "observed_visible_result": "The headroom remains visible and the Hero stays inside the viewport.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "before_signature": "hair sat too close to the image ceiling",
+      "after_signature": "top=95 crop renders at 488x488 with a visibly balanced upper margin",
+      "observed_visible_result": "Fresh visual review passed; Jubilee H1, tags and both CTA remain unchanged.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    },
+    {
+      "viewport": "1984x1046",
+      "before_signature": "old crop was visually top-heavy",
+      "after_signature": "new versioned 1024 AVIF renders at 600x600; scrollWidth=1984",
+      "observed_visible_result": "Wide desktop keeps natural headroom and no horizontal overflow.",
+      "delta_visible": true, "target_visible": true, "preserved_invariants_passed": true, "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 1,
+    "selected_variant": "source crop top=95",
+    "owner_approval_reference": "The owner identified the first photograph and explicitly asked to lower the head from the upper edge."
+  }
+}
