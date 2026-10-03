@@ -29,5 +29,10 @@ without changing its five stages, CTA or page order.
 
 ## Release
 
-Pending runtime commit, GitHub Pages deployment and fresh production
-verification.
+- Runtime commit `6351e27` is pushed to `origin/main` and is live as production
+  commit `40eed7b` on `origin/gh-pages`.
+- GitHub `Deploy to gh-pages` and `Code health` completed successfully.
+- Fresh live checks at `1440x900` and `390x844` confirmed the decoded AVIF,
+  complete composition, preserved CTA, no horizontal overflow and no console
+  errors.
+- No real form was submitted.

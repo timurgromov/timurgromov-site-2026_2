@@ -1,5 +1,18 @@
 # Current State - 2026-10-03
 
+## Jubilee current photo in evening flow
+
+- `/yubiley/` now shows one current photo of Timur after the five `Как проходит
+  юбилей` stages and before the existing CTA; the flow text, CTA and page order
+  are unchanged.
+- Public delivery contains only responsive AVIF/WebP derivatives at `768px`
+  and `1536px`; the original PNG remains outside `public/`.
+- Runtime commit `6351e27` is live as production commit `40eed7b`. GitHub
+  `Code health` and `Deploy to gh-pages` passed.
+- Fresh production checks at `1440x900` and `390x844` confirmed the full
+  composition, decoded AVIF, preserved CTA, no horizontal overflow and no
+  console errors; no form was submitted.
+
 ## Jubilee current-photo hero slider
 
 - `/yubiley/` uses the same ordered five-frame current-photo slider as both corporate routes while preserving the approved Jubilee copy, CTA, tags and hero geometry.
