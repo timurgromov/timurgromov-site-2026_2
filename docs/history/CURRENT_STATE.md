@@ -4,10 +4,10 @@
 
 - `/yubiley/` uses the same ordered five-frame current-photo slider as both corporate routes while preserving the approved Jubilee copy, CTA, tags and hero geometry.
 - Public delivery uses responsive `AVIF` with `WebP` fallback at `640px` and `1024px`; original PNG files remain outside `public/`.
-- Autoplay advances after `4.5s` for the first frame and every `4s` afterwards with a `650ms` crossfade, pauses in a hidden tab and stays static for reduced-motion users.
+- Autoplay advances after `4.5s` for the first frame and every `4s` afterwards with a `650ms` crossfade and pauses in a hidden tab. For reduced-motion users the sequence keeps changing on schedule but without the fade.
 - `?hero-slide=<slide-id>` is a deterministic visual-QA override and is not part of the visible interface.
 - Local build, the 246-case responsive gate, strict media-budget audit and focused Jubilee visual checks passed.
-- Runtime commit `b3dc378` is pushed to `main`; both `Code health` and `Deploy to gh-pages` completed successfully.
+- The mobile reduced-motion regression has been corrected locally and verified at `390x844`: `01-smile` changed to `02-stage` after `5.2s`, transition duration was `0s`, horizontal overflow and console errors were `0`; release commit and fresh production verification are pending.
 - Fresh production checks passed at `1440x900` and `390x844`: five slides, square non-zero hero geometry, AVIF delivery, preserved Jubilee H1 and zero horizontal overflow. Live autoplay advanced from `01-smile` to `02-stage`; AVIF/WebP assets returned HTTP `200` with correct MIME types and browser console errors were `0`.
 
 ## Scenario → article-hub discovery link live (2026-09-30)

@@ -19,6 +19,17 @@ Updated only the portrait area of the existing `/yubiley/` hero. The Jubilee cop
 - rendered checks — passed at 11 widths from `390px` through `1984px`; horizontal overflow and collapsed hero geometry: `0`.
 - autoplay and reduced-motion behavior — passed.
 
+## Mobile reduced-motion correction
+
+- The initial acceptance treated a static first frame under
+  `prefers-reduced-motion: reduce` as valid. On a phone with that preference the
+  intended slider therefore looked like a single photograph.
+- The sequence now keeps the same `4.5s`/`4s` timing in reduced-motion mode;
+  only the `650ms` opacity animation is removed by CSS.
+- Focused `390x844` browser verification passed on `/yubiley/`: active slide
+  changed from `01-smile` to `02-stage` after `5.2s`, computed transition
+  duration was `0s`, horizontal overflow and console errors were `0`.
+
 ## Release
 
 - Runtime commit: `b3dc378` on `main`.

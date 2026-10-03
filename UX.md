@@ -329,8 +329,8 @@ Layout contract for the added commercial core:
 - The first frame is eager/high priority. Later frames are lazy/low priority.
 - Every source is a responsive AVIF with WebP fallback. Original PNG files stay
   outside `public/`.
-- Autoplay pauses in hidden tabs and is disabled by
-  `prefers-reduced-motion: reduce`.
+- Autoplay pauses in hidden tabs. With `prefers-reduced-motion: reduce`, frames
+  still change on schedule but without the opacity animation.
 - `data-slide-id` and `?hero-slide=<id>` provide deterministic QA states.
 - The route must preserve the existing square media frame and have no
   horizontal overflow or browser-console errors at all Jubilee contract

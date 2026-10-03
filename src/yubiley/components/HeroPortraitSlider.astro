@@ -65,7 +65,6 @@ const assetRoot = '/yubiley-assets/assets/hero/slider';
     slider.dataset.heroSliderReady = 'true';
     const firstDuration = Number(slider.dataset.firstDuration) || 4500;
     const slideDuration = Number(slider.dataset.slideDuration) || 4000;
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let currentIndex = 0;
     let timer;
 
@@ -84,7 +83,7 @@ const assetRoot = '/yubiley-assets/assets/hero/slider';
 
     const schedule = () => {
       stop();
-      if (reducedMotion.matches || document.hidden) return;
+      if (document.hidden) return;
       const delay = currentIndex === 0 ? firstDuration : slideDuration;
       timer = window.setTimeout(() => {
         show((currentIndex + 1) % slides.length);
@@ -102,7 +101,6 @@ const assetRoot = '/yubiley-assets/assets/hero/slider';
     if (requestedIndex < 0) {
       schedule();
       document.addEventListener('visibilitychange', schedule);
-      reducedMotion.addEventListener('change', schedule);
     }
   };
 
