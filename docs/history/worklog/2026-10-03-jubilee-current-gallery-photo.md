@@ -21,3 +21,13 @@ selected guest-interaction portrait in the existing gallery.
 - Fresh in-app-browser review passed at `390x844` and `1440x900`: the complete
   portrait remains visible, horizontal overflow and console errors are `0`.
 - No form was submitted.
+
+## Release
+
+- Runtime commit `f1d69c7` is pushed to `origin/main` and published as
+  production commit `5b20867`.
+- `Code health`, `Deploy to gh-pages` and `pages-build-deployment` completed
+  successfully.
+- Fresh production checks passed at `390x844` and `1440x900`: the AVIF decoded,
+  the complete portrait is visible, the Jubilee H1 is unchanged, and horizontal
+  overflow and browser console errors are `0`.

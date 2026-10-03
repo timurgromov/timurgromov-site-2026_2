@@ -1,14 +1,17 @@
 # Current State - 2026-10-03
 
-## Jubilee current gallery photo pending release
+## Jubilee current gallery photo live
 
 - The first `/yubiley/` gallery frame now uses the approved current photograph
   of Timur speaking with an older guest; all later gallery frames are unchanged.
 - Responsive AVIF/WebP derivatives at `640px` and `1024px` are public-ready;
   the source original remains outside `public/`.
+- Runtime commit `f1d69c7` is live as production commit `5b20867`; `Code health`,
+  `Deploy to gh-pages` and `pages-build-deployment` completed successfully.
 - Local build, strict media audit, the full 246-case responsive gate and fresh
-  rendered checks at `390x844` and `1440x900` passed. Release and production
-  verification are still pending.
+  rendered checks at `390x844` and `1440x900` passed. Production confirmed the
+  decoded AVIF, preserved Jubilee H1, horizontal overflow `0` and browser
+  console errors `0`; no form was submitted.
 
 ## Jubilee current photo in evening flow
 
