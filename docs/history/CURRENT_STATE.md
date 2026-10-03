@@ -9,7 +9,8 @@
 - `?hero-slide=<slide-id>` is a deterministic visual-QA override and is not part of the visible interface.
 - Local build, the 246-case responsive gate, strict media-budget audit and focused Jubilee visual checks passed.
 - The earlier mobile reduced-motion release remains unchanged; the corrected second-frame identifier is now `02-microphone`.
-- Local numbered-order checks passed at `1440x900` and `390x844`: every deterministic frame rendered its matching distinct AVIF, square geometry was non-zero, the Jubilee H1 was preserved, horizontal overflow was `0` and browser console errors were `0`.
+- The numbered-order correction is released in runtime commit `c99b931`; `Code health` and `Deploy to gh-pages` completed successfully.
+- Fresh production checks passed at `1440x900` and `390x844`: all five deterministic frames rendered their matching distinct AVIF, square geometry was non-zero, the Jubilee H1 was preserved, horizontal overflow was `0` and browser console errors were `0`; live autoplay advanced from `01-smile` to `02-microphone` after `5.4s`.
 
 ## Scenario → article-hub discovery link live (2026-09-30)
 

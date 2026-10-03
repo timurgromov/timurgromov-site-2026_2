@@ -21,3 +21,15 @@
   frames visible in the expected order; non-zero square geometry, AVIF selected,
   Jubilee H1 preserved, horizontal overflow `0`, console warnings/errors `0`.
 - No form was submitted.
+
+## Release
+
+- Runtime commit: `c99b931` on `origin/main`.
+- GitHub `Code health` and `Deploy to gh-pages`: successful.
+- Fresh production verification passed on `/yubiley/` at `1440x900` and
+  `390x844`: five matching visible frames, AVIF delivery, preserved Jubilee H1,
+  non-zero square geometry, horizontal overflow `0` and console
+  warnings/errors `0`.
+- Live autoplay advanced from `01-smile` to `02-microphone` after `5.4s`. The
+  removed `hero-03-guests` asset returns HTTP `404`; the new
+  `hero-04-grey-suit` asset returns HTTP `200 image/avif`.
