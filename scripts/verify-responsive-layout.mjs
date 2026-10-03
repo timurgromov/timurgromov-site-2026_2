@@ -1,4 +1,22 @@
 import { spawn } from "node:child_process";
+import { createHash } from "node:crypto";
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
+
+const root = resolve(import.meta.dirname, "..");
+const heroSlideIds = ["01-smile", "02-microphone", "03-full-length", "04-grey-suit", "05-gesture"];
+
+async function verifyDistinctJubileeHeroAssets() {
+  const hashes = await Promise.all(heroSlideIds.map(async (slideId) => {
+    const asset = await readFile(resolve(root, `public/yubiley-assets/assets/hero/slider/hero-${slideId}-1024.avif`));
+    return createHash("sha256").update(asset).digest("hex");
+  }));
+  if (new Set(hashes).size !== heroSlideIds.length) {
+    throw new Error("Jubilee hero slider: duplicate 1024px AVIF assets detected");
+  }
+}
+
+await verifyDistinctJubileeHeroAssets();
 
 const port = Number(process.env.RESPONSIVE_LAYOUT_PREVIEW_PORT || 4600 + (process.pid % 300));
 const url = `http://127.0.0.1:${port}`;

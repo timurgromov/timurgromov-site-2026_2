@@ -3,12 +3,13 @@
 ## Jubilee current-photo hero slider
 
 - `/yubiley/` uses the same ordered five-frame current-photo slider as both corporate routes while preserving the approved Jubilee copy, CTA, tags and hero geometry.
+- The frame order now follows the owner-selected numbered originals exactly: `01-smile`, `02-microphone`, `03-full-length`, `04-grey-suit`, `05-gesture`; the former alternate-background duplicate is removed and photo 4 is present.
 - Public delivery uses responsive `AVIF` with `WebP` fallback at `640px` and `1024px`; original PNG files remain outside `public/`.
 - Autoplay advances after `4.5s` for the first frame and every `4s` afterwards with a `650ms` crossfade and pauses in a hidden tab. For reduced-motion users the sequence keeps changing on schedule but without the fade.
 - `?hero-slide=<slide-id>` is a deterministic visual-QA override and is not part of the visible interface.
 - Local build, the 246-case responsive gate, strict media-budget audit and focused Jubilee visual checks passed.
-- The mobile reduced-motion regression is released in runtime commit `2510214`; `Code health`, `Deploy to gh-pages` and the Pages build completed successfully. Fresh `390x844` production checks passed in normal and reduced-motion modes: `01-smile` changed to `02-stage` after `5.2s`, reduced-motion transition duration was `0s`, horizontal overflow and console errors were `0`.
-- Fresh production checks passed at `1440x900` and `390x844`: five slides, square non-zero hero geometry, AVIF delivery, preserved Jubilee H1 and zero horizontal overflow. Live autoplay advanced from `01-smile` to `02-stage`; AVIF/WebP assets returned HTTP `200` with correct MIME types and browser console errors were `0`.
+- The earlier mobile reduced-motion release remains unchanged; the corrected second-frame identifier is now `02-microphone`.
+- Local numbered-order checks passed at `1440x900` and `390x844`: every deterministic frame rendered its matching distinct AVIF, square geometry was non-zero, the Jubilee H1 was preserved, horizontal overflow was `0` and browser console errors were `0`.
 
 ## Scenario → article-hub discovery link live (2026-09-30)
 
