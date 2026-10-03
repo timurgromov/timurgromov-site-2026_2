@@ -22,4 +22,11 @@ Jubilee copy, controls, commercial blocks and slider timing.
   `767/768/769`.
 - Horizontal overflow and console errors: `0`; no form was submitted.
 
-Release details are recorded after the production deployment.
+## Release
+
+- Runtime commit `28688e3` is pushed to `origin/main`.
+- `Code health` and `Deploy to gh-pages` completed successfully; the resulting
+  production commit is `6f2b00c`.
+- Fresh live checks passed at `390x844` and `1440x900`: the corrected versioned
+  AVIF rendered, the Jubilee H1 stayed unchanged, and console errors and
+  horizontal overflow were `0`.

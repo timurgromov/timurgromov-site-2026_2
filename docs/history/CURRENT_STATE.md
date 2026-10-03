@@ -11,6 +11,8 @@
 - The earlier mobile reduced-motion release remains unchanged; the corrected second-frame identifier is now `02-microphone`.
 - The numbered-order correction is released in runtime commit `c99b931`; `Code health` and `Deploy to gh-pages` completed successfully.
 - Fresh production checks passed at `1440x900` and `390x844`: all five deterministic frames rendered their matching distinct AVIF, square geometry was non-zero, the Jubilee H1 was preserved, horizontal overflow was `0` and browser console errors were `0`; live autoplay advanced from `01-smile` to `02-microphone` after `5.4s`.
+- Owner-reviewed mobile crop corrections for frames `02`–`05` are released in runtime commit `28688e3` and production commit `6f2b00c`: frame `02` is raised, frames `03` and `05` have more upper breathing space, and frame `04` shows the complete hair/head silhouette.
+- `Code health` and `Deploy to gh-pages` passed. Fresh live checks at `390x844` and `1440x900` rendered versioned AVIF assets `crop-20261003a`, preserved the Jubilee H1, and found no horizontal overflow or console errors.
 
 ## Scenario → article-hub discovery link live (2026-09-30)
 
