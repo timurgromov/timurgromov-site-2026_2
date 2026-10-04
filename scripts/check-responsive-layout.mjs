@@ -240,6 +240,17 @@ function assertJubileeHeroSlider(result) {
   }
 }
 
+function assertJubileeMusicPoster(result) {
+  if (result.route !== "/yubiley/") return;
+  if (!result.jubileeMusicPoster) fail("Jubilee music-program poster is missing", result);
+  if (result.jubileeMusicPoster.objectPosition !== "50% 0px") {
+    fail("Jubilee music-program poster lost its head-safe top framing", result);
+  }
+  if (!result.jubileeMusicPoster.src.includes("/assets/music/music-program-max.webp")) {
+    fail("Jubilee music-program poster source changed", result);
+  }
+}
+
 function assertFirstScreenPrimaryActions(result) {
   if (!result.firstScreenPrimaryActions) return;
 
@@ -607,6 +618,14 @@ async function measure(page, route, viewport, watchedTextSelectors) {
           stencil: elementBox(expertConversionPortraitImage.closest(".tg-plan-cta__photo")),
         }
       : null;
+    const jubileeMusicPosterImage = document.querySelector(".music-program__photo img");
+    const jubileeMusicPoster = jubileeMusicPosterImage
+      ? {
+          objectPosition: getComputedStyle(jubileeMusicPosterImage).objectPosition,
+          src: jubileeMusicPosterImage.src,
+          image: elementBox(jubileeMusicPosterImage),
+        }
+      : null;
 
     return {
       route,
@@ -622,6 +641,7 @@ async function measure(page, route, viewport, watchedTextSelectors) {
       firstScreenHeroLead: elementBox(firstScreenHero?.querySelector("[data-first-screen-lead]")),
       weddingArticleUi,
       expertConversionPortrait,
+      jubileeMusicPoster,
       articleHubUi: route === "/articles/" ? {
         cardCount: document.querySelectorAll(".library-card").length,
         hasIndependentPromo: Boolean(document.querySelector(".library-start, .library-next, .library-button")),
@@ -709,6 +729,7 @@ try {
         assertExpertConversionPortrait(result);
         assertHomeHero(result);
         assertJubileeHeroSlider(result);
+        assertJubileeMusicPoster(result);
         assertFirstScreenPrimaryActions(result);
         assertWeddingArticleUi(result);
         if (result.weddingArticleUi) weddingArticleResults.push(result);
