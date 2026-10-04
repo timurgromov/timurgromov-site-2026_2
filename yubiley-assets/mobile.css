@@ -1651,5 +1651,5 @@
   .music-program__summary { padding: 0 !important; }
   .music-program__summary-copy { padding: 20px 20px 16px !important; }
   .music-program__lead { font-size: 22px !important; }
-  .music-program__media { height: 250px; }
+  .music-program__media { height: auto; aspect-ratio: 1200 / 843; }
 }

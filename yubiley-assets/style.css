@@ -1527,6 +1527,8 @@ body.is-modal-open{
   top: 40%;
   left: 0;
   right: 0;
+  width: 100%;
+  max-width: 100%;
   height: 200px;
   pointer-events: none;
   z-index: 1;
@@ -2315,21 +2317,6 @@ body { overflow-x: hidden; }
     border-radius: 16px !important;
   }
 
-  /* PATCH: Маяк для проверки планшетного блока */
-  html::before {
-    content: "tablet from style.css";
-    position: fixed;
-    top: 8px;
-    left: 8px;
-    font: 12px/1 monospace;
-    color: #fff;
-    background: rgba(255, 122, 69, 0.8);
-    padding: 4px 8px;
-    border-radius: 4px;
-    opacity: 0.9;
-    z-index: 99999;
-  }
-
   /* === FIX: убрать «яму» между Hero и видео === */
   /* единый шаг секций на планшете */
   :root { --section-gap-y: 56px; }
@@ -2531,4 +2518,16 @@ body { overflow-x: hidden; }
   .service-format:last-child { grid-column: 1 / -1; }
   .service-formats__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .music-program__layout { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 769px) and (max-width: 1180px) {
+  .music-program__summary {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+    grid-template-areas: "media copy";
+    align-items: center;
+  }
+  .music-program__summary-copy { grid-area: copy; padding: 24px; }
+  .music-program__showreel { grid-area: media; min-width: 0; }
+  .music-program__media { height: auto; aspect-ratio: 1200 / 843; }
 }
