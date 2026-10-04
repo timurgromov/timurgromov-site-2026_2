@@ -1527,6 +1527,8 @@ body.is-modal-open{
   top: 40%;
   left: 0;
   right: 0;
+  width: 100%;
+  max-width: 100%;
   height: 200px;
   pointer-events: none;
   z-index: 1;
