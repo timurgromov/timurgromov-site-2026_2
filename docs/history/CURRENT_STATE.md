@@ -1,10 +1,11 @@
 # Current State - 2026-10-03
 
-## Wedding MAX pause — candidate, not yet published (2026-10-04)
+## Wedding MAX pause — public site live (2026-10-04)
 
-- Wedding public CTAs, contact pop-ups, materials and footer are being narrowed to Telegram, phone and the existing consultation form. MAX and WhatsApp wedding entrypoints are removed from the rendered candidate only; the customer MAX bot, its deep-link constants and offline-conversion plumbing remain intact for a separately verified return.
+- Wedding public CTAs, contact pop-ups, materials and footer now use Telegram, phone and the existing consultation form. Rendered wedding MAX and WhatsApp entrypoints are removed; the customer MAX bot, its deep-link constants and offline-conversion plumbing remain intact for a separately verified return. Jubilee and corporate surfaces were not part of this release.
 - The existing `site_consultation_submit_success` Metrika goal stays on the successful CRM form response; no new goal is created. The form now validates a meaningful 10–15-digit phone in the browser and backend.
-- The release requires separate EventBudjet and website commits/deploys, mobile/desktop and messenger live checks, and a single synthetic lead followed by exact CRM cleanup. These checks are not yet evidence of production delivery.
+- Runtime commit `c30adf1` is pushed to `origin/main` and published by GitHub Pages deployment `570f02b`; `Code health`, `Deploy to gh-pages` and the live Pages verification passed. Local build, contact tests, the 246-case responsive matrix, and desktop/mobile popup/CTA visual checks passed. Fresh mobile live inspection found zero rendered wedding MAX/WhatsApp links and no horizontal overflow.
+- One synthetic live popup submission with a fake number and `НЕ ЗВОНИТЬ` became EventBudjet CRM `#149`, displayed the form-success state and appeared in the private Telegram `CRM заявки` channel. The exact test CRM row was then deleted and its absence verified. The existing goal call remains behind successful CRM response; Yandex's report did not yet independently attribute a new reach to this specific 12:35 MSK test, so provider-side registration is not claimed. The test goal event, if processed, is not removed by CRM cleanup.
 
 ## Jubilee curated event gallery
 
