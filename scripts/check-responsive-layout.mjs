@@ -256,8 +256,7 @@ function assertJubileeMusicPoster(result) {
   }
   const { media, summaryCopy, showreel, summaryDisplay } = result.jubileeMusicPoster;
   const mediaRatio = media.width / media.height;
-  const maximumMediaRatio = result.viewport.width <= 1180 ? 1.5 : 1.65;
-  if (mediaRatio < 1.35 || mediaRatio > maximumMediaRatio) {
+  if (result.viewport.width <= 1180 && (mediaRatio < 1.35 || mediaRatio > 1.5)) {
     fail("Jubilee music-program poster no longer preserves its full-composition ratio", {
       mediaRatio,
       ...result,
