@@ -1,0 +1,34 @@
+{
+  "change": "jubilee music-program tablet composition",
+  "date": "2026-10-04",
+  "route": "/yubiley/",
+  "before": {
+    "viewport": "1180x820",
+    "poster_ratio": 3.024,
+    "finding": "The stacked full-width tablet poster still cropped the musicians and instruments."
+  },
+  "after": {
+    "tablet_range": "769px-1180px",
+    "summary_display": "grid",
+    "grid_areas": "media copy",
+    "poster_position": "left",
+    "copy_position": "right",
+    "poster_ratio": 1.422,
+    "source_ratio": "1200:843",
+    "debug_marker_removed": true,
+    "horizontal_overflow": 0
+  },
+  "viewports": [
+    "390x844",
+    "768x1024",
+    "769x1024",
+    "1180x820",
+    "1181x820",
+    "1440x900"
+  ],
+  "asset": {
+    "source": "https://corp.timurgromov.ru/assets/music/music-program-max.avif with WebP fallback",
+    "changed": false,
+    "verdict": "ready"
+  }
+}

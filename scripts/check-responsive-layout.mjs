@@ -104,6 +104,11 @@ const viewports = parseViewports(
   process.env.RESPONSIVE_LAYOUT_VIEWPORTS || defaultViewports.join(","),
 );
 const routeSpecificGroups = [
+  ...["769x1024", "899x900", "900x900", "901x900", "1179x820", "1180x820", "1181x820"].flatMap((name) => {
+    if (viewports.some((viewport) => viewport.name === name)) return [];
+    const [width, height] = name.split("x").map(Number);
+    return [{ viewport: { width, height, name }, routes: ["/yubiley/"] }];
+  }),
   ...["375x812", "430x932", "440x956"].flatMap((name) => {
     if (viewports.some((viewport) => viewport.name === name)) return [];
     const [width, height] = name.split("x").map(Number);
@@ -248,6 +253,23 @@ function assertJubileeMusicPoster(result) {
   }
   if (!result.jubileeMusicPoster.src.includes("/assets/music/music-program-max.webp")) {
     fail("Jubilee music-program poster source changed", result);
+  }
+  const { media, summaryCopy, showreel, summaryDisplay } = result.jubileeMusicPoster;
+  const mediaRatio = media.width / media.height;
+  const maximumMediaRatio = result.viewport.width <= 1180 ? 1.5 : 1.65;
+  if (mediaRatio < 1.35 || mediaRatio > maximumMediaRatio) {
+    fail("Jubilee music-program poster no longer preserves its full-composition ratio", {
+      mediaRatio,
+      ...result,
+    });
+  }
+  if (result.viewport.width >= 769 && result.viewport.width <= 1180) {
+    if (summaryDisplay !== "grid") {
+      fail("Jubilee music-program tablet summary did not switch to the side-by-side grid", result);
+    }
+    if (!showreel || !summaryCopy || showreel.right > summaryCopy.left + 1) {
+      fail("Jubilee music-program tablet composition is not poster-left and copy-right", result);
+    }
   }
 }
 
@@ -624,6 +646,10 @@ async function measure(page, route, viewport, watchedTextSelectors) {
           objectPosition: getComputedStyle(jubileeMusicPosterImage).objectPosition,
           src: jubileeMusicPosterImage.src,
           image: elementBox(jubileeMusicPosterImage),
+          media: elementBox(jubileeMusicPosterImage.closest(".music-program__media")),
+          summaryCopy: elementBox(document.querySelector(".music-program__summary-copy")),
+          showreel: elementBox(document.querySelector(".music-program__showreel")),
+          summaryDisplay: getComputedStyle(document.querySelector(".music-program__summary")).display,
         }
       : null;
 
