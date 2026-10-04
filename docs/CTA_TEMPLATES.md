@@ -1,5 +1,9 @@
 # CTA templates for expert pages
 
+Temporary wedding override (2026-10-04): public links show Telegram and the
+existing meeting pop-up only; MAX and WhatsApp are not exposed. Historical
+provider/source examples below describe retained code, not live public CTAs.
+
 These names are an implementation contract, not a design brief. When the
 owner says either phrase, use the exact source below; do not rebuild a similar
 card, buttons or pop-up.
@@ -8,12 +12,12 @@ card, buttons or pop-up.
 
 - Source: `src/site/expert-conversion.ts` → `renderExpertConversionContour`.
 - It is the complete home-site conversion island: the four literal Tilda split
-  controls, portrait in the homepage stencil, text phone number and the same
+  controls (currently Telegram, meeting pop-up and site), portrait in the homepage stencil, text phone number and the same
   consultation pop-up as the homepage.
-- Required paths: Telegram materials, MAX materials, «Обсудить свадьбу»
+- Required public paths: Telegram materials, «Обсудить свадьбу»
   (opens the pop-up) and «Сайт ведущего».
 - Required input: page `entrypoint`. The renderer emits the final-island
-  source automatically; Telegram/MAX materials and the contact pop-up receive
+  source automatically; Telegram materials and the contact pop-up receive
   different, exact source codes.
 - Mobile portrait rule: at `<=640px` the common horizontal stencil uses the
   dedicated head-safe framing `object-position: 62% 18%` for every entrypoint.
@@ -43,8 +47,8 @@ default. Other public page types are discussed per scenario.
 ## «Маленький CTA»
 
 - Source: `src/components/ExpertMaterialsInlineCta.astro`.
-- It is one compact white materials island: one copy line and exactly two
-  literal Tilda split controls. Telegram is orange; MAX is light.
+- It is one compact white materials island: one copy line and one
+  literal Telegram split control. The MAX control is temporarily hidden.
 - Required input: `entrypoint`, `placement` and `copy`.
 - It must not add portrait, phone, personal-contact controls or a second
   heavy conversion block. The page receives one big CTA at its end; small CTA
@@ -56,26 +60,26 @@ Example:
 <ExpertMaterialsInlineCta
   entrypoint="scenario"
   placement="mid_article"
-  copy="Хотите собрать свой вечер по этой логике? В Telegram или MAX можно получить калькулятор, пример сценария и план подготовки."
+  copy="Хотите собрать свой вечер по этой логике? В Telegram можно получить калькулятор, пример сценария и план подготовки."
 />
 ```
 
 ## Source attribution is mandatory
 
 The messenger provider and the CTA identity are different dimensions.
-Telegram/MAX identifies the provider; the `start` payload identifies the
+Telegram identifies the currently public provider; the `start` payload identifies the
 site, page, intent and exact CTA placement. The source format is:
 
 ```
 site_<plan|meeting>_<site>__<page>__<placement>
 ```
 
-This is a universal public-site rule: every Telegram/MAX bot or Mini App start
+This is a universal public-site rule: every public bot or Mini App start
 and every consultation-form submit must use its own structured source. A source
 must name the real `intent`, `site`, `page` and `placement`; never use a raw
 payload, a generic `site_plan` / `site_meeting`, or another page's code. The
-provider remains a separate EventBudjet dimension, so the same page code is
-used for Telegram and MAX while the admin shows which channel the visitor used.
+provider remains a separate EventBudjet dimension. Dormant MAX deep links and
+offline-conversion code are preserved for a later, separately verified return.
 
 For example, the compact reading CTA on `/scenario/` sends
 `site_plan_timurgromov__scenario__mid_article`; the final conversion island

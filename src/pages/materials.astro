@@ -429,11 +429,10 @@ const webinarCtaMarkup = `<section id="materials-followup-cta" class="tg-plan-ct
       <p class="tg-plan-cta__text">Откройте материал в удобном мессенджере: этот путь продолжает вебинар и не заменяет личную встречу.</p>
       <div class="tg-plan-cta__actions">
         ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--primary", telegramMaterialsPlanUrl, "Получить в Telegram", 'target="_blank" rel="nofollow"')}
-        ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--secondary", maxMaterialsPlanUrl, "Получить в MAX", 'target="_blank" rel="nofollow"')}
       </div>
     </div>
     <div class="tg-plan-cta__side" aria-label="Что делать дальше">
-      <div class="tg-plan-cta__item"><strong>01</strong><span>Выберите Telegram или MAX.</span></div>
+      <div class="tg-plan-cta__item"><strong>01</strong><span>Откройте Telegram-бота.</span></div>
       <div class="tg-plan-cta__item"><strong>02</strong><span>Подтвердите, что хотите продолжить после вебинара.</span></div>
       <div class="tg-plan-cta__item"><strong>03</strong><span>Получите конспект и пошаговый план подготовки.</span></div>
       <p class="tg-plan-cta__note">Материал — отдельный полезный путь, не запись на встречу.</p>
@@ -481,11 +480,11 @@ const materialRecordsHtml = materialRecordIds
     }
 
     recordHtml = recordHtml
-      .replaceAll("https://t.me/gromov_wedding_bot?start=site_meeting_home", telegramMaterialsPlanUrl)
-      .replaceAll(
-        "https://max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM?clckid=c487e7dc",
-        maxMaterialsPlanUrl,
-      );
+      .replace(
+        /пишите мне в <a href="https:\/\/max\.ru\/u\/[^\"]+"[^>]*>MAX <\/a>или /,
+        "пишите мне в ",
+      )
+      .replaceAll("https://t.me/gromov_wedding_bot?start=site_meeting_home", telegramMaterialsPlanUrl);
 
     if (recordId === webinarCtaInsertionRecordId) {
       return `${recordHtml} ${webinarCtaMarkup}`;

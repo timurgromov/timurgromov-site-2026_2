@@ -228,10 +228,10 @@ function assertHeroScenarioCta(cta, viewport) {
   }
   const telegram = cta.popupLinks.find((link) => link.text.includes("Telegram"));
   const max = cta.popupLinks.find((link) => link.text.includes("MAX"));
-  if (!telegram || !max) {
-    fail("hero: popup Telegram/MAX links are missing", { cta, viewport });
+  if (!telegram || max) {
+    fail("hero: popup must offer Telegram without MAX", { cta, viewport });
   }
-  for (const link of [telegram, max]) {
+  for (const link of [telegram]) {
     if (!link.href.includes("start=site_plan")) {
       fail("hero: popup scenario link does not point to site_plan", { link, cta, viewport });
     }
@@ -242,21 +242,15 @@ function assertHeroScenarioCta(cta, viewport) {
   if (telegram.channel !== "telegram" || telegram.source !== "plan_popup") {
     fail("hero: popup Telegram link lost analytics attribution", { telegram, cta, viewport });
   }
-  if (max.channel !== "max" || max.source !== "plan_popup") {
-    fail("hero: popup MAX link lost analytics attribution", { max, cta, viewport });
-  }
   const planTelegram = cta.planCtaLinks.find((link) => link.text.includes("Telegram"));
   const planMax = cta.planCtaLinks.find((link) => link.text.includes("MAX"));
-  if (!planTelegram || !planMax) {
-    fail("plan CTA: Telegram/MAX analytics links are missing", { cta, viewport });
+  if (!planTelegram || planMax) {
+    fail("plan CTA: Telegram must remain and MAX must be absent", { cta, viewport });
   }
   if (planTelegram.channel !== "telegram" || planTelegram.source !== "plan_cta_block") {
     fail("plan CTA: Telegram link lost analytics attribution", { planTelegram, cta, viewport });
   }
-  if (planMax.channel !== "max" || planMax.source !== "plan_cta_block") {
-    fail("plan CTA: MAX link lost analytics attribution", { planMax, cta, viewport });
-  }
-  for (const link of [planTelegram, planMax]) {
+  for (const link of [planTelegram]) {
     if (!link.href.includes("start=site_plan")) {
       fail("plan CTA: scenario link does not point to site_plan", { link, cta, viewport });
     }
@@ -264,7 +258,7 @@ function assertHeroScenarioCta(cta, viewport) {
       fail("plan CTA: scenario link regressed to site_meeting", { link, cta, viewport });
     }
   }
-  if (!cta.metrikaGoals?.popupOpen || !cta.metrikaGoals?.messengerClick || !cta.metrikaGoals?.telegramClick || !cta.metrikaGoals?.maxClick) {
+  if (!cta.metrikaGoals?.popupOpen || !cta.metrikaGoals?.messengerClick || !cta.metrikaGoals?.telegramClick) {
     fail("site_plan: Metrika goal contract is missing", { cta, viewport });
   }
   if (cta.href.includes("start=site_meeting")) {
@@ -386,17 +380,17 @@ function assertLayout(layout) {
   const max = links.find((link) => link.text === "MAX");
 
   if (!phone || !shortcut || !orangeShape) fail(`${mode}: required elements missing`, layout);
-  if (!telegram || !max) fail(`${mode}: Telegram/MAX links missing`, layout);
+  if (!telegram || max) fail(`${mode}: Telegram must remain and MAX must be absent`, layout);
   if (shortcut.display === "none" || shortcut.visibility === "hidden" || shortcut.opacity === 0) {
     fail(`${mode}: shortcut is not visible`, layout);
   }
-  if (!shortcut.text.includes("Написать мне") || !shortcut.text.includes("Telegram") || !shortcut.text.includes("MAX")) {
+  if (!shortcut.text.includes("Написать мне") || !shortcut.text.includes("Telegram") || shortcut.text.includes("MAX")) {
     fail(`${mode}: shortcut text is incomplete`, layout);
   }
   if (shortcut.top < phone.bottom + 4) fail(`${mode}: shortcut overlaps phone`, layout);
   if (shortcut.top > phone.bottom + 80) fail(`${mode}: shortcut is too far from phone`, layout);
   if (social && social.top < shortcut.bottom + 14) fail(`${mode}: social row overlaps shortcut`, layout);
-  if (max.right > orangeShape.right + 2) fail(`${mode}: MAX link is clipped on the right`, layout);
+  if (telegram.right > orangeShape.right + 2) fail(`${mode}: Telegram link is clipped on the right`, layout);
   if (shortcut.bottom > orangeShape.bottom - 12) fail(`${mode}: shortcut is too close to orange block bottom`, layout);
   if (!icons?.arrow || !icons?.instagram || !icons?.vk) fail(`${mode}: social icons missing`, layout);
 
@@ -424,10 +418,10 @@ function assertLayout(layout) {
   if (iconGap < 6 || iconGap > 24) {
     fail(`${mode}: social icons are not grouped evenly`, { iconGap, ...layout });
   }
-  if (Math.abs(icons.vk.right - max.right) > 10) {
-    fail(`${mode}: social icon group is not aligned with MAX link`, {
+  if (Math.abs(icons.vk.right - telegram.right) > 140) {
+    fail(`${mode}: social icon group drifted away from Telegram link`, {
       vkRight: icons.vk.right,
-      maxRight: max.right,
+      telegramRight: telegram.right,
       ...layout,
     });
   }
@@ -436,7 +430,7 @@ function assertLayout(layout) {
     if (!contactLabel) fail(`${mode}: mobile contact label is missing`, layout);
     if (phone.top - contactLabel.bottom > 30) fail(`${mode}: mobile contact label is too far from phone`, layout);
     if (phone.top > 520) fail(`${mode}: mobile phone starts too low in the first screen`, layout);
-    if (shortcut.bottom > safeBottom) fail(`${mode}: mobile Telegram/MAX row is below the first safe screen`, layout);
+    if (shortcut.bottom > safeBottom) fail(`${mode}: mobile Telegram row is below the first safe screen`, layout);
     if (icons.instagram.bottom > safeBottom || icons.vk.bottom > safeBottom) {
       fail(`${mode}: mobile social icons are below the first safe screen`, layout);
     }
@@ -481,7 +475,7 @@ function assertLayout(layout) {
     }
   }
 
-  for (const link of [telegram, max]) {
+  for (const link of [telegram]) {
     const whiteEnough =
       link.color === "rgb(255, 254, 250)" ||
       link.textFillColor === "rgb(255, 254, 250)" ||

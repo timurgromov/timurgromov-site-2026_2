@@ -1,6 +1,12 @@
 # UX — контур конверсии экспертных страниц
 
-Updated: 2026-09-10
+Updated: 2026-10-04
+
+Current temporary rule: public wedding routes offer Telegram, phone and the
+consultation form, not MAX or WhatsApp. Existing MAX bot/offline-conversion code
+is retained but not linked publicly. The design history below describes the
+original four-path layout where noted; the current visible release target
+section supersedes it.
 
 ## Job and flow
 
@@ -248,9 +254,9 @@ that viewport, plus the required mobile frame, before release.
 
 ## Visible release target
 
-Each shared contour is visible after its useful page content. It contains four
-equal, explicit controls: Telegram, MAX, «Обсудить свадьбу» and «Сайт
-ведущего». The author portrait and the text phone number remain in the island;
+Each shared contour is visible after its useful page content. While MAX is
+unreliable, it contains three explicit controls: Telegram, «Обсудить свадьбу»
+and «Сайт ведущего». The author portrait and the text phone number remain in the island;
 the contact pop-up opens over the page rather than creating a fifth CTA.
 
 Every public wedding SEO or editorial article receives this final contour by
@@ -258,9 +264,9 @@ default, exactly once, after its useful content and before the shared footer.
 The catalogue `/articles/` is not an article and has no such contour; any other
 exception requires an explicit owner decision.
 
-Every Telegram/MAX start and consultation-form submission from a public CTA
+Every Telegram start and consultation-form submission from a public CTA
 keeps a distinct structured `source` for its intent, site, page and placement.
-The admin shows that source alongside the separate Telegram/MAX provider; no
+The admin shows that source alongside the separate provider; no
 new public CTA may use a generic or copied source code.
 
 ## Shared consultation popup on SEO routes
@@ -269,7 +275,7 @@ new public CTA may use a generic or copied source code.
 `/articles/byudzhet-svadby-v-moskve/` use the literal homepage
 consultation-popup pattern: Coolvetica/Manrope typography, the compact
 split-button system with rotating arrow, phone card, form and success state.
-Only Telegram/MAX deep-link values vary by source route; this is not a separate
+Only the Telegram deep-link value varies by source route; this is not a separate
 SEO-page popup design.
 
 ## Scenario article material entry
@@ -277,18 +283,18 @@ SEO-page popup design.
 After «Церемония, поздравления и фотографии» and before the personal meeting
 CTA, `/scenario/` has one compact white materials island. Its copy describes
 the calculator, scenario example and preparation plan; Telegram is the orange
-primary split-control and MAX is the light secondary one. It has no article
+split-control and MAX is temporarily hidden. It has no article
 divider lines. The personal-discussion CTA remains later in the article; the
 full four-path author island remains once at the bottom.
 
 ## Named CTA templates for future expert pages
 
 - «Большой CTA» is the literal `renderExpertConversionContour` home-site
-  island: four paths, the author photo stencil, text phone and the existing
+  island: three currently public paths, the author photo stencil, text phone and the existing
   contact pop-up. It appears once at the end of useful page content and is
   mandatory by default for every wedding SEO/editorial article.
 - «Маленький CTA» is the literal `ExpertMaterialsInlineCta` white materials
-  island: one contextual copy line, orange Telegram and light MAX. It can be
+  island: one contextual copy line and orange Telegram. It can be
   placed during reading, but never replaces or duplicates the final big CTA.
 - The templates are defined in `docs/CTA_TEMPLATES.md`. They automatically
   emit one structured source per intent and placement: `site`, `page`,

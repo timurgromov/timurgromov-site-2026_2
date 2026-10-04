@@ -1,5 +1,11 @@
 # Current State - 2026-10-03
 
+## Wedding MAX pause — candidate, not yet published (2026-10-04)
+
+- Wedding public CTAs, contact pop-ups, materials and footer are being narrowed to Telegram, phone and the existing consultation form. MAX and WhatsApp wedding entrypoints are removed from the rendered candidate only; the customer MAX bot, its deep-link constants and offline-conversion plumbing remain intact for a separately verified return.
+- The existing `site_consultation_submit_success` Metrika goal stays on the successful CRM form response; no new goal is created. The form now validates a meaningful 10–15-digit phone in the browser and backend.
+- The release requires separate EventBudjet and website commits/deploys, mobile/desktop and messenger live checks, and a single synthetic lead followed by exact CRM cleanup. These checks are not yet evidence of production delivery.
+
 ## Jubilee curated event gallery
 
 - `/yubiley/` keeps the existing 14-frame gallery mechanics but now alternates

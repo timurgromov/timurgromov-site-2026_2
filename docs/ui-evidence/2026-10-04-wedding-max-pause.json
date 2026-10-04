@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-10-04-wedding-max-pause",
+  "change_kind": "contact-cta",
+  "status": "passed",
+  "requested_visible_change": "Temporarily remove MAX and WhatsApp from public wedding contact paths while preserving Telegram, phone and the existing lead form",
+  "expected_visible_delta": "Homepage consultation popup loses the MAX row; final wedding expert CTA loses MAX while keeping Telegram, meeting popup, host home and phone",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "4d49543c5df2d441dfcb77e3481e34ad2951124499d060d6261071a850d8ab1d",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/",
+    "source_ref": "staged working tree built by npm run build",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/ and /scenario/",
+    "state": "open consultation popup and final expert CTA",
+    "selector_or_slide_id": "#consultation-contact-popup; .tg-plan-cta--expert",
+    "action": "open popup from consultation CTA; inspect scenario final CTA and close popup"
+  },
+  "must_remain_unchanged": [
+    "Telegram bot destination and structured source",
+    "phone and consultation form",
+    "wedding article content",
+    "Jubilee and corporate routes"
+  ],
+  "required_viewports": ["390x844", "1440x900"],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "Codex in-app browser explicit viewport; innerWidth=390; innerHeight=844",
+      "before_signature": "live homepage popup links: Telegram, MAX, Позвонить; scrollWidth-innerWidth=0",
+      "after_signature": "local homepage popup links: Telegram, Позвонить; local scenario final CTA: Telegram, Обсудить свадьбу, Сайт ведущего; scrollWidth-innerWidth=0",
+      "observed_visible_result": "Mobile popup and final expert CTA render without MAX, with readable form and visible phone; no horizontal overflow",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "viewport_source": "Codex in-app browser explicit viewport; innerWidth=1440; innerHeight=900",
+      "before_signature": "live homepage popup links: Telegram, MAX, Позвонить; scrollWidth-innerWidth=0",
+      "after_signature": "local homepage popup links: Telegram, Позвонить; local scenario final CTA: Telegram, Обсудить свадьбу, Сайт ведущего; scrollWidth-innerWidth=0",
+      "observed_visible_result": "Desktop popup retains the form and phone; final expert CTA has three public choices and its portrait; no horizontal overflow",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ]
+}

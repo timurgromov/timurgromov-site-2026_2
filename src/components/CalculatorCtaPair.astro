@@ -1,7 +1,6 @@
 ---
 import {
   expertCtaSource,
-  maxCalculatorUrlFor,
   telegramCalculatorUrlFor,
   type ExpertCtaPlacement,
 } from "../site/home-data";
@@ -23,14 +22,13 @@ const attrs = `target="_blank" rel="noopener noreferrer nofollow" data-calculato
   aria-label="Рассчитать бюджет свадьбы"
 >
   <Fragment set:html={corporateSplitCtaLink("calculator-cta-pair__button calculator-cta-pair__button--primary", telegramCalculatorUrlFor("wedding_budget", placement), "Рассчитать в Telegram", attrs)} />
-  <Fragment set:html={corporateSplitCtaLink("calculator-cta-pair__button calculator-cta-pair__button--secondary", maxCalculatorUrlFor("wedding_budget", placement), "Рассчитать в MAX", attrs)} />
 </div>
 
 <style>
   .calculator-cta-pair {
     --t-text-font: "Manrope", Arial, sans-serif;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
     gap: 10px;
     width: min(100%, 590px);
   }

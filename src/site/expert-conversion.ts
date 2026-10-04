@@ -47,10 +47,9 @@ export const renderExpertConversionContour = ({
     <div class="tg-plan-cta__inner">
       <div class="tg-plan-cta__content">
         <h2>Всё для подготовки к свадьбе</h2>
-        <p class="tg-plan-cta__text">В Telegram- и MAX-боте вы получите свадебный калькулятор, полезные материалы, порядок вечера, пример сценария и пошаговый план подготовки к свадьбе. Можно обсудить свою свадьбу с Тимуром или посмотреть сайт ведущего.</p>
+        <p class="tg-plan-cta__text">В Telegram-боте вы получите свадебный калькулятор, полезные материалы, порядок вечера, пример сценария и пошаговый план подготовки к свадьбе. Можно обсудить свою свадьбу с Тимуром или посмотреть сайт ведущего.</p>
         <div class="tg-plan-cta__actions" aria-label="Выбрать следующий шаг">
           ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--primary", telegramPlanUrl, "Получить в Telegram", `${safeAttrs} data-plan-source="${planSource}" data-expert-cta="plan-telegram"`)}
-          ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--secondary", maxPlanUrl, "Получить в MAX", `${safeAttrs} data-plan-source="${planSource}" data-expert-cta="plan-max"`)}
           ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--secondary", "#consultation-contact", "Обсудить свадьбу", 'data-consultation-popup-open data-expert-cta="meeting-popup"')}
           ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--secondary", basePath, "Сайт ведущего", 'data-expert-cta="host-home"')}
         </div>
@@ -68,7 +67,7 @@ export const renderExpertConversionContour = ({
       <section><h3>Материалы</h3><a href="${basePath}materials/">Все материалы</a><a href="${basePath}scenario/">Сценарий вечера</a></section>
       <section><h3>Услуги</h3><a href="${basePath}">Свадебный ведущий</a><a href="https://corp.timurgromov.ru" target="_blank" rel="noopener noreferrer">Корпоративы</a></section>
       <section><h3>Доверие</h3><a href="https://dzen.ru/timurgromov" target="_blank" rel="noopener noreferrer">Дзен</a><a href="https://clck.ru/TZjT6" target="_blank" rel="noopener noreferrer">Отзывы</a></section>
-      <section><h3>Контакты</h3><a href="${telegramMeetingUrl}" ${safeAttrs}>Telegram</a><a href="${maxMeetingUrl}" ${safeAttrs}>MAX</a><a href="tel:+79253900772">+7 925 390-07-72</a></section>
+      <section><h3>Контакты</h3><a href="${telegramMeetingUrl}" ${safeAttrs}>Telegram</a><a href="tel:+79253900772">+7 925 390-07-72</a></section>
     </div>
   </footer>
 

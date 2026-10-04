@@ -278,8 +278,8 @@ export const priceConsultationMarkup =
     <p class="tg-price-consultation__note">30–40 минут, без обязательств, только про вашу свадьбу.</p>
   </div>`;
 
-const priceConsultationMaxLinkMarkup =
-  `<a href="${maxContactUrl}" rel="nofollow" target="_blank" style="color: inherit">Написать в MAX</a>`;
+const priceConsultationRequestLinkMarkup =
+  `<a href="#consultation-contact" rel="nofollow" data-consultation-popup-open style="color: inherit">Оставить заявку</a>`;
 
 export const priceTextReplacements = [
   ["rec862317152", "1738854720285", "Два формата под ключ"],
@@ -289,7 +289,7 @@ export const priceTextReplacements = [
   ["rec862334119", "1738855581124", priceFineprintMarkup],
   ["rec862336377", "1738854720285", "Бесплатная консультация"],
   ["rec862336377", "1738854720290", priceConsultationMarkup],
-  ["rec862336377", "1738855821506", priceConsultationMaxLinkMarkup],
+  ["rec862336377", "1738855821506", priceConsultationRequestLinkMarkup],
 ] as const;
 
 export const priceLegacyElementRemovals = [

@@ -12,7 +12,7 @@ const viewports = (process.env.MATERIALS_LAYOUT_VIEWPORTS || "1200x900,1440x900,
     return { width, height, name: viewport };
   });
 
-const orangeColor = "rgb(250, 70, 4)";
+const footerColor = "rgb(36, 29, 25)";
 
 function fail(message, details = {}) {
   const error = new Error(`${message}\n${JSON.stringify(details, null, 2)}`);
@@ -21,14 +21,13 @@ function fail(message, details = {}) {
 }
 
 function assertMaterialsLayout(result) {
-  const { viewport, footer, artboard, orange, cta, bottomPixel, bottomSamples } = result;
-  const isMobile = viewport.width < 640;
+  const { footer, cta, bottomPixel, bottomSamples } = result;
 
-  if (!footer || !artboard || !orange) {
+  if (!footer) {
     fail("Materials footer elements are missing", result);
   }
 
-  if (!cta?.section || !cta?.primary || !cta?.secondary) {
+  if (!cta?.section || !cta?.primary || cta?.secondary) {
     fail("Materials CTA elements are missing", result);
   }
 
@@ -36,28 +35,20 @@ function assertMaterialsLayout(result) {
     fail("Materials page did not reach max scroll before footer check", result);
   }
 
-  if (bottomPixel.bg !== orangeColor) {
-    fail("Materials footer bottom pixel is not orange", result);
+  if (bottomPixel.bg !== footerColor) {
+    fail("Materials footer bottom pixel has the wrong background", result);
   }
 
-  const nonOrangeBottomSample = bottomSamples.find((sample) => sample.bg !== orangeColor);
+  const nonFooterBottomSample = bottomSamples.find((sample) => sample.bg !== footerColor);
 
-  if (nonOrangeBottomSample) {
-    fail("Materials footer bottom samples include non-orange pixels", {
-      nonOrangeBottomSample,
+  if (nonFooterBottomSample) {
+    fail("Materials footer bottom samples include a wrong background", {
+      nonFooterBottomSample,
       ...result,
     });
   }
 
-  if (!isMobile && Math.abs(result.footerMinusOrange) > 2) {
-    fail("Materials desktop footer record no longer ends with the orange shape", result);
-  }
-
-  if (isMobile && artboard.bg !== orangeColor) {
-    fail("Materials mobile footer artboard is not orange", result);
-  }
-
-  if (cta.primaryElementAtCenter !== "cta" || cta.secondaryElementAtCenter !== "cta") {
+  if (cta.primaryElementAtCenter !== "cta") {
     fail("Materials CTA buttons are covered by a neighboring Tilda layer", result);
   }
 
@@ -65,7 +56,7 @@ function assertMaterialsLayout(result) {
     fail("Materials next Tilda record overlaps the CTA", result);
   }
 
-  if (cta.primary.height < 24 || cta.secondary.height < 24) {
+  if (cta.primary.height < 24) {
     fail("Materials CTA buttons collapsed vertically", result);
   }
 }
@@ -141,9 +132,7 @@ async function measurePage(page) {
   await page.waitForTimeout(500);
 
   const footer = await page.evaluate(() => {
-    const footer = document.querySelector("#rec862623921");
-    const artboard = document.querySelector("#rec862623921 .t396__artboard");
-    const orange = document.querySelector('#rec862623921 .tn-elem[data-elem-id="1738906924130"]');
+    const footer = document.querySelector(".expert-conversion__footer");
 
     const box = (element) => {
       if (!element) return null;
@@ -179,7 +168,6 @@ async function measurePage(page) {
       };
     };
     const footerBox = box(footer);
-    const orangeBox = box(orange);
     const sampleX = Math.floor(window.innerWidth / 2);
     const bottomSampleY = Math.max(0, window.innerHeight - 1);
     const bottomSamples = [1, 4, 8, 12]
@@ -196,11 +184,6 @@ async function measurePage(page) {
       expectedMaxScrollY: document.documentElement.scrollHeight - window.innerHeight,
       documentHeight: document.documentElement.scrollHeight,
       footer: footerBox,
-      artboard: box(artboard),
-      orange: orangeBox,
-      footerMinusOrange: footerBox && orangeBox
-        ? Number((footerBox.pageBottom - orangeBox.pageBottom).toFixed(2))
-        : null,
       bottomPixel: pixelAt(sampleX, bottomSampleY),
       bottomSamples,
     };

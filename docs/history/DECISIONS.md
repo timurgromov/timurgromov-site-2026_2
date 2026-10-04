@@ -2,6 +2,25 @@
 
 Этот файл фиксирует решения, которые важно помнить и не откатывать случайно.
 
+## DEC-2026-10-04-WEDDING-MAX-TEMPORARY-PAUSE
+
+Status: active temporary override of earlier public MAX CTA decisions
+Area: wedding public site, contact and attribution
+Decision date: 2026-10-04
+Evidence: owner-approved plan after MAX messaging failures
+
+Until MAX can be verified as a reliable two-way contact channel, the wedding
+site does not expose MAX or WhatsApp links. Where Telegram, phone or the
+existing consultation form already exists, no replacement CTA is added. A
+MAX-only request entry opens the existing consultation pop-up. The customer
+MAX bot, its deep-link constants and offline-conversion code remain untouched
+for a future measured return. Telegram bot links and attribution payloads stay
+unchanged. The consultation form requires name and a meaningful phone, saves
+to CRM before calling the existing `site_consultation_submit_success` goal,
+and the private Telegram `CRM заявки` channel receives the first alert with
+retry for an undelivered initial message. Corporate and Jubilee routes are out
+of scope. A live MAX delivery claim requires its own later proof.
+
 ## DEC-2026-09-10-PUBLIC-TYPE-AND-HERO-CTA-SYSTEM
 
 Status: active
