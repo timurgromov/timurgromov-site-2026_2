@@ -13,8 +13,8 @@ import HeroPortraitSlider from './HeroPortraitSlider.astro';
         ))}
       </div>
       <div class="hero__cta hero-actions" id="hero-actions">
-        <button type="button" class="btn btn-primary" data-modal="contact-popup" data-cta="contact_popup_hero">Обсудить юбилей</button>
-        <button class="btn btn-outline" data-modal="video-consult-modal" data-form-source="hero_video" data-cta="video_call_hero">Назначить встречу</button>
+        <button type="button" class="btn btn-primary" data-contact-open>Обсудить юбилей</button>
+        <button class="btn btn-outline" data-contact-open data-form-source="hero_video">Назначить встречу</button>
       </div>
     </div>
     <HeroPortraitSlider alt={hero.imageAlt} />

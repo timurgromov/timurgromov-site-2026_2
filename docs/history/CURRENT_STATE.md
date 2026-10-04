@@ -1,4 +1,10 @@
-# Current State - 2026-10-03
+# Current State - 2026-10-05
+
+## Jubilee CTA stage 1
+
+- `/yubiley/` uses a labelled sticky contact control after the first screen and one direct-contact panel with Timur's personal Telegram and displayed phone number. In-page contact CTAs use the same panel.
+- The three unconfirmed Jubilee popup forms and the automatic checklist prompt are removed. No callback form, new CRM source or Metrika goal was added for Jubilee. Wedding routes and their confirmed consultation flow remain outside this change.
+- Local build, `verify:contacts`, `verify:responsive-layout`, and mobile/desktop panel checks passed. Public `t.me/timurgromovv` resolves to the named profile; native `tg://` navigation was blocked by browser policy and is not claimed as verified.
 
 ## Wedding MAX pause — public site live (2026-10-04)
 

@@ -2,6 +2,15 @@
 
 Этот файл фиксирует решения, которые важно помнить и не откатывать случайно.
 
+## DEC-2026-10-05-JUBILEE-CTA-STAGE-1
+
+Status: active
+Area: `/yubiley/` contact UX
+Decision date: 2026-10-05
+Evidence: owner-approved three-page CTA plan and local audit of the prior forms
+
+Jubilee contact CTAs offer Timur's personal Telegram and a visible phone number in a shared contact panel. No `Оставить номер` option is shown until a confirmed-delivery form is connected in stage 2. The three former popup forms reported success without a confirmed backend response and are removed together with the automatic checklist prompt. This decision does not change wedding conversion paths, CRM sources, Metrika goals or advertising.
+
 ## DEC-2026-10-04-WEDDING-MAX-TEMPORARY-PAUSE
 
 Status: active temporary override of earlier public MAX CTA decisions

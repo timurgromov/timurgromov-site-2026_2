@@ -316,8 +316,8 @@ Target route: `/yubiley/`.
 3. `Живая музыка` expands only the third package: two vocalists perform three 30-minute blocks under professional arrangements; saxophone and guitar are optional expansion. The public wording must not name the contractor, publish its contacts, or imply a full instrumental cover band.
 4. The showreel uses the approved corporate photo derivatives and existing published MP4. Initial state is the poster with a pulsing orange play control and caption; playback replaces it with a native video and hides the custom overlay. The overlay returns when playback ends.
 5. `Как проходит юбилей` describes the guest experience: gathering, opening and congratulations, family stories and programme, music and dancing, neutral final. It never promises a cake, saxophone or live vocals in packages that do not include them.
-6. `Порядок работы` remains a separate customer-service flow: acquaintance, jubilee concept, scenario and timing, agreement and preparation, event. Its CTA continues to use the existing consultation modal.
-7. Gallery, letters, current videos, form, analytics, hero and SEO metadata are unchanged in this release. Public prices are not added.
+6. `Порядок работы` remains a separate customer-service flow: acquaintance, jubilee concept, scenario and timing, agreement and preparation, event. Its CTA now opens the direct contact panel.
+7. Gallery, letters, current videos, hero and SEO metadata are unchanged. The earlier unconfirmed popup forms were removed in CTA stage 1; public prices are not added.
 
 Layout contract for the added commercial core:
 
@@ -365,3 +365,11 @@ Layout contract for the added commercial core:
 - The route must preserve the existing square media frame and have no
   horizontal overflow or browser-console errors at all Jubilee contract
   viewports.
+
+## Jubilee CTA stage 1 contract — 2026-10-05
+
+- Target: `/yubiley/`, contact CTAs and sticky control after `scrollY > innerHeight`.
+- Baseline observed live at actual 1280×720: icon-only WhatsApp sticky link; three popup forms exist in DOM and their client code shows success without confirmed delivery. Checklist popup can open on timer or workflow visibility.
+- Expected visible delta: labelled `Связаться` control; compact desktop dialog or bottom sheet at <=768px with personal Telegram and visible phone. All former contact-form CTA triggers open this panel. Remove all three unconfirmed forms and checklist auto-open.
+- Preserved: Jubilee copy, layout, gallery/letter/program modal, header WhatsApp, wedding routes and their form/CRM code.
+- States and access: close button/backdrop/Escape, focus return/containment, background scroll lock and mobile safe-area padding. Check 390×844 and 1280×720 plus 320px and 1024px.

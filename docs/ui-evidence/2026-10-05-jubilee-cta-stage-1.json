@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-10-05-jubilee-cta-stage-1",
+  "change_kind": "contact-cta",
+  "status": "passed",
+  "requested_visible_change": "Direct Telegram and phone choices on the Jubilee route without an unconfirmed lead form",
+  "expected_visible_delta": "A labelled sticky button and a two-action contact panel replace the old WhatsApp FAB and three broken form dialogs",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "8b4b7c8d2d34238a0d74948bae8201c16557170b5785a871d6d909be50f3e9e0",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4322/yubiley/",
+    "source_ref": "staged working tree",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/yubiley/",
+    "state": "hero contact CTA and sticky CTA after first-screen scroll",
+    "selector_or_slide_id": "[data-contact-open], #contact-choice-dialog",
+    "action": "open panel from hero CTA; close with Escape and verify focus return"
+  },
+  "must_remain_unchanged": [
+    "Jubilee Hero copy and gallery",
+    "programs and letters dialogs",
+    "wedding contact routes"
+  ],
+  "required_viewports": ["320x700", "390x844", "1280x720"],
+  "observations": [
+    {
+      "viewport": "320x700",
+      "viewport_source": "isolated Playwright viewport; innerWidth=320; innerHeight=700",
+      "before_signature": "HEAD used icon-only WhatsApp FAB and unconfirmed form dialogs",
+      "after_signature": "bottom sheet x=0 y=279 width=320 height=421; two actions each 58px; overflow=false",
+      "observed_visible_result": "Both direct-contact actions fit without clipping and no callback choice appears",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "390x844",
+      "viewport_source": "isolated Playwright viewport; innerWidth=390; innerHeight=844",
+      "before_signature": "HEAD used icon-only WhatsApp FAB and old form triggers",
+      "after_signature": "bottom sheet x=0 y=468 width=390 height=376; two actions each 58px; overflow=false",
+      "observed_visible_result": "Personal Telegram and displayed phone are legible; removed forms are absent from DOM",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1280x720",
+      "viewport_source": "isolated Playwright viewport; innerWidth=1280; innerHeight=720",
+      "before_signature": "live baseline: icon-only WhatsApp FAB; contact/video/checklist forms existed",
+      "after_signature": "centered dialog x=420 y=177 width=440 height=366; two actions each 55px; overflow=false",
+      "observed_visible_result": "Compact direct-contact dialog opens from the Hero and closes with focus return",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {"variants_shown": 0, "selected_variant": "", "owner_approval_reference": "owner-approved CTA stage 1 plan"}
+}
