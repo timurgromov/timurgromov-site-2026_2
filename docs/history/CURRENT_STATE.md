@@ -1,4 +1,4 @@
-# Current State - 2026-10-05
+# Current State - 2026-10-06
 
 ## Jubilee CTA stages 2–3 — live (2026-10-06)
 
@@ -9,14 +9,18 @@
   goal parameters contain only `site`, `page`, `intent`, `placement`.
 - `verify:contacts` and the 253-case `verify:responsive-layout` passed in a
   disposable browser session. Runtime commit `847e3d3` is pushed; its GitHub
-  Pages deployment completed successfully. Fresh live browser inspection
-  confirmed the panel and callback form without submitting it. No CRM record
-  or Telegram notification has been created for verification.
+  Pages deployment completed successfully. An owner-authorized synthetic
+  submission then created CRM `#152` with `timurgromov / jubilee /
+  consultation / hero`; the same structured alert appeared in the private
+  `CRM заявки` Telegram channel. The form showed success only after HTTP
+  `201`. The card was deleted from CRM by owner instruction after verification.
+  Metrika goal `670111872` (`Подтверждённая заявка`) now independently reports
+  one visit and one reach on 2026-10-06; no personal data was sent to Metrika.
 
 ## Jubilee CTA stage 1
 
 - `/yubiley/` uses a labelled sticky contact control after the first screen and one direct-contact panel with Timur's personal Telegram and displayed phone number. In-page contact CTAs use the same panel.
-- The three unconfirmed Jubilee popup forms and the automatic checklist prompt are removed. No callback form, new CRM source or Metrika goal was added for Jubilee. Wedding routes and their confirmed consultation flow remain outside this change.
+- At the stage-1 point in time, the three unconfirmed Jubilee popup forms and the automatic checklist prompt were removed. The confirmed callback form, separate CRM source and Metrika goals were added in stages 2–3. Wedding routes and their confirmed consultation flow remain outside this change.
 - Local build, `verify:contacts`, `verify:responsive-layout`, and mobile/desktop panel checks passed. Public `t.me/timurgromovv` resolves to the named profile; native `tg://` navigation was blocked by browser policy and is not claimed as verified.
 
 ## Wedding MAX pause — public site live (2026-10-04)
