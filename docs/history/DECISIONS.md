@@ -9,7 +9,7 @@ Area: `/yubiley/` contact UX
 Decision date: 2026-10-05
 Evidence: owner-approved three-page CTA plan and local audit of the prior forms
 
-Jubilee contact CTAs offer Timur's personal Telegram and a visible phone number in a shared contact panel. No `Оставить номер` option is shown until a confirmed-delivery form is connected in stage 2. The three former popup forms reported success without a confirmed backend response and are removed together with the automatic checklist prompt. This decision does not change wedding conversion paths, CRM sources, Metrika goals or advertising.
+Jubilee contact CTAs offer Timur's personal Telegram, a visible phone number and, from stage 2, an `Оставить номер` form in a shared contact panel. The callback form sends the structured Jubilee CTA context to the existing EventBudjet endpoint and reports success only after HTTP `201`. The three former popup forms reported success without a confirmed backend response and are removed together with the automatic checklist prompt. This decision does not change wedding conversion paths or advertising. A live form submission needs its own owner approval because it creates a CRM record and private Telegram notification.
 
 ## DEC-2026-10-04-WEDDING-MAX-TEMPORARY-PAUSE
 

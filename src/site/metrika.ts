@@ -160,6 +160,33 @@ export const yandexMetrikaHead = `<meta name="yandex-verification" content="${ya
       };
     };
 
+    var ctaGoals = {
+      cta_open: true,
+      telegram_click: true,
+      phone_click: true,
+      form_start: true,
+      lead_submit_success: true,
+      lead_submit_error: true,
+      materials_request: true
+    };
+
+    function ctaToken(value, fallback){
+      var normalized = String(value || '').trim().toLowerCase();
+      return /^[a-z0-9][a-z0-9_-]{0,63}$/.test(normalized) ? normalized : fallback;
+    }
+
+    window.tgTrackCtaGoal = function(goal, context){
+      if (!ctaGoals[goal] || typeof window.ym !== 'function') return;
+      var value = context || {};
+      var cta = {
+        site: ctaToken(value.site, 'timurgromov'),
+        page: ctaToken(value.page, 'jubilee'),
+        intent: ctaToken(value.intent, 'consultation'),
+        placement: ctaToken(value.placement, 'contact_panel')
+      };
+      window.ym(${yandexMetrikaId}, 'reachGoal', goal, { cta: cta });
+    };
+
     function messengerLinkData(anchor){
       try {
         var url = new URL(anchor.href, window.location.href);

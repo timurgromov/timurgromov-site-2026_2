@@ -1,5 +1,17 @@
 # Current State - 2026-10-05
 
+## Jubilee CTA stages 2–3 — candidate for release (2026-10-06)
+
+- The Jubilee contact panel now offers personal Telegram, phone and a callback
+  form. It only shows success after HTTP `201` from the existing EventBudjet
+  endpoint and sends the `timurgromov/jubilee` CTA context.
+- Counter `100295805` has the same seven JS goals as the corporate counter;
+  goal parameters contain only `site`, `page`, `intent`, `placement`.
+- `verify:contacts` and the 253-case `verify:responsive-layout` passed in a
+  disposable browser session. The candidate still needs push, GitHub Pages
+  publication and a fresh live check. No CRM record or Telegram notification
+  has been created for verification.
+
 ## Jubilee CTA stage 1
 
 - `/yubiley/` uses a labelled sticky contact control after the first screen and one direct-contact panel with Timur's personal Telegram and displayed phone number. In-page contact CTAs use the same panel.
