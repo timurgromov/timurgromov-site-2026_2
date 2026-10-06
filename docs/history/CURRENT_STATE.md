@@ -1,6 +1,6 @@
 # Current State - 2026-10-05
 
-## Jubilee CTA stages 2–3 — candidate for release (2026-10-06)
+## Jubilee CTA stages 2–3 — live (2026-10-06)
 
 - The Jubilee contact panel now offers personal Telegram, phone and a callback
   form. It only shows success after HTTP `201` from the existing EventBudjet
@@ -8,9 +8,10 @@
 - Counter `100295805` has the same seven JS goals as the corporate counter;
   goal parameters contain only `site`, `page`, `intent`, `placement`.
 - `verify:contacts` and the 253-case `verify:responsive-layout` passed in a
-  disposable browser session. The candidate still needs push, GitHub Pages
-  publication and a fresh live check. No CRM record or Telegram notification
-  has been created for verification.
+  disposable browser session. Runtime commit `847e3d3` is pushed; its GitHub
+  Pages deployment completed successfully. Fresh live browser inspection
+  confirmed the panel and callback form without submitting it. No CRM record
+  or Telegram notification has been created for verification.
 
 ## Jubilee CTA stage 1
 
