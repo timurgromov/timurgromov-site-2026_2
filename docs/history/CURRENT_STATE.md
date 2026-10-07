@@ -1,6 +1,21 @@
 # Current State - 2026-10-07
 
-## Jubilee Event Calculator CTA — implementation in progress (2026-10-07)
+## Jubilee contact CTA and Event Calculator — live (2026-10-07)
+
+- Jubilee header WhatsApp was replaced by a white-text `Связаться` button.
+  The old mobile rule that hid the header was removed, so the button is visible
+  on both desktop and mobile. It opens the existing contact panel; phone
+  controls use `tel:`. The sticky `Связаться` button still appears after the
+  first screen, and the confirmed callback form remains in the panel.
+- Runtime source `b9bbb25` was pushed on `main` and published as static
+  production `b3d2fc`. Code health and GitHub Pages deploy passed. Local
+  `verify:contacts` and the 253-case `verify:responsive-layout` passed.
+  Fresh live 390x844 and 1280x720 checks confirm the header and panel,
+  white button labels, correct Jubilee bot source, phone action and no
+  horizontal overflow or JavaScript console errors.
+- EventBudjet backend `3f90b24` is deployed. Its source registry recognizes
+  `header` and maps Jubilee to counter `100295805`. A fresh Jubilee bot start
+  after this release and paid-visit matching remain unproved.
 
 - The Jubilee panel and contact page enter the shared Event Calculator bot
   with a Jubilee source. There is no personal Telegram CTA in this flow;
@@ -9,8 +24,8 @@
   using counter `100295805`, with structured source fallback if unavailable.
   Bot start, not link click, is the CRM/offline event.
 - Existing `order_confirmed` goal is `601407015`. The temporary personal-click
-  goal `670526571` was deleted and is absent on API read-back. Release and
-  live bot-start proof remain.
+  goal `670526571` was deleted and is absent on API read-back. Live bot-start
+  proof remains.
 
 ## Jubilee CTA stages 2–3 — live (2026-10-06)
 
