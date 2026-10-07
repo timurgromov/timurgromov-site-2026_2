@@ -272,6 +272,18 @@ function assertJubileeMusicPoster(result) {
   }
 }
 
+function assertJubileeContactHeader(result) {
+  if (result.route !== "/yubiley/") return;
+  const contact = result.jubileeContactHeader;
+  if (!contact?.button || contact.text !== "Связаться" || contact.button.width < 80 ||
+      contact.button.height < 35 || contact.button.right > result.viewport.width + 1 ||
+      contact.buttonColor !== "rgb(255, 255, 255)" ||
+      contact.stickyColor !== "rgb(255, 255, 255)" || contact.stickyVisible ||
+      !contact.phoneHref.startsWith("tel:")) {
+    fail("Jubilee first-screen contact header is hidden or inconsistent", result);
+  }
+}
+
 function assertFirstScreenPrimaryActions(result) {
   if (!result.firstScreenPrimaryActions) return;
 
@@ -699,6 +711,18 @@ async function measure(page, route, viewport, watchedTextSelectors) {
         hasAvif: Boolean(document.querySelector('[data-hero-slider] source[type="image/avif"]')),
         hasWebp: Boolean(document.querySelector('[data-hero-slider] source[type="image/webp"]')),
       } : null,
+      jubileeContactHeader: route === "/yubiley/" ? (() => {
+        const button = document.querySelector(".header-contact-btn");
+        const sticky = document.querySelector(".contact-choice-fab");
+        return {
+          button: elementBox(button),
+          text: button?.textContent.trim(),
+          buttonColor: button ? getComputedStyle(button).color : null,
+          stickyColor: sticky ? getComputedStyle(sticky).color : null,
+          stickyVisible: sticky?.classList.contains("is-visible") || false,
+          phoneHref: document.querySelector(".header__phone")?.getAttribute("href") || "",
+        };
+      })() : null,
     };
   }, { route, viewport, watchedTextSelectors });
 }
@@ -755,6 +779,7 @@ try {
         assertHomeHero(result);
         assertJubileeHeroSlider(result);
         assertJubileeMusicPoster(result);
+        assertJubileeContactHeader(result);
         assertFirstScreenPrimaryActions(result);
         assertWeddingArticleUi(result);
         if (result.weddingArticleUi) weddingArticleResults.push(result);

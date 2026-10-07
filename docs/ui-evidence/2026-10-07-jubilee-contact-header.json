@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-10-07-jubilee-contact-header",
+  "change_kind": "header-contact",
+  "status": "passed",
+  "requested_visible_change": "На юбилейной странице кнопка Связаться в шапке с белой надписью на desktop и mobile, белая надпись плавающей кнопки.",
+  "expected_visible_delta": "WhatsApp в шапке заменён общей контактной панелью; скрытый на mobile блок действий шапки показан; телефон остаётся tel:.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "10b01d473f29aafed6a1fc5a8e0943ec93f373361f3966a7a4261ac18c68f3bc",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4325/yubiley/",
+    "source_ref": "staged main candidate",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/yubiley/",
+    "state": "public first screen and contact panel",
+    "selector_or_slide_id": ".header-contact-btn, .contact-choice-fab",
+    "action": "load first screen; click header contact; scroll beyond first viewport"
+  },
+  "must_remain_unchanged": [
+    "Jubilee Hero copy and two Hero CTA labels",
+    "Confirmed callback form",
+    "Wedding routes"
+  ],
+  "required_viewports": [
+    "1280x720",
+    "390x844"
+  ],
+  "observations": [
+    {
+      "viewport": "1280x720",
+      "viewport_source": "IAB window.innerWidth/innerHeight",
+      "before_signature": "live Jubilee: header WhatsApp; sticky color rgb(16,16,20)",
+      "after_signature": "local: header Связаться with rgb(255,255,255); sticky color rgb(255,255,255)",
+      "observed_visible_result": "Desktop screenshot shows new header and the panel with bot, tel: phone and callback; bot source ends jubilee__header.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "390x844",
+      "viewport_source": "IAB viewport override and window.innerWidth/innerHeight",
+      "before_signature": "live Jubilee: header actions hidden; sticky color rgb(16,16,20)",
+      "after_signature": "local: header Связаться visible, white label; sticky label white",
+      "observed_visible_result": "Mobile screenshot after final CSS rebuild shows visible header button and bottom sheet with white bot action; bot source ends jubilee__header.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 0,
+    "selected_variant": "",
+    "owner_approval_reference": ""
+  }
+}

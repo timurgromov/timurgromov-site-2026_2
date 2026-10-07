@@ -2,6 +2,15 @@
 
 Этот файл фиксирует решения, которые важно помнить и не откатывать случайно.
 
+## DEC-2026-10-07-JUBILEE-HEADER-CONTACT
+
+Status: active
+Area: `/yubiley/` header, sticky CTA and phone actions
+Decision date: 2026-10-07
+Evidence: owner review of the published three-page CTA and local desktop/mobile browser check
+
+The header shows `Связаться` and opens the same Event Calculator contact panel as the Hero and sticky button. Mobile must show this header button on the first screen; the sticky button appears only after the first screen. Orange CTA labels remain white. All visible phone actions use `tel:` without a desktop WhatsApp redirect. The detailed Jubilee copy, confirmed callback and bot-start conversion contract remain.
+
 ## DEC-2026-10-05-JUBILEE-CTA-STAGE-1
 
 Status: superseded for Telegram routing by DEC-20261007-001; the confirmed callback contract remains active
