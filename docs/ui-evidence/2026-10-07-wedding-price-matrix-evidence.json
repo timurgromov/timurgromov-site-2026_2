@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-10-07-wedding-price-matrix",
+  "change_kind": "price-copy",
+  "status": "passed",
+  "requested_visible_change": "Publish the approved 2027 wedding first-price matrix without changing the price-section design or package copy.",
+  "expected_visible_delta": "Camera price changes from 115000 to from 135000 and its extra hour from 15000 to 20000; classic price changes from 135000 to from 155000 and its extra hour from 20000 to 25000.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "996a047a26d859b79848841a219d3bfdb11fee1ff2399b0ea0c70fe39d561f57",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/#price",
+    "source_ref": "working-tree candidate after the final price-copy edit",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/#price",
+    "state": "public homepage with the default cost tab selected",
+    "selector_or_slide_id": ".tg-price-formats",
+    "action": "Open the price anchor and read both visible price cards"
+  },
+  "must_remain_unchanged": [
+    "Vedyushchiy plus DJ package label",
+    "5-hour and 6-hour durations",
+    "guest thresholds and descriptions",
+    "price-section layout and adjacent consultation section",
+    "equipment copy"
+  ],
+  "required_viewports": [
+    "390x844",
+    "1440x900"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "Codex in-app browser viewport override; innerWidth=390; innerHeight=844",
+      "before_signature": "Live baseline copy: camera 115000 and extra hour 15000; classic 135000 and extra hour 20000.",
+      "after_signature": "Camera from 135000 and extra hour 20000; classic from 155000 and extra hour 25000.",
+      "observed_visible_result": "The default cost tab visibly rendered the camera card with from 135000 and 20000, with the classic card continuing below; DOM text confirmed both approved cards and horizontal overflow was zero.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "viewport_source": "Codex in-app browser viewport override; innerWidth=1440; innerHeight=900",
+      "before_signature": "Live baseline copy: camera 115000 and extra hour 15000; classic 135000 and extra hour 20000.",
+      "after_signature": "Camera from 135000 and extra hour 20000; classic from 155000 and extra hour 25000.",
+      "observed_visible_result": "Both price cards were visible together with the four approved values, unchanged two-column layout, unchanged package labels and zero horizontal overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ]
+}
