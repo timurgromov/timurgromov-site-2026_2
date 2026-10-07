@@ -1,5 +1,19 @@
 # Current State - 2026-10-07
 
+## «Калькулятор мероприятий» — live (2026-10-07)
+
+- Runtime `a9bfa2e` is pushed to `main` and the GitHub Pages deployment is
+  live. Wedding content and Jubilee CTAs use the Russian product name.
+- Telegram CTA URLs are generated through the stable EventBudjet messenger
+  redirect. Active site source no longer embeds the legacy bot username.
+- Authorized Telegram Jubilee start created the expected CRM source and opened
+  the Mini App with H1 `Калькулятор мероприятий`.
+- Metrika goal `601407015` in counter `100295805` is now named
+  `Старт Калькулятора мероприятий офлайн`; its ID, `action` type and exact
+  `order_confirmed` condition are unchanged.
+- Release note:
+  `docs/history/worklog/2026-10-07-event-calculator-rebrand-final.md`.
+
 ## Jubilee contact CTA and Event Calculator — live (2026-10-07)
 
 - Jubilee header WhatsApp was replaced by a white-text `Связаться` button.
