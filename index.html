@@ -502,6 +502,10 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
     #rec861352716 .tn-elem[data-elem-id="1738734120730"]{
       zoom:1 !important;
     }
+    #rec861352716 .tn-elem[data-elem-id="1738733079599"] .tn-atom{
+      height:100% !important;
+      box-sizing:border-box !important;
+    }
   }
   @media screen and (min-width:480px) and (max-width:1023px){
     #rec861352716 .tn-elem[data-elem-id="1738731786845"],
@@ -944,6 +948,28 @@ document.addEventListener('DOMContentLoaded',t_setvisRecs);}})();</script><style
       opacity:0 !important;
       visibility:hidden !important;
       pointer-events:none !important;
+    }
+  }
+  /* At 480-639px the physical-width Hero layout is active, so do not let the
+   * later 320px Tilda CTA coordinates shorten the hit target or pull the
+   * square/arrow back inside the plate. */
+  @media screen and (min-width:480px) and (max-width:639px){
+    #rec861352716 .tn-elem[data-elem-id="1738735136250"]{
+      left:24px !important;
+      right:auto !important;
+      width:calc(100% - 48px) !important;
+    }
+    #rec861352716 .tn-elem[data-elem-id="1738733061526"]{
+      left:auto !important;
+      right:24px !important;
+    }
+    #rec861352716 .tn-elem[data-elem-id="1738733079599"]{
+      left:40px !important;
+      width:calc(100% - 124px) !important;
+    }
+    #rec861352716 .tn-elem[data-elem-id="1738733186214"]{
+      left:auto !important;
+      right:39px !important;
     }
   }
   /* Tilda scales each Zero Block element via zoom. Counter-scale only the
