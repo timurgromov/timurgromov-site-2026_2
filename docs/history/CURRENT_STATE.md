@@ -14,8 +14,13 @@
   white button labels, correct Jubilee bot source, phone action and no
   horizontal overflow or JavaScript console errors.
 - EventBudjet backend `3f90b24` is deployed. Its source registry recognizes
-  `header` and maps Jubilee to counter `100295805`. A fresh Jubilee bot start
-  after this release and paid-visit matching remain unproved.
+  `header` and maps Jubilee to counter `100295805`. A fresh header start in the
+  authorized native Telegram client created lead `56` / CRM `#159`; the
+  matching `CRM заявки` alert is visible and logged as `sent`. Attribution
+  `889` was accepted by counter `100295805` as `order_confirmed`, has provider
+  upload ID `1214979873`, one attempt and no error. The bot showed the Jubilee
+  reply without the persistent wedding keyboard/Web App menu. Matching to a
+  real paid Direct visit remains part of campaign preflight.
 
 - The Jubilee panel and contact page enter the shared Event Calculator bot
   with a Jubilee source. There is no personal Telegram CTA in this flow;
@@ -24,8 +29,8 @@
   using counter `100295805`, with structured source fallback if unavailable.
   Bot start, not link click, is the CRM/offline event.
 - Existing `order_confirmed` goal is `601407015`. The temporary personal-click
-  goal `670526571` was deleted and is absent on API read-back. Live bot-start
-  proof remains.
+  goal `670526571` was deleted and is absent on API read-back. The live bot-start
+  proof is recorded above.
 
 ## Jubilee CTA stages 2–3 — live (2026-10-06)
 
