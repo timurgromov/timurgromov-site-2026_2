@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-10-07-home-hero-cta-vertical-centering",
+  "change_kind": "responsive-layout-repair",
+  "status": "passed",
+  "requested_visible_change": "Vertically center the homepage Hero CTA label at the reported window size and verify the layout across device classes.",
+  "expected_visible_delta": "The CTA label remains one 14px line centered within the orange plate; at 480-639px the plate and arrow square meet without overlap and the click target covers their combined width.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "0d026308056c46d785353468dab7f41e7a80566c1c68d18ed0846670718a38b0",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4324/",
+    "source_ref": "staged main candidate after the final CTA geometry edit",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/",
+    "state": "public homepage Hero at scrollY=0 with no popup initially open",
+    "selector_or_slide_id": "#rec861352716 [data-elem-id=1738733079599] .tn-atom",
+    "action": "Fresh-load the Hero, inspect the split button and activate its existing popup trigger"
+  },
+  "must_remain_unchanged": [
+    "CTA copy, orange color and button height",
+    "Existing #plan-delivery-popup content and behavior",
+    "Hero copy and media",
+    "All non-homepage routes"
+  ],
+  "required_viewports": [
+    "390x844",
+    "480x900",
+    "1020x528",
+    "1440x900"
+  ],
+  "automated_responsive_gate": {
+    "status": "passed",
+    "cases": 254,
+    "routes": 11,
+    "shared_viewports": [
+      "390x844",
+      "479x900",
+      "480x900",
+      "481x900",
+      "639x900",
+      "640x900",
+      "641x900",
+      "768x1024",
+      "959x900",
+      "1023x768",
+      "1024x768",
+      "1025x768",
+      "1199x650",
+      "1200x650",
+      "1201x650",
+      "1366x768",
+      "1440x900",
+      "1504x900",
+      "1728x900",
+      "1984x1046"
+    ],
+    "homepage_specific_viewports": [
+      "1020x528"
+    ],
+    "measured_result": "All homepage probes kept the label center within 2.5px, the full visible button covered by its click target and horizontal overflow at zero."
+  },
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "Codex in-app browser viewport override; innerWidth=390; innerHeight=844",
+      "before_signature": "Native mobile CTA was already approximately centered and used the 320px Tilda composition.",
+      "after_signature": "Label remains one centered line; full split button is visible with zero horizontal overflow.",
+      "observed_visible_result": "Fresh mobile screenshot preserved the approved composition, copy, arrow and popup trigger.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "480x900",
+      "viewport_source": "Codex in-app browser viewport override; innerWidth=480; innerHeight=900",
+      "before_signature": "Legacy 320px rules shortened the click target and pulled the arrow square 94px inside the physical-width plate.",
+      "after_signature": "Plate spans x=24-412, square x=412-456, click target x=24-456; text center delta is -0.2px.",
+      "observed_visible_result": "The split edges meet exactly, the full visible button is clickable and horizontal overflow is zero.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1020x528",
+      "viewport_source": "Codex in-app browser viewport override; innerWidth=1020; innerHeight=528",
+      "before_signature": "44px label layer contained a 15.4px atom at its top; rendered text center delta was -14.5px.",
+      "after_signature": "Plate, label and atom are 44px high; rendered text center delta is -0.2px; effective font is 14px on one line.",
+      "observed_visible_result": "The reported short-window defect is visibly gone, the CTA opened #plan-delivery-popup and horizontal overflow is zero.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "viewport_source": "Codex in-app browser viewport override; innerWidth=1440; innerHeight=900",
+      "before_signature": "Standard desktop CTA was already approximately centered outside the affected physical-width interval.",
+      "after_signature": "Standard desktop composition and one-line CTA label remain unchanged and visually centered.",
+      "observed_visible_result": "Fresh desktop screenshot preserved Hero navigation, copy, media, CTA geometry and zero horizontal overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 0,
+    "selected_variant": "",
+    "owner_approval_reference": ""
+  }
+}

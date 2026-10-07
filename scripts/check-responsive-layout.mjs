@@ -104,6 +104,10 @@ const viewports = parseViewports(
   process.env.RESPONSIVE_LAYOUT_VIEWPORTS || defaultViewports.join(","),
 );
 const routeSpecificGroups = [
+  ...(viewports.some(({ name }) => name === "1020x528") ? [] : [{
+      viewport: { width: 1020, height: 528, name: "1020x528" },
+      routes: ["/"],
+    }]),
   ...["769x1024", "899x900", "900x900", "901x900", "1179x820", "1180x820", "1181x820"].flatMap((name) => {
     if (viewports.some((viewport) => viewport.name === name)) return [];
     const [width, height] = name.split("x").map(Number);
@@ -196,6 +200,22 @@ function assertHomeHero(result) {
   }
   if (ctaText.lineCount !== 1 || ctaText.renderedWidth < 170 || ctaText.renderedWidth > 200) {
     fail("Homepage CTA label wraps or is visually scaled", result);
+  }
+  const ctaPlate = result.homeAnchors.ctaPlate;
+  if (!ctaPlate) fail("Homepage CTA plate is missing", result);
+  const ctaSquare = result.homeAnchors.ctaSquare;
+  if (!ctaSquare) fail("Homepage CTA arrow square is missing", result);
+  const ctaClickTarget = result.homeAnchors.cta;
+  if (!ctaClickTarget) fail("Homepage CTA click target is missing", result);
+  if (ctaClickTarget.left > ctaPlate.left + 1 || ctaClickTarget.right < ctaSquare.right - 1) {
+    fail("Homepage CTA click target does not cover the visible button", result);
+  }
+  const ctaVerticalCenterDelta = ctaText.centerY - (ctaPlate.top + ctaPlate.height / 2);
+  if (Math.abs(ctaVerticalCenterDelta) > 2.5) {
+    fail("Homepage CTA label is not vertically centered", {
+      ctaVerticalCenterDelta: Number(ctaVerticalCenterDelta.toFixed(2)),
+      ...result,
+    });
   }
 
   const expectedHeight = Math.max(result.viewport.height, 560);
@@ -584,6 +604,11 @@ async function measure(page, route, viewport, watchedTextSelectors) {
       return {
         computedFontPx: Number(computedFontPx.toFixed(2)),
         effectiveFontPx: Number((computedFontPx * effectiveScale).toFixed(2)),
+        top: Number(rect.top.toFixed(2)),
+        right: Number(rect.right.toFixed(2)),
+        bottom: Number(rect.bottom.toFixed(2)),
+        left: Number(rect.left.toFixed(2)),
+        centerY: Number((rect.top + rect.height / 2).toFixed(2)),
         renderedWidth: Number(rect.width.toFixed(2)),
         renderedHeight: Number(rect.height.toFixed(2)),
         lineCount: range.getClientRects().length,
@@ -702,6 +727,8 @@ async function measure(page, route, viewport, watchedTextSelectors) {
         headline3: textBox('#rec861352716 [data-elem-id="1738731897790"] .tn-atom'),
         description: box('#rec861352716 [data-elem-id="1738732845597"]'),
         cta: box('#rec861352716 [data-elem-id="1738735136250"]'),
+        ctaPlate: box('#rec861352716 [data-elem-id="1738733020218"]'),
+        ctaSquare: box('#rec861352716 [data-elem-id="1738733061526"]'),
         ctaText: textMetrics('#rec861352716 [data-elem-id="1738733079599"] .tn-atom'),
       } : {},
       heroSlider: route === "/yubiley/" ? {
