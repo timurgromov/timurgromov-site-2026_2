@@ -1,5 +1,22 @@
 # Current State - 2026-10-07
 
+## Wedding price matrix 2027 — live (2026-10-07)
+
+- The public wedding first prices now use `от`: камерная свадьба, 5 часов —
+  `от 135 000 ₽`; классическая свадьба, 6 часов — `от 155 000 ₽`.
+- Extensions are `20 000 ₽` for the камерная package and `25 000 ₽` after
+  six hours for the классическая package. `Ведущий + DJ`, guest thresholds,
+  package descriptions, equipment communication and the existing design did
+  not change.
+- Runtime/source commit `9ffee11` is pushed to `main` and published as
+  production commit `9268dab`. `Code health`, `Deploy to gh-pages`, the full
+  responsive matrix and exact live-text verification passed.
+- Fresh production checks at `390x844` and `1440x900` confirmed both price
+  cards in the default tab, zero horizontal overflow and no console errors.
+  No lead or form was submitted.
+- Release note:
+  `docs/history/worklog/2026-10-07-wedding-price-matrix-2027.md`.
+
 ## «Калькулятор мероприятий» — live (2026-10-07)
 
 - Runtime `a9bfa2e` is pushed to `main` and the GitHub Pages deployment is

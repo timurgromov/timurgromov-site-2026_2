@@ -32,4 +32,13 @@ contact flow, messenger route, CRM behavior or equipment copy changed.
 
 ## Release
 
-Production release and fresh live verification are pending.
+- Runtime/source commit `9ffee11` is pushed to `main`.
+- `Code health` and the rerun of `Deploy to gh-pages` completed successfully;
+  the deploy included the full responsive matrix and published production
+  commit `9268dab`.
+- `npm run verify:pages` confirmed all four approved values on
+  `https://timurgromov.ru/` and confirmed the old `115 000 ₽` and
+  `15 000 ₽` values are absent.
+- Fresh live checks at `390x844` and `1440x900` showed the default
+  `стоимость` tab with both approved cards, zero horizontal overflow and no
+  browser-console errors. No lead or form was submitted.
