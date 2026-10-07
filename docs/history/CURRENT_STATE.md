@@ -1,5 +1,24 @@
 # Current State - 2026-10-07
 
+## Homepage Hero CTA centering — live (2026-10-07)
+
+- The homepage Hero CTA label is vertically centered across the responsive
+  range. At the reported short-window reproduction `1020x528`, its rendered
+  center delta changed from `-14.5px` to `-0.2px` while the approved 14px,
+  one-line typography and 44px button height stayed unchanged.
+- The overlapping `480-639px` Tilda rules were also reconciled: the orange
+  plate and arrow square now meet at one edge and the click target covers the
+  complete visible button.
+- Runtime/source commit `3f1d259` is pushed to `main` and published as
+  production commit `5b9b5ee`. `Deploy to gh-pages`, Pages publication, the
+  254-case responsive matrix and exact live-marker verification passed.
+- Fresh production checks at `390x844`, `480x900`, `1020x528` and `1440x900`
+  confirmed centered one-line text, complete hit coverage, zero horizontal
+  overflow and no console errors. The existing scenario popup opened; no form
+  was submitted.
+- Release note:
+  `docs/history/worklog/2026-10-07-home-hero-cta-vertical-centering.md`.
+
 ## Wedding price matrix 2027 — live (2026-10-07)
 
 - The public wedding first prices now use `от`: камерная свадьба, 5 часов —

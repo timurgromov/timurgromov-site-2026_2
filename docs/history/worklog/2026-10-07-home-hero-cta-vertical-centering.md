@@ -44,5 +44,15 @@ Date: 2026-10-07
 - `npm run verify:responsive-layout`: passed, 254 cases across 11 routes,
   including all shared breakpoints and route-specific `1020x528`.
 
-Release status is recorded in `docs/history/CURRENT_STATE.md` after production
-publication and fresh live verification.
+## Release verification
+
+- Runtime/source commit `3f1d259` was pushed to `main` and published as
+  `gh-pages` production commit `5b9b5ee`.
+- `Deploy to gh-pages` passed its clean build and complete responsive gate;
+  GitHub Pages publication and the live marker check passed.
+- Fresh live measurements passed at `390x844`, `480x900`, `1020x528` and
+  `1440x900`. At `1020x528`, the production center delta is `-0.2px`, the
+  atom and plate are both 44px high, split gap and horizontal overflow are
+  zero, and the click target covers the complete button.
+- The live CTA opened `#plan-delivery-popup`; browser console errors were
+  empty and no form was submitted.
