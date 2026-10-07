@@ -2,6 +2,7 @@
 .contact-choice-fab.is-visible{opacity:1;visibility:visible;transform:none}
 .contact-choice-fab:focus-visible,.contact-choice__action:focus-visible,.contact-choice__close:focus-visible{outline:3px solid #fff;outline-offset:3px}
 .contact-choice[hidden]{display:none!important}
+.contact-choice [hidden]{display:none!important}
 .contact-choice{position:fixed;inset:0;z-index:3000;display:flex;align-items:center;justify-content:center;padding:20px}
 .contact-choice__backdrop{position:absolute;inset:0;background:rgba(0,0,0,.76);backdrop-filter:blur(4px)}
 .contact-choice__sheet{position:relative;width:min(100%,440px);padding:32px;border:1px solid rgba(255,255,255,.15);border-radius:22px;background:#17171a;color:#fff;box-shadow:0 28px 72px rgba(0,0,0,.55)}

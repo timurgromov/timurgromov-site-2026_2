@@ -1,4 +1,16 @@
-# Current State - 2026-10-06
+# Current State - 2026-10-07
+
+## Jubilee Event Calculator CTA — implementation in progress (2026-10-07)
+
+- The Jubilee panel and contact page enter the shared Event Calculator bot
+  with a Jubilee source. There is no personal Telegram CTA in this flow;
+  the confirmed callback form remains.
+- The main site's attribution helper requests a server-issued `yd_...` token
+  using counter `100295805`, with structured source fallback if unavailable.
+  Bot start, not link click, is the CRM/offline event.
+- Existing `order_confirmed` goal is `601407015`. The temporary personal-click
+  goal `670526571` was deleted and is absent on API read-back. Release and
+  live bot-start proof remain.
 
 ## Jubilee CTA stages 2–3 — live (2026-10-06)
 

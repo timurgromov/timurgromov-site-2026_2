@@ -1,5 +1,6 @@
 ---
 import { contact } from '../data/jubilee';
+import { telegramMeetingUrlFor } from '../../site/home-data';
 ---
 <button type="button" class="contact-choice-fab" data-contact-open data-contact-fab data-contact-source="sticky_contact" data-contact-intent="consultation" data-contact-placement="sticky" aria-haspopup="dialog" aria-controls="contact-choice-dialog">
   <span aria-hidden="true">✦</span><span>Связаться</span>
@@ -9,11 +10,11 @@ import { contact } from '../data/jubilee';
   <div class="contact-choice__backdrop" data-contact-close></div>
   <section class="contact-choice__sheet" role="dialog" aria-modal="true" aria-labelledby="contact-choice-title" aria-describedby="contact-choice-description" tabindex="-1">
     <button type="button" class="contact-choice__close" data-contact-close aria-label="Закрыть панель">×</button>
-    <p class="contact-choice__eyebrow">ТИМУР ГРОМОВ · НАПРЯМУЮ</p>
+    <p class="contact-choice__eyebrow">EVENT CALCULATOR · ТИМУР ГРОМОВ</p>
     <h2 id="contact-choice-title">Обсудим ваш юбилей</h2>
-    <p id="contact-choice-description">Напишите мне или позвоните. Я отвечу лично и помогу подобрать формат для вашей семьи.</p>
+    <p id="contact-choice-description">Запустите бот, позвоните или оставьте номер. Я лично помогу подобрать формат для вашей семьи.</p>
     <div class="contact-choice__actions" data-contact-actions>
-      <a class="contact-choice__action contact-choice__action--primary" href={contact.telegramUrl} target="_blank" rel="noopener noreferrer" data-contact-telegram>Написать в Telegram <span aria-hidden="true">↗</span></a>
+      <a class="contact-choice__action contact-choice__action--primary" href={telegramMeetingUrlFor('jubilee', 'hero')} target="_blank" rel="noopener noreferrer" data-contact-telegram>Написать в Telegram-бот <span aria-hidden="true">↗</span></a>
       <a class="contact-choice__action" href={contact.phoneHref} data-contact-phone>Позвонить <span>{contact.phoneHuman}</span></a>
       <button type="button" class="contact-choice__action" data-contact-callback>Оставить номер <span aria-hidden="true">→</span></button>
     </div>
@@ -38,6 +39,6 @@ import { contact } from '../data/jubilee';
     <div class="contact-choice__success" data-contact-success hidden>
       <p>Спасибо, номер получен. Я свяжусь с вами лично.</p>
     </div>
-    <p class="contact-choice__note" data-contact-note>Открытие Telegram не отправляет заявку автоматически.</p>
+    <p class="contact-choice__note" data-contact-note>Заявка появится после запуска бота. Можно также позвонить или оставить номер.</p>
   </section>
 </div>

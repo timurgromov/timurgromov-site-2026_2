@@ -4,7 +4,7 @@
 
 ## DEC-2026-10-05-JUBILEE-CTA-STAGE-1
 
-Status: active
+Status: superseded for Telegram routing by DEC-20261007-001; the confirmed callback contract remains active
 Area: `/yubiley/` contact UX
 Decision date: 2026-10-05
 Evidence: owner-approved three-page CTA plan and local audit of the prior forms
@@ -1533,3 +1533,15 @@ only after every frame has been selected deterministically and reviewed.
 
 The full operational checklist is owned by
 `.cursor/rules/photo-placement-qa.mdc`.
+
+## DEC-20261007-001 — Jubilee Telegram entry through Event Calculator
+
+Decision date: 2026-10-07
+Area: Jubilee CTA, CRM, Metrika
+
+The primary Jubilee Telegram CTA enters the current Event Calculator bot with
+structured source and token attribution. The personal Telegram action is
+removed from this flow. The Jubilee callback form and the wedding pages
+keep their current behavior. Bot start is the offline event; a link click is
+only an online interaction. Source-to-counter ownership is defined in
+`EventBudjet/shared/metrika_offline.py`.

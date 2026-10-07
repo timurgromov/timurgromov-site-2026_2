@@ -99,9 +99,9 @@ export const cleanVideoPopupItems = [
 export const heroPosterVersion = "2306bab";
 
 export const telegramBotUsername = "gromov_wedding_bot";
-export type PublicSiteEntrypoint = "home" | "scenario" | "materials" | "preparation_plan" | "wedding_budget";
+export type PublicSiteEntrypoint = "home" | "scenario" | "materials" | "preparation_plan" | "wedding_budget" | "jubilee";
 export type ExpertCtaIntent = "plan" | "meeting" | "calculator";
-export type ExpertCtaPlacement = "hero" | "mid_article" | "inline_consultation" | "final" | "footer";
+export type ExpertCtaPlacement = "hero" | "mid_article" | "inline_consultation" | "final" | "footer" | "contact_page";
 export const maxBotUsername = "id615491029963_bot";
 
 const telegramStartUrl = (payload: string) =>

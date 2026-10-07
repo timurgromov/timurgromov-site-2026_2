@@ -1,3 +1,5 @@
+import { telegramBotUsername } from './home-data';
+
 export const yandexMetrikaId = "100295805";
 export const yandexWebmasterVerification = "c3be09b3da422cb8";
 
@@ -247,7 +249,17 @@ export const yandexMetrikaHead = `<meta name="yandex-verification" content="${ya
       });
     }
 
+    // Contact panels choose their source after the page loads, so they use the
+    // same server-issued payload without binding an anchor ahead of time.
+    window.tgAttributedTelegramUrl = function(source){
+      var anchor = document.createElement('a');
+      anchor.href = 'https://t.me/${telegramBotUsername}?start=' + encodeURIComponent(source);
+      var data = messengerLinkData(anchor);
+      return data ? attributedUrl(anchor, data) : Promise.resolve(anchor.href);
+    };
+
     function bindAnchor(anchor){
+      if (anchor && anchor.hasAttribute('data-contact-telegram')) return;
       if (!anchor || anchor.dataset.metrikaAttributionBound === 'true') return;
       var data = messengerLinkData(anchor);
       if (!data) return;

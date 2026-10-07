@@ -70,6 +70,9 @@ function initContactChoice() {
   function open(trigger) {
     opener = trigger;
     ctaContext = contextFrom(trigger);
+    const source = `site_meeting_timurgromov__jubilee__${ctaContext.placement}`;
+    telegram.dataset.botSource = source;
+    telegram.href = `https://t.me/gromov_wedding_bot?start=${source}`;
     resetForm();
     dialog.hidden = false;
     lockPageScroll();
@@ -159,7 +162,20 @@ function initContactChoice() {
     form.hidden = false;
     form.querySelector('input[name="name"]')?.focus();
   });
-  telegram?.addEventListener('click', () => track('telegram_click'));
+  telegram?.addEventListener('click', event => {
+    track('telegram_click');
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    const fallback = telegram.href;
+    const popup = window.open('about:blank', '_blank');
+    if (popup) popup.opener = null;
+    Promise.resolve(window.tgAttributedTelegramUrl?.(telegram.dataset.botSource) || fallback)
+      .catch(() => fallback)
+      .then(url => {
+        if (popup && !popup.closed) popup.location.href = url;
+        else window.location.href = url;
+      });
+  });
   phone?.addEventListener('click', () => track('phone_click'));
   form.addEventListener('input', () => {
     if (formStarted) return;
