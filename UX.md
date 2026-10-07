@@ -368,19 +368,19 @@ Layout contract for the added commercial core:
 
 ## Jubilee CTA stages 1–3 contract — 2026-10-06
 
-### Event Calculator routing — 2026-10-07
+### Калькулятор мероприятий routing — 2026-10-07
 
 The primary Telegram action in the Jubilee panel and on the Jubilee contact
-page enters the shared Event Calculator bot with a Jubilee-specific source.
+page enters the shared Калькулятор мероприятий bot with a Jubilee-specific source.
 The panel offers phone and the confirmed callback form. Only a real bot start
 can create the bot CRM request and queue the offline goal. A personal Telegram
 route is not shown on this page.
 
 - Target: `/yubiley/`, contact CTAs and sticky control after `scrollY > innerHeight`.
 - Baseline observed live at actual 1280×720: icon-only WhatsApp sticky link; three popup forms exist in DOM and their client code shows success without confirmed delivery. Checklist popup can open on timer or workflow visibility.
-- Visible flow: labelled `Связаться` control; compact desktop dialog or bottom sheet at <=768px with Event Calculator bot, visible phone and `Оставить номер`. All former contact-form CTA triggers open this panel. Remove all three unconfirmed forms and checklist auto-open.
+- Visible flow: labelled `Связаться` control; compact desktop dialog or bottom sheet at <=768px with Калькулятор мероприятий bot, visible phone and `Оставить номер`. All former contact-form CTA triggers open this panel. Remove all three unconfirmed forms and checklist auto-open.
 - Updated on 2026-10-07: the header WhatsApp action is replaced by `Связаться` and opens the same panel on desktop and mobile. Header, sticky and primary panel labels are white. Phone remains a `tel:` link at every viewport; the old desktop redirect to WhatsApp is removed.
 - Preserved: Jubilee copy, layout, gallery/letter/program modal, wedding routes and their form/CRM code.
 - States and access: close button/backdrop/Escape, focus return/containment, background scroll lock and mobile safe-area padding. Check 390×844 and 1280×720 plus 320px and 1024px.
 - Callback state: validate name and phone, show success only after HTTP `201` from `POST /api/v1/site/consultation-request`, then send `cta_site=timurgromov`, `cta_page=jubilee`, intent and placement to CRM. Network and server failures keep the form visible and do not create the success state.
-- Metrika counter `100295805` receives `cta_open`, `telegram_click`, `phone_click`, `form_start`, `lead_submit_success` and `lead_submit_error` with non-personal CTA context. The Telegram CTA opens Event Calculator; only an actual bot start creates the bot CRM request and eligible offline event.
+- Metrika counter `100295805` receives `cta_open`, `telegram_click`, `phone_click`, `form_start`, `lead_submit_success` and `lead_submit_error` with non-personal CTA context. The Telegram CTA opens Калькулятор мероприятий; only an actual bot start creates the bot CRM request and eligible offline event.

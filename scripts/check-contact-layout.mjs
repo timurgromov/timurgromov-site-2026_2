@@ -28,6 +28,16 @@ function fail(message, details = {}) {
   throw error;
 }
 
+function hasMessengerPayload(href, prefix) {
+  try {
+    const url = new URL(href);
+    return [url.searchParams.get("payload"), url.searchParams.get("start"), url.searchParams.get("startapp")]
+      .some((value) => value?.startsWith(prefix));
+  } catch {
+    return false;
+  }
+}
+
 function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -232,10 +242,10 @@ function assertHeroScenarioCta(cta, viewport) {
     fail("hero: popup must offer Telegram without MAX", { cta, viewport });
   }
   for (const link of [telegram]) {
-    if (!link.href.includes("start=site_plan")) {
+    if (!hasMessengerPayload(link.href, "site_plan")) {
       fail("hero: popup scenario link does not point to site_plan", { link, cta, viewport });
     }
-    if (link.href.includes("start=site_meeting")) {
+    if (hasMessengerPayload(link.href, "site_meeting")) {
       fail("hero: popup scenario link regressed to site_meeting", { link, cta, viewport });
     }
   }
@@ -251,17 +261,17 @@ function assertHeroScenarioCta(cta, viewport) {
     fail("plan CTA: Telegram link lost analytics attribution", { planTelegram, cta, viewport });
   }
   for (const link of [planTelegram]) {
-    if (!link.href.includes("start=site_plan")) {
+    if (!hasMessengerPayload(link.href, "site_plan")) {
       fail("plan CTA: scenario link does not point to site_plan", { link, cta, viewport });
     }
-    if (link.href.includes("start=site_meeting")) {
+    if (hasMessengerPayload(link.href, "site_meeting")) {
       fail("plan CTA: scenario link regressed to site_meeting", { link, cta, viewport });
     }
   }
   if (!cta.metrikaGoals?.popupOpen || !cta.metrikaGoals?.messengerClick || !cta.metrikaGoals?.telegramClick) {
     fail("site_plan: Metrika goal contract is missing", { cta, viewport });
   }
-  if (cta.href.includes("start=site_meeting")) {
+  if (hasMessengerPayload(cta.href, "site_meeting")) {
     fail("hero: scenario CTA regressed to site_meeting", { cta, viewport });
   }
 }

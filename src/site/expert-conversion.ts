@@ -47,7 +47,7 @@ export const renderExpertConversionContour = ({
     <div class="tg-plan-cta__inner">
       <div class="tg-plan-cta__content">
         <h2>Всё для подготовки к свадьбе</h2>
-        <p class="tg-plan-cta__text">В Telegram-боте вы получите свадебный калькулятор, полезные материалы, порядок вечера, пример сценария и пошаговый план подготовки к свадьбе. Можно обсудить свою свадьбу с Тимуром или посмотреть сайт ведущего.</p>
+        <p class="tg-plan-cta__text">В Telegram-боте вы получите Калькулятор мероприятий для расчёта свадебного бюджета, полезные материалы, порядок вечера, пример сценария и пошаговый план подготовки к свадьбе. Можно обсудить свою свадьбу с Тимуром или посмотреть сайт ведущего.</p>
         <div class="tg-plan-cta__actions" aria-label="Выбрать следующий шаг">
           ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--primary", telegramPlanUrl, "Получить в Telegram", `${safeAttrs} data-plan-source="${planSource}" data-expert-cta="plan-telegram"`)}
           ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--secondary", "#consultation-contact", "Обсудить свадьбу", 'data-consultation-popup-open data-expert-cta="meeting-popup"')}

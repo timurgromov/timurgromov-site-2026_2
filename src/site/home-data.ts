@@ -98,20 +98,22 @@ export const cleanVideoPopupItems = [
 
 export const heroPosterVersion = "2306bab";
 
-export const telegramBotUsername = "gromov_wedding_bot";
 export type PublicSiteEntrypoint = "home" | "scenario" | "materials" | "preparation_plan" | "wedding_budget" | "jubilee";
 export type ExpertCtaIntent = "plan" | "meeting" | "calculator";
 export type ExpertCtaPlacement = "hero" | "mid_article" | "inline_consultation" | "final" | "footer" | "contact_page";
-export const maxBotUsername = "id615491029963_bot";
+export const messengerStartEndpoint =
+  "https://calcul.timurgromov.ru/api/v1/site/messenger-start";
 
-const telegramStartUrl = (payload: string) =>
-  `https://t.me/${telegramBotUsername}?start=${payload}`;
-const maxStartUrl = (payload: string) =>
-  `https://max.ru/${maxBotUsername}?start=${payload}`;
-const telegramStartAppUrl = (payload: string) =>
-  `https://t.me/${telegramBotUsername}?startapp=${payload}`;
-const maxStartAppUrl = (payload: string) =>
-  `https://max.ru/${maxBotUsername}?startapp=${payload}`;
+export const messengerStartUrl = (
+  provider: "telegram" | "max",
+  payload: string,
+  mode: "start" | "startapp" = "start",
+) => `${messengerStartEndpoint}?provider=${provider}&mode=${mode}&payload=${encodeURIComponent(payload)}`;
+
+const telegramStartUrl = (payload: string) => messengerStartUrl("telegram", payload);
+const maxStartUrl = (payload: string) => messengerStartUrl("max", payload);
+const telegramStartAppUrl = (payload: string) => messengerStartUrl("telegram", payload, "startapp");
+const maxStartAppUrl = (payload: string) => messengerStartUrl("max", payload, "startapp");
 
 // This format is the shared public-site/CRM contract. The double underscore
 // keeps site, page and CTA placement separately readable in the bot payload.
@@ -150,7 +152,7 @@ export const maxCalculatorUrlFor = (
   entrypoint: Exclude<PublicSiteEntrypoint, "home">,
   placement: ExpertCtaPlacement = "final",
 ) => maxStartAppUrl(expertCtaSource("calculator", entrypoint, placement));
-export const maxCalculatorUrl = `https://max.ru/${maxBotUsername}?startapp=direct_personal`;
+export const maxCalculatorUrl = maxStartAppUrl("direct_personal");
 export const maxContactUrl = maxMeetingUrl;
 
 export const pricePhotoPrimaryUrl =

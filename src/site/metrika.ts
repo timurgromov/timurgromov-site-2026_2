@@ -1,4 +1,4 @@
-import { telegramBotUsername } from './home-data';
+import { messengerStartEndpoint } from './home-data';
 
 export const yandexMetrikaId = "100295805";
 export const yandexWebmasterVerification = "c3be09b3da422cb8";
@@ -193,11 +193,16 @@ export const yandexMetrikaHead = `<meta name="yandex-verification" content="${ya
       try {
         var url = new URL(anchor.href, window.location.href);
         var host = url.hostname.toLowerCase();
-        var provider = host === 'max.ru' || host.endsWith('.max.ru') ? 'max'
+        var isStableRedirect = url.pathname === '/api/v1/site/messenger-start';
+        var stableProvider = url.searchParams.get('provider');
+        var provider = isStableRedirect && (stableProvider === 'telegram' || stableProvider === 'max') ? stableProvider
+          : host === 'max.ru' || host.endsWith('.max.ru') ? 'max'
           : host === 't.me' || host.endsWith('.t.me') ? 'telegram'
           : null;
-        var parameter = url.searchParams.has('startapp') ? 'startapp' : 'start';
-        var source = url.searchParams.get(parameter) || '';
+        var parameter = isStableRedirect
+          ? (url.searchParams.get('mode') === 'startapp' ? 'startapp' : 'start')
+          : (url.searchParams.has('startapp') ? 'startapp' : 'start');
+        var source = isStableRedirect ? (url.searchParams.get('payload') || '') : (url.searchParams.get(parameter) || '');
         var structuredSource = /^site_(plan|meeting|calculator)_[a-z0-9_-]+__[a-z0-9_-]+__[a-z0-9_-]+$/.test(source) && source.length <= 64;
         if (!provider || (!legacySources[source] && !structuredSource)) return null;
         return { provider: provider, source: source, parameter: parameter, url: url };
@@ -207,8 +212,9 @@ export const yandexMetrikaHead = `<meta name="yandex-verification" content="${ya
     }
 
     function attributedUrl(anchor, data){
-      if (!promiseBySource[data.source]) {
-        promiseBySource[data.source] = getClientId().then(function(clientId){
+      var promiseKey = [data.provider, data.parameter, data.source].join(':');
+      if (!promiseBySource[promiseKey]) {
+        promiseBySource[promiseKey] = getClientId().then(function(clientId){
           var tracking = getTrackingParams();
           var yclid = tracking.yclid;
           if (!clientId && !yclid) throw new Error('Metrika identifier is unavailable');
@@ -219,6 +225,7 @@ export const yandexMetrikaHead = `<meta name="yandex-verification" content="${ya
               visit_key: getVisitKey(),
               source_code: data.source,
               provider: data.provider,
+              mode: data.parameter,
               client_id: clientId || null,
               yclid: yclid || null,
               campaign_params: Object.assign({}, tracking.campaign, {
@@ -239,21 +246,23 @@ export const yandexMetrikaHead = `<meta name="yandex-verification" content="${ya
           if (!payload || !/^yd_[A-Za-z0-9_-]{20,40}$/.test(payload.start_payload || '')) {
             throw new Error('Invalid attribution payload');
           }
-          return payload.start_payload;
+          var destination = String(payload.destination_url || '');
+          var destinationHost = new URL(destination).hostname.toLowerCase();
+          var validDestination = data.provider === 'telegram'
+            ? destinationHost === 't.me' || destinationHost.endsWith('.t.me')
+            : destinationHost === 'max.ru' || destinationHost.endsWith('.max.ru');
+          if (!validDestination) throw new Error('Invalid attribution destination');
+          return destination;
         });
       }
-      return promiseBySource[data.source].then(function(startPayload){
-        var result = new URL(data.url.toString());
-        result.searchParams.set(data.parameter, startPayload);
-        return result.toString();
-      });
+      return promiseBySource[promiseKey];
     }
 
     // Contact panels choose their source after the page loads, so they use the
     // same server-issued payload without binding an anchor ahead of time.
     window.tgAttributedTelegramUrl = function(source){
       var anchor = document.createElement('a');
-      anchor.href = 'https://t.me/${telegramBotUsername}?start=' + encodeURIComponent(source);
+      anchor.href = '${messengerStartEndpoint}?provider=telegram&mode=start&payload=' + encodeURIComponent(source);
       var data = messengerLinkData(anchor);
       return data ? attributedUrl(anchor, data) : Promise.resolve(anchor.href);
     };

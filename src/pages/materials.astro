@@ -484,7 +484,10 @@ const materialRecordsHtml = materialRecordIds
         /пишите мне в <a href="https:\/\/max\.ru\/u\/[^\"]+"[^>]*>MAX <\/a>или /,
         "пишите мне в ",
       )
-      .replaceAll("https://t.me/gromov_wedding_bot?start=site_meeting_home", telegramMaterialsPlanUrl);
+      .replace(
+        /https:\/\/t\.me\/[A-Za-z0-9_]+\?start=site_meeting_home/g,
+        telegramMaterialsPlanUrl,
+      );
 
     if (recordId === webinarCtaInsertionRecordId) {
       return `${recordHtml} ${webinarCtaMarkup}`;
