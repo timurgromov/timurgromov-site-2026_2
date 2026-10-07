@@ -188,11 +188,16 @@
       try {
         var url = new URL(anchor.href, window.location.href);
         var host = url.hostname.toLowerCase();
-        var provider = host === 'max.ru' || host.endsWith('.max.ru') ? 'max'
+        var isStableRedirect = url.pathname === '/api/v1/site/messenger-start';
+        var stableProvider = url.searchParams.get('provider');
+        var provider = isStableRedirect && (stableProvider === 'telegram' || stableProvider === 'max') ? stableProvider
+          : host === 'max.ru' || host.endsWith('.max.ru') ? 'max'
           : host === 't.me' || host.endsWith('.t.me') ? 'telegram'
           : null;
-        var parameter = url.searchParams.has('startapp') ? 'startapp' : 'start';
-        var source = url.searchParams.get(parameter) || '';
+        var parameter = isStableRedirect
+          ? (url.searchParams.get('mode') === 'startapp' ? 'startapp' : 'start')
+          : (url.searchParams.has('startapp') ? 'startapp' : 'start');
+        var source = isStableRedirect ? (url.searchParams.get('payload') || '') : (url.searchParams.get(parameter) || '');
         var structuredSource = /^site_(plan|meeting|calculator)_[a-z0-9_-]+__[a-z0-9_-]+__[a-z0-9_-]+$/.test(source) && source.length <= 64;
         if (!provider || (!legacySources[source] && !structuredSource)) return null;
         return { provider: provider, source: source, parameter: parameter, url: url };
@@ -202,8 +207,9 @@
     }
 
     function attributedUrl(anchor, data){
-      if (!promiseBySource[data.source]) {
-        promiseBySource[data.source] = getClientId().then(function(clientId){
+      var promiseKey = [data.provider, data.parameter, data.source].join(':');
+      if (!promiseBySource[promiseKey]) {
+        promiseBySource[promiseKey] = getClientId().then(function(clientId){
           var tracking = getTrackingParams();
           var yclid = tracking.yclid;
           if (!clientId && !yclid) throw new Error('Metrika identifier is unavailable');
@@ -214,6 +220,7 @@
               visit_key: getVisitKey(),
               source_code: data.source,
               provider: data.provider,
+              mode: data.parameter,
               client_id: clientId || null,
               yclid: yclid || null,
               campaign_params: Object.assign({}, tracking.campaign, {
@@ -234,21 +241,23 @@
           if (!payload || !/^yd_[A-Za-z0-9_-]{20,40}$/.test(payload.start_payload || '')) {
             throw new Error('Invalid attribution payload');
           }
-          return payload.start_payload;
+          var destination = String(payload.destination_url || '');
+          var destinationHost = new URL(destination).hostname.toLowerCase();
+          var validDestination = data.provider === 'telegram'
+            ? destinationHost === 't.me' || destinationHost.endsWith('.t.me')
+            : destinationHost === 'max.ru' || destinationHost.endsWith('.max.ru');
+          if (!validDestination) throw new Error('Invalid attribution destination');
+          return destination;
         });
       }
-      return promiseBySource[data.source].then(function(startPayload){
-        var result = new URL(data.url.toString());
-        result.searchParams.set(data.parameter, startPayload);
-        return result.toString();
-      });
+      return promiseBySource[promiseKey];
     }
 
     // Contact panels choose their source after the page loads, so they use the
     // same server-issued payload without binding an anchor ahead of time.
     window.tgAttributedTelegramUrl = function(source){
       var anchor = document.createElement('a');
-      anchor.href = 'https://t.me/gromov_wedding_bot?start=' + encodeURIComponent(source);
+      anchor.href = 'https://calcul.timurgromov.ru/api/v1/site/messenger-start?provider=telegram&mode=start&payload=' + encodeURIComponent(source);
       var data = messengerLinkData(anchor);
       return data ? attributedUrl(anchor, data) : Promise.resolve(anchor.href);
     };
@@ -287,4 +296,4 @@
     else bindMessengerLinks();
     window.addEventListener('load', bindMessengerLinks);
   }());
-</script></head> <body>  <main class="contact-page"> <div class="contact-container"> <div class="wave-decoration wave-top"> <svg viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"> <path d="M0,60 Q300,20 600,60 T1200,60 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.03)"></path> </svg> </div> <div class="contact-content"> <h1 class="contact-title">ВЫБЕРИТЕ УДОБНЫЙ МЕССЕНДЖЕР</h1> <p class="contact-subtitle">Я ПРИШЛЮ МАТЕРИАЛЫ ПО ПОДГОТОВКЕ К ЮБИЛЕЮ</p> <div class="contact-buttons"> <a href="https://t.me/gromov_wedding_bot?start=site_meeting_timurgromov__jubilee__contact_page" class="contact-btn contact-btn--telegram" target="_blank" rel="noopener" data-cta="contact_telegram"> <span class="contact-btn__icon"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"> <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.13-.31-1.09-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.45.08-.02.15-.02.22-.02.23.01.33.06.45.18.1.1.13.23.15.33.01.05.01.16-.01.27z"></path> </svg> </span> <span class="contact-btn__text">Написать в Telegram</span> </a> <a href="https://max.ru/u/f9LHodD0cOIvnExDiltaWpLlPOHIr5y0qyb51SeYWFVvQJP5FUivyzS2fRM?clckid=c487e7dc" class="contact-btn contact-btn--max" target="_blank" rel="noopener" data-cta="contact_max"> <span class="contact-btn__icon"> <img class="contact-btn__max-logo" src="/yubiley-assets/contact/Логотип_MAX.svg.png" alt="MAX" width="24" height="24"> </span> <span class="contact-btn__text">Написать в MAX</span> </a> <a href="tel:+79253900772" class="contact-btn contact-btn--phone" data-cta="contact_phone"> <span class="contact-btn__icon"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"> <path d="M22 16.92V21a2 2 0 0 1-2.18 2A19.73 19.73 0 0 1 3 4.18 2 2 0 0 1 5 2h4.09a1 1 0 0 1 1 .75l1 4a1 1 0 0 1-.27.95l-2.2 2.2a16 16 0 0 0 6.34 6.34l2.2-2.2a1 1 0 0 1 .95-.27l4 1a1 1 0 0 1 .75 1z"></path> </svg> </span> <span class="contact-btn__text">Позвонить</span> </a> </div> <div class="wave-decoration wave-bottom"> <svg viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"> <path d="M0,60 Q300,100 600,60 T1200,60 L1200,0 L0,0 Z" fill="rgba(255,255,255,0.03)"></path> </svg> </div> <p class="contact-footer">ОТВЕЧУ ЛИЧНО И ПОМОГУ С ФОРМАТОМ</p> </div> </div> </main>    <script src="/yubiley-assets/contact/script.js?v=astro_2"></script> </body> </html>
+</script></head> <body>  <main class="contact-page"> <div class="contact-container"> <div class="wave-decoration wave-top"> <svg viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"> <path d="M0,60 Q300,20 600,60 T1200,60 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.03)"></path> </svg> </div> <div class="contact-content"> <h1 class="contact-title">ВЫБЕРИТЕ УДОБНЫЙ МЕССЕНДЖЕР</h1> <p class="contact-subtitle">Я ПРИШЛЮ МАТЕРИАЛЫ ПО ПОДГОТОВКЕ К ЮБИЛЕЮ</p> <div class="contact-buttons"> <a href="https://calcul.timurgromov.ru/api/v1/site/messenger-start?provider=telegram&mode=start&payload=site_meeting_timurgromov__jubilee__contact_page" class="contact-btn contact-btn--telegram" target="_blank" rel="noopener" data-cta="contact_telegram"> <span class="contact-btn__icon"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"> <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.13-.31-1.09-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.45.08-.02.15-.02.22-.02.23.01.33.06.45.18.1.1.13.23.15.33.01.05.01.16-.01.27z"></path> </svg> </span> <span class="contact-btn__text">Написать в Telegram</span> </a> <a href="https://calcul.timurgromov.ru/api/v1/site/messenger-start?provider=max&mode=start&payload=site_meeting_timurgromov__jubilee__contact_page" class="contact-btn contact-btn--max" target="_blank" rel="noopener" data-cta="contact_max"> <span class="contact-btn__icon"> <img class="contact-btn__max-logo" src="/yubiley-assets/contact/Логотип_MAX.svg.png" alt="MAX" width="24" height="24"> </span> <span class="contact-btn__text">Написать в MAX</span> </a> <a href="tel:+79253900772" class="contact-btn contact-btn--phone" data-cta="contact_phone"> <span class="contact-btn__icon"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"> <path d="M22 16.92V21a2 2 0 0 1-2.18 2A19.73 19.73 0 0 1 3 4.18 2 2 0 0 1 5 2h4.09a1 1 0 0 1 1 .75l1 4a1 1 0 0 1-.27.95l-2.2 2.2a16 16 0 0 0 6.34 6.34l2.2-2.2a1 1 0 0 1 .95-.27l4 1a1 1 0 0 1 .75 1z"></path> </svg> </span> <span class="contact-btn__text">Позвонить</span> </a> </div> <div class="wave-decoration wave-bottom"> <svg viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"> <path d="M0,60 Q300,100 600,60 T1200,60 L1200,0 L0,0 Z" fill="rgba(255,255,255,0.03)"></path> </svg> </div> <p class="contact-footer">ОТВЕЧУ ЛИЧНО И ПОМОГУ С ФОРМАТОМ</p> </div> </div> </main>    <script src="/yubiley-assets/contact/script.js?v=astro_2"></script> </body> </html>

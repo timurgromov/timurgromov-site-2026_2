@@ -188,11 +188,16 @@
       try {
         var url = new URL(anchor.href, window.location.href);
         var host = url.hostname.toLowerCase();
-        var provider = host === 'max.ru' || host.endsWith('.max.ru') ? 'max'
+        var isStableRedirect = url.pathname === '/api/v1/site/messenger-start';
+        var stableProvider = url.searchParams.get('provider');
+        var provider = isStableRedirect && (stableProvider === 'telegram' || stableProvider === 'max') ? stableProvider
+          : host === 'max.ru' || host.endsWith('.max.ru') ? 'max'
           : host === 't.me' || host.endsWith('.t.me') ? 'telegram'
           : null;
-        var parameter = url.searchParams.has('startapp') ? 'startapp' : 'start';
-        var source = url.searchParams.get(parameter) || '';
+        var parameter = isStableRedirect
+          ? (url.searchParams.get('mode') === 'startapp' ? 'startapp' : 'start')
+          : (url.searchParams.has('startapp') ? 'startapp' : 'start');
+        var source = isStableRedirect ? (url.searchParams.get('payload') || '') : (url.searchParams.get(parameter) || '');
         var structuredSource = /^site_(plan|meeting|calculator)_[a-z0-9_-]+__[a-z0-9_-]+__[a-z0-9_-]+$/.test(source) && source.length <= 64;
         if (!provider || (!legacySources[source] && !structuredSource)) return null;
         return { provider: provider, source: source, parameter: parameter, url: url };
@@ -202,8 +207,9 @@
     }
 
     function attributedUrl(anchor, data){
-      if (!promiseBySource[data.source]) {
-        promiseBySource[data.source] = getClientId().then(function(clientId){
+      var promiseKey = [data.provider, data.parameter, data.source].join(':');
+      if (!promiseBySource[promiseKey]) {
+        promiseBySource[promiseKey] = getClientId().then(function(clientId){
           var tracking = getTrackingParams();
           var yclid = tracking.yclid;
           if (!clientId && !yclid) throw new Error('Metrika identifier is unavailable');
@@ -214,6 +220,7 @@
               visit_key: getVisitKey(),
               source_code: data.source,
               provider: data.provider,
+              mode: data.parameter,
               client_id: clientId || null,
               yclid: yclid || null,
               campaign_params: Object.assign({}, tracking.campaign, {
@@ -234,21 +241,23 @@
           if (!payload || !/^yd_[A-Za-z0-9_-]{20,40}$/.test(payload.start_payload || '')) {
             throw new Error('Invalid attribution payload');
           }
-          return payload.start_payload;
+          var destination = String(payload.destination_url || '');
+          var destinationHost = new URL(destination).hostname.toLowerCase();
+          var validDestination = data.provider === 'telegram'
+            ? destinationHost === 't.me' || destinationHost.endsWith('.t.me')
+            : destinationHost === 'max.ru' || destinationHost.endsWith('.max.ru');
+          if (!validDestination) throw new Error('Invalid attribution destination');
+          return destination;
         });
       }
-      return promiseBySource[data.source].then(function(startPayload){
-        var result = new URL(data.url.toString());
-        result.searchParams.set(data.parameter, startPayload);
-        return result.toString();
-      });
+      return promiseBySource[promiseKey];
     }
 
     // Contact panels choose their source after the page loads, so they use the
     // same server-issued payload without binding an anchor ahead of time.
     window.tgAttributedTelegramUrl = function(source){
       var anchor = document.createElement('a');
-      anchor.href = 'https://t.me/gromov_wedding_bot?start=' + encodeURIComponent(source);
+      anchor.href = 'https://calcul.timurgromov.ru/api/v1/site/messenger-start?provider=telegram&mode=start&payload=' + encodeURIComponent(source);
       var data = messengerLinkData(anchor);
       return data ? attributedUrl(anchor, data) : Promise.resolve(anchor.href);
     };
@@ -403,7 +412,7 @@ Welcome — это не просто время ожидания, а базов�
 </p> </div> </section> <!--
   Canonical small CTA. Its split controls come literally from the same
   tildaCtaLink/home CTA source as the large expert conversion island.
---><aside class="expert-materials-inline-cta" aria-label="Получить материалы для подготовки к свадьбе" data-astro-cid-wzucysma> <p data-astro-cid-wzucysma>Хотите собрать свой вечер по этой логике? В Telegram можно получить калькулятор, пример сценария и план подготовки.</p> <div class="expert-materials-inline-cta__actions" aria-label="Получить материалы" data-astro-cid-wzucysma> <a class="tg-tilda-cta expert-materials-inline-cta__button expert-materials-inline-cta__button--primary" href="https://t.me/gromov_wedding_bot?start=site_plan_timurgromov__scenario__mid_article" target="_blank" rel="noopener noreferrer nofollow" data-plan-source="site_plan_timurgromov__scenario__mid_article"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
+--><aside class="expert-materials-inline-cta" aria-label="Получить материалы для подготовки к свадьбе" data-astro-cid-wzucysma> <p data-astro-cid-wzucysma>Хотите собрать свой вечер по этой логике? В Telegram можно получить калькулятор, пример сценария и план подготовки.</p> <div class="expert-materials-inline-cta__actions" aria-label="Получить материалы" data-astro-cid-wzucysma> <a class="tg-tilda-cta expert-materials-inline-cta__button expert-materials-inline-cta__button--primary" href="https://calcul.timurgromov.ru/api/v1/site/messenger-start?provider=telegram&mode=start&payload=site_plan_timurgromov__scenario__mid_article" target="_blank" rel="noopener noreferrer nofollow" data-plan-source="site_plan_timurgromov__scenario__mid_article"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
   <span class="tg-tilda-cta__arrow-box" aria-hidden="true"></span>
   <span class="tg-tilda-cta__label" data-tilda-cta-label>Telegram</span>
   <span class="tg-tilda-cta__icon" aria-hidden="true"></span></a> </div> </aside>  <section class="scenario-timeblock" data-astro-cid-jfa4gbdv> <div class="scenario-timeblock__meta" data-astro-cid-jfa4gbdv> <div class="scenario-timeblock__time" data-astro-cid-jfa4gbdv>17:20 — 18:20</div> <h2 data-astro-cid-jfa4gbdv>Знакомство гостей с вечером</h2> </div> <div class="scenario-prose" data-astro-cid-jfa4gbdv> <p data-astro-cid-jfa4gbdv>
@@ -477,7 +486,7 @@ Welcome — это не просто время ожидания, а базов�
 Можно коротко обсудить формат, гостей, площадку и тайминг именно
             вашего вечера. Вы поймёте, где могут быть точки риска и как собрать
             всё надёжнее.
-</p> </div> <div class="scenario-inline-cta__actions" data-astro-cid-jfa4gbdv> <a class="tg-split-cta scenario-inline-cta__button scenario-inline-cta__button--primary" href="https://t.me/gromov_wedding_bot?start=site_meeting_timurgromov__scenario__inline_consultation" target="_blank" rel="noopener noreferrer"><span class="tg-split-cta__plate" aria-hidden="true"></span>
+</p> </div> <div class="scenario-inline-cta__actions" data-astro-cid-jfa4gbdv> <a class="tg-split-cta scenario-inline-cta__button scenario-inline-cta__button--primary" href="https://calcul.timurgromov.ru/api/v1/site/messenger-start?provider=telegram&mode=start&payload=site_meeting_timurgromov__scenario__inline_consultation" target="_blank" rel="noopener noreferrer"><span class="tg-split-cta__plate" aria-hidden="true"></span>
   <span class="tg-split-cta__arrow-box" aria-hidden="true"></span>
   <span class="tg-split-cta__label">Обсудить вашу свадьбу</span>
   <span class="tg-split-cta__icon" aria-hidden="true"></span></a> <p class="scenario-inline-cta__note" data-astro-cid-jfa4gbdv>30–50 минут, только про вашу свадьбу.</p> </div> </section> <section class="scenario-timeblock" data-astro-cid-jfa4gbdv> <div class="scenario-timeblock__meta" data-astro-cid-jfa4gbdv> <div class="scenario-timeblock__time" data-astro-cid-jfa4gbdv>19:40 — 20:40</div> <h2 data-astro-cid-jfa4gbdv>Эмоциональный пик</h2> </div> <div class="scenario-prose" data-astro-cid-jfa4gbdv> <p data-astro-cid-jfa4gbdv>
@@ -532,9 +541,9 @@ Welcome — это не просто время ожидания, а базов�
     <div class="tg-plan-cta__inner">
       <div class="tg-plan-cta__content">
         <h2>Всё для подготовки к свадьбе</h2>
-        <p class="tg-plan-cta__text">В Telegram-боте вы получите свадебный калькулятор, полезные материалы, порядок вечера, пример сценария и пошаговый план подготовки к свадьбе. Можно обсудить свою свадьбу с Тимуром или посмотреть сайт ведущего.</p>
+        <p class="tg-plan-cta__text">В Telegram-боте вы получите Калькулятор мероприятий для расчёта свадебного бюджета, полезные материалы, порядок вечера, пример сценария и пошаговый план подготовки к свадьбе. Можно обсудить свою свадьбу с Тимуром или посмотреть сайт ведущего.</p>
         <div class="tg-plan-cta__actions" aria-label="Выбрать следующий шаг">
-          <a class="tg-tilda-cta tg-plan-cta__button tg-plan-cta__button--primary" href="https://t.me/gromov_wedding_bot?start=site_plan_timurgromov__scenario__final" target="_blank" rel="noopener noreferrer nofollow" data-plan-source="site_plan_timurgromov__scenario__final" data-expert-cta="plan-telegram"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
+          <a class="tg-tilda-cta tg-plan-cta__button tg-plan-cta__button--primary" href="https://calcul.timurgromov.ru/api/v1/site/messenger-start?provider=telegram&mode=start&payload=site_plan_timurgromov__scenario__final" target="_blank" rel="noopener noreferrer nofollow" data-plan-source="site_plan_timurgromov__scenario__final" data-expert-cta="plan-telegram"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
   <span class="tg-tilda-cta__arrow-box" aria-hidden="true"></span>
   <span class="tg-tilda-cta__label" data-tilda-cta-label>Получить в Telegram</span>
   <span class="tg-tilda-cta__icon" aria-hidden="true"></span></a>
@@ -561,7 +570,7 @@ Welcome — это не просто время ожидания, а базов�
       <section><h3>Материалы</h3><a href="/materials/">Все материалы</a><a href="/scenario/">Сценарий вечера</a></section>
       <section><h3>Услуги</h3><a href="/">Свадебный ведущий</a><a href="https://corp.timurgromov.ru" target="_blank" rel="noopener noreferrer">Корпоративы</a></section>
       <section><h3>Доверие</h3><a href="https://dzen.ru/timurgromov" target="_blank" rel="noopener noreferrer">Дзен</a><a href="https://clck.ru/TZjT6" target="_blank" rel="noopener noreferrer">Отзывы</a></section>
-      <section><h3>Контакты</h3><a href="https://t.me/gromov_wedding_bot?start=site_meeting_timurgromov__scenario__final" target="_blank" rel="noopener noreferrer nofollow">Telegram</a><a href="tel:+79253900772">+7 925 390-07-72</a></section>
+      <section><h3>Контакты</h3><a href="https://calcul.timurgromov.ru/api/v1/site/messenger-start?provider=telegram&mode=start&payload=site_meeting_timurgromov__scenario__final" target="_blank" rel="noopener noreferrer nofollow">Telegram</a><a href="tel:+79253900772">+7 925 390-07-72</a></section>
     </div>
   </footer>
 
@@ -607,7 +616,7 @@ Welcome — это не просто время ожидания, а базов�
         <h2 id="consultation-contact-title">Выберите удобный способ</h2>
         <p class="tg-contact-popup__text">Напишите в Telegram, позвоните либо оставьте телефон, и я свяжусь с вами.</p>
         <div class="tg-contact-popup__links">
-          <a class="tg-tilda-cta tg-contact-popup__link" href="https://t.me/gromov_wedding_bot?start=site_meeting_timurgromov__scenario__final" target="_blank" rel="nofollow" data-contact-channel="telegram"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
+          <a class="tg-tilda-cta tg-contact-popup__link" href="https://calcul.timurgromov.ru/api/v1/site/messenger-start?provider=telegram&mode=start&payload=site_meeting_timurgromov__scenario__final" target="_blank" rel="nofollow" data-contact-channel="telegram"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
   <span class="tg-tilda-cta__arrow-box" aria-hidden="true"></span>
   <span class="tg-tilda-cta__label" data-tilda-cta-label>Написать в Telegram</span>
   <span class="tg-tilda-cta__icon" aria-hidden="true"></span></a>
@@ -643,7 +652,7 @@ Welcome — это не просто время ожидания, а базов�
           <span class="tg-contact-popup__success-icon" aria-hidden="true"></span>
           <p class="tg-contact-popup__success-title">Заявка отправлена</p>
           <p class="tg-contact-popup__success-text">Я свяжусь с вами в ближайшее время. Если хочется быстрее, можно написать сразу в Telegram.</p>
-          <a class="tg-tilda-cta tg-contact-popup__success-link" href="https://t.me/gromov_wedding_bot?start=site_meeting_timurgromov__scenario__final" target="_blank" rel="nofollow"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
+          <a class="tg-tilda-cta tg-contact-popup__success-link" href="https://calcul.timurgromov.ru/api/v1/site/messenger-start?provider=telegram&mode=start&payload=site_meeting_timurgromov__scenario__final" target="_blank" rel="nofollow"><span class="tg-tilda-cta__plate" aria-hidden="true"></span>
   <span class="tg-tilda-cta__arrow-box" aria-hidden="true"></span>
   <span class="tg-tilda-cta__label" data-tilda-cta-label>Написать в Telegram</span>
   <span class="tg-tilda-cta__icon" aria-hidden="true"></span></a>

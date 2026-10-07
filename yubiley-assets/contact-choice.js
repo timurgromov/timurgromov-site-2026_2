@@ -72,7 +72,7 @@ function initContactChoice() {
     ctaContext = contextFrom(trigger);
     const source = `site_meeting_timurgromov__jubilee__${ctaContext.placement}`;
     telegram.dataset.botSource = source;
-    telegram.href = `https://t.me/gromov_wedding_bot?start=${source}`;
+    telegram.href = `https://calcul.timurgromov.ru/api/v1/site/messenger-start?provider=telegram&mode=start&payload=${encodeURIComponent(source)}`;
     resetForm();
     dialog.hidden = false;
     lockPageScroll();
