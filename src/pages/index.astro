@@ -4047,6 +4047,7 @@ const consultationContactPopupAssets = `<style>
         comment: String(formData.get('comment') || '').trim(),
         form_source: String(formData.get('form_source') || 'site_consultation_popup').trim(),
         page_url: window.location.href,
+        metrika_client_id: tracking.metrika_client_id || null,
         yclid: tracking.yclid,
         campaign_params: tracking.campaign_params,
         attribution_context: tracking.attribution_context
@@ -5385,6 +5386,7 @@ const planDeliveryPopupAssets = `<style>
         details: String(formData.get('details') || '').trim(),
         form_source: String(formData.get('form_source') || 'site_plan_tripwire').trim(),
         page_url: window.location.href,
+        metrika_client_id: tracking.metrika_client_id || null,
         yclid: tracking.yclid,
         campaign_params: tracking.campaign_params,
         attribution_context: tracking.attribution_context

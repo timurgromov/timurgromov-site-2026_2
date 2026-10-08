@@ -1,4 +1,21 @@
-# Current State - 2026-10-07
+# Current State - 2026-10-08
+
+## Durable first-touch attribution — release 2026-10-08
+
+- The first non-expired acquisition touch is captured immediately for 30 days:
+  UTM values, referrer host, landing path and Metrika ClientID. A later direct
+  visit reuses this record instead of overwriting it.
+- AI referrers/UTM values are a separate `ai` channel with explicit sources
+  such as ChatGPT, Perplexity, Claude, Gemini and Copilot. The site sends the
+  bounded acquisition context and ClientID through Telegram start tokens and
+  consultation/tripwire payloads.
+- Wedding-site Telegram CTAs still lead to the shared
+  `gromov_wedding_bot`/stable messenger-start endpoint. The public wedding flow
+  does not expose Timur's personal Telegram; `site_meeting` describes the bot
+  intent, not proof that the visitor opened a personal chat.
+- Local checks: attribution contract, Astro build and contact-layout browser
+  matrix at 1911, 1440 and 390 px passed without runtime exceptions.
+- Release evidence: `docs/history/worklog/2026-10-08-durable-first-touch.md`.
 
 ## Homepage Hero CTA centering — live (2026-10-07)
 

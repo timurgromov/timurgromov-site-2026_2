@@ -13,11 +13,20 @@ for (const key of [
 if (!metrika.includes('window.tgGetTrackingBundle')) {
   throw new Error('shared tracking bundle is not exposed');
 }
+if (!metrika.includes('tg_first_touch_v1') || !metrika.includes('entry_source_basis')) {
+  throw new Error('durable first-touch attribution is missing');
+}
+if (!metrika.includes("channel = 'ai'") || !metrika.includes("return 'chatgpt'")) {
+  throw new Error('AI assistant attribution classifier is missing');
+}
 if ((index.match(/campaign_params: tracking\.campaign_params/g) || []).length !== 2) {
   throw new Error('consultation and tripwire forms must both send campaign_params');
 }
 if ((index.match(/yclid: tracking\.yclid/g) || []).length !== 2) {
   throw new Error('consultation and tripwire forms must both send yclid');
+}
+if ((index.match(/metrika_client_id: tracking\.metrika_client_id/g) || []).length !== 2) {
+  throw new Error('consultation and tripwire forms must both send Metrika ClientID');
 }
 
 console.log('Direct attribution contract: OK');

@@ -2,6 +2,34 @@
 
 Updated: 2026-10-04
 
+## Attribution contract 2026-10-08 — durable first touch
+
+- Surface/state: every public route on the first page load, including a link
+  marked with UTM parameters or an external referrer, followed by a later
+  direct visit and a Telegram/MAX or consultation-form conversion.
+- Primary job: preserve enough non-PII context for EventBudjet to answer where
+  the visitor first entered the site and which contact channel they later used.
+- Baseline signature: campaign values live only in `sessionStorage`, the
+  referrer and landing are evaluated when the CTA is clicked, ClientID may be
+  absent from forms, and a later direct tab can erase the useful first touch.
+- Expected signature: a versioned first-touch snapshot is written immediately
+  with UTM values, normalized source/channel, referrer host, first landing path
+  and first landing URL. A known non-direct first touch is not overwritten by a
+  later direct visit. Metrika ClientID is requested early, retried when needed,
+  added to the snapshot, sent to site forms, and bound into the existing signed
+  server token before messenger navigation.
+- Classification rule: supported AI assistants are a separate `ai` channel;
+  ChatGPT/OpenAI, Perplexity, Claude, Gemini and Copilot remain explicit
+  sources. Search engines remain `organic`; UTM/yclid campaigns remain paid or
+  campaign traffic; an empty referrer is `direct`, not `unknown`.
+- Privacy and safety: only bounded marketing keys and host/path values are
+  persisted; no form name, phone, comment, cookies or full arbitrary referrer
+  query is stored. Messenger deep links continue to carry only the short signed
+  EventBudjet token, never the full attribution object.
+- Must remain unchanged: all visible CTA copy and layout, the bot-first public
+  Telegram route, MAX parity, goal names, and fallback navigation when Metrika
+  or storage is unavailable.
+
 Current temporary rule: public wedding routes offer Telegram, phone and the
 consultation form, not MAX or WhatsApp. Existing MAX bot/offline-conversion code
 is retained but not linked publicly. The design history below describes the
