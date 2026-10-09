@@ -370,11 +370,13 @@ existing `Связаться` action. They map to `#formats`, `#evening-flow`, `
 and `#letters`.
 
 Desktop uses quiet text links with an orange active underline in the existing
-glass header. At 769–1180 px the phone is hidden. Mobile uses a 56 px brand and
-contact row plus a 48 px visible anchor row; the anchors scroll horizontally
-only on narrow widths. The full header hides while scrolling down and returns
-while scrolling up. FAQ, gallery, contacts and route switching are not added
-to the primary navigation.
+glass header. A symmetric three-column grid keeps the link group on the
+viewport center independently of the logo and contact controls. At 769–1180 px
+the phone is hidden. Mobile uses a 56 px brand and contact row plus a 48 px
+visible anchor row; the four anchors fill that row with equal outer edges and
+scroll horizontally only on narrow widths. The full header hides while
+scrolling down and returns while scrolling up. FAQ, gallery, contacts and route
+switching are not added to the primary navigation.
 
 Primary user: родственник или организатор, которому нужно спокойно собрать юбилей для именинника и гостей разных поколений.
 

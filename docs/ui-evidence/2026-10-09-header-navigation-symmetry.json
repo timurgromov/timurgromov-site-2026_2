@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-10-09-header-navigation-symmetry",
+  "change_kind": "responsive-header-alignment",
+  "status": "passed",
+  "requested_visible_change": "Сделать юбилейное меню симметричным по тому же контракту, что корпоративное и новогоднее.",
+  "expected_visible_delta": "Мобильные ссылки равномерно занимают строку с одинаковыми краями; desktop группа ссылок центрируется относительно экрана.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "7f11ddb6448214baa24b266ac6527dec0d9e1668757eea69a517bc1b36fc8bad",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4326/yubiley/",
+    "source_ref": "staged codex/jubilee-header-symmetry candidate",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/yubiley/",
+    "state": "first-screen header navigation",
+    "selector_or_slide_id": ".site-header [data-section-nav]",
+    "action": "load at mobile and desktop widths"
+  },
+  "required_viewports": [
+    "390x844",
+    "1440x900"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "before_signature": "live: links grouped from the left with a large empty tail on the right",
+      "after_signature": "candidate: left and right outer gaps match and all four links span the row",
+      "observed_visible_result": "The Jubilee mobile menu matches the corporate geometry, keeps a 104px header and has no document overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "before_signature": "live: menu group is offset left by the asymmetric flex siblings",
+      "after_signature": "candidate: menu center and viewport center are both exactly 720px",
+      "observed_visible_result": "The Jubilee desktop menu is horizontally and vertically centered while the existing contact controls remain visible.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ]
+}
