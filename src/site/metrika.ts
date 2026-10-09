@@ -119,6 +119,12 @@ export const yandexMetrikaHead = `<meta name="yandex-verification" content="${ya
       return '';
     }
 
+    function isTelegramReferrer(host){
+      return host === 't.me' || host.endsWith('.t.me') ||
+        host === 'telegram.me' || host.endsWith('.telegram.me') ||
+        host === 'telegram.org' || host.endsWith('.telegram.org');
+    }
+
     function buildCurrentFirstTouch(){
       var params = new URLSearchParams(window.location.search);
       var campaign = {};
@@ -143,6 +149,8 @@ export const yandexMetrikaHead = `<meta name="yandex-verification" content="${ya
         channel = 'organic'; source = 'yandex'; sourceBasis = 'referrer'; engine = 'yandex';
       } else if (/(^|\.)google\./.test(referrerHost)) {
         channel = 'organic'; source = 'google'; sourceBasis = 'referrer'; engine = 'google';
+      } else if (isTelegramReferrer(referrerHost)) {
+        channel = 'referral'; source = 'telegram'; sourceBasis = 'referrer';
       } else if (referrerHost) {
         channel = 'referral'; source = referrerHost; sourceBasis = 'referrer';
       }

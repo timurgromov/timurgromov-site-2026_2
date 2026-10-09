@@ -1,0 +1,30 @@
+---
+const basePath = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const defaultDestination = `${basePath}?utm_source=telegram&utm_medium=messenger&utm_campaign=owned_telegram`;
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="refresh" content={`0; url=${defaultDestination}`} />
+    <title>Переходим на сайт Тимура Громова</title>
+    <script define:vars={{ basePath }}>
+      (() => {
+        const safeCampaign = (new URLSearchParams(window.location.search).get("campaign") || "owned_telegram")
+          .toLowerCase()
+          .replace(/[^a-z0-9_-]/g, "")
+          .slice(0, 48) || "owned_telegram";
+        const destination = new URL(basePath, window.location.origin);
+        destination.searchParams.set("utm_source", "telegram");
+        destination.searchParams.set("utm_medium", "messenger");
+        destination.searchParams.set("utm_campaign", safeCampaign);
+        window.location.replace(destination.toString());
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Переходим на сайт… <a href={defaultDestination}>Продолжить</a></p>
+  </body>
+</html>

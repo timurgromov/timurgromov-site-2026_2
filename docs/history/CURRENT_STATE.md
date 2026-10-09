@@ -475,6 +475,20 @@
 
 ## Public-site page attribution (2026-08-24)
 
+## Telegram inbound attribution (2026-10-09)
+
+- Canonical public link for Telegram posts/profile/channel buttons:
+  `https://timurgromov.ru/from/telegram/`. It redirects to the homepage with
+  the first-touch UTM context `telegram / messenger / owned_telegram`.
+- A source-specific Telegram publication can use
+  `https://timurgromov.ru/from/telegram/?campaign=<code>`; only a bounded
+  campaign code is carried forward. Telegram referrers, when provided by the
+  client, are also normalized as source `telegram`.
+- EventBudjet renders the acquisition source as `Telegram` while retaining the
+  contact channel separately as `Telegram-бот`. Existing historical links are
+  not retroactively identifiable; update their published URL to use the
+  canonical inbound link.
+
 - Public Telegram/MAX CTA sources preserve the exact main-site page: homepage scenario `site_plan_home`, homepage contact `site_meeting_home`, Scenario contact `site_meeting_scenario`, Materials contact `site_meeting_materials`.
 - `site_plan` and `site_meeting` are legacy-compatible starts only. New SEO pages require their own source code, EventBudjet label/migration and CRM verification before release; the shared SEO rule is in `../../../SEO/WEBMASTER_METRIKA_RUNBOOK.md`.
 

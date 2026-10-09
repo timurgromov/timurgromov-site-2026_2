@@ -30,6 +30,23 @@ Updated: 2026-10-04
   Telegram route, MAX parity, goal names, and fallback navigation when Metrika
   or storage is unavailable.
 
+## Telegram inbound link contract — 2026-10-09
+
+- Public Telegram posts, profile links and channel buttons that lead to the
+  site use `https://timurgromov.ru/from/telegram/` as the canonical default
+  URL. It redirects to the homepage with `utm_source=telegram`,
+  `utm_medium=messenger` and `utm_campaign=owned_telegram` before the public
+  page records its first-touch snapshot.
+- A separately measured Telegram placement may append
+  `?campaign=<safe_campaign_code>` to that URL. The redirect accepts only
+  lowercase letters, digits, `_` and `-`; it does not forward arbitrary query
+  data.
+- When Telegram does pass a browser referrer, the first-touch classifier stores
+  source `telegram` even without UTM. UTM remains the reliable default because
+  Telegram clients may omit the referrer.
+- This is acquisition source only. The later contact path remains independently
+  recorded as `Telegram-бот` by the EventBudjet start token.
+
 Current temporary rule: public wedding routes offer Telegram, phone and the
 consultation form, not MAX or WhatsApp. Existing MAX bot/offline-conversion code
 is retained but not linked publicly. The design history below describes the
