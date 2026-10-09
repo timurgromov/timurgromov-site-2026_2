@@ -20,6 +20,7 @@
     "verify:materials-baseline": "npm run build && node scripts/verify-materials-baseline.mjs",
     "verify:materials-layout": "npm run build && node scripts/verify-materials-layout.mjs",
     "verify:responsive-layout": "npm run build && node scripts/verify-responsive-layout.mjs",
+    "verify:jubilee-pricing": "npm run build && node scripts/verify-jubilee-pricing.mjs",
     "verify:pages": "node scripts/verify-pages-deploy.mjs",
     "preview": "astro preview",
     "deploy:pages": "ASTRO_TELEMETRY_DISABLED=1 npm run verify:contacts && node scripts/verify-responsive-layout.mjs && npx --yes gh-pages -d dist -b gh-pages"

@@ -10,7 +10,7 @@ import { telegramMeetingUrlFor } from '../../site/home-data';
   <div class="contact-choice__backdrop" data-contact-close></div>
   <section class="contact-choice__sheet" role="dialog" aria-modal="true" aria-labelledby="contact-choice-title" aria-describedby="contact-choice-description" tabindex="-1">
     <button type="button" class="contact-choice__close" data-contact-close aria-label="Закрыть панель">×</button>
-    <p class="contact-choice__eyebrow">КАЛЬКУЛЯТОР МЕРОПРИЯТИЙ · ТИМУР ГРОМОВ</p>
+    <p class="contact-choice__eyebrow">ТИМУР ГРОМОВ</p>
     <h2 id="contact-choice-title">Обсудим ваш юбилей</h2>
     <p id="contact-choice-description">Запустите бот, позвоните или оставьте номер. Я лично помогу подобрать формат для вашей семьи.</p>
     <div class="contact-choice__actions" data-contact-actions>
@@ -27,6 +27,10 @@ import { telegramMeetingUrlFor } from '../../site/home-data';
       <label class="contact-choice__field">
         <span>Телефон</span>
         <input type="tel" name="phone" maxlength="80" autocomplete="tel" inputmode="tel" required />
+      </label>
+      <label class="contact-choice__field">
+        <span>Дата юбилея <small>необязательно</small></span>
+        <input type="date" name="event_date" />
       </label>
       <label class="contact-choice__field">
         <span>Комментарий <small>необязательно</small></span>

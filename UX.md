@@ -348,6 +348,20 @@ full four-path author island remains once at the bottom.
 
 ## Jubilee commercial core
 
+### Three-route parity contract — 2026-10-09
+
+`/yubiley/` follows the same pricing and contact UX as the ordinary corporate
+and New Year routes: date action above three compact cards, extension rate
+beside the main price, in-card `Что входит` disclosure and the same contact
+panel. Event wording and approved prices are the allowed differences.
+
+The Jubilee bases reuse the approved wedding first prices: 135,000 ₽ for five
+hours with a 20,000 ₽ extension and 155,000 ₽ for six hours with a 25,000 ₽
+extension. The third package shows 315,000 ₽ total from the 155,000 ₽ host/DJ
+base plus a cover-band rate from 160,000 ₽. Venue-dependent technical rider
+costs are confirmed separately. The selected date is copied into the optional
+date field in the confirmed callback form.
+
 Primary user: родственник или организатор, которому нужно спокойно собрать юбилей для именинника и гостей разных поколений.
 
 Primary flow: `первый экран → примеры работы → преимущества → выбор состава → живая музыка при необходимости → как проходит юбилей → порядок работы → обсуждение юбилея`.
@@ -357,12 +371,12 @@ Target route: `/yubiley/`.
 1. Existing Hero copy, tags, CTAs and geometry remain unchanged. Its single old
    portrait is replaced by the shared five-frame current-photo slider used on
    the two corporate routes.
-2. `Выберите подходящий состав` follows the benefits with three packages: `Камерный` (`Ведущий + DJ`), `Праздничный` (`Ведущий + DJ + звук`) and `С живой музыкой` (`Ведущий + DJ + звук + два вокалиста`). Each card repeats the delivered scope instead of using vague shorthand; the third card anchors to `#music-program`.
-3. `Живая музыка` expands only the third package: two vocalists perform three 30-minute blocks under professional arrangements; saxophone and guitar are optional expansion. The public wording must not name the contractor, publish its contacts, or imply a full instrumental cover band.
+2. `Выберите подходящий формат` follows the benefits with three packages: `Камерный` (five hours), `Праздничный` (six hours) and `С кавер-группой`. Each card keeps the same compact pricing layout used by the corporate routes; the third card anchors to `#music-program`.
+3. `Живая музыка` explains the separate group rate from 160,000 ₽, the combined public total from 315,000 ₽ and the venue-dependent technical rider without inventing a fixed composition.
 4. The showreel uses the approved corporate photo derivatives and existing published MP4. Initial state is the poster with a pulsing orange play control and caption; playback replaces it with a native video and hides the custom overlay. The overlay returns when playback ends.
 5. `Как проходит юбилей` describes the guest experience: gathering, opening and congratulations, family stories and programme, music and dancing, neutral final. It never promises a cake, saxophone or live vocals in packages that do not include them.
 6. `Порядок работы` remains a separate customer-service flow: acquaintance, jubilee concept, scenario and timing, agreement and preparation, event. Its CTA now opens the direct contact panel.
-7. Gallery, letters, current videos, hero and SEO metadata are unchanged. The earlier unconfirmed popup forms were removed in CTA stage 1; public prices are not added.
+7. Gallery, letters, current videos, hero and SEO metadata are unchanged. The confirmed callback form remains and accepts the date selected in the pricing block.
 
 Layout contract for the added commercial core:
 
