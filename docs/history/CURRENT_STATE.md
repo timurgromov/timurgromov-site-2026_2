@@ -1,4 +1,12 @@
-# Current State - 2026-10-08
+# Current State - 2026-10-09
+
+## Jubilee shared pricing UX — live (2026-10-09)
+
+- `/yubiley/` now follows the same date-first pricing interaction as the ordinary corporate and New Year routes: one date action above three compact cards, extension beside the main price, and `Что входит` inside each card. Event wording and Jubilee prices remain specific to the route.
+- The Jubilee bases are 135 000 ₽ for five hours with a 20 000 ₽ extension and 155 000 ₽ for six hours with a 25 000 ₽ extension. The third card shows from 315 000 ₽: the six-hour host/DJ base plus a cover group from 160 000 ₽; the venue-dependent technical rider is confirmed separately.
+- The selected date is copied into the optional date field of the existing confirmed callback form. The contact-panel eyebrow is `ТИМУР ГРОМОВ`, and the corrected copy reads `Праздники проходят, впечатления остаются.`
+- Runtime source `1c8a951` is pushed to `origin/main`; production output `7e21241` is on `origin/gh-pages`, and both Deploy to gh-pages and Code health completed successfully.
+- Local build, `verify:jubilee-pricing`, `verify:contacts`, JavaScript syntax and the focused Jubilee responsive matrix passed. The full responsive suite had one stylesheet-readiness timeout; its complete Jubilee breakpoint subset then passed. Fresh production checks at 390 CSS px showed all cards inside the viewport, no horizontal overflow or console errors, and selected date `2027-05-15` reaching the callback form. No form was submitted.
 
 ## Durable first-touch attribution — release 2026-10-08
 

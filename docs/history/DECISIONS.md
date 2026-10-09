@@ -1554,3 +1554,12 @@ removed from this flow. The Jubilee callback form and the wedding pages
 keep their current behavior. Bot start is the offline event; a link click is
 only an online interaction. Source-to-counter ownership is defined in
 `EventBudjet/shared/metrika_offline.py`.
+
+## DEC-20261009-001 — Three commercial routes share one UX contract
+
+Decision date: 2026-10-09
+Area: ordinary corporate, New Year corporate, Jubilee
+
+The three commercial routes use the same interaction structure for pricing and contact: one date action above three compact package cards, extension beside the main price, an in-card `Что входит` disclosure, and the common contact-panel behavior. Copy, source attribution, prices and seasonal rules may differ by event.
+
+A future shared UX change is incomplete until `/`, `/novogodniy-korporativ/` and `/yubiley/` have all been reviewed. Cross-repository implementation does not require literal code sharing, but rendered behavior and responsive geometry must stay aligned.
