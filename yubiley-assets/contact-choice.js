@@ -40,6 +40,8 @@ function initContactChoice() {
 
   function resetForm() {
     form.reset();
+    const eventDate = form.elements.event_date;
+    if (eventDate && window.tgJubileeSelectedDate) eventDate.value = window.tgJubileeSelectedDate;
     form.hidden = true;
     success.hidden = true;
     actions.hidden = false;
@@ -86,6 +88,7 @@ function initContactChoice() {
     const phone = String(data.get('phone') || '').trim();
     const digits = phone.replace(/\D/g, '');
     const comment = String(data.get('comment') || '').trim();
+    const eventDate = String(data.get('event_date') || '').trim();
     const submit = form.querySelector('button[type="submit"]');
 
     if (!name || digits.length < 10 || digits.length > 15) {
@@ -103,7 +106,7 @@ function initContactChoice() {
     const payload = {
       name,
       phone,
-      comment: comment || null,
+      comment: [eventDate ? `Дата юбилея: ${eventDate}` : '', comment].filter(Boolean).join('\n') || null,
       form_source: `site_meeting_timurgromov__jubilee__${ctaContext.intent}__${ctaContext.placement}`,
       page_url: `${window.location.origin}${window.location.pathname}`.slice(0, 500),
       yclid: tracking.yclid || null,
