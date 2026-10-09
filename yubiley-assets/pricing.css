@@ -292,6 +292,29 @@
   text-decoration: none;
 }
 
+.seasonal-price-option__contact {
+  min-height: 44px;
+  margin: 12px 18px 18px;
+  padding: 10px 14px;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background-color .18s ease, color .18s ease, transform .18s ease;
+}
+
+.seasonal-price-option__contact:hover,
+.seasonal-price-option__contact:focus-visible {
+  background: var(--accent);
+  color: #111;
+}
+
+.seasonal-price-option__contact:active { transform: translateY(1px); }
+
 .seasonal-pricing-result {
   display: flex;
   justify-content: flex-end;

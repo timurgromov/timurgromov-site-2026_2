@@ -10,10 +10,15 @@ function initContactChoice() {
   const form = dialog?.querySelector('[data-contact-lead-form]');
   const status = dialog?.querySelector('[data-contact-form-status]');
   const success = dialog?.querySelector('[data-contact-success]');
+  const selectionBox = dialog?.querySelector('[data-contact-selection]');
+  const selectionTitle = dialog?.querySelector('[data-contact-selection-title]');
+  const selectionDate = dialog?.querySelector('[data-contact-selection-date]');
+  const selectionPrice = dialog?.querySelector('[data-contact-selection-price]');
   if (!dialog || !sheet || !fab || !actions || !note || !callback || !form || !status || !success) return;
 
   let opener = null;
   let formStarted = false;
+  let currentSelection = null;
   let ctaContext = { site: 'timurgromov', page: 'jubilee', intent: 'consultation', placement: 'contact_panel' };
 
   function token(value, fallback) {
@@ -34,14 +39,56 @@ function initContactChoice() {
     window.tgTrackCtaGoal?.(goal, ctaContext);
   }
 
+  function numericValue(value) {
+    const digits = String(value || '').replace(/\D/g, '');
+    return digits ? Number(digits) : 0;
+  }
+
+  function selectionFrom(trigger) {
+    const code = trigger?.dataset.packageCode;
+    const card = trigger?.closest('.seasonal-price-option');
+    if (!code || !card) return null;
+    const priceText = card.querySelector('.seasonal-price-option__value')?.textContent?.trim() || '';
+    const extensionText = card.querySelector('.seasonal-price-option__extension output')?.textContent?.trim() || '';
+    const price = numericValue(priceText);
+    const extension = numericValue(extensionText);
+    if (!price || !extension) return null;
+    const date = document.querySelector('[data-jubilee-pricing] [data-pricing-date]')?.value || '';
+    const dateCaption = card.querySelector('[data-pricing-caption]')?.textContent?.trim();
+    const label = trigger.dataset.packageLabel || card.dataset.packageLabel || 'Выбранный вариант';
+    const mode = /^от\s/i.test(priceText) ? 'from' : 'exact';
+    const summary = [
+      `Выбранный вариант: ${label}`,
+      date ? `Дата: ${dateCaption || date}` : '',
+      `Цена на сайте: ${priceText}`,
+      `Дополнительный час: ${extensionText}`
+    ].filter(Boolean).join('\n');
+    return {
+      label,
+      date,
+      dateLabel: dateCaption || 'Дата пока не выбрана',
+      priceText,
+      extensionText,
+      summary,
+      ctaCode: `package:${code}:${date || 'none'}:${price}:${extension}:${mode}`
+    };
+  }
+
+  function renderSelection(selection) {
+    if (!selectionBox || !selectionTitle || !selectionDate || !selectionPrice) return;
+    selectionBox.hidden = !selection;
+    if (!selection) return;
+    selectionTitle.textContent = selection.label;
+    selectionDate.textContent = selection.dateLabel;
+    selectionPrice.textContent = `${selection.priceText} · доп. час ${selection.extensionText}`;
+  }
+
   function updateFab() {
     fab.classList.toggle('is-visible', window.scrollY > window.innerHeight);
   }
 
   function resetForm() {
     form.reset();
-    const eventDate = form.elements.event_date;
-    if (eventDate && window.tgJubileeSelectedDate) eventDate.value = window.tgJubileeSelectedDate;
     form.hidden = true;
     success.hidden = true;
     actions.hidden = false;
@@ -72,10 +119,14 @@ function initContactChoice() {
   function open(trigger) {
     opener = trigger;
     ctaContext = contextFrom(trigger);
+    currentSelection = selectionFrom(trigger);
     const source = `site_meeting_timurgromov__jubilee__${ctaContext.placement}`;
     telegram.dataset.botSource = source;
+    if (currentSelection) telegram.dataset.botContext = currentSelection.ctaCode;
+    else delete telegram.dataset.botContext;
     telegram.href = `https://calcul.timurgromov.ru/api/v1/site/messenger-start?provider=telegram&mode=start&payload=${encodeURIComponent(source)}`;
     resetForm();
+    renderSelection(currentSelection);
     dialog.hidden = false;
     lockPageScroll();
     sheet.focus();
@@ -87,8 +138,6 @@ function initContactChoice() {
     const name = String(data.get('name') || '').trim();
     const phone = String(data.get('phone') || '').trim();
     const digits = phone.replace(/\D/g, '');
-    const comment = String(data.get('comment') || '').trim();
-    const eventDate = String(data.get('event_date') || '').trim();
     const submit = form.querySelector('button[type="submit"]');
 
     if (!name || digits.length < 10 || digits.length > 15) {
@@ -106,7 +155,7 @@ function initContactChoice() {
     const payload = {
       name,
       phone,
-      comment: [eventDate ? `Дата юбилея: ${eventDate}` : '', comment].filter(Boolean).join('\n') || null,
+      comment: currentSelection?.summary || null,
       form_source: `site_meeting_timurgromov__jubilee__${ctaContext.intent}__${ctaContext.placement}`,
       page_url: `${window.location.origin}${window.location.pathname}`.slice(0, 500),
       yclid: tracking.yclid || null,
@@ -125,13 +174,17 @@ function initContactChoice() {
     status.textContent = 'Передаём заявку в рабочий контур.';
     status.dataset.state = 'sending';
     try {
-      const response = await fetch('https://calcul.timurgromov.ru/api/v1/site/consultation-request', {
+      const previewState = new URLSearchParams(window.location.search).get('preview_lead_state');
+      const isLocalPreview = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+      const response = isLocalPreview && previewState
+        ? { status: previewState === 'success' ? 201 : 503 }
+        : await fetch('https://calcul.timurgromov.ru/api/v1/site/consultation-request', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         credentials: 'omit',
         signal: controller.signal,
         body: JSON.stringify(payload)
-      });
+        });
       if (response.status !== 201) throw new Error('lead_not_created');
       form.hidden = true;
       success.hidden = false;
@@ -172,7 +225,7 @@ function initContactChoice() {
     const fallback = telegram.href;
     const popup = window.open('about:blank', '_blank');
     if (popup) popup.opener = null;
-    Promise.resolve(window.tgAttributedTelegramUrl?.(telegram.dataset.botSource) || fallback)
+    Promise.resolve(window.tgAttributedTelegramUrl?.(telegram.dataset.botSource, telegram.dataset.botContext || '') || fallback)
       .catch(() => fallback)
       .then(url => {
         if (popup && !popup.closed) popup.location.href = url;
