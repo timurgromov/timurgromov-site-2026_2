@@ -281,15 +281,15 @@ export const yandexMetrikaHead = `<meta name="yandex-verification" content="${ya
       }
     }
 
-    function attributedUrl(anchor, data){
-      var promiseKey = [data.provider, data.parameter, data.source].join(':');
+    function attributedUrl(anchor, data, ctaCodeOverride){
+      var ctaCode = ctaCodeOverride || anchor.getAttribute('data-calculator-source') || anchor.getAttribute('data-plan-source') || data.source;
+      var promiseKey = [data.provider, data.parameter, data.source, ctaCode].join(':');
       if (!promiseBySource[promiseKey]) {
         promiseBySource[promiseKey] = getClientId().then(function(clientId){
           var tracking = getTrackingParams();
           var context = getAcquisitionContext();
           var touch = getFirstTouch();
           var yclid = tracking.yclid;
-          if (!clientId && !yclid) throw new Error('Metrika identifier is unavailable');
           return fetch(endpoint, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -309,7 +309,7 @@ export const yandexMetrikaHead = `<meta name="yandex-verification" content="${ya
                 entry_landing_path: context.landing_path || '/'
               }),
               landing_url: touch.landing_url || window.location.origin + (window.location.pathname || '/'),
-              cta_code: anchor.getAttribute('data-calculator-source') || anchor.getAttribute('data-plan-source') || data.source
+              cta_code: ctaCode
             }),
             credentials: 'omit'
           });
@@ -334,11 +334,11 @@ export const yandexMetrikaHead = `<meta name="yandex-verification" content="${ya
 
     // Contact panels choose their source after the page loads, so they use the
     // same server-issued payload without binding an anchor ahead of time.
-    window.tgAttributedTelegramUrl = function(source){
+    window.tgAttributedTelegramUrl = function(source, ctaCode){
       var anchor = document.createElement('a');
       anchor.href = '${messengerStartEndpoint}?provider=telegram&mode=start&payload=' + encodeURIComponent(source);
       var data = messengerLinkData(anchor);
-      return data ? attributedUrl(anchor, data) : Promise.resolve(anchor.href);
+      return data ? attributedUrl(anchor, data, ctaCode) : Promise.resolve(anchor.href);
     };
 
     function bindAnchor(anchor){

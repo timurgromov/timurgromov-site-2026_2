@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-10-09-jubilee-package-contact-cta",
+  "change_kind": "conversion-flow-simplification",
+  "status": "passed",
+  "requested_visible_change": "Bring the Jubilee package contact flow into parity with the corporate routes.",
+  "expected_visible_delta": "Each Jubilee package opens the shared panel with its package context and a two-field callback form.",
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "9e8a6415bf37b17f1205329f183c231a51e75dd9602aa02df66dd78c2a5874d0",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4325/yubiley/",
+    "source_ref": "main working tree",
+    "fresh_reload": true
+  },
+  "required_viewports": ["390x844", "1440x900"],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "result": "The selected package, price, extension rate and name/phone form fit inside the mobile bottom sheet."
+    },
+    {
+      "state": "local HTTP 201",
+      "result": "Success appeared only after the mocked 201 response."
+    },
+    {
+      "state": "local HTTP error",
+      "result": "The form stayed available with an explicit retry message."
+    }
+  ],
+  "automated_checks": [
+    "npm run verify:jubilee-pricing",
+    "npm run verify:contacts",
+    "npm run verify:responsive-layout (274 cases)"
+  ],
+  "production_submission": false
+}

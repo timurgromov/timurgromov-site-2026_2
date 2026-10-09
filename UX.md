@@ -459,3 +459,19 @@ route is not shown on this page.
 - States and access: close button/backdrop/Escape, focus return/containment, background scroll lock and mobile safe-area padding. Check 390×844 and 1280×720 plus 320px and 1024px.
 - Callback state: validate name and phone, show success only after HTTP `201` from `POST /api/v1/site/consultation-request`, then send `cta_site=timurgromov`, `cta_page=jubilee`, intent and placement to CRM. Network and server failures keep the form visible and do not create the success state.
 - Metrika counter `100295805` receives `cta_open`, `telegram_click`, `phone_click`, `form_start`, `lead_submit_success` and `lead_submit_error` with non-personal CTA context. The Telegram CTA opens Калькулятор мероприятий; only an actual bot start creates the bot CRM request and eligible offline event.
+
+## Three-route package contact contract — 2026-10-09
+
+The Jubilee package cards follow the same conversion flow as the ordinary and
+New Year corporate routes. Every card ends with `Обсудить этот вариант` and
+opens the existing contact panel with the selected format, date, public price
+and extension rate already visible. The separate aggregate availability CTA is
+removed.
+
+The panel keeps three paths: attributed Telegram bot, visible phone and a
+minimal callback form with name and phone. It does not ask for date or comment
+again. The selection is attached to the callback request and signed bot start;
+the CRM request is created only after HTTP `201` or an actual bot start.
+Generic header, sticky and final CTAs open the same panel without a preselected
+format. Desktop remains a compact dialog; mobile remains a safe-area bottom
+sheet with full-width controls and no horizontal overflow.

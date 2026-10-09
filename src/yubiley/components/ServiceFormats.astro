@@ -3,6 +3,7 @@ const rubles = (value: number) => `${new Intl.NumberFormat('ru-RU').format(value
 
 const formats = [
   {
+    code: 'jubilee_5h',
     name: 'Камерный',
     title: 'Ведущий + DJ',
     note: 'Программа до 5 часов',
@@ -11,6 +12,7 @@ const formats = [
     items: ['Подготовка программы', 'Ведение юбилея', 'DJ и музыкальное сопровождение']
   },
   {
+    code: 'jubilee_6h',
     name: 'Праздничный',
     title: 'Ведущий + DJ',
     note: 'Программа до 6 часов',
@@ -19,6 +21,7 @@ const formats = [
     items: ['Подготовка программы', 'Ведение юбилея', 'DJ и музыкальное сопровождение', 'Расширенный тайминг до 6 часов']
   },
   {
+    code: 'jubilee_band',
     name: 'С кавер-группой',
     title: 'Ведущий + DJ + кавер-группа',
     note: 'Кавер-группа в смете — от 160 000 ₽',
@@ -57,7 +60,7 @@ const formats = [
 
       <div class="seasonal-pricing-options" aria-live="polite" aria-label="Стоимость трёх форматов юбилея">
         {formats.map((format, index) => (
-          <article class="seasonal-price-option">
+          <article class="seasonal-price-option" data-package-label={format.name}>
             <div class="seasonal-price-option__copy">
               <p class="seasonal-price-option__number">0{index + 1} · {format.name}</p>
               <h3>{format.title}</h3>
@@ -86,13 +89,20 @@ const formats = [
                 {format.detailsHref && <a class="seasonal-price-option__details-link" href={format.detailsHref}>Подробнее о кавер-группе <span aria-hidden="true">→</span></a>}
               </div>
             </details>
+            <button
+              class="seasonal-price-option__contact"
+              type="button"
+              data-contact-open
+              data-contact-source={`package_${format.code}`}
+              data-contact-intent="package_discussion"
+              data-contact-placement="package_card"
+              data-package-code={format.code}
+              data-package-label={format.name}
+            >Обсудить этот вариант</button>
           </article>
         ))}
       </div>
 
-      <div class="seasonal-pricing-result">
-        <button class="pricing-contact-link" type="button" data-contact-open data-contact-source="formats_consultation" data-contact-intent="date_check" data-contact-placement="formats">Уточнить доступность даты и состав <span aria-hidden="true">→</span></button>
-      </div>
     </div>
   </div>
 </section>

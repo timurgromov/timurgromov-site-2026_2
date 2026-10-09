@@ -1,5 +1,17 @@
 # Current State - 2026-10-09
 
+## Jubilee fast package CTA — release candidate 2026-10-09
+
+- The three Jubilee price cards now open the shared contact panel with the
+  selected package, optional date, displayed price and extension rate.
+- The callback form is reduced to name and phone. Telegram stays attributed
+  through the EventBudjet bot; success is shown only after HTTP `201`.
+- `verify:jubilee-pricing`, `verify:contacts` and the 274-case responsive
+  matrix pass. The 390x844 candidate also passed local success and error state
+  checks without creating a production request.
+- Release note:
+  `docs/history/worklog/2026-10-09-jubilee-package-contact-cta.md`.
+
 ## Jubilee shared pricing UX — live (2026-10-09)
 
 - `/yubiley/` now follows the same date-first pricing interaction as the ordinary corporate and New Year routes: one date action above three compact cards, extension beside the main price, and `Что входит` inside each card. Event wording and Jubilee prices remain specific to the route.

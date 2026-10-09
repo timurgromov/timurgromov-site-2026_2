@@ -13,6 +13,11 @@ import { telegramMeetingUrlFor } from '../../site/home-data';
     <p class="contact-choice__eyebrow">ТИМУР ГРОМОВ</p>
     <h2 id="contact-choice-title">Обсудим ваш юбилей</h2>
     <p id="contact-choice-description">Запустите бот, позвоните или оставьте номер. Я лично помогу подобрать формат для вашей семьи.</p>
+    <div class="contact-choice__selection" data-contact-selection hidden>
+      <strong data-contact-selection-title></strong>
+      <span data-contact-selection-date></span>
+      <span data-contact-selection-price></span>
+    </div>
     <div class="contact-choice__actions" data-contact-actions>
       <a class="contact-choice__action contact-choice__action--primary" href={telegramMeetingUrlFor('jubilee', 'hero')} target="_blank" rel="noopener noreferrer" data-contact-telegram>Написать в Telegram-бот <span aria-hidden="true">↗</span></a>
       <a class="contact-choice__action" href={contact.phoneHref} data-contact-phone>Позвонить <span>{contact.phoneHuman}</span></a>
@@ -27,14 +32,6 @@ import { telegramMeetingUrlFor } from '../../site/home-data';
       <label class="contact-choice__field">
         <span>Телефон</span>
         <input type="tel" name="phone" maxlength="80" autocomplete="tel" inputmode="tel" required />
-      </label>
-      <label class="contact-choice__field">
-        <span>Дата юбилея <small>необязательно</small></span>
-        <input type="date" name="event_date" />
-      </label>
-      <label class="contact-choice__field">
-        <span>Комментарий <small>необязательно</small></span>
-        <textarea name="comment" maxlength="1000" rows="3"></textarea>
       </label>
       <button type="submit" class="contact-choice__submit">Отправить номер</button>
       <p class="contact-choice__status" data-contact-form-status role="status" aria-live="polite"></p>

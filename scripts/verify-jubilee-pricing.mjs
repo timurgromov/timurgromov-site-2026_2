@@ -34,8 +34,15 @@ expect(html, 'Выбрать дату', 'date action');
 expect(html, '<p class="contact-choice__eyebrow">ТИМУР ГРОМОВ</p>', 'contact owner');
 reject(html, 'КАЛЬКУЛЯТОР МЕРОПРИЯТИЙ · ТИМУР ГРОМОВ', 'removed calculator label');
 expect(html, 'Праздники проходят, впечатления остаются.', 'corrected punctuation');
-expect(html, 'name="event_date"', 'callback date field');
-expect(contactScript, 'Дата юбилея:', 'date forwarded to CRM comment');
+expect(html, 'data-contact-lead-form', 'short callback form');
+expect(html, 'name="name"', 'callback name field');
+expect(html, 'name="phone"', 'callback phone field');
+reject(html, 'name="event_date"', 'retired callback date field');
+reject(html, 'name="comment"', 'retired callback comment field');
+expect(html, 'data-contact-placement="package_card"', 'package contact action');
+expect(html, 'Обсудить этот вариант', 'package contact label');
+expect(contactScript, 'comment: currentSelection?.summary', 'package forwarded to CRM comment');
+expect(contactScript, 'data-contact-selection', 'package summary in contact panel');
 expect(pricingScript, 'window.tgJubileeSelectedDate', 'pricing-to-contact date bridge');
 
 console.log('PASS: Jubilee pricing, date bridge, contact copy and punctuation contract');
