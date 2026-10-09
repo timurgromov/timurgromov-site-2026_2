@@ -17,6 +17,13 @@ function reject(source, text, label) {
 }
 
 expect(html, 'data-testid="jubilee-pricing"', 'pricing block');
+expect(html, 'data-section-nav', 'shared section navigation');
+expect(html, 'href="#formats" data-nav-target="formats">Цены</a>', 'prices navigation');
+expect(html, 'href="#evening-flow" data-nav-target="evening-flow">Программа</a>', 'programme navigation');
+expect(html, 'href="#cases" data-nav-target="cases">Видео</a>', 'video navigation');
+expect(html, 'href="#letters" data-nav-target="letters">Отзывы</a>', 'reviews navigation');
+expect(html, '/yubiley-assets/header-nav.css?v=20261009a', 'header navigation stylesheet');
+expect(html, '/yubiley-assets/header-nav.js?v=20261009a', 'header navigation behavior');
 expect(html, 'от 135 000 ₽', 'five-hour price');
 expect(html, 'от 155 000 ₽', 'six-hour price');
 expect(html, 'от 315 000 ₽', 'cover-band total');

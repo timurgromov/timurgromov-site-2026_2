@@ -362,6 +362,20 @@ base plus a cover-band rate from 160,000 ₽. Venue-dependent technical rider
 costs are confirmed separately. The selected date is copied into the optional
 date field in the confirmed callback form.
 
+#### Shared header navigation
+
+The Jubilee route uses the same four section anchors as the ordinary corporate
+and New Year routes: `Цены`, `Программа`, `Видео`, `Отзывы`, followed by the
+existing `Связаться` action. They map to `#formats`, `#evening-flow`, `#cases`
+and `#letters`.
+
+Desktop uses quiet text links with an orange active underline in the existing
+glass header. At 769–1180 px the phone is hidden. Mobile uses a 56 px brand and
+contact row plus a 48 px visible anchor row; the anchors scroll horizontally
+only on narrow widths. The full header hides while scrolling down and returns
+while scrolling up. FAQ, gallery, contacts and route switching are not added
+to the primary navigation.
+
 Primary user: родственник или организатор, которому нужно спокойно собрать юбилей для именинника и гостей разных поколений.
 
 Primary flow: `первый экран → примеры работы → преимущества → выбор состава → живая музыка при необходимости → как проходит юбилей → порядок работы → обсуждение юбилея`.
