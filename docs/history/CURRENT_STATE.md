@@ -1,14 +1,19 @@
 # Current State - 2026-10-09
 
-## Jubilee fast package CTA — release candidate 2026-10-09
+## Jubilee fast package CTA — live 2026-10-09
 
 - The three Jubilee price cards now open the shared contact panel with the
   selected package, optional date, displayed price and extension rate.
 - The callback form is reduced to name and phone. Telegram stays attributed
   through the EventBudjet bot; success is shown only after HTTP `201`.
+- Runtime commit `ccf51eb` is pushed to `origin/main`; production output
+  `5c6afef` is on `origin/gh-pages`. `Code health` and `Deploy to gh-pages`
+  completed successfully.
 - `verify:jubilee-pricing`, `verify:contacts` and the 274-case responsive
-  matrix pass. The 390x844 candidate also passed local success and error state
-  checks without creating a production request.
+  matrix pass. Fresh 390x844 and desktop production checks confirmed the
+  package summary, short-form geometry, Escape/focus return, zero horizontal
+  overflow and no console errors. Local success/error states passed without a
+  production request.
 - Release note:
   `docs/history/worklog/2026-10-09-jubilee-package-contact-cta.md`.
 

@@ -21,3 +21,11 @@ routes. Wedding pages and wedding calculator behavior are unchanged.
 - `npm run verify:responsive-layout` passed 274 cases over 12 routes.
 - The in-app browser verified 390x844 package presentation plus local success
   and error states without sending a production request.
+
+## Release
+
+- Runtime: `ccf51eb` on `origin/main`.
+- Production: `5c6afef` on `origin/gh-pages`; both deployment and code-health
+  workflows completed successfully.
+- Fresh live mobile and desktop checks passed for package context, short-form
+  geometry, Escape/focus return, overflow and browser console errors.
