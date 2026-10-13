@@ -1,6 +1,6 @@
 # Current State - 2026-10-13
 
-## SEO page technical hardening — release candidate 2026-10-13
+## SEO page technical hardening — live 2026-10-13
 
 - The protected homepage now has one ordinary footer navigation link,
   `Свадебный гид`, to `/articles/`; Hero, prices, primary CTA, popup, Direct
@@ -11,7 +11,11 @@
 - Build, built-HTML/schema assertions, materials baseline, contact/footer,
   274-case responsive and Direct-attribution checks pass. Local in-app browser
   review confirms the footer link and transition to `/articles/`.
-- Production publication and fresh live verification are pending.
+- Runtime/source commit `02ced39` is pushed to `origin/main`; production output
+  `be3da12` is on `origin/gh-pages`. Code health, deploy and Pages publication
+  completed successfully.
+- Fresh production HTML confirms the exact H1 and schema contracts. A live
+  browser pass confirmed the footer link and transition to `/articles/`.
 - Release note:
   `docs/history/worklog/2026-10-13-seo-page-technical-hardening.md`.
 

@@ -39,8 +39,15 @@
 
 ## Release
 
-- Runtime/source commit: pending.
-- Production output: pending.
-- Fresh live verification: pending.
+- Runtime/source commit `02ced39` is pushed to `origin/main`.
+- Production output `be3da12` is published on `origin/gh-pages`.
+- GitHub Actions `Code health` and `Deploy to gh-pages` passed. GitHub Pages
+  reports the production build as `built`.
+- `npm run verify:pages -- --contains "Свадебный гид"` confirmed production
+  was deployed from the exact runtime commit.
+- Fresh production HTML confirms one H1 and `VideoObject` on `/materials/`,
+  `Article` plus `BreadcrumbList` on `/scenario/`, and exactly one homepage
+  link to `/articles/`. A fresh live in-app-browser pass followed the footer
+  link to the wedding-guide catalogue.
 
 No media or runtime assets were added.
