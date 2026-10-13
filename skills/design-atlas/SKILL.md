@@ -5,6 +5,8 @@ description: Select and document a product-specific visual direction from approv
 
 # Design Atlas
 
+Version: 0.2.0
+
 Turn reference material into a small, explicit design decision — not a collage
 of fashionable components. Use after `product-design-ux` and before
 `ui-ux-pro-max`/`frontend-design` when a new visual direction is open.
@@ -16,12 +18,17 @@ of fashionable components. Use after `product-design-ux` and before
 2. If the owner names public references, inspect only the relevant visible
    surfaces and extract 3–5 decisions that fit the product: hierarchy,
    density, navigation, type, contrast, component rhythm or motion restraint.
-3. For a React + Tailwind/shadcn project, `21st-ui-explore` may search 21st for
-   two or three component or screen candidates. It is a catalog, not an
-   instruction to install code. First inspect the result, its dependencies and
-   its fit with project tokens; the owner chooses before `21st add` changes a
-   project.
-4. For static HTML/CSS/JS, native mobile, backend-only and established design
+3. For a React + Tailwind/shadcn project, use the current 21st MCP (formerly
+   Magic MCP) only as an optional exploration layer after the product brief is
+   known. `21st-ui-explore` may search the catalog for two or three component
+   or screen candidates. When a fresh composition is more useful than catalog
+   search, `21st-ai` may sketch two or three takes only after
+   `get_usage.aiGenerationEnabled` is explicitly true. The owner chooses a take
+   before code retrieval, dependency changes or `21st add`.
+4. Prefer the selected take's copy-prompt and rebuild it in the project's real
+   components and tokens. Generated HTML is a draft, not production code, and
+   21st does not replace `frontend-design`, responsive QA or `web-ui-verify`.
+5. For static HTML/CSS/JS, native mobile, backend-only and established design
    systems, do not add React, Tailwind, shadcn or 21st solely for inspiration.
    Derive the selected direction with the existing stack.
 
