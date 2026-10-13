@@ -2,6 +2,22 @@
 
 Этот файл фиксирует решения, которые важно помнить и не откатывать случайно.
 
+## DEC-2026-10-13-HOMEPAGE-WEDDING-GUIDE-FOOTER-LINK
+
+Status: active
+Area: homepage footer, wedding-guide discovery graph
+Decision date: 2026-10-13
+Evidence: owner-approved bounded SEO hardening and local browser/regression checks
+Narrowly overrides: the homepage exclusion in DEC-2026-09-08-EXPERT-PAGE-SPLIT-CONVERSION
+
+The protected homepage keeps its Hero, prices, primary CTA, popup and Direct
+contracts unchanged, but its existing footer navigation contains one ordinary
+link `Свадебный гид` to `/articles/`. This is a navigation/discovery link, not
+a new conversion CTA and not a direct link to `/scenario/`. New expert pages
+still do not authorize unrelated homepage edits; any further homepage SEO or
+content change needs its own bounded owner approval and Direct regression
+check.
+
 ## DEC-2026-10-07-JUBILEE-HEADER-CONTACT
 
 Status: active

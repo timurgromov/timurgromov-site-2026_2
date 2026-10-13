@@ -42,7 +42,7 @@ function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function waitForJson(url, timeoutMs = 8000) {
+async function waitForJson(url, timeoutMs = 15000) {
   const startedAt = Date.now();
 
   while (Date.now() - startedAt < timeoutMs) {
@@ -59,7 +59,7 @@ async function waitForJson(url, timeoutMs = 8000) {
   fail("Chrome DevTools endpoint did not start", { url });
 }
 
-async function waitForPageTarget(timeoutMs = 8000) {
+async function waitForPageTarget(timeoutMs = 15000) {
   const startedAt = Date.now();
 
   while (Date.now() - startedAt < timeoutMs) {
@@ -300,6 +300,7 @@ async function getLayout(cdp, mode) {
           color: textStyle.color,
           textFillColor: textStyle.webkitTextFillColor,
           text: element.textContent.replace(/\\s+/g, ' ').trim(),
+          href: element.querySelector('a')?.getAttribute('href') || '',
         };
       };
       const linkInfo = (record) => Array.from(
@@ -350,6 +351,7 @@ async function getLayout(cdp, mode) {
         : {
             about: '1738908769393',
             how: '1738908801867',
+            guide: '1738908837275',
             price: '1738908848846',
             cases: '1738908861448',
             qa: '1738908872836',
@@ -448,13 +450,22 @@ function assertLayout(layout) {
       fail(`${mode}: removed mobile menu links are still visible in the contact area`, layout);
     }
   }
+  if (mode === "footer") {
+    const guide = layout.footerMenu.guide;
+    if (!guide || guide.display === "none" || guide.visibility === "hidden" || guide.opacity === 0) {
+      fail(`${mode}: wedding guide menu item is missing`, layout);
+    }
+    if (guide.text !== "Свадебный гид" || guide.href !== "/articles/") {
+      fail(`${mode}: wedding guide menu item has the wrong label or href`, layout);
+    }
+  }
   if (mode === "footer" && layout.viewport.width <= 639) {
     if (!contactLabel) fail(`${mode}: mobile contact label is missing`, layout);
     if (contactLabel.top > 340) fail(`${mode}: mobile contact block starts too low`, layout);
     if (!layout.email) fail(`${mode}: mobile email is missing`, layout);
     if (layout.email.top < icons.instagram.bottom + 8) fail(`${mode}: mobile email overlaps social icons`, layout);
     if (layout.email.top > icons.instagram.bottom + 90) fail(`${mode}: mobile email is too far below social icons`, layout);
-    const menuOrder = ["about", "how", "price", "cases", "qa", "reviews"];
+    const menuOrder = ["about", "how", "guide", "price", "cases", "qa", "reviews"];
     const menuItems = menuOrder.map((name) => [name, layout.footerMenu[name]]);
     for (const [name, item] of menuItems) {
       if (!item || item.display === "none") fail(`${mode}: mobile ${name} menu item is missing`, layout);

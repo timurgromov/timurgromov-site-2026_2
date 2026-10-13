@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-10-13-home-wedding-guide-footer",
+  "change_kind": "homepage-footer-navigation",
+  "status": "passed",
+  "requested_visible_change": "Connect the protected homepage to the existing wedding-guide hub without changing the commercial hero, prices or CTA flow.",
+  "expected_visible_delta": "The existing footer menu gains exactly one visible item labelled Wedding guide in Russian and linked to /articles/.",
+  "attempt_number": 2,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "336486b4a49db8811f6cc160e29472918782ed6aa94ae49375f2ff69c323ae32",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4327/",
+    "source_ref": "working-tree candidate after final responsive coordinates",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "homepage footer record rec862623921",
+    "state": "anonymous public reader",
+    "selector_or_slide_id": "[data-elem-id=1738908837275] a",
+    "action": "Read the footer navigation and follow the Wedding guide link"
+  },
+  "must_remain_unchanged": [
+    "homepage hero, prices and primary CTA",
+    "Direct and first-touch attribution contracts",
+    "contact popup and consultation flow",
+    "footer contacts, legal links and social links"
+  ],
+  "required_viewports": [
+    "390x844",
+    "1440x900",
+    "1911x1064"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "contact/footer browser gate against the final static candidate",
+      "before_signature": "The production footer contained six navigation items and no crawlable /articles/ link.",
+      "after_signature": "The footer contains Wedding guide between How I host and Prices, with href /articles/.",
+      "observed_visible_result": "The mobile footer menu order passed; no item overlap or horizontal overflow was detected.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "viewport_source": "contact/footer browser gate plus the full responsive matrix",
+      "before_signature": "The production footer contained no visible Wedding guide item.",
+      "after_signature": "The existing reserved footer slot renders as a single ordinary Wedding guide link.",
+      "observed_visible_result": "Footer geometry, contacts and protected commercial controls passed the browser contracts.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1911x1064",
+      "viewport_source": "contact/footer browser gate against the final static candidate",
+      "before_signature": "The production footer had no route from the homepage to the useful-content contour.",
+      "after_signature": "The Wedding guide item is visible in the original footer navigation column and resolves to /articles/.",
+      "observed_visible_result": "The wide footer passed exact text, href, visibility and layout assertions.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1248x720",
+      "viewport_source": "Codex in-app browser against the final local candidate",
+      "before_signature": "Fresh production baseline showed About, How I host, Prices, Cases, Popular questions and Reviews only.",
+      "after_signature": "Fresh candidate screenshot showed Wedding guide between How I host and Prices.",
+      "observed_visible_result": "The footer remained visually aligned and the link opened /articles/ with the article catalogue H1 visible.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ]
+}

@@ -33,6 +33,32 @@ const socialImageUrl = new URL(
   `${homeHref}images/scenario-hero-host-bw-source.jpg`,
   "https://timurgromov.ru",
 ).toString();
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Главная", item: "https://timurgromov.ru/" },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Статьи",
+      item: new URL(articlesHref, "https://timurgromov.ru").toString(),
+    },
+    { "@type": "ListItem", position: 3, name: "Сценарий свадебного вечера", item: pageUrl },
+  ],
+};
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "Сценарий свадебного вечера",
+  description: "Логика современного свадебного вечера: тайминг, ключевые блоки и ошибки, которые чаще всего ломают атмосферу.",
+  mainEntityOfPage: pageUrl,
+  author: { "@type": "Person", name: "Тимур Громов", url: "https://timurgromov.ru/" },
+  publisher: { "@type": "Person", name: "Тимур Громов" },
+  image: socialImageUrl,
+  about: ["сценарий свадьбы", "тайминг свадебного вечера", "подготовка к свадьбе"],
+  inLanguage: "ru-RU",
+};
 const eveningSteps = [
   "Сбор гостей",
   "Церемония",
@@ -82,6 +108,11 @@ const mistakes = [
   ogImageAlt="Тимур Громов ведёт свадебный вечер"
   ogType="article"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)}></script>
+  </Fragment>
+
   <main class="scenario-page">
     <WeddingArticleHero homeHref={homeHref} meta="Ведущий · 5 минут чтения" titleEmphasis="prominent">
       <h1 slot="title">Свадебный <em>сценарий</em></h1>

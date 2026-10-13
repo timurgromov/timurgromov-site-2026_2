@@ -71,6 +71,27 @@ const allRecordsAttrs = allRecordsMatch[1];
 const mediaBackupBaseUrl = "https://media.213-176-94-245.sslip.io";
 const materialsWebinarVideoUrl =
   `${mediaBackupBaseUrl}/materials_webinar_online_razbor_20260707_browser.mp4`;
+const materialsWebinarPosterUrl = new URL(
+  `${basePath}images/materials-poster.jpg`,
+  "https://timurgromov.ru",
+).toString();
+const materialsVideoSchema = {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  name: "8 секретов успешной свадьбы",
+  description: "Вебинар с практическими советами по подготовке к свадьбе, таймингу, бюджету и выбору команды.",
+  thumbnailUrl: [materialsWebinarPosterUrl],
+  uploadDate: "2026-07-07T10:25:34+03:00",
+  contentUrl: materialsWebinarVideoUrl,
+  mainEntityOfPage: pageUrl,
+  inLanguage: "ru-RU",
+  isAccessibleForFree: true,
+  creator: {
+    "@type": "Person",
+    name: "Тимур Громов",
+    url: "https://timurgromov.ru/",
+  },
+};
 
 const materialRecordIds = [
   // Webinar.
@@ -471,6 +492,13 @@ const materialRecordsHtml = materialRecordIds
           "173883093344499820",
         ]);
       }
+
+      if (recordId === webinarDesktopRecordId) {
+        recordHtml = recordHtml.replace(
+          "<h2 class='tn-atom'field='tn_text_1738930878264'>8 секретов успешной свадьбы в Москве, о которых вам не расскажут организаторы</h2>",
+          "<h1 class='tn-atom'field='tn_text_1738930878264'>8 секретов успешной свадьбы в Москве, о которых вам не расскажут организаторы</h1>",
+        );
+      }
     }
 
     if (recordId === "rec862301619") {
@@ -521,6 +549,9 @@ const headHtml = withBasePath(
     )
     .concat(
       yandexMetrikaHead,
+    )
+    .concat(
+      `<script type="application/ld+json">${JSON.stringify(materialsVideoSchema)}</script>`,
     )
     .concat(
       `<script>

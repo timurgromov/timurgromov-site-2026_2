@@ -236,7 +236,6 @@ export const hiddenMarketingVideoAdviceElementIds = [
   "1738924888789",
   "1738924888784",
   "1738924888793",
-  "1738908837275",
 ] as const;
 
 export const priceFormatsMarkup = `<p class="tg-price-mobile-title">Два формата под ключ</p>

@@ -1,5 +1,20 @@
 # Current State - 2026-10-13
 
+## SEO page technical hardening — release candidate 2026-10-13
+
+- The protected homepage now has one ordinary footer navigation link,
+  `Свадебный гид`, to `/articles/`; Hero, prices, primary CTA, popup, Direct
+  and attribution contracts are unchanged.
+- `/materials/` has one real H1 and truthful `VideoObject` structured data for
+  the existing webinar. `/scenario/` has `Article` and `BreadcrumbList`
+  structured data.
+- Build, built-HTML/schema assertions, materials baseline, contact/footer,
+  274-case responsive and Direct-attribution checks pass. Local in-app browser
+  review confirms the footer link and transition to `/articles/`.
+- Production publication and fresh live verification are pending.
+- Release note:
+  `docs/history/worklog/2026-10-13-seo-page-technical-hardening.md`.
+
 ## Wedding guide internal links — live 2026-10-13
 
 - `/materials/` and both current long-form wedding articles now contain one
