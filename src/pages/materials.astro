@@ -17,6 +17,7 @@ import { yandexMetrikaHead } from "../site/metrika";
 
 const basePath = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const pageUrl = new URL(`${basePath}materials/`, "https://timurgromov.ru").toString();
+const articlesHref = `${basePath}articles/`;
 const telegramMaterialsPlanUrl = telegramPlanUrlFor("materials");
 const maxMaterialsPlanUrl = maxPlanUrlFor("materials");
 const telegramMaterialsMeetingUrl = telegramMeetingUrlFor("materials");
@@ -426,7 +427,7 @@ const webinarCtaMarkup = `<section id="materials-followup-cta" class="tg-plan-ct
     <div>
       <p class="tg-plan-cta__kicker">После вебинара</p>
       <h2 id="materials-followup-cta-title">Получить расширенный конспект вебинара</h2>
-      <p class="tg-plan-cta__text">Откройте материал в удобном мессенджере: этот путь продолжает вебинар и не заменяет личную встречу.</p>
+      <p class="tg-plan-cta__text">Откройте материал в удобном мессенджере: этот путь продолжает вебинар и не заменяет личную встречу. Все открытые материалы о бюджете, подготовке и сценарии собраны в <a href="${articlesHref}">свадебном гиде</a>.</p>
       <div class="tg-plan-cta__actions">
         ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--primary", telegramMaterialsPlanUrl, "Получить в Telegram", 'target="_blank" rel="nofollow"')}
       </div>
@@ -1023,6 +1024,11 @@ const headHtml = withBasePath(
           color:rgba(28,27,26,.78);
           font-size:20px;
           line-height:1.28;
+        }
+        .tg-plan-cta__text a{
+          color:#fa4604;
+          font-weight:600;
+          text-underline-offset:3px;
         }
         .tg-plan-cta__actions{
           display:flex;

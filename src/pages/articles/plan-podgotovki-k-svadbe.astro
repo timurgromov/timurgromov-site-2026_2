@@ -325,6 +325,11 @@ const articleSchema = {
           <p>Сначала достаточно крупных блоков. Затем рабочая таблица с ответственными и подготовкой помогает команде согласовать детали без лишней суеты.</p>
         </details>
       </section>
+
+      <p class="plan-guide-link">
+        Бюджет, сценарий и другие материалы собраны в
+        <a href={articlesHref}>свадебном гиде</a>.
+      </p>
     </article>
 
     <Fragment set:html={expertConversionMarkup} />
@@ -974,6 +979,22 @@ const articleSchema = {
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
+  }
+
+  .plan-guide-link {
+    max-width: 760px;
+    margin: 42px 0 0;
+    padding-left: 20px;
+    border-left: 2px solid var(--plan-accent);
+    color: var(--plan-muted);
+    font-size: 16px;
+    line-height: 1.66;
+  }
+
+  .plan-guide-link a {
+    color: var(--plan-accent);
+    font-weight: 700;
+    text-underline-offset: 4px;
   }
 
   .plan-checklist,

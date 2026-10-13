@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-10-13-wedding-guide-internal-links",
+  "change_kind": "contextual-internal-links",
+  "status": "passed",
+  "requested_visible_change": "Connect the webinar/materials route and both long-form wedding articles to the existing wedding-guide hub with ordinary contextual links.",
+  "expected_visible_delta": "Each of the three target routes gains exactly one visible link labelled wedding guide and resolving to /articles/.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "1bfa8ad68db120055d40db0c628b2537e97158662a4be4084ed4eabe315f3091",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/",
+    "source_ref": "working-tree candidate after the final three-link edit",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/materials/ and two /articles/ detail routes",
+    "state": "anonymous public reader",
+    "selector_or_slide_id": "a[href=\"/articles/\"]",
+    "action": "Read each contextual next step and follow the wedding-guide link"
+  },
+  "must_remain_unchanged": [
+    "homepage and paid Direct flow",
+    "primary Telegram CTA and source identifiers",
+    "contact forms and consultation flow",
+    "page titles, H1, canonical, schema, sitemap and robots",
+    "existing article copy outside the final next-step paragraphs"
+  ],
+  "required_viewports": [
+    "390x844",
+    "1180x820",
+    "1280x720",
+    "1366x768",
+    "1440x900",
+    "1984x1046"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "Codex in-app browser viewport override plus the focused responsive browser gate",
+      "before_signature": "Fresh production baseline had zero /articles/ contextual links on every target route.",
+      "after_signature": "Every target route rendered exactly one link labelled свадебном гиде; document width equalled 390 CSS px.",
+      "observed_visible_result": "All three links had a non-zero rendered box, no horizontal overflow appeared and the budget-article link opened /articles/.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1180x820",
+      "viewport_source": "Focused Playwright responsive gate against the final static candidate",
+      "before_signature": "No wedding-guide link on the three live baseline routes.",
+      "after_signature": "One built /articles/ link exists per target route and all target routes passed overflow, offscreen-control and runtime-error assertions.",
+      "observed_visible_result": "The focused six-viewport matrix passed at 1180x820 without generic or route-specific layout failure.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1280x720",
+      "viewport_source": "Codex in-app browser default viewport plus the focused responsive browser gate",
+      "before_signature": "Fresh production baseline had zero /articles/ contextual links on every target route.",
+      "after_signature": "Every target route rendered exactly one link labelled свадебном гиде; document width equalled 1280 CSS px.",
+      "observed_visible_result": "All three links had a non-zero rendered box, no horizontal overflow appeared and the browser console had no errors.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1366x768",
+      "viewport_source": "Focused Playwright responsive gate against the final static candidate",
+      "before_signature": "No wedding-guide link on the three live baseline routes.",
+      "after_signature": "One built /articles/ link exists per target route and all target routes passed overflow, offscreen-control and runtime-error assertions.",
+      "observed_visible_result": "The focused six-viewport matrix passed at 1366x768 without generic or route-specific layout failure.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "viewport_source": "Focused Playwright responsive gate against the final static candidate",
+      "before_signature": "No wedding-guide link on the three live baseline routes.",
+      "after_signature": "One built /articles/ link exists per target route and all target routes passed overflow, offscreen-control and runtime-error assertions.",
+      "observed_visible_result": "The focused six-viewport matrix passed at 1440x900; the materials CTA/footer regression gate also passed separately.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1984x1046",
+      "viewport_source": "Focused Playwright responsive gate against the final static candidate",
+      "before_signature": "No wedding-guide link on the three live baseline routes.",
+      "after_signature": "One built /articles/ link exists per target route and all target routes passed overflow, offscreen-control and runtime-error assertions.",
+      "observed_visible_result": "The focused six-viewport matrix passed at 1984x1046 without generic or route-specific layout failure.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ]
+}
