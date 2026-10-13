@@ -35,6 +35,15 @@
 
 ## Release
 
-Pending commit, push, GitHub Pages deployment and fresh production check.
+- Runtime/source commit `53b87bc` is pushed to `origin/main`.
+- Production output `7630854` is published from `origin/gh-pages`.
+- GitHub Actions `Code health` and `Deploy to gh-pages` both passed; Pages
+  build `1282082220` completed with status `built`.
+- `npm run verify:pages` confirmed that production is deployed from
+  `53b87bcfe47fd2083817401d7dadafb8f1a1ce0a`.
+- Fresh production HTML contains exactly one `/articles/` link on every target
+  route. Fresh in-app browser checks at `390x844` and `1280x720` confirmed the
+  same rendered result, zero horizontal overflow, no console errors and a
+  successful transition to `/articles/`.
 
 No media or runtime assets were added.

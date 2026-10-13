@@ -1,4 +1,21 @@
-# Current State - 2026-10-09
+# Current State - 2026-10-13
+
+## Wedding guide internal links — live 2026-10-13
+
+- `/materials/` and both current long-form wedding articles now contain one
+  ordinary contextual link to `/articles/`, so readers and crawlers can return
+  to the complete wedding guide without changing the protected homepage.
+- Runtime/source commit `53b87bc` is pushed to `origin/main`; production output
+  `7630854` is on `origin/gh-pages`. `Code health`, `Deploy to gh-pages` and
+  GitHub Pages publication completed successfully.
+- Local build, materials-layout, the 274-case responsive matrix and a focused
+  104-case six-viewport matrix passed. Fresh production checks at `390x844`
+  and `1280x720` confirmed exactly one rendered hub link per target route,
+  zero horizontal overflow, no console errors and navigation to `/articles/`.
+- Homepage, Direct flow, CTA destinations, attribution, canonical metadata,
+  sitemap and robots were not changed. No media or runtime assets were added.
+- Release note:
+  `docs/history/worklog/2026-10-13-wedding-guide-internal-links.md`.
 
 ## Jubilee fast package CTA — live 2026-10-09
 
