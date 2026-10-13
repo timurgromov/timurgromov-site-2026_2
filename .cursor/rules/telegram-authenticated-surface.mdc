@@ -1,0 +1,16 @@
+---
+description: Reuse authorized Telegram or MAX Desktop and Web surfaces before declaring access blocked
+version: 1.0
+alwaysApply: true
+---
+
+# Telegram/MAX authenticated surface
+
+- Перед выводом «доступа нет» сначала проверь доступные computer-use поверхности: уже открытые и авторизованные Telegram/MAX Desktop и Web.
+- Native app и Web — равноправные точки входа для ограниченного UX/research-прохода. Используй ту поверхность, которая реально открывает нужный bot, chat, Mini App или WebApp.
+- Сбой browser connector, extension, iframe или одной вкладки относится только к этой поверхности. После него проверь уже открытое native-приложение.
+- Не проси пользователя вручную делать screenshots/recording, пока не испробованы все доступные авторизованные поверхности и не записан точный blocker каждой.
+- Работай только с названным bot/Mini App/channel/chat; не открывай посторонние личные чаты.
+- Отправка публичных сообщений, upload личных фото, платёж, покупка, удаление и иные чувствительные mutations требуют явного scope/разрешения.
+- Не сохраняй и не цитируй `tgWebAppData`, `initData`, cookies, `api_hash`, signatures/hashes, user/chat IDs, private chat text или raw session/network logs.
+- MTProto/TDLib/MCP нужен только для повторяющейся unattended-автоматизации; не строй его для разового прохода при наличии живой авторизованной сессии.

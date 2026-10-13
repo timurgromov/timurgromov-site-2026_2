@@ -1,0 +1,13 @@
+---
+description: Browser lifecycle v1.1 keeps research out of local browsers and cleans up every temporary process
+version: 1.1
+alwaysApply: true
+---
+
+# Browser lifecycle v1.1
+
+- Для desk-research, поиска по файлам/чатам и чтения сайтов не запускай локальный Chrome, Chromium или Playwright: используй filesystem, Codex task tools и web-search.
+- Для визуальной проверки сначала используй уже открытый встроенный браузер Codex.
+- Отдельный headless/browser-процесс допустим только для конкретной непокрываемой UI-проверки: заранее назови причину, не используй пользовательский Chrome profile и запускай только один bounded-сеанс.
+- После проверки сразу закрой каждый созданный агентом браузерный процесс, временный dev-сервер и QA-контейнер, включая путь ошибки; не оставляй их до конца задачи.
+- Перед финальным ответом проверь, что созданные агентом browser/Playwright/Vite процессы завершены. Не закрывай пользовательский обычный Chrome.
