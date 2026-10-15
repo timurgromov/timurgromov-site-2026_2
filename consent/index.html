@@ -1,0 +1,377 @@
+<!DOCTYPE html><html lang="ru"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Согласие на обработку персональных данных | Тимур Громов</title><meta name="description" content="Согласие на обработку персональных данных. Оператор, цели обработки и порядок обращения."><link rel="icon" type="image/png" sizes="32x32" href="/images/tild3935-3938-4462-b437-303431663663__photo.png" media="(prefers-color-scheme: light)"><link rel="icon" type="image/png" sizes="32x32" href="/images/tild3364-3334-4130-b264-376239643734__photo.png" media="(prefers-color-scheme: dark)"><link rel="icon" type="image/svg+xml" sizes="any" href="/images/tild3537-3632-4463-b561-386135313939__photo.svg"><link rel="apple-touch-icon" type="image/png" href="/images/tild3333-3638-4033-b463-313433373838__photo.png"><link rel="icon" type="image/png" sizes="192x192" href="/images/tild3333-3638-4033-b463-313433373838__photo.png"><link rel="canonical" href="https://timurgromov.ru/consent/"><meta property="og:locale" content="ru_RU"><meta property="og:title" content="Согласие на обработку персональных данных | Тимур Громов"><meta property="og:description" content="Согласие на обработку персональных данных. Оператор, цели обработки и порядок обращения."><meta property="og:type" content="website"><meta property="og:url" content="https://timurgromov.ru/consent/"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Согласие на обработку персональных данных | Тимур Громов"><meta name="twitter:description" content="Согласие на обработку персональных данных. Оператор, цели обработки и порядок обращения."><link rel="stylesheet" href="/legal-consent.css?v=20261015" />
+<script src="/legal-consent.js?v=20261015"></script>
+<meta name="yandex-verification" content="c3be09b3da422cb8" />
+<script type="text/javascript">
+  (function(m,e,t,r,i,k,a){
+    m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {
+      if (document.scripts[j].src === r) return;
+    }
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],
+    k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+  })(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");
+
+  window.mainMetrikaId="100295805";
+  window.TG_METRIKA_ID=100295805;
+  ym(100295805,"init",{
+    clickmap:true,
+    trackLinks:true,
+    accurateTrackBounce:true,
+    webvisor:true,
+    ecommerce:"dataLayer"
+  });
+</script>
+<noscript>
+  <div><img src="https://mc.yandex.ru/watch/100295805" style="position:absolute; left:-9999px;" alt="" /></div>
+</noscript>
+<script>
+  (function(){
+    var legacySources = {
+      site_plan_home: true,
+      site_plan_scenario: true,
+      site_plan_materials: true,
+      site_plan_preparation_plan: true,
+      site_meeting_home: true,
+      site_meeting_scenario: true,
+      site_meeting_materials: true,
+      site_meeting_preparation_plan: true
+    };
+    var endpoint = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname)
+      ? 'http://127.0.0.1:8000/api/v1/site/metrika-attribution'
+      : 'https://calcul.timurgromov.ru/api/v1/site/metrika-attribution';
+    var promiseBySource = Object.create(null);
+    var clientIdPromise = null;
+    var trackingParams = null;
+    var firstTouch = null;
+    var firstTouchStorageKey = 'tg_first_touch_v1';
+    var firstTouchTtlMs = 30 * 24 * 60 * 60 * 1000;
+    var campaignKeys = [
+      'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
+      'direct_campaign_id', 'direct_source_type', 'direct_region_id'
+    ];
+
+    function randomVisitKey(){
+      var bytes = new Uint8Array(24);
+      if (window.crypto && window.crypto.getRandomValues) {
+        window.crypto.getRandomValues(bytes);
+      } else {
+        for (var index = 0; index < bytes.length; index += 1) bytes[index] = Math.floor(Math.random() * 256);
+      }
+      return Array.prototype.map.call(bytes, function(value){
+        return value.toString(16).padStart(2, '0');
+      }).join('');
+    }
+
+    function getVisitKey(){
+      try {
+        var existing = window.sessionStorage.getItem('tg_metrika_visit_key');
+        if (existing && /^[A-Za-z0-9_-]{20,80}$/.test(existing)) return existing;
+        var created = randomVisitKey();
+        window.sessionStorage.setItem('tg_metrika_visit_key', created);
+        return created;
+      } catch (_error) {
+        return randomVisitKey();
+      }
+    }
+
+    function getClientId(){
+      if (clientIdPromise) return clientIdPromise;
+      clientIdPromise = new Promise(function(resolve){
+        var settled = false;
+        var finish = function(value){
+          if (settled) return;
+          settled = true;
+          resolve(String(value || '').trim());
+        };
+        try {
+          if (typeof window.ym === 'function') {
+            window.ym(100295805, 'getClientID', finish);
+          }
+        } catch (_error) {
+          finish('');
+        }
+        window.setTimeout(function(){ finish(''); }, 2500);
+      }).then(function(value){
+        if (value) patchFirstTouchClientId(value);
+        else clientIdPromise = null;
+        return value;
+      });
+      return clientIdPromise;
+    }
+
+    function safeHost(value){
+      try { return new URL(value).hostname.toLowerCase().replace(/^www\./, '').slice(0, 255); }
+      catch (_error) { return ''; }
+    }
+
+    function normalizeAiSource(value){
+      var normalized = String(value || '').trim().toLowerCase();
+      var host = safeHost(/^https?:\/\//.test(normalized) ? normalized : 'https://' + normalized) || normalized.replace(/^www\./, '');
+      if (host === 'chatgpt.com' || host.endsWith('.chatgpt.com') || host === 'chat.openai.com' || host.endsWith('.openai.com') || normalized.indexOf('chatgpt') >= 0) return 'chatgpt';
+      if (host === 'perplexity.ai' || host.endsWith('.perplexity.ai')) return 'perplexity';
+      if (host === 'claude.ai' || host.endsWith('.claude.ai')) return 'claude';
+      if (host === 'gemini.google.com') return 'gemini';
+      if (host === 'copilot.microsoft.com') return 'copilot';
+      return '';
+    }
+
+    function isTelegramReferrer(host){
+      return host === 't.me' || host.endsWith('.t.me') ||
+        host === 'telegram.me' || host.endsWith('.telegram.me') ||
+        host === 'telegram.org' || host.endsWith('.telegram.org');
+    }
+
+    function buildCurrentFirstTouch(){
+      var params = new URLSearchParams(window.location.search);
+      var campaign = {};
+      campaignKeys.forEach(function(key){
+        var value = params.get(key);
+        if (value) campaign[key] = String(value).slice(0, 500);
+      });
+      var yclid = String(params.get('yclid') || '').trim().slice(0, 255);
+      var referrerHost = document.referrer ? safeHost(document.referrer) : '';
+      var source = '';
+      var sourceBasis = '';
+      var engine = '';
+      var channel = 'direct';
+      var aiSource = normalizeAiSource(campaign.utm_source || referrerHost);
+      if (aiSource) {
+        channel = 'ai'; source = aiSource; sourceBasis = campaign.utm_source ? 'utm_source' : 'referrer';
+      } else if (yclid || campaign.direct_campaign_id) {
+        channel = 'paid'; source = 'yandex_direct'; sourceBasis = yclid ? 'yclid' : 'direct_campaign_id';
+      } else if (campaign.utm_source || campaign.utm_medium || campaign.utm_campaign) {
+        channel = 'campaign'; source = String(campaign.utm_source || campaign.utm_medium || 'campaign').toLowerCase().slice(0, 255); sourceBasis = campaign.utm_source ? 'utm_source' : campaign.utm_medium ? 'utm_medium' : 'utm_campaign';
+      } else if (/(^|.)yandex./.test(referrerHost)) {
+        channel = 'organic'; source = 'yandex'; sourceBasis = 'referrer'; engine = 'yandex';
+      } else if (/(^|.)google./.test(referrerHost)) {
+        channel = 'organic'; source = 'google'; sourceBasis = 'referrer'; engine = 'google';
+      } else if (isTelegramReferrer(referrerHost)) {
+        channel = 'referral'; source = 'telegram'; sourceBasis = 'referrer';
+      } else if (referrerHost) {
+        channel = 'referral'; source = referrerHost; sourceBasis = 'referrer';
+      }
+      var context = { channel: channel, source: source, source_basis: sourceBasis, engine: engine, referrer_host: referrerHost, landing_path: (window.location.pathname || '/').slice(0, 500) };
+      Object.keys(context).forEach(function(key){ if (!context[key]) delete context[key]; });
+      return {
+        version: 1,
+        captured_at: Date.now(),
+        expires_at: Date.now() + firstTouchTtlMs,
+        yclid: yclid,
+        campaign: campaign,
+        context: context,
+        landing_url: (window.location.origin + (window.location.pathname || '/')).slice(0, 1000),
+        metrika_client_id: ''
+      };
+    }
+
+    function readStoredFirstTouch(){
+      var raw = '';
+      try { raw = window.localStorage.getItem(firstTouchStorageKey) || ''; }
+      catch (_error) { try { raw = window.sessionStorage.getItem(firstTouchStorageKey) || ''; } catch (_nestedError) {} }
+      if (!raw) return null;
+      try {
+        var parsed = JSON.parse(raw);
+        if (!parsed || parsed.version !== 1 || Number(parsed.expires_at || 0) <= Date.now() || !parsed.context || typeof parsed.context !== 'object') return null;
+        return parsed;
+      } catch (_error) { return null; }
+    }
+
+    function writeFirstTouch(value){
+      var serialized = JSON.stringify(value);
+      try { window.localStorage.setItem(firstTouchStorageKey, serialized); }
+      catch (_error) { try { window.sessionStorage.setItem(firstTouchStorageKey, serialized); } catch (_nestedError) {} }
+    }
+
+    function getFirstTouch(){
+      if (firstTouch) return firstTouch;
+      firstTouch = readStoredFirstTouch() || buildCurrentFirstTouch();
+      writeFirstTouch(firstTouch);
+      return firstTouch;
+    }
+
+    function patchFirstTouchClientId(clientId){
+      var value = String(clientId || '').trim().slice(0, 80);
+      if (!value) return;
+      var touch = getFirstTouch();
+      if (touch.metrika_client_id === value) return;
+      touch.metrika_client_id = value;
+      writeFirstTouch(touch);
+    }
+
+    function getTrackingParams(){
+      if (trackingParams) return trackingParams;
+      var touch = getFirstTouch();
+      var result = { yclid: String(touch.yclid || '').trim(), campaign: Object.assign({}, touch.campaign || {}) };
+      trackingParams = result;
+      return trackingParams;
+    }
+
+    function getAcquisitionContext(){
+      return Object.assign({}, getFirstTouch().context || { channel: 'direct', landing_path: '/' });
+    }
+
+    window.tgGetTrackingBundle = function(){
+      var tracking = getTrackingParams();
+      var touch = getFirstTouch();
+      return {
+        yclid: tracking.yclid || null,
+        campaign_params: Object.assign({}, tracking.campaign),
+        attribution_context: getAcquisitionContext(),
+        metrika_client_id: touch.metrika_client_id || null
+      };
+    };
+    window.tgGetTrackingBundleAsync = function(){
+      return getClientId().catch(function(){ return ''; }).then(function(){
+        return window.tgGetTrackingBundle();
+      });
+    };
+    getFirstTouch();
+    getClientId().catch(function(){ return ''; });
+
+    var ctaGoals = {
+      cta_open: true,
+      telegram_click: true,
+      phone_click: true,
+      form_start: true,
+      lead_submit_success: true,
+      lead_submit_error: true,
+      materials_request: true
+    };
+
+    function ctaToken(value, fallback){
+      var normalized = String(value || '').trim().toLowerCase();
+      return /^[a-z0-9][a-z0-9_-]{0,63}$/.test(normalized) ? normalized : fallback;
+    }
+
+    window.tgTrackCtaGoal = function(goal, context){
+      if (!ctaGoals[goal] || typeof window.ym !== 'function') return;
+      var value = context || {};
+      var cta = {
+        site: ctaToken(value.site, 'timurgromov'),
+        page: ctaToken(value.page, 'jubilee'),
+        intent: ctaToken(value.intent, 'consultation'),
+        placement: ctaToken(value.placement, 'contact_panel')
+      };
+      window.ym(100295805, 'reachGoal', goal, { cta: cta });
+    };
+
+    function messengerLinkData(anchor){
+      try {
+        var url = new URL(anchor.href, window.location.href);
+        var host = url.hostname.toLowerCase();
+        var isStableRedirect = url.pathname === '/api/v1/site/messenger-start';
+        var stableProvider = url.searchParams.get('provider');
+        var provider = isStableRedirect && (stableProvider === 'telegram' || stableProvider === 'max') ? stableProvider
+          : host === 'max.ru' || host.endsWith('.max.ru') ? 'max'
+          : host === 't.me' || host.endsWith('.t.me') ? 'telegram'
+          : null;
+        var parameter = isStableRedirect
+          ? (url.searchParams.get('mode') === 'startapp' ? 'startapp' : 'start')
+          : (url.searchParams.has('startapp') ? 'startapp' : 'start');
+        var source = isStableRedirect ? (url.searchParams.get('payload') || '') : (url.searchParams.get(parameter) || '');
+        var structuredSource = /^site_(plan|meeting|calculator)_[a-z0-9_-]+__[a-z0-9_-]+__[a-z0-9_-]+$/.test(source) && source.length <= 64;
+        if (!provider || (!legacySources[source] && !structuredSource)) return null;
+        return { provider: provider, source: source, parameter: parameter, url: url };
+      } catch (_error) {
+        return null;
+      }
+    }
+
+    function attributedUrl(anchor, data, ctaCodeOverride){
+      var ctaCode = ctaCodeOverride || anchor.getAttribute('data-calculator-source') || anchor.getAttribute('data-plan-source') || data.source;
+      var promiseKey = [data.provider, data.parameter, data.source, ctaCode].join(':');
+      if (!promiseBySource[promiseKey]) {
+        promiseBySource[promiseKey] = getClientId().then(function(clientId){
+          var tracking = getTrackingParams();
+          var context = getAcquisitionContext();
+          var touch = getFirstTouch();
+          var yclid = tracking.yclid;
+          return fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+              visit_key: getVisitKey(),
+              source_code: data.source,
+              provider: data.provider,
+              mode: data.parameter,
+              client_id: clientId || null,
+              yclid: yclid || null,
+              campaign_params: Object.assign({}, tracking.campaign, {
+                entry_channel: context.channel || 'direct',
+                entry_source: context.source || '',
+                entry_source_basis: context.source_basis || '',
+                entry_engine: context.engine || '',
+                entry_referrer_host: context.referrer_host || '',
+                entry_landing_path: context.landing_path || '/'
+              }),
+              landing_url: touch.landing_url || window.location.origin + (window.location.pathname || '/'),
+              cta_code: ctaCode
+            }),
+            credentials: 'omit'
+          });
+        }).then(function(response){
+          if (!response.ok) throw new Error('Attribution request failed');
+          return response.json();
+        }).then(function(payload){
+          if (!payload || !/^yd_[A-Za-z0-9_-]{20,40}$/.test(payload.start_payload || '')) {
+            throw new Error('Invalid attribution payload');
+          }
+          var destination = String(payload.destination_url || '');
+          var destinationHost = new URL(destination).hostname.toLowerCase();
+          var validDestination = data.provider === 'telegram'
+            ? destinationHost === 't.me' || destinationHost.endsWith('.t.me')
+            : destinationHost === 'max.ru' || destinationHost.endsWith('.max.ru');
+          if (!validDestination) throw new Error('Invalid attribution destination');
+          return destination;
+        });
+      }
+      return promiseBySource[promiseKey];
+    }
+
+    // Contact panels choose their source after the page loads, so they use the
+    // same server-issued payload without binding an anchor ahead of time.
+    window.tgAttributedTelegramUrl = function(source, ctaCode){
+      var anchor = document.createElement('a');
+      anchor.href = 'https://calcul.timurgromov.ru/api/v1/site/messenger-start?provider=telegram&mode=start&payload=' + encodeURIComponent(source);
+      var data = messengerLinkData(anchor);
+      return data ? attributedUrl(anchor, data, ctaCode) : Promise.resolve(anchor.href);
+    };
+
+    function bindAnchor(anchor){
+      if (anchor && anchor.hasAttribute('data-contact-telegram')) return;
+      if (!anchor || anchor.dataset.metrikaAttributionBound === 'true') return;
+      var data = messengerLinkData(anchor);
+      if (!data) return;
+      anchor.dataset.metrikaAttributionBound = 'true';
+      var fallbackUrl = anchor.href;
+      var pendingUrl = attributedUrl(anchor, data);
+      pendingUrl.then(function(url){
+        anchor.href = url;
+        anchor.dataset.metrikaAttributionReady = 'true';
+      }).catch(function(){
+        anchor.dataset.metrikaAttributionReady = 'false';
+      });
+      anchor.addEventListener('click', function(event){
+        if (anchor.dataset.metrikaAttributionReady === 'true') return;
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button > 0) return;
+        event.preventDefault();
+        var popup = anchor.target === '_blank' ? window.open('about:blank', '_blank') : null;
+        pendingUrl.catch(function(){ return fallbackUrl; }).then(function(url){
+          if (popup) popup.location.href = url;
+          else window.location.href = url;
+        });
+      });
+    }
+
+    function bindMessengerLinks(){
+      Array.prototype.forEach.call(document.querySelectorAll('a[href]'), bindAnchor);
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindMessengerLinks);
+    else bindMessengerLinks();
+    window.addEventListener('load', bindMessengerLinks);
+  }());
+</script><link rel="stylesheet" href="/_astro/byudzhet-svadby-v-moskve.Dxuvml77.css">
+<style>.privacy-page[data-astro-cid-4y5t3my7]{min-height:100vh;padding:48px 20px 64px;background:#fffefa;color:#1c1b1a}.privacy-page__shell[data-astro-cid-4y5t3my7]{width:min(900px,100%);margin:0 auto}.privacy-page__eyebrow[data-astro-cid-4y5t3my7]{margin:0 0 18px;color:#fa4604;font-size:18px;line-height:1.1}.privacy-page[data-astro-cid-4y5t3my7] h1[data-astro-cid-4y5t3my7],.privacy-page[data-astro-cid-4y5t3my7] h2[data-astro-cid-4y5t3my7]{margin:0;font-family:Arial,Helvetica,sans-serif;font-weight:500;letter-spacing:0;text-transform:uppercase}.privacy-page[data-astro-cid-4y5t3my7] h1[data-astro-cid-4y5t3my7]{margin-bottom:20px;font-size:56px;line-height:1}.privacy-page__lead[data-astro-cid-4y5t3my7],.privacy-page[data-astro-cid-4y5t3my7] p[data-astro-cid-4y5t3my7]{margin:0;font-size:20px;line-height:1.45}.privacy-page__lead[data-astro-cid-4y5t3my7]{max-width:760px;color:#1c1b1ac7}.privacy-page__section[data-astro-cid-4y5t3my7]{margin-top:34px;padding-top:22px;border-top:1px solid rgba(28,27,26,.12)}.privacy-page__section[data-astro-cid-4y5t3my7] h2[data-astro-cid-4y5t3my7]{margin-bottom:10px;font-size:28px;line-height:1.05}.privacy-page__back[data-astro-cid-4y5t3my7]{margin-top:34px}.privacy-page[data-astro-cid-4y5t3my7] a[data-astro-cid-4y5t3my7]{color:#fa4604;text-decoration:underline;text-underline-offset:3px}@media screen and (max-width:899px){.privacy-page[data-astro-cid-4y5t3my7] h1[data-astro-cid-4y5t3my7]{font-size:clamp(28px,7.2vw,56px);overflow-wrap:anywhere}}@media screen and (max-width:639px){.privacy-page[data-astro-cid-4y5t3my7]{padding:34px 18px 48px}.privacy-page__eyebrow[data-astro-cid-4y5t3my7]{font-size:15px}.privacy-page__lead[data-astro-cid-4y5t3my7],.privacy-page[data-astro-cid-4y5t3my7] p[data-astro-cid-4y5t3my7]{font-size:17px;line-height:1.38}.privacy-page__section[data-astro-cid-4y5t3my7] h2[data-astro-cid-4y5t3my7]{font-size:22px}}
+</style></head> <body>  <main class="privacy-page" data-astro-cid-4y5t3my7><section class="privacy-page__shell" data-astro-cid-4y5t3my7> <p class="privacy-page__eyebrow" data-astro-cid-4y5t3my7>Документы сайта · редакция 2026-10-15</p> <h1 data-astro-cid-4y5t3my7>Согласие на обработку персональных данных</h1> <section class="privacy-page__section" data-astro-cid-4y5t3my7><h2 data-astro-cid-4y5t3my7>1. Кому и для чего я даю согласие</h2><p data-astro-cid-4y5t3my7>Я свободно, своей волей и в своём интересе даю согласие оператору: Индивидуальный предприниматель Мамедов Руслан Идрисович (ведущий Тимур Громов), ИНН 615491029963, ОГРНИП 312615430300096. Согласие предоставляется для ответа на моё обращение, проверки даты, подготовки предложения, предоставления запрошенных материалов и обсуждения свадеб, юбилеев и других мероприятий, а также получения материалов по подготовке свадьбы. Контакт оператора: <a href="mailto:timurgromov.showman@gmail.com" data-astro-cid-4y5t3my7>timurgromov.showman@gmail.com</a>.</p></section> <section class="privacy-page__section" data-astro-cid-4y5t3my7><h2 data-astro-cid-4y5t3my7>2. Какие данные и действия охватывает согласие</h2><p data-astro-cid-4y5t3my7>Согласие относится к данным, которые я указываю в конкретной форме: имени, телефону, комментарию и выбранным параметрам мероприятия. Для заявки могут обрабатываться дата, место, количество гостей, компания или площадка и состав команды; для свадебных материалов — роль, сроки и место свадьбы. Разрешаю сбор, запись, систематизацию, хранение, уточнение, использование для ответа, передачу для обработки обращения, блокирование и удаление с применением средств автоматизации и без них.</p></section> <section class="privacy-page__section" data-astro-cid-4y5t3my7><h2 data-astro-cid-4y5t3my7>3. Сервисы обработки обращения</h2><p data-astro-cid-4y5t3my7>Обращение передаётся в CRM EventBudjet на calcul.timurgromov.ru. Для уведомлений оператору о заявке используются Telegram и MAX. Перечень категорий технических данных и используемых сервисов раскрыт в <a href="/privacy/" data-astro-cid-4y5t3my7>политике обработки персональных данных</a>. Настоящее согласие не является согласием на рекламную рассылку и не заменяет выбор в отношении аналитики.</p></section> <section class="privacy-page__section" data-astro-cid-4y5t3my7><h2 data-astro-cid-4y5t3my7>4. Срок действия и отзыв</h2><p data-astro-cid-4y5t3my7>Согласие действует до достижения цели обращения или его отзыва. Отозвать согласие и запросить удаление данных можно по адресу <a href="mailto:timurgromov.showman@gmail.com" data-astro-cid-4y5t3my7>timurgromov.showman@gmail.com</a>, указав контакт из обращения. При наличии другого законного основания оператор вправе продолжить обработку в предусмотренных законом пределах.</p></section> <section class="privacy-page__section" data-astro-cid-4y5t3my7><h2 data-astro-cid-4y5t3my7>5. Как предоставляется согласие</h2><p data-astro-cid-4y5t3my7>Согласие предоставляется отдельным действием: пользователь самостоятельно устанавливает изначально пустой чекбокс «Даю согласие на обработку персональных данных» и отправляет форму. Версия текста: 2026-10-15. Вместе с заявкой передаются версия согласия, ссылка на документ и время отправки по часам браузера. Это согласие оформлено отдельно от оферты и других подтверждаемых документов.</p></section> <p class="privacy-page__back" data-astro-cid-4y5t3my7><a href="/privacy/" data-astro-cid-4y5t3my7>Политика конфиденциальности</a></p> <p class="privacy-page__back" data-astro-cid-4y5t3my7><a href="/" data-astro-cid-4y5t3my7>Главная</a> · <a href="/yubiley/" data-astro-cid-4y5t3my7>Юбилеи</a></p> </section></main>  </body></html> 

@@ -155,7 +155,7 @@ function initContactChoice() {
     const payload = {
       name,
       phone,
-      comment: currentSelection?.summary || null,
+      comment: [currentSelection?.summary, window.tgConsentReceipt(form)].filter(Boolean).join('\n'),
       form_source: `site_meeting_timurgromov__jubilee__${ctaContext.intent}__${ctaContext.placement}`,
       page_url: `${window.location.origin}${window.location.pathname}`.slice(0, 500),
       yclid: tracking.yclid || null,
