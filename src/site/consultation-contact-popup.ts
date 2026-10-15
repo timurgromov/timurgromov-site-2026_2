@@ -17,7 +17,7 @@ export const renderConsultationContactPopup = ({
   formSource,
 }: ConsultationContactPopupOptions) => {
   const privacyPolicyUrl = `${basePath}privacy/`;
-  const privacyConsentUrl = `${basePath}privacy/#consent`;
+  const privacyConsentUrl = `${basePath}consent/`;
   const offerPageUrl = `${basePath}offer/`;
 
   return `<div id="consultation-contact-popup" class="tg-contact-popup" aria-hidden="true">
@@ -42,15 +42,16 @@ export const renderConsultationContactPopup = ({
         </div>
         <p class="tg-contact-popup__hint">Можно выбрать любой удобный способ связи.</p>
       </div>
-      <form class="tg-contact-popup__form" data-consultation-lead-form>
+      <form method="post" class="tg-contact-popup__form" data-consultation-lead-form>
         <div class="tg-contact-popup__form-fields">
           <p class="tg-contact-popup__form-title">Оставить заявку</p>
           <input type="hidden" name="form_source" value="${formSource}" />
           <label>Ваше имя *<input name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" required /></label>
           <label>Ваш телефон *<input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 999 123-45-67" minlength="10" required /></label>
-          <label>Комментарий<textarea name="comment" placeholder="Дата свадьбы, площадка или любой вопрос"></textarea></label>
-          ${tildaCtaButton("tg-contact-popup__submit", "Отправить", "data-contact-submit")}
-          <p class="tg-contact-popup__consent">Нажимая «Отправить», вы соглашаетесь с <a href="${privacyPolicyUrl}" target="_blank" rel="nofollow">политикой конфиденциальности</a>, <a href="${privacyConsentUrl}" target="_blank" rel="nofollow">согласием на обработку персональных данных</a> и <a href="${offerPageUrl}" target="_blank" rel="nofollow">условиями оферты</a>.</p>
+          <label>Комментарий<textarea name="comment" maxlength="2500" placeholder="Дата свадьбы, площадка или любой вопрос"></textarea></label>
+          <div class="tg-contact-popup__consent"><label class="legal-consent"><input type="checkbox" name="personal_data_consent" value="2026-10-15" data-legal-consent data-consent-url="${privacyConsentUrl}" required /><span>Даю <a href="${privacyConsentUrl}" target="_blank" rel="noopener noreferrer">согласие на обработку персональных данных</a> для ответа на моё обращение.</span></label><p class="legal-policy-note">Как используются данные: <a href="${privacyPolicyUrl}" target="_blank" rel="noopener noreferrer">политика конфиденциальности</a>.</p></div>
+      ${tildaCtaButton("tg-contact-popup__submit", "Отправить", "data-contact-submit")}
+
           <p class="tg-contact-popup__status" data-contact-status></p>
         </div>
         <div class="tg-contact-popup__success" data-contact-success aria-live="polite">

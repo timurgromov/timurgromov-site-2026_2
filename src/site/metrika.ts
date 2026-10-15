@@ -3,7 +3,9 @@ import { messengerStartEndpoint } from './home-data';
 export const yandexMetrikaId = "100295805";
 export const yandexWebmasterVerification = "c3be09b3da422cb8";
 
-export const yandexMetrikaHead = `<meta name="yandex-verification" content="${yandexWebmasterVerification}" />
+export const yandexMetrikaHead = `<link rel="stylesheet" href="/legal-consent.css?v=20261015" />
+<script src="/legal-consent.js?v=20261015"></script>
+<meta name="yandex-verification" content="${yandexWebmasterVerification}" />
 <script type="text/javascript">
   (function(m,e,t,r,i,k,a){
     m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};

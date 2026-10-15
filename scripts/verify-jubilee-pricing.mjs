@@ -41,7 +41,7 @@ reject(html, 'name="event_date"', 'retired callback date field');
 reject(html, 'name="comment"', 'retired callback comment field');
 expect(html, 'data-contact-placement="package_card"', 'package contact action');
 expect(html, 'Обсудить этот вариант', 'package contact label');
-expect(contactScript, 'comment: currentSelection?.summary', 'package forwarded to CRM comment');
+expect(contactScript, "comment: [currentSelection?.summary, window.tgConsentReceipt(form)]", 'package forwarded to CRM comment');
 expect(contactScript, 'data-contact-selection', 'package summary in contact panel');
 expect(pricingScript, 'window.tgJubileeSelectedDate', 'pricing-to-contact date bridge');
 

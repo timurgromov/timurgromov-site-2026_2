@@ -79,3 +79,7 @@
 4. commit;
 5. push исходников в `main`;
 6. после push в `main` дождаться Actions (деплой в `gh-pages` автоматически), затем проверить GitHub Pages (`docs/github-pages-deploy.md`).
+
+## Данные публичных форм — 2026-10-15
+
+Для `timurgromov.ru/`, `/yubiley/` и существующие свадебные страницы с формой действуют `/privacy/` и отдельный `/consent/`; required opt-in перед отправкой. Клиентская отметка версии передаётся существующим CRM-полем. Полный контракт и незакрытые вопросы: [privacy-and-consent.md](privacy-and-consent.md). Аналитический opt-in этой задачей не реализуется.

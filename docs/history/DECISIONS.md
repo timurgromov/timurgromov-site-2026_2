@@ -1579,3 +1579,7 @@ Area: ordinary corporate, New Year corporate, Jubilee
 The three commercial routes use the same interaction structure for pricing and contact: one date action above three compact package cards, extension beside the main price, an in-card `Что входит` disclosure, and the common contact-panel behavior. Copy, source attribution, prices and seasonal rules may differ by event.
 
 A future shared UX change is incomplete until `/`, `/novogodniy-korporativ/` and `/yubiley/` have all been reviewed. Cross-repository implementation does not require literal code sharing, but rendered behavior and responsive geometry must stay aligned.
+
+## DEC-2026-10-15-SEPARATE-FORM-CONSENT
+
+Согласие на обработку обращения отделено от политики и оферты, предоставляется пустым required-чекбоксом. Версия 2026-10-15 и browser timestamp передаются в существующем comment/details; backend не меняется. Нельзя считать такую запись серверным журналом или подтверждением полного legal compliance. Изменения форм/документов требуют синхронного обновления UX и проверки 500/201 без реального лида. Аналитика не переключается в этой правке.

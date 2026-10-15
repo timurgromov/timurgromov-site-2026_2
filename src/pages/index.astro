@@ -45,7 +45,7 @@ const siteOrigin = "https://timurgromov.ru";
 const previewUrl = new URL(basePath, siteOrigin).toString();
 const socialImageUrl = new URL(`${basePath}images/hero-poster-desktop.jpg`, siteOrigin).toString();
 const privacyPolicyUrl = `${basePath}privacy/`;
-const privacyConsentUrl = `${basePath}privacy/#consent`;
+const privacyConsentUrl = `${basePath}consent/`;
 const offerPageUrl = `${basePath}offer/`;
 const ctaArrowIconUrl = getTildaCtaArrowIconUrl(basePath);
 const planPopupPortraitUrl =
@@ -1369,7 +1369,7 @@ const contactShortcutEnhancer = `<style>
   #rec862623921 .tn-elem[data-elem-id="1738909152475"]{
     top:1028px !important;
   }
-  
+
   @media screen and (min-width:1200px) and (max-width:1919px){
     #rec862623921 .tn-elem[data-elem-id="1738909152475"]{
       top:660px !important;
@@ -3054,7 +3054,7 @@ const planCtaSectionAssets = `<style>
   }
 </style>`;
 
-const tripwireFormMarkup = (variant: 'popup' | 'inline') => `<form class="tg-tripwire-form tg-tripwire-form--${variant}" data-tripwire-form data-tripwire-variant="${variant}">
+const tripwireFormMarkup = (variant: 'popup' | 'inline') => `<form method="post" class="tg-tripwire-form tg-tripwire-form--${variant}" data-tripwire-form data-tripwire-variant="${variant}">
   <div class="tg-tripwire-form__fields">
     <input type="hidden" name="form_source" value="site_plan_tripwire_${variant}" />
     <div class="tg-tripwire-form__select-grid">
@@ -3094,10 +3094,11 @@ const tripwireFormMarkup = (variant: 'popup' | 'inline') => `<form class="tg-tri
       </label>
     </div>
     <label class="tg-tripwire-form__details">Комментарий
-      <textarea name="details" placeholder="Дата, площадка, формат, пожелания"></textarea>
+      <textarea name="details" maxlength="2500" placeholder="Дата, площадка, формат, пожелания"></textarea>
     </label>
-    ${tildaCtaButton("tg-tripwire-form__submit", "Получить сценарий", "data-tripwire-submit")}
-    <p class="tg-tripwire-form__consent">Нажимая «Получить сценарий», вы соглашаетесь с <a href="${privacyPolicyUrl}" target="_blank" rel="nofollow">политикой конфиденциальности</a>, <a href="${privacyConsentUrl}" target="_blank" rel="nofollow">согласием на обработку персональных данных</a> и <a href="${offerPageUrl}" target="_blank" rel="nofollow">условиями оферты</a>.</p>
+    <div class="tg-tripwire-form__consent"><label class="legal-consent"><input type="checkbox" name="personal_data_consent" value="2026-10-15" data-legal-consent data-consent-url="${privacyConsentUrl}" required /><span>Даю <a href="${privacyConsentUrl}" target="_blank" rel="noopener noreferrer">согласие на обработку персональных данных</a> для ответа на моё обращение.</span></label><p class="legal-policy-note">Как используются данные: <a href="${privacyPolicyUrl}" target="_blank" rel="noopener noreferrer">политика конфиденциальности</a>.</p></div>
+      ${tildaCtaButton("tg-tripwire-form__submit", "Получить сценарий", "data-tripwire-submit")}
+
     <p class="tg-tripwire-form__status" data-tripwire-status></p>
   </div>
   <div class="tg-tripwire-form__success" data-tripwire-success aria-live="polite">
@@ -5509,7 +5510,7 @@ const consultationContactPopupMarkup = `<div id="consultation-contact-popup" cla
         </div>
         <p class="tg-contact-popup__hint">Можно выбрать любой удобный способ связи.</p>
       </div>
-      <form class="tg-contact-popup__form" data-consultation-lead-form>
+      <form method="post" class="tg-contact-popup__form" data-consultation-lead-form>
         <div class="tg-contact-popup__form-fields">
           <p class="tg-contact-popup__form-title">Оставить заявку</p>
           <input type="hidden" name="form_source" value="site_consultation_popup" />
@@ -5520,10 +5521,11 @@ const consultationContactPopupMarkup = `<div id="consultation-contact-popup" cla
             <input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 999 123-45-67" minlength="10" required />
           </label>
           <label>Комментарий
-            <textarea name="comment" placeholder="Дата свадьбы, площадка или любой вопрос"></textarea>
+            <textarea name="comment" maxlength="2500" placeholder="Дата свадьбы, площадка или любой вопрос"></textarea>
           </label>
-          ${tildaCtaButton("tg-contact-popup__submit", "Отправить", "data-contact-submit")}
-          <p class="tg-contact-popup__consent">Нажимая «Отправить», вы соглашаетесь с <a href="${privacyPolicyUrl}" target="_blank" rel="nofollow">политикой конфиденциальности</a>, <a href="${privacyConsentUrl}" target="_blank" rel="nofollow">согласием на обработку персональных данных</a> и <a href="${offerPageUrl}" target="_blank" rel="nofollow">условиями оферты</a>.</p>
+          <div class="tg-contact-popup__consent"><label class="legal-consent"><input type="checkbox" name="personal_data_consent" value="2026-10-15" data-legal-consent data-consent-url="${privacyConsentUrl}" required /><span>Даю <a href="${privacyConsentUrl}" target="_blank" rel="noopener noreferrer">согласие на обработку персональных данных</a> для ответа на моё обращение.</span></label><p class="legal-policy-note">Как используются данные: <a href="${privacyPolicyUrl}" target="_blank" rel="noopener noreferrer">политика конфиденциальности</a>.</p></div>
+      ${tildaCtaButton("tg-contact-popup__submit", "Отправить", "data-contact-submit")}
+
           <p class="tg-contact-popup__status" data-contact-status></p>
         </div>
         <div class="tg-contact-popup__success" data-contact-success aria-live="polite">
