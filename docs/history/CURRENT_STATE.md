@@ -1,8 +1,8 @@
 # Current State - 2026-10-13
 
-## Политика и согласия — candidate 2026-10-15
+## Политика и согласия — live 2026-10-15
 
-Обновлены `/privacy/`, отдельный `/consent/`, required-чекбоксы и footer links. Версия согласия передаётся с заявкой в существующем поле CRM. Build, статические контракты и 16 focused form/document cases проходят; основной сайт также проходит contact и 294-case responsive gate. Публикация ещё выполняется. Аналитический opt-in и подтверждение оператором реквизитов/публичного адреса остаются открытыми. Подробности: `docs/privacy-and-consent.md`, `docs/history/worklog/2026-10-15-privacy-and-consent.md`.
+Обновлены `/privacy/`, отдельный `/consent/`, required-чекбоксы и footer links. Версия согласия передаётся с заявкой в существующем поле CRM. Build, статические контракты и 16 focused form/document cases проходят; основной сайт также проходит contact и 294-case responsive gate. Runtime source `3406484` опубликован как static `55ee946`; Pages status `built`, fresh проверка 8 маршрутов и SHA-256 четырёх assets пройдена. Live IAB: основная/корпоративная формы 1440×900, юбилейная/новогодняя 390×844; галочка видна перед отправкой, ошибок console нет. Реальные заявки не создавались. Аналитический opt-in и подтверждение оператором реквизитов/публичного адреса остаются открытыми. Подробности: `docs/privacy-and-consent.md`, `docs/history/worklog/2026-10-15-privacy-and-consent.md`.
 
 ## SEO page technical hardening — live 2026-10-13
 
