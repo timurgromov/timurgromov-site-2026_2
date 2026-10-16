@@ -64,7 +64,7 @@ export const renderExpertConversionContour = ({
 
   <footer class="expert-conversion__footer">
     <div class="expert-conversion__shell expert-conversion__footer-grid">
-      <section><h3>Материалы</h3><a href="${basePath}materials/">Все материалы</a><a href="${basePath}scenario/">Сценарий вечера</a></section>
+      <section><h3>Материалы</h3><a href="${basePath}articles/">Все материалы</a><a href="${basePath}scenario/">Сценарий вечера</a></section>
       <section><h3>Услуги</h3><a href="${basePath}">Свадебный ведущий</a><a href="https://corp.timurgromov.ru" target="_blank" rel="noopener noreferrer">Корпоративы</a></section>
       <section><h3>Доверие</h3><a href="https://dzen.ru/timurgromov" target="_blank" rel="noopener noreferrer">Дзен</a><a href="https://clck.ru/TZjT6" target="_blank" rel="noopener noreferrer">Отзывы</a></section>
       <section><h3>Контакты</h3><a href="${telegramMeetingUrl}" ${safeAttrs}>Telegram</a><a href="tel:+79253900772">+7 925 390-07-72</a></section>
