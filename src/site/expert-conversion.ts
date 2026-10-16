@@ -72,8 +72,8 @@ export const renderExpertConversionContour = ({
   </footer>
 
   <style>
-    @font-face{font-family:"Coolvetica";src:url("https://static.tildacdn.com/tild6636-6134-4531-a265-333565666232/AnyConvcom__coolveti.woff") format("woff");font-weight:500;font-style:normal;font-display:swap}
-    @font-face{font-family:"Manrope";src:url("https://static.tildacdn.com/tild6132-3564-4737-b331-633763333536/Manrope-Regular.woff") format("woff");font-weight:400;font-style:normal;font-display:swap}
+    @font-face{font-family:"Coolvetica";src:url("${basePath}fonts/coolvetica-condensed.woff") format("woff");font-weight:500;font-style:normal;font-display:swap}
+    @font-face{font-family:"Manrope";src:url("${basePath}fonts/manrope-variable.ttf") format("truetype");font-weight:200 800;font-style:normal;font-display:swap}
     .expert-conversion{--t-headline-font:"Coolvetica",Arial,sans-serif;--t-text-font:"Manrope",Arial,sans-serif;color:#1c1b1a;background:#fffefa;font-family:var(--t-text-font)}
     .tg-plan-cta--expert{margin-top:32px;margin-bottom:0;padding:48px 0 56px;background:#fffefa;color:#1c1b1a}
     .tg-plan-cta--expert .tg-plan-cta__inner{display:grid;grid-template-columns:minmax(0,.9fr) minmax(260px,.56fr);gap:52px;width:min(1120px,calc(100% - 48px));margin:0 auto;align-items:center}

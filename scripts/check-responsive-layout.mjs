@@ -104,6 +104,10 @@ const viewports = parseViewports(
   process.env.RESPONSIVE_LAYOUT_VIEWPORTS || defaultViewports.join(","),
 );
 const routeSpecificGroups = [
+  {
+    viewport: { width: 1280, height: 744, name: "1280x744" },
+    routes: ["/", "/materials/"],
+  },
   ...(viewports.some(({ name }) => name === "1020x528") ? [] : [{
       viewport: { width: 1020, height: 528, name: "1020x528" },
       routes: ["/"],
@@ -762,6 +766,33 @@ const browser = await chromium.launch({
 const results = [];
 const weddingArticleResults = [];
 
+async function assertLocalFonts(page, route, viewport) {
+  const specs = route === "/articles/"
+    ? [
+        { family: "Cormorant Garamond", css: '500 16px "Cormorant Garamond"' },
+        { family: "Instrument Serif", css: '400 16px "Instrument Serif"' },
+        { family: "Instrument Serif", css: 'italic 400 16px "Instrument Serif"', style: "italic" },
+      ]
+    : [
+        { family: "Coolvetica", css: '300 16px Coolvetica', weight: "300" },
+        { family: "Coolvetica", css: '500 16px Coolvetica', weight: "500" },
+        { family: "Manrope", css: '400 16px Manrope' },
+      ];
+  const fonts = await page.evaluate(async (required) => {
+    await Promise.all(required.map((spec) => document.fonts.load(spec.css)));
+    return required.map((spec) => ({
+      ...spec,
+      loaded: [...document.fonts].some((face) =>
+        face.family === spec.family && face.status === "loaded" &&
+        (!spec.weight || face.weight === spec.weight) &&
+        (!spec.style || face.style === spec.style)),
+    }));
+  }, specs);
+  if (fonts.some((font) => !font.loaded)) {
+    fail("Local site font failed to load", { route, viewport: viewport.name, fonts });
+  }
+}
+
 try {
   for (const { viewport, routes: caseRoutes } of caseGroups) {
     const page = await browser.newPage({
@@ -797,6 +828,20 @@ try {
           { timeout: 5000 },
         );
         await page.waitForTimeout(route === "/" ? 900 : 80);
+        if (viewport.name === "1280x744" && (route === "/" || route === "/materials/")) {
+          await assertLocalFonts(page, route, viewport);
+          if (route === "/materials/") {
+            await page.waitForFunction(() => {
+              const boxes = ["1738749921171", "1738822678387", "1738822718177", "1739078296052"]
+                .map((id) => document.querySelector(`#rec861962232 [data-elem-id="${id}"]`)?.getBoundingClientRect());
+              return boxes.every(Boolean) && boxes[0].bottom <= boxes[1].top + 5 &&
+                boxes[1].bottom <= boxes[2].top + 5 && boxes[2].bottom + 12 <= boxes[3].top;
+            }, undefined, { timeout: 5000 });
+          }
+        }
+        if (viewport.name === "390x844" && route === "/articles/") {
+          await assertLocalFonts(page, route, viewport);
+        }
         const result = {
           ...(await measure(page, route, viewport, watchTextSelectors)),
           runtimeErrors: [...runtimeErrors],

@@ -21,6 +21,11 @@ const {
 } = Astro.props;
 
 const basePath = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+const localFonts = `<style>
+  @font-face{font-family:"Coolvetica";src:url("${basePath}fonts/denistina.woff") format("woff");font-weight:300;font-style:normal;font-display:swap}
+  @font-face{font-family:"Coolvetica";src:url("${basePath}fonts/coolvetica-condensed.woff") format("woff");font-weight:500;font-style:normal;font-display:swap}
+  @font-face{font-family:"Manrope";src:url("${basePath}fonts/manrope-variable.ttf") format("truetype");font-weight:200 800;font-style:normal;font-display:swap}
+</style>`;
 const faviconPngLightHref = `${basePath}images/tild3935-3938-4462-b437-303431663663__photo.png`;
 const faviconPngDarkHref = `${basePath}images/tild3364-3334-4130-b264-376239643734__photo.png`;
 const faviconSvgHref = `${basePath}images/tild3537-3632-4463-b561-386135313939__photo.svg`;
@@ -33,6 +38,7 @@ const appleTouchIconHref = `${basePath}images/tild3333-3638-4033-b463-3134333738
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
+    <Fragment set:html={localFonts} />
     <meta name="description" content={description} />
     <link rel="icon" type="image/png" sizes="32x32" href={faviconPngLightHref} media="(prefers-color-scheme: light)" />
     <link rel="icon" type="image/png" sizes="32x32" href={faviconPngDarkHref} media="(prefers-color-scheme: dark)" />

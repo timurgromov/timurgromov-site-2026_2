@@ -6195,6 +6195,8 @@ const unusedTildaHeadAssets = [
 const headHtml = dedupeHeadAssetReferences(
   removeHeadAssetReferences(headMatch[1], unusedTildaHeadAssets),
 )
+  .replace(/<link\b[^>]*href="https:\/\/fonts\.gstatic\.com"[^>]*>\s*/i, "")
+  .replace(/<link\b[^>]*href="https:\/\/fonts\.googleapis\.com\/css2\?family=Manrope:[^"]*"[^>]*>\s*/i, "")
   // Inline NLM slider scripts can run after 100 ms, so the T396 core must be
   // available before body parsing instead of racing an async download.
   .replace(

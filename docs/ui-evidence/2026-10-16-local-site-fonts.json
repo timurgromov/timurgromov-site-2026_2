@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-10-16-local-site-fonts",
+  "change_kind": "font-loading-and-layout",
+  "status": "passed",
+  "requested_visible_change": "Restore the original site fonts and stop the webinar headline from overlapping the cards",
+  "expected_visible_delta": "The three headline lines use the local Coolvetica face and finish above the webinar video and cards",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "bef5fce6a5e2f8cee477467e79685223e00f332e72a1cc21c489d50d40103557",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/materials/",
+    "source_ref": "working-tree Astro build",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/materials/",
+    "state": "public first screen with desktop webinar title and cards",
+    "selector_or_slide_id": "#rec861962232",
+    "action": "hard reload at the reported 1280x744 CSS viewport"
+  },
+  "must_remain_unchanged": [
+    "webinar media and card positions",
+    "CTA text and actions",
+    "mobile record and footer"
+  ],
+  "required_viewports": ["1280x744"],
+  "observations": [
+    {
+      "viewport": "1280x744",
+      "viewport_source": "reported Chrome tab; measured innerWidth=1280, innerHeight=744, DPR=2",
+      "before_signature": "Coolvetica check=false; first headline 104.45-243.67px, second starts 171.99px, last ends 378.74px while cards start 337.2px",
+      "after_signature": "Coolvetica 300/500 and Manrope loaded=true; headline lines end at 179.87, 249.23 and 318.58px; video/cards start 347.38px",
+      "observed_visible_result": "The narrow original title appears in three separate lines above the video and cards; no text or card overlap is visible",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 0,
+    "selected_variant": "",
+    "owner_approval_reference": ""
+  }
+}
