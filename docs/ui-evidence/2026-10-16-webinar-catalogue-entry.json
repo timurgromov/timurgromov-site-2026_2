@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-10-16-webinar-catalogue-entry",
+  "change_kind": "catalogue-entry-and-page-title",
+  "status": "passed",
+  "requested_visible_change": "List the existing webinar and video page in the complete materials catalogue and give that page a clear webinar name without changing its URL.",
+  "expected_visible_delta": "The catalogue has a fourth visible card named Вебинар и видеоматериалы, linking to /materials/; the destination browser and social titles use the same name.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "93099d2e7e3ae9a3e34246d6173f3667f4a5afa3b123ae3b58171d41d6f4f830",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4322/articles/",
+    "source_ref": "fresh Astro preview of the current built working tree after the final source edit",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/articles/ → /materials/",
+    "state": "anonymous visitor, scrolled to the fourth catalogue card",
+    "selector_or_slide_id": ".library-card[href='/materials/']",
+    "action": "Observe the fourth card and click it to open the webinar page"
+  },
+  "must_remain_unchanged": [
+    "Three existing catalogue cards and editorial Hero",
+    "Existing webinar H1, video content and /materials/ canonical URL",
+    "Primary CTA destinations and shared footer"
+  ],
+  "required_viewports": ["390x844", "759x900", "760x900", "761x900", "1280x720", "1440x900"],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "in-app browser override; innerWidth=390, innerHeight=844",
+      "before_signature": "Published catalogue had three cards and no /materials/ card.",
+      "after_signature": "Four stacked cards; fourth title=Вебинар и видеоматериалы; href=/materials/; document width=390px.",
+      "observed_visible_result": "The fourth card is readable below the scenario card. Clicking it opens /materials/ with the webinar H1 and the new browser and social titles.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "759x900",
+      "before_signature": "Published catalogue had three cards and no /materials/ card.",
+      "after_signature": "Four cards; fourth title=Вебинар и видеоматериалы; href=/materials/; document width=759px.",
+      "observed_visible_result": "The fourth card stays within the single-column catalogue without horizontal overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "760x900",
+      "before_signature": "Published catalogue had three cards and no /materials/ card.",
+      "after_signature": "Four cards; fourth title=Вебинар и видеоматериалы; href=/materials/; document width=760px.",
+      "observed_visible_result": "The fourth card remains within the viewport at the breakpoint.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "761x900",
+      "before_signature": "Published catalogue had three cards and no /materials/ card.",
+      "after_signature": "Four cards; fourth title=Вебинар и видеоматериалы; href=/materials/; document width=761px.",
+      "observed_visible_result": "The fourth card remains within the viewport after the breakpoint.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1280x720",
+      "before_signature": "Live /articles/ had three .library-card links at 1280x720, none to /materials/.",
+      "after_signature": "Four cards; fourth title=Вебинар и видеоматериалы; href=/materials/; document width=1280px.",
+      "observed_visible_result": "The fourth card follows the scenario card in the existing desktop rows and its action reads Смотреть материалы.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "before_signature": "Published catalogue had three cards and no /materials/ card.",
+      "after_signature": "Four cards; fourth title=Вебинар и видеоматериалы; href=/materials/; document width=1440px.",
+      "observed_visible_result": "The fourth card uses the existing desktop row width without horizontal overflow.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "automated_verification": {
+    "commands": ["npm run verify:responsive-layout", "npm run verify:materials-baseline"],
+    "result": "passed",
+    "coverage": "296 responsive cases across 13 routes; materials Tilda-record baseline preserved"
+  }
+}

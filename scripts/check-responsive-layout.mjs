@@ -431,7 +431,7 @@ function assertWeddingArticleUi(result) {
     }
   }
   if (result.route === "/articles/") {
-    if (!result.articleHubUi || result.articleHubUi.cardCount < 1) {
+    if (!result.articleHubUi || result.articleHubUi.cardCount < 4 || !result.articleHubUi.materialsCardHref?.endsWith("/materials/")) {
       fail("Article hub published-material list is missing", result);
     }
     if (result.articleHubUi.hasIndependentPromo) {
@@ -710,6 +710,7 @@ async function measure(page, route, viewport, watchedTextSelectors) {
       jubileeMusicPoster,
       articleHubUi: route === "/articles/" ? {
         cardCount: document.querySelectorAll(".library-card").length,
+        materialsCardHref: document.querySelector('.library-card[href$="/materials/"]')?.getAttribute("href") ?? null,
         hasIndependentPromo: Boolean(document.querySelector(".library-start, .library-next, .library-button")),
         cardHeadingFontPx: articleHubCardHeading
           ? Number.parseFloat(getComputedStyle(articleHubCardHeading).fontSize)

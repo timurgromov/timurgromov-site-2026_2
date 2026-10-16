@@ -297,6 +297,17 @@ that viewport, plus the required mobile frame, before release.
   aspect ratio, the portrait uses the upper focal rule so the full head remains
   visible. Both exact viewports are checked on the hub and every wedding article.
 
+### Webinar catalogue entry — 2026-10-16
+
+- Change ID: `2026-10-16-webinar-catalogue-entry`.
+- Requested visible change: the public `/articles/` catalogue also lists the existing webinar and short video materials page, with a direct link to it.
+- User state and target: anonymous visitor, `.library-list` after the shared Hero; scroll to the fourth card and click it.
+- Baseline at `1280x720`: three `.library-card` links (budget, preparation, scenario), with no `/materials/` destination.
+- Expected: a fourth card in the same visual pattern, visibly named «Вебинар и видеоматериалы», linked to the existing webinar page; clicking it opens the webinar/video page. The destination browser and social titles use the same name.
+- Preserve: the three existing cards, compact Hero, footer, typography, primary routes and CTA destinations. Do not add a new promotional island or change video assets.
+- Required checks: `390x844`, `759/760/761x900`, `1280x720` and `1440x900`; verify no horizontal overflow or console errors and observe the card and destination in a live browser.
+- This is attempt 1 for the catalogue entry. The owner confirmed that the existing `/materials/` address must remain.
+
 ## Visible release target
 
 Each shared contour is visible after its useful page content. While MAX is

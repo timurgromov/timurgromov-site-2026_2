@@ -536,7 +536,11 @@ const headHtml = withBasePath(
   headMatch[1]
     .replace(/<link\b[^>]*href="https:\/\/fonts\.gstatic\.com"[^>]*>\s*/i, "")
     .replace(/<link\b[^>]*href="https:\/\/fonts\.googleapis\.com\/css2\?family=Manrope:[^"]*"[^>]*>\s*/i, "")
-    .replace(/<title>[\s\S]*?<\/title>/i, "<title>Полезные материалы подготовки к свадьбе</title>")
+    .replace(/<title>[\s\S]*?<\/title>/i, "<title>Вебинар и видеоматериалы | Тимур Громов</title>")
+    .replace(
+      /<meta property="og:title" content="[^"]*"\s*\/?>/i,
+      '<meta property="og:title" content="Вебинар и видеоматериалы | Тимур Громов" />',
+    )
     .replace(
       /<meta name="description" content="[^"]*"\s*\/?>/i,
       '<meta name="description" content="Вебинар и короткие видео с советами по подготовке к свадьбе" />',

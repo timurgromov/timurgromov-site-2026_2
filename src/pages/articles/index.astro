@@ -9,7 +9,7 @@ const socialImageUrl = new URL(
   "https://timurgromov.ru",
 ).toString();
 
-const publishedArticles = [
+const publishedMaterials = [
   {
     href: `${homeHref}articles/byudzhet-svadby-v-moskve/`,
     number: "01",
@@ -37,6 +37,17 @@ const publishedArticles = [
       "Почему хороший сценарий держится не на конкурсах, а на состоянии гостей, понятном тайминге и последовательности событий.",
     tag: "5 минут чтения",
   },
+  {
+    href: `${homeHref}materials/`,
+    number: "04",
+    eyebrow: "Вебинар и видео",
+    title: "Вебинар и видеоматериалы",
+    description:
+      "Вебинар «8 секретов успешной свадьбы» и короткие видео с советами по подготовке к свадьбе.",
+    tag: "Смотреть",
+    action: "Смотреть материалы",
+    schemaType: "WebPage",
+  },
 ];
 
 const breadcrumbSchema = {
@@ -53,20 +64,20 @@ const collectionSchema = {
   "@type": "CollectionPage",
   name: "Статьи о свадьбе | Тимур Громов",
   description:
-    "Материалы Тимура Громова о бюджете свадьбы, подготовке, сценарии, тайминге и атмосфере свадебного вечера.",
+    "Статьи, вебинар и видео Тимура Громова о бюджете свадьбы, подготовке, сценарии и свадебном вечере.",
   url: pageUrl,
-  hasPart: publishedArticles.map((article) => ({
-    "@type": "Article",
-    headline: article.title,
-    description: article.description,
-    url: new URL(article.href, "https://timurgromov.ru").toString(),
+  hasPart: publishedMaterials.map((material) => ({
+    "@type": material.schemaType ?? "Article",
+    ...(material.schemaType ? { name: material.title } : { headline: material.title }),
+    description: material.description,
+    url: new URL(material.href, "https://timurgromov.ru").toString(),
   })),
 };
 ---
 
 <BaseLayout
   title="Статьи о свадьбе | Тимур Громов"
-  description="Материалы о бюджете свадьбы, подготовке, сценарии, тайминге и атмосфере свадебного вечера."
+  description="Статьи, вебинар и видео о бюджете, подготовке и сценарии свадьбы."
   canonical={pageUrl}
   ogImage={socialImageUrl}
   ogImageAlt="Тимур Громов"
@@ -98,17 +109,17 @@ const collectionSchema = {
       </div>
 
       <div class="library-list">
-        {publishedArticles.map((article) => (
-          <a class="library-card" href={article.href}>
+        {publishedMaterials.map((material) => (
+          <a class="library-card" href={material.href}>
             <div class="library-card__topline">
-              <span>{article.number} · {article.eyebrow}</span>
-              <span>{article.tag}</span>
+              <span>{material.number} · {material.eyebrow}</span>
+              <span>{material.tag}</span>
             </div>
             <div class="library-card__body">
-              <h3>{article.title}</h3>
-              <p>{article.description}</p>
+              <h3>{material.title}</h3>
+              <p>{material.description}</p>
             </div>
-            <strong>Читать материал <span aria-hidden="true">↗</span></strong>
+            <strong>{material.action ?? "Читать материал"} <span aria-hidden="true">↗</span></strong>
           </a>
         ))}
       </div>
