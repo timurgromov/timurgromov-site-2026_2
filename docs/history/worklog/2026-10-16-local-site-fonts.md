@@ -21,3 +21,9 @@ The Tilda CSS points two `Coolvetica` faces at `static.tildacdn.com`. Direct fon
 - `npm run verify:materials-layout` passed on `1200×900`, `1440×900`, `1911×1064` and `390×844`. `npm run verify:responsive-layout` passed 296 cases across 13 routes; the gate now explicitly checks local font faces and non-overlapping materials title at `1280×744`.
 - Live local browser observation after hard reload: `/materials/` at `1280×744` shows three separate Coolvetica title lines above the video/cards, all three font faces loaded, no horizontal overflow or console errors. Additional visual checks passed at `390×844`, `1440×900` and `1984×1046`; `/` and `/articles/` were also visually checked at `390×844` with no console errors.
 - A read-only look at `corp.timurgromov.ru` showed an Inter/system font CSS stack and no matching Tilda/Google font dependency in its public stylesheet. No corporate site code was changed.
+
+## Release
+
+- Site runtime commit `e474ce2c722d4d020a54c461510489a05dc0270d` was pushed to `origin/main`. `Deploy to gh-pages` run `38947916666` and `Code health` run `38947916557` both passed; the published `gh-pages` commit is `d9e5d54`.
+- Fresh production `/materials/` and `/` browser reloads loaded Coolvetica and Manrope with no horizontal overflow or console errors. The materials title has distinct lines above the cards. Production `/articles/` loaded Cormorant Garamond and italic Instrument Serif, with no overflow or console errors.
+- Production font URLs `/fonts/coolvetica-condensed.woff`, `/fonts/denistina.woff` and `/fonts/manrope-variable.ttf` each returned HTTP 200 with the expected byte count. `npm run verify:pages` passed against the published site runtime.

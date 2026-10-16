@@ -761,3 +761,8 @@
   `Code health`, `Deploy to gh-pages`, local and production responsive checks,
   and fresh production in-app-browser inspection all passed. Screen-role and
   mobile portrait framing remain unchanged.
+
+## Site fonts restored (2026-10-16)
+
+- The public site now hosts its original Tilda Coolvetica/Denistina fonts and the shared Manrope font on its own origin. The article typography also loads from local assets. Runtime commit `e474ce2` is deployed; both GitHub workflows passed.
+- Fresh production checks on `/`, `/materials/` and `/articles/` confirmed loaded fonts, no horizontal overflow and no console errors. The previously overlapping `/materials/` title now sits above its cards. The exact checks and font provenance are in `docs/history/worklog/2026-10-16-local-site-fonts.md`.
