@@ -766,3 +766,7 @@
 
 - The public site now hosts its original Tilda Coolvetica/Denistina fonts and the shared Manrope font on its own origin. The article typography also loads from local assets. Runtime commit `e474ce2` is deployed; both GitHub workflows passed.
 - Fresh production checks on `/`, `/materials/` and `/articles/` confirmed loaded fonts, no horizontal overflow and no console errors. The previously overlapping `/materials/` title now sits above its cards. The exact checks and font provenance are in `docs/history/worklog/2026-10-16-local-site-fonts.md`.
+
+## Expert footer materials link (2026-10-16)
+
+- The shared expert footer's «Все материалы» link now leads to the `/articles/` catalogue on `/materials/`, `/scenario/` and both wedding articles. Runtime commit `8c61fab` is live; desktop and `390×844` clicks from `/materials/` reached the catalogue. All 12 published internal page routes returned 200. External-link limits and release evidence are in `docs/history/worklog/2026-10-16-footer-materials-link.md`.
