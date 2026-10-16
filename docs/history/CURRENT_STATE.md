@@ -1,4 +1,12 @@
-# Current State - 2026-10-13
+# Current State - 2026-10-16
+
+## Webinar in materials catalogue — live 2026-10-16
+
+- `/articles/` now lists the existing webinar and video page as its fourth card, «Вебинар и видеоматериалы». The card leads to `/materials/`.
+- The `/materials/` browser and social titles use the same name. Its canonical URL, webinar H1 and video content remain in place.
+- Runtime/source commit `57e10c6` is pushed to `origin/main`; production output `5072200` is on `origin/gh-pages`. `Code health`, `Deploy to gh-pages` and Pages publication passed.
+- Local 296-case responsive and materials-baseline checks passed. Fresh production checks at `390x844` and `1280x720` confirmed the fourth card, click through, matching destination title, zero horizontal overflow and no console errors.
+- Release note: `docs/history/worklog/2026-10-16-webinar-catalogue-entry.md`.
 
 ## Политика и согласия — live 2026-10-15
 
