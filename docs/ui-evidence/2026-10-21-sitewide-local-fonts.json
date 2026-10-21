@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-10-21-sitewide-local-fonts",
+  "change_kind": "sitewide-font-roles-and-loading",
+  "status": "passed",
+  "requested_visible_change": "Remove the wrong system fonts from the legal pages and prevent the same regression anywhere on the public site",
+  "expected_visible_delta": "Legal headings render in local Coolvetica and body copy in local Manrope while all public routes keep their approved local typography roles",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "d7554e8ed98b2af8e4e4260b63a779b307f78336ea8e7aa6d95564c1d4a111c1",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4322/privacy/",
+    "source_ref": "working-tree Astro build",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/privacy/, /consent/ and /offer/",
+    "state": "public legal documents without authentication",
+    "selector_or_slide_id": "main h1, main h2 and main p",
+    "action": "fresh load each legal route, await document.fonts and inspect the rendered documents"
+  },
+  "must_remain_unchanged": [
+    "legal document copy and URLs",
+    "document section order and links",
+    "CTAs, forms and public route geometry"
+  ],
+  "required_viewports": [
+    "390x844",
+    "1280x720"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "Playwright viewport; confirmed innerWidth=390 and innerHeight=844",
+      "before_signature": "privacy/consent h1,h2,body=Arial; offer h1,h2=Arial and body=Times New Roman",
+      "after_signature": "all three routes h1,h2=Coolvetica; body=Manrope; active local faces loaded; overflow=false",
+      "observed_visible_result": "The mobile legal documents visibly use the site's condensed display headings and clean Manrope body copy with readable wrapping and intact links",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1280x720",
+      "viewport_source": "Playwright viewport; confirmed innerWidth=1280 and innerHeight=720",
+      "before_signature": "privacy/consent h1,h2,body=Arial; offer h1,h2=Arial and body=Times New Roman",
+      "after_signature": "all three routes h1,h2=Coolvetica; body=Manrope; active local faces loaded; overflow=false",
+      "observed_visible_result": "The desktop documents share the approved site typography, preserve the existing narrow reading column and show no clipped or overlapping text",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 0,
+    "selected_variant": "",
+    "owner_approval_reference": ""
+  }
+}

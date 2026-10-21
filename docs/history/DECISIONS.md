@@ -2,6 +2,17 @@
 
 Этот файл фиксирует решения, которые важно помнить и не откатывать случайно.
 
+## DEC-2026-10-21-SITEWIDE-LOCAL-TYPOGRAPHY
+
+Status: active
+Area: all public routes, typography, responsive QA
+Decision date: 2026-10-21
+Evidence: owner report on legal pages; rendered legal-page checks and full responsive matrix
+
+Every public route uses a local same-origin font as its primary family. Commercial and legal headings use Coolvetica; shared body copy and controls use Manrope; editorial display roles retain local Cormorant Garamond and Instrument Serif. Arial, Helvetica, Times, Georgia and `system-ui` may appear only as fallbacks after one of these approved families.
+
+The main and Jubilee layouts must consume the common local font-face helper. The full responsive gate must fail if first-party Astro/CSS sources place a system font first, if a required local face cannot load, or if `/privacy/`, `/consent/` and `/offer/` lose their Coolvetica/Manrope roles. Font changes require rendered mobile and desktop review; a successful file request alone is insufficient.
+
 ## DEC-2026-10-13-HOMEPAGE-WEDDING-GUIDE-FOOTER-LINK
 
 Status: active

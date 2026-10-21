@@ -1,4 +1,4 @@
-import { existsSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 import { chromium } from "playwright";
 
@@ -78,6 +78,27 @@ function walkAstroPages(directory) {
     if (entry.isDirectory()) return walkAstroPages(path);
     return entry.isFile() && entry.name.endsWith(".astro") ? [path] : [];
   });
+}
+
+function walkFontSources(directory) {
+  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const path = join(directory, entry.name);
+    if (entry.isDirectory()) return walkFontSources(path);
+    return entry.isFile() && /\.(?:astro|css)$/.test(entry.name) ? [path] : [];
+  });
+}
+
+for (const directory of [join(process.cwd(), "src"), join(process.cwd(), "public", "yubiley-assets")]) {
+  for (const path of walkFontSources(directory)) {
+    const source = readFileSync(path, "utf8");
+    const systemFontAsPrimary = source.match(/font-family\s*:\s*(?:Arial|Helvetica|["']Times New Roman["']|Times|Georgia|system-ui)(?=\s*[,;])/gi);
+    if (systemFontAsPrimary) {
+      fail("System fallback font must not be the primary site font", {
+        sourcePath: relative(process.cwd(), path),
+        declarations: systemFontAsPrimary,
+      });
+    }
+  }
 }
 
 function pagePathToRoute(path) {
@@ -768,17 +789,17 @@ const results = [];
 const weddingArticleResults = [];
 
 async function assertLocalFonts(page, route, viewport) {
-  const specs = route === "/articles/"
-    ? [
+  const isEditorialRoute = route === "/scenario/" || route === "/articles/" || route.startsWith("/articles/");
+  const specs = [
+    { family: "Coolvetica", css: '300 16px Coolvetica', weight: "300" },
+    { family: "Coolvetica", css: '500 16px Coolvetica', weight: "500" },
+    { family: "Manrope", css: '400 16px Manrope' },
+    ...(isEditorialRoute ? [
         { family: "Cormorant Garamond", css: '500 16px "Cormorant Garamond"' },
         { family: "Instrument Serif", css: '400 16px "Instrument Serif"' },
         { family: "Instrument Serif", css: 'italic 400 16px "Instrument Serif"', style: "italic" },
-      ]
-    : [
-        { family: "Coolvetica", css: '300 16px Coolvetica', weight: "300" },
-        { family: "Coolvetica", css: '500 16px Coolvetica', weight: "500" },
-        { family: "Manrope", css: '400 16px Manrope' },
-      ];
+      ] : []),
+  ];
   const fonts = await page.evaluate(async (required) => {
     await Promise.all(required.map((spec) => document.fonts.load(spec.css)));
     return required.map((spec) => ({
@@ -791,6 +812,24 @@ async function assertLocalFonts(page, route, viewport) {
   }, specs);
   if (fonts.some((font) => !font.loaded)) {
     fail("Local site font failed to load", { route, viewport: viewport.name, fonts });
+  }
+}
+
+async function assertLegalFontRoles(page, route, viewport) {
+  if (!["/privacy/", "/consent/", "/offer/"].includes(route)) return;
+  const roles = await page.evaluate(() => {
+    const family = (selector) => {
+      const node = document.querySelector(selector);
+      return node ? getComputedStyle(node).fontFamily : null;
+    };
+    return {
+      heading: family("main h1"),
+      subheading: family("main h2"),
+      body: family("main p:not([class*='eyebrow'])"),
+    };
+  });
+  if (!roles.heading?.includes("Coolvetica") || !roles.subheading?.includes("Coolvetica") || !roles.body?.includes("Manrope")) {
+    fail("Legal document font roles regressed", { route, viewport: viewport.name, roles });
   }
 }
 
@@ -829,6 +868,10 @@ try {
           { timeout: 5000 },
         );
         await page.waitForTimeout(route === "/" ? 900 : 80);
+        if (viewport.name === "1366x768") {
+          await assertLocalFonts(page, route, viewport);
+          await assertLegalFontRoles(page, route, viewport);
+        }
         if (viewport.name === "1280x744" && (route === "/" || route === "/materials/")) {
           await assertLocalFonts(page, route, viewport);
           if (route === "/materials/") {
