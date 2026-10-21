@@ -2,10 +2,10 @@
 
 ## Sitewide local typography — candidate 2026-10-21
 
-- `/privacy/`, `/consent/` and `/offer/` now use the site's local Coolvetica headings and Manrope body copy instead of Arial/Times. The same local font definitions are shared by the main and Jubilee layouts.
-- Direct system-font primaries were removed from native article/scenario styles and Jubilee CSS. System families remain only as fallback values after an approved local family.
+- `/privacy/`, `/consent/` and `/offer/` now use the main site's local Coolvetica headings and Manrope body copy instead of Arial/Times.
+- Direct system-font primaries were removed from native main-site article/scenario styles. Separate corporate surfaces and the Jubilee contour retain their own typography.
 - `npm run build`, `npm run verify:contacts` and the 296-case `npm run verify:responsive-layout` pass. Focused rendered checks at `390×844` and `1280×720` confirm the legal-page font roles, no horizontal overflow and no console errors.
-- The responsive gate now rejects Arial, Helvetica, Times, Georgia or `system-ui` in the primary font position and checks actual local font loading on all 13 public routes.
+- The responsive gate now rejects Arial, Helvetica, Times, Georgia or `system-ui` in the primary font position for the main-site contour and checks its actual local font loading; routes with a separately approved typography contract are excluded from this rule.
 - Release/deploy evidence will be added after the production publication.
 - Release note: `docs/history/worklog/2026-10-21-sitewide-local-fonts.md`.
 

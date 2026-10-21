@@ -88,8 +88,11 @@ function walkFontSources(directory) {
   });
 }
 
-for (const directory of [join(process.cwd(), "src"), join(process.cwd(), "public", "yubiley-assets")]) {
-  for (const path of walkFontSources(directory)) {
+for (const directory of [join(process.cwd(), "src")]) {
+  for (const path of walkFontSources(directory).filter((candidate) => {
+    const sourcePath = relative(process.cwd(), candidate).split(sep).join("/");
+    return !sourcePath.startsWith("src/yubiley/") && !sourcePath.startsWith("src/pages/yubiley/");
+  })) {
     const source = readFileSync(path, "utf8");
     const systemFontAsPrimary = source.match(/font-family\s*:\s*(?:Arial|Helvetica|["']Times New Roman["']|Times|Georgia|system-ui)(?=\s*[,;])/gi);
     if (systemFontAsPrimary) {
@@ -868,7 +871,7 @@ try {
           { timeout: 5000 },
         );
         await page.waitForTimeout(route === "/" ? 900 : 80);
-        if (viewport.name === "1366x768") {
+        if (viewport.name === "1366x768" && !route.startsWith("/yubiley/")) {
           await assertLocalFonts(page, route, viewport);
           await assertLegalFontRoles(page, route, viewport);
         }

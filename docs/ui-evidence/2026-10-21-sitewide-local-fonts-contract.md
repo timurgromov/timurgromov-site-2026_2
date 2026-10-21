@@ -2,7 +2,7 @@
 
 - Change ID: `2026-10-21-sitewide-local-fonts`
 - Requested visible change: страницы политики, согласия, оферты и остальные публичные маршруты используют утверждённые локальные шрифты сайта без перехода на Arial, Times или внешний CDN.
-- Surface: все публичные маршруты `timurgromov.ru`; точные визуальные цели — `/privacy/`, `/consent/`, `/offer/`, representative `/`, `/materials/`, `/articles/`, `/scenario/`, `/yubiley/` and `/404.html`.
+- Surface: основной контур `timurgromov.ru`; точные визуальные цели — `/privacy/`, `/consent/`, `/offer/`, representative `/`, `/materials/`, `/articles/`, `/scenario/` and `/404.html`. Отдельные корпоративные сайты и Jubilee-контур не изменяются.
 - User state: public, unauthenticated; no forms submitted.
 - Exact target: computed font families of legal-page H1/H2/body copy and local font loading through `document.fonts`.
 - Action: hard reload each target route, wait for `document.fonts.ready`, inspect computed styles and rendered page.
