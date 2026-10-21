@@ -24,4 +24,8 @@ The October 16 local-font release fixed the external font files and representati
 
 ## Release
 
-Pending production publication and fresh live verification.
+- Final source commit `1fdcf4db80112dd416d8d0e490c2c1047472d0ec` is pushed to `origin/main`; production output `508835b67de39464d6562b25a024591ee761cd07` is on `origin/gh-pages`.
+- `Code health` run `39622869836` and `Deploy to gh-pages` run `39622869806` completed successfully. The deploy repeated the complete 296-case responsive gate.
+- `npm run verify:pages` confirmed that production is built from the final source commit and that `/privacy/` contains the new font role without the former Arial declaration. Coolvetica 500, Coolvetica 300 and Manrope assets return HTTP 200 with expected byte counts.
+- Fresh production Playwright checks at `390×844` and `1280×720` confirmed Coolvetica H1/H2 and Manrope body copy on `/privacy/`, `/consent/` and `/offer/`, with no horizontal overflow or console errors. A visible in-app-browser review confirmed the rendered desktop privacy page.
+- The final Jubilee stylesheet still exposes its original `Inter, system-ui, Arial` stack, and `corp.timurgromov.ru` was not edited. An intermediate broader commit was immediately narrowed by `1fdcf4d` before final verification; the final static release contains the scoped version.
