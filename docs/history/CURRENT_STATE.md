@@ -1,4 +1,18 @@
-# Current State - 2026-10-21
+# Current State - 2026-10-27
+
+## Indexing and HTTPS hardening — live 2026-10-27
+
+- GitHub Pages `Enforce HTTPS` is enabled for `timurgromov.ru`; the approved
+  certificate covers apex and `www`, and the Pages source remains `gh-pages`.
+- Apex and `www` HTTP requests return permanent `301` redirects to apex HTTPS
+  while preserving path and query. The HTTPS destination returns `200`.
+- `sitemap.xml` and all seven listed production URLs return `200`.
+- EventBudjet runtime commit `e8925355` publishes the crawler exclusion for the
+  POST-only attribution endpoint without changing analytics or lead handling.
+- Search Console validation was not started and historical 404 routes were not
+  changed.
+- Release note:
+  `docs/history/worklog/2026-10-27-indexing-https-hardening.md`.
 
 ## Main-site local typography — live 2026-10-21
 
