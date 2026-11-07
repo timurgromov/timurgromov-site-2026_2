@@ -195,3 +195,7 @@ npx --yes gh-pages -d dist -b gh-pages
 **Если сидишь на рабочей ветке:** правки → commit → **`git push origin HEAD:main`** → ждать Actions → `npm run verify:pages -- --contains "новый маркер"` → открыть `https://timurgromov.ru/`.
 
 **Запас:** `npm run deploy:pages`.
+
+## Deploy standard 1.0.0
+
+The existing Pages workflow adapts `Tamplates/DEPLOY_TEMPLATE.md@1.0.0`. It serializes publication, adds `deploy-version.json` to the built artifact and verifies the exact source SHA at the production domain. Logs record upload, build, checks and total durations. Rollback republishes a previously verified source commit through the same workflow.

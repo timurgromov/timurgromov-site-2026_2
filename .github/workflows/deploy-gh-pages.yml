@@ -12,12 +12,16 @@ permissions:
 
 concurrency:
   group: deploy-gh-pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
+      - name: Start release timing
+        run: echo "RELEASE_STARTED=$(date +%s)" >> "$GITHUB_ENV"
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
@@ -28,8 +32,16 @@ jobs:
       - name: Install
         run: npm ci
 
+      - name: Start build timing
+        run: echo "BUILD_STARTED=$(date +%s)" >> "$GITHUB_ENV"
+
       - name: Build
         run: ASTRO_TELEMETRY_DISABLED=1 npm run build
+
+      - name: Record release identity and build timing
+        run: |
+          node scripts/release-passport.mjs write dist
+          echo "RELEASE_BUILD_SECONDS=$(( $(date +%s) - BUILD_STARTED ))" >> "$GITHUB_ENV"
 
       - name: Install Chromium for responsive QA
         run: npx playwright install --with-deps chromium
@@ -37,9 +49,17 @@ jobs:
       - name: Check every page across responsive breakpoints
         run: node scripts/verify-responsive-layout.mjs
 
+      - name: Start artifact upload timing
+        run: echo "UPLOAD_STARTED=$(date +%s)" >> "$GITHUB_ENV"
+
       - name: Push dist to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           publish_branch: gh-pages
+
+      - name: Record upload timing and verify the public release
+        run: |
+          export RELEASE_UPLOAD_SECONDS=$(( $(date +%s) - UPLOAD_STARTED ))
+          node scripts/release-passport.mjs verify https://timurgromov.ru/ "$GITHUB_SHA"
