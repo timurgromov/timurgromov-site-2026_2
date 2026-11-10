@@ -10,6 +10,7 @@ import { expertCtaSource, maxMeetingUrlFor, maxPlanUrlFor, telegramMeetingUrlFor
 const homeHref = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 const articleHref = `${homeHref}articles/plan-podgotovki-k-svadbe/`;
 const articlesHref = `${homeHref}articles/`;
+const budgetHref = `${articlesHref}byudzhet-svadby-v-moskve/`;
 const scenarioHref = `${homeHref}scenario/`;
 const pageUrl = new URL(articleHref, "https://timurgromov.ru").toString();
 const socialImageUrl = new URL(
@@ -69,6 +70,11 @@ const stages = [
       "Для каждой статьи отметьте: это ядро, которое вам важно сохранить; вещь, в которой возможны варианты; или идея, без которой праздник не потеряет смысла. Отдельно оставьте резерв на изменения — его размер зависит от вашей ситуации и не бывает универсальным процентом.",
     ],
     note: "На этой странице нет «средней стоимости свадьбы в Москве»: честный материал о ценах требует отдельных свежих источников и методики.",
+    cta: {
+      label: "Как составить смету свадьбы в Москве",
+      href: budgetHref,
+      text: "Разберите основные статьи расходов и проверьте, какие доплаты стоит заложить в смету заранее.",
+    },
   },
   {
     number: "04",
