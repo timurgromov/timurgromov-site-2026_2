@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-11-12-webinar-responsive-layout",
+  "change_kind": "responsive-layout",
+  "status": "passed",
+  "requested_visible_change": "Карточки вебинара целиком читаются в узком окне, плеер доступен.",
+  "expected_visible_delta": "При ширине до 640 CSS px карточки находятся под плеером в одной или двух колонках.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "98a83dbb55d2a03d634ee7a778910ca71bca7da74a57862ae443d044cfe20550",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4381/materials/#webinar",
+    "source_ref": "staged candidate",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/materials/#webinar",
+    "state": "Публичная страница, активный мобильный артборд Tilda",
+    "selector_or_slide_id": "#rec862050095 .tg-mobile-card-strip",
+    "action": "Открыть якорь, прокрутить до видео и карточек"
+  },
+  "must_remain_unchanged": [
+    "Видео, постер и тексты оригинальных карточек",
+    "Геометрия планшетного и широкого артбордов",
+    "Ссылка на вебинар и CTA после него"
+  ],
+  "required_viewports": [
+    "320x740",
+    "390x844",
+    "559x820",
+    "560x820",
+    "561x820",
+    "620x720",
+    "639x820",
+    "640x820"
+  ],
+  "observations": [
+    {
+      "viewport": "320x740",
+      "viewport_source": "Codex in-app browser, подтверждено window.innerWidth/innerHeight",
+      "before_signature": "правая карточка X=268–512, видимая ширина 320",
+      "after_signature": "обе X=10–310, Y=576 и 845",
+      "observed_visible_result": "Обе карточки видны при обычной вертикальной прокрутке.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "390x844",
+      "viewport_source": "Codex in-app browser, подтверждено window.innerWidth/innerHeight",
+      "before_signature": "правая карточка X=268–512, видимая ширина 390",
+      "after_signature": "обе X=12–378, Y=685 и 935",
+      "observed_visible_result": "Карточки стоят под видео и читаются целиком.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "559x820",
+      "viewport_source": "Codex in-app browser, подтверждено window.innerWidth/innerHeight",
+      "before_signature": "верх карточек Y=689, низ видео Y=927",
+      "after_signature": "низ видео Y=927, карточки Y=949 и 1160",
+      "observed_visible_result": "Одна колонка, карточки под видео.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "560x820",
+      "viewport_source": "Codex in-app browser, подтверждено window.innerWidth/innerHeight",
+      "before_signature": "верх карточек Y=689, низ видео Y=929",
+      "after_signature": "низ видео Y=929, обе карточки Y=951",
+      "observed_visible_result": "Ряд из двух карточек начинается ниже плеера.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "561x820",
+      "viewport_source": "Codex in-app browser, подтверждено window.innerWidth/innerHeight",
+      "before_signature": "верх карточек Y=689, низ видео Y=930",
+      "after_signature": "низ видео Y=930, обе карточки Y=952",
+      "observed_visible_result": "Плеер и две карточки разделены.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "620x720",
+      "viewport_source": "Codex in-app browser, подтверждено window.innerWidth/innerHeight",
+      "before_signature": "верх карточек Y=689, низ видео Y=1021",
+      "after_signature": "низ видео Y=1021, обе карточки Y=1045",
+      "observed_visible_result": "Видео доступно целиком. Обе карточки читаются, Play запускает видео.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "639x820",
+      "viewport_source": "Codex in-app browser, подтверждено window.innerWidth/innerHeight",
+      "before_signature": "верх карточек Y=689, низ видео Y=1051",
+      "after_signature": "низ видео Y=1051, обе карточки Y=1074",
+      "observed_visible_result": "На последнем размере 320px артборда карточки под видео.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "640x820",
+      "viewport_source": "Codex in-app browser, подтверждено window.innerWidth/innerHeight",
+      "before_signature": "карточки X=20–310 и 330–620, Y=732",
+      "after_signature": "карточки X=20–312 и 328–620, Y=730",
+      "observed_visible_result": "На границе 640px мобильный блок виден и выровнен по плееру.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ]
+}

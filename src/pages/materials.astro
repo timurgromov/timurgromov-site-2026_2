@@ -209,22 +209,6 @@ function extractTildaRecord(html: string, recordId: string) {
   return html.slice(startIndex, endIndex);
 }
 
-function injectBeforeTildaRecordScript(
-  html: string,
-  recordNumericId: string,
-  markup: string,
-) {
-  const marker =
-    `</div> </div> <scr` +
-    `ipt>t_onFuncLoad('t396_initialScale',function() {t396_initialScale('${recordNumericId}');});`;
-
-  if (!html.includes(marker)) {
-    return html;
-  }
-
-  return html.replace(marker, `${markup}${marker}`);
-}
-
 function guardTildaResizeUntilInitialized(recordHtml: string, recordNumericId: string) {
   const resizeCall = `t396_doResize('${recordNumericId}');`;
   const guardedResize =
@@ -404,7 +388,7 @@ function extractGroupElement(html: string, groupId: string) {
   };
 }
 
-function wrapMobileWebinarCardStrip(recordHtml: string, groupIds: string[]) {
+function placeMobileWebinarCardsBelowVideo(recordHtml: string, groupIds: string[]) {
   let html = recordHtml;
   const groupMarkup: string[] = [];
 
@@ -420,14 +404,17 @@ function wrapMobileWebinarCardStrip(recordHtml: string, groupIds: string[]) {
   });
 
   if (groupMarkup.length !== groupIds.length) {
-    return recordHtml;
+    throw new Error("Не найдены обе карточки мобильного вебинара");
   }
 
-  return injectBeforeTildaRecordScript(
-    html,
-    mobileWebinarRecordId.replace("rec", ""),
-    ` <div class="tg-mobile-card-strip" aria-label="Карточки вебинара">${groupMarkup.join(" ")}</div>`,
-  );
+  const endOfArtboard = "</div> </div> <scr" +
+    `ipt>t_onFuncLoad('t396_initialScale',function() {t396_initialScale('${mobileWebinarRecordId.replace("rec", "")}');});`;
+  if (!html.includes(endOfArtboard)) {
+    throw new Error("Не найден конец артборда мобильного вебинара");
+  }
+
+  const cards = `<div class="tg-mobile-card-strip" aria-label="Карточки вебинара">${groupMarkup.join(" ")}</div>`;
+  return html.replace(endOfArtboard, endOfArtboard.replace("</div>", `</div>${cards}`));
 }
 
 function patchPopupVideo(recordHtml: string, videoUrl?: string) {
@@ -482,12 +469,14 @@ const materialRecordsHtml = materialRecordIds
       recordHtml = patchWebinarArtboardHeights(recordHtml, {
         default: recordId === webinarDesktopRecordId ? 1080 : 860,
         res1200: 680,
-        res640: 1060,
-        res320: 784,
+        // The mobile record also owns exactly 640px. Its video ends at 731px
+        // in that artboard, and at about 495px in the 320px artboard.
+        res640: recordId === mobileWebinarRecordId ? 737 : 1060,
+        res320: recordId === mobileWebinarRecordId ? 500 : 784,
       });
 
       if (recordId === mobileWebinarRecordId) {
-        recordHtml = wrapMobileWebinarCardStrip(recordHtml, [
+        recordHtml = placeMobileWebinarCardsBelowVideo(recordHtml, [
           "173883092613938130",
           "173883093344499820",
         ]);
@@ -1511,33 +1500,57 @@ const headHtml = withBasePath(
           html.materials-header-hidden .materials-header-shell{
             transform:translateY(-100%);
           }
+        }
+        @media screen and (max-width:640px){
           #rec862050095 .tg-mobile-card-strip{
-            position:absolute;
-            z-index:30;
-            top:625px;
-            left:0;
-            width:100%;
-            height:300px;
-            overflow-x:auto !important;
-            overflow-y:hidden !important;
-            -webkit-overflow-scrolling:touch;
-            scrollbar-width:none;
-            touch-action:pan-x;
+            display:grid;
+            grid-template-columns:minmax(0,1fr);
+            gap:16px;
+            width:93.75%;
+            margin:12px auto 0;
           }
-          #rec862050095 .tg-mobile-card-strip::-webkit-scrollbar{
-            display:none;
+          #rec862050095 .tg-mobile-card-strip .tn-group{
+            position:relative !important;
+            inset:auto !important;
+            width:auto !important;
+            height:auto !important;
+            min-width:0;
+            box-sizing:border-box;
+            padding:18px;
+            zoom:1 !important;
           }
-          #rec862050095 .tg-mobile-card-strip .tn-group[data-group-id="173883092613938130"],
-          #rec862050095 .tg-mobile-card-strip .tn-group[data-group-id="173883093344499820"]{
-            top:0 !important;
-            zoom:1.219 !important;
+          #rec862050095 .tg-mobile-card-strip .tn-molecule{
+            position:static !important;
+            display:grid;
+            gap:14px;
+            width:auto !important;
+            height:auto !important;
           }
-          #rec862050095 .tg-mobile-card-strip .tn-group[data-group-id="173883092613938130"]{
-            left:10px !important;
+          #rec862050095 .tg-mobile-card-strip [data-elem-type="shape"]{
+            position:absolute !important;
+            inset:0 !important;
+            width:100% !important;
+            height:100% !important;
           }
-          #rec862050095 .tg-mobile-card-strip .tn-group[data-group-id="173883093344499820"]{
-            left:220px !important;
+          #rec862050095 .tg-mobile-card-strip [data-elem-type="text"]{
+            position:relative !important;
+            inset:auto !important;
+            width:auto !important;
+            height:auto !important;
+            min-width:0;
+            z-index:1;
           }
+          #rec862050095 .tg-mobile-card-strip [data-elem-type="text"] .tn-atom{
+            display:block;
+            font-size:15px !important;
+            line-height:1.3 !important;
+          }
+          #rec862050095 .tg-mobile-card-strip .tn-molecule > [data-elem-type="text"]:nth-child(2) .tn-atom{
+            font-size:24px !important;
+            line-height:1.15 !important;
+          }
+        }
+        @media screen and (max-width:639px){
           .tg-plan-cta{
             padding:var(--tg-home-section-pad-mobile) 0 38px;
             margin-bottom:0;
@@ -1681,6 +1694,11 @@ const headHtml = withBasePath(
             border-top-width:5px;
             border-bottom-width:5px;
             border-left-width:8px;
+          }
+        }
+        @media screen and (min-width:560px) and (max-width:640px){
+          #rec862050095 .tg-mobile-card-strip{
+            grid-template-columns:repeat(2,minmax(0,1fr));
           }
         }
         @media screen and (min-width:1200px) and (max-width:1919px){
