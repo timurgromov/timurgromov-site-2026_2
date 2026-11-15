@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-11-15-consultation-note-spacing",
+  "change_kind": "section-spacing",
+  "status": "passed",
+  "requested_visible_change": "Показать весь абзац под кнопками консультации.",
+  "expected_visible_delta": "Следующий блок начинается ниже контента консультации. Последняя строка абзаца видна полностью.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "deece9eae4b54f0df00c13ea8bab2d212ea0f1a5452eda15c821a982b68a0a5b",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4371/#free-consultation",
+    "source_ref": "Рабочее дерево с тем же src/pages/index.astro, что и кандидат выпуска.",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/",
+    "state": "Главная у блока бесплатной консультации",
+    "selector_or_slide_id": "#free-consultation .tg-consultation-cta__note",
+    "action": "Прокрутить главную до блока консультации."
+  },
+  "must_remain_unchanged": [
+    "Текст и кнопки консультации",
+    "Карточки справа",
+    "Порядок секций",
+    "Существующий мобильный зазор"
+  ],
+  "required_viewports": [
+    "1245x630",
+    "1280x720"
+  ],
+  "observations": [
+    {
+      "viewport": "1245x630",
+      "viewport_source": "CSS viewport Playwright, до и после пересмотра скриншотов.",
+      "before_signature": "Публичная версия: секция историй начинается на 12 px выше нижней границы контента. Нижняя строка перекрыта.",
+      "after_signature": "Секция историй начинается на 12 px ниже контента. Обе строки абзаца доступны.",
+      "observed_visible_result": "Фраза «комфортно ли вам идти дальше именно со мной» видна целиком.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1280x720",
+      "viewport_source": "CSS viewport браузера Codex, значение проверено через innerWidth/innerHeight.",
+      "before_signature": "Публичная версия: секция историй начинается на 12 px выше нижней границы контента. Нижняя строка перекрыта.",
+      "after_signature": "Секция историй начинается на 12 px ниже контента. Обе строки абзаца доступны.",
+      "observed_visible_result": "Фраза «комфортно ли вам идти дальше именно со мной» видна целиком.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ]
+}
