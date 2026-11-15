@@ -186,6 +186,7 @@ async function getHeroScenarioCta(cdp) {
       const text = document.querySelector('#rec861352716 .tn-elem[data-elem-id="1738733079599"] .tn-atom');
       const link = document.querySelector('#rec861352716 .tn-elem[data-elem-id="1738735136250"] a.tn-atom');
       const popup = document.querySelector('#plan-delivery-popup');
+      const popupTitle = popup?.querySelector('h2')?.textContent.trim();
       const popupLinks = Array.from(document.querySelectorAll('#plan-delivery-popup a')).map((popupLink) => ({
         text: popupLink.textContent.replace(/\\s+/g, ' ').trim(),
         href: popupLink.href || '',
@@ -206,6 +207,7 @@ async function getHeroScenarioCta(cdp) {
         opensPlanPopup: link?.hasAttribute('data-plan-popup-open') || false,
         popupSource: link?.getAttribute('data-plan-popup-source') || '',
         popupExists: !!popup,
+        popupTitle,
         popupLinks,
         planCtaLinks,
         metrikaGoals: {
@@ -238,19 +240,20 @@ function assertHeroScenarioCta(cta, viewport) {
   }
   const telegram = cta.popupLinks.find((link) => link.text.includes("Telegram"));
   const max = cta.popupLinks.find((link) => link.text.includes("MAX"));
-  if (!telegram || max) {
-    fail("hero: popup must offer Telegram without MAX", { cta, viewport });
+  if (cta.popupTitle !== "Обсудим вашу свадьбу за 20 минут") {
+    fail("hero: popup does not offer the 20-minute call", { cta, viewport });
   }
-  for (const link of [telegram]) {
-    if (!hasMessengerPayload(link.href, "site_plan")) {
-      fail("hero: popup scenario link does not point to site_plan", { link, cta, viewport });
-    }
-    if (hasMessengerPayload(link.href, "site_meeting")) {
-      fail("hero: popup scenario link regressed to site_meeting", { link, cta, viewport });
-    }
+  if (!telegram || !max || !cta.popupLinks.some((link) => link.href === "tel:+79253900772")) {
+    fail("hero: call popup is missing a contact option", { cta, viewport });
   }
-  if (telegram.channel !== "telegram" || telegram.source !== "plan_popup") {
-    fail("hero: popup Telegram link lost analytics attribution", { telegram, cta, viewport });
+  for (const [link, provider] of [[telegram, "telegram"], [max, "max"]]) {
+    const url = new URL(link.href);
+    if (!hasMessengerPayload(link.href, "site_meeting") || url.searchParams.get("provider") !== provider) {
+      fail("hero: popup link must open the matching messenger's meeting flow", { link, cta, viewport });
+    }
+    if (link.channel || link.source !== "site_meeting_popup") {
+      fail("hero: popup link must preserve the meeting placement without emitting a materials click", { link, cta, viewport });
+    }
   }
   const planTelegram = cta.planCtaLinks.find((link) => link.text.includes("Telegram"));
   const planMax = cta.planCtaLinks.find((link) => link.text.includes("MAX"));

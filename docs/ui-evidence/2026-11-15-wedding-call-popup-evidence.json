@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-11-15-wedding-call-popup",
+  "change_kind": "popup",
+  "status": "passed",
+  "requested_visible_change": "Попап созвона с четырьмя подарками, Telegram, MAX и телефоном.",
+  "expected_visible_delta": "При клике по кнопке сценария открывается оффер 20-минутного созвона. Справа в широком окне виден прежний портрет с подписями. Кнопки используют размеры общего компонента, телефон справа.",
+  "attempt_number": 3,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "d6343473943757c1f8cb1cdbd11dad9034d891850b27ee3eca0eba7f28ed5679",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4371/",
+    "source_ref": "Утверждённое рабочее дерево. src/pages/index.astro совпадает с staged вариантом рабочей копии выпуска.",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/",
+    "state": "Главная, открытый попап",
+    "selector_or_slide_id": "#plan-delivery-popup",
+    "action": "Нажать «Получить сценарий свадьбы» на первом экране."
+  },
+  "must_remain_unchanged": [
+    "Кнопка сценария на первом экране",
+    "Портрет и подписи на широких экранах",
+    "Материалы вне попапа"
+  ],
+  "required_viewports": [
+    "390x844",
+    "537x504",
+    "1440x900"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "Playwright, измеренный CSS viewport. Скриншоты просмотрены после последней правки.",
+      "before_signature": "Живой сайт: «Получить сценарий свадьбы», 3 карточки, только «Получить в Telegram»; портрет скрыт.",
+      "after_signature": "«Обсудим вашу свадьбу за 20 минут», 4 подарка, Telegram/MAX высотой 35 px и кликабельный телефон справа.",
+      "observed_visible_result": "Весь оффер и контакты доступны в одной колонке.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "537x504",
+      "viewport_source": "Нативная панель Codex, размер измерен через innerWidth/innerHeight.",
+      "before_signature": "Живой сайт: «Получить сценарий свадьбы», 3 карточки, только «Получить в Telegram»; портрет скрыт.",
+      "after_signature": "«Обсудим вашу свадьбу за 20 минут», 4 подарка, Telegram/MAX высотой 35 px и кликабельный телефон справа.",
+      "observed_visible_result": "Весь оффер и контакты доступны в одной колонке.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "viewport_source": "Playwright, измеренный CSS viewport. Скриншоты просмотрены после последней правки.",
+      "before_signature": "Живой сайт: «Получить сценарий свадьбы», 3 карточки, только «Получить в Telegram»; портрет справа.",
+      "after_signature": "«Обсудим вашу свадьбу за 20 минут», 4 подарка, Telegram/MAX высотой 36 px и кликабельный телефон справа.",
+      "observed_visible_result": "Слева новый текст и контакты, справа портрет с исходным заголовком и тремя подписями.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 3,
+    "selected_variant": "Локальный вариант со штатными размерами кнопок и номером справа.",
+    "owner_approval_reference": "Сообщение владельца 2026-11-15: «Так, теперь нормально. Оставляем Telegram, MAX и телефон. Давай выкатывай на сайт»."
+  }
+}

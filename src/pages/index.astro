@@ -4649,8 +4649,8 @@ const planDeliveryPopupAssets = `<style>
   .tg-plan-popup__panel{
     position:relative;
     z-index:1;
-    display:grid;
-    align-content:start;
+    display:flex;
+    flex-direction:column;
     width:min(840px, 100%);
     max-height:min(640px, calc(100dvh - 36px));
     overflow:hidden;
@@ -4705,9 +4705,8 @@ const planDeliveryPopupAssets = `<style>
     outline-offset:2px;
   }
 
-  .tg-plan-popup__eyebrow,
   .tg-plan-popup__text,
-  .tg-plan-popup__link{
+  .tg-plan-popup__gifts{
     font-family:var(--t-text-font, Arial);
     letter-spacing:0;
   }
@@ -4715,8 +4714,8 @@ const planDeliveryPopupAssets = `<style>
   .tg-plan-popup__body{
     display:grid;
     grid-template-columns:minmax(0, .95fr) minmax(260px, .58fr);
-    gap:0;
-    align-items:center;
+    overflow:auto;
+    overscroll-behavior:contain;
   }
 
   .tg-plan-popup__intro{
@@ -4726,15 +4725,8 @@ const planDeliveryPopupAssets = `<style>
     padding:38px 34px 34px;
   }
 
-  .tg-plan-popup__eyebrow{
-    margin:0 0 14px;
-    color:#fa4604;
-    font-size:18px;
-    line-height:1.1;
-  }
-
   .tg-plan-popup h2{
-    margin:0 64px 12px 0;
+    margin:0 0 12px;
     color:#1c1b1a;
     font-family:var(--t-headline-font, Arial);
     font-size:42px;
@@ -4744,56 +4736,98 @@ const planDeliveryPopupAssets = `<style>
     letter-spacing:0;
   }
 
+  .tg-plan-popup h2 span{
+    white-space:nowrap;
+  }
+
   .tg-plan-popup__text{
     max-width:480px;
     margin:0;
     color:rgba(28,27,26,.76);
     font-size:17px;
-    line-height:1.22;
+    line-height:1.35;
+    text-wrap:pretty;
   }
 
-  .tg-plan-popup__mini-map{
-    display:grid;
-    grid-template-columns:repeat(3, minmax(0, 1fr));
-    gap:8px;
+  .tg-plan-popup__gifts{
     margin-top:18px;
+    font-size:15px;
+    line-height:1.35;
   }
 
-  .tg-plan-popup__mini-map span{
-    display:block;
-    min-height:56px;
-    padding:9px 10px;
-    border:1px solid rgba(28,27,26,.12);
-    box-sizing:border-box;
-    color:rgba(28,27,26,.7);
-    font-family:var(--t-text-font, Arial);
-    font-size:12px;
-    line-height:1.15;
+  .tg-plan-popup__gifts h3,
+  .tg-plan-popup__gifts p{
+    margin:0;
+    font-size:inherit;
+  }
+
+  .tg-plan-popup__gifts h3{
+    font-weight:700;
+  }
+
+  .tg-plan-popup__gifts ul{
+    display:grid;
+    gap:4px;
+    margin:7px 0;
+    padding-inline-start:18px;
+  }
+
+  .tg-plan-popup__gifts li::marker{
+    color:#fa4604;
+  }
+
+  .tg-plan-popup__gifts li{
+    text-wrap:pretty;
+  }
+
+  .tg-plan-popup__gifts p{
+    color:rgba(28,27,26,.76);
   }
 
   .tg-plan-popup__actions{
-    display:flex;
-    flex-wrap:wrap;
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
     gap:10px;
-    align-content:start;
     align-items:center;
-    justify-items:start;
     margin-top:22px;
-    min-height:0;
+    max-width:360px;
   }
 
-  .tg-plan-popup__telegram{
-    width:max-content;
-    min-width:clamp(200px, 16.6667vw, 320px);
-    max-width:100%;
-    --tg-cta-fill:#fa4604;
-    --tg-cta-color:#fffefa;
-    --tg-cta-arrow-fill:#fa4604;
-    --tg-cta-arrow-color:#fffefa;
+  .tg-plan-popup__actions-label{
+    grid-column:1 / -1;
+    margin:0;
+    font-family:var(--t-text-font, Arial);
+    font-size:15px;
+    font-weight:700;
+  }
+
+  .tg-plan-popup__phone{
+    grid-column:1 / -1;
+    justify-self:end;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    min-height:44px;
+    color:#1c1b1a !important;
+    font-family:var(--t-headline-font, Arial);
+    font-size:clamp(24px, 3.5vw, 30px);
+    font-weight:500;
+    line-height:1;
+    white-space:nowrap;
+    text-decoration:none !important;
+  }
+
+  .tg-plan-popup__phone-label{
+    color:rgba(28,27,26,.76);
+    font-family:var(--t-text-font, Arial);
+    font-size:13px;
+    font-weight:500;
   }
 
   .tg-plan-popup__preview{
     position:relative;
+    display:grid;
+    align-content:end;
     min-height:100%;
     padding:38px 28px 30px;
     box-sizing:border-box;
@@ -4822,9 +4856,7 @@ const planDeliveryPopupAssets = `<style>
     margin:0;
   }
 
-  .tg-plan-popup__preview-title,
-  .tg-plan-popup__preview-list,
-  .tg-plan-popup__preview-list li{
+  .tg-plan-popup__preview-title{
     margin:0;
     letter-spacing:0;
   }
@@ -4842,7 +4874,7 @@ const planDeliveryPopupAssets = `<style>
   .tg-plan-popup__preview-list{
     display:grid;
     gap:8px;
-    margin-top:18px;
+    margin:18px 0 0;
     padding:0;
     list-style:none;
   }
@@ -4865,36 +4897,25 @@ const planDeliveryPopupAssets = `<style>
     background:#fa8a62;
   }
 
-  .tg-plan-popup__links{
-    display:grid;
-    gap:12px;
-  }
-
-  .tg-plan-popup__link{
-    width:100%;
-    grid-template-columns:minmax(0, 1fr) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
-    --tg-cta-fill:#fffefa;
-    --tg-cta-color:#1c1b1a;
-    --tg-cta-arrow-fill:#fffefa;
-    --tg-cta-arrow-color:#1c1b1a;
+  .tg-plan-popup__messenger:focus-visible,
+  .tg-plan-popup__phone:focus-visible{
+    outline:2px solid #fa4604;
+    outline-offset:2px;
   }
 
   @media (hover:hover){
+    .tg-plan-popup__phone:hover .tg-plan-popup__phone-number{
+      text-decoration:underline;
+      text-decoration-color:#fa4604;
+      text-underline-offset:3px;
+    }
+
     .tg-plan-popup__close:hover{
       border-color:rgba(250,70,4,.42);
       box-shadow:0 16px 34px rgba(28,27,26,.16);
     }
 
-    .tg-plan-popup__link:hover{
-      --tg-cta-fill:#fa4604;
-      --tg-cta-color:#fffefa;
-      --tg-cta-arrow-fill:#fa4604;
-      --tg-cta-arrow-color:#fffefa;
-      box-shadow:0 14px 28px rgba(250,70,4,.14);
-      transform:translateY(-1px);
-    }
-
-    .tg-plan-popup__telegram:hover{
+    .tg-plan-popup__messenger:hover{
       --tg-cta-fill:#fa4604;
       --tg-cta-color:#fffefa;
       --tg-cta-arrow-fill:#fa4604;
@@ -4953,18 +4974,12 @@ const planDeliveryPopupAssets = `<style>
     }
 
     .tg-plan-popup h2{
-      margin:0 56px 12px 0;
       font-size:36px;
     }
 
     .tg-plan-popup__text{
       max-width:640px;
       font-size:16px;
-      line-height:1.22;
-    }
-
-    .tg-plan-popup__actions{
-      min-height:auto;
     }
 
     .tg-plan-popup__preview{
@@ -4979,17 +4994,6 @@ const planDeliveryPopupAssets = `<style>
       font-size:32px;
     }
 
-    .tg-plan-popup__mini-map{
-      grid-template-columns:1fr;
-      gap:7px;
-      margin-top:18px;
-    }
-
-    .tg-plan-popup__mini-map span{
-      min-height:0;
-      padding:8px 10px;
-      font-size:12px;
-    }
   }
 
   body.tg-plan-popup-open{
@@ -5007,7 +5011,6 @@ const planDeliveryPopupAssets = `<style>
       height:auto;
       max-height:calc(100dvh - 16px);
       border-radius:12px;
-      overflow:auto;
     }
 
     .tg-plan-popup__close{
@@ -5023,12 +5026,7 @@ const planDeliveryPopupAssets = `<style>
     }
 
     .tg-plan-popup__intro{
-      padding:20px 12px 14px;
-    }
-
-    .tg-plan-popup__eyebrow{
-      margin:0 0 8px;
-      font-size:14px;
+      padding:24px 18px 16px;
     }
 
     .tg-plan-popup h2{
@@ -5039,66 +5037,22 @@ const planDeliveryPopupAssets = `<style>
 
     .tg-plan-popup__text{
       max-width:none;
-      margin:0 0 12px;
       font-size:14px;
-      line-height:1.18;
     }
 
-    .tg-plan-popup__actions{
-      display:grid;
-      gap:8px;
+    .tg-plan-popup__gifts{
       margin-top:14px;
-      min-height:auto;
-    }
-
-    .tg-plan-popup__telegram,
-    .tg-plan-popup__link{
-      width:max-content;
-      min-width:min(300px, 100%);
-      max-width:100%;
-    }
-
-    .tg-plan-popup__mini-map{
-      grid-template-columns:1fr;
-      gap:6px;
-      margin-top:12px;
-    }
-
-    .tg-plan-popup__mini-map span{
-      min-height:0;
-      padding:8px 10px;
-      font-size:12px;
-      line-height:1.12;
+      font-size:14px;
     }
 
     .tg-plan-popup__preview{
       display:none;
     }
 
-    .tg-plan-popup__preview-content{
-      min-height:150px;
-    }
-
-    .tg-plan-popup__preview-title{
-      max-width:8.2ch;
-      font-size:28px;
-    }
-
-    .tg-plan-popup__preview-list{
-      gap:6px;
-      margin-top:14px;
-    }
-
-    .tg-plan-popup__preview-list li{
-      font-size:12px;
-      line-height:1.18;
-    }
-
-    .tg-plan-popup__link{
-      width:100%;
-      grid-template-columns:minmax(0, 1fr) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
-      --tg-cta-pad-left:16px;
-      --tg-cta-pad-right:14px;
+    .tg-plan-popup__actions{
+      gap:8px;
+      margin-top:16px;
+      max-width:none;
     }
 
     .tg-plan-popup__form{
@@ -5192,10 +5146,6 @@ const planDeliveryPopupAssets = `<style>
   }
 
   @media screen and (max-width:639px) and (max-height:700px){
-    .tg-plan-popup__panel{
-      padding:14px 10px 10px;
-    }
-
     .tg-plan-popup__close{
       top:8px;
       right:8px;
@@ -5203,20 +5153,9 @@ const planDeliveryPopupAssets = `<style>
       height:34px;
     }
 
-    .tg-plan-popup__eyebrow{
-      margin-bottom:6px;
-      font-size:13px;
-    }
-
     .tg-plan-popup h2{
       margin:0 36px 8px 0;
       font-size:26px;
-    }
-
-    .tg-plan-popup__text{
-      margin-bottom:10px;
-      font-size:13px;
-      line-height:1.15;
     }
 
     .tg-plan-popup__form{
@@ -5268,6 +5207,7 @@ const planDeliveryPopupAssets = `<style>
     var telegramPlanUrl = ${JSON.stringify(telegramPlanUrl)};
     var fallbackMetrikaId = ${JSON.stringify(yandexMetrikaId)};
     var lastPlanPopupSource = 'unknown';
+    var lastPlanPopupOpener = null;
     var endpoint = /^(localhost|127\\.0\\.0\\.1)$/.test(window.location.hostname)
       ? 'http://127.0.0.1:8000/api/v1/site/tripwire-request'
       : 'https://calcul.timurgromov.ru/api/v1/site/tripwire-request';
@@ -5334,6 +5274,7 @@ const planDeliveryPopupAssets = `<style>
         : event && event.target && event.target.closest
           ? event.target.closest(openSelector)
           : null;
+      lastPlanPopupOpener = opener;
       lastPlanPopupSource = opener && opener.getAttribute('data-plan-popup-source')
         ? opener.getAttribute('data-plan-popup-source')
         : 'hero';
@@ -5341,6 +5282,8 @@ const planDeliveryPopupAssets = `<style>
       popup.classList.add('is-open');
       popup.setAttribute('aria-hidden', 'false');
       document.body.classList.add('tg-plan-popup-open');
+      popup.querySelector('.tg-plan-popup__body').scrollTop = 0;
+      popup.querySelector('.tg-plan-popup__close').focus({ preventScroll: true });
       trackPlanGoal('site_plan_popup_open', {
         source: 'site',
         placement: lastPlanPopupSource
@@ -5349,10 +5292,12 @@ const planDeliveryPopupAssets = `<style>
 
     function closePopup(){
       var popup = getPopup();
-      if (!popup) return;
+      if (!popup || !popup.classList.contains('is-open')) return;
       popup.classList.remove('is-open');
       popup.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('tg-plan-popup-open');
+      if (lastPlanPopupOpener) lastPlanPopupOpener.focus({ preventScroll: true });
+      lastPlanPopupOpener = null;
     }
 
     document.addEventListener('click', function(event){
@@ -5387,7 +5332,23 @@ const planDeliveryPopupAssets = `<style>
     });
 
     document.addEventListener('keydown', function(event){
-      if (event.key === 'Escape') closePopup();
+      var popup = getPopup();
+      if (!popup || !popup.classList.contains('is-open')) return;
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closePopup();
+      }
+      if (event.key !== 'Tab') return;
+      var controls = popup.querySelectorAll('button, a[href]');
+      var first = controls[0];
+      var last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     });
 
     document.addEventListener('submit', function(event){
@@ -5462,16 +5423,26 @@ const planDeliveryPopupMarkup = `<div id="plan-delivery-popup" class="tg-plan-po
     <button class="tg-plan-popup__close" type="button" aria-label="Закрыть" data-plan-popup-close></button>
     <div class="tg-plan-popup__body">
       <div class="tg-plan-popup__intro">
-        <p class="tg-plan-popup__eyebrow">Бесплатно в Telegram</p>
-        <h2 id="plan-delivery-title">Получить сценарий свадьбы</h2>
-        <p class="tg-plan-popup__text">Откройте бота в Telegram, ответьте на 3 коротких вопроса и получите сценарий вечера: тайминг, ключевые блоки, калькулятор и полезные материалы.</p>
-        <div class="tg-plan-popup__mini-map" aria-label="Что внутри сценария">
-          <span>Сбор гостей, церемония, банкет и финал в одном тайминге.</span>
-          <span>Места, где чаще всего появляются паузы и хаос.</span>
-          <span>Что обсудить с ведущим до договора.</span>
+        <h2 id="plan-delivery-title">Обсудим вашу свадьбу <span>за 20 минут</span></h2>
+        <p class="tg-plan-popup__text">Познакомимся, обсудим возможный формат свадьбы, бюджет и ваши пожелания. Созвон ни к чему не обязывает.</p>
+        <div class="tg-plan-popup__gifts">
+          <h3>Подарки после созвона</h3>
+          <ul>
+            <li>60 идей для свадьбы</li>
+            <li>Калькулятор свадебного бюджета</li>
+            <li>Пошаговый план организации свадьбы</li>
+            <li>Пример сценария со структурой свадебного вечера</li>
+          </ul>
+          <p>Всё пришлю в сообщении.</p>
         </div>
-        <div class="tg-plan-popup__actions">
-          ${tildaCtaLink("tg-plan-popup__telegram", telegramPlanUrl, "Получить в Telegram", 'target="_blank" rel="nofollow" data-plan-channel="telegram" data-plan-source="plan_popup"')}
+        <div class="tg-plan-popup__actions" role="group" aria-labelledby="plan-call-contact-label">
+          <p id="plan-call-contact-label" class="tg-plan-popup__actions-label">Договориться о созвоне</p>
+          ${tildaCtaLink("tg-plan-popup__messenger tg-plan-cta__button--primary", telegramMeetingUrl, "Telegram", 'target="_blank" rel="noopener nofollow" data-plan-source="site_meeting_popup"')}
+          ${tildaCtaLink("tg-plan-popup__messenger tg-plan-cta__button--secondary", maxContactUrl, "MAX", 'target="_blank" rel="noopener nofollow" data-plan-source="site_meeting_popup"')}
+          <a class="tg-plan-popup__phone" href="tel:+79253900772">
+            <span class="tg-plan-popup__phone-label">Позвонить</span>
+            <span class="tg-plan-popup__phone-number">+7 925 390-07-72</span>
+          </a>
         </div>
       </div>
       <div class="tg-plan-popup__preview" aria-hidden="true">
@@ -6382,7 +6353,7 @@ const priceBodySource = transformTildaRecord(
             priceBodyWithoutMetaDisclaimer,
             "rec861352716",
             "1738732845597",
-            "Коротко покажу, какие блоки вечера стоит продумать заранее и что важно обсудить с ведущим до договора.",
+            "В подарок после созвона",
           ),
           "rec861352716",
           "1738733079599",
@@ -6398,7 +6369,7 @@ const priceBodySource = transformTildaRecord(
     (recordHtml) =>
       recordHtml.replace(
         /(<div class='t396__elem tn-elem tn-elem__8613527161738735136250'[\s\S]*?<a class='tn-atom' href=")([^"]+)("[^>]*> <\/a>)/,
-        `$1#plan-delivery-popup" rel="nofollow" data-plan-popup-open data-plan-popup-source="hero"> </a>`,
+        `$1#plan-delivery-popup" rel="nofollow" aria-label="Получить сценарий свадьбы" aria-haspopup="dialog" aria-controls="plan-delivery-popup" data-plan-popup-open data-plan-popup-source="hero"> </a>`,
       ),
     ),
     "rec862317152",
