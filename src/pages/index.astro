@@ -3,12 +3,13 @@ import { readFileSync } from "node:fs";
 import {
   casePreviewVideoItems,
   cleanVideoPopupItems,
+  expertCtaSource,
   heroCloudDesktopVideoUrl,
   heroCloudMobileVideoUrl,
   hiddenMarketingVideoAdviceElementIds,
   hiddenMarketingVideoAdviceRecordIds,
-  maxContactUrl,
   maxPlanUrl,
+  messengerStartUrl,
   priceLegacyElementRemovals,
   pricePhotoContactUrl,
   pricePhotoPrimaryUrl,
@@ -2637,7 +2638,7 @@ const priceSectionAssets = `<style>
   }
 </style>`;
 
-const planCtaSectionAssets = `<style>
+const homepageCtaAssets = `<style>
   :root{
     --tg-home-section-pad-desktop:72px;
     --tg-home-section-pad-tablet:62px;
@@ -2648,65 +2649,6 @@ const planCtaSectionAssets = `<style>
     --tg-home-content-gutter-desktop:49px;
     --tg-home-content-gutter-tablet:40px;
     --tg-home-content-gutter-mobile:25px;
-  }
-
-  .tg-plan-cta{
-    background:#fffefa;
-    color:#1c1b1a;
-    padding:var(--tg-home-section-pad-desktop) 0 56px;
-    margin-bottom:-20px;
-  }
-
-  .tg-plan-cta__inner{
-    display:grid;
-    grid-template-columns:minmax(0, .9fr) minmax(360px, .7fr);
-    gap:52px;
-    width:min(var(--tg-home-content-max-desktop), calc(100% - (var(--tg-home-content-gutter-desktop) * 2)));
-    margin:0 auto;
-    align-items:center;
-  }
-
-  .tg-plan-cta__kicker,
-  .tg-plan-cta__text,
-  .tg-plan-cta__note,
-  .tg-plan-cta__item span{
-    margin:0;
-    font-family:var(--t-text-font, Arial);
-    font-weight:400;
-    letter-spacing:0;
-  }
-
-  .tg-plan-cta__kicker{
-    margin-bottom:22px;
-    color:#fa4604;
-    font-size:18px;
-    line-height:1.1;
-  }
-
-  .tg-plan-cta h2{
-    max-width:1000px;
-    margin:0 0 22px;
-    color:#1c1b1a;
-    font-family:var(--t-headline-font, Arial);
-    font-size:clamp(48px, 3.1vw, 60px);
-    font-weight:500;
-    line-height:1;
-    text-transform:uppercase;
-    letter-spacing:0;
-  }
-
-  .tg-plan-cta__text{
-    max-width:620px;
-    color:rgba(28,27,26,.78);
-    font-size:20px;
-    line-height:1.28;
-  }
-
-  .tg-plan-cta__actions{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-    margin-top:26px;
   }
 
   .tg-tilda-cta{
@@ -2874,16 +2816,6 @@ const planCtaSectionAssets = `<style>
     }
   }
 
-  .tg-plan-cta__button{
-    width:max-content;
-    min-width:clamp(200px, 16.6667vw, 320px);
-    max-width:100%;
-    --tg-cta-fill:#fffefa;
-    --tg-cta-color:#1c1b1a;
-    --tg-cta-arrow-fill:#fffefa;
-    --tg-cta-arrow-color:#1c1b1a;
-  }
-
   .tg-plan-cta__button--primary{
     --tg-cta-fill:#fa4604;
     --tg-cta-color:#fffefa;
@@ -2898,160 +2830,6 @@ const planCtaSectionAssets = `<style>
     --tg-cta-arrow-color:#1c1b1a;
   }
 
-  @media (hover:hover){
-    .tg-plan-cta__button:hover{
-      --tg-cta-fill:#fa4604;
-      --tg-cta-color:#fffefa;
-      --tg-cta-arrow-fill:#fa4604;
-      --tg-cta-arrow-color:#fffefa;
-      box-shadow:0 14px 28px rgba(250,70,4,.16);
-      transform:translateY(-1px);
-    }
-
-    .tg-plan-cta__button--primary:hover{
-      --tg-cta-fill:#fa4604;
-      --tg-cta-color:#fffefa;
-      --tg-cta-arrow-fill:#fa4604;
-      --tg-cta-arrow-color:#fffefa;
-    }
-  }
-
-  .tg-plan-cta__side{
-    display:grid;
-    gap:14px;
-    padding-top:0;
-    padding-bottom:0;
-  }
-
-  .tg-plan-cta__item{
-    display:grid;
-    grid-template-columns:52px minmax(0, 1fr);
-    gap:16px;
-    align-items:start;
-    padding-top:16px;
-    border-top:1px solid rgba(28,27,26,.12);
-  }
-
-  .tg-plan-cta__item:first-child{
-    border-top:none;
-    padding-top:0;
-  }
-
-  .tg-plan-cta__item strong{
-    color:#fa4604;
-    font-family:var(--t-headline-font, Arial);
-    font-size:44px;
-    font-weight:500;
-    line-height:1;
-    letter-spacing:0;
-  }
-
-  .tg-plan-cta__item span{
-    color:rgba(28,27,26,.8);
-    font-size:17px;
-    line-height:1.22;
-  }
-
-  .tg-plan-cta__note{
-    max-width:520px;
-    margin-top:8px;
-    color:rgba(28,27,26,.54);
-    font-size:15px;
-    line-height:1.25;
-  }
-
-  @media screen and (max-width:1199px){
-    .tg-plan-cta{
-      padding:var(--tg-home-section-pad-tablet) 0 48px;
-      margin-bottom:-18px;
-    }
-
-    .tg-plan-cta__inner{
-      grid-template-columns:1fr;
-      gap:40px;
-      width:min(var(--tg-home-content-max-tablet), calc(100% - (var(--tg-home-content-gutter-tablet) * 2)));
-      align-items:start;
-    }
-
-    .tg-plan-cta h2{
-      max-width:700px;
-      font-size:52px;
-    }
-
-    .tg-plan-cta__text{
-      max-width:660px;
-      font-size:19px;
-    }
-
-    .tg-plan-cta__side{
-      max-width:700px;
-      padding-top:0;
-    }
-
-  }
-
-  @media screen and (max-width:639px){
-    .tg-plan-cta{
-      padding:var(--tg-home-section-pad-mobile) 0 38px;
-      margin-bottom:0;
-    }
-
-    .tg-plan-cta__inner{
-      width:min(var(--tg-home-content-max-mobile), calc(100% - (var(--tg-home-content-gutter-mobile) * 2)));
-      gap:32px;
-    }
-
-    .tg-plan-cta__kicker{
-      margin-bottom:18px;
-      font-size:15px;
-    }
-
-    .tg-plan-cta h2{
-      margin-bottom:18px;
-      font-size:38px;
-      line-height:1;
-    }
-
-    .tg-plan-cta__text{
-      font-size:17px;
-      line-height:1.25;
-    }
-
-    .tg-plan-cta__actions{
-      display:grid;
-      gap:9px;
-      margin-top:24px;
-    }
-
-    .tg-plan-cta__button{
-      width:max-content;
-      min-width:min(300px, 100%);
-      max-width:100%;
-      justify-self:start;
-      grid-template-columns:minmax(0, 1fr) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
-      --tg-cta-pad-left:16px;
-      --tg-cta-pad-right:14px;
-    }
-
-    .tg-plan-cta__item{
-      grid-template-columns:48px minmax(0, 1fr);
-      gap:14px;
-      padding-top:18px;
-    }
-
-    .tg-plan-cta__item strong{
-      font-size:34px;
-    }
-
-    .tg-plan-cta__item span{
-      font-size:16px;
-      line-height:1.24;
-    }
-
-    .tg-plan-cta__note{
-      font-size:14px;
-    }
-  }
 </style>`;
 
 const tripwireFormMarkup = (variant: 'popup' | 'inline') => `<form method="post" class="tg-tripwire-form tg-tripwire-form--${variant}" data-tripwire-form data-tripwire-variant="${variant}">
@@ -3109,156 +2887,142 @@ const tripwireFormMarkup = (variant: 'popup' | 'inline') => `<form method="post"
   </div>
 </form>`;
 
-const planCtaSectionMarkup = `<section id="plan-evening" class="tg-plan-cta" data-local-only="telegram-funnel-prototype">
-  <div class="tg-plan-cta__inner">
-    <div>
-      <p class="tg-plan-cta__kicker">Бесплатно в Telegram</p>
-      <h2>Получить сценарий свадьбы</h2>
-      <p class="tg-plan-cta__text">Короткая структура вечера: основные блоки, точки риска и вопросы, которые стоит обсудить с ведущим до договора. В боте ответьте на 3 коротких вопроса — и получите сценарий и материалы сразу в чате.</p>
-      <div class="tg-plan-cta__actions">
-        ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--primary", telegramPlanUrl, "Получить в Telegram", 'target="_blank" rel="nofollow" data-plan-channel="telegram" data-plan-source="plan_cta_block"')}
-        ${tildaCtaLink("tg-plan-cta__button tg-plan-cta__button--secondary", "#consultation-contact", "Обсудить свадьбу", "data-consultation-popup-open")}
-      </div>
-    </div>
-    <div class="tg-plan-cta__side" aria-label="Что внутри">
-      <div class="tg-plan-cta__item"><strong>01</strong><span>Тайминг без лишней воды: welcome, церемония, банкет, тосты, интерактивы и финал.</span></div>
-      <div class="tg-plan-cta__item"><strong>02</strong><span>Места, где чаще всего появляются паузы, хаос и неловкие моменты.</span></div>
-      <div class="tg-plan-cta__item"><strong>03</strong><span>После короткой квалификации внутри можно будет открыть калькулятор, план подготовки и другие полезные материалы.</span></div>
-      <p class="tg-plan-cta__note">План не заменяет личную встречу, но помогает быстро понять, как будет устроен вечер и что важно обсудить заранее.</p>
-    </div>
-  </div>
-</section>`;
+const weddingCallTitle = 'Обсудим вашу свадьбу <span>за 20 минут</span>';
+const weddingCallDescription = 'Познакомимся, рассмотрим возможные форматы свадьбы, бюджет и ваши пожелания. Встреча ни к чему не обязывает.';
+const weddingCallGiftsTitle = 'Подарки после созвона';
+const weddingCallDelivery = 'Всё пришлю в сообщении.';
+const weddingCallGifts = [
+  'Шаблон сценария свадьбы',
+  '60 идей для свадьбы',
+  'Калькулятор свадебного бюджета',
+  'Пошаговый план торжества',
+];
 
 const consultationCtaSectionAssets = `<style>
   .tg-consultation-cta{
     background:#fffefa;
     color:#1c1b1a;
     padding:var(--tg-home-section-pad-desktop) 0 12px;
+    scroll-margin-top:72px;
   }
 
   .tg-consultation-cta__inner{
     display:grid;
-    grid-template-columns:minmax(0, .88fr) minmax(320px, .62fr);
-    gap:46px;
+    grid-template-columns:minmax(0, .9fr) minmax(360px, .7fr);
+    grid-template-areas:"intro gifts" "contacts gifts";
+    grid-template-rows:1fr 1fr;
+    column-gap:52px;
     width:min(var(--tg-home-content-max-desktop), calc(100% - (var(--tg-home-content-gutter-desktop) * 2)));
     margin:0 auto;
-    align-items:center;
+  }
+
+  .tg-consultation-cta__intro{
+    grid-area:intro;
+    align-self:end;
+  }
+
+  .tg-consultation-cta__side{
+    grid-area:gifts;
+    align-self:center;
+  }
+
+  .tg-consultation-cta__contacts{
+    grid-area:contacts;
+    align-self:start;
   }
 
   .tg-consultation-cta__eyebrow,
   .tg-consultation-cta__text,
-  .tg-consultation-cta__note,
-  .tg-consultation-cta__card p{
+  .tg-consultation-cta__gifts-title,
+  .tg-consultation-cta__item-text,
+  .tg-consultation-cta__delivery{
     margin:0;
     font-family:var(--t-text-font, Arial);
-    font-weight:400;
     letter-spacing:0;
   }
 
   .tg-consultation-cta__eyebrow{
-    margin-bottom:18px;
+    margin-bottom:22px;
     color:#fa4604;
     font-size:18px;
     line-height:1.1;
   }
 
   .tg-consultation-cta h2{
-    max-width:760px;
-    margin:0 0 20px;
+    margin:0 0 22px;
     color:#1c1b1a;
     font-family:var(--t-headline-font, Arial);
-    font-size:67px;
+    font-size:clamp(48px, 3.1vw, 60px);
     font-weight:500;
     line-height:1;
     text-transform:uppercase;
     letter-spacing:0;
+  }
+
+  .tg-consultation-cta h2 span{
+    white-space:nowrap;
   }
 
   .tg-consultation-cta__text{
-    max-width:640px;
+    max-width:620px;
     color:rgba(28,27,26,.78);
     font-size:20px;
-    line-height:1.28;
+    line-height:1.35;
+    text-wrap:pretty;
   }
 
-  .tg-consultation-cta__actions{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-    margin-top:28px;
+  .tg-consultation-cta .tg-plan-popup__actions{
+    max-width:min(100%, 420px);
   }
 
-  .tg-consultation-cta__button{
-    width:max-content;
-    min-width:clamp(200px, 16.6667vw, 320px);
-    max-width:100%;
-    --tg-cta-fill:#fffefa;
-    --tg-cta-color:#1c1b1a;
-    --tg-cta-arrow-fill:#fffefa;
-    --tg-cta-arrow-color:#1c1b1a;
+  .tg-consultation-cta__gifts-title{
+    margin-bottom:12px;
+    font-size:17px;
+    line-height:1.35;
+    font-weight:700;
   }
 
-  .tg-consultation-cta__button--primary{
-    --tg-cta-fill:#fa4604;
-    --tg-cta-color:#fffefa;
-    --tg-cta-arrow-fill:#fa4604;
-    --tg-cta-arrow-color:#fffefa;
-  }
-
-  @media (hover:hover){
-    .tg-consultation-cta__button:hover{
-      --tg-cta-fill:#fa4604;
-      --tg-cta-color:#fffefa;
-      --tg-cta-arrow-fill:#fa4604;
-      --tg-cta-arrow-color:#fffefa;
-      box-shadow:0 14px 28px rgba(250,70,4,.16);
-      transform:translateY(-1px);
-    }
-
-    .tg-consultation-cta__button--primary:hover{
-      --tg-cta-fill:#fa4604;
-      --tg-cta-color:#fffefa;
-      --tg-cta-arrow-fill:#fa4604;
-      --tg-cta-arrow-color:#fffefa;
-    }
-  }
-
-  .tg-consultation-cta__note{
-    margin-top:18px;
-    color:rgba(28,27,26,.52);
-    font-size:15px;
-    line-height:1.28;
-  }
-
-  .tg-consultation-cta__side{
+  #allrecords .tg-consultation-cta__gifts{
     display:grid;
-    gap:14px;
+    gap:12px;
+    margin:0;
+    padding:0;
+    list-style:none;
+  }
+
+  .tg-consultation-cta__item{
+    display:grid;
+    grid-template-columns:52px minmax(0, 1fr);
+    gap:16px;
+    align-items:center;
+    padding-top:12px;
+    border-top:1px solid rgba(28,27,26,.12);
+  }
+
+  .tg-consultation-cta__item:first-child{
     padding-top:0;
+    border-top:none;
   }
 
-  .tg-consultation-cta__card{
-    padding:20px 22px;
-    border:1px solid rgba(28,27,26,.1);
-    border-radius:8px;
-    background:#fffefa;
-  }
-
-  .tg-consultation-cta__card strong{
-    display:block;
-    margin-bottom:8px;
-    color:#1c1b1a;
+  .tg-consultation-cta__item-number{
+    color:#fa4604;
     font-family:var(--t-headline-font, Arial);
-    font-size:27px;
+    font-size:44px;
     font-weight:500;
     line-height:1;
-    letter-spacing:0;
-    text-transform:uppercase;
   }
 
-  .tg-consultation-cta__card p{
-    color:rgba(28,27,26,.78);
-    font-size:16px;
-    line-height:1.26;
+  .tg-consultation-cta__item-text{
+    color:rgba(28,27,26,.8);
+    font-size:17px;
+    line-height:1.35;
+  }
+
+  .tg-consultation-cta__delivery{
+    margin-top:16px;
+    color:rgba(28,27,26,.65);
+    font-size:15px;
+    line-height:1.35;
   }
 
   @media screen and (max-width:1199px){
@@ -3267,24 +3031,29 @@ const consultationCtaSectionAssets = `<style>
     }
 
     .tg-consultation-cta__inner{
-      grid-template-columns:1fr;
-      gap:32px;
+      grid-template-columns:minmax(0, 1fr);
+      grid-template-areas:"intro" "gifts" "contacts";
+      grid-template-rows:auto;
+      gap:24px;
       width:min(var(--tg-home-content-max-tablet), calc(100% - (var(--tg-home-content-gutter-tablet) * 2)));
-      align-items:start;
-    }
-
-    .tg-consultation-cta__side{
-      padding-top:0;
     }
 
     .tg-consultation-cta h2{
       max-width:700px;
-      font-size:58px;
+      font-size:52px;
     }
 
     .tg-consultation-cta__text{
       max-width:660px;
       font-size:19px;
+    }
+
+    .tg-consultation-cta__side{
+      width:min(100%, 700px);
+    }
+
+    .tg-consultation-cta .tg-plan-popup__actions{
+      margin-top:0;
     }
   }
 
@@ -3293,81 +3062,38 @@ const consultationCtaSectionAssets = `<style>
       padding:var(--tg-home-section-pad-mobile) 0 8px;
     }
 
+    .tg-consultation-cta__inner{
+      width:min(var(--tg-home-content-max-mobile), calc(100% - (var(--tg-home-content-gutter-mobile) * 2)));
+    }
+
     .tg-consultation-cta__eyebrow{
-      margin-bottom:16px;
+      margin-bottom:18px;
       font-size:15px;
     }
 
     .tg-consultation-cta h2{
       margin-bottom:18px;
-      font-size:36px;
-      line-height:1;
-    }
-
-    .tg-consultation-cta__inner{
-      width:min(var(--tg-home-content-max-mobile), calc(100% - (var(--tg-home-content-gutter-mobile) * 2)));
+      font-size:38px;
     }
 
     .tg-consultation-cta__text{
       font-size:17px;
-      line-height:1.26;
     }
 
-    .tg-consultation-cta__actions{
-      display:grid;
-      gap:9px;
-      margin-top:22px;
+    .tg-consultation-cta__item{
+      grid-template-columns:40px minmax(0, 1fr);
+      gap:14px;
     }
 
-    .tg-consultation-cta__button{
-      width:max-content;
-      min-width:min(300px, 100%);
-      max-width:100%;
-      justify-self:start;
-      grid-template-columns:minmax(0, 1fr) calc(var(--tg-cta-arrow-box) - var(--tg-cta-overlap));
-      --tg-cta-pad-left:16px;
-      --tg-cta-pad-right:14px;
+    .tg-consultation-cta__item-number{
+      font-size:34px;
     }
 
-    .tg-consultation-cta__card{
-      padding:18px 18px 20px;
-    }
-
-    .tg-consultation-cta__card strong{
-      margin-bottom:6px;
-      font-size:26px;
-    }
-
-    .tg-consultation-cta__card p{
-      font-size:15px;
-      line-height:1.24;
-    }
-
-    .tg-consultation-cta__note{
-      font-size:14px;
+    .tg-consultation-cta__item-text{
+      font-size:16px;
     }
   }
 </style>`;
-
-const consultationCtaSectionMarkup = `<section id="free-consultation" class="tg-consultation-cta" data-local-only="consultation-funnel-prototype">
-  <div class="tg-consultation-cta__inner">
-    <div>
-      <p class="tg-consultation-cta__eyebrow">Бесплатная консультация</p>
-      <h2>Понять, подхожу ли я для вашей свадьбы</h2>
-      <p class="tg-consultation-cta__text">Если вы уже выбираете ведущего, давайте познакомимся. На короткой встрече обсудим вашу свадьбу и поймем, есть ли ощущение: да, я вам подхожу.</p>
-      <div class="tg-consultation-cta__actions">
-        ${tildaCtaLink("tg-consultation-cta__button tg-consultation-cta__button--primary", "#consultation-contact", "Записаться на бесплатную встречу", "data-consultation-popup-open")}
-        ${tildaCtaLink("tg-consultation-cta__button", "tel:+79253900772", "Позвонить", 'rel="nofollow" data-phone-popup-open')}
-      </div>
-      <p class="tg-consultation-cta__note">Встреча ни к чему не обязывает: вы просто знакомитесь, задаете вопросы и смотрите, комфортно ли вам идти дальше именно со мной.</p>
-    </div>
-    <div class="tg-consultation-cta__side" aria-label="Что будет на встрече">
-      <article class="tg-consultation-cta__card"><strong>30–40 минут</strong><p>Коротко, по делу, без длинной анкеты и продажи.</p></article>
-      <article class="tg-consultation-cta__card"><strong>По делу</strong><p>Обсудим гостей, площадку, формат вечера и реальные точки риска именно вашей свадьбы.</p></article>
-      <article class="tg-consultation-cta__card"><strong>Без давления</strong><p>После встречи вы просто поймете, рассматриваете ли меня как своего ведущего дальше.</p></article>
-    </div>
-  </div>
-</section>`;
 
 const consultationContactPopupAssets = `<style>
   .tg-contact-popup{
@@ -5209,14 +4935,14 @@ const planDeliveryPopupAssets = `<style>
       ? 'http://127.0.0.1:8000/api/v1/site/tripwire-request'
       : 'https://calcul.timurgromov.ru/api/v1/site/tripwire-request';
 
-    function trackPlanGoal(goal, params){
+    function trackWeddingCallGoal(goal, params){
       try {
         if (typeof window.ym !== 'function') return;
         var metrikaId = window.TG_METRIKA_ID || window.mainMetrikaId || fallbackMetrikaId;
         if (!metrikaId) return;
         window.ym(metrikaId, 'reachGoal', goal, Object.assign({
-          funnel: 'site_plan',
-          page_url: window.location.href
+          funnel: 'wedding_call',
+          page: window.location.pathname
         }, params || {}));
       } catch (_error) {
         // Analytics must never block the messenger handoff.
@@ -5281,8 +5007,7 @@ const planDeliveryPopupAssets = `<style>
       document.body.classList.add('tg-plan-popup-open');
       popup.querySelector('.tg-plan-popup__body').scrollTop = 0;
       popup.querySelector('.tg-plan-popup__close').focus({ preventScroll: true });
-      trackPlanGoal('site_plan_popup_open', {
-        source: 'site',
+      trackWeddingCallGoal('wedding_call_popup_open', {
         placement: lastPlanPopupSource
       });
     }
@@ -5304,21 +5029,12 @@ const planDeliveryPopupAssets = `<style>
         return;
       }
 
-      var messengerLink = event.target && event.target.closest && event.target.closest('[data-plan-channel]');
-      if (messengerLink) {
-        var channel = messengerLink.getAttribute('data-plan-channel') || 'unknown';
-        var placement = messengerLink.getAttribute('data-plan-source') || 'unknown';
-        var payload = {
-          source: 'site',
-          placement: placement,
-          channel: channel,
-          href: messengerLink.href || ''
-        };
-        if (placement === 'plan_popup') {
-          payload.popup_source = lastPlanPopupSource;
-        }
-        trackPlanGoal('site_plan_messenger_click', payload);
-        trackPlanGoal(channel === 'max' ? 'site_plan_max_click' : 'site_plan_telegram_click', payload);
+      var contactLink = event.target && event.target.closest && event.target.closest('[data-wedding-call-channel]');
+      if (contactLink) {
+        trackWeddingCallGoal('wedding_call_contact_click', {
+          channel: contactLink.getAttribute('data-wedding-call-channel'),
+          placement: contactLink.closest('[data-wedding-call-placement]').getAttribute('data-wedding-call-placement')
+        });
       }
 
       var closer = event.target && event.target.closest && event.target.closest('[data-plan-popup-close]');
@@ -5414,33 +5130,60 @@ const planDeliveryPopupAssets = `<style>
   }());
 </script>`;
 
+const renderWeddingCallContacts = (contactId: string, placement: 'popup' | 'after_prices') => {
+  const source = expertCtaSource('meeting', 'home', placement === 'popup' ? 'hero' : 'inline_consultation');
+  const messengerAttrs = `target="_blank" rel="noopener nofollow" data-plan-source="site_meeting_${placement}"`;
+
+  return `<div class="tg-plan-popup__actions" role="group" aria-labelledby="${contactId}" data-wedding-call-placement="${placement}">
+  <p id="${contactId}" class="tg-plan-popup__actions-label">Договориться о созвоне</p>
+  ${tildaCtaLink("tg-plan-popup__messenger tg-plan-cta__button--primary", messengerStartUrl('telegram', source), "Telegram", messengerAttrs + ' data-wedding-call-channel="telegram"')}
+  ${tildaCtaLink("tg-plan-popup__messenger tg-plan-cta__button--secondary", messengerStartUrl('max', source), "MAX", messengerAttrs + ' data-wedding-call-channel="max"')}
+  <a class="tg-plan-popup__phone" href="tel:+79253900772" data-wedding-call-channel="phone">
+    <span class="tg-plan-popup__phone-label">Позвонить</span>
+    <span class="tg-plan-popup__phone-number">+7 925 390-07-72</span>
+  </a>
+</div>`;
+};
+
+const consultationCtaSectionMarkup = `<section id="free-consultation" class="tg-consultation-cta" aria-labelledby="wedding-call-section-title">
+  <div class="tg-consultation-cta__inner">
+    <div class="tg-consultation-cta__intro">
+      <p class="tg-consultation-cta__eyebrow">Бесплатная консультация</p>
+      <h2 id="wedding-call-section-title">${weddingCallTitle}</h2>
+      <p class="tg-consultation-cta__text">${weddingCallDescription}</p>
+    </div>
+    <div class="tg-consultation-cta__side">
+      <h3 id="wedding-call-gifts-title" class="tg-consultation-cta__gifts-title">${weddingCallGiftsTitle}</h3>
+      <ol class="tg-consultation-cta__gifts" role="list" aria-labelledby="wedding-call-gifts-title">
+        ${weddingCallGifts.map((gift, index) => `<li class="tg-consultation-cta__item">
+          <strong class="tg-consultation-cta__item-number" aria-hidden="true">${String(index + 1).padStart(2, '0')}</strong>
+          <span class="tg-consultation-cta__item-text">${gift}</span>
+        </li>`).join('')}
+      </ol>
+      <p class="tg-consultation-cta__delivery">${weddingCallDelivery}</p>
+    </div>
+    <div class="tg-consultation-cta__contacts">
+      ${renderWeddingCallContacts('wedding-call-section-contact', 'after_prices')}
+    </div>
+  </div>
+</section>`;
+
 const planDeliveryPopupMarkup = `<div id="plan-delivery-popup" class="tg-plan-popup" aria-hidden="true">
   <div class="tg-plan-popup__backdrop" data-plan-popup-close></div>
   <div class="tg-plan-popup__panel" role="dialog" aria-modal="true" aria-labelledby="plan-delivery-title">
     <button class="tg-plan-popup__close" type="button" aria-label="Закрыть" data-plan-popup-close></button>
     <div class="tg-plan-popup__body">
       <div class="tg-plan-popup__intro">
-        <h2 id="plan-delivery-title">Обсудим вашу свадьбу <span>за 20 минут</span></h2>
-        <p class="tg-plan-popup__text">Познакомимся, обсудим возможный формат свадьбы, бюджет и ваши пожелания. Созвон ни к чему не обязывает.</p>
+        <h2 id="plan-delivery-title">${weddingCallTitle}</h2>
+        <p class="tg-plan-popup__text">${weddingCallDescription}</p>
         <div class="tg-plan-popup__gifts">
-          <h3>Подарки после созвона</h3>
+          <h3>${weddingCallGiftsTitle}</h3>
           <ul>
-            <li>60 идей для свадьбы</li>
-            <li>Калькулятор свадебного бюджета</li>
-            <li>Пошаговый план организации свадьбы</li>
-            <li>Пример сценария со структурой свадебного вечера</li>
+            ${weddingCallGifts.map((gift) => `<li>${gift}</li>`).join('')}
           </ul>
-          <p>Всё пришлю в сообщении.</p>
+          <p>${weddingCallDelivery}</p>
         </div>
-        <div class="tg-plan-popup__actions" role="group" aria-labelledby="plan-call-contact-label">
-          <p id="plan-call-contact-label" class="tg-plan-popup__actions-label">Договориться о созвоне</p>
-          ${tildaCtaLink("tg-plan-popup__messenger tg-plan-cta__button--primary", telegramMeetingUrl, "Telegram", 'target="_blank" rel="noopener nofollow" data-plan-source="site_meeting_popup"')}
-          ${tildaCtaLink("tg-plan-popup__messenger tg-plan-cta__button--secondary", maxContactUrl, "MAX", 'target="_blank" rel="noopener nofollow" data-plan-source="site_meeting_popup"')}
-          <a class="tg-plan-popup__phone" href="tel:+79253900772">
-            <span class="tg-plan-popup__phone-label">Позвонить</span>
-            <span class="tg-plan-popup__phone-number">+7 925 390-07-72</span>
-          </a>
-        </div>
+        ${renderWeddingCallContacts('plan-call-contact-label', 'popup')}
       </div>
       <div class="tg-plan-popup__preview" aria-hidden="true">
         <div class="tg-plan-popup__preview-content">
@@ -6209,7 +5952,7 @@ const headHtml = dedupeHeadAssetReferences(
     priceSectionAssets,
   )
   .concat(
-    planCtaSectionAssets,
+    homepageCtaAssets,
   )
   .concat(
     consultationCtaSectionAssets,
@@ -6416,10 +6159,6 @@ const transformedBodyHtml = runtimeSafePriceBodySource
   .replace(
     /(<div class='t396__elem tn-elem tn-elem__8613527161738731141089'[\s\S]*?<div class='tn-atom'>\s*<\/div>)/,
     `$1${heroNativeVideoMarkup}${heroPosterLayer}`,
-  )
-  .replace(
-    /(<div id="rec862619449")/,
-    `${planCtaSectionMarkup} $1`,
   )
   .replace(
     /(<div id="rec862619974")/,

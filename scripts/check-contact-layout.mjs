@@ -187,18 +187,17 @@ async function getHeroScenarioCta(cdp) {
       const link = document.querySelector('#rec861352716 .tn-elem[data-elem-id="1738735136250"] a.tn-atom');
       const popup = document.querySelector('#plan-delivery-popup');
       const popupTitle = popup?.querySelector('h2')?.textContent.trim();
-      const popupLinks = Array.from(document.querySelectorAll('#plan-delivery-popup a')).map((popupLink) => ({
+      const offerLinks = (container) => Array.from(container?.querySelectorAll('a') || []).map((popupLink) => ({
         text: popupLink.textContent.replace(/\\s+/g, ' ').trim(),
         href: popupLink.href || '',
-        channel: popupLink.getAttribute('data-plan-channel') || '',
+        channel: popupLink.getAttribute('data-wedding-call-channel') || '',
         source: popupLink.getAttribute('data-plan-source') || '',
       }));
-      const planCtaLinks = Array.from(document.querySelectorAll('.tg-plan-cta a[data-plan-channel]')).map((ctaLink) => ({
-        text: ctaLink.textContent.replace(/\\s+/g, ' ').trim(),
-        href: ctaLink.href || '',
-        channel: ctaLink.getAttribute('data-plan-channel') || '',
-        source: ctaLink.getAttribute('data-plan-source') || '',
-      }));
+      const call = document.querySelector('#free-consultation');
+      const price = document.querySelector('#rec862336377');
+      const offerText = (container, selector) => container?.querySelector(selector)?.textContent.trim();
+      const featuredGifts = (container, selector) => Array.from(container?.querySelectorAll(selector) || [],
+        (item) => item.textContent.trim());
       const scripts = Array.from(document.scripts).map((script) => script.textContent || '').join('\\n');
       return {
         text: text?.textContent.replace(/\\s+/g, ' ').trim() || '',
@@ -208,13 +207,23 @@ async function getHeroScenarioCta(cdp) {
         popupSource: link?.getAttribute('data-plan-popup-source') || '',
         popupExists: !!popup,
         popupTitle,
-        popupLinks,
-        planCtaLinks,
+        popupLinks: offerLinks(popup),
+        separateScenarioBlock: !!document.querySelector('#plan-evening'),
+        callTitle: call?.querySelector('h2')?.textContent.trim(),
+        callLinks: offerLinks(call),
+        callHasDialog: Boolean(call?.querySelector('[role="dialog"], [data-plan-popup-open]')),
+        callFollowsPrices: !!(price && call && (price.compareDocumentPosition(call) & Node.DOCUMENT_POSITION_FOLLOWING)),
+        callDescription: offerText(call, '.tg-consultation-cta__text'),
+        popupDescription: offerText(popup, '.tg-plan-popup__text'),
+        callGifts: featuredGifts(call, '.tg-consultation-cta__item-text'),
+        popupGifts: featuredGifts(popup, '.tg-plan-popup__gifts li'),
+        callGiftsTitle: offerText(call, '.tg-consultation-cta__gifts-title'),
+        popupGiftsTitle: offerText(popup, '.tg-plan-popup__gifts h3'),
+        callDelivery: offerText(call, '.tg-consultation-cta__delivery'),
+        popupDelivery: offerText(popup, '.tg-plan-popup__gifts p'),
         metrikaGoals: {
-          popupOpen: scripts.includes('site_plan_popup_open'),
-          messengerClick: scripts.includes('site_plan_messenger_click'),
-          telegramClick: scripts.includes('site_plan_telegram_click'),
-          maxClick: scripts.includes('site_plan_max_click'),
+          popupOpen: scripts.includes('wedding_call_popup_open'),
+          contactClick: scripts.includes('wedding_call_contact_click'),
         },
       };
     })()`,
@@ -238,41 +247,37 @@ function assertHeroScenarioCta(cta, viewport) {
   if (!cta.popupExists) {
     fail("hero: plan delivery popup is missing", { cta, viewport });
   }
-  const telegram = cta.popupLinks.find((link) => link.text.includes("Telegram"));
-  const max = cta.popupLinks.find((link) => link.text.includes("MAX"));
   if (cta.popupTitle !== "Обсудим вашу свадьбу за 20 минут") {
     fail("hero: popup does not offer the 20-minute call", { cta, viewport });
   }
-  if (!telegram || !max || !cta.popupLinks.some((link) => link.href === "tel:+79253900772")) {
-    fail("hero: call popup is missing a contact option", { cta, viewport });
-  }
-  for (const [link, provider] of [[telegram, "telegram"], [max, "max"]]) {
-    const url = new URL(link.href);
-    if (!hasMessengerPayload(link.href, "site_meeting") || url.searchParams.get("provider") !== provider) {
-      fail("hero: popup link must open the matching messenger's meeting flow", { link, cta, viewport });
+  for (const [links, placement] of [[cta.popupLinks, "popup"], [cta.callLinks, "after_prices"]]) {
+    const telegram = links.find((link) => link.text === "Telegram");
+    const max = links.find((link) => link.text === "MAX");
+    const phone = links.find((link) => link.href === "tel:+79253900772");
+    if (!telegram || !max || phone?.channel !== "phone" || !phone.text.includes("+7 925 390-07-72")) {
+      fail("home: the call offer must show Telegram, MAX, and a clickable phone number", { cta, placement, viewport });
     }
-    if (link.channel || link.source !== "site_meeting_popup") {
-      fail("hero: popup link must preserve the meeting placement without emitting a materials click", { link, cta, viewport });
-    }
-  }
-  const planTelegram = cta.planCtaLinks.find((link) => link.text.includes("Telegram"));
-  const planMax = cta.planCtaLinks.find((link) => link.text.includes("MAX"));
-  if (!planTelegram || planMax) {
-    fail("plan CTA: Telegram must remain and MAX must be absent", { cta, viewport });
-  }
-  if (planTelegram.channel !== "telegram" || planTelegram.source !== "plan_cta_block") {
-    fail("plan CTA: Telegram link lost analytics attribution", { planTelegram, cta, viewport });
-  }
-  for (const link of [planTelegram]) {
-    if (!hasMessengerPayload(link.href, "site_plan")) {
-      fail("plan CTA: scenario link does not point to site_plan", { link, cta, viewport });
-    }
-    if (hasMessengerPayload(link.href, "site_meeting")) {
-      fail("plan CTA: scenario link regressed to site_meeting", { link, cta, viewport });
+    const source = `site_meeting_timurgromov__home__${placement === "popup" ? "hero" : "inline_consultation"}`;
+    for (const [link, provider] of [[telegram, "telegram"], [max, "max"]]) {
+      const url = new URL(link.href);
+      if (url.searchParams.get("payload") !== source || url.searchParams.get("provider") !== provider) {
+        fail("home: offer link must open the matching messenger's meeting flow", { link, cta, viewport });
+      }
+      if (link.channel !== provider || link.source !== `site_meeting_${placement}`) {
+        fail("home: link must preserve its meeting placement", { link, cta, viewport });
+      }
     }
   }
-  if (!cta.metrikaGoals?.popupOpen || !cta.metrikaGoals?.messengerClick || !cta.metrikaGoals?.telegramClick) {
-    fail("site_plan: Metrika goal contract is missing", { cta, viewport });
+  if (cta.separateScenarioBlock || cta.callHasDialog || !cta.callFollowsPrices || cta.callTitle !== cta.popupTitle) {
+    fail("home: the complete call offer must be visible as a page section after prices", { cta, viewport });
+  }
+  if (cta.callDescription !== cta.popupDescription || cta.callGiftsTitle !== cta.popupGiftsTitle ||
+      cta.callGifts.length !== 4 || cta.callGifts.some((gift, index) => gift !== cta.popupGifts[index]) ||
+      !cta.callDelivery || cta.callDelivery !== cta.popupDelivery) {
+    fail("home: consultation section must show the full call offer and all four gifts", { cta, viewport });
+  }
+  if (!cta.metrikaGoals?.popupOpen || !cta.metrikaGoals?.contactClick) {
+    fail("wedding call: Metrika goal contract is missing", { cta, viewport });
   }
   if (hasMessengerPayload(cta.href, "site_meeting")) {
     fail("hero: scenario CTA regressed to site_meeting", { cta, viewport });
