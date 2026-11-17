@@ -25,7 +25,7 @@ type WeddingPackage = (typeof weddingPackages)[number];
 
 const specialDates = new Set(['2027-07-07', '2027-08-08', '2027-08-27']);
 // The base includes two vocalists. Expanded lineups and the venue rider are quoted separately.
-const baseMusicFee = 160_000;
+const baseMusicFee = 185_000;
 const musicFeesByDate: Readonly<Record<string, number>> = {};
 const rubles = new Intl.NumberFormat('ru-RU');
 const moscowCalendar = new Intl.DateTimeFormat('en-CA', {

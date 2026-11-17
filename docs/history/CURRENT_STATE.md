@@ -1,8 +1,10 @@
 # Current State - 2026-10-27
 
-## Wedding date prices and live music — release candidate, 2026-11-17
+## Wedding date prices and live music — live 2026-11-17
 
-The owner approved the three-package date calculator and the live music block for a Pages release. The selected date recalculates all three prices. The music block shows three lineups and only starts downloading the MP4 after play. [Release task](../../TASKS.md) · [Local evidence](worklog/2026-11-17-wedding-date-pricing-local.md).
+GitHub Pages published source `b268bca` as artifact `43b469a`. A public browser run confirmed all three prices across four date tiers, the link from the third card to the three lineups, and video playback. [Release evidence](worklog/2026-11-17-wedding-date-pricing-local.md#публичный-выпуск).
+
+Владелец утвердил повышение третьего пакета до 340 000 / 355 000 / 365 000 / 380 000 ₽ по типам дат. Расчёт увеличивает только музыкальную часть до 185 000 ₽. [Матрица цен](../../TASKS.md#матрица-свадебных-цен).
 
 ## Indexing and HTTPS hardening — live 2026-10-27
 

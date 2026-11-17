@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-11-17-wedding-live-music-price",
+  "change_kind": "pricing",
+  "status": "passed",
+  "requested_visible_change": "Повысить только цену свадебного пакета с живой музыкой.",
+  "expected_visible_delta": "От 340 000 ₽ без даты, 340 000 / 355 000 / 365 000 / 380 000 ₽ на четырёх типах дат.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "0f24d4cd1e67b9738abbca5e041f112e3ff5d6a39d2def9d6af14fd805d41d8e",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4327/?compare=music-after#price",
+    "source_ref": "Рабочая копия от b268bca с музыкальной частью 185 000 ₽",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/#price",
+    "state": "Без даты, затем четыре контрольные даты 2027 года",
+    "selector_or_slide_id": "[data-pricing-package='music'] [data-pricing-value]",
+    "action": "Ввести 14.05, 02.07, 07.07 и 27.08.2027, затем очистить поле."
+  },
+  "must_remain_unchanged": [
+    "Суммы первых двух карточек на всех проверенных датах"
+  ],
+  "required_viewports": [
+    "390x844",
+    "1440x900"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "Встроенный браузер, подтверждены innerWidth и innerHeight.",
+      "before_signature": "Публичная сборка b268bca: от 315000 без даты, затем от 315000/330000/340000/355000 ₽.",
+      "after_signature": "Свежая локальная страница: от 340000 без даты, затем от 340000/355000/365000/380000 ₽.",
+      "observed_visible_result": "Карточки видимы и пересчитываются при вводе даты. Очистка возвращает начальные цены.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "viewport_source": "Встроенный браузер, подтверждены innerWidth и innerHeight.",
+      "before_signature": "Публичная сборка b268bca: от 315000 без даты, затем от 315000/330000/340000/355000 ₽.",
+      "after_signature": "Свежая локальная страница: от 340000 без даты, затем от 340000/355000/365000/380000 ₽.",
+      "observed_visible_result": "Карточки видимы и пересчитываются при вводе даты. Очистка возвращает начальные цены.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ]
+}
