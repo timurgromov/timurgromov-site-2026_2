@@ -1,0 +1,188 @@
+---
+import '../styles/wedding-date-pricing.css';
+import { tildaCtaInner } from '../site/tilda-cta';
+import {
+  formatWeddingRubles, weddingDateTiers, weddingPackagePrice, weddingPackages,
+} from '../site/wedding-prices';
+
+const headingId = 'wedding-pricing-title';
+const baseHeading = 'Базовая стоимость на обычные даты';
+const basePrices = weddingPackages.map((pack) => weddingPackagePrice(pack, weddingDateTiers.regular));
+const items = ['Подготовка программы и тайминга', 'Ведение свадебного вечера', 'DJ и музыкальное сопровождение'];
+---
+
+<section id="rec862317152" class="wedding-date-pricing section service-formats" aria-labelledby={headingId}>
+  <div class="container">
+    <h2 id={headingId} class="section__title">Выберите формат свадьбы</h2>
+    <p class="section__subtitle service-formats__intro">Ведущий и DJ работают во всех пакетах. Выберите дату, чтобы увидеть стоимость каждого формата.</p>
+    <div class="seasonal-pricing-calculator" data-wedding-pricing data-testid="wedding-date-pricing">
+      <div class="seasonal-pricing-picker">
+        <div class="seasonal-pricing-picker__summary" id="wedding-pricing-hint" aria-live="polite">
+          <strong data-pricing-selected-date data-pricing-initial={baseHeading}>{baseHeading}</strong>
+          <button class="wedding-date-pricing__clear" type="button" data-pricing-clear hidden>Сбросить дату</button>
+        </div>
+        <label class="seasonal-pricing-picker__control" for="wedding-pricing-date">
+          <span data-pricing-date-action>Выбрать дату</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v3m10-3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z" /></svg>
+          <input id="wedding-pricing-date" type="date" data-pricing-date aria-label="Выбрать дату свадьбы" aria-describedby="wedding-pricing-hint" />
+        </label>
+      </div>
+
+      <div class="seasonal-pricing-options" aria-live="polite" aria-label="Стоимость трёх вариантов на выбранную дату">
+        {weddingPackages.map((pack, index) => (
+          <article class="seasonal-price-option" data-pricing-package={pack.key} data-package-label={pack.label}>
+            <div class="seasonal-price-option__copy">
+              <p class="seasonal-price-option__number">{String(index + 1).padStart(2, '0')} · {pack.guests}</p>
+              <h3>{pack.label}</h3>
+              <p>{pack.liveMusic ? 'Ведущий + DJ + два вокалиста' : 'Ведущий + DJ'}</p>
+            </div>
+            <div class="seasonal-price-option__quote">
+              <div class="seasonal-price-option__price-line">
+                <span class="seasonal-price-option__date" data-pricing-caption hidden></span>
+                <div class="seasonal-price-option__amount-row">
+                  <div>
+                    <small>Программа {pack.duration} часов</small>
+                    <output class="seasonal-price-option__value" data-pricing-value
+                      data-pricing-initial={'от ' + formatWeddingRubles(basePrices[index])}
+                    >от {formatWeddingRubles(basePrices[index])}</output>
+                  </div>
+                  <span class="seasonal-price-option__extension">
+                    <span>Доп. час</span>
+                    <output data-pricing-extension>{formatWeddingRubles(pack.extension)}</output>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <details class="seasonal-price-option__disclosure">
+              <summary class="seasonal-price-option__toggle">
+                <span class="seasonal-price-option__toggle-closed">Что входит</span>
+                <span class="seasonal-price-option__toggle-open">Скрыть состав</span>
+              </summary>
+              <div class="seasonal-price-option__details">
+                <p class="seasonal-price-option__details-title">
+                  {pack.liveMusic ? 'Ведущий + DJ + два вокалиста' : 'Ведущий + DJ'}
+                </p>
+                <ul>
+                  {items.map((item) => <li>{item}</li>)}
+                  <li>Согласование программы с площадкой и подрядчиками</li>
+                  {pack.liveMusic && <li>Три выхода по 30 минут</li>}
+                </ul>
+                <p class="seasonal-price-option__equipment">
+                  {pack.liveMusic
+                    ? 'Саксофонист и гитарист — по выбору. Состав, ставку музыкантов и звук уточним под дату и площадку. Допчас относится к ведущему и DJ.'
+                    : 'Оборудование уточним по площадке.'}
+                </p>
+                {pack.liveMusic && <a class="seasonal-price-option__details-link" href="#music-program">Подробнее о живой музыке <span aria-hidden="true">→</span></a>}
+              </div>
+            </details>
+            <button class="tg-tilda-cta seasonal-price-option__contact" type="button"
+              data-consultation-popup-open data-wedding-package-contact aria-haspopup="dialog"
+              aria-controls="consultation-contact-popup"
+              set:html={tildaCtaInner('Обсудить этот вариант')}></button>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <details class="seasonal-pricing-table">
+      <summary>Посмотреть цены по типам дат</summary>
+      <div class="seasonal-pricing-table__wrap">
+        <table>
+          <caption class="seasonal-pricing-table__caption">Стоимость свадебных программ по типам дат</caption>
+          <thead>
+            <tr>
+              <th scope="col">Даты</th>
+              {weddingPackages.map((pack) => <th scope="col">{pack.label}</th>)}
+              <th scope="col">Доп. час</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.values(weddingDateTiers).map((tier) => (
+              <tr>
+                <th scope="row" data-label="Даты"><span>{tier.label}<small>{tier.note}</small></span></th>
+                {weddingPackages.map((pack) => (
+                  <td data-label={pack.label}>{pack.liveMusic ? 'от ' : ''}{formatWeddingRubles(weddingPackagePrice(pack, tier))}</td>
+                ))}
+                <td data-label="Доп. час">20 000 / 25 000 ₽</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="seasonal-pricing-table__note">Оборудование уточним по площадке. Доступность даты и ставку музыкантов подтвердит Тимур.</p>
+    </details>
+  </div>
+</section>
+
+<script>
+  import { formatWeddingRubles, weddingQuote, weddingToday } from '../site/wedding-prices';
+
+  const root = document.querySelector('[data-wedding-pricing]');
+  const input = root?.querySelector<HTMLInputElement>('[data-pricing-date]');
+  const summary = root?.querySelector<HTMLElement>('[data-pricing-selected-date]');
+  const action = root?.querySelector('[data-pricing-date-action]');
+  const clear = root?.querySelector<HTMLButtonElement>('[data-pricing-clear]');
+  const cards = Array.from(root?.querySelectorAll<HTMLElement>('[data-pricing-package]') ?? []);
+
+  if (root && input && summary && action && clear) {
+    const update = () => {
+      const today = weddingToday();
+      input.min = today;
+      const quote = weddingQuote(input.value, today);
+      summary.textContent = quote
+        ? 'Выбрана дата: ' + quote.dateLabel
+        : (input.value ? 'Выберите сегодняшнюю или будущую дату' : summary.dataset.pricingInitial ?? '');
+      action.textContent = quote ? 'Изменить дату' : 'Выбрать дату';
+      clear.hidden = !input.value;
+
+      cards.forEach((card, index) => {
+        const caption = card.querySelector<HTMLElement>('[data-pricing-caption]');
+        const price = card.querySelector<HTMLOutputElement>('[data-pricing-value]');
+        if (caption) {
+          caption.textContent = quote?.dateLabel ?? '';
+          caption.hidden = !quote;
+        }
+        if (price) {
+          price.textContent = quote
+            ? (card.dataset.pricingPackage === 'music' ? 'от ' : '') + formatWeddingRubles(quote.prices[index])
+            : (price.dataset.pricingInitial ?? '');
+        }
+      });
+    };
+
+    const openDatePicker = () => {
+      input.min = weddingToday();
+      // Safari and some embedded browsers can open the native input without showPicker.
+      try { input.showPicker?.(); } catch { /* keep native input behaviour */ }
+    };
+
+    input.addEventListener('input', update);
+    input.addEventListener('change', update);
+    input.addEventListener('click', openDatePicker);
+    input.addEventListener('keydown', (event) => {
+      if ((event.key === 'Enter' || event.key === ' ') && typeof input.showPicker === 'function') {
+        openDatePicker();
+      }
+    });
+    clear.addEventListener('click', () => {
+      input.value = '';
+      update();
+      input.focus({ preventScroll: true });
+    });
+
+    document.addEventListener('click', (event) => {
+      const opener = event.target instanceof Element && event.target.closest('[data-consultation-popup-open]');
+      if (!opener) return;
+      const context = document.querySelector<HTMLElement>('[data-wedding-pricing-context]');
+      if (!context) return;
+      const card = opener.getAttribute('data-wedding-package-for') === 'music'
+        ? cards.find(({ dataset }) => dataset.pricingPackage === 'music')
+        : opener.hasAttribute('data-wedding-package-contact') && opener.closest<HTMLElement>('[data-pricing-package]');
+      const date = card ? weddingQuote(input.value)?.dateLabel : '';
+      const price = card ? card.querySelector('[data-pricing-value]')?.textContent : '';
+      context.textContent = card ? [card.dataset.packageLabel, date, price].filter(Boolean).join(' · ') : '';
+      context.hidden = !card;
+    });
+    update();
+  }
+</script>

@@ -1,5 +1,9 @@
 # Current State - 2026-10-27
 
+## Wedding date prices and live music — release candidate, 2026-11-17
+
+The owner approved the three-package date calculator and the live music block for a Pages release. The selected date recalculates all three prices. The music block shows three lineups and only starts downloading the MP4 after play. [Release task](../../TASKS.md) · [Local evidence](worklog/2026-11-17-wedding-date-pricing-local.md).
+
 ## Indexing and HTTPS hardening — live 2026-10-27
 
 - GitHub Pages `Enforce HTTPS` is enabled for `timurgromov.ru`; the approved

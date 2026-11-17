@@ -8,6 +8,11 @@ Current public site: `https://timurgromov.ru/`
 
 GitHub Pages fallback: `https://timurgromov.github.io/timurgromov-site-2026_2/`
 
+## Wedding live music
+
+- `/#music-program` uses the published [musicians' showreel](https://media.213-176-94-245.sslip.io/corporate-ground/live-music-showreel.mp4), opened inline only after a click. The file is 37.6 MiB (3:45); the browser fetches it only on request. This is the approved on-demand asset, not an autoplaying page video.
+- Local posters: `public/images/wedding-live-music/showreel.avif` (105 KB) and `showreel.webp` (151 KB), 1200×843. Budget audit passed. Actual playback confirmed in the local in-app browser.
+
 ## Current Active Sources
 
 During the Aeza incident, available active videos are served from the isolated backup container on `open-blue`:

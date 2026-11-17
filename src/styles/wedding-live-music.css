@@ -1,0 +1,159 @@
+/* The pricing section and this detail section use the wedding site's palette. */
+.wedding-live-music {
+  --music-ink: #1c1b1a;
+  --music-muted: rgba(28, 27, 26, .7);
+  --music-line: rgba(28, 27, 26, .17);
+  --music-accent: #fa4604;
+  background: #fffefa;
+  color: var(--music-ink);
+  font: 400 16px/1.55 Manrope, Arial, sans-serif;
+  padding: var(--tg-home-section-pad-desktop) 0;
+  scroll-margin-top: 90px;
+}
+
+.wedding-live-music *,
+.wedding-live-music *::before,
+.wedding-live-music *::after { box-sizing: border-box; }
+
+.wedding-live-music__inner { width: min(1080px, calc(100% - 48px)); margin-inline: auto; }
+.wedding-live-music__eyebrow,
+.wedding-live-music__label {
+  margin: 0 0 10px;
+  color: #a8310d;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+.wedding-live-music__eyebrow { text-align: center; }
+.wedding-live-music h2 {
+  max-width: 910px;
+  margin: 0 auto 16px;
+  color: var(--music-ink);
+  font: 500 clamp(32px, 4vw, 60px)/.98 Coolvetica, Arial, sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.wedding-live-music__intro {
+  max-width: 760px;
+  margin: 0 auto 30px;
+  color: var(--music-muted);
+  text-align: center;
+}
+.wedding-live-music__layout {
+  display: grid;
+  grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+  gap: 18px;
+}
+.wedding-live-music__summary,
+.wedding-live-music__option {
+  border: 1px solid var(--music-line);
+  border-radius: 16px;
+  background: #fffefa;
+}
+.wedding-live-music__summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.wedding-live-music__summary-copy { padding: 28px 28px 20px; }
+.wedding-live-music__lead {
+  margin: 0 0 14px;
+  color: var(--music-ink);
+  font-size: clamp(20px, 2.1vw, 28px);
+  font-weight: 650;
+  line-height: 1.2;
+}
+.wedding-live-music__copy { margin: 0; color: var(--music-muted); font-size: 14px; line-height: 1.55; }
+.wedding-live-music__showreel { position: relative; }
+.wedding-live-music__media { height: clamp(250px, 28vw, 360px); overflow: hidden; background: #1c1b1a; }
+.wedding-live-music__media picture,
+.wedding-live-music__media img,
+.wedding-live-music__media video { display: block; width: 100%; height: 100%; }
+.wedding-live-music__media img { object-fit: cover; object-position: center top; }
+.wedding-live-music__media video { object-fit: contain; }
+.wedding-live-music__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--music-accent);
+  box-shadow: 0 8px 22px rgba(28, 27, 26, .24);
+  cursor: pointer;
+}
+.wedding-live-music__play span {
+  margin-left: 5px;
+  border-block: 10px solid transparent;
+  border-left: 14px solid #fffefa;
+}
+.wedding-live-music__play:focus-visible { outline: 2px solid #fffefa; outline-offset: 3px; }
+.wedding-live-music__caption {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  background: #fffefa;
+  color: var(--music-ink);
+  font-size: 12px;
+  font-weight: 700;
+  pointer-events: none;
+}
+.wedding-live-music__caption span { color: var(--music-muted); }
+.wedding-live-music__fallback { margin: 0; padding: 12px 20px; font-size: 13px; }
+.wedding-live-music__fallback a { color: #a8310d !important; text-decoration: underline; }
+.wedding-live-music__fallback[hidden],
+.wedding-live-music__overlay[hidden] { display: none; }
+.wedding-live-music__options { display: grid; align-content: start; gap: 12px; }
+.wedding-live-music__option { padding: 19px 22px; }
+.wedding-live-music__option .wedding-live-music__label { margin-bottom: 7px; }
+.wedding-live-music__option h3 {
+  margin: 0 0 7px;
+  color: var(--music-ink);
+  font-size: 18px;
+  font-weight: 650;
+  line-height: 1.26;
+}
+.wedding-live-music .wedding-live-music__tags { display: flex; flex-wrap: wrap; gap: 7px; margin: 13px 0 0; padding: 0; list-style: none; }
+.wedding-live-music__tags li {
+  padding: 5px 8px;
+  border: 1px solid var(--music-line);
+  border-radius: 999px;
+  color: var(--music-ink);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.wedding-live-music__cta { margin-top: 28px; text-align: center; }
+.wedding-live-music .wedding-live-music__contact {
+  --tg-cta-height: 44px;
+  --tg-cta-arrow-box: 44px;
+  --tg-cta-font-size: 13px;
+  --tg-cta-pad-left: 11px;
+  --tg-cta-pad-right: 11px;
+}
+
+@media (max-width: 768px) {
+  .wedding-live-music { padding-block: var(--tg-home-section-pad-mobile); }
+  .wedding-live-music__inner { width: calc(100% - 2 * clamp(12px, 4vw, 18px)); }
+  .wedding-live-music__intro { margin-bottom: 24px; }
+  .wedding-live-music__layout { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .wedding-live-music__summary-copy { padding: 20px 20px 16px; }
+  .wedding-live-music__option { padding: 18px 20px; }
+  .wedding-live-music__media { height: auto; aspect-ratio: 1200 / 843; }
+  .wedding-live-music .wedding-live-music__contact { width: 100%; }
+}
+
+.wedding-date-pricing .seasonal-price-option__details-link {
+  color: var(--pricing-link) !important;
+  text-decoration: underline;
+}

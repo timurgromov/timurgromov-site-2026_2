@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-11-17-wedding-date-pricing-live-music",
+  "change_kind": "pricing-and-music",
+  "status": "passed",
+  "requested_visible_change": "Свадебный прайс с календарём, тремя ценами и отдельной секцией живой музыки в свадебном оформлении.",
+  "expected_visible_delta": "Ввод даты обновляет три карточки. Ниже прайса шоу-рил воспроизводится по нажатию, видны три музыкальных состава.",
+  "attempt_number": 2,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "e634cc36ee10b97011a8c53c3ede55ba26d494df4b4d6622405b8e0d602285ca",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4327/#price",
+    "source_ref": "Approved working tree based on 190a47d, rebuilt for release with documentation-only and source-comment updates.",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/",
+    "state": "Календарь после выбора даты и блок живой музыки",
+    "selector_or_slide_id": "[data-wedding-pricing] and #music-program",
+    "action": "Выбрать дату, открыть состав третьего пакета, перейти к музыке и нажать Play."
+  },
+  "must_remain_unchanged": [
+    "Текущая навигация и якорь цен",
+    "Свадебная палитра, шрифты и кнопки",
+    "Существующий свадебный контактный поток"
+  ],
+  "required_viewports": [
+    "390x844",
+    "1440x900"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "Local in-app browser override, measured innerWidth/innerHeight; final rendered screenshot also inspected.",
+      "before_signature": "Published base: two static packages, no date input; no separate music section.",
+      "after_signature": "One price column; date 02.07.2027: 150000/170000/from 330000; music layout one column with three acts and visible poster.",
+      "observed_visible_result": "All three prices updated on selecting the date. Published design tokens and individual package disclosures retained.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "viewport_source": "Local in-app browser override and browser layout check.",
+      "before_signature": "Published base: two static packages, no date input; no separate music section.",
+      "after_signature": "Three price columns; date 27.08.2027: 170000/195000/from 355000; separate music block with two columns and three lineups.",
+      "observed_visible_result": "Date updates all three prices. The music link leads to the showreel and three lineups. Play starts the external video; package consultation receives selected quote in the UI.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ],
+  "comparison_review": {
+    "variants_shown": 2,
+    "selected_variant": "Светлый свадебный вариант с секцией живой музыки",
+    "owner_approval_reference": "Владелец 17.11.2026: «Да, теперь нормально. Давай релизим на свадебный сайт блок цен с календарём и блок живой музыки.»"
+  }
+}

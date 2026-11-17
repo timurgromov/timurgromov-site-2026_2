@@ -1,0 +1,117 @@
+---
+import '../styles/wedding-live-music.css';
+import { tildaCtaInner } from '../site/tilda-cta';
+
+const base = import.meta.env.BASE_URL;
+const showreel = 'https://media.213-176-94-245.sslip.io/corporate-ground/live-music-showreel.mp4';
+const formats = [
+  {
+    label: 'Базовый состав',
+    title: 'Два вокалиста',
+    description: 'Три выхода по 30 минут в течение вечера. Хиты 90-х, 2000-х и современные песни на русском и иностранных языках. Репертуар подбираем с учётом ваших пожеланий.',
+    tags: ['3 × 30 минут', 'Медийные вокалисты', 'Хиты разных десятилетий', 'Пожелания к репертуару'],
+  },
+  {
+    label: 'Расширенный состав',
+    title: 'Два вокалиста + саксофонист',
+    description: 'Саксофонист встречает гостей и присоединяется к вокалистам во всех трёх музыкальных выходах.',
+    tags: ['Встреча гостей с саксофоном', 'Участие в трёх блоках'],
+  },
+  {
+    label: 'Максимальный состав',
+    title: 'Два вокалиста + саксофонист + гитарист',
+    description: 'К вокалу и саксофону добавляется живая гитара. Яркие сценические образы и подача превращают музыкальную часть свадьбы в концертный номер.',
+    tags: ['Вокал', 'Саксофон', 'Гитара', 'Яркие сценические образы'],
+  },
+] as const;
+---
+
+<section id="music-program" class="wedding-live-music" aria-labelledby="wedding-live-music-title" data-testid="wedding-live-music">
+  <div class="wedding-live-music__inner">
+    <p class="wedding-live-music__eyebrow">Третий пакет — с живой музыкой</p>
+    <h2 id="wedding-live-music-title">Два вокалиста: три музыкальных блока по 30&nbsp;минут</h2>
+    <p class="wedding-live-music__intro">Для классических свадеб от 46 гостей. Ведущий и DJ работают 6 часов, а вокалисты выступают в трёх музыкальных блоках. Состав можно дополнить саксофонистом и гитаристом.</p>
+
+    <div class="wedding-live-music__layout">
+      <div class="wedding-live-music__summary">
+        <div class="wedding-live-music__summary-copy">
+          <p class="wedding-live-music__label">Живой вокал в программе вечера</p>
+          <p class="wedding-live-music__lead">Эффект живой группы без полного концертного состава</p>
+          <p class="wedding-live-music__copy">Вокалисты исполняют знакомые песни под профессиональные аранжировки. Это позволяет обойтись компактным комплектом звука. Что понадобится на вашей площадке, обсудим вместе с составом.</p>
+        </div>
+        <div class="wedding-live-music__showreel" data-wedding-music-showreel={showreel}>
+          <div class="wedding-live-music__media" data-wedding-music-media>
+            <picture>
+              <source srcset={base + 'images/wedding-live-music/showreel.avif'} type="image/avif" />
+              <img src={base + 'images/wedding-live-music/showreel.webp'} width="1200" height="843"
+                loading="lazy" decoding="async" alt="Музыканты на сцене: вокал, саксофон и гитара" />
+            </picture>
+          </div>
+          <div class="wedding-live-music__overlay" data-wedding-music-overlay>
+            <button class="wedding-live-music__play" type="button" aria-label="Воспроизвести шоу-рил музыкального состава">
+              <span aria-hidden="true"></span>
+            </button>
+            <span class="wedding-live-music__caption">Смотреть шоу-рил <span>· 3:45</span></span>
+          </div>
+        </div>
+        <p class="wedding-live-music__fallback" data-wedding-music-error hidden>
+          Видео не загрузилось. <a href={showreel} target="_blank" rel="noopener">Открыть ролик отдельно</a>
+        </p>
+      </div>
+
+      <div class="wedding-live-music__options" aria-label="Составы пакета с живой музыкой">
+        {formats.map((format) => (
+          <article class="wedding-live-music__option">
+            <p class="wedding-live-music__label">{format.label}</p>
+            <h3>{format.title}</h3>
+            <p class="wedding-live-music__copy">{format.description}</p>
+            <ul class="wedding-live-music__tags" aria-label={'Особенности · ' + format.label}>
+              {format.tags.map((tag) => <li>{tag}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <div class="wedding-live-music__cta">
+      <button class="tg-tilda-cta wedding-live-music__contact" type="button"
+        data-consultation-popup-open data-wedding-package-for="music"
+        aria-haspopup="dialog" aria-controls="consultation-contact-popup"
+        set:html={tildaCtaInner('Обсудить музыкальный состав')}></button>
+    </div>
+  </div>
+</section>
+
+<script>
+  const wrapper = document.querySelector<HTMLElement>('[data-wedding-music-showreel]');
+  const playButton = wrapper?.querySelector<HTMLButtonElement>('.wedding-live-music__play');
+  const media = wrapper?.querySelector<HTMLElement>('[data-wedding-music-media]');
+  const overlay = wrapper?.querySelector<HTMLElement>('[data-wedding-music-overlay]');
+  const error = document.querySelector<HTMLElement>('[data-wedding-music-error]');
+  const source = wrapper?.dataset.weddingMusicShowreel;
+
+  if (playButton && media && overlay && error && source) {
+    const poster = media.firstElementChild;
+    playButton.addEventListener('click', () => {
+      const video = document.createElement('video');
+      video.controls = true;
+      video.playsInline = true;
+      video.preload = 'metadata';
+      video.setAttribute('aria-label', 'Шоу-рил музыкального состава');
+      const restorePoster = (failed: boolean) => {
+        if (poster) media.replaceChildren(poster);
+        overlay.hidden = false;
+        error.hidden = !failed;
+        playButton.focus({ preventScroll: true });
+      };
+      video.addEventListener('ended', () => restorePoster(false), { once: true });
+      video.addEventListener('error', () => restorePoster(true), { once: true });
+      error.hidden = true;
+      overlay.hidden = true;
+      media.replaceChildren(video);
+      video.src = source;
+      void video.play().catch(() => { /* Native controls remain available. */ });
+      video.focus({ preventScroll: true });
+    });
+  }
+</script>
