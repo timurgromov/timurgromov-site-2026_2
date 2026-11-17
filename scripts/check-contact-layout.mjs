@@ -191,6 +191,7 @@ async function getHeroScenarioCta(cdp) {
         text: popupLink.textContent.replace(/\\s+/g, ' ').trim(),
         href: popupLink.href || '',
         channel: popupLink.getAttribute('data-wedding-call-channel') || '',
+        messengerSource: popupLink.getAttribute('data-messenger-source') || '',
         source: popupLink.getAttribute('data-plan-source') || '',
       }));
       const call = document.querySelector('#free-consultation');
@@ -260,7 +261,10 @@ function assertHeroScenarioCta(cta, viewport) {
     const source = `site_meeting_timurgromov__home__${placement === "popup" ? "hero" : "inline_consultation"}`;
     for (const [link, provider] of [[telegram, "telegram"], [max, "max"]]) {
       const url = new URL(link.href);
-      if (url.searchParams.get("payload") !== source || url.searchParams.get("provider") !== provider) {
+      const stableMeetingLink = url.searchParams.get("payload") === source && url.searchParams.get("provider") === provider;
+      const tokenMeetingLink = url.hostname === (provider === "telegram" ? "t.me" : "max.ru") &&
+        /^yd_[A-Za-z0-9_-]{20,40}$/.test(url.searchParams.get("start") || "") && link.messengerSource === source;
+      if (!stableMeetingLink && !tokenMeetingLink) {
         fail("home: offer link must open the matching messenger's meeting flow", { link, cta, viewport });
       }
       if (link.channel !== provider || link.source !== `site_meeting_${placement}`) {

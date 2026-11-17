@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-11-17-wedding-package-contact-popup",
+  "change_kind": "contact-popup",
+  "status": "passed",
+  "requested_visible_change": "Единое окно Telegram, MAX и телефона для трёх свадебных пакетов и музыкального блока.",
+  "expected_visible_delta": "В существующем окне созвона показаны выбранные пакет, дата и цена; доступны Telegram, MAX и телефон.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "75613c83bb729b56fe3829a929f8453ec72a0086995aefc7ecd4f4abb45be67d",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4327/?preview=unified-package-popup#price",
+    "source_ref": "Локальная рабочая копия от aae6223",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/#price и /#music-program",
+    "state": "Публичная главная после выбора 02.07.2027 и нажатия обсуждения пакета",
+    "selector_or_slide_id": "#plan-delivery-popup",
+    "action": "Выбрать дату и нажать три кнопки карточек и кнопку под музыкой."
+  },
+  "must_remain_unchanged": [
+    "Действующая матрица цен и оформление окна созвона"
+  ],
+  "required_viewports": [
+    "390x844",
+    "537x504",
+    "640x900",
+    "1180x820",
+    "1440x900",
+    "1911x1064"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "Встроенный браузер с измеренными innerWidth и innerHeight.",
+      "before_signature": "Предыдущая опубликованная версия: открывается consultation-contact-popup с Telegram, телефоном и формой.",
+      "after_signature": "Открывается plan-delivery-popup с Telegram, MAX и телефоном; дата 02.07.2027 и цены 150000/170000/от355000 ₽ в соответствующих состояниях.",
+      "observed_visible_result": "Проверены все четыре входа. Панель помещается в окно. В выбранном состоянии показаны название пакета, дата и цена.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "537x504",
+      "viewport_source": "Встроенный браузер с измеренными innerWidth и innerHeight.",
+      "before_signature": "Предыдущая опубликованная версия: открывается consultation-contact-popup с Telegram, телефоном и формой.",
+      "after_signature": "Открывается plan-delivery-popup с Telegram, MAX и телефоном; дата 02.07.2027 и цены 150000/170000/от355000 ₽ в соответствующих состояниях.",
+      "observed_visible_result": "Проверены все четыре входа. Панель помещается в окно. В выбранном состоянии показаны название пакета, дата и цена.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "640x900",
+      "viewport_source": "Встроенный браузер с измеренными innerWidth и innerHeight.",
+      "before_signature": "Предыдущая опубликованная версия: открывается consultation-contact-popup с Telegram, телефоном и формой.",
+      "after_signature": "Открывается plan-delivery-popup с Telegram, MAX и телефоном; дата 02.07.2027 и цены 150000/170000/от355000 ₽ в соответствующих состояниях.",
+      "observed_visible_result": "Проверены все четыре входа. Панель помещается в окно. В выбранном состоянии показаны название пакета, дата и цена.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1180x820",
+      "viewport_source": "Встроенный браузер с измеренными innerWidth и innerHeight.",
+      "before_signature": "Предыдущая опубликованная версия: открывается consultation-contact-popup с Telegram, телефоном и формой.",
+      "after_signature": "Открывается plan-delivery-popup с Telegram, MAX и телефоном; дата 02.07.2027 и цены 150000/170000/от355000 ₽ в соответствующих состояниях.",
+      "observed_visible_result": "Проверены все четыре входа. Панель помещается в окно. В выбранном состоянии показаны название пакета, дата и цена.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "viewport_source": "Встроенный браузер с измеренными innerWidth и innerHeight.",
+      "before_signature": "Предыдущая опубликованная версия: открывается consultation-contact-popup с Telegram, телефоном и формой.",
+      "after_signature": "Открывается plan-delivery-popup с Telegram, MAX и телефоном; дата 02.07.2027 и цены 150000/170000/от355000 ₽ в соответствующих состояниях.",
+      "observed_visible_result": "Проверены все четыре входа. Панель помещается в окно. В выбранном состоянии показаны название пакета, дата и цена.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1911x1064",
+      "viewport_source": "Встроенный браузер с измеренными innerWidth и innerHeight.",
+      "before_signature": "Предыдущая опубликованная версия: открывается consultation-contact-popup с Telegram, телефоном и формой.",
+      "after_signature": "Открывается plan-delivery-popup с Telegram, MAX и телефоном; дата 02.07.2027 и цены 150000/170000/от355000 ₽ в соответствующих состояниях.",
+      "observed_visible_result": "Проверены все четыре входа. Панель помещается в окно. В выбранном состоянии показаны название пакета, дата и цена.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ]
+}

@@ -1,10 +1,14 @@
-# Current State - 2026-10-27
+# Current State - 2026-11-17
+
+## Единый попап свадебных пакетов — локальный кандидат
+
+Три карточки и блок музыки открывают окно созвона с Telegram, MAX и телефоном. Пакет, дата и цена передаются в существующий контракт обращения. Проверены локальные события и запись в тестовую CRM. [Кандидат и проверки](worklog/2026-11-17-wedding-package-contact-popup-local.md).
 
 ## Wedding date prices and live music — live 2026-11-17
 
 GitHub Pages published source `b268bca` as artifact `43b469a`. A public browser run confirmed all three prices across four date tiers, the link from the third card to the three lineups, and video playback. [Release evidence](worklog/2026-11-17-wedding-date-pricing-local.md#публичный-выпуск).
 
-Владелец утвердил повышение третьего пакета до 340 000 / 355 000 / 365 000 / 380 000 ₽ по типам дат. Расчёт увеличивает только музыкальную часть до 185 000 ₽. [Матрица цен](../../TASKS.md#матрица-свадебных-цен).
+В сборке `aae6223` (артефакт `de03b86`) опубликовано повышение третьего пакета до 340 000 / 355 000 / 365 000 / 380 000 ₽ по типам дат. Расчёт увеличивает только музыкальную часть до 185 000 ₽. [Матрица цен](../../TASKS.md#матрица-свадебных-цен).
 
 ## Indexing and HTTPS hardening — live 2026-10-27
 

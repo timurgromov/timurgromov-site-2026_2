@@ -100,7 +100,7 @@ export const heroPosterVersion = "2306bab";
 
 export type PublicSiteEntrypoint = "home" | "scenario" | "materials" | "preparation_plan" | "wedding_budget" | "jubilee";
 export type ExpertCtaIntent = "plan" | "meeting" | "calculator";
-export type ExpertCtaPlacement = "hero" | "mid_article" | "inline_consultation" | "final" | "footer" | "contact_page";
+export type ExpertCtaPlacement = "hero" | "mid_article" | "inline_consultation" | "final" | "footer" | "contact_page" | "pricing_chamber" | "pricing_classic" | "pricing_music" | "music";
 export const messengerStartEndpoint =
   "https://calcul.timurgromov.ru/api/v1/site/messenger-start";
 

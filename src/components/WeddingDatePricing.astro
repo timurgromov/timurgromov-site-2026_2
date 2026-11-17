@@ -76,8 +76,8 @@ const items = ['Подготовка программы и тайминга', '�
               </div>
             </details>
             <button class="tg-tilda-cta seasonal-price-option__contact" type="button"
-              data-consultation-popup-open data-wedding-package-contact aria-haspopup="dialog"
-              aria-controls="consultation-contact-popup"
+              data-plan-popup-open data-wedding-package-contact aria-haspopup="dialog"
+              aria-controls="plan-delivery-popup"
               set:html={tildaCtaInner('Обсудить этот вариант')}></button>
           </article>
         ))}
@@ -115,6 +115,7 @@ const items = ['Подготовка программы и тайминга', '�
 </section>
 
 <script>
+  import '../site/wedding-package-contact';
   import { formatWeddingRubles, weddingQuote, weddingToday } from '../site/wedding-prices';
 
   const root = document.querySelector('[data-wedding-pricing]');
@@ -170,19 +171,6 @@ const items = ['Подготовка программы и тайминга', '�
       input.focus({ preventScroll: true });
     });
 
-    document.addEventListener('click', (event) => {
-      const opener = event.target instanceof Element && event.target.closest('[data-consultation-popup-open]');
-      if (!opener) return;
-      const context = document.querySelector<HTMLElement>('[data-wedding-pricing-context]');
-      if (!context) return;
-      const card = opener.getAttribute('data-wedding-package-for') === 'music'
-        ? cards.find(({ dataset }) => dataset.pricingPackage === 'music')
-        : opener.hasAttribute('data-wedding-package-contact') && opener.closest<HTMLElement>('[data-pricing-package]');
-      const date = card ? weddingQuote(input.value)?.dateLabel : '';
-      const price = card ? card.querySelector('[data-pricing-value]')?.textContent : '';
-      context.textContent = card ? [card.dataset.packageLabel, date, price].filter(Boolean).join(' · ') : '';
-      context.hidden = !card;
-    });
     update();
   }
 </script>

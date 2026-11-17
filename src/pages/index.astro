@@ -4473,6 +4473,30 @@ const planDeliveryPopupAssets = `<style>
     text-wrap:pretty;
   }
 
+  .tg-plan-popup__selection{
+    margin:0 0 12px;
+    padding:10px 12px;
+    border-left:3px solid #fa4604;
+    background:rgba(250,70,4,.05);
+    color:#1c1b1a;
+    font-family:var(--t-text-font, Arial);
+    font-size:15px;
+    line-height:1.4;
+    white-space:pre-line;
+  }
+
+  .tg-plan-popup__handoff{
+    grid-column:1 / -1;
+    margin:0;
+    color:rgba(28,27,26,.76);
+    font-family:var(--t-text-font, Arial);
+    font-size:14px;
+    line-height:1.35;
+  }
+
+  .tg-plan-popup__handoff[hidden],
+  .tg-plan-popup__selection[hidden]{display:none}
+
   .tg-plan-popup__gifts{
     margin-top:18px;
     font-size:15px;
@@ -4950,6 +4974,12 @@ const planDeliveryPopupAssets = `<style>
       }
     }
 
+    function popupPackageContext(link){
+      var popup = link.closest('#plan-delivery-popup');
+      return popup && typeof window.tgWeddingPackageGoalContext === 'function'
+        ? window.tgWeddingPackageGoalContext() : {};
+    }
+
     function getPopup(){
       return document.getElementById(popupId);
     }
@@ -5002,6 +5032,9 @@ const planDeliveryPopupAssets = `<style>
       lastPlanPopupSource = opener && opener.getAttribute('data-plan-popup-source')
         ? opener.getAttribute('data-plan-popup-source')
         : 'hero';
+      var quote = typeof window.tgWeddingPackageQuote === 'function' ? window.tgWeddingPackageQuote(opener) : null;
+      if (quote) lastPlanPopupSource = quote.placement;
+      if (typeof window.tgPrepareWeddingPackagePopup === 'function') window.tgPrepareWeddingPackagePopup(popup, quote);
       resetPopupForms(popup);
       popup.classList.add('is-open');
       popup.setAttribute('aria-hidden', 'false');
@@ -5009,7 +5042,11 @@ const planDeliveryPopupAssets = `<style>
       popup.querySelector('.tg-plan-popup__body').scrollTop = 0;
       popup.querySelector('.tg-plan-popup__close').focus({ preventScroll: true });
       trackWeddingCallGoal('wedding_call_popup_open', {
-        placement: lastPlanPopupSource
+        placement: lastPlanPopupSource,
+        package_code: quote ? quote.packageCode : '',
+        event_date: quote ? quote.date : '',
+        price: quote ? quote.price : null,
+        price_mode: quote ? quote.priceMode : ''
       });
     }
 
@@ -5031,11 +5068,12 @@ const planDeliveryPopupAssets = `<style>
       }
 
       var contactLink = event.target && event.target.closest && event.target.closest('[data-wedding-call-channel]');
-      if (contactLink) {
-        trackWeddingCallGoal('wedding_call_contact_click', {
+      if (contactLink && !contactLink.hasAttribute('data-wedding-call-dynamic')) {
+        var context = popupPackageContext(contactLink);
+        trackWeddingCallGoal('wedding_call_contact_click', Object.assign(context, {
           channel: contactLink.getAttribute('data-wedding-call-channel'),
-          placement: contactLink.closest('[data-wedding-call-placement]').getAttribute('data-wedding-call-placement')
-        });
+          placement: context.placement || contactLink.closest('[data-wedding-call-placement]').getAttribute('data-wedding-call-placement')
+        }));
       }
 
       var closer = event.target && event.target.closest && event.target.closest('[data-plan-popup-close]');
@@ -5133,7 +5171,7 @@ const planDeliveryPopupAssets = `<style>
 
 const renderWeddingCallContacts = (contactId: string, placement: 'popup' | 'after_prices') => {
   const source = expertCtaSource('meeting', 'home', placement === 'popup' ? 'hero' : 'inline_consultation');
-  const messengerAttrs = `target="_blank" rel="noopener nofollow" data-plan-source="site_meeting_${placement}"`;
+  const messengerAttrs = `target="_blank" rel="noopener nofollow" data-plan-source="site_meeting_${placement}" data-messenger-source="${source}"${placement === 'popup' ? ' data-wedding-call-dynamic' : ''}`;
 
   return `<div class="tg-plan-popup__actions" role="group" aria-labelledby="${contactId}" data-wedding-call-placement="${placement}">
   <p id="${contactId}" class="tg-plan-popup__actions-label">Договориться о созвоне</p>
@@ -5176,7 +5214,8 @@ const planDeliveryPopupMarkup = `<div id="plan-delivery-popup" class="tg-plan-po
     <div class="tg-plan-popup__body">
       <div class="tg-plan-popup__intro">
         <h2 id="plan-delivery-title">${weddingCallTitle}</h2>
-        <p class="tg-plan-popup__text">${weddingCallDescription}</p>
+        <p class="tg-plan-popup__selection" data-wedding-package-selection hidden></p>
+        <p class="tg-plan-popup__text" data-wedding-call-description>${weddingCallDescription}</p>
         <div class="tg-plan-popup__gifts">
           <h3>${weddingCallGiftsTitle}</h3>
           <ul>
