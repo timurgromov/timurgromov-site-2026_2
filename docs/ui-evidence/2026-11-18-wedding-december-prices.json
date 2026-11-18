@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-11-18-wedding-december-prices",
+  "change_kind": "pricing",
+  "status": "passed",
+  "requested_visible_change": "Цены свадебных пакетов и допчаса в декабре 2026 совпадают с корпоративной сеткой на каждую дату.",
+  "expected_visible_delta": "25 декабря 220000/250000/от 500000 ₽ и допчас 25000 ₽, 31 декабря от 280000/330000/630000 ₽ и допчас 35000 ₽.",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "0bfce0a3c3c21cc79211443d9dd5453a9c60d747eb6eefd2f9d7b0c5796cfb5f",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4329/#price",
+    "source_ref": "Сборка локального кандидата на опубликованном be5409a.",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/#price",
+    "state": "Календарь на 1, 25 и 31 декабря 2026",
+    "selector_or_slide_id": "[data-wedding-pricing]",
+    "action": "Выбрать декабрьские даты и 1 января, раскрыть таблицу и сверить попап."
+  },
+  "must_remain_unchanged": [
+    "Суммы обычных дат",
+    "Составы и оформление трёх пакетов",
+    "Попап обсуждения"
+  ],
+  "required_viewports": [
+    "390x844",
+    "1440x900"
+  ],
+  "observations": [
+    {
+      "viewport": "390x844",
+      "viewport_source": "Встроенный браузер, измерены innerWidth и innerHeight",
+      "before_signature": "Декабрь рассчитывался как обычная дата, цены 135000/155000/от 340000 ₽.",
+      "after_signature": "01.12: 145000/170000/от 320000 ₽; 25.12: 220000/250000/от 500000 ₽; 31.12: от 280000/330000/630000 ₽. На 31.12 допчас 35000 ₽.",
+      "observed_visible_result": "14 строк в декабрьской таблице, цены карточек совпадают с попапом. После сброса и на 1 января действуют обычные суммы. Горизонтального переполнения нет.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "1440x900",
+      "viewport_source": "Встроенный браузер, измерены innerWidth и innerHeight",
+      "before_signature": "Декабрь рассчитывался как обычная дата, цены 135000/155000/от 340000 ₽.",
+      "after_signature": "01.12: 145000/170000/от 320000 ₽; 25.12: 220000/250000/от 500000 ₽; 31.12: от 280000/330000/630000 ₽. На 31.12 допчас 35000 ₽.",
+      "observed_visible_result": "14 строк в декабрьской таблице, цены карточек совпадают с попапом. После сброса и на 1 января действуют обычные суммы. Горизонтального переполнения нет.",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ]
+}

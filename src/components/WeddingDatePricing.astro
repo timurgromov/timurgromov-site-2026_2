@@ -1,6 +1,7 @@
 ---
 import '../styles/wedding-date-pricing.css';
 import { tildaCtaInner } from '../site/tilda-cta';
+import { weddingDecemberPriceRows, weddingDecemberPricingYear } from '../site/wedding-december-prices';
 import {
   formatWeddingRubles, weddingDateTiers, weddingPackagePrice, weddingPackages,
 } from '../site/wedding-prices';
@@ -48,7 +49,7 @@ const items = ['Подготовка программы и тайминга', '�
                   </div>
                   <span class="seasonal-price-option__extension">
                     <span>Доп. час</span>
-                    <output data-pricing-extension>{formatWeddingRubles(pack.extension)}</output>
+                    <output data-pricing-extension data-pricing-initial={formatWeddingRubles(pack.extension)}>{formatWeddingRubles(pack.extension)}</output>
                   </span>
                 </div>
               </div>
@@ -111,6 +112,34 @@ const items = ['Подготовка программы и тайминга', '�
       </div>
       <p class="seasonal-pricing-table__note">Оборудование уточним по площадке. Доступность даты и ставку музыкантов подтвердит Тимур.</p>
     </details>
+
+    <details class="seasonal-pricing-table" data-wedding-december-table>
+      <summary>Посмотреть цены на декабрь {weddingDecemberPricingYear}</summary>
+      <div class="seasonal-pricing-table__wrap">
+        <table>
+          <caption class="seasonal-pricing-table__caption">Стоимость свадебных программ в декабре {weddingDecemberPricingYear} года</caption>
+          <thead>
+            <tr>
+              <th scope="col">Даты</th>
+              {weddingPackages.map((pack) => <th scope="col">{pack.label}</th>)}
+              <th scope="col">Доп. час</th>
+            </tr>
+          </thead>
+          <tbody>
+            {weddingDecemberPriceRows.map((row) => (
+              <tr>
+                <th scope="row" data-label="Даты"><span>{row.fromDay === row.toDay ? row.fromDay : row.fromDay + '–' + row.toDay} декабря</span></th>
+                {weddingPackages.map((pack, index) => (
+                  <td data-label={pack.label}>{pack.liveMusic || row.fromDay === 31 ? 'от ' : ''}{formatWeddingRubles(row.prices[index])}</td>
+                ))}
+                <td data-label="Доп. час">{formatWeddingRubles(row.extension)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="seasonal-pricing-table__note">Декабрьские цены действуют на выбранную дату. Оборудование уточним по площадке.</p>
+    </details>
   </div>
 </section>
 
@@ -139,14 +168,20 @@ const items = ['Подготовка программы и тайминга', '�
       cards.forEach((card, index) => {
         const caption = card.querySelector<HTMLElement>('[data-pricing-caption]');
         const price = card.querySelector<HTMLOutputElement>('[data-pricing-value]');
+        const extension = card.querySelector<HTMLOutputElement>('[data-pricing-extension]');
         if (caption) {
           caption.textContent = quote?.dateLabel ?? '';
           caption.hidden = !quote;
         }
         if (price) {
           price.textContent = quote
-            ? (card.dataset.pricingPackage === 'music' ? 'от ' : '') + formatWeddingRubles(quote.prices[index])
+            ? (quote.startsAt[index] ? 'от ' : '') + formatWeddingRubles(quote.prices[index])
             : (price.dataset.pricingInitial ?? '');
+        }
+        if (extension) {
+          extension.textContent = quote
+            ? formatWeddingRubles(quote.extensions[index])
+            : (extension.dataset.pricingInitial ?? '');
         }
       });
     };

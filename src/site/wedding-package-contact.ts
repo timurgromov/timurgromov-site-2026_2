@@ -63,18 +63,19 @@ if (popup) {
     const date = calculation ? input!.value : '';
     const packageCode = 'wedding_' + pack.key;
     const placement: ExpertCtaPlacement = music ? 'music' : `pricing_${pack.key}`;
-    const priceMode = !calculation || pack.liveMusic ? 'from' : 'exact';
+    const priceMode = !calculation || calculation.startsAt[index] ? 'from' : 'exact';
+    const extension = calculation?.extensions[index] ?? pack.extension;
     return {
       packageCode,
       label: pack.label,
       date,
       dateLabel: calculation?.dateLabel ?? '',
       price,
-      extension: pack.extension,
+      extension,
       priceMode,
       placement,
       source: expertCtaSource('meeting', 'home', placement),
-      ctaCode: ['package', packageCode, date || 'none', price, pack.extension, priceMode].join(':'),
+      ctaCode: ['package', packageCode, date || 'none', price, extension, priceMode].join(':'),
       title: music ? 'Обсудим музыкальный состав' : {
         chamber: 'Обсудим камерную свадьбу',
         classic: 'Обсудим классическую свадьбу',

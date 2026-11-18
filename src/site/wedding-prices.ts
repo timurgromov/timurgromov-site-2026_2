@@ -1,3 +1,5 @@
+import { weddingDecemberPriceRow } from './wedding-december-prices';
+
 export const weddingPackages = [
   {
     key: 'chamber', label: 'Камерная свадьба', guests: 'До 45 гостей',
@@ -14,7 +16,7 @@ export const weddingPackages = [
 ] as const;
 
 export const weddingDateTiers = {
-  regular: { label: 'Обычные даты', note: 'Сентябрь–июнь; вс–чт в июле и августе', percent: 100 },
+  regular: { label: 'Обычные даты', note: 'Сентябрь–июнь, кроме декабря 2026; вс–чт в июле и августе', percent: 100 },
   summer: { label: 'Летние пятницы и субботы', note: 'Июль и август', percent: 110 },
   special: { label: 'Красивые даты', note: 'С воскресенья по четверг', percent: 115 },
   peak: { label: 'Пиковые даты', note: 'Красивая дата в пятницу или субботу', percent: 125 },
@@ -59,6 +61,7 @@ export function weddingQuote(value: string, today = weddingToday()) {
   const date = parseCalendarDate(value);
   if (!date || value < today) return null;
 
+  const december = weddingDecemberPriceRow(date);
   const weekday = date.getUTCDay();
   const peakWeekday = weekday === 5 || weekday === 6;
   const summerMonth = date.getUTCMonth() === 6 || date.getUTCMonth() === 7;
@@ -68,6 +71,8 @@ export function weddingQuote(value: string, today = weddingToday()) {
 
   return {
     dateLabel: russianCalendar.format(date),
-    prices: weddingPackages.map((pack) => weddingPackagePrice(pack, tier, value)),
+    prices: december?.prices ?? weddingPackages.map((pack) => weddingPackagePrice(pack, tier, value)),
+    extensions: weddingPackages.map((pack) => december?.extension ?? pack.extension),
+    startsAt: weddingPackages.map((pack) => pack.liveMusic || december?.fromDay === 31),
   };
 }
