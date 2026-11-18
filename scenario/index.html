@@ -45,6 +45,7 @@
       ? 'http://127.0.0.1:8000/api/v1/site/metrika-attribution'
       : 'https://calcul.timurgromov.ru/api/v1/site/metrika-attribution';
     var promiseBySource = Object.create(null);
+    var quoteVisitKeys = Object.create(null);
     var clientIdPromise = null;
     var trackingParams = null;
     var firstTouch = null;
@@ -286,16 +287,22 @@
       var ctaCode = ctaCodeOverride || anchor.getAttribute('data-calculator-source') || anchor.getAttribute('data-plan-source') || data.source;
       var promiseKey = [data.provider, data.parameter, data.source, ctaCode].join(':');
       if (!promiseBySource[promiseKey]) {
+        var visitKey = getVisitKey();
+        if (String(ctaCode).indexOf('package:') === 0) {
+          if (!quoteVisitKeys[promiseKey]) quoteVisitKeys[promiseKey] = visitKey + '_' + randomVisitKey().slice(0, 24);
+          visitKey = quoteVisitKeys[promiseKey];
+        }
         promiseBySource[promiseKey] = getClientId().then(function(clientId){
           var tracking = getTrackingParams();
           var context = getAcquisitionContext();
           var touch = getFirstTouch();
           var yclid = tracking.yclid;
           return fetch(endpoint, {
+            signal: AbortSignal.timeout(10000),
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
             body: JSON.stringify({
-              visit_key: getVisitKey(),
+              visit_key: visitKey,
               source_code: data.source,
               provider: data.provider,
               mode: data.parameter,
@@ -328,6 +335,9 @@
             : destinationHost === 'max.ru' || destinationHost.endsWith('.max.ru');
           if (!validDestination) throw new Error('Invalid attribution destination');
           return destination;
+        }).catch(function(error){
+          delete promiseBySource[promiseKey];
+          throw error;
         });
       }
       return promiseBySource[promiseKey];
@@ -335,15 +345,19 @@
 
     // Contact panels choose their source after the page loads, so they use the
     // same server-issued payload without binding an anchor ahead of time.
-    window.tgAttributedTelegramUrl = function(source, ctaCode){
+    window.tgAttributedMessengerUrl = function(provider, source, ctaCode){
+      if (provider !== 'telegram' && provider !== 'max') return Promise.reject(new Error('Invalid messenger'));
       var anchor = document.createElement('a');
-      anchor.href = 'https://calcul.timurgromov.ru/api/v1/site/messenger-start?provider=telegram&mode=start&payload=' + encodeURIComponent(source);
+      anchor.href = 'https://calcul.timurgromov.ru/api/v1/site/messenger-start?provider=' + provider + '&mode=start&payload=' + encodeURIComponent(source);
       var data = messengerLinkData(anchor);
-      return data ? attributedUrl(anchor, data, ctaCode) : Promise.resolve(anchor.href);
+      return data ? attributedUrl(anchor, data, ctaCode) : Promise.reject(new Error('Invalid messenger source'));
+    };
+    window.tgAttributedTelegramUrl = function(source, ctaCode){
+      return window.tgAttributedMessengerUrl('telegram', source, ctaCode);
     };
 
     function bindAnchor(anchor){
-      if (anchor && anchor.hasAttribute('data-contact-telegram')) return;
+      if (anchor && (anchor.hasAttribute('data-contact-telegram') || anchor.hasAttribute('data-wedding-call-dynamic'))) return;
       if (!anchor || anchor.dataset.metrikaAttributionBound === 'true') return;
       var data = messengerLinkData(anchor);
       if (!data) return;
