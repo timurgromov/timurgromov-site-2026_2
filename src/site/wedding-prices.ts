@@ -16,7 +16,7 @@ export const weddingPackages = [
 ] as const;
 
 export const weddingDateTiers = {
-  regular: { label: 'Обычные даты', note: 'Сентябрь–июнь, кроме декабря 2026; вс–чт в июле и августе', percent: 100 },
+  regular: { label: 'Обычные даты', note: 'Сентябрь–июнь, кроме декабря 2026 и 2027; вс–чт в июле и августе', percent: 100 },
   summer: { label: 'Летние пятницы и субботы', note: 'Июль и август', percent: 110 },
   special: { label: 'Красивые даты', note: 'С воскресенья по четверг', percent: 115 },
   peak: { label: 'Пиковые даты', note: 'Красивая дата в пятницу или субботу', percent: 125 },

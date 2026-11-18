@@ -1,12 +1,13 @@
 ---
 import '../styles/wedding-date-pricing.css';
 import { tildaCtaInner } from '../site/tilda-cta';
-import { weddingDecemberPriceRows, weddingDecemberPricingYear } from '../site/wedding-december-prices';
+import { weddingDecemberPriceRows, weddingDecemberPricingYears } from '../site/wedding-december-prices';
 import {
   formatWeddingRubles, weddingDateTiers, weddingPackagePrice, weddingPackages,
 } from '../site/wedding-prices';
 
 const headingId = 'wedding-pricing-title';
+const decemberYearsLabel = weddingDecemberPricingYears.join(' и ');
 const baseHeading = 'Базовая стоимость на обычные даты';
 const basePrices = weddingPackages.map((pack) => weddingPackagePrice(pack, weddingDateTiers.regular));
 const items = ['Подготовка программы и тайминга', 'Ведение свадебного вечера', 'DJ и музыкальное сопровождение'];
@@ -114,10 +115,10 @@ const items = ['Подготовка программы и тайминга', '�
     </details>
 
     <details class="seasonal-pricing-table" data-wedding-december-table>
-      <summary>Посмотреть цены на декабрь {weddingDecemberPricingYear}</summary>
+      <summary>Посмотреть цены на декабрь {decemberYearsLabel}</summary>
       <div class="seasonal-pricing-table__wrap">
         <table>
-          <caption class="seasonal-pricing-table__caption">Стоимость свадебных программ в декабре {weddingDecemberPricingYear} года</caption>
+          <caption class="seasonal-pricing-table__caption">Стоимость свадебных программ в декабре {decemberYearsLabel} годов</caption>
           <thead>
             <tr>
               <th scope="col">Даты</th>

@@ -1,5 +1,5 @@
-// December 2026 tariffs from corp.timurgromov.ru/novogodniy-korporativ/#formats.
-export const weddingDecemberPricingYear = 2026;
+// Corporate December 2026 tariffs by day of month, also applied to the 2027 wedding calendar.
+export const weddingDecemberPricingYears: readonly number[] = [2026, 2027];
 
 export const weddingDecemberPriceRows = [
   { fromDay: 1, toDay: 3, prices: [145_000, 170_000, 320_000], extension: 20_000 },
@@ -19,7 +19,7 @@ export const weddingDecemberPriceRows = [
 ] as const;
 
 export function weddingDecemberPriceRow(date: Date) {
-  if (date.getUTCFullYear() !== weddingDecemberPricingYear || date.getUTCMonth() !== 11) return undefined;
+  if (date.getUTCMonth() !== 11 || !weddingDecemberPricingYears.includes(date.getUTCFullYear())) return undefined;
   const day = date.getUTCDate();
   return weddingDecemberPriceRows.find(({ fromDay, toDay }) => fromDay <= day && day <= toDay);
 }
