@@ -107,18 +107,9 @@
   color: var(--text);
 }
 
-/* Canonical split CTA, sized as a compact date control. */
 .wedding-date-pricing .seasonal-pricing-picker__control {
-  --tg-cta-height: 44px;
-  --tg-cta-arrow-box: 44px;
-  --tg-cta-font-size: 13px;
-  --tg-cta-fill: var(--accent);
-  --tg-cta-arrow-fill: var(--accent);
-  --tg-cta-border: var(--accent);
-  --tg-cta-color: #fff;
-  --tg-cta-arrow-color: #fff;
-  width: 176px;
-  cursor: pointer;
+  justify-self: start;
+  max-width: 100%;
 }
 
 .wedding-date-pricing .seasonal-pricing-picker__control input {
@@ -483,12 +474,6 @@
     grid-template-columns: 1fr;
     gap: 12px;
     padding-bottom: 14px;
-  }
-
-  .wedding-date-pricing .seasonal-pricing-picker__control {
-    width: 176px;
-    max-width: 100%;
-    min-width: 0;
   }
 
   .wedding-date-pricing .seasonal-pricing-options {

@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-11-19-wedding-date-button-size",
+  "change_kind": "cta",
+  "status": "passed",
+  "requested_visible_change": "Make the date button the same slender size as the canonical site CTA",
+  "expected_visible_delta": "Use canonical responsive CTA sizing, white text on orange and split arrow",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "cecd1fef2effa70fcd72891c3f06c2eb56522737298ded8e09d3151cc6aa24a1",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/#price",
+    "source_ref": "working tree based on f140ea5",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/#price",
+    "state": "public wedding pricing",
+    "selector_or_slide_id": ".wedding-date-pricing .seasonal-pricing-picker__control",
+    "action": "inspect button and select 12 June 2027"
+  },
+  "must_remain_unchanged": [
+    "native date input and calculation",
+    "white on orange",
+    "split arrow"
+  ],
+  "required_viewports": [
+    "1280x720",
+    "390x844"
+  ],
+  "observations": [
+    {
+      "viewport": "1280x720",
+      "viewport_source": "in-app browser innerWidth/innerHeight",
+      "before_signature": "176x44 px; custom dimensions",
+      "after_signature": "153.9x32 px; canonical reference height/font 32px; 12.8px font; white on orange",
+      "observed_visible_result": "Slim split CTA visible; date entry updates selected date and prices",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "390x844",
+      "viewport_source": "in-app browser innerWidth/innerHeight",
+      "before_signature": "176x44 px; custom dimensions",
+      "after_signature": "151.7x35 px; canonical reference height/font 35px; 13px font; white on orange",
+      "observed_visible_result": "Slim split CTA visible; date entry updates selected date and prices",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ]
+}
