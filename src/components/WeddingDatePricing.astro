@@ -23,9 +23,11 @@ const items = ['Подготовка программы и тайминга', '�
           <strong data-pricing-selected-date data-pricing-initial={baseHeading}>{baseHeading}</strong>
           <button class="wedding-date-pricing__clear" type="button" data-pricing-clear hidden>Сбросить дату</button>
         </div>
-        <label class="seasonal-pricing-picker__control" for="wedding-pricing-date">
-          <span data-pricing-date-action>Выбрать дату</span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v3m10-3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z" /></svg>
+        <label class="tg-tilda-cta seasonal-pricing-picker__control" for="wedding-pricing-date">
+          <span class="tg-tilda-cta__plate" aria-hidden="true"></span>
+          <span class="tg-tilda-cta__arrow-box" aria-hidden="true"></span>
+          <span class="tg-tilda-cta__label" data-pricing-date-action>Выбрать дату</span>
+          <span class="tg-tilda-cta__icon" aria-hidden="true"></span>
           <input id="wedding-pricing-date" type="date" data-pricing-date aria-label="Выбрать дату свадьбы" aria-describedby="wedding-pricing-hint" />
         </label>
       </div>

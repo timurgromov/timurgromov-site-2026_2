@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "change_id": "2026-11-19-wedding-date-button",
+  "change_kind": "cta",
+  "status": "passed",
+  "requested_visible_change": "Compact branded split date CTA with white text and arrow on orange",
+  "expected_visible_delta": "White label and arrow, 176 by 44 px split CTA replaces black label and calendar icon",
+  "attempt_number": 1,
+  "checked_after_last_edit": true,
+  "candidate_diff_sha256": "a7c2cd82501828288cc5e1da1aa5b7c3f5e86e72185c6d439123fe80bd874646",
+  "served_candidate": {
+    "url": "http://127.0.0.1:4321/#price",
+    "source_ref": "working tree based on 6395590",
+    "fresh_reload": true
+  },
+  "target": {
+    "surface": "/ #price",
+    "state": "public wedding pricing",
+    "selector_or_slide_id": ".wedding-date-pricing .seasonal-pricing-picker__control",
+    "action": "open pricing and select 12 June 2027"
+  },
+  "must_remain_unchanged": [
+    "native date input",
+    "price calculation",
+    "package cards"
+  ],
+  "required_viewports": [
+    "1280x720",
+    "390x844"
+  ],
+  "observations": [
+    {
+      "viewport": "1280x720",
+      "viewport_source": "in-app browser innerWidth/innerHeight",
+      "before_signature": "1280x720; 190x48; black on orange; calendar icon",
+      "after_signature": "1280x720; 176x44; white on orange; split arrow",
+      "observed_visible_result": "Narrow split CTA visible; selecting 12 June 2027 updates date and prices",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    },
+    {
+      "viewport": "390x844",
+      "viewport_source": "in-app browser innerWidth/innerHeight",
+      "before_signature": "390x844; 324.8x48; black on orange; calendar icon",
+      "after_signature": "390x844; 176x44; white on orange; split arrow",
+      "observed_visible_result": "Narrow split CTA visible; selecting 12 June 2027 updates date and prices",
+      "delta_visible": true,
+      "target_visible": true,
+      "preserved_invariants_passed": true,
+      "console_errors": []
+    }
+  ]
+}
