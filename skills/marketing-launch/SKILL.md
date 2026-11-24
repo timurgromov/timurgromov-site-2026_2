@@ -1,9 +1,11 @@
 ---
 name: marketing-launch
-description: Use when preparing a public launch, landing page, funnel, Telegram Mini App, SaaS/MVP validation, offer, CTA, acquisition plan, UTM/creative tracking, first content pack, or marketing metrics.
+description: Audit landing-page conversion and diagnose lost leads across traffic, CTA, form and CRM. Also use for launches, offers, acquisition, UTM, Mini Apps and MVP validation.
 ---
 
 # Marketing Launch
+
+Version: 1.1.1
 
 Use this skill when the project needs demand validation, not only code.
 
@@ -24,6 +26,24 @@ Use this skill when the project needs demand validation, not only code.
    - `UX.md` for funnel copy and states.
 4. For a landing/funnel, define first-viewport promise, CTA, trust signals, and post-CTA flow.
 5. For test launches, keep the plan measurable and small.
+
+## Existing landing-page conversion audit
+
+1. Use the existing marketing brief and reports. For each page variant, name
+   the audience, traffic source when known, primary action and business outcome.
+2. Follow the flow on desktop and mobile with `web-ui-verify`. Check that the
+   first screen matches the incoming promise, proof answers the main objection
+   near the CTA, and the CTA explains the next step. Check each form field for
+   its purpose, effort and error recovery. Record what happens after submit or
+   after handing off to another channel.
+3. Compare landing visits, CTA actions, form starts, confirmed submissions and
+   received CRM leads using the same date range and segment when available.
+   Check source attribution separately from lead delivery. Label missing or
+   incompatible measurements and hypotheses so they cannot read as observed loss.
+4. Rank the smallest changes by evidence, likely business impact and effort.
+   For each priority name an observable acceptance check. Use baseline and
+   qualified leads to judge impact, and defer A/B tests with insufficient traffic.
+   For an audit-only request, return findings within the requested scope.
 
 ## Acceptance
 
